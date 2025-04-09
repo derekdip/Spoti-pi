@@ -1,0 +1,6 @@
+selenium
+opencv-python
+pyzbar
+pytesseract
+pyspellchecker
+fuzzywuzzy
