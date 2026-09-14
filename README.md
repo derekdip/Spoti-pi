@@ -36,12 +36,35 @@ cheap closed-form kernels, and how much that costs in fidelity.
 pip install -r requirements.txt
 python -m pytest poc/tests -q
 python poc/run_experiment.py --quick     # ~10 min, 576 stalks
-python poc/run_experiment.py             # 1600 stalks
+python poc/run_experiment.py             # ~12 min, 1600 stalks
 ```
 
 ## Results so far
 
-Pending: the calibration run is in progress. Numbers land in `poc/results/summary.md` and here in the next commit.
+Full run: 1600 stalks, 10 s, an S-curve walk followed by 4 s of standing.
+Details and the greedy search path are in `poc/results/summary.md`.
+
+| what | value |
+|---|---|
+| banked causes | 693 floats (18 stride events + a 201-point path) |
+| equivalent per-stalk state | 6400 floats, plus substepped neighbour-coupled integration |
+| cheap model cost | ~124 ops per stalk per frame, stateless, no neighbour reads |
+| teacher cost | ~320 ops per stalk per frame plus 4 neighbour reads per substep |
+| per-stalk state error (relative RMS) | 0.39 overall, 0.35 in the persistence phase |
+| 16×16 coarse-field error (what an AI queries) | 0.22 |
+| correlation of late coarse fields | 0.98 |
+| trail overlap on the coarse grid | 0.95 |
+
+Reading of that: the write-up's claim holds at the level it actually
+matters. A handful of banked causes evaluated through closed-form kernels
+reproduce what consumers see (the trail, where it is, which way it leans,
+how it fades) at a fraction of the cost and with no simulation state. It
+does not reproduce per-stalk state, and no smooth kernel will: the residual
+is scatter from the teacher's threshold contact and crush, which is exactly
+the detail the write-up says to regenerate from a seed rather than keep.
+The single biggest lesson is that the path-anchored wake carries almost all
+of the fit (0.43 alone versus 0.39 for six terms); per-event tokens are the
+wrong description of locomotion. See `docs/review.md` for the rest.
 
 ## Where this should go next
 

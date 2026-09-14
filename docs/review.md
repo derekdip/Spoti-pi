@@ -180,13 +180,13 @@ runs (two at 576 stalks, one at 1600) and a separate probe that swapped the
 Powell optimiser for differential evolution:
 
 1. **The grammar reproduces what a consumer sees, not what the simulator
-   stores.** Raw per-stalk state error bottoms out around 0.6 relative RMS
-   no matter how the parameters are searched (differential evolution found
-   the same floor as Powell, so the model family is the limit, not the
-   search). Meanwhile the mean trail profile versus distance from the path
-   matches the teacher within about 10% in every band, and the coarse
-   16×16 field an AI would query matches far better than the per-stalk
-   state does. The residual is per-stalk scatter from the teacher's
+   stores.** Raw per-stalk state error bottoms out at 0.39 relative RMS on
+   the 1600-stalk run (0.6 on the coarser 576-stalk runs) no matter how the
+   parameters are searched: differential evolution found the same floor as
+   Powell, so the model family is the limit, not the search. Meanwhile the
+   16×16 coarse field an AI would query has 0.22 error with 0.98
+   correlation in the persistence phase, and the mean trail profile versus
+   distance from the path matches within about 10% in every band. The residual is per-stalk scatter from the teacher's
    threshold-based contact and crush (which stalk got clipped by the
    cylinder's edge, whether it crossed the crush threshold). That scatter is
    exactly what the write-up says to regenerate from a seed rather than
@@ -214,18 +214,20 @@ Powell optimiser for differential evolution:
    the grammar.
 
 5. **The coarse field blurs narrow features as predicted.** Baking the
-   model to a 16×16 field over 10 m (0.6 m cells) and sampling back loses
-   the 0.3 m trail; 64×64 (0.16 m cells) mostly keeps it, at a bake cost
-   that exceeds direct token evaluation for this stalk count. The two-level
-   plan (coarse field for AI/audio, direct tokens or a local clip map for
-   visuals) is the right one.
+   model to a 16×16 field over 10 m (0.6 m cells) and sampling back raises
+   the error from 0.39 to 0.61; 32×32 (0.3 m cells) gives 0.44 at lower
+   cost than direct evaluation for 1600 stalks; 64×64 gives 0.42 at nearly
+   three times the direct cost. The two-level plan (coarse field for
+   AI/audio, direct tokens or a local clip map for visuals) is the right
+   one, and the crossover depends on stalk density versus token count.
 
 6. **The compression is real.** Banked causes are a few hundred floats;
    the equivalent per-stalk state is thousands, and the teacher needs
    substepped, neighbour-coupled integration that has no stateless GPU
-   form at all. The cheap model is roughly 100 ops per stalk per frame with
+   form at all. The cheap model is roughly 124 ops per stalk per frame with
    no neighbour reads and no state, versus roughly 320 for the teacher plus
-   four neighbour reads per substep.
+   four neighbour reads per substep. Six hundred and ninety-three banked
+   floats stand in for 6400 floats of per-stalk state.
 
 What this does *not* show yet: generalisation to a held-out walk, real
 player inputs, or any measured Quest cost. Those are the next three steps
