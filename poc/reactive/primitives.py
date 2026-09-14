@@ -58,6 +58,11 @@ class Primitive:
         raise NotImplementedError
 
 
+def gkern(d: np.ndarray, w: float, q: float) -> np.ndarray:
+    """Generalised Gaussian: q=2 is Gaussian, q=1 exponential, large q a box of half-width w."""
+    return np.exp(-0.5 * (np.abs(d) / w) ** q)
+
+
 def _mix_dir(a: np.ndarray, b: np.ndarray, mix: float) -> np.ndarray:
     d = (1.0 - mix) * a + mix * b
     return d / np.maximum(np.linalg.norm(d, axis=-1, keepdims=True), 1e-9)
@@ -67,8 +72,8 @@ class Presence(Primitive):
     """Live cause: the player is here right now. Gaussian push, outward mixed with travel direction."""
 
     name = "presence"
-    params = [Param("A", 0.01, 1.0, 0.3), Param("sigma", 0.05, 1.5, 0.35), Param("mix", 0.0, 1.0, 0.3)]
-    cost = 18.0
+    params = [Param("A", 0.01, 1.0, 0.3), Param("sigma", 0.05, 1.5, 0.35), Param("mix", 0.0, 1.0, 0.3), Param("q", 0.5, 4.0, 2.0)]
+    cost = 22.0
 
     def evaluate(self, g, times, p):
         P = g.player.position(times)  # (F, 2)
@@ -77,8 +82,7 @@ class Presence(Primitive):
         dvec = g.pos[None, :, :] - P[:, None, :]
         d = np.linalg.norm(dvec, axis=-1)
         out = dvec / np.maximum(d, 1e-6)[..., None]
-        s = p["sigma"]
-        amp = p["A"] * np.exp(-d * d / (2 * s * s))
+        amp = p["A"] * gkern(d, p["sigma"], p["q"])
         return amp[..., None] * _mix_dir(out, V[:, None, :], p["mix"]), 1.0
 
 
@@ -93,8 +97,9 @@ class RadialImpulse(Primitive):
         Param("k", 5.0, 200.0, 40.0),
         Param("zeta", 0.05, 0.95, 0.3),
         Param("mix", 0.0, 1.0, 0.3),
+        Param("q", 0.5, 4.0, 2.0),
     ]
-    cost = 20.0
+    cost = 24.0
     per_event = True
 
     def evaluate(self, g, times, p):
@@ -102,8 +107,7 @@ class RadialImpulse(Primitive):
         env = spring_response(tau, p["lam"], p["k"], p["zeta"])
         live = np.abs(env) > LIVE_EPS
         env = np.where(live, env, 0.0)
-        s = p["sigma"]
-        space = np.exp(-g.ev_d ** 2 / (2 * s * s))  # (N, E)
+        space = gkern(g.ev_d, p["sigma"], p["q"])  # (N, E)
         dirs = _mix_dir(g.ev_out, g.ev_dir[None, :, :], p["mix"])  # (N, E, 2)
         b = p["A"] * np.einsum("fe,ne,nec->fnc", env, space, dirs)
         return b, float(live.sum(1).mean())
@@ -160,13 +164,14 @@ class Wake(Primitive):
         Param("k", 5.0, 400.0, 60.0),
         Param("zeta", 0.05, 0.95, 0.3),
         Param("mix", 0.0, 1.0, 0.5),
+        Param("q", 0.5, 4.0, 2.0),
     ]
-    cost = 22.0
+    cost = 26.0
 
     def evaluate(self, g, times, p):
         tau = times[:, None] - (g.path_tpass[None, :] - p["t_lead"])  # (F, N)
         env = spring_response(tau, p["lam"], p["k"], p["zeta"])
-        space = np.exp(-g.path_dperp ** 2 / (2 * p["w"] ** 2))  # (N,)
+        space = gkern(g.path_dperp, p["w"], p["q"])  # (N,)
         d = _mix_dir(g.path_nout, g.path_tan, p["mix"])  # (N, 2)
         b = p["B"] * (env * space[None, :])[..., None] * d[None]
         return b, 1.0
@@ -182,14 +187,15 @@ class Crush(Primitive):
         Param("t_rise", 0.05, 5.0, 0.5),
         Param("t_rec", 1.0, 200.0, 20.0),
         Param("mix", 0.0, 1.0, 0.3),
+        Param("q", 0.5, 4.0, 2.0),
     ]
-    cost = 20.0
+    cost = 24.0
 
     def evaluate(self, g, times, p):
         dt = times[:, None] - g.path_tpass[None, :]
         dtp = np.maximum(dt, 0)
         env = np.where(dt >= 0, (1 - np.exp(-dtp / p["t_rise"])) * np.exp(-dtp / p["t_rec"]), 0.0)
-        space = np.exp(-g.path_dperp ** 2 / (2 * p["w"] ** 2))
+        space = gkern(g.path_dperp, p["w"], p["q"])
         d = _mix_dir(g.path_nout, g.path_tan, p["mix"])
         b = p["C"] * (env * space[None, :])[..., None] * d[None]
         return b, 1.0

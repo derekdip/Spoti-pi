@@ -74,7 +74,7 @@ def test_ring_wave_is_causal():
 def test_wake_is_one_sided_in_time():
     pos, path, ev, tok = _small_scene()
     g = build_geometry(pos, ev, tok, path)
-    b, _ = Wake().evaluate(g, np.array([0.0]), {"B": 0.3, "w": 0.3, "t_lead": 0.0, "lam": 3.0, "k": 60.0, "zeta": 0.3, "mix": 0.3})
+    b, _ = Wake().evaluate(g, np.array([0.0]), {"B": 0.3, "w": 0.3, "t_lead": 0.0, "lam": 3.0, "k": 60.0, "zeta": 0.3, "mix": 0.3, "q": 2.0})
     # at t=0 nobody has been passed yet (t_pass > 0 for all stalks off the start point)
     assert np.all(np.linalg.norm(b[0][g.path_tpass > 0], axis=-1) == 0.0)
 

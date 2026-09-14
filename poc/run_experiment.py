@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from reactive.causes import bank_path, emit_stride_events, s_curve_walk  # noqa: E402
 from reactive.field import bake_and_sample  # noqa: E402
 from reactive.geometry import build_geometry  # noqa: E402
-from reactive.metrics import rel_rmse, rel_rmse_smoothed, trail_iou  # noqa: E402
+from reactive.metrics import coarse_corr, coarse_rel_rmse, rel_rmse, rel_rmse_smoothed, trail_iou  # noqa: E402
 from reactive.search import Objective, greedy_search, optimise  # noqa: E402
 from reactive.teacher import TeacherParams, run_teacher  # noqa: E402
 
@@ -52,9 +52,14 @@ def main() -> None:
     n = rec.pos.shape[0]
     frame_step = 2
     fit_frames = np.arange(0, len(rec.times), frame_step)
-    fit_stalks = np.sort(rng.choice(n, size=min(n, 400), replace=False))
-    g_fit = build_geometry(rec.pos[fit_stalks], events, ptoken, path)
     g_all = build_geometry(rec.pos, events, ptoken, path)
+    # fit on every stalk within 1 m of the path (where >99% of the energy is) plus a few far ones
+    near = np.flatnonzero(g_all.path_dperp < 1.0)
+    far = np.flatnonzero(g_all.path_dperp >= 1.0)
+    far = rng.choice(far, size=min(len(far), 60), replace=False)
+    fit_stalks = np.sort(np.concatenate([near, far]))
+    g_fit = build_geometry(rec.pos[fit_stalks], events, ptoken, path)
+    print(f"fit subset: {len(fit_stalks)} stalks x {len(fit_frames)} frames")
     late = rec.times >= path.t_walk + 1.0  # persistence phase (after walking stops)
     obj = Objective(g_fit, rec.times[fit_frames], rec.bend[fit_frames][:, fit_stalks],
                     late[fit_frames], w_late=0.5, lambda_cost=0.01)
@@ -82,6 +87,9 @@ def main() -> None:
             "E_walk": rel_rmse(pred[walk], rec.bend[walk]),
             "E_late": rel_rmse(pred[late], rec.bend[late]),
             "E_all_smoothed_150ms": rel_rmse_smoothed(pred, rec.bend, 9),
+            "E_coarse16_all": coarse_rel_rmse(pred, rec.bend, rec.pos, 16, tp.extent),
+            "E_coarse16_late": coarse_rel_rmse(pred[late], rec.bend[late], rec.pos, 16, tp.extent),
+            "coarse16_late_corr": coarse_corr(pred[late], rec.bend[late], rec.pos, 16, tp.extent),
             "trail_iou_16": trail_iou(pred[late], rec.bend[late], rec.pos, 16, tp.extent),
         },
         "history": history,
@@ -98,7 +106,7 @@ def main() -> None:
     for grid in (16, 32, 64):
         s, c = bake_and_sample(model, rec.pos, rec.times, grid, tp.extent, events, ptoken, path)
         bake[str(grid)] = {"E_all": rel_rmse(s, rec.bend), "E_late": rel_rmse(s[late], rec.bend[late]),
-                           "trail_iou_16": trail_iou(s[late], rec.bend[late], rec.pos, 16, tp.extent),
+                           "E_coarse16_late": coarse_rel_rmse(s[late], rec.bend[late], rec.pos, 16, tp.extent),
                            "ops_per_stalk_frame": c}
     report["field_bake"] = bake
 
@@ -140,7 +148,10 @@ def write_markdown(r: dict, path: Path) -> None:
         f"| E_all | {e['E_all']:.3f} |", f"| E_walk (player moving) | {e['E_walk']:.3f} |",
         f"| E_late (persistence phase) | {e['E_late']:.3f} |",
         f"| E_all after 150 ms temporal smoothing | {e['E_all_smoothed_150ms']:.3f} |",
-        f"| trail IoU on 16x16 query | {e['trail_iou_16']:.3f} |", "",
+        f"| E on 16x16 coarse field, all frames | {e['E_coarse16_all']:.3f} |",
+        f"| E on 16x16 coarse field, persistence phase | {e['E_coarse16_late']:.3f} |",
+        f"| correlation of late coarse fields (AI trail query) | {e['coarse16_late_corr']:.3f} |",
+        f"| trail IoU on 16x16 query (25% of max threshold) | {e['trail_iou_16']:.3f} |", "",
         "## Greedy search path (fit subset)", "",
         "| terms | E_all | E_late | cost |", "|---|---|---|---|",
     ]
@@ -150,9 +161,9 @@ def write_markdown(r: dict, path: Path) -> None:
     for k, v in r["solo"].items():
         lines.append(f"| {k} | {v['E_all']:.3f} | {v['E_late']:.3f} | {v['cost']:.0f} |")
     lines += ["", "## Coarse-field bake (Level 1) instead of direct token evaluation", "",
-              "| grid | E_all | E_late | trail IoU | ops/stalk/frame |", "|---|---|---|---|---|"]
+              "| grid | E_all | E_late | E coarse16 late | ops/stalk/frame |", "|---|---|---|---|---|"]
     for k, v in r["field_bake"].items():
-        lines.append(f"| {k}x{k} | {v['E_all']:.3f} | {v['E_late']:.3f} | {v['trail_iou_16']:.3f} | {v['ops_per_stalk_frame']:.0f} |")
+        lines.append(f"| {k}x{k} | {v['E_all']:.3f} | {v['E_late']:.3f} | {v['E_coarse16_late']:.3f} | {v['ops_per_stalk_frame']:.0f} |")
     path.write_text("\n".join(lines) + "\n")
 
 

@@ -47,3 +47,27 @@ def trail_iou(pred: np.ndarray, ref: np.ndarray, pos: np.ndarray, grid: int, ext
     b = fp > thr
     union = np.logical_or(a, b).sum()
     return float(np.logical_and(a, b).sum() / max(union, 1))
+
+
+def coarse_series(bend: np.ndarray, pos: np.ndarray, grid: int, extent: float) -> np.ndarray:
+    """Per-frame mean |bend| per cell: (F, grid, grid). The Level-1 view of the state."""
+    mag = np.linalg.norm(bend, axis=-1)  # (F, N)
+    ix = np.clip((pos[:, 0] / extent * grid).astype(int), 0, grid - 1)
+    iy = np.clip((pos[:, 1] / extent * grid).astype(int), 0, grid - 1)
+    cell = iy * grid + ix
+    cnt = np.bincount(cell, minlength=grid * grid).astype(float)
+    acc = np.stack([np.bincount(cell, weights=mag[f], minlength=grid * grid) for f in range(mag.shape[0])])
+    return (acc / np.maximum(cnt, 1.0)).reshape(mag.shape[0], grid, grid)
+
+
+def coarse_rel_rmse(pred: np.ndarray, ref: np.ndarray, pos: np.ndarray, grid: int, extent: float) -> float:
+    return rel_rmse(coarse_series(pred, pos, grid, extent), coarse_series(ref, pos, grid, extent))
+
+
+def coarse_corr(pred: np.ndarray, ref: np.ndarray, pos: np.ndarray, grid: int, extent: float) -> float:
+    """Pearson correlation of the time-averaged coarse fields (threshold-free 'can the AI find it')."""
+    a = coarse_series(pred, pos, grid, extent).mean(0).ravel()
+    b = coarse_series(ref, pos, grid, extent).mean(0).ravel()
+    if a.std() < 1e-12 or b.std() < 1e-12:
+        return 0.0
+    return float(np.corrcoef(a, b)[0, 1])

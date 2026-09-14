@@ -174,6 +174,59 @@ that needs it (the AI system defines `τ_AI`, not the vegetation system).
 
 ## What the proof of concept says about the central claim
 
-See `poc/results/summary.md` for numbers from the last run and
-`poc/README.md` for how to reproduce. Short version, with the honest
-caveats, is in the top-level README under "Results so far".
+Numbers from the last full run are in `poc/results/summary.md`; the picture
+is `poc/results/comparison.png`. The qualitative findings held across three
+runs (two at 576 stalks, one at 1600) and a separate probe that swapped the
+Powell optimiser for differential evolution:
+
+1. **The grammar reproduces what a consumer sees, not what the simulator
+   stores.** Raw per-stalk state error bottoms out around 0.6 relative RMS
+   no matter how the parameters are searched (differential evolution found
+   the same floor as Powell, so the model family is the limit, not the
+   search). Meanwhile the mean trail profile versus distance from the path
+   matches the teacher within about 10% in every band, and the coarse
+   16×16 field an AI would query matches far better than the per-stalk
+   state does. The residual is per-stalk scatter from the teacher's
+   threshold-based contact and crush (which stalk got clipped by the
+   cylinder's edge, whether it crossed the crush threshold). That scatter is
+   exactly what the write-up says to regenerate from a seed rather than
+   store, and it is not something a smooth kernel can or should fit.
+
+2. **The error metric decides what the search discovers.** Fit on raw
+   state RMS and the search hedges: it widens the pulse in time to cover
+   per-stalk timing differences, and lowers its peak. A 150 ms temporal
+   smoothing barely helps because the mismatch is spatial as much as
+   temporal. The metric has to be the consumer's metric (see item 9).
+
+3. **Where the energy is.** 84% of all bend energy is in stalks within
+   0.25 m of the path and 99% within 1 m. Neighbour coupling in this
+   teacher spreads very little. That is why the banked-path primitives
+   (wake, crush) win the greedy search and the per-event ones (radial
+   impulse, ring wave) add almost nothing: for a walking player the path
+   *is* the cause, and 0.5 m stride events are a worse description of it.
+   The write-up's `c_stomp` tokens are the right shape for discrete
+   impacts, not for locomotion.
+
+4. **A sharper-than-Gaussian kernel fits contact better.** Letting the
+   spatial kernel shape vary (generalised Gaussian `exp(-½(d/w)^q)`), the
+   fit pushes `q` toward 1 (exponential), meaning a narrow peak with a
+   heavier tail than a Gaussian. Cheap to add (one `pow`), worth having in
+   the grammar.
+
+5. **The coarse field blurs narrow features as predicted.** Baking the
+   model to a 16×16 field over 10 m (0.6 m cells) and sampling back loses
+   the 0.3 m trail; 64×64 (0.16 m cells) mostly keeps it, at a bake cost
+   that exceeds direct token evaluation for this stalk count. The two-level
+   plan (coarse field for AI/audio, direct tokens or a local clip map for
+   visuals) is the right one.
+
+6. **The compression is real.** Banked causes are a few hundred floats;
+   the equivalent per-stalk state is thousands, and the teacher needs
+   substepped, neighbour-coupled integration that has no stateless GPU
+   form at all. The cheap model is roughly 100 ops per stalk per frame with
+   no neighbour reads and no state, versus roughly 320 for the teacher plus
+   four neighbour reads per substep.
+
+What this does *not* show yet: generalisation to a held-out walk, real
+player inputs, or any measured Quest cost. Those are the next three steps
+in the README.
