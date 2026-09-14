@@ -84,3 +84,14 @@ def bank_path(path: PlayerPath, hz: float = 20.0) -> PathToken:
     n = int(path.t_end * hz) + 1
     times = np.linspace(0.0, path.t_end, n)
     return PathToken(path.position(times), times)
+
+
+def holdout_walk(t_walk: float = 5.0, t_total: float = 10.0, hz: float = 200.0) -> PlayerPath:
+    """A different walk for testing: diagonal with a hook turn, faster, then standing."""
+    n = int(t_total * hz) + 1
+    times = np.linspace(0.0, t_total, n)
+    s = np.clip(times / t_walk, 0.0, 1.0)
+    s = s * s * (3 - 2 * s)
+    x = 2.0 + 6.0 * s
+    y = 8.0 - 6.0 * s + 1.5 * np.sin(np.pi * s) ** 2
+    return PlayerPath(times, np.stack([x, y], axis=-1), t_walk)

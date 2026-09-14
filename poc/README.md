@@ -24,3 +24,6 @@
 
 The tests in `tests/` check the closed-form spring response against RK4,
 causality of the ring wave and wake, and that dead tokens change nothing.
+
+`holdout.py` re-reads the discovered model from `results/summary.json` and
+scores it, unchanged, on a second walk the search never saw.

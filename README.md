@@ -28,7 +28,8 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `poc/reactive/search.py` | Greedy compositional search with a rollout + cost objective (a stand-in for the ECS search). |
 | `poc/reactive/field.py` | Level-1 coarse field bake and bilinear sampling. |
 | `poc/run_experiment.py` | End to end: teacher → record → search → report. |
-| `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`. |
+| `poc/holdout.py` | Scores the discovered model on a walk it was never fit to. |
+| `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
 
@@ -66,14 +67,18 @@ The single biggest lesson is that the path-anchored wake carries almost all
 of the fit (0.43 alone versus 0.39 for six terms); per-event tokens are the
 wrong description of locomotion. See `docs/review.md` for the rest.
 
+Held-out check (`poc/holdout.py`, results in `poc/results/holdout.md`): the
+same parameters on a faster diagonal walk with a hook turn, never seen
+during the fit, give 0.38 per-stalk error, 0.21 coarse-field error and 0.99
+late-field correlation. The fit is to the physics, not to the one walk.
+
 ## Where this should go next
 
-1. Replace the synthetic S-curve with recorded SquishLabVR hand and foot
-   tracks (see `docs/data-sources.md`).
-2. Add a held-out walk. A model fit and tested on the same walk proves
-   little.
-3. Port the discovered primitives to HLSL as a stateless vertex function
+1. Replace the synthetic walks with recorded SquishLabVR hand and foot
+   tracks (see `docs/data-sources.md`). Hands and crouching are different
+   causes from a walking cylinder.
+2. Port the discovered primitives to HLSL as a stateless vertex function
    and profile the composed shader on Quest; feed measured milliseconds back
    into the cost term.
-4. Then snow (Taichi MPM teacher), then water (corrected ring wave), then
+3. Then snow (Taichi MPM teacher), then water (corrected ring wave), then
    crowds (real pedestrian data), then fire.
