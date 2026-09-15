@@ -44,6 +44,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-b4-prereg.md`, `docs/math-track-b4-results.md`, `poc/b4_experiment.py` | B4: the corner law under the local supremum; transfer invariance; the tangent-dependence finding that closes the branch. |
 | `docs/math-track-w1-prereg.md`, `docs/math-track-w1-results.md`, `poc/w1_experiment.py` | W1: transfer to water. Observation-order law confirmed with four exponents; liveness law finds its boundary; superposition threshold measured. |
 | `docs/math-track-w2-prereg.md`, `docs/math-track-w2-results.md`, `poc/w2_analysis.py` | W2: with exponents fixed by theory and two coarse grids per curve, required resolution and the binding consumer are predicted on held-out tolerances. |
+| `docs/math-track-w3-prereg.md`, `docs/math-track-w3-results.md`, `poc/w3_experiment.py`, `poc/w3_residual_diagnostic.py` | W3: amplitude-conditioned unary token vs pair interaction. Failure by the frozen rules; gain and dispersion carry the nonlinearity, half the error is unreachable by conditioning, and a post-hoc diagnostic says what the rest is. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -136,6 +137,28 @@ stop/start miss dropped from 135% to 18%); the corner term over-predicted
 corner-dense paths two to one because the global RMS score dilutes an
 isolated probe's corner. Verdict: failure at tight tolerance by the frozen
 rules; the metric, not the geometry, is the identified cause.
+
+W3 (`docs/math-track-w3-*.md`) conditioned the splash token's parameters
+on cause amplitude, `theta(A) = theta_0 + theta_1 log A`, and asked whether
+that beats adding a pair-interaction term. Verdict by the frozen rules:
+failure. Two of five conditioned quantities carry all of the nonlinearity
+the family can express (a saturating gain, exponent 0.75 to 0.8, and a
+dispersion stiffening of 2.4% per doubling); damping, front speed and
+cutoff carry none, so the predeclared order scored the wrong pair and the
+knee test failed. Conditioning recovers half of the large-amplitude error
+and stops, at the calibration point as well as on extrapolation, and the
+pair residual stays 80 to 95 percent single-cause, so the predicted
+transition to interaction-dominated residuals did not happen. Per
+parameter, unary conditioning is still nine to twelve times more efficient
+than pair terms, and pair terms fitted before the unary atom is adequate
+transfer negatively. A post-hoc residual diagnostic (unregistered) finds
+the remaining residual is axisymmetric and mostly gain and phase, and a
+direct check shows the phase part is an amplitude-dependent onset time:
+starting the base token 36 ms earlier at four times base amplitude and 77
+ms earlier at eight times beats the dispersion slope with the same
+parameter count and makes it vanish. The event time was not among the
+parameters W3 allowed to depend on amplitude, which is what the next
+preregistration should condition.
 
 W2 (`docs/math-track-w2-*.md`) used W1's data only: with the observation-order
 exponents fixed by theory and two coarse grids per curve, the grid needed at
