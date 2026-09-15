@@ -42,6 +42,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `poc/b2_experiment.py`, `poc/reactive/worldlines.py` | The B2 experiment and its frozen trajectory family. |
 | `docs/math-track-b3-prereg.md`, `docs/math-track-b3-results.md`, `poc/b3_experiment.py` | B3: anisotropic smooth term plus corner atoms, probe-calibrated; verdict and diagnosis. |
 | `docs/math-track-b4-prereg.md`, `docs/math-track-b4-results.md`, `poc/b4_experiment.py` | B4: the corner law under the local supremum; transfer invariance; the tangent-dependence finding that closes the branch. |
+| `docs/math-track-w1-prereg.md`, `docs/math-track-w1-results.md`, `poc/w1_experiment.py` | W1: transfer to water. Observation-order law confirmed with four exponents; liveness law finds its boundary; superposition threshold measured. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -134,6 +135,15 @@ stop/start miss dropped from 135% to 18%); the corner term over-predicted
 corner-dense paths two to one because the global RMS score dilutes an
 isolated probe's corner. Verdict: failure at tight tolerance by the frozen
 rules; the metric, not the geometry, is the identified cause.
+
+W1 (`docs/math-track-w1-*.md`) transferred the laws to a mildly nonlinear
+water teacher. The observation-order law held with four predicted
+exponents (bilinear height -0.87 vs -1, slope -0.40 vs -0.5; bicubic
+-1.91 vs -2, -1.23 vs -1.5). The logarithmic liveness law failed because
+the water token's envelope decays as a power of time (geometric spreading,
+weak damping), which the first review had flagged. Superposition of
+independent splash tokens is within 1.3% at game amplitudes and fails only
+above four times that within 0.3 m; the nonlinearity is single-cause.
 
 B4 (`docs/math-track-b4-*.md`) scored by the local supremum. The corner's
 cost is identical inside 4, 8 and 16 m walks but a 32 m outlier fails the
