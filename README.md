@@ -88,8 +88,9 @@ correlation length is better done as seeded per-stalk noise than as tokens.
 
 Water (`poc/water/`, results in `poc/results/water.md`, `slosh_pulse.md`,
 `slosh.md`): against an exact linear-wave solver, a dispersive chirp ring
-fits a splash at 0.49 height error and recovers g = 9.81 on its own, while
-the fixed-wavelength ring is worse than nothing; a wake is the Huygens sum
+with a viscous cutoff fits a splash at 0.31 height and 0.33 slope error and
+recovers g = 9.8 on its own, while the fixed-wavelength ring is worse than
+nothing; a wake is the Huygens sum
 of splash tokens along the path at 0.6 error with 6 to 22 live tokens per
 point. Against real MPM puddle data (DeepMind WaterDrop), neither standing
 modes nor a bouncing pulse extrapolate past the fit window: confined

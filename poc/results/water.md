@@ -7,13 +7,13 @@ Teacher: 256x256 spectral linear waves on a 6.0 m pond, depth 0.4 m, exact per-m
 | token | height error | slope error | ops per point per live token |
 |---|---|---|---|
 | ring | 1.076 | 1.338 | 26 |
-| chirp | 0.494 | 0.647 | 34 |
+| chirp | 0.309 | 0.334 | 40 |
 
 Fitted parameters:
 
 ```
 ring: A=0.006921, lam=0.8488, v=1.072, w=0.3286, kappa=115.6, phi=2.935
-chirp: A=0.005378, lam=0.2149, m=-1, n=0.04654, g_eff=9.807, phi=1.579, v_max=0.8732
+chirp: A=0.1, lam=0.1059, m=0.3099, n=1.714, g_eff=9.801, phi=1.621, v_max=1.85, k_cut=54.02
 ```
 
 ## Wake (a 5 cm pressure bump dragged 3 m at 1 m/s), token: chirp
@@ -22,10 +22,7 @@ Huygens superposition of the splash-fitted token along the path, one global ampl
 
 | emission spacing | tokens | live tokens per point | height error |
 |---|---|---|---|
-| 0.02 m | 151 | 54.3 | 0.582 |
-| 0.05 m | 61 | 21.9 | 0.588 |
-| 0.10 m | 31 | 11.1 | 0.612 |
-| 0.20 m | 16 | 5.7 | 0.696 |
-
-Token shape refitted on the wake itself at 5 cm spacing: height error 1.019, 2.6 live tokens per point.
-
+| 0.02 m | 151 | 47.7 | 0.586 |
+| 0.05 m | 61 | 19.2 | 0.587 |
+| 0.10 m | 31 | 9.7 | 0.606 |
+| 0.20 m | 16 | 5.0 | 0.697 |
