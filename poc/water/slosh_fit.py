@@ -63,7 +63,7 @@ def fit_modes(x, tau, d, K, shared_damping, c0):
         return rel_rmse(M @ coef, y)
 
     z0 = np.concatenate([[np.log(c0)], np.log(np.full(1 if shared_damping else K, 2.0))])
-    res = minimize(loss, z0, method="Powell", options={"maxfev": 600, "xtol": 1e-3, "ftol": 1e-5})
+    res = minimize(loss, z0, method="Powell", options={"maxfev": 250, "xtol": 1e-3, "ftol": 1e-5})
     c, g = unpack(res.x)
     M = design(x, tau, c, g)
     coef, *_ = np.linalg.lstsq(M, y, rcond=None)

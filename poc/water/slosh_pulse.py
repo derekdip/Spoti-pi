@@ -55,8 +55,15 @@ def fit(x, tau, d, init):
         return np.exp(z[0]), np.exp(z[1]), np.exp(z[2]), X0 + L / (1 + np.exp(-z[3])), np.exp(z[4])
 
     def loss(z):
+        if np.any(np.abs(z) > 12):  # keep parameters in a sane range; outside it the basis degenerates
+            return 10.0
         M = design(x, tau, *unpack(z))
-        coef, *_ = np.linalg.lstsq(M, y, rcond=None)
+        if not np.all(np.isfinite(M)) or np.abs(M).max() < 1e-12:
+            return 10.0
+        try:
+            coef, *_ = np.linalg.lstsq(M, y, rcond=None)
+        except np.linalg.LinAlgError:
+            return 10.0
         return rel_rmse(M @ coef, y)
 
     c0, g0, w0, xi0, ts0 = init
@@ -64,7 +71,10 @@ def fit(x, tau, d, init):
     res = minimize(loss, z0, method="Powell", options={"maxfev": 500, "xtol": 1e-3, "ftol": 1e-5})
     prm = unpack(res.x)
     M = design(x, tau, *prm)
-    coef, *_ = np.linalg.lstsq(M, y, rcond=None)
+    try:
+        coef, *_ = np.linalg.lstsq(M, y, rcond=None)
+    except np.linalg.LinAlgError:
+        coef = np.zeros(M.shape[1])
     return prm, coef, float(res.fun)
 
 
