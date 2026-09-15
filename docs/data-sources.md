@@ -22,6 +22,15 @@ that is worth fitting. The first three are where I would actually start.
 | **PhiFlow** or **JAX-CFD** | Differentiable 2-D/3-D fluids | Smoke/fire velocity and density fields for the fire experiment. |
 | **PyBullet / MuJoCo** | Rigid and soft bodies, deterministic contact | Destruction, debris, creature contact. MuJoCo is deterministic and fast; good for crowd-of-rigid-things and "what falls where" teachers. |
 
+## Reachability note (from this sandbox, September 2026)
+
+Downloaded and used: the DeepMind Learning-to-Simulate datasets on Google
+Cloud Storage (`WaterDrop` validation set, 130 MB, parsed without
+TensorFlow by `poc/water/gns_data.py`). GitHub raw files are reachable, so
+the ETH/UCY pedestrian sets are too. Hugging Face (The Well), DaRUS
+(PDEBench) and NOAA were blocked by the proxy here; fetch those from your
+own machine.
+
 ## Tier 3: public datasets (skip the simulator entirely)
 
 | Dataset | What it is | Use |
