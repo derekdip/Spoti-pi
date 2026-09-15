@@ -41,6 +41,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-b2-prereg.md`, `docs/math-track-b2-results.md` | Frozen preregistration and verdict for causal path complexity (B2). |
 | `poc/b2_experiment.py`, `poc/reactive/worldlines.py` | The B2 experiment and its frozen trajectory family. |
 | `docs/math-track-b3-prereg.md`, `docs/math-track-b3-results.md`, `poc/b3_experiment.py` | B3: anisotropic smooth term plus corner atoms, probe-calibrated; verdict and diagnosis. |
+| `docs/math-track-b4-prereg.md`, `docs/math-track-b4-results.md`, `poc/b4_experiment.py` | B4: the corner law under the local supremum; transfer invariance; the tangent-dependence finding that closes the branch. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -133,6 +134,16 @@ stop/start miss dropped from 135% to 18%); the corner term over-predicted
 corner-dense paths two to one because the global RMS score dilutes an
 isolated probe's corner. Verdict: failure at tight tolerance by the frozen
 rules; the metric, not the geometry, is the identified cause.
+
+B4 (`docs/math-track-b4-*.md`) scored by the local supremum. The corner's
+cost is identical inside 4, 8 and 16 m walks but a 32 m outlier fails the
+preregistered invariance rule, and the corner law is closed. The finding
+that replaces it: the wake consumer reads the path's tangent, so its error
+is first order in chord length on curves; measured error exponents are
+about -2 on straight walks and -1 on curved ones, which makes total
+turning the derived complexity at tight tolerance and the anisotropic
+square-root law the complexity at loose tolerance. B3's dilution diagnosis
+had the wrong sign and is corrected.
 
 Held-out check (`poc/holdout.py`, results in `poc/results/holdout.md`): the
 same parameters on a faster diagonal walk with a hook turn, never seen
