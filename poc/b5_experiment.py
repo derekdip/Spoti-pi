@@ -224,9 +224,10 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(Path(__file__).resolve().parent / "results"))
     ap.add_argument("--quick", action="store_true", help="smoke test: 6 tolerances, straight twin only")
+    ap.add_argument("--ntol", type=int, default=48, help="number of tolerances in the sweep (48 frozen; smaller only for smoke tests)")
     args = ap.parse_args()
     out = Path(args.out)
-    tols = np.geomspace(1.0, 0.0001, 6) if args.quick else TOLS
+    tols = np.geomspace(1.0, 0.0001, 6) if args.quick else (TOLS if args.ntol == 48 else np.geomspace(1.0, 0.0001, args.ntol))
     model = parse_model(json.loads((out / "gpu_sweep.json").read_text())["terms"]["wake + presence"]["description"])
     t0 = time.time()
     res: dict = {"reps": {}, "law": {}, "kin": {}}
@@ -368,8 +369,8 @@ def main() -> None:
     for D in DWELLS:
         name = f"dwell{D:g}"
         for rep in ("R2", "R0", "R1"):
-            h5[rep][str(D)] = {str(e): N(name, rep, e) for e in PRIMARY}
-    r2ok = all(h5["R2"][str(D)][str(e)] is not None and h5["R2"]["0"][str(e)] is not None and abs(h5["R2"][str(D)][str(e)] - h5["R2"]["0"][str(e)]) <= 2 for D in DWELLS[1:] for e in PRIMARY)
+            h5[rep][f"{D:g}"] = {str(e): N(name, rep, e) for e in PRIMARY}
+    r2ok = all(h5["R2"][f"{D:g}"][str(e)] is not None and h5["R2"]["0"][str(e)] is not None and abs(h5["R2"][f"{D:g}"][str(e)] - h5["R2"]["0"][str(e)]) <= 2 for D in DWELLS[1:] for e in PRIMARY)
     n0, n2_ = h5["R0"]["0"][str(E19)], h5["R0"]["2"][str(E19)]
     r0ok = (n0 is not None) and ((n2_ is None) or n2_ >= 2 * n0)
     tests["H5"] = {"table": h5, "R2_flat": bool(r2ok), "R0_grows": bool(r0ok), "pass": bool(r2ok and r0ok)}
@@ -443,7 +444,7 @@ def write_md(res, path: Path) -> None:
     L += ["", f"H4 ratio over 0.8/0.4/0.2 = {t['H4']['ratio_0.8_0.4_0.2']}; pass {t['H4']['pass']}.", "", "## H5: dwell series", "", "| D (s) | R2 9.68 | R2 19.35 | R0 9.68 | R0 19.35 | R1 9.68 | R1 19.35 |", "|---|---|---|---|---|---|---|"]
     for D in DWELLS:
         h = t["H5"]["table"]
-        L.append(f"| {D:g} | " + " | ".join(str(h[rep][str(D)][str(e)]) for rep in ("R2", "R0", "R1") for e in PRIMARY) + " |")
+        L.append(f"| {D:g} | " + " | ".join(str(h[rep][f"{D:g}"][str(e)]) for rep in ("R2", "R0", "R1") for e in PRIMARY) + " |")
     L += ["", f"H5: R2 flat {t['H5']['R2_flat']}, R0 grows {t['H5']['R0_grows']}, pass {t['H5']['pass']}.", "", "## L: parameter-free tangent law at 19.35 mm", "", "| path | N | N_hat | N / N_hat |", "|---|---|---|---|"]
     for k, v in t["L"]["rows"].items():
         L.append(f"| {k} | {v['N']} | {'-' if v['N_hat'] is None else round(v['N_hat'], 1)} | {'-' if v['ratio'] is None else round(v['ratio'], 2)} |")
@@ -486,7 +487,7 @@ def make_figure(res, path: Path) -> None:
     ax = axes[1, 1]
     h = t["H5"]["table"]
     for rep, st in (("R2", "ko-"), ("R0", "C3s-"), ("R1", "C7^-")):
-        ax.plot(DWELLS, [h[rep][str(D)][str(E19)] or np.nan for D in DWELLS], st, label=rep)
+        ax.plot(DWELLS, [h[rep][f"{D:g}"][str(E19)] or np.nan for D in DWELLS], st, label=rep)
     ax.set_xlabel("dwell D (s)"); ax.set_ylabel("N at 19.35 mm"); ax.set_title("H5: dwell as an event coordinate"); ax.legend(fontsize=8)
     ax = axes[1, 2]
     rows = t["L"]["rows"]
