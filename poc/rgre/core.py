@@ -6,6 +6,8 @@ Residual r (F, N). Two kinds of class diagnostics:
   signed    {class: [tangent fields (F, N)]}  -> orthogonal projection of r onto the class subspace
   templates {class: energy template (N,) >= 0} -> nonnegative least squares of the per-point residual
                                                   energy left after the joint signed fit
+Support-type templates (corner, stop) own their support's energy when the residual is concentrated there
+(enrichment >= 2); shape-type templates (smooth, interaction) are fitted by nonnegative least squares.
 Ownership q_j, coherence mu_j (largest canonical correlation between signed subspaces; cosine between
 energy profiles otherwise), score S_j = q_j (1 - mu_j), and the unexplained energy fraction q_perp.
 """
@@ -39,7 +41,11 @@ def cosine(a, b):
     return float(a @ b / (na * nb)) if na > 0 and nb > 0 else 0.0
 
 
-def diagnose(r, signed, templates):
+ENRICH = 2.0
+SUPPORT = ("corner", "stop")
+
+
+def diagnose(r, signed, templates, support=SUPPORT):
     """Return ownership q, raw shares, coherence mu, score S, q_perp, and per-item fractions."""
     F, N = r.shape
     rv = r.ravel().astype(float)
@@ -67,11 +73,25 @@ def diagnose(r, signed, templates):
         joint, rem = 0.0, rv
     e = (rem.reshape(F, N) ** 2).sum(0)
     tn = [c for c, T in templates.items() if T is not None and np.asarray(T, float).sum() > 0]
-    if tn:
-        T = np.stack([np.asarray(templates[c], float) / np.asarray(templates[c], float).sum() for c in tn], 1)
+    # support-type templates (corner, stop): the class owns its support's energy when the residual is
+    # concentrated there (enrichment >= ENRICH); that energy is then removed before the shape stage
+    for c in [c for c in tn if c in support]:
+        m = np.asarray(templates[c], float) > 0
+        share = float(e[m].sum() / E)
+        frac = float(m.mean())
+        raw[c] = share
+        items.append((c, c, share))
+        if frac > 0 and share / frac >= ENRICH:
+            q[c] = share
+            e = np.where(m, 0.0, e)
+        else:
+            q[c] = 0.0
+    sn = [c for c in tn if c not in support]
+    if sn:
+        T = np.stack([np.asarray(templates[c], float) / np.asarray(templates[c], float).sum() for c in sn], 1)
         a, _ = nnls(T, e)
         ehat = T @ a
-        for c, ac in zip(tn, a):
+        for c, ac in zip(sn, a):
             q[c] = float(ac / E)
             raw[c] = float(e[np.asarray(templates[c]) > 0].sum() / E)
             items.append((c, c, raw[c]))

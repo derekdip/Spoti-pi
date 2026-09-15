@@ -16,13 +16,21 @@ evaluations:
   (subspaces); ownership `q_j = ||P_j r||^2 / ||r||^2` with `P_j` the
   orthogonal projection onto the class subspace alone;
 - template classes supply a nonnegative energy template over consumer
-  points; after the joint least-squares fit on all signed subspaces is
-  removed, the per-point energy of what remains is decomposed by
-  nonnegative least squares on the templates (each normalised to unit
-  total); `q_j` is the energy assigned to template `j` over `||r||^2`.
+  points and are read after the joint least-squares fit on all signed
+  subspaces is removed. Support-type templates (corner, stop) own the
+  energy on their support when the residual is concentrated there,
+  enrichment `share / support fraction >= 2` (B5's constant), and that
+  energy is then set aside; otherwise they own nothing. Shape-type
+  templates (smooth, interaction) are fitted to the remaining per-point
+  energy by nonnegative least squares (each normalised to unit total);
+  `q_j` is the energy assigned to template `j` over `||r||^2`.
 
-`q_perp` is the residual energy left by both stages (for templates: the
-part of the per-point energy above the fitted templates). Coherence
+`q_perp` is the residual energy left by all three stages (for shape
+templates: the part of the per-point energy above the fitted
+templates). The development run showed why the support rule is needed:
+a least-squares fit of a broad template to a residual concentrated at a
+few apex stalks under-assigned it and left 50 to 83 percent of known
+corner cases unexplained. Coherence
 `mu_j` is the largest, over other classes, of the largest canonical
 correlation between signed subspaces, or the cosine between energy
 profiles when either class is a template. Score `S_j = q_j (1 - mu_j)`.
@@ -81,8 +89,9 @@ persistence multiplied by [0.3, 0.6] or [1.6, 3]); unary (gentle path,
 kernel width multiplied by [0.5, 0.75] or [1.3, 1.8]). Water, six each:
 coordinate (linear teacher delayed by 3 to 8 frames at 60 Hz);
 unary (linear teacher with impulse width 0.02, 0.025, 0.04, 0.05 m or
-depth 0.25, 0.7 m); tail (linear teacher with nu 4e-4, 8e-4, 1.5e-3 or
-gamma0 0.5, 0.75, 1.0); interaction (nonlinear pairs at A in {5, 6, 8},
+depth 0.25, 0.7 m); tail (linear teacher with nu 4e-4, 7e-4, 1e-3 or
+gamma0 0.5, 0.75, 1.0; 1.5e-3 was first written and overdamps the
+solver's diagonal short waves, caught by the development run); interaction (nonlinear pairs at A in {5, 6, 8},
 D in {0.1875, 0.28125} m, singles fitted per W4 so the unary part is
 right). Mixtures, twelve: corn corner+stop (2), coordinate+corner (2),
 tail+smooth (1), unary+stop (1); water coordinate+unary (nonlinear
