@@ -273,3 +273,64 @@ be a quarter of its current size.
 | live tokens ~ log(1/eps) | confirmed in form; slope 25% under prediction due to ring-down lobes |
 | path points ~ eps^{-1/2} | geometric half confirmed (exponent -0.44); error half sub-linear (0.60) because of pass-time interpolation |
 | held-out generalisation of the envelope | confirmed, within 0.01 |
+
+## Review of the follow-up track (expectation metric, spacetime path law, knees)
+
+**1, expectation pseudometric `D_{H,mu}`.** Definition, and a Result that it
+is a pseudometric (expectation of pseudometrics, given integrability). Two
+notions, expected and worst-case, is the right split. Still to be stated:
+it lives on behaviours (fix A above), and `mu` must be a distribution over
+input *sequences* of length `H`, so it is a distribution over player
+trajectories, not over single inputs.
+
+**2, liveness with the monotone future envelope.** Result. `K-bar(tau) =
+sup_{s >= tau} |K(s)|` is monotone by construction, and for the closed-form
+spring `|K| <= P (e^{-lam tau} + sqrt(1 + (a/omega)^2) e^{-c tau / 2})`,
+so `K-bar <= C_s e^{-beta tau}` with `beta = min(lam, c/2)`. There is no
+resonant case for real `lam`: the denominator `a^2 + omega^2` is always
+positive. `C_s` is computable as `max_tau K-bar(tau) e^{beta tau}`; the
+experiment below measures it. One caution: the count the earlier sweep
+reported used instantaneous magnitude, which *undercounts* relative to
+`K-bar`; the theorem bounds the `K-bar` count, so the comparison in the
+earlier sweep was between a lower quantity and an upper bound. The rerun
+below counts with `K-bar`.
+
+**3 and 4, spacetime path and `E <= L_x delta_x + L_t delta_t`.** Result,
+given the kernel is Lipschitz in both arguments. It is: the spring envelope
+starts with zero slope (`b'(0) = 0`), so the causal onset is `C^1`, and the
+generalised Gaussian with `q > 1` is `C^1` at `d = 0`. With `q = 1` there
+is a kink with finite one-sided slope, still Lipschitz. `q < 1` would not
+be, which the fits never asked for.
+
+**5, corrected compression law.** Conditional, and the condition fails
+where it matters. `t''(s)` with arc-length `s` is `-v'(s) / v(s)^3`, which
+is unbounded wherever the walker stops, and both walks end in a stop. The
+fix is to parametrise by time: with vertices `(p_k, t_k)` and `p` linear in
+`t` on each segment, the nearest-point fraction along the chord equals the
+time fraction exactly, so timing is exact for the polyline's own motion and
+the only chord error is `|p''(t)| Delta t^2 / 8`, bounded by acceleration.
+Then `N = O(eps^{-1/2})` returns with `K_t` replaced by acceleration and no
+blow-up. This is what the 3-D Douglas-Peucker on `(x, y, c_t t)` computes.
+
+**6, density proportional to `sqrt(q(s))`.** Result (standard error
+equidistribution). Douglas-Peucker on the spacetime curve realises it
+implicitly; `L_x` and `L_t` enter only through the ratio `c_t = L_t / L_x`
+that scales the time axis. That ratio is the whole content of "behaviour
+weighting" when the consumer's sensitivity is uniform along the path,
+which it is for a uniform field. It becomes a genuinely different
+compressor only when sensitivity varies along the path (stalks near the
+player's view, a consumer that only looks at part of the field).
+
+**7 and 8, the knee as marginal efficiency, discrete allocation.**
+Definitions, both right. The multiple-choice knapsack is solvable by
+enumeration at game scale.
+
+**9 to 11, per-consumer representations, the DAG, compressibility ratios.**
+Definitions. The "architecture theorem" is a tautology as stated (separate
+is optimal when it is cheaper), but the quotient framing gives it content:
+the minimal object is a shared causal core plus consumer-specific
+sufficient statistics, and the sweep shows the gameplay statistic saturates
+at a fifth of the visual one's cost. `chi` depends on the cost model; state
+which one.
+
+**12.** Agreed, including the caveat: two walks from one teacher.
