@@ -58,3 +58,35 @@ one addition, nothing else:
   the certificate (supremum) metric.
 
 Results go in `poc/results/b4.md`; nothing above is edited after the run.
+
+## Amendment 2 (declared after run 1, before run 2; nothing above edited)
+
+Run 1 (`poc/results/b4_run1.log`, and `b4_run1.*` where written) executed
+the frozen protocol. The slalom could not meet the two tighter sup
+thresholds at any tolerance, and every transfer probe up to 16 m met no
+threshold at all. Diagnosis: the transfer probes' stalk lattice was
+aligned to the path origin, so stalks sat exactly on the straight legs
+with zero perpendicular distance; the consumer's side sign for such a
+stalk is `sign(0)`, which floating point resolves differently for the
+dense and compressed tokens, flipping the wake's normal component on that
+stalk. The slalom hit the same discontinuity by crossing stalk rows. This
+is a non-Lipschitz point of the consumer at the path itself, invisible to
+the RMS score and dominant under the supremum.
+
+Two further candidates were checked and rejected before amending: a 0.99
+quantile score (monotone, but it stops seeing an isolated corner on long
+paths, reintroducing dilution) and exclusion of stalks near the path's
+medial axis (changed no maximum at all, so the pass-time switch across a
+bisector is not a measurable source of error).
+
+Amendment: (a) the wake's path-normal component is multiplied by a
+smoothstep of perpendicular distance over 2 cm (`PATH_NORMAL_FADE` in
+`poc/reactive/primitives.py`), so a stalk on the centreline is pushed
+along the path and the consumer is continuous there; this applies to
+every trajectory, holdout and probe alike; (b) the transfer-probe lattice
+is offset by half a spacing so no stalk lies exactly on a straight leg.
+The score remains the strict maximum over stalks within 1.5 m, as
+preregistered. With the amendment, the maximum tracks the geometric
+tolerance with a roughly constant factor on every trajectory checked,
+which is the Lipschitz behaviour the derivation assumes. Run 2 is the run
+the hypotheses are judged on.

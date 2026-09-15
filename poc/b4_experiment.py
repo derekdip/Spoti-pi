@@ -40,7 +40,7 @@ def strip_grid(w, margin=2.0, spacing=0.25):
     xs = np.arange(lo[0], hi[0] + spacing, spacing)
     ys = np.arange(lo[1], hi[1] + spacing, spacing)
     gx, gy = np.meshgrid(xs, ys, indexing="xy")
-    pts = np.stack([gx.ravel(), gy.ravel()], -1)
+    pts = np.stack([gx.ravel(), gy.ravel()], -1) + 0.5 * spacing  # Amendment 2: no stalk exactly on a straight leg
     d, _ = cKDTree(w.points).query(pts)
     return pts[d <= margin]
 
@@ -164,6 +164,8 @@ def main() -> None:
         print(f"  m_par at {e*1000:.2f} mm: {m_par_est[str(e)]}")
     valid = [v for v in m_par_est.values() if v is not None]
     m_par = float(np.exp(np.mean(np.log(valid)))) if valid else float("nan")
+    if not valid:
+        print("calibration impossible: no threshold evaluable for both probes")
     print(f"frozen m_par = {m_par:.4f}")
     calib = {}
     for e in SUP:

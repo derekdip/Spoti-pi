@@ -18,6 +18,14 @@ import numpy as np
 from .geometry import Geometry
 
 LIVE_EPS = 1e-3  # a token whose envelope is below this fraction of peak is dead
+PATH_NORMAL_FADE = 0.02  # m: the path-normal component fades to zero this close to the path (B4 Amendment 2)
+
+
+def normal_fade(dperp: np.ndarray) -> np.ndarray:
+    """Smoothstep from 0 on the path to 1 at PATH_NORMAL_FADE. Removes the side-sign discontinuity:
+    a stalk on the centreline is pushed along the path, not sideways."""
+    x = np.clip(dperp / PATH_NORMAL_FADE, 0.0, 1.0)
+    return x * x * (3 - 2 * x)
 
 
 @dataclass
@@ -172,7 +180,8 @@ class Wake(Primitive):
         tau = times[:, None] - (g.path_tpass[None, :] - p["t_lead"])  # (F, N)
         env = spring_response(tau, p["lam"], p["k"], p["zeta"])
         space = gkern(g.path_dperp, p["w"], p["q"])  # (N,)
-        d = _mix_dir(g.path_nout, g.path_tan, p["mix"])  # (N, 2)
+        nout = g.path_nout * normal_fade(g.path_dperp)[:, None]
+        d = _mix_dir(nout, g.path_tan, p["mix"])  # (N, 2)
         b = p["B"] * (env * space[None, :])[..., None] * d[None]
         return b, 1.0
 
@@ -196,7 +205,8 @@ class Crush(Primitive):
         dtp = np.maximum(dt, 0)
         env = np.where(dt >= 0, (1 - np.exp(-dtp / p["t_rise"])) * np.exp(-dtp / p["t_rec"]), 0.0)
         space = gkern(g.path_dperp, p["w"], p["q"])
-        d = _mix_dir(g.path_nout, g.path_tan, p["mix"])
+        nout = g.path_nout * normal_fade(g.path_dperp)[:, None]
+        d = _mix_dir(nout, g.path_tan, p["mix"])
         b = p["C"] * (env * space[None, :])[..., None] * d[None]
         return b, 1.0
 
