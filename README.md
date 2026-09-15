@@ -38,6 +38,8 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-b0-review.md` | Review of the behavioural pseudometric track, with the tolerance-sweep results. |
 | `poc/knee_experiment.py` | Cost-versus-error envelope per consumer, liveness and path-tolerance scaling laws. |
 | `poc/path_compression.py` | Preregistered: spatial vs spacetime vs behaviour-weighted path compression, and the corrected liveness bound. |
+| `docs/math-track-b2-prereg.md`, `docs/math-track-b2-results.md` | Frozen preregistration and verdict for causal path complexity (B2). |
+| `poc/b2_experiment.py`, `poc/reactive/worldlines.py` | The B2 experiment and its frozen trajectory family. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -114,6 +116,14 @@ about tenfold at equal point counts on the held-out walk and reaches the
 dense-path reference at about 20 vertices. Behaviour weighting was not
 distinguishable from plain spacetime here because the kernel's time scale
 nearly equals the walking speed.
+
+Causal path complexity, preregistered (`docs/math-track-b2-*.md`): the
+isotropic functional `integral sqrt(L |p''|) dt` ranks eight trajectories'
+vertex requirements almost perfectly at loose tolerance (Spearman 0.95)
+but is beaten by total turning at tight tolerance, because the square
+root cannot see the cost of sharp turns and it overcharges along-track
+acceleration. Verdict by the frozen rules: failure at the primary
+thresholds, with the residuals pointing at an anisotropic two-term law.
 
 Held-out check (`poc/holdout.py`, results in `poc/results/holdout.md`): the
 same parameters on a faster diagonal walk with a hook turn, never seen
