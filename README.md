@@ -29,6 +29,10 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `poc/reactive/field.py` | Level-1 coarse field bake and bilinear sampling. |
 | `poc/run_experiment.py` | End to end: teacher → record → search → report. |
 | `poc/holdout.py` | Scores the discovered model on a walk it was never fit to. |
+| `poc/gpu_sweep.py` | How few terms to ship, and bend-texture cell size versus error. |
+| `poc/wind_experiment.py` | Travelling gust tokens versus global Fourier modes on synthetic turbulent wind. |
+| `unity/` | Reference HLSL kernels and C# constant helpers mirroring the Python (not yet compiled on device). |
+| `docs/quest-notes.md` | What to ship, where to evaluate it, and what to measure on Quest. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -66,6 +70,19 @@ the detail the write-up says to regenerate from a seed rather than keep.
 The single biggest lesson is that the path-anchored wake carries almost all
 of the fit (0.43 alone versus 0.39 for six terms); per-event tokens are the
 wrong description of locomotion. See `docs/review.md` for the rest.
+
+Shipping cut (`poc/gpu_sweep.py`, results in `poc/results/gpu_sweep.md`):
+wake plus presence alone score 0.40 per-stalk and 0.98 late-field
+correlation at 48 ops, against 0.39 and 124 ops for all six terms. A bend
+texture baked at cells no larger than the stalk spacing matches direct
+token evaluation; 0.5 m cells lose the 0.13 m wide trail.
+
+Wind (`poc/wind_experiment.py`, results in `poc/results/wind.md`): on
+synthetic turbulence, travelling gust tokens capture the same energy per
+term as global Fourier modes but cost 2 to 4 evaluations per vertex instead
+of 32 to 128. A resonant canopy's bend is striped at U/f0, so the right
+token is a travelling wave packet, and everything below about 1.5 m of
+correlation length is better done as seeded per-stalk noise than as tokens.
 
 Held-out check (`poc/holdout.py`, results in `poc/results/holdout.md`): the
 same parameters on a faster diagonal walk with a hook turn, never seen
