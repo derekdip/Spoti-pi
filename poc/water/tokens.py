@@ -4,7 +4,9 @@
             ring travelling at one speed with a fixed wavelength.
 `chirp`     a dispersive ring in the Cauchy-Poisson form: phase g t^2 / (4 r),
             so long waves run ahead and short waves trail, which is what deep
-            water actually does. Amplitude envelope with a soft causal front.
+            water actually does. Amplitude envelope with a soft causal front and
+            a viscous cutoff: the local wavenumber is g t^2 / (4 r^2), and waves
+            shorter than 2 pi / k_cut are damped away (real ponds kill them).
 
 A wake is the Huygens superposition of the splash token along the path.
 """
@@ -18,12 +20,12 @@ RING_PARAMS = ["A", "lam", "v", "w", "kappa", "phi"]
 RING_BOUNDS = [(1e-4, 0.05), (0.05, 10.0), (0.1, 3.0), (0.01, 0.5), (5.0, 200.0), (-np.pi, np.pi)]
 RING_INIT = [0.005, 1.0, 0.5, 0.1, 60.0, 0.0]
 
-CHIRP_PARAMS = ["A", "lam", "m", "n", "g_eff", "phi", "v_max"]
-CHIRP_BOUNDS = [(1e-4, 0.1), (0.05, 10.0), (-1.0, 3.0), (0.0, 3.0), (2.0, 30.0), (-np.pi, np.pi), (0.2, 5.0)]
-CHIRP_INIT = [0.01, 1.0, 1.0, 1.5, 9.81, 0.0, 1.5]
+CHIRP_PARAMS = ["A", "lam", "m", "n", "g_eff", "phi", "v_max", "k_cut"]
+CHIRP_BOUNDS = [(1e-4, 0.1), (0.05, 10.0), (-1.0, 3.0), (0.0, 3.0), (2.0, 30.0), (-np.pi, np.pi), (0.2, 5.0), (20.0, 2000.0)]
+CHIRP_INIT = [0.01, 1.0, 1.0, 1.5, 9.81, 0.0, 1.5, 300.0]
 
 RING_COST = 26.0  # ops per point per live token (see unity/ReactiveKernels.hlsl)
-CHIRP_COST = 34.0
+CHIRP_COST = 40.0
 
 
 def ring(r: np.ndarray, tau: np.ndarray, p: dict) -> np.ndarray:
@@ -37,8 +39,10 @@ def ring(r: np.ndarray, tau: np.ndarray, p: dict) -> np.ndarray:
 def chirp(r: np.ndarray, tau: np.ndarray, p: dict) -> np.ndarray:
     tau_p = np.maximum(tau, 1e-4)
     rr = np.maximum(r, 0.02)
+    k_loc = p["g_eff"] * tau_p * tau_p / (4.0 * rr * rr)  # local wavenumber of the chirp
     env = (np.exp(-p["lam"] * tau_p) * (tau_p / 0.5) ** p["m"] / (1.0 + rr / R0) ** p["n"]
-           * np.exp(-(rr / (p["v_max"] * tau_p + 0.02)) ** 4))
+           * np.exp(-(rr / (p["v_max"] * tau_p + 0.02)) ** 4)
+           * np.exp(-(k_loc / p["k_cut"]) ** 2))
     out = p["A"] * env * np.cos(p["g_eff"] * tau_p * tau_p / (4.0 * rr) + p["phi"])
     return np.where(tau > 0, out, 0.0)
 

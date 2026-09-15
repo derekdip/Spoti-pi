@@ -10,8 +10,8 @@ script behind it in `poc/`.
 |---|---|---|---|---|---|
 | [corn-trail](corn-trail.md) | walker's trail through stalks | banked path polyline + live presence | wake (spring envelope) + presence | synthetic coupled nonlinear stalk lattice | fitted, held-out walk verified, shipped by the user |
 | [wind-gusts](wind-gusts.md) | field sway and honami stripes | travelling gusts + wave packets + seeded residual | Gaussian / Gabor envelopes advected at U | synthetic frozen turbulence | shape verified, parameters need real footage |
-| [pond-ripples](pond-ripples.md) | splash rings and wakes on open water | impulse events, Huygens along a path | dispersive chirp ring | exact linear-wave spectral solver | see card |
-| [puddle-slosh](puddle-slosh.md) | confined shallow water after an impact | impact event + box geometry | standing shallow-water modes | real MPM data (DeepMind WaterDrop) | see card |
+| [pond-ripples](pond-ripples.md) | splash rings and wakes on open water | impulse events, Huygens along a path | dispersive chirp ring | exact linear-wave spectral solver | fitted; chirp recovers g = 9.81; fixed-wavelength ring rejected |
+| [puddle-slosh](puddle-slosh.md) | confined shallow water after an impact | impact event + box geometry | standing modes / bouncing pulse | real MPM data (DeepMind WaterDrop) | negative result: fits in-window, does not extrapolate; use period + decay only |
 
 Reference shader/C# for the kernels: `unity/ReactiveKernels.hlsl`,
 `unity/ReactiveKernels.cs`.

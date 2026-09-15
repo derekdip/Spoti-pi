@@ -31,6 +31,8 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `poc/holdout.py` | Scores the discovered model on a walk it was never fit to. |
 | `poc/gpu_sweep.py` | How few terms to ship, and bend-texture cell size versus error. |
 | `poc/wind_experiment.py` | Travelling gust tokens versus global Fourier modes on synthetic turbulent wind. |
+| `poc/water/` | Exact linear-wave teacher, ripple tokens, a TensorFlow-free reader for the DeepMind water datasets, and slosh fits on real data. |
+| `toolkit/` | One card per effect: token, kernel, fitted parameters, teacher, scores, known limits. |
 | `unity/` | Reference HLSL kernels and C# constant helpers mirroring the Python (not yet compiled on device). |
 | `docs/quest-notes.md` | What to ship, where to evaluate it, and what to measure on Quest. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
@@ -83,6 +85,15 @@ term as global Fourier modes but cost 2 to 4 evaluations per vertex instead
 of 32 to 128. A resonant canopy's bend is striped at U/f0, so the right
 token is a travelling wave packet, and everything below about 1.5 m of
 correlation length is better done as seeded per-stalk noise than as tokens.
+
+Water (`poc/water/`, results in `poc/results/water.md`, `slosh_pulse.md`,
+`slosh.md`): against an exact linear-wave solver, a dispersive chirp ring
+fits a splash at 0.49 height error and recovers g = 9.81 on its own, while
+the fixed-wavelength ring is worse than nothing; a wake is the Huygens sum
+of splash tokens along the path at 0.6 error with 6 to 22 live tokens per
+point. Against real MPM puddle data (DeepMind WaterDrop), neither standing
+modes nor a bouncing pulse extrapolate past the fit window: confined
+large-amplitude slosh is not a token, only its period and decay are.
 
 Held-out check (`poc/holdout.py`, results in `poc/results/holdout.md`): the
 same parameters on a faster diagonal walk with a hook turn, never seen

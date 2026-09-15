@@ -49,6 +49,7 @@ def fit_token(kind: str, pts: np.ndarray, times: np.ndarray, ref: np.ndarray,
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(Path(__file__).resolve().parents[1] / "results"))
+    ap.add_argument("--refit-wake", action="store_true", help="also refit the token shape on the wake (slow)")
     args = ap.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -102,6 +103,7 @@ def main() -> None:
     w_ref = wrec.eta[w_frames][:, wsub].astype(float)
     kind = min(splash, key=lambda k: splash[k]["E_height"])
     wake = {"token_used": kind, "huygens": {}}
+    best_alpha, best_ds, best_e = 1.0, 0.05, np.inf
     print(f"wake: Huygens superposition of the fitted '{kind}' token along the path")
     for ds in (0.02, 0.05, 0.1, 0.2):
         s = np.arange(0.0, v_src[0] * t_move + 1e-9, ds)
@@ -111,23 +113,27 @@ def main() -> None:
         alpha = float((base * w_ref).sum() / max((base * base).sum(), 1e-20))  # linear amplitude fit
         wake["huygens"][str(ds)] = {"E_height": rel_rmse(alpha * base, w_ref), "tokens": int(len(s)),
                                     "live_tokens_per_point": live, "amplitude_scale": alpha}
+        if wake["huygens"][str(ds)]["E_height"] < best_e and ds >= 0.05:
+            best_alpha, best_ds, best_e = alpha, ds, wake["huygens"][str(ds)]["E_height"]
         print(f"  spacing {ds:.2f} m: {len(s):3d} tokens, {live:5.1f} live per point, E_height={wake['huygens'][str(ds)]['E_height']:.3f}")
-    # refit the token's shape on the wake itself (5 cm spacing)
-    s = np.arange(0.0, v_src[0] * t_move + 1e-9, 0.05)
-    ev_pos_w = np.stack([start[0] + s, np.full_like(s, start[1])], axis=-1)
-    ev_t_w = s / v_src[0]
-    t0 = time.perf_counter()
-    prm_w, j = fit_token(kind, w_pts[::2], wrec.times[w_frames][::2], w_ref[::2, ::2], ev_pos_w, ev_t_w, np.ones_like(s))
-    pred_w, live_w = evaluate_events(kind, prm_w, w_pts, wrec.times[w_frames], ev_pos_w, ev_t_w, np.ones_like(s))
-    wake["refit_on_wake"] = {"params": prm_w, "E_height": rel_rmse(pred_w, w_ref), "live_tokens_per_point": live_w,
-                             "fit_seconds": time.perf_counter() - t0}
-    print(f"  refit on wake: E_height={wake['refit_on_wake']['E_height']:.3f} ({time.perf_counter() - t0:.0f}s)")
+    if args.refit_wake:
+        # refit the token's shape on the wake itself (5 cm spacing); slow and, so far, not better
+        s = np.arange(0.0, v_src[0] * t_move + 1e-9, 0.05)
+        ev_pos_w = np.stack([start[0] + s, np.full_like(s, start[1])], axis=-1)
+        ev_t_w = s / v_src[0]
+        t0 = time.perf_counter()
+        prm_w, j = fit_token(kind, w_pts[::2], wrec.times[w_frames][::2], w_ref[::2, ::2], ev_pos_w, ev_t_w, np.ones_like(s))
+        pred_w, live_w = evaluate_events(kind, prm_w, w_pts, wrec.times[w_frames], ev_pos_w, ev_t_w, np.ones_like(s))
+        wake["refit_on_wake"] = {"params": prm_w, "E_height": rel_rmse(pred_w, w_ref), "live_tokens_per_point": live_w,
+                                 "fit_seconds": time.perf_counter() - t0}
+        print(f"  refit on wake: E_height={wake['refit_on_wake']['E_height']:.3f} ({time.perf_counter() - t0:.0f}s)")
+    wake["figure_uses"] = {"spacing": best_ds, "amplitude_scale": best_alpha}
     report["wake"] = wake
 
     (out / "water.json").write_text(json.dumps(report, indent=2, default=float))
     write_md(report, out / "water.md")
     try:
-        make_figure(rec, wrec, fitted, kind, prm_w, p, out / "water.png")
+        make_figure(rec, wrec, fitted, kind, best_ds, best_alpha, p, out / "water.png")
     except Exception as exc:
         print(f"(figure skipped: {exc})")
     print(f"wrote {out}")
@@ -149,13 +155,14 @@ def write_md(r: dict, path: Path) -> None:
               "| emission spacing | tokens | live tokens per point | height error |", "|---|---|---|---|"]
     for ds, v in r["wake"]["huygens"].items():
         lines.append(f"| {float(ds):.2f} m | {v['tokens']} | {v['live_tokens_per_point']:.1f} | {v['E_height']:.3f} |")
-    w = r["wake"]["refit_on_wake"]
-    lines += ["", f"Token shape refitted on the wake itself at 5 cm spacing: height error {w['E_height']:.3f}, "
-              f"{w['live_tokens_per_point']:.1f} live tokens per point.", ""]
+    if "refit_on_wake" in r["wake"]:
+        w = r["wake"]["refit_on_wake"]
+        lines += ["", f"Token shape refitted on the wake itself at 5 cm spacing: height error {w['E_height']:.3f}, "
+                  f"{w['live_tokens_per_point']:.1f} live tokens per point.", ""]
     path.write_text("\n".join(lines) + "\n")
 
 
-def make_figure(rec, wrec, fitted, kind, prm_w, p, path: Path) -> None:
+def make_figure(rec, wrec, fitted, kind, ds, alpha, p, path: Path) -> None:
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -177,17 +184,17 @@ def make_figure(rec, wrec, fitted, kind, prm_w, p, path: Path) -> None:
             ax.set_xticks([])
             ax.set_yticks([])
     # wake row: teacher vs Huygens at the last moving frame and 1 s after
-    s = np.arange(0.0, 3.0 + 1e-9, 0.05)
+    s = np.arange(0.0, 3.0 + 1e-9, ds)
     ev_pos = np.stack([1.0 + s, np.full_like(s, 3.0)], axis=-1)
     for col, t in enumerate((1.5, 3.0, 4.0)):
         f = int(t * p.fps)
-        pred, _ = evaluate_events(kind, prm_w, pts, np.array([t]), ev_pos, s / 1.0, np.ones_like(s))
+        pred, _ = evaluate_events(kind, fitted[kind], pts, np.array([t]), ev_pos, s / 1.0, np.full_like(s, alpha))
         v = np.abs(wrec.eta[f]).max()
         ax = axes[2, col]
         img = np.concatenate([wrec.eta[f][:, :X.shape[1] // 2], pred[0].reshape(X.shape)[:, X.shape[1] // 2:]], axis=1)
         ax.imshow(img.T, origin="lower", extent=(0, p.size, 0, p.size), cmap="RdBu_r", vmin=-v, vmax=v)
         ax.axhline(p.size / 2, color="k", lw=0.5)
-        ax.set_title(f"wake t={t:.1f}s: teacher (bottom) / tokens (top)")
+        ax.set_title(f"wake t={t:.1f}s: teacher (bottom) / {int(ds * 100)} cm tokens (top)")
         ax.set_xticks([])
         ax.set_yticks([])
     fig.tight_layout()
