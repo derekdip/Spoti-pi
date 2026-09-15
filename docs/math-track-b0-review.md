@@ -210,3 +210,66 @@ under an hour on the current teacher.
 | approximate banking, composition, budget | results on behaviours |
 | C*(eps), regret | definitions; linear part already solved by balanced truncation |
 | knee | prediction, partially supported by existing runs |
+
+## Results of the item-18 sweep (`poc/knee_experiment.py`, `poc/results/knee.md`, `knee.png`)
+
+Convention used: expectation over recorded inputs (training and held-out
+walks averaged). Held-out numbers track training within 0.01 everywhere,
+so nothing below is a fit to one walk.
+
+**Prediction 3, the knee: confirmed, and it is consumer-specific.** The
+visual envelope runs 14 ops at 0.84, 26 ops at 0.42 (wake only), 48 ops at
+0.40 (wake + presence), 76 ops at 0.39, 124 ops at 0.39 (six terms), then
+the teacher at 320 ops and 0. Between 26 and 124 ops the error moves by
+0.04 while cost rises almost fivefold; the grammar is exhausted there and
+the next available point is the microscopic simulation. That flat stretch
+followed by the jump is the knee, at roughly 26 to 48 ops. The AI-field
+consumer has the same shape with its knee at the same cost. The gameplay
+consumer (can the trail be found) saturates at the 16x16 field, 20 ops,
+error 0.04; everything above that is indistinguishable to it. So `C*(eps)`
+is a different curve per consumer, as the review argued, and the cheapest
+representation that satisfies all three is the wake alone at 26 ops
+unless the visual tolerance is tighter than 0.42, in which case nothing
+short of the teacher helps.
+
+One detail worth keeping: the baked field at 64x64 is worse than at 40x40
+(0.42 versus 0.40) and three times the cost, because bilinear sampling of
+a kernel with `q` near 1 is not monotone in resolution. Cost curves are
+not convex, which is why the budget allocation of items 13 and 14 has to
+be run as a discrete greedy on measured points, not as a derivative
+condition.
+
+**Prediction 1, live tokens grow like log(1/eps): confirmed in shape, with
+the deviation the review predicted.** Live radial-impulse tokens per frame
+rise linearly in `log(1/eps)` from 0.8 at `eps = 0.3` to 3.2 at `eps =
+1e-5`. Measured slope 0.24 against the predicted `R / lambda'` of 0.32.
+The shortfall and the visible step between `eps = 1e-3` and `3e-4` are
+the ring-down lobes of the spring envelope: a non-monotone kernel crosses
+`eps` several times, so whole lobes switch on at once as `eps` drops. The
+bound in item 4 is an upper bound and holds; the equality-style scaling
+law needs a monotone envelope constant `C` in front. Pruning at any of
+these thresholds changed visual error by under 0.001, consistent with
+part A: for a walking player the radial tokens carry almost nothing.
+
+**Prediction 2, path points grow like eps^{-1/2}: half confirmed.** Points
+kept by Douglas-Peucker scale as `tol^-0.44` against the predicted
+`tol^-0.5`. Excess visual error scales as `tol^0.60`, not the `tol^1` a
+Lipschitz consumer would give. So in terms of error the point count grows
+like `eps^-0.73`, steeper than predicted. The cause is the timing term the
+track omitted: the simplified polyline interpolates pass times linearly
+between kept vertices, the walker's speed varies, and the wake envelope
+has a 0.14 s lead and a sharp rise, so timing error decays more slowly
+than geometric error as the tolerance shrinks. Item 8 needs a time
+tolerance alongside the geometric one; with it, the geometric law should
+recover its exponent. Practical note: 48 Douglas-Peucker points are
+within 0.011 of the 201-point uniform 20 Hz path, so the banked path can
+be a quarter of its current size.
+
+**Status after the sweep.**
+
+| prediction | outcome |
+|---|---|
+| knee where microscopic contact becomes distinguishable | confirmed, at 26 to 48 ops for visual, 20 ops for gameplay |
+| live tokens ~ log(1/eps) | confirmed in form; slope 25% under prediction due to ring-down lobes |
+| path points ~ eps^{-1/2} | geometric half confirmed (exponent -0.44); error half sub-linear (0.60) because of pass-time interpolation |
+| held-out generalisation of the envelope | confirmed, within 0.01 |

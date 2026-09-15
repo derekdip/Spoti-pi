@@ -35,6 +35,8 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `toolkit/` | One card per effect: token, kernel, fitted parameters, teacher, scores, known limits. |
 | `unity/` | Reference HLSL kernels and C# constant helpers mirroring the Python (not yet compiled on device). |
 | `docs/quest-notes.md` | What to ship, where to evaluate it, and what to measure on Quest. |
+| `docs/math-track-b0-review.md` | Review of the behavioural pseudometric track, with the tolerance-sweep results. |
+| `poc/knee_experiment.py` | Cost-versus-error envelope per consumer, liveness and path-tolerance scaling laws. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -95,6 +97,14 @@ of splash tokens along the path at 0.6 error with 6 to 22 live tokens per
 point. Against real MPM puddle data (DeepMind WaterDrop), neither standing
 modes nor a bouncing pulse extrapolate past the fit window: confined
 large-amplitude slosh is not a token, only its period and decay are.
+
+Tolerance sweep (`poc/knee_experiment.py`, results in `poc/results/knee.md`):
+the cost-versus-error curve has a knee at 26 to 48 ops per stalk for the
+visual consumer and 20 ops for the gameplay consumer; beyond it the grammar
+is flat until the teacher itself. Live tokens grow like log(1/eps) as
+predicted (slope 25% low from ring-down lobes); path points grow like
+tolerance^-0.44 as predicted, but error falls sub-linearly with tolerance
+because of pass-time interpolation.
 
 Held-out check (`poc/holdout.py`, results in `poc/results/holdout.md`): the
 same parameters on a faster diagonal walk with a hook turn, never seen
