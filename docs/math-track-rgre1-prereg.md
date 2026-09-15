@@ -113,9 +113,15 @@ singles, 2), tail+unary (1). Unknown, six: corn travelling gust field
 pressure source (1). Ground-truth class = the injected defect(s).
 
 A development run with seed 1 and one case per class was used to debug
-the code before this freeze and is declared; its outputs are not
-scored. Nothing in the vocabulary, thresholds or bars changes after the
-seed-20260915 run.
+the code before this freeze and is declared; its outputs
+(`poc/results/rgre1_dev.md`, `rgre1_dev.log`) are not scored. It ran
+end to end after the corrections noted above; its two remaining misses
+(a corn tail case whose class is highly coherent with the unary tangents
+and loses its score to a low-ownership template class; a water tail
+case dominated by the token's floor, which abstains as "wrong atom")
+are properties of the frozen score and abstention rules and were left
+in place. Nothing in the vocabulary, thresholds or bars changes after
+the seed-20260915 run.
 
 ## Oracle and value
 
