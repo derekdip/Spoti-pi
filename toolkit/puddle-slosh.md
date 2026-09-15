@@ -25,11 +25,14 @@ the best possible in-window error is roughly 0.4.
 
 | model | in-window error (median) | held-out second half |
 |---|---|---|
-| K = 4 standing shallow-water modes, fitted speed and damping | 0.73 to 0.86 (first 8 trajectories) | about 1.0 |
-| K = 8 standing modes | 0.68 to 0.82 (first 8 trajectories) | about 1.0 |
+| K = 4 standing shallow-water modes, fitted speed and damping, 10 trajectories | 0.73 | 1.00 |
+| K = 8 standing modes, 10 trajectories | 0.69 | 1.00 |
 | bouncing pulse with wall reflections (method of images), 30 trajectories | 0.76 | 1.00 |
+| same pulse, wall columns dropped and window started 0.75 s after landing (no run-up) | 0.74 | 1.00 |
 
-In-window, both explain about half of the coherent energy. Fitted on the
+Dropping the wall run-up and starting later changes nothing, so the
+failure is the slosh itself, not the walls. In-window, both explain about
+half of the coherent energy. Fitted on the
 first half of the window and scored on the second, both are no better than
 predicting a flat surface. The slosh's frequency and shape drift with
 amplitude (nonlinear), so a fixed-frequency closed form loses phase within
