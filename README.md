@@ -40,6 +40,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `poc/path_compression.py` | Preregistered: spatial vs spacetime vs behaviour-weighted path compression, and the corrected liveness bound. |
 | `docs/math-track-b2-prereg.md`, `docs/math-track-b2-results.md` | Frozen preregistration and verdict for causal path complexity (B2). |
 | `poc/b2_experiment.py`, `poc/reactive/worldlines.py` | The B2 experiment and its frozen trajectory family. |
+| `docs/math-track-b3-prereg.md`, `docs/math-track-b3-results.md`, `poc/b3_experiment.py` | B3: anisotropic smooth term plus corner atoms, probe-calibrated; verdict and diagnosis. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -124,6 +125,14 @@ but is beaten by total turning at tight tolerance, because the square
 root cannot see the cost of sharp turns and it overcharges along-track
 acceleration. Verdict by the frozen rules: failure at the primary
 thresholds, with the residuals pointing at an anisotropic two-term law.
+
+B3 (`docs/math-track-b3-*.md`) added an anisotropic smooth term and a
+corner term calibrated on probes only. The anisotropy held (along-track
+acceleration counts about a third as much as across-track, and the
+stop/start miss dropped from 135% to 18%); the corner term over-predicted
+corner-dense paths two to one because the global RMS score dilutes an
+isolated probe's corner. Verdict: failure at tight tolerance by the frozen
+rules; the metric, not the geometry, is the identified cause.
 
 Held-out check (`poc/holdout.py`, results in `poc/results/holdout.md`): the
 same parameters on a faster diagonal walk with a hook turn, never seen
