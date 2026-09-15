@@ -46,6 +46,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-w2-prereg.md`, `docs/math-track-w2-results.md`, `poc/w2_analysis.py` | W2: with exponents fixed by theory and two coarse grids per curve, required resolution and the binding consumer are predicted on held-out tolerances. |
 | `docs/math-track-w3-prereg.md`, `docs/math-track-w3-results.md`, `poc/w3_experiment.py`, `poc/w3_residual_diagnostic.py` | W3: amplitude-conditioned unary token vs pair interaction. Failure by the frozen rules; gain and dispersion carry the nonlinearity, half the error is unreachable by conditioning, and a post-hoc diagnostic says what the rest is. |
 | `docs/math-track-w4-prereg.md`, `docs/math-track-w4-results.md`, `poc/w4_experiment.py` | W4: event-coordinate conditioning. Coordinate confirmed on three never-run amplitudes: the large-amplitude splash is the base token started earlier, the delay is predicted from one calibration amplitude, and the dispersion slope W3 found vanishes once timing is free. |
+| `docs/math-track-b5-prereg.md`, `docs/math-track-b5-results.md`, `poc/b5_experiment.py` | B5: smooth, singular, event decomposition on fresh corn paths. Failure by the frozen rules (three bars mis-defined, two substantive), with the residual naming the class before any repair, class repairs working where the residual lives, dwell a pure event coordinate, and a constant-free law within a factor 1.5. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -138,6 +139,27 @@ stop/start miss dropped from 135% to 18%); the corner term over-predicted
 corner-dense paths two to one because the global RMS score dilutes an
 isolated probe's corner. Verdict: failure at tight tolerance by the frozen
 rules; the metric, not the geometry, is the identified cause.
+
+B5 (`docs/math-track-b5-*.md`) returned to the corn path to test the
+procedure itself on five fresh trajectories, a corner-sharpness series
+and a dwell series: does the smooth-only residual localise at a defect
+class before any repair, and does the class's representation repair
+paths never seen? Verdict by the frozen rules: failure, five bars missed.
+Three of the misses are defects of the frozen definitions that the data
+exposes (the stop mask excluded the terminal stop, which holds 73% of the
+residual; an enrichment bar is ill-posed on a featureless path; a
+position-only baseline cannot represent a straight walk at all). What
+held: corners hold 99.9% of the smooth-only residual on the corner paths
+and none of a difficult smooth control; stop events make every stop path
+reachable at a count identical across 0, 0.5, 1 and 2 s of dwell; the
+corner allocation calibrated on one probe cuts 14 to 29% on every fresh
+corner path at the perceptual threshold; the singular mass is flat as a
+corner sharpens from 0.8 to 0.2 s under that allocation; and B4's
+tangent law with no fitted constant predicts all five fresh vertex counts
+within a factor 1.5. What failed substantively: the class-free tangent
+criterion I predicted would dominate wins only for sharp turns at tight
+tolerance and loses for spread turning, so the class does not dissolve
+into a coordinate here and the regime decides.
 
 W4 (`docs/math-track-w4-*.md`) tested whether W3's missing degree of
 freedom was an event coordinate rather than a shape parameter, on three
