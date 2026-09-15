@@ -18,12 +18,14 @@ evaluations:
 - template classes supply a nonnegative energy template over consumer
   points and are read after the joint least-squares fit on all signed
   subspaces is removed. Support-type templates (corner, stop) own the
-  energy on their support when the residual is concentrated there,
-  enrichment `share / support fraction >= 2` (B5's constant), and that
-  energy is then set aside; otherwise they own nothing. Shape-type
-  templates (smooth, interaction) are fitted to the remaining per-point
-  energy by nonnegative least squares (each normalised to unit total);
-  `q_j` is the energy assigned to template `j` over `||r||^2`.
+  energy on their support when the residual is concentrated there: the
+  energy density inside the support at least twice the density outside
+  it (B5's constant 2; an enrichment-over-uniform rule was tried first
+  and rejects large supports, caught by the development run). That
+  energy is then set aside. Shape-type templates (smooth, interaction)
+  are fitted to the remaining per-point energy by nonnegative least
+  squares (each normalised to unit total); `q_j` is the energy assigned
+  to template `j` over `||r||^2`, capped at the energy on its support.
 
 `q_perp` is the residual energy left by all three stages (for shape
 templates: the part of the per-point energy above the fitted
@@ -31,13 +33,19 @@ templates). The development run showed why the support rule is needed:
 a least-squares fit of a broad template to a residual concentrated at a
 few apex stalks under-assigned it and left 50 to 83 percent of known
 corner cases unexplained. Coherence
-`mu_j` is the largest, over other classes, of the largest canonical
-correlation between signed subspaces, or the cosine between energy
-profiles when either class is a template. Score `S_j = q_j (1 - mu_j)`.
+`mu_j` is defined within a diagnostic type: for signed classes the
+largest canonical correlation with another signed subspace, for
+template classes the largest cosine with another template; a template
+and a tangent cannot stand in for one another, so their cross-coherence
+is zero (the development run showed that an energy-profile cosine
+between the two types discounts every corn tangent class by 0.9 for no
+identity reason). Score `S_j = q_j (1 - mu_j)`.
 
-Selection: if `q_perp > tau_perp` abstain ("unknown"); else take the
-largest `S_j`; if that class is unrepairable (water's floor) abstain
-("atom"); else evaluate only that class's repair set and pick the best
+Selection: if `q_perp > tau_perp` abstain ("unknown"); if an
+unrepairable class (water's floor) owns at least as much of the residual
+as every repairable class, abstain ("atom": the atom itself is wrong);
+else take the largest `S_j` among repairable classes, ties broken by
+`q_j`, and evaluate only that class's repair set, picking the best
 `dE / C` within it. `tau_perp = min(0.9, max q_perp over the calibration
 cases + 0.1)`, the calibration cases being B5's five fresh paths under
 the base corn representation and W4's nonlinear singles at A = 4, 6, 8
@@ -83,18 +91,22 @@ scored on the evaluation set.
 Corn, six each: smooth (three-harmonic random heading, peak `|theta'|`
 in [0.8, 2.8] rad/s); corner (2 to 4 random corners of 50 to 160
 degrees, 0.1 to 0.3 s); stop (1 to 2 interior stops of 0.4 to 1.5 s,
-interior events missing from the representation); coordinate (gentle
+no event vertices in the representation, terminal ones included; with
+the terminal events kept the spacetime DP resolves interior stops by
+itself at this tolerance and the case has no defect, caught by the
+development run); coordinate (gentle
 path, token times offset by 0.05 to 0.15 s); tail (gentle path,
 persistence multiplied by [0.3, 0.6] or [1.6, 3]); unary (gentle path,
 kernel width multiplied by [0.5, 0.75] or [1.3, 1.8]). Water, six each:
 coordinate (linear teacher delayed by 3 to 8 frames at 60 Hz);
 unary (linear teacher with impulse width 0.02, 0.025, 0.04, 0.05 m or
-depth 0.25, 0.7 m); tail (linear teacher with nu 4e-4, 7e-4, 1e-3 or
-gamma0 0.5, 0.75, 1.0; 1.5e-3 was first written and overdamps the
-solver's diagonal short waves, caught by the development run); interaction (nonlinear pairs at A in {5, 6, 8},
+depth 0.25, 0.7 m); tail (linear teacher with nu 7e-4, 1e-3 or
+gamma0 0.5, 0.75, 1.0, 1.5; 1.5e-3 was first written and overdamps the
+solver's diagonal short waves, and nu 4e-4 gave a defect smaller than
+the token's own floor, both caught by the development run); interaction (nonlinear pairs at A in {5, 6, 8},
 D in {0.1875, 0.28125} m, singles fitted per W4 so the unary part is
-right). Mixtures, twelve: corn corner+stop (2), coordinate+corner (2),
-tail+smooth (1), unary+stop (1); water coordinate+unary (nonlinear
+right). Mixtures, twelve: corn corner+stop (2, no events), coordinate+corner (2),
+tail+smooth (1), unary+stop (1, no events); water coordinate+unary (nonlinear
 singles at A = 3.5, 5, 7), interaction+coordinate (pairs with gain-only
 singles, 2), tail+unary (1). Unknown, six: corn travelling gust field
 (2), hidden second walker (1); water hidden second splash (2), moving

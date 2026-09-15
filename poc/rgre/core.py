@@ -75,13 +75,17 @@ def diagnose(r, signed, templates, support=SUPPORT):
     tn = [c for c, T in templates.items() if T is not None and np.asarray(T, float).sum() > 0]
     # support-type templates (corner, stop): the class owns its support's energy when the residual is
     # concentrated there (enrichment >= ENRICH); that energy is then removed before the shape stage
+    e_rem = float(e.sum())
     for c in [c for c in tn if c in support]:
         m = np.asarray(templates[c], float) > 0
         share = float(e[m].sum() / E)
         frac = float(m.mean())
         raw[c] = share
         items.append((c, c, share))
-        if frac > 0 and share / frac >= ENRICH:
+        inside = e[m].sum() / max(m.sum(), 1)
+        outside = e[~m].sum() / max((~m).sum(), 1)
+        # concentration = energy density inside the support over the density outside it
+        if m.any() and (~m).any() and inside >= ENRICH * outside and e[m].sum() > 0:
             q[c] = share
             e = np.where(m, 0.0, e)
         else:
@@ -92,8 +96,8 @@ def diagnose(r, signed, templates, support=SUPPORT):
         a, _ = nnls(T, e)
         ehat = T @ a
         for c, ac in zip(sn, a):
-            q[c] = float(ac / E)
             raw[c] = float(e[np.asarray(templates[c]) > 0].sum() / E)
+            q[c] = float(min(ac / E, raw[c]))  # a least-squares overshoot cannot own more than its support holds
             items.append((c, c, raw[c]))
         unexpl = float(np.maximum(e - ehat, 0).sum() / E)
     else:
@@ -108,7 +112,15 @@ def diagnose(r, signed, templates, support=SUPPORT):
         for k in classes:
             if k == c:
                 continue
-            v = canon(bases[c], bases[k]) if (c in bases and k in bases) else cosine(prof[c], prof[k])
+            # coherence is defined within a diagnostic type: two tangent subspaces can counterfeit each
+            # other (canonical correlation), two localisation templates can overlap (cosine); a template
+            # and a tangent cannot stand in for one another
+            if c in bases and k in bases:
+                v = canon(bases[c], bases[k])
+            elif c not in bases and k not in bases:
+                v = cosine(prof[c], prof[k])
+            else:
+                v = 0.0
             best = max(best, v)
         mu[c] = best
     S = {c: q[c] * (1.0 - mu[c]) for c in classes}
@@ -122,11 +134,15 @@ def select(diag, tau_perp, unrepairable=("floor",)):
         return None, "no residual"
     if diag["q_perp"] > tau_perp:
         return None, "unknown"
-    order = sorted(diag["S"], key=lambda c: -diag["S"][c])
-    if not order:
+    q = diag["q"]
+    repairable = [c for c in q if c not in unrepairable]
+    if not repairable:
         return None, "no class"
-    if order[0] in unrepairable:
+    # an unrepairable class (the atom's own misfit) that owns more of the residual than any repairable
+    # class means the atom is wrong: abstain. Ownership, not the coherence-discounted score, decides this.
+    if any(c in q and q[c] >= max(q[k] for k in repairable) for c in unrepairable):
         return None, "atom"
+    order = sorted(repairable, key=lambda c: (-round(diag["S"][c], 9), -q[c]))  # ties on score broken by ownership
     return order[0], "ok"
 
 

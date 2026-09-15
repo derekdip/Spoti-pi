@@ -251,7 +251,7 @@ def fresh_cases(theta0, grid, floor_full, log=print):
         eta, _ = eta_linear_single(1.0, **kw)
         cases.append(WaterCase(f"unary_{k}", ("unary",), eta, [CENTRE], grid, base, theta0, floor_full))
         log(f"  built unary_{k} {kw}")
-    for k, kw in enumerate(({"nu": 4e-4}, {"nu": 7e-4}, {"nu": 1e-3}, {"gamma0": 0.5}, {"gamma0": 0.75}, {"gamma0": 1.0})):
+    for k, kw in enumerate(({"nu": 7e-4}, {"nu": 1e-3}, {"gamma0": 0.5}, {"gamma0": 0.75}, {"gamma0": 1.0}, {"gamma0": 1.5})):
         eta, _ = eta_linear_single(1.0, **kw)
         cases.append(WaterCase(f"tail_{k}", ("tail",), eta, [CENTRE], grid, base, theta0, floor_full))
         log(f"  built tail_{k} {kw}")

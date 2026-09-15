@@ -40,6 +40,7 @@ class State:
     adaptive: bool = False
     tangent: bool = False
     interior_events: bool = True
+    edge_events: bool = True
     tau0: float = 0.0
     lam_mult: float = 1.0
     w_mult: float = 1.0
@@ -136,7 +137,8 @@ class CornCase:
 
     def vertices(self, s: State):
         w = self.w
-        forced = np.concatenate([self.edge_events, self.interior_events]) if s.interior_events else self.edge_events
+        parts = ([self.edge_events] if s.edge_events else []) + ([self.interior_events] if s.interior_events else [])
+        forced = np.concatenate(parts) if parts else np.zeros(0, int)
         weights = np.ones(len(w.times))
         if s.corner_scale < 1.0:
             weights[self.corner_samples] = 1.0 / s.corner_scale
@@ -211,7 +213,7 @@ class CornCase:
             s2 = replace(s, B_mult=s.B_mult * g)
             return s2, PARAM_COST, self.E(s2)
         if name == "events":
-            s2 = replace(s, interior_events=True)
+            s2 = replace(s, interior_events=True, edge_events=True)
         elif name == "corner_tighten":
             s2 = replace(s, corner_scale=s.corner_scale * 0.5)
         elif name == "tangent_alloc":
@@ -342,7 +344,7 @@ def fresh_cases(model0, seed):
     for k in range(6):
         cases.append(CornCase(f"corner_{k}", corner_path(rng, f"corner_{k}"), model0, ("corner",), State()))
     for k in range(6):
-        cases.append(CornCase(f"stop_{k}", stop_path(rng, f"stop_{k}"), model0, ("stop",), State(interior_events=False)))
+        cases.append(CornCase(f"stop_{k}", stop_path(rng, f"stop_{k}"), model0, ("stop",), State(interior_events=False, edge_events=False)))
     for k in range(6):
         tau = rng.uniform(0.05, 0.15) * (1 if rng.random() < 0.5 else -1)
         cases.append(CornCase(f"coordinate_{k}", gentle_path(rng, f"coordinate_{k}"), model0, ("coordinate",), State(tau0=tau)))
@@ -354,12 +356,12 @@ def fresh_cases(model0, seed):
         cases.append(CornCase(f"unary_{k}", gentle_path(rng, f"unary_{k}"), model0, ("unary",), State(w_mult=m)))
     mixtures = []
     for k in range(2):
-        mixtures.append(CornCase(f"mix_corner_stop_{k}", corner_path(rng, f"mix_corner_stop_{k}", with_stop=True), model0, ("corner", "stop"), State(interior_events=False)))
+        mixtures.append(CornCase(f"mix_corner_stop_{k}", corner_path(rng, f"mix_corner_stop_{k}", with_stop=True), model0, ("corner", "stop"), State(interior_events=False, edge_events=False)))
     for k in range(2):
         tau = rng.uniform(0.06, 0.14) * (1 if rng.random() < 0.5 else -1)
         mixtures.append(CornCase(f"mix_coordinate_corner_{k}", corner_path(rng, f"mix_coordinate_corner_{k}"), model0, ("coordinate", "corner"), State(tau0=tau)))
     mixtures.append(CornCase("mix_tail_smooth_0", smooth_path(rng, "mix_tail_smooth_0"), model0, ("tail", "smooth"), State(lam_mult=rng.uniform(1.8, 2.8))))
-    mixtures.append(CornCase("mix_unary_stop_0", stop_path(rng, "mix_unary_stop_0"), model0, ("unary", "stop"), State(interior_events=False, w_mult=rng.uniform(0.5, 0.7))))
+    mixtures.append(CornCase("mix_unary_stop_0", stop_path(rng, "mix_unary_stop_0"), model0, ("unary", "stop"), State(interior_events=False, edge_events=False, w_mult=rng.uniform(0.5, 0.7))))
     unknown = []
     for k in range(2):
         unknown.append(CornCase(f"unknown_wind_{k}", gentle_path(rng, f"unknown_wind_{k}"), model0, ("unknown",), State(), extra_field=gust_field(rng)))
