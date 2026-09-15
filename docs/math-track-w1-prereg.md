@@ -95,3 +95,13 @@ error of the base-fitted token pair scaled by `a` against the teacher pair
 Transfer succeeds if H1 and H2 hold. H3 to H6 are reported as supporting
 or not. Results go in `poc/results/w1.md`; nothing above is edited after
 the run.
+
+## Scoring-code correction (declared after run 1, before run 2; protocol unchanged)
+
+Run 1 (`poc/results/w1_run1.*`) reported `I12 = 1.00` in every Q3 cell.
+The scoring code passed the residual `pair - s1 - s2` to the relative-error
+function as if it were a prediction, computing `||R - pair|| / ||pair||`
+instead of `||R|| / ||pair||`. The replicated cell (D = 0.61 m, base
+amplitude) has a true interaction of 0.4 percent. The two calls are
+corrected; nothing else changes. Q1 and Q2 are deterministic and
+unaffected. Run 2 is the run Q3 is judged on.

@@ -207,9 +207,9 @@ def main() -> None:
             s1 = np.roll(singles[a], -shift, axis=1)
             s2 = np.roll(singles[a], shift, axis=1)
             msk = region(xs, CENTRE, 2.0)
-            R = pair - s1 - s2
-            I_h = rel_rmse(R[:, msk], pair[:, msk]) if True else None
-            I_s = rel_rmse(slope(R, pq.dx)[:, msk], slope(pair, pq.dx)[:, msk])
+            # interaction strength ||pair - s1 - s2|| / ||pair|| (rel_rmse takes prediction, reference)
+            I_h = rel_rmse((s1 + s2)[:, msk], pair[:, msk])
+            I_s = rel_rmse(slope(s1 + s2, pq.dx)[:, msk], slope(pair, pq.dx)[:, msk])
             # base-fitted token pair scaled by a, against the teacher pair; and single deviation from scaled token
             ptsq = np.stack([np.meshgrid(xs, xs, indexing="ij")[0][msk], np.meshgrid(xs, xs, indexing="ij")[1][msk]], -1)
             tok_pair, _ = evaluate_events("chirp", prm, ptsq, np.arange(int(pq.duration * pq.fps) + 1)[okq] / pq.fps,
