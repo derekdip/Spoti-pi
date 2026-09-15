@@ -36,6 +36,20 @@ def slope(eta, dx):
     return np.stack([np.gradient(eta, dx, axis=-2), np.gradient(eta, dx, axis=-1)], axis=-1)
 
 
+def bilinear_gradient(xc, coarse, X, Y):
+    """Analytic gradient of the piecewise-bilinear interpolant of `coarse` (nodes xc x xc) at points X, Y.
+    d/dx is constant across a cell in x and linear in y; d/dy likewise. Scoring correction 2."""
+    h = xc[1] - xc[0]
+    i = np.clip(np.floor((X - xc[0]) / h).astype(int), 0, len(xc) - 2)
+    j = np.clip(np.floor((Y - xc[0]) / h).astype(int), 0, len(xc) - 2)
+    u = np.clip((X - xc[i]) / h, 0, 1)
+    v = np.clip((Y - xc[j]) / h, 0, 1)
+    c00, c10, c01, c11 = coarse[i, j], coarse[i + 1, j], coarse[i, j + 1], coarse[i + 1, j + 1]
+    gx = ((c10 - c00) * (1 - v) + (c11 - c01) * v) / h
+    gy = ((c01 - c00) * (1 - u) + (c11 - c10) * u) / h
+    return np.stack([gx, gy], axis=-1)
+
+
 def region(xs, centre, radius):
     X, Y = np.meshgrid(xs, xs, indexing="ij")
     return np.sqrt((X - centre[0]) ** 2 + (Y - centre[1]) ** 2) < radius
@@ -162,7 +176,7 @@ def main() -> None:
             lin = RegularGridInterpolator((xc, xc), coarse, method="linear", bounds_error=False, fill_value=None)
             X5, Y5 = np.meshgrid(xs5, xs5, indexing="ij")
             hb = lin(np.stack([X5.ravel(), Y5.ravel()], -1)).reshape(len(xs5), len(xs5))
-            sb = slope(hb[None], p5.dx)[0]
+            sb = bilinear_gradient(xc, coarse, X5, Y5)  # the representation's own gradient, not a smoothed difference
             eh["bilinear"].append(rel_rmse(hb[msk5], ref_h[k][msk5]))
             es["bilinear"].append(rel_rmse(sb[msk5], ref_s[k][msk5]))
             if n >= 4:

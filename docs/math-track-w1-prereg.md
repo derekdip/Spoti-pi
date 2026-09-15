@@ -105,3 +105,17 @@ instead of `||R|| / ||pair||`. The replicated cell (D = 0.61 m, base
 amplitude) has a true interaction of 0.4 percent. The two calls are
 corrected; nothing else changes. Q1 and Q2 are deterministic and
 unaffected. Run 2 is the run Q3 is judged on.
+
+## Scoring-code correction 2 (declared before run 2; protocol unchanged)
+
+Run 1's bilinear slope error was computed by central differences on the
+fine grid of the bilinearly interpolated field. A central difference that
+straddles a bilinear cell returns the chord slope, which is the midpoint
+derivative to second order, so this measured a smoothed derivative rather
+than the representation's own gradient and made the bilinear slope error
+decay as fast as the height error (post hoc on the finest grids: height
+-0.97, slope -1.10). The bicubic case used the spline's analytic
+derivative and was unaffected. The preregistration specifies "slope error
+from the interpolant's gradient"; the bilinear gradient is now computed
+analytically (piecewise constant per cell in its own direction, linear in
+the other). Nothing else changes.
