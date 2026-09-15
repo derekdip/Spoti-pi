@@ -334,3 +334,71 @@ at a fifth of the visual one's cost. `chi` depends on the cost model; state
 which one.
 
 **12.** Agreed, including the caveat: two walks from one teacher.
+
+## Results of the preregistered path-compression experiment (`poc/path_compression.py`, `poc/results/path_compression.md`, `.png`)
+
+Prediction stated before the run: at equal point counts on the held-out
+walk, behaviour-weighted < spacetime < spatial, most clearly at the wake
+front, and the points-versus-error exponent moves from -0.73 toward -0.5.
+Reference for "excess error" is the dense 200 Hz path used directly as the
+token. Kernel slopes from the fitted wake: `L_x = 3.23` per m, `L_t = 4.62`
+per s, so `c_t = L_t / L_x = 1.43` m/s; mean walking speed 1.63 m/s.
+
+**Spacetime versus spatial: confirmed, strongly.** On the held-out walk the
+spacetime compressor is below the spatial one at every point count, by
+about tenfold from 10 points up (excess 0.0067 against 0.065 at 10 points,
+all frames; 0.016 against 0.078 at the wake front). It reaches the dense
+reference at about 20 points, where the spatial one still carries 0.025
+and has not reached it at 48. The 201-point banked path can therefore be
+about 20 spacetime vertices with no measurable loss. This is the timing
+term made visible: the same geometric budget spent on where the walker
+slows and turns, not only on where the path bends.
+
+**Behaviour-weighted versus spacetime: not established.** The two curves
+overlap. The strict ordering held at 5 of 9 point counts on all frames and
+5 of 9 at the front, which is chance. The reason is structural, not a
+failure of the idea: with uniform consumer sensitivity along the path, the
+only difference between the two methods is the time scale, and the
+kernel-derived `c_t` of 1.43 m/s is within 15% of the walking speed. A
+real test needs either a walk whose speed is far from `L_t / L_x` or a
+consumer whose sensitivity varies along the path (a view frustum, a
+partial field). Until then, item 6 stays a Result about density but the
+*named* compressor is not yet distinguishable from spacetime DP.
+
+**The exponent: overshoot, and the measurement is floor-limited.** Points
+against excess error now fit -0.33 (spacetime) and -0.30 (behaviour),
+against -0.68 for spatial. The correction therefore moved the exponent
+past -0.5, but the fit is not trustworthy: the spacetime compressor
+reaches the reference floor at about 20 points, so between "too coarse"
+(5 points) and "at the floor" there are only three or four usable points,
+and several of them sit within noise of zero excess. There is no
+asymptotic range in this data. Verdict: inconclusive rather than failed.
+To measure the exponent, the walk needs more curvature and speed
+variation (a longer, wandering walk with several stops), or the reference
+needs to be the true continuous motion rather than a 200 Hz polyline.
+
+**Caveat found on the training walk.** At very coarse budgets (5 to 8
+points) the spatial compressor beats the spacetime one on the training
+S-curve, because the spacetime method spends scarce points on the start
+and stop ramps while the S-curve's error is mostly geometric. From 10
+points up the ordering is the predicted one on both walks. So the
+allocation between geometry and timing at tiny budgets is walk-dependent,
+which is exactly what a walk-dependent `q(s)` in item 6 says.
+
+**Corrected liveness bound: holds.** Counting live tokens with the
+monotone future envelope `sup_{s >= tau} |K(s)|` and comparing with
+`(R / beta) log(C_s / eps)` at `beta = 9.33` and the measured `C_s =
+10.6`: the count is below the bound at every threshold, by a factor of
+about 1.5, and the log form is visible across four decades. The steps
+remain, because the future envelope is flat across each ring-down lobe.
+Theorem as restated in item 2 is consistent with the data.
+
+**Status after this experiment.**
+
+| claim | outcome |
+|---|---|
+| spacetime path compression beats spatial at equal N (held-out) | confirmed, about tenfold from 10 points up |
+| behaviour weighting beats plain spacetime | not established; the two time scales nearly coincide here |
+| corrected exponent returns to -1/2 | inconclusive; compressor reaches the floor before an asymptotic range exists |
+| monotone-envelope liveness bound | holds with a 1.5x margin, log form confirmed |
+| practical: banked path size | 201 uniform points can be about 20 spacetime vertices |

@@ -37,6 +37,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/quest-notes.md` | What to ship, where to evaluate it, and what to measure on Quest. |
 | `docs/math-track-b0-review.md` | Review of the behavioural pseudometric track, with the tolerance-sweep results. |
 | `poc/knee_experiment.py` | Cost-versus-error envelope per consumer, liveness and path-tolerance scaling laws. |
+| `poc/path_compression.py` | Preregistered: spatial vs spacetime vs behaviour-weighted path compression, and the corrected liveness bound. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -105,6 +106,14 @@ is flat until the teacher itself. Live tokens grow like log(1/eps) as
 predicted (slope 25% low from ring-down lobes); path points grow like
 tolerance^-0.44 as predicted, but error falls sub-linearly with tolerance
 because of pass-time interpolation.
+
+Path compression (`poc/path_compression.py`, results in
+`poc/results/path_compression.md`): compressing the walk in spacetime
+(position and time together) instead of space alone cuts the excess error
+about tenfold at equal point counts on the held-out walk and reaches the
+dense-path reference at about 20 vertices. Behaviour weighting was not
+distinguishable from plain spacetime here because the kernel's time scale
+nearly equals the walking speed.
 
 Held-out check (`poc/holdout.py`, results in `poc/results/holdout.md`): the
 same parameters on a faster diagonal walk with a hook turn, never seen
