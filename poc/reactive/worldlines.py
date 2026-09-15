@@ -148,3 +148,35 @@ def corner_probe() -> Worldline:
     v, dv = ramp_speed(t, 0.0, 8.0, 8.0 / (8.0 - RAMP))
     th, dth = turns_heading(t, 0.0, [(4.0, np.pi / 2)], 0.15)
     return _build("corner_probe", (1.0, 2.0), t, v, dv, th, dth, 8.0)
+
+
+def tangential_probe() -> Worldline:
+    """B4 tangential probe: straight line, speed 0.6 -> 1.6 -> 0.6 -> 1.2 -> 0.6 with 0.8 s smooth
+    transitions, never below 0.6 m/s while walking, no turning. Start/stop ramps as everywhere."""
+    t = np.arange(int(T_TOTAL * HZ) + 1) / HZ
+    base, dbase = ramp_speed(t, 0.0, 8.0, 0.6)
+    v, dv = base.copy(), dbase.copy()
+    for t_on, t_off, extra in ((1.0, 2.8, 1.0), (4.0, 5.8, 0.6)):
+        # smooth bump of height `extra` between t_on and t_off (0.8 s smoothstep edges), only while walking
+        up = _smooth((t - t_on) / 0.8)
+        down = 1 - _smooth((t - (t_off - 0.8)) / 0.8)
+        gate = (t < 7.5)
+        v = v + extra * up * down * gate
+        dv = dv + extra * (_dsmooth((t - t_on) / 0.8) / 0.8 * down - up * _dsmooth((t - (t_off - 0.8)) / 0.8) / 0.8) * gate
+    th, dth = turns_heading(t, 0.0, [], 0.3)
+    return _build("tangential_probe", (1.0, 5.0), t, v, dv, th, dth, 8.0)
+
+
+def embedded_corner(length_m: float, with_corner: bool) -> Worldline:
+    """Transfer-invariance probe: straight walk of total length `length_m` at the corner probe's speed,
+    with (or without) the same 90 degree, 0.15 s corner at the midpoint. Duration scales with length."""
+    v0 = 8.0 / (8.0 - RAMP)  # the corner probe's cruising speed
+    t_walk = length_m / v0 + RAMP  # so that the distance covered is length_m
+    t_total = t_walk + 2.0
+    t = np.arange(int(t_total * HZ) + 1) / HZ
+    v, dv = ramp_speed(t, 0.0, t_walk, v0)
+    turns = [(t_walk / 2, np.pi / 2)] if with_corner else []
+    th, dth = turns_heading(t, 0.0, turns, 0.15)
+    name = f"corner_L{int(length_m)}" if with_corner else f"straight_L{int(length_m)}"
+    w = _build(name, (0.0, 0.0), t, v, dv, th, dth, t_walk)
+    return w
