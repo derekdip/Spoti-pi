@@ -180,3 +180,68 @@ def embedded_corner(length_m: float, with_corner: bool) -> Worldline:
     name = f"corner_L{int(length_m)}" if with_corner else f"straight_L{int(length_m)}"
     w = _build(name, (0.0, 0.0), t, v, dv, th, dth, t_walk)
     return w
+
+
+# ---------------------------------------------------------------------------
+# B5 (smooth / singular / event decomposition) probes and fresh trajectories.
+# Written before the B5 preregistration was frozen; none of these was run
+# before the freeze (the design pilot used only zigzag, stop_start, corner_L8).
+# ---------------------------------------------------------------------------
+
+
+def corner_tau(tau: float, length_m: float = 8.0, theta: float = np.pi / 2) -> Worldline:
+    """B5-H4 probe: `embedded_corner`'s walk with the corner's smoothstep width `tau` instead of 0.15 s."""
+    v0 = 8.0 / (8.0 - RAMP)
+    t_walk = length_m / v0 + RAMP
+    t_total = t_walk + 2.0
+    t = np.arange(int(t_total * HZ) + 1) / HZ
+    v, dv = ramp_speed(t, 0.0, t_walk, v0)
+    th, dth = turns_heading(t, 0.0, [(t_walk / 2, theta)], tau)
+    return _build(f"corner_tau{tau:g}", (0.0, 0.0), t, v, dv, th, dth, t_walk)
+
+
+def dwell_probe(dwell: float) -> Worldline:
+    """B5-H5 probe: straight line, 3 m dash at 1.2 m/s, a stop of duration `dwell`, 3 m dash.
+    `dwell = 0` is the momentary stop where the two ramps meet at zero speed; entrance and exit are
+    identical for every dwell."""
+    t_dash = 3.0 / 1.2 + RAMP
+    t_walk = 2 * t_dash + dwell
+    t_total = t_walk + 2.0
+    t = np.arange(int(t_total * HZ) + 1) / HZ
+    v1, dv1 = ramp_speed(t, 0.0, t_dash, 1.2)
+    v2, dv2 = ramp_speed(t, t_dash + dwell, t_walk, 1.2)
+    th, dth = turns_heading(t, 0.0, [], 0.3)
+    return _build(f"dwell{dwell:g}", (0.0, 0.0), t, v1 + v2, dv1 + dv2, th, dth, t_walk)
+
+
+def fresh_family() -> list[Worldline]:
+    """B5 fresh trajectories (never used in B2 to B4): mixed defect classes and one negative control."""
+    t = np.arange(int(T_TOTAL * HZ) + 1) / HZ
+    out = []
+    # three corners of different angles, 0.2 s each, 2 m legs at 1 m/s
+    v, dv = ramp_speed(t, 0.0, 8.0, 8.0 / (8.0 - RAMP))
+    th, dth = turns_heading(t, 0.0, [(2.0, np.pi / 3), (4.0, -110 * np.pi / 180), (6.0, 150 * np.pi / 180)], 0.2)
+    out.append(_build("three_corners", (0.0, 0.0), t, v, dv, th, dth, 8.0))
+    # corner, 1 s stop, corner
+    v1, dv1 = ramp_speed(t, 0.0, 3.3, 1.0)
+    v2, dv2 = ramp_speed(t, 4.3, 7.6, 1.0)
+    th, dth = turns_heading(t, 0.0, [(1.5, np.pi / 2), (6.0, -120 * np.pi / 180)], 0.15)
+    out.append(_build("corner_stop_corner", (0.0, 0.0), t, v1 + v2, dv1 + dv2, th, dth, 7.6))
+    # a smooth bend (half sine period over the first 4 s) followed by a 100 degree corner
+    v, dv = ramp_speed(t, 0.0, 8.0, 8.0 / (8.0 - RAMP))
+    ph = np.clip(t / 8.0, 0, 1)
+    th_s = np.where(t < 4.0, 0.6 * np.sin(2 * np.pi * ph), 0.0)
+    dth_s = np.where(t < 4.0, 0.6 * 2 * np.pi / 8.0 * np.cos(2 * np.pi * ph), 0.0)
+    th_c, dth_c = turns_heading(t, 0.0, [(5.5, 100 * np.pi / 180)], 0.2)
+    out.append(_build("bend_then_corner", (0.0, 0.0), t, v, dv, th_s + th_c, dth_s + dth_c, 8.0))
+    # a reversal: 180 degrees in 0.3 s at constant speed
+    v, dv = ramp_speed(t, 0.0, 8.0, 1.0)
+    th, dth = turns_heading(t, 0.0, [(4.0, np.pi)], 0.3)
+    out.append(_build("reversal", (0.0, 0.0), t, v, dv, th, dth, 8.0))
+    # negative control: tight smooth slalom, heading +-0.8 rad, four periods, peak |theta'| = 2.51 rad/s < 3
+    v, dv = ramp_speed(t, 0.0, 8.0, 1.0)
+    ph = np.clip(t / 8.0, 0, 1)
+    th = 0.8 * np.sin(2 * np.pi * 4 * ph)
+    dth = np.where(t < 8.0, 0.8 * 2 * np.pi * 4 / 8.0 * np.cos(2 * np.pi * 4 * ph), 0.0)
+    out.append(_build("tight_slalom", (0.0, 0.0), t, v, dv, th, dth, 8.0))
+    return out
