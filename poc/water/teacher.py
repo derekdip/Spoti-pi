@@ -29,6 +29,11 @@ class WaterParams:
     substeps: int = 4
     duration: float = 5.0
     record_stride: int = 2  # record every k-th grid point
+    # mild nonlinearity (W1): amplitude-dependent damping and a cubic restoring term, applied in
+    # physical space after each exact linear step. Zero means the linear exact teacher.
+    gamma_amp: float = 0.0  # extra damping per unit |eta| / eta_ref  (1/s)
+    beta: float = 0.0  # cubic restoring coefficient (1/(m^2 s^2))
+    eta_ref: float = 0.005  # m
 
     @property
     def dx(self) -> float:
@@ -74,6 +79,7 @@ class SpectralWater:
         self.X, self.Y = np.meshgrid(xs, xs, indexing="ij")
         self.eta_hat = np.zeros((p.n, p.n), dtype=complex)
         self.vel_hat = np.zeros((p.n, p.n), dtype=complex)
+        self.dt = dt
 
     def add_impulse(self, x0: float, y0: float, v0: float, sigma: float) -> None:
         """Initial downward surface velocity: a stone, a foot, a drop."""
@@ -82,6 +88,7 @@ class SpectralWater:
 
     def step(self, pressure: np.ndarray | None = None) -> None:
         """Advance one substep with surface pressure (m^2/s^2, i.e. p/rho) held constant."""
+        dt = self.dt
         if pressure is None:
             force = 0.0
         else:
@@ -91,6 +98,11 @@ class SpectralWater:
         v = self.vel_hat
         self.eta_hat = self.a11 * x + self.a12 * v + eta_p
         self.vel_hat = self.a21 * x + self.a22 * v
+        if self.p.gamma_amp or self.p.beta:
+            eta = np.fft.ifft2(self.eta_hat).real
+            vel = np.fft.ifft2(self.vel_hat).real
+            vel = vel - dt * (self.p.gamma_amp * np.abs(eta) / self.p.eta_ref) * vel - dt * self.p.beta * eta ** 3
+            self.vel_hat = np.fft.fft2(vel)
         self.eta_hat[0, 0] = 0.0
         self.vel_hat[0, 0] = 0.0
 
