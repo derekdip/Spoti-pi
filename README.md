@@ -43,6 +43,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-b3-prereg.md`, `docs/math-track-b3-results.md`, `poc/b3_experiment.py` | B3: anisotropic smooth term plus corner atoms, probe-calibrated; verdict and diagnosis. |
 | `docs/math-track-b4-prereg.md`, `docs/math-track-b4-results.md`, `poc/b4_experiment.py` | B4: the corner law under the local supremum; transfer invariance; the tangent-dependence finding that closes the branch. |
 | `docs/math-track-w1-prereg.md`, `docs/math-track-w1-results.md`, `poc/w1_experiment.py` | W1: transfer to water. Observation-order law confirmed with four exponents; liveness law finds its boundary; superposition threshold measured. |
+| `docs/math-track-w2-prereg.md`, `docs/math-track-w2-results.md`, `poc/w2_analysis.py` | W2: with exponents fixed by theory and two coarse grids per curve, required resolution and the binding consumer are predicted on held-out tolerances. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -135,6 +136,14 @@ stop/start miss dropped from 135% to 18%); the corner term over-predicted
 corner-dense paths two to one because the global RMS score dilutes an
 isolated probe's corner. Verdict: failure at tight tolerance by the frozen
 rules; the metric, not the geometry, is the identified cause.
+
+W2 (`docs/math-track-w2-*.md`) used W1's data only: with the observation-order
+exponents fixed by theory and two coarse grids per curve, the grid needed at
+every held-out tolerance is predicted within one step (30 of 30, against a
+two-step average miss for a two-point power-law fit) and the binding
+consumer in 69 of 69 tolerance pairs. Bicubic wins everywhere in range, so
+the representation-winner test cannot yet separate the theory from a
+constant choice.
 
 W1 (`docs/math-track-w1-*.md`) transferred the laws to a mildly nonlinear
 water teacher. The observation-order law held with four predicted
