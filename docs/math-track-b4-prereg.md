@@ -115,3 +115,25 @@ of local stalks on the curved trajectories and none on the straight
 ones. The score is the strict maximum over that set, as preregistered.
 This is the set on which the consumer is Lipschitz; the derivation applies
 there and nowhere else. Run 3 is the run the hypotheses are judged on.
+
+Rule as finalised before run 3 (replacing the wording above): candidate
+approaches are the local minima of a stalk's distance along the dense
+path plus the endpoints; two candidates are distinct approaches only if
+the distance rises by more than 5 cm somewhere between them (so a pause
+and the foot of a perpendicular a few centimetres apart are one approach,
+as is the standing phase); a stalk is excluded if its two closest distinct
+approaches differ by less than 3 cm. Exclusions: straight 0, stop_start 0,
+s_curve 6, slalom 23, zigzag 24, wandering 22 of 1600; corner probes 0.
+
+Diagnostic recorded before run 3: the corner probes' non-monotone maxima
+at intermediate tolerances come from stalks just outside the apex whose
+distance and pass time agree to a millimetre and 10 ms between tokens but
+whose outward normal differs by about 20 degrees, because the wake
+direction is taken from the local tangent of the nearest segment, and a
+chord across a rounded corner mis-states the tangent by an angle that
+does not shrink with positional tolerance. The consumer therefore depends
+on the path's tangent as well as its position; at corners its error is
+first order in chord length. This is a uniform property of the consumer,
+identical for probes and holdouts, and is left in place; `N(eps)` is the
+minimum vertex count whose error is at or below `eps`, so non-monotone
+maxima do not distort it.

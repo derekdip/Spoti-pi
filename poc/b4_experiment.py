@@ -48,16 +48,34 @@ def strip_grid(w, margin=2.0, spacing=0.25):
 UNIQUE_MARGIN = 0.03  # m, Amendment 3
 
 
-def unambiguous(pos, w, margin=UNIQUE_MARGIN):
-    """Stalks whose nearest approach on the dense path is unique: the two smallest local minima of
-    the distance along the path (endpoints included) differ by more than `margin`. Amendment 3."""
+def unambiguous(pos, w, margin=UNIQUE_MARGIN, rise=0.05):
+    """Stalks whose nearest approach on the dense path is unique.
+
+    Candidate approaches are the local minima of the stalk's distance along the dense path plus the two
+    endpoints. Two candidates are distinct approaches only if the walker moved away in between: the
+    distance somewhere between them exceeds the nearer candidate's distance by more than `rise`.
+    Ambiguous if the two closest distinct approaches differ by less than `margin`.
+    Amendment 3 (rule finalised before run 3)."""
     d = np.linalg.norm(pos[:, None, :] - w.points[None, :, :], axis=-1)
     ok = np.ones(len(pos), dtype=bool)
     for i in range(len(pos)):
         di = d[i]
         mins = np.flatnonzero((di[1:-1] < di[:-2]) & (di[1:-1] <= di[2:])) + 1
-        vals = np.sort(np.concatenate([di[mins], [di[0], di[-1]]]))
-        if len(vals) >= 2 and vals[1] - vals[0] < margin:
+        cand = np.concatenate([mins, [0, len(di) - 1]])
+        order = cand[np.argsort(di[cand])]
+        accepted = []
+        for j in order:
+            distinct = True
+            for k in accepted:
+                lo, hi = (j, k) if j < k else (k, j)
+                if di[lo:hi + 1].max() - min(di[j], di[k]) <= rise:
+                    distinct = False
+                    break
+            if distinct:
+                accepted.append(j)
+            if len(accepted) == 2:
+                break
+        if len(accepted) == 2 and di[accepted[1]] - di[accepted[0]] < margin:
             ok[i] = False
     return ok
 
