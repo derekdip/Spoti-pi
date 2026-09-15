@@ -45,6 +45,23 @@ def strip_grid(w, margin=2.0, spacing=0.25):
     return pts[d <= margin]
 
 
+UNIQUE_MARGIN = 0.03  # m, Amendment 3
+
+
+def unambiguous(pos, w, margin=UNIQUE_MARGIN):
+    """Stalks whose nearest approach on the dense path is unique: the two smallest local minima of
+    the distance along the path (endpoints included) differ by more than `margin`. Amendment 3."""
+    d = np.linalg.norm(pos[:, None, :] - w.points[None, :, :], axis=-1)
+    ok = np.ones(len(pos), dtype=bool)
+    for i in range(len(pos)):
+        di = d[i]
+        mins = np.flatnonzero((di[1:-1] < di[:-2]) & (di[1:-1] <= di[2:])) + 1
+        vals = np.sort(np.concatenate([di[mins], [di[0], di[-1]]]))
+        if len(vals) >= 2 and vals[1] - vals[0] < margin:
+            ok[i] = False
+    return ok
+
+
 def errors(pred, ref, mask):
     d = np.linalg.norm(pred - ref, axis=-1)[:, mask]
     return float(d.max()), float(np.sqrt((d ** 2).mean()))
@@ -52,7 +69,7 @@ def errors(pred, ref, mask):
 
 def sweep(w, cons):
     ref, g = cons.field(w, PathToken(w.points, w.times))
-    mask = g.path_dperp < b2.LOCAL_R
+    mask = (g.path_dperp < b2.LOCAL_R) & unambiguous(cons.pos, w)
     forced = b2.event_vertices(w.speed)
     rows = []
     for tol in TOLS:

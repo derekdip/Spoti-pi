@@ -90,3 +90,28 @@ preregistered. With the amendment, the maximum tracks the geometric
 tolerance with a roughly constant factor on every trajectory checked,
 which is the Lipschitz behaviour the derivation assumes. Run 2 is the run
 the hypotheses are judged on.
+
+## Amendment 3 (declared after run 2 was stopped, before run 3; nothing above edited)
+
+Correction to Amendment 2: the statement that medial-axis exclusion
+"changed no maximum at all" was a reading error. The two exclusion
+variants were compared with each other instead of with the fade-only
+baseline. Against that baseline the exclusion does reduce the maximum
+where it matters: slalom 25.2 to 15.0 mm at 1 mm tolerance and 12.4 to
+8.4 mm at 0.3 mm; the 4 m and 16 m corner probes 31.3 to 14.6 mm at 1 mm.
+Run 2 (`poc/results/b4_run2_partial.log`, stopped after five holdouts)
+reproduced run 1's slalom failure exactly, confirming that the fade alone
+does not make the maximum well behaved: the nearest-approach pass time is
+discontinuous across the path's medial axis, and a stalk within a few
+centimetres of that axis can be assigned to different passes by the dense
+and compressed tokens.
+
+Amendment: the scored set is the stalks within 1.5 m of the dense path
+whose nearest approach is unique: the two smallest local minima of the
+distance from the stalk along the dense path (path endpoints counted as
+candidates) differ by more than 3 cm. The set is computed once from the
+dense path and is identical for every token. It removes about 15 percent
+of local stalks on the curved trajectories and none on the straight
+ones. The score is the strict maximum over that set, as preregistered.
+This is the set on which the consumer is Lipschitz; the derivation applies
+there and nowhere else. Run 3 is the run the hypotheses are judged on.
