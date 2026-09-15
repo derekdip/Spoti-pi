@@ -140,3 +140,11 @@ def family() -> list[Worldline]:
     th = np.concatenate([[0.0], np.cumsum(0.5 * (dth[1:] + dth[:-1]) * (t[1] - t[0]))])
     out.append(_build("circle", (5.0, 2.5), t, v, dv, th, dth, 8.0))
     return out
+
+
+def corner_probe() -> Worldline:
+    """B3 calibration probe: constant speed, one 90 degree turn of 0.15 s, 4 m in and 4 m out."""
+    t = np.arange(int(T_TOTAL * HZ) + 1) / HZ
+    v, dv = ramp_speed(t, 0.0, 8.0, 8.0 / (8.0 - RAMP))
+    th, dth = turns_heading(t, 0.0, [(4.0, np.pi / 2)], 0.15)
+    return _build("corner_probe", (1.0, 2.0), t, v, dv, th, dth, 8.0)
