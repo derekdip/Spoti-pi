@@ -83,8 +83,8 @@ def token_field(state: WState, centres, pts, times, theta_base=None, dt_override
 class WaterCase:
     def __init__(self, name, classes, eta, centres, grid: Grid, state0: WState, theta0: dict, floor_full=None):
         self.name, self.classes, self.centres, self.g, self.theta0 = name, tuple(classes), [tuple(c) for c in centres], grid, theta0
-        self.tgt = eta[grid.ok][:, grid.ev]
-        self.ref_fit = eta[grid.fit_frames][:, grid.sub]
+        self.tgt = eta[grid.ok][:, grid.ev].astype(np.float32)
+        self.ref_fit = eta[grid.fit_frames][:, grid.sub].astype(np.float32)
         self.state0 = state0
         self.floor_full = floor_full
         self._cache: dict = {}
@@ -95,19 +95,20 @@ class WaterCase:
         return token_field(s, self.centres, self.g.fit_pts, self.g.t_fit, self.theta0)
 
     def evaluate(self, s: WState):
+        """Error only is cached; the field is recomputed on demand (memory)."""
         if s not in self._cache:
-            pred = self.field(s)
-            self._cache[s] = (rel_rmse(pred, self.tgt), pred)
+            self._cache[s] = rel_rmse(self.field(s), self.tgt)
         return self._cache[s]
 
     def E(self, s):
-        return self.evaluate(s)[0]
+        return self.evaluate(s)
 
     def E_fit(self, s):
         return rel_rmse(self.field(s, "fit"), self.ref_fit)
 
     def residual(self, s):
-        E, pred = self.evaluate(s)
+        pred = self.field(s)
+        self._cache.setdefault(s, rel_rmse(pred, self.tgt))
         return self.tgt - pred, pred
 
     def floor_field(self, s: WState):

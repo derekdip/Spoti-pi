@@ -159,11 +159,11 @@ class CornCase:
         return float(np.linalg.norm((pred - self.ref)[:, self.scored]) / self.norm)
 
     def evaluate(self, s: State):
-        key = s
-        if key not in self._cache:
+        """(error, vertex count) with the field recomputed on demand; only scalars are cached (memory)."""
+        if s not in self._cache:
             pred, idx = self.field(s)
-            self._cache[key] = (self.error(pred), int(len(idx)), pred)
-        return self._cache[key]
+            self._cache[s] = (self.error(pred), int(len(idx)))
+        return self._cache[s]
 
     def E(self, s: State):
         return self.evaluate(s)[0]
@@ -173,7 +173,8 @@ class CornCase:
         return arr[:, self.scored, :].transpose(0, 2, 1).reshape(-1, int(self.scored.sum()))
 
     def residual(self, s: State):
-        E, n, pred = self.evaluate(s)
+        pred, idx = self.field(s)
+        self._cache.setdefault(s, (self.error(pred), int(len(idx))))
         return self.flat(self.ref - pred), pred
 
     def diagnostics(self, s: State, pred):
@@ -194,7 +195,7 @@ class CornCase:
 
     # ---- repairs ----
     def apply(self, s: State, name):
-        E0, n0, pred0 = self.evaluate(s)
+        E0, n0 = self.evaluate(s)
         if name == "shift":
             cands = [replace(s, tau0=s.tau0 + d) for d in SHIFT_GRID]
             s2 = min(cands, key=self.E)
@@ -208,6 +209,7 @@ class CornCase:
             s2 = min(cands, key=self.E)
             return s2, PARAM_COST, self.E(s2)
         if name == "amp":
+            pred0, _ = self.field(s)
             p, r = pred0[:, self.scored], self.ref[:, self.scored]
             g = float((p * r).sum() / max((p * p).sum(), 1e-30))
             s2 = replace(s, B_mult=s.B_mult * g)
@@ -224,7 +226,7 @@ class CornCase:
             s2 = replace(s, tol_scale=s.tol_scale * 0.5)
         else:
             raise ValueError(name)
-        E2, n2, _ = self.evaluate(s2)
+        E2, n2 = self.evaluate(s2)
         return s2, max(VERTEX_COST * (n2 - n0), PARAM_COST), E2
 
 

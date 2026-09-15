@@ -189,6 +189,7 @@ def main() -> None:
         for c in cases:
             t1 = time.time()
             r = run_case(c, tau_perp, two)
+            c._cache.clear()
             r["group"] = group
             r["seconds"] = time.time() - t1
             results.append(r)
