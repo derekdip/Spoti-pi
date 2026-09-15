@@ -47,6 +47,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-w3-prereg.md`, `docs/math-track-w3-results.md`, `poc/w3_experiment.py`, `poc/w3_residual_diagnostic.py` | W3: amplitude-conditioned unary token vs pair interaction. Failure by the frozen rules; gain and dispersion carry the nonlinearity, half the error is unreachable by conditioning, and a post-hoc diagnostic says what the rest is. |
 | `docs/math-track-w4-prereg.md`, `docs/math-track-w4-results.md`, `poc/w4_experiment.py` | W4: event-coordinate conditioning. Coordinate confirmed on three never-run amplitudes: the large-amplitude splash is the base token started earlier, the delay is predicted from one calibration amplitude, and the dispersion slope W3 found vanishes once timing is free. |
 | `docs/math-track-b5-prereg.md`, `docs/math-track-b5-results.md`, `poc/b5_experiment.py` | B5: smooth, singular, event decomposition on fresh corn paths. Failure by the frozen rules (three bars mis-defined, two substantive), with the residual naming the class before any repair, class repairs working where the residual lives, dwell a pure event coordinate, and a constant-free law within a factor 1.5. |
+| `docs/math-track-rgre1-prereg.md`, `docs/math-track-rgre1-results.md`, `poc/rgre/`, `poc/rgre1_experiment.py` | RGRE-1: residual-guided representation expansion on 78 fresh cases in two domains. Outcome A by the frozen tree (median oracle value 1.00 at a sixth of the evaluations, 0.88 two-step recovery, 5 of 6 unknowns abstain); the coherence-weighted score and known-case abstention lose to plain per-direction projection, which never loses. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -139,6 +140,24 @@ stop/start miss dropped from 135% to 18%); the corner term over-predicted
 corner-dense paths two to one because the global RMS score dilutes an
 isolated probe's corner. Verdict: failure at tight tolerance by the frozen
 rules; the metric, not the geometry, is the identified cause.
+
+RGRE-1 (`docs/math-track-rgre1-*.md`) froze the residual-guided
+procedure itself, mechanistic only (projection, localisation, coherence,
+cost, no classifier), and tested it on 78 fresh cases: 60 isolated
+defects across seven classes in the corn and water domains, 12
+two-defect mixtures, 6 out-of-vocabulary cases. By the frozen outcome
+tree the result is A: the median oracle value captured is 1.00 while
+evaluating a sixth of the repair space, mixtures recover 0.88 of the
+two-step oracle in median with the first class's ownership collapsing
+and the second's rising after a correct first repair, and five of six
+unknowns abstain with 4 of 72 known cases falsely abstaining. Three bars
+fail and they are the content: the coherence-discounted score and
+abstention on known cases cost value against a class-free per-direction
+projection baseline that never loses (mean 0.94 against 0.82), because a
+lone template class is undiscounted while coherent tangent classes are
+cut by 0.7 to 0.9; identity does not fall with coherence; and
+re-diagnosis re-commits to a wrong class after a worthless repair. The
+procedure to carry forward is the projection without the weighting.
 
 B5 (`docs/math-track-b5-*.md`) returned to the corn path to test the
 procedure itself on five fresh trajectories, a corner-sharpness series

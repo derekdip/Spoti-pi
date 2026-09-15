@@ -290,7 +290,7 @@ def make_figure(rep, path: Path) -> None:
     ax = axes[0, 0]
     labels = ["RGRE"] + list(BASELINES) + ["random"]
     vals = [[r["V_cap"] for r in known]] + [[r["baselines"][b]["vcap"] for r in known] for b in BASELINES + ("random",)]
-    ax.boxplot(vals, labels=labels)
+    ax.boxplot(vals, tick_labels=labels)
     ax.axhline(0.75, color="C3", ls=":"); ax.set_ylabel("V_cap (oracle value captured)"); ax.set_title("H1 / H3"); ax.tick_params(axis="x", rotation=25, labelsize=8)
     ax = axes[0, 1]
     ax.scatter([r["q_perp"] for r in known], [r["V_cap"] for r in known], s=14, label="known")
