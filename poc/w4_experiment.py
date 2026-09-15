@@ -264,9 +264,9 @@ def write_md(r: dict, path: Path) -> None:
         d = cells[A]["decomp"]
         L.append(f"| {A:g} | {d['coordinate']:.3f} | {d['unary_shape_after']:.3f} | {d['rest']:.3f} | {d['joint_span']:.3f} |")
     L += ["", f"## H1: P_t(8) = {r['H1']['P_t_8']:.3f} (bar 0.5); sequence over 3,4,6,8,10 = {[round(v, 3) for v in r['H1']['P_t_sequence_3_4_6_8_10']]}, non-decreasing {r['H1']['non_decreasing']}; pass {r['H1']['pass']}",
-          "", f"## H2: winner {r['H2']['winner']} (sum of misses ms: {{k: round(v, 1) for k, v in r['H2']['miss_sum_ms'].items()}}); within 15 ms at every new amplitude: {r['H2']['pass']}; error within 0.05: {r['H2']['error_within_0.05']}",
+          "", f"## H2: winner {r['H2']['winner']} (sum of misses ms: { {k: round(v, 1) for k, v in r['H2']['miss_sum_ms'].items()} }); within 15 ms at every new amplitude: {r['H2']['pass']}; error within 0.05: {r['H2']['error_within_0.05']}",
           "", f"## H3: phase beats dispersion at every new amplitude (direct fits): {r['H3']['pass']}; under log-law extrapolation from A = 4: {r['H3']['extrapolated_log_law_pass']}",
-          "", f"## H4: fraction recovered by g_eff after timing {{k: round(v, 3) for k, v in r['H4']['fraction'].items()}} (bar 0.10 each); g_eff slope after timing per unit log A {{k: round(v, 3) for k, v in r['H4']['g_slope_after_timing_per_logA'].items()}} (W3: +0.24); pass {r['H4']['pass']}",
+          "", f"## H4: fraction recovered by g_eff after timing { {k: round(v, 3) for k, v in r['H4']['fraction'].items()} } (bar 0.10 each); g_eff slope after timing per unit log A { {k: round(v, 3) for k, v in r['H4']['g_slope_after_timing_per_logA'].items()} } (W3: +0.24); pass {r['H4']['pass']}",
           "", f"## Verdict: {r['verdict']}", ""]
     path.write_text("\n".join(L) + "\n")
 

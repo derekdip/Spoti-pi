@@ -45,6 +45,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-w1-prereg.md`, `docs/math-track-w1-results.md`, `poc/w1_experiment.py` | W1: transfer to water. Observation-order law confirmed with four exponents; liveness law finds its boundary; superposition threshold measured. |
 | `docs/math-track-w2-prereg.md`, `docs/math-track-w2-results.md`, `poc/w2_analysis.py` | W2: with exponents fixed by theory and two coarse grids per curve, required resolution and the binding consumer are predicted on held-out tolerances. |
 | `docs/math-track-w3-prereg.md`, `docs/math-track-w3-results.md`, `poc/w3_experiment.py`, `poc/w3_residual_diagnostic.py` | W3: amplitude-conditioned unary token vs pair interaction. Failure by the frozen rules; gain and dispersion carry the nonlinearity, half the error is unreachable by conditioning, and a post-hoc diagnostic says what the rest is. |
+| `docs/math-track-w4-prereg.md`, `docs/math-track-w4-results.md`, `poc/w4_experiment.py` | W4: event-coordinate conditioning. Coordinate confirmed on three never-run amplitudes: the large-amplitude splash is the base token started earlier, the delay is predicted from one calibration amplitude, and the dispersion slope W3 found vanishes once timing is free. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -137,6 +138,22 @@ stop/start miss dropped from 135% to 18%); the corner term over-predicted
 corner-dense paths two to one because the global RMS score dilutes an
 isolated probe's corner. Verdict: failure at tight tolerance by the frozen
 rules; the metric, not the geometry, is the identified cause.
+
+W4 (`docs/math-track-w4-*.md`) tested whether W3's missing degree of
+freedom was an event coordinate rather than a shape parameter, on three
+amplitudes the teacher had never been run at (3, 6, 10 times base). All
+four frozen hypotheses held: the fixed token's residual already points
+along the time tangent before any shift is fitted; a linear delay law
+calibrated at one amplitude predicts the fitted shift within 0.5 ms at 3
+and 6 times base and 11 ms at 10 times; one timing number beats one
+dispersion number at every new amplitude; and once timing is free the
+dispersion slope collapses to zero. The tangent-coherence prediction also
+held: the dispersion parameter's tangent is 82% aligned with the time
+tangent, the envelope parameters' below 10%, which is why W3's optimiser
+could counterfeit a time shift with g_eff. The runtime fix is one banked
+number per token and no extra operations. The base-amplitude floor is 98%
+orthogonal to every tangent of the token, so it needs a different atom,
+and water pauses here.
 
 W3 (`docs/math-track-w3-*.md`) conditioned the splash token's parameters
 on cause amplitude, `theta(A) = theta_0 + theta_1 log A`, and asked whether
