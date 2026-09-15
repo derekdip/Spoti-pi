@@ -102,3 +102,24 @@ compressor (H4b).
 Strong success: H1, H2, H3, H4 and H6 hold. Partial: H1 and H4 hold, H2 or
 H3 fail. Failure: a baseline in H6 matches or beats `C_G`, or H1 fails.
 Results go in `poc/results/b2.md`; nothing above is edited after the run.
+
+## Amendment 1 (declared after run 1, before run 2; nothing above edited)
+
+Run 1 (`poc/results/b2_run1.md`) executed the frozen protocol and is
+invalid for H1 to H6: most trajectories never reached the three tighter
+thresholds at any tolerance. Diagnosis on the straight walk: the compressor
+kept a vertex 5 ms before the walker came to rest, so the final segment
+spanned two seconds of near-zero motion, and the consumer's nearest-point
+pass time for stalks projecting past that segment's end jumped from the
+arrival time to the segment's end time, a 2 s error caused by a micrometre
+of position error. The consumer is therefore not Lipschitz in path
+position where speed vanishes: `L_G` is unbounded at stops, the same
+singularity the track met in `t''(s)` on the path side.
+
+Amendment: stops are events. The compressor always keeps the samples where
+speed crosses 0.05 m/s (either direction) and the first and last samples
+of every interval of exactly zero speed, before applying the tolerance
+rule. Stationary segments are then exactly zero-length and the consumer's
+pass time is the arrival time in both the dense and compressed tokens.
+These vertices count toward `N`. All other frozen items are unchanged.
+Run 2 is the run the hypotheses are judged on.

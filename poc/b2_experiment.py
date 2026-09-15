@@ -33,10 +33,25 @@ H5_EPS = 0.00261
 FPS = 60.0
 
 
-def weighted_time_dp(points, times, weights, tol):
+STOP_SPEED = 0.05
+
+
+def event_vertices(speed):
+    """Amendment 1: samples where speed crosses STOP_SPEED and where zero-speed intervals begin/end."""
+    moving = speed > STOP_SPEED
+    cross = np.flatnonzero(moving[1:] != moving[:-1]) + 1
+    still = speed <= 1e-9
+    edges = np.flatnonzero(still[1:] != still[:-1]) + 1
+    return np.unique(np.concatenate([cross, edges]))
+
+
+def weighted_time_dp(points, times, weights, tol, forced=None):
     keep = np.zeros(len(points), dtype=bool)
     keep[0] = keep[-1] = True
-    stack = [(0, len(points) - 1)]
+    if forced is not None:
+        keep[forced] = True
+    anchors = np.flatnonzero(keep)
+    stack = [(anchors[k], anchors[k + 1]) for k in range(len(anchors) - 1)]
     while stack:
         a, b = stack.pop()
         if b - a < 2:
@@ -103,6 +118,7 @@ def n_at(rows, eps, key="err"):
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(Path(__file__).resolve().parent / "results"))
+    ap.add_argument("--tag", default="")
     args = ap.parse_args()
     out = Path(args.out)
     two = parse_model(json.loads((out / "gpu_sweep.json").read_text())["terms"]["wake + presence"]["description"])
@@ -116,9 +132,10 @@ def main() -> None:
         mask = g.path_dperp < LOCAL_R
         ones = np.ones(len(w.times))
         c_an, c_est, acc = complexity(w, ones)
+        forced = event_vertices(w.speed)
         rows = []
         for tol in TOLS:
-            idx = weighted_time_dp(w.points, w.times, ones, tol)
+            idx = weighted_time_dp(w.points, w.times, ones, tol, forced)
             pred, _ = cons.field(w, PathToken(w.points[idx], w.times[idx]))
             e, s = rms_error(pred, ref, mask)
             rows.append({"tol": float(tol), "N": int(len(idx)), "err": e, "sup": s, "idx": idx})
@@ -146,12 +163,13 @@ def main() -> None:
     L_B = np.where(wnd.points[:, 0] < X_VISIBLE, 1.0, ALPHA)
     stalk_w = np.where(pos[:, 0] < X_VISIBLE, 1.0, ALPHA)
     cB_an, cB_est, _ = complexity(wnd, L_B)
+    forced = event_vertices(wnd.speed)
     rows_w, rows_u = [], []
     for tol in TOLS:
-        idx = weighted_time_dp(wnd.points, wnd.times, L_B, tol)
+        idx = weighted_time_dp(wnd.points, wnd.times, L_B, tol, forced)
         pred, _ = cons.field(wnd, PathToken(wnd.points[idx], wnd.times[idx]))
         rows_w.append({"tol": float(tol), "N": int(len(idx)), "err": rms_error(pred, ref, mask, stalk_w)[0], "idx": idx})
-        idx = weighted_time_dp(wnd.points, wnd.times, np.ones(len(wnd.times)), tol)
+        idx = weighted_time_dp(wnd.points, wnd.times, np.ones(len(wnd.times)), tol, forced)
         pred, _ = cons.field(wnd, PathToken(wnd.points[idx], wnd.times[idx]))
         rows_u.append({"tol": float(tol), "N": int(len(idx)), "err": rms_error(pred, ref, mask, stalk_w)[0], "idx": idx})
     h4 = {"C_A": results["wandering"]["C_analytic"], "C_B": cB_an, "C_B_estimated": cB_est,
@@ -165,9 +183,10 @@ def main() -> None:
     analysis = {"H1": {}, "H2": {}, "H3": {}, "H6": {}}
     Z_all, N_all = [], []
     for eps in THRESHOLDS:
-        Ns = np.array([results[n]["N"][str(eps)] for n in names], float)
-        if np.any(np.isnan(Ns)):
+        vals = [results[n]["N"][str(eps)] for n in names]
+        if any(v is None for v in vals):
             continue
+        Ns = np.array(vals, float)
         rho = float(spearmanr(C, Ns).correlation)
         b, a = np.polyfit(C, Ns, 1)
         r2 = float(1 - ((Ns - (a + b * C)) ** 2).sum() / ((Ns - Ns.mean()) ** 2).sum())
@@ -193,10 +212,10 @@ def main() -> None:
     vals = [v for v in analysis["H5"]["per_trajectory"].values() if v is not None and not np.isnan(v)]
     analysis["H5"]["median"] = float(np.median(vals)) if vals else None
     report = {"thresholds_m": THRESHOLDS, "results": results, "analysis": analysis}
-    (out / "b2.json").write_text(json.dumps(report, indent=2, default=lambda o: o.tolist() if hasattr(o, "tolist") else str(o)))
-    write_md(report, out / "b2.md")
+    (out / f"b2{args.tag}.json").write_text(json.dumps(report, indent=2, default=lambda o: o.tolist() if hasattr(o, "tolist") else str(o)))
+    write_md(report, out / f"b2{args.tag}.md")
     try:
-        make_figure(report, out / "b2.png")
+        make_figure(report, out / f"b2{args.tag}.png")
     except Exception as exc:
         print(f"(figure skipped: {exc})")
     print(json.dumps({k: analysis[k] for k in ("H1", "H3", "H5")}, indent=2, default=str))
@@ -212,8 +231,9 @@ def write_md(r, path: Path) -> None:
          " | ".join(f"N({e*1000:.2f} mm)" for e in eps_list) + " | H5 rho |", "|---|---|---|---|---|---|---|" + "---|" * len(eps_list) + "---|"]
     for n, x in res.items():
         b = x["baselines"]
+        h5 = f"{x['h5']['spearman']:.2f}" if x["h5"] else "-"
         L.append(f"| {n} | {x['C_analytic']:.2f} | {x['C_estimated']:.2f} | {b['length']:.1f} | {b['turning']:.2f} | {b['int_acc']:.1f} | {b['stops']} | "
-                 + " | ".join(str(x["N"][str(e)]) for e in eps_list) + f" | {x['h5']['spearman']:.2f} |" if x["h5"] else " | - |")
+                 + " | ".join(str(x["N"][str(e)]) for e in eps_list) + f" | {h5} |")
     L += ["", "## H1 Spearman(C_G, N) per threshold (bar 0.8)", "", "| eps (mm) | rho |", "|---|---|"]
     for e, v in an["H1"].items():
         L.append(f"| {float(e)*1000:.2f} | {v:.3f} |")
@@ -227,7 +247,8 @@ def write_md(r, path: Path) -> None:
           "| eps (mm) | N_A | N_B weighted compressor | N_B unweighted compressor |", "|---|---|---|---|"]
     for e in eps_list:
         L.append(f"| {e*1000:.2f} | {h4['N_A'][str(e)]} | {h4['N_B_weighted'][str(e)]} | {h4['N_B_unweighted'][str(e)]} |")
-    L += ["", f"## H5 vertex placement: median Spearman over trajectories = {an['H5']['median']:.2f} (bar 0.6)", ""]
+    med = an["H5"]["median"]
+    L += ["", f"## H5 vertex placement: median Spearman over trajectories = {med if med is None else round(med, 2)} (bar 0.6)", ""]
     L += ["## H6 baselines vs C_G (Spearman / R^2)", "", "| eps (mm) | C_G | length | turning | int acc | stops |", "|---|---|---|---|---|---|"]
     for e, v in an["H6"].items():
         def f(k):
@@ -249,6 +270,8 @@ def make_figure(r, path: Path) -> None:
     C = np.array([res[n]["C_analytic"] for n in names])
     for e, col in zip(eps_list, ("C0", "C1", "C2", "C3")):
         Ns = [res[n]["N"][str(e)] for n in names]
+        if any(v is None for v in Ns):
+            continue
         ax.scatter(C, Ns, color=col, label=f"eps = {e*1000:.2f} mm")
         for n, c, N in zip(names, C, Ns):
             if e == eps_list[1]:
@@ -259,6 +282,8 @@ def make_figure(r, path: Path) -> None:
     ax.legend(fontsize=8)
     ax = axes[1]
     for e in eps_list:
+        if any(res[n]["N"][str(e)] is None for n in names):
+            continue
         Z = [res[n]["N"][str(e)] * np.sqrt(e) / res[n]["C_analytic"] for n in names]
         ax.plot(range(len(names)), Z, "o-", label=f"eps = {e*1000:.2f} mm")
     ax.set_xticks(range(len(names)))
