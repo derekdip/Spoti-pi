@@ -48,6 +48,8 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-w4-prereg.md`, `docs/math-track-w4-results.md`, `poc/w4_experiment.py` | W4: event-coordinate conditioning. Coordinate confirmed on three never-run amplitudes: the large-amplitude splash is the base token started earlier, the delay is predicted from one calibration amplitude, and the dispersion slope W3 found vanishes once timing is free. |
 | `docs/math-track-b5-prereg.md`, `docs/math-track-b5-results.md`, `poc/b5_experiment.py` | B5: smooth, singular, event decomposition on fresh corn paths. Failure by the frozen rules (three bars mis-defined, two substantive), with the residual naming the class before any repair, class repairs working where the residual lives, dwell a pure event coordinate, and a constant-free law within a factor 1.5. |
 | `docs/math-track-rgre1-prereg.md`, `docs/math-track-rgre1-results.md`, `poc/rgre/`, `poc/rgre1_experiment.py` | RGRE-1: residual-guided representation expansion on 78 fresh cases in two domains. Outcome A by the frozen tree (median oracle value 1.00 at a sixth of the evaluations, 0.88 two-step recovery, 5 of 6 unknowns abstain); the coherence-weighted score and known-case abstention lose to plain per-direction projection, which never loses. |
+| `docs/math-track-rgre1b-prereg.md`, `docs/math-track-rgre1b-results.md`, `poc/rgre/bench_b.py`, `poc/rgre1b_experiment.py` | RGRE-1b: the simplified selector replicates on 30 fresh cases. All four frozen bars hold, and the coherence rule it replaces is worse on every case the two disagree about. |
+| `poc/fire/` | Fire teacher: 2-D buoyant reacting flow with fuel, soot and obstacles, four game-relevant consumers, and five validated scenes. Preparation for the end-to-end test. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -140,6 +142,21 @@ stop/start miss dropped from 135% to 18%); the corner term over-predicted
 corner-dense paths two to one because the global RMS score dilutes an
 isolated probe's corner. Verdict: failure at tight tolerance by the frozen
 rules; the metric, not the geometry, is the identified cause.
+
+RGRE-1b (`docs/math-track-rgre1b-*.md`) is the short replication that
+RGRE-1's result demanded. RGRE-1 identified, post hoc on its own cases,
+that plain per-direction residual ownership beats the coherence-weighted
+score it had frozen. RGRE-1b freezes that simpler rule, carries RGRE-1's
+abstention threshold over without recalibration, and runs 30 fresh cases
+on a new seed. All four bars hold: median oracle value captured 1.00
+(mean 0.98) while evaluating a sixth of the repair space, five of five
+out-of-vocabulary cases abstain with no false abstention among the 24
+known, and mixtures recover 0.93 of the two-step oracle in median. The
+rule it replaces differs on six cases and is worse on all six, including
+both regimes the preregistration targeted. Identity rose from 0.69 to
+0.96 against the oracle's class. One case remains below the bar, a corn
+tail defect read as unary, which is the same overlapping-tangent problem
+W4 met in water and the thing to watch in fire.
 
 RGRE-1 (`docs/math-track-rgre1-*.md`) froze the residual-guided
 procedure itself, mechanistic only (projection, localisation, coherence,
