@@ -174,3 +174,29 @@ def baseline_rankings(diag, repairs, costs, class_order):
                 proj.append(n)
     proj += [n for n in cheapest if n not in proj]
     return {"cheapest_first": cheapest, "largest_opportunity": opp, "best_local_projection": proj}
+
+# ---------------------------------------------------------------- RGRE-1b
+def select_projection(diag, tau_perp, repair_sets, unrepairable=("floor",), blacklist=()):
+    """RGRE-1b: rank individual diagnostics by their own residual fraction, take the top one's class.
+
+    No coherence multiplier and no class-level aggregation: exactly the `best_local_projection`
+    ordering that RGRE-1 measured as never losing. `blacklist` names repairs already spent, so a
+    class whose repairs are all spent is skipped (a repair that changed nothing cannot be renominated).
+    Returns (class, reason, ranked class list).
+    """
+    if diag is None:
+        return None, "no residual", []
+    if diag["q_perp"] > tau_perp:
+        return None, "unknown", []
+    ranked = []
+    for c, _, _ in sorted(diag["items"], key=lambda t: -t[2]):
+        if c not in ranked:
+            ranked.append(c)
+    if not ranked:
+        return None, "no class", []
+    for c in ranked:
+        if c in unrepairable:
+            return None, "atom", ranked
+        if any(n not in blacklist for n in repair_sets.get(c, [])):
+            return c, "ok", ranked
+    return None, "exhausted", ranked
