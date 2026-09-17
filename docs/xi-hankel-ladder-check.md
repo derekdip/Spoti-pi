@@ -103,3 +103,49 @@ are now supported numerically at the level of the quantities they
 concern. Item 3, the explicit Schur-complement induction fixing the sign
 and the constant at each level, is the one that matters, and it is the
 one the universality observation makes easier.
+
+## Addendum: two handles on the open conjecture
+
+`poc/xi/handles.py`. Both are checked, not proposed.
+
+**The conjecture has a simpler form.** `C_n = n!/2^{2n+1}` is
+
+```
+lambda_{n+1}(A) ~ (1/2) n! (-eps/4)^n
+```
+
+The factorial growth with alternating sign and a scale of 1/4 is the
+signature of a Borel-summable series, which says what kind of identity
+would prove it.
+
+**A closed representation of the quadratic form.** Since only the
+quadratic jet matters, the object to study is the kernel
+`exp(-(u+v) - eps (u+v)^2/2)`. Writing `L` for the Laplace transform,
+its quadratic form is a backward heat flow on the squared transform:
+
+```
+<A_eps f, f>  =  [ exp( -(eps/2) d^2/dw^2 ) (Lf)(w)^2 ]_{w = 1}
+```
+
+Verified exactly, as rational series to order `eps^5`, for three test
+functions. It comes from `exp(-eps s^2/2) = E[exp(i sqrt(eps) Z s)]`
+with `Z` standard normal, so the Hankel measure sits on a vertical
+complex contour through 1 rather than on the positive axis. This is the
+natural setting for an all-order Schur-complement identity, and it
+explains the factorial growth: the heat semigroup run backwards has a
+divergent series.
+
+**Why the ladder alternates, in one line.** A Hankel kernel `k(u+v)` is
+positive semidefinite exactly when `k` is completely monotone, and every
+completely monotone function is log-convex. The xi kernel is strictly
+log-concave: `(log Phi)'' = -h'`, measured between -19 and -5100 on
+`(0, 3]`. So `Phi` is not completely monotone on any half-line, no `H_a`
+is positive semidefinite, and the indefiniteness is forced.
+
+The draft's section 11 says the alternation does not come from total
+positivity and attributes it to "rank-one degeneration plus hierarchical
+moment defects". The sharper statement is available: `eps_a > 0` *is*
+log-concavity, since `eps = h'/h^2` and `(log Phi)'' = -h'`. The same
+number that sets the spacing of the ladder is the one that rules out
+positivity. That is a better interpretation than the one in section 11,
+and it costs nothing to state.
