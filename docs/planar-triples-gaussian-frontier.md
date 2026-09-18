@@ -32,13 +32,13 @@ system, its critical surface, and the rates it predicts). Outputs in
 | §9 | marginal central limit theorem (11) | now a theorem, modulo one cited theorem; section 3 |
 | §10 | `kappa_3, kappa_4, kappa_5` rates | exact from (10); confirmed by the exact cumulant data |
 | §11, §12 | cubic invariant, invariant ring | correct |
-| §13 | the degree-six test | run: section 2 |
+| §13 | the degree-six test | run: section 2; the rate is now exact, section 6 |
 | §14 | parity kernel (15) | correct |
 | §14 | closed form (16) | **wrong as written**; the correct form is `(1 + z(X-Y) - Delta) / (2 X Delta)` |
 | §15 | minimum-parity obstruction | real for the pointed series with the pointed vertex weighted |
 | §16 | `cosh(h(c1-c2))` removes it | **no**: the pointed vertex's `+1` lands on the class opposite the minimum's; section 4 |
 | §17 | (19), (20) | exact |
-| §19 | joint Gaussian law (21) | follows from the identity of section 4 and two cited theorems |
+| §19 | joint Gaussian law (21) | follows from the identity of section 4 and two cited theorems; every joint cumulant rate is now computable exactly, section 6 |
 
 ## 1. Exact checks, and the two corrections
 
@@ -305,11 +305,136 @@ note's test; section 2 compares it with the exact data.
 - The second moment, the marginal Gaussian law and, through `(*)`, the
   joint Gaussian law are settled, the last two modulo the cited theorems
   whose hypotheses are checked above.
-- What is not done: the critical surface `rho(x, y)` in closed form. It
-  is an algebraic curve determined by three equations with the explicit
-  kernel, and its Taylor coefficients are the exact joint cumulant rates.
-  The numerical values above and the exact data give candidates for the
-  first unforced constants, recorded in section 2; a closed form would
-  turn them into theorems.
+- The critical surface is now expanded exactly (section 6), which turns
+  the candidates of section 2 into exact rates. What is still not done is
+  a closed parametrisation of `rho(x, y)` itself; the expansion is
+  computed to any order without it.
 - The renewal bijection behind `Q = w(M + Q)` remains open and remains
   unnecessary.
+
+## 6. The critical surface, exactly
+
+`critical_surface.py` expands the two-state critical surface along a
+direction `(x, y) = (e^{at}, e^{bt})` as an exact power series in `t`,
+by Newton's method in the ring `Q[[t]]`. The kernel is made polynomial
+with the Lagrange auxiliary `T = z(1 + R_e T)(1 + R_o T)`, which is
+symmetric in `(R_e, R_o)` so one `T` serves both kernels, and
+`Delta = 1 - z(R_e + R_o) - 2 z R_e R_o T`; the two-state system becomes
+
+```
+R_e (Delta - z(1 + R_o T)) = x Delta,    R_o (Delta - z(1 + R_e T)) = y Delta,
+T = z (1 + R_e T)(1 + R_o T),            det d(P_1, P_2, P_3)/d(R_e, R_o, T) = 0,
+```
+
+four polynomial equations in `(z, R_e, R_o, T)`, started at the exact
+critical point `(1/8, 3/2, 3/2, 2/9)`. Each Newton step doubles the
+`t`-adic precision; order 12 takes four seconds. With
+`Lambda(at, bt) = -log(8 z(t))`, the rates `r! [t^r] Lambda` are
+
+| r | transverse `(1,-1)`: `kappa_r(c1 - c2)/k` | marginal `(1,0)`: `kappa_r(c1)/k` |
+|---|---|---|
+| 1 | 0 | 1/3 |
+| 2 | 10/27 | 10/81 |
+| 3 | 0 | 14/729 |
+| 4 | -94/729 | -94/6561 |
+| 5 | 0 | -4690/531441 |
+| 6 | **4150/19683** | 29170/4782969 |
+| 7 | 0 | 369166/43046721 |
+| 8 | -3710734/4782969 | -5647498/1162261467 |
+| 10 | 216102770/43046721 | 491008150/94143178827 |
+| 12 | -175646959486/3486784401 | -71289982174/22876792454961 |
+
+Checks that all pass exactly: the transverse odd rates vanish; the
+marginal column reproduces the scalar critical curve of section 1 at
+every order computed (the sign pattern `(-1)^r` between `c1` and
+`v = k + 2 - c3` included); the diagonal direction `(1,1)` reproduces
+the scalar curve verbatim; the transverse `r = 2, 4` rates equal `10/27`
+and `9 kappa_4(c1)/k` as symmetry forces. So the two-state surface,
+derived from the parity mobile, agrees with the one-state surface,
+derived from the plain mobile, wherever the two overlap, at every order.
+
+**The degree-six constants are exact.** `kappa_6(c1 - c2)/k -> 4150/3^9`,
+which the exact data of section 2 fit to four digits and the numerical
+surface to seven. Hence the invariant cumulant tensors on the plane are,
+with `e_2`, `e_3` the elementary symmetric functions of `a`,
+
+```
+K_6(a) = alpha e_2^3 + beta e_3^2,     alpha = -4150/3^9,   beta = -2045/3^8,
+K_8(a) = a_8 e_2^4 + b_8 e_2 e_3^2,    a_8 = -3710734/3^14, b_8 = -1371176/3^12,
+```
+
+the first joint invariants that the `S_3` symmetry and the marginals do
+not determine. They are theorems in the same sense as the joint law:
+modulo the cited Drmota--Lalley--Woods and quasi-powers theorems, whose
+hypotheses are verified, the joint cumulants of `(c1, c2, c3)` are
+`k` times these rates plus `O(1)`.
+
+The same script gives every joint cumulant rate to any order, and the
+mixed directions `(a, b)` give the full tensors directly; only the two
+directions needed for `alpha`, `beta`, `a_8`, `b_8` were run.
+
+## 7. Literature check, as far as this environment allows
+
+Method: web search only. arXiv, Springer, OEIS, Semantic Scholar and
+university hosts are blocked by this session's network policy, so every
+statement below rests on search-engine summaries of abstracts, not on
+the papers. A specialist should read Arquès 1986 and Bousquet-Mélou and
+Schaeffer 2002 directly before any claim of novelty.
+
+**The generating function is classical.** Walsh, "Hypermaps versus
+bipartite maps", J. Combin. Theory Ser. B 18 (1975) 155-163, set up the
+correspondence used throughout and tabulated rooted hypermaps to 12
+darts by vertices, hyperedges, darts and genus. Arquès, "Relations
+fonctionnelles et dénombrement des hypercartes planaires pointées",
+Combinatoire énumérative (Labelle and Leroux, eds.), Lecture Notes in
+Mathematics 1234, Springer 1986, obtains from two decompositions "a
+simple system of parametric equations" for the series of rooted planar
+hypermaps by vertices, faces and hyperedges. Giorgetti and Walsh,
+"Enumeration of hypermaps of a given genus", Ars Math. Contemp. (2018),
+give parametric expressions for low genus by darts, vertices,
+hyperedges and faces; arXiv:1411.3534 reaches the same series by matrix
+integrals; arXiv:1609.05493 shows these series are rational after an
+explicit change of variables. So the bivariate rooted series `H(z; x,
+y)` that section 4 recovers from the parity mobile has been available
+since 1986, and every exact statement in these two documents, `Q =
+M^2/(1+M)`, the covariance, the cumulant rates, is in principle a
+differentiation of Arquès' system. No search result mentions the second
+moment of the colour imbalance, the variance of the vertex count of a
+planar hypermap, or the constants `10/27`, `10/81`, `5/27`; whether any
+of the specific formulas has been written down could not be determined.
+
+**The two-colour bijection existed too.** Bousquet-Mélou and Schaeffer,
+"The degree distribution in bipartite planar maps: applications to the
+Ising model" (2002, arXiv:math/0211070), count bipartite planar maps by
+the degrees of black and white vertices through a bijection with
+blossoming trees; specialising the degree weights gives the same
+bivariate series. Bernardi and Fusy, "Unified bijections for planar
+hypermaps with general cycle-length constraints", Ann. Inst. Henri
+Poincaré D 7 (2020) 75-164, contain both that bijection and the
+Bouttier--Di Francesco--Guitter mobiles as special cases. The parity
+mobile's contribution is therefore at most the mechanism: relative
+label parity on mobiles, and the observation that leaving the pointed
+vertex unweighted removes the minimum-parity ambiguity. Whether that
+mechanism appears in print could not be checked.
+
+**Limit laws.** The number of vertices of a uniform planar map with `n`
+edges is asymptotically normal with variance `25n/32` (search summary;
+the Bender--Richmond lineage, and Drmota and Panagiotou for vertices of
+given degree). No result on the joint law of vertices, hyperedges and
+faces of random planar hypermaps, or on bipartite maps by colour
+counts, surfaced. Given Arquès' algebraic parametrisation the joint
+Gaussian law is a routine application of the multivariate quasi-powers
+framework, so it should be regarded as known in principle and, as far
+as this check reaches, unstated.
+
+**OEIS.** The sequences `Q_k = 0, 1, 7, 45, 291, 1917, ...` and `D_k = 2,
+11, 69, 463, 3233, ...` could not be looked up; web search finds no page
+listing either.
+
+**Verdict.** New at the level this check can reach: the closed forms,
+the exact covariance, and the degree-six and degree-eight invariants.
+Forty years old: the generating function they come from. Expected:
+the joint Gaussian law. The honest description of the whole is a short
+note's worth of exact consequences of a classical series, obtained by a
+route that avoids the series, plus one small bijective mechanism of
+uncertain novelty.
