@@ -552,3 +552,91 @@ explicit joint cumulant generating function `Lambda(t1, t2)` with its
 exact rates; and the theorem package of the note's (13042)-(13045),
 whose analytic step now runs through the fold-stationarity of
 `Htilde` rather than an integral lemma.
+
+## 9. The coefficient route: an exact formula, no product formula, and the local and large-deviation laws tested
+
+A fourth note asks for the exact Arquès coefficient `A_k(c1, c2, c3)`,
+hoping for a product of binomials from which Stirling's formula would
+give the rate function, the Hessian, the local prefactor and the
+lattice at once, and strict convexity for free.
+
+**The formula.** With `Htilde = pqr(1-p-q-r)` and `p = X/(1-q-r)`,
+`q = U/(1-p-r)`, `r = Y/(1-p-q)`, the Lagrange--Good inversion formula
+gives, for `a = c1`, `b = c3`, `c = c2`, `a + b + c = k + 2`,
+
+```
+A(a, b, c) = [p^(a-1) q^(b-1) r^(c-1)]  (1-p-q-r) ((1-p-q-r)^2 - 4pqr)
+                                          (1-q-r)^-(a+1) (1-p-r)^-(b+1) (1-p-q)^-(c+1),
+```
+
+the Good determinant being `det J / ((1-q-r)(1-p-r)(1-p-q))`. Expanding
+the negative powers, `A` is a finite triple sum of products of three
+multinomial coefficients, over the 20 monomials of the prefactor.
+`coefficients.py` evaluates it exactly; it agrees with the character
+data at every `(k, c1, c2)`, `k <= 12`, and the support is the whole
+triangle `c1, c2, c3 >= 1`, so the lattice span is 1.
+
+**There is no product formula.** At `k = 12`: `A(2,6,6) = 925190 =
+2 . 5 . 7 . 13217`, `A(7,3,4) = 1936308 = 2^2 . 3 . 11 . 14669`,
+`A(5,5,4) = 9032898 = 2 . 3 . 7 . 431 . 499`. A product of binomials
+with arguments of order `k` has no prime factor much larger than `k`;
+primes near `10^4` at `k = 12` rule it out. The exact formula stays a
+triple sum, whose saddle-point analysis is the critical-surface
+analysis in other clothes. The coefficient route is not a shortcut to
+strict convexity.
+
+**What it does give is exact coefficients at large `k`.** A central
+coefficient costs 2 s at `k = 121` and 36 s at `k = 241`, which makes
+the note's two numerical tests possible.
+
+**Local limit at the centre, (13115)-(13116).** For `k = 1 mod 3` and
+`m = (k+2)/3`, with `N_k` the total:
+
+| k | 31 | 61 | 91 | 121 | 181 | 241 | [[K301]] |
+|---|---|---|---|---|---|---|---|
+| `k Pr(c1 = c2 = m)` | 1.4313 | 1.4581 | 1.4678 | 1.4728 | 1.4780 | 1.4806 | [[V301]] |
+
+Richardson extrapolation of the `1/k` correction from the last two
+values gives [[RICH]], against `27 sqrt3 / (10 pi) = 1.488588`. So at
+the balanced point `Pr(C_k = m) ~ 27 sqrt3 / (10 pi k)`: the lattice
+factor is 1 and the analytic prefactor cancels in the probability, as
+the note predicted.
+
+**Large deviations, (13113).** `ldp_check.py` takes `rho(x, y)` from
+the fold by Newton's method, `Lambda(t) = -log(8 rho(e^t1, e^t2))`,
+solves `grad Lambda(t) = u` and sets `I(u) = t . u - Lambda(t)`. The
+local law `Pr(C_k = m) = C(u) e^(-k I(u)) / k (1 + O(1/k))` predicts
+that `-(1/k) log Pr - (log k)/k - I(u)` is `O(1/k)`. At five lattice
+points away from the centre:
+
+| `u` | `k = 121`: `k x diff` | `k = 241`: `k x diff` |
+|---|---|---|
+| (0.40, 0.30) | -0.63 | -0.70 |
+| (0.25, 0.25) | +1.19 | +1.15 |
+| (0.45, 0.45) | -4.03 | -4.25 |
+| (0.20, 0.50) | -0.64 | -0.71 |
+| (0.50, 0.25) | -1.25 | [[U5]] |
+
+The difference halves when `k` doubles in every case, and `k x diff`
+converges to `-log C(u)`: the rate function computed from the surface
+is the exponential rate of the exact coefficients, and the prefactor
+grows toward the boundary of the simplex as it should.
+
+**Strict convexity, numerically.** `Hess Lambda(0)` equals
+`(5/81) [[2, -1], [-1, 2]]` to `1e-7`. On a `13 x 13` grid over the tilt
+box `|t_i| <= 1.2` (`x, y` from 0.30 to 3.3) the smallest eigenvalue of
+the Hessian is 0.046, at the corner `t = (1.2, 1.2)`, so the Hessian is
+positive definite on that compact set, as (13109) predicts. This is
+evidence, not a proof; the note's variance-lower-bound or
+nondegeneracy argument remains the route to a theorem.
+
+**Where the fourth note's programme stands.** The exact coefficient
+formula exists and is verified, but it is a triple sum and not a
+product, so the Stirling shortcut is not available. The local limit at
+the centre and the large-deviation rate function are confirmed
+numerically to the precision finite `k` allow, with the rate function
+given explicitly by the Arquès fold. The theorem package of the third
+note stands as before; the global large-deviation principle and the
+local limit theorem are now well-supported conjectures with an
+explicit rate function, awaiting a proof of strict convexity on
+compact tilt sets.
