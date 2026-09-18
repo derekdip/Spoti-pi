@@ -592,12 +592,12 @@ the note's two numerical tests possible.
 **Local limit at the centre, (13115)-(13116).** For `k = 1 mod 3` and
 `m = (k+2)/3`, with `N_k` the total:
 
-| k | 31 | 61 | 91 | 121 | 181 | 241 | [[K301]] |
+| k | 31 | 61 | 91 | 121 | 181 | 241 | 301 |
 |---|---|---|---|---|---|---|---|
-| `k Pr(c1 = c2 = m)` | 1.4313 | 1.4581 | 1.4678 | 1.4728 | 1.4780 | 1.4806 | [[V301]] |
+| `k Pr(c1 = c2 = m)` | 1.4313 | 1.4581 | 1.4678 | 1.4728 | 1.4780 | 1.4806 | 1.4822 |
 
 Richardson extrapolation of the `1/k` correction from the last two
-values gives [[RICH]], against `27 sqrt3 / (10 pi) = 1.488588`. So at
+values gives 1.48851 (ratio 0.99995), against `27 sqrt3 / (10 pi) = 1.488588`. So at
 the balanced point `Pr(C_k = m) ~ 27 sqrt3 / (10 pi k)`: the lattice
 factor is 1 and the analytic prefactor cancels in the probability, as
 the note predicted.
@@ -615,7 +615,7 @@ points away from the centre:
 | (0.25, 0.25) | +1.19 | +1.15 |
 | (0.45, 0.45) | -4.03 | -4.25 |
 | (0.20, 0.50) | -0.64 | -0.71 |
-| (0.50, 0.25) | -1.25 | [[U5]] |
+| (0.50, 0.25) | -1.25 | -1.33 |
 
 The difference halves when `k` doubles in every case, and `k x diff`
 converges to `-log C(u)`: the rate function computed from the surface
