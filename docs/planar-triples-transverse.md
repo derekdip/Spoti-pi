@@ -323,3 +323,8 @@ plus one vertex-pointed bijection, is not specific to this statistic. It
 applies as it stands to covariances of vertex and face counts in other
 map classes that mobiles cover, and the character side extends to
 constellations with more than three factors.
+
+## Addendum
+
+A second note built on this proof; its claims are checked and its frontier
+is pushed in `docs/planar-triples-gaussian-frontier.md`.

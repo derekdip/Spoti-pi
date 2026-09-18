@@ -51,6 +51,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-rgre1b-prereg.md`, `docs/math-track-rgre1b-results.md`, `poc/rgre/bench_b.py`, `poc/rgre1b_experiment.py` | RGRE-1b: the simplified selector replicates on 30 fresh cases. All four frozen bars hold, and the coherence rule it replaces is worse on every case the two disagree about. |
 | `poc/fire/` | Fire teacher: 2-D buoyant reacting flow with fuel, soot and obstacles, four game-relevant consumers, and five validated scenes. Preparation for the end-to-end test. |
 | `docs/xi-hankel-ladder-check.md`, `poc/xi/` | Side track: exact-arithmetic check of a handed-over draft on an alternating spectral ladder for the xi Hankel kernel. Every checkable claim holds; the constants depend only on the quadratic jet; one corollary's factor of two is corrected. |
+| `docs/planar-triples-gaussian-frontier.md`, `poc/hyper/` | Side track, continued: the second note checked exactly (two corrections), the degree-six cumulant test run to k = 30, the marginal central limit theorem completed, and the parity-mobile obstruction removed so the joint Gaussian law follows. |
 | `docs/planar-triples-transverse.md`, `poc/hyper/` | Side track: proof of a handed-over conjecture, `Q = M^2/(1+M)` for the colour-imbalance second moment of genus-zero permutation triples, by symmetry, Euler and one vertex-pointed bijection; exact verification to order 24 in the data and 96 in the series; a validated uniform sampler of planar hypermaps with exact-moment oracles. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
@@ -283,6 +284,13 @@ Each step is verified exactly against the character-formula data to
 order 24 and the series to order 96, and the same bijection becomes a
 uniform sampler of planar hypermaps whose output is checked against the
 proved moments.
+A second note on the same problem is checked in
+`docs/planar-triples-gaussian-frontier.md`: two of its formulas are
+corrected, its degree-six cumulant test is run on exact data to k = 30,
+the marginal central limit theorem it sketches is completed, and the
+obstruction it met on the parity-refined mobile is removed by not
+weighting the pointed vertex, after which the joint Gaussian law it
+conjectures follows from standard theorems.
 
 ## Where this should go next
 

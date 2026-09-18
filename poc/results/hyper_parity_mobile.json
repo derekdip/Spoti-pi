@@ -1,0 +1,11 @@
+{
+ "identity_star_k_max": 12,
+ "identity_star": true,
+ "weighted_fails": 1584,
+ "hessian": {
+  "diagonal (1,1): Var(c1+c2)/k": 0.12345679012469898,
+  "transverse (1,-1): Var(c1-c2)/k": 0.37037037036862414,
+  "axis (1,0): Var(c1)/k": 0.12345679012260644
+ },
+ "gradient_axis": 0.33333333333626364
+}
