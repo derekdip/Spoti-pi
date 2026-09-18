@@ -1,0 +1,4 @@
+k=20 seed 7 samples 250000 rooted_diff_sq mc=7.69090 +- 0.02157 exact=7.70899 z=-0.84
+   rooted_c3_sq mc=56.31559 +- 0.04967 exact=56.34744 z=-0.64
+k=20 seed 8 samples 250000 rooted_diff_sq mc=7.73180 +- 0.02097 exact=7.70899 z=+1.09
+   rooted_c3_sq mc=56.38310 +- 0.04785 exact=56.34744 z=+0.75
