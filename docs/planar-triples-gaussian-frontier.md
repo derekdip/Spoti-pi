@@ -306,9 +306,9 @@ note's test; section 2 compares it with the exact data.
   joint Gaussian law are settled, the last two modulo the cited theorems
   whose hypotheses are checked above.
 - The critical surface is now expanded exactly (section 6), which turns
-  the candidates of section 2 into exact rates. What is still not done is
-  a closed parametrisation of `rho(x, y)` itself; the expansion is
-  computed to any order without it.
+  the candidates of section 2 into exact rates, and section 8 gives it in
+  closed form: it is the fold `(1-p-q-r)^2 = 4pqr` of the Arquès
+  parametrisation, and the series itself is `pqr(1-p-q-r)`.
 - The renewal bijection behind `Q = w(M + Q)` remains open and remains
   unnecessary.
 
@@ -438,3 +438,117 @@ the joint Gaussian law. The honest description of the whole is a short
 note's worth of exact consequences of a classical series, obtained by a
 route that avoids the series, plus one small bijective mechanism of
 uncertain novelty.
+
+## 8. The Arquès comparison, made explicit
+
+A third note proposes the bridge to the Arquès parametrisation. Its form
+of that parametrisation is taken as given here (the paper is
+unreachable from this environment): for the trivariate series
+`Htilde(X, U, Y) = sum_maps X^c1 U^c3 Y^c2`, which needs no dart
+variable because `c1 + c2 + c3 = k + 2`, so that
+`H(z; x, y) = z^-2 Htilde(zx, z, zy)`,
+
+```
+X = p (1 - q - r),      U = q (1 - p - r),      Y = r (1 - p - q).
+```
+
+`arques_bridge.py` and `arques_proof.py` check the note and go further.
+
+**The note's claims hold exactly.** The Jacobian determinant is
+`(1-p-q-r)^2 - 4pqr` (its (13015)-(13017)), symbolically. The fold of
+the parametrisation under `(zx, z, zy)`, expanded by the same series
+Newton method along the transverse, marginal and diagonal directions,
+coincides with the two-state surface of section 6 to order 12 in all
+three: the note's (13041) at the level of the surface. On the two-state
+solution the note's `(Delta, z)` formulas (13040) and (13038),
+
+```
+x + y = 1 + 1/z - 3/(2 Delta) - Delta^3/(2 z^2),
+(x - y)^2 = (Delta - z)^3 (z - Delta^3) / (Delta^3 z^3),
+```
+
+hold as series identities, and so does the bridge `Delta = 1 - p - r`,
+`q = z / Delta`.
+
+**The series itself is four terms.** A Padé null-space search on the
+exact trivariate data to total degree 14 (656 equations, numerator
+degree at most 6, denominator degree at most 3) returns a unique
+relation up to common factors:
+
+```
+Htilde = p q r (1 - p - q - r).
+```
+
+**And it is a theorem, because the two-state system is the Arquès
+parametrisation.** Write `A = 1 + R_e T`, `B = 1 + R_o T`. The two-state
+equations give `T = zAB`, `A = 1/(1 - z R_e B)`, `B = 1/(1 - z R_o A)`,
+and then `Delta = 1/A + 1/B - 1` by a two-line computation. Define
+
+```
+p = 1 - 1/A,        r = 1 - 1/B,        q = z / Delta.
+```
+
+Then `Delta = 1 - p - r`, `z R_e = p(1 - r)`, `z R_o = r(1 - p)`,
+`T = q(1-p-r)/((1-p)(1-r))`, and the two remaining equations read
+`zx = p(1-q-r)`, `zy = r(1-p-q)`, while `z = q(1-p-r)`. Substituting
+this dictionary into the polynomial system of section 6 gives zero
+identically (`arques_proof.py`, check 1). So the two-state solution is
+rational in `(p, q, r)`, and its parameters have a bijective meaning:
+`p` is `1 - 1/(1 + R_e T)`, the kernel's own auxiliary evaluated on the
+even branch, `r` the same on the odd branch, `q` the dart weight over
+the discriminant. The fold of the parametrisation and the singularity
+of the parity mobile agree in section 6 because they are one object.
+
+For `Htilde`: as polynomial identities,
+
+```
+(d/dX + d/dY) Htilde = q (p + r),        (d/dX + d/dU + d/dY) Htilde = pq + qr + rp,
+```
+
+(check 2, in the form `grad Htilde . adj(J) (e_X + e_Y) = q(p+r) det J`).
+Since `R_e + R_o - x - y = [p(1-r) + r(1-p) - X - Y]/z = q(p+r)/z`, the
+first identity says exactly `(d/dx + d/dy)[z^-2 Htilde(zx, z, zy)] = G +
+G^T`. The true series satisfies the same equation by `(*)` of section
+4, both vanish at `y = 0` (`r = 0` iff `Y = 0`), and a formal series in
+`z` with polynomial coefficients is determined by these two facts. Hence
+
+```
+sum_{rooted planar hypermaps} X^c1 U^c3 Y^c2  =  p q r (1 - p - q - r),
+```
+
+modulo the mobile bijection only. The pointed series, unweighted at the
+pointed cycle, is `e_2(p, q, r)`.
+
+**The weakest sentence, replaced.** The note asks for the uniform
+`k^(-5/2)` law for `H_k(x, y)` without the endpoint integral. Check 3:
+every component of the row vector `grad Htilde . adj(J)` is divisible
+by `det J`, so on the whole fold `Htilde` is stationary along the
+kernel of `J`. At a simple fold point the branch of `(p, q, r)` over a
+ray `z -> (zx, z, zy)` is a Puiseux series in `(rho - z)^(1/2)` whose
+linear term is the kernel direction; stationarity kills the
+`(rho - z)^(1/2)` term of `Htilde`, so its leading singular term is
+`(rho - z)^(3/2)`. At the symmetric point the coefficient is nonzero,
+`U = 1/4 - e^2 + 2 e^3 + ...` with `e = (1 - 8z)^(1/2)` (check 4), hence
+nonzero nearby by continuity. With `rho(x, y)` analytic near `(1, 1)`,
+and the dominant singularity unique on its circle (positivity and
+aperiodicity at `(1, 1)`, continuity of the branch points in `(x, y)`),
+uniform singularity analysis for algebraic functions with a parameter
+gives
+
+```
+H_k(x, y) = c_H(x, y) rho(x, y)^-k k^(-5/2) (1 + O(1/k))
+```
+
+uniformly for complex `(x, y)` near `(1, 1)`. The integral estimate of
+section 4 is no longer needed; the statement rests on an algebraic fact
+checked exactly plus the standard transfer theorem.
+
+**What is classical and what is not, restated.** The parametrisation
+is Arquès' (1986), and the four-term closed form is presumably his
+theorem in some normalisation; neither could be read here. New, as far
+as this environment can tell: the derivation of the parametrisation
+from the parity mobile with a bijective meaning for `(p, q, r)`; the
+explicit joint cumulant generating function `Lambda(t1, t2)` with its
+exact rates; and the theorem package of the note's (13042)-(13045),
+whose analytic step now runs through the fold-stationarity of
+`Htilde` rather than an integral lemma.
