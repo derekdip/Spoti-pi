@@ -50,6 +50,8 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-rgre1-prereg.md`, `docs/math-track-rgre1-results.md`, `poc/rgre/`, `poc/rgre1_experiment.py` | RGRE-1: residual-guided representation expansion on 78 fresh cases in two domains. Outcome A by the frozen tree (median oracle value 1.00 at a sixth of the evaluations, 0.88 two-step recovery, 5 of 6 unknowns abstain); the coherence-weighted score and known-case abstention lose to plain per-direction projection, which never loses. |
 | `docs/math-track-rgre1b-prereg.md`, `docs/math-track-rgre1b-results.md`, `poc/rgre/bench_b.py`, `poc/rgre1b_experiment.py` | RGRE-1b: the simplified selector replicates on 30 fresh cases. All four frozen bars hold, and the coherence rule it replaces is worse on every case the two disagree about. |
 | `poc/fire/` | Fire teacher: 2-D buoyant reacting flow with fuel, soot and obstacles, four game-relevant consumers, and five validated scenes. Preparation for the end-to-end test. |
+| `docs/xi-hankel-ladder-check.md`, `poc/xi/` | Side track: exact-arithmetic check of a handed-over draft on an alternating spectral ladder for the xi Hankel kernel. Every checkable claim holds; the constants depend only on the quadratic jet; one corollary's factor of two is corrected. |
+| `docs/planar-triples-transverse.md`, `poc/hyper/` | Side track: proof of a handed-over conjecture, `Q = M^2/(1+M)` for the colour-imbalance second moment of genus-zero permutation triples, by symmetry, Euler and one vertex-pointed bijection; exact verification to order 24 in the data and 96 in the series; a validated uniform sampler of planar hypermaps with exact-moment oracles. |
 | `poc/results/` | Output of the last run: `summary.md`, `summary.json`, `comparison.png`, `holdout.md`. |
 
 ## Run it
@@ -266,6 +268,21 @@ Held-out check (`poc/holdout.py`, results in `poc/results/holdout.md`): the
 same parameters on a faster diagonal walk with a hook turn, never seen
 during the fit, give 0.38 per-stalk error, 0.21 coarse-field error and 0.99
 late-field correlation. The fit is to the physics, not to the one walk.
+
+Two side tracks sit outside the runtime work. `docs/xi-hankel-ladder-check.md`
+checks a handed-over draft on an alternating spectral ladder for the xi
+Hankel kernel in exact arithmetic: every checkable claim holds, the
+constants depend only on the quadratic jet of the kernel, and a factor of
+two in one corollary is corrected. `docs/planar-triples-transverse.md`
+proves a handed-over conjecture on genus-zero permutation triples, that
+the second moment of the colour imbalance is `M^2/(1+M)` in terms of the
+cycle-pointed series, by a route the note did not take: symmetry and
+Euler's relation reduce the signed statistic to the second moment of the
+vertex count, which one vertex-pointed bijection gives in closed form.
+Each step is verified exactly against the character-formula data to
+order 24 and the series to order 96, and the same bijection becomes a
+uniform sampler of planar hypermaps whose output is checked against the
+proved moments.
 
 ## Where this should go next
 
