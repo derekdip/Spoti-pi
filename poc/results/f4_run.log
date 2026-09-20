@@ -6,3 +6,10 @@
 [  1415s]    step 0: pick bed      E 0.8152->0.8062 (1 tried) 3.6s
 [  1419s]    step 1: pick bed      E 0.8062->0.7716 (1 tried) 3.6s
 [  1424s]    step 2: pick wind     E 0.7716->0.7339 (2 tried) 4.9s
+[  1426s]    step 3: pick base     E 0.7339->0.7070 (1 tried) 2.2s
+[  1433s]    step 4: pick cool     E 0.7070->0.6905 (5 tried) 7.0s
+[  1437s]    step 5: pick width    E 0.6905->0.6777 (2 tried) 4.8s
+[  1442s]    step 6: pick rise     E 0.6777->0.6566 (3 tried) 4.6s
+[  1449s]    step 7: pick width    E 0.6566->0.6477 (3 tried) 6.6s
+[  1453s] ignition: greedy 0.6477 after 9 steps (exhausted), 0.501 of the floor's reduction
+[  1461s] delayed_ignition: V0 0.8450
