@@ -1,0 +1,7 @@
+[    8s] windy: V0 0.9623
+      start 0: 0.9823 -> 0.3698 in 640 evals
+      start 1: 0.9623 -> 0.3916 in 640 evals
+      start 2: 2.1469 -> 0.4466 in 640 evals
+[   93s] windy standard fit 0.3698 (starts 0.370, 0.392, 0.447) -> linear 0.3698 (old column 0.3852) live 11 motion 0.00
+        per consumer visual 0.553, heat 0.174, ai 0.273
+        heat wrong 0.7% (missed 4.6%)  ai wrong 0.3% (missed 4.4%)  glow corr 0.87
