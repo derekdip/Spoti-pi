@@ -44,3 +44,10 @@
 [  2267s] strong_gust: V0 0.7947, teacher sway 16.8 cm at 0.7 Hz
 [  2591s] strong_gust standard fit 0.4960 (de 0.581, two_stage 0.496) -> linear 0.4960 live 11 sway 11.3 cm (68%) phase err 34 deg 324s
 [  2591s] strong_gust standard visual 0.595, heat 0.247, ai 0.569 | heat wrong 11.4% ai wrong 9.4% corr 0.80
+[  2916s] strong_gust look     fit 0.4898 (de 0.490, two_stage 0.490) -> linear 0.4985 live 14 sway 14.9 cm (89%) phase err 25 deg 325s
+[  2916s] strong_gust look     visual 0.611, heat 0.249, ai 0.557 | heat wrong 11.3% ai wrong 9.2% corr 0.84
+[  2916s] strong_gust: cross-evaluated best is the standard fit at 0.4960
+[  2918s]    step 0: pick wind     E 0.8583->0.8029 (1 tried) 2.4s
+[  2919s]    step 1: pick base     E 0.8029->0.7637 (1 tried) 1.3s
+[  2923s]    step 2: pick wind     E 0.7637->0.7413 (1 tried) 3.2s
+[  2926s]    step 3: pick cool     E 0.7413->0.6926 (2 tried) 3.7s
