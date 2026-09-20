@@ -74,6 +74,18 @@ arithmetic costs eight times more per vertex invocation in one preset than
 another, so the op counts this write-up quotes do not predict milliseconds.
 A phone is not a Quest 2, and none of this ran on a headset.
 
+**To close the question on the headset itself.** The same page runs in the
+Quest browser with no changes: open
+`https://claude.ai/artifact/QVrzUYuoUtMpZLjhbNbKpt` in the headset's
+browser, pick the **Q2 eyes** resolution (2880×1584, two default eye buffers
+side by side, so the fill cost is what a stereo render pays), press **All
+three loads**, and paste the "Results as JSON" block into a message. The
+page is a flat panel, not a WebXR session, so it measures the GPU's cost
+of the arithmetic and the fill at the right pixel count, not the
+compositor or the timewarp. That is the number this section needs. The
+Unity path in `unity/` remains uncompiled and unmeasured on device; the
+browser run bounds it, it does not replace it.
+
 ## 4b. Measure before optimising the math further
 
 A cornfield on Quest 2 is usually fill-bound (alpha-tested leaves disable
