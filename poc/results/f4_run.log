@@ -73,3 +73,9 @@
 [  7752s]    step 1: pick base     E 0.7636->0.6421 (1 tried) 1.1s
 [  7755s]    step 2: pick wind     E 0.6421->0.6170 (2 tried) 3.0s
 [  7757s]    step 3: pick wind     E 0.6170->0.6014 (1 tried) 1.9s
+[  7759s]    step 4: pick amp      E 0.6014->0.5947 (1 tried) 1.7s
+[  7761s]    step 5: pick cool     E 0.5947->0.5787 (1 tried) 2.0s
+[  7763s]    step 6: pick width    E 0.5787->0.5603 (1 tried) 2.4s
+[  7771s]    step 7: pick rise     E 0.5603->0.5501 (10 tried) 7.4s
+[  7773s] split: greedy 0.5501 after 9 steps (exhausted), 0.828 of the floor's reduction
+[  7780s] shutoff: V0 0.7774
