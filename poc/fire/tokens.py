@@ -57,6 +57,7 @@ class FireState:
     bed_speed: float = 0.0      # s per metre of extra delay with distance from the flame
     bed_dur: float = 0.0        # s the bed holds its plateau before running out of fuel
     bed_fall: float = 0.0       # s the bed takes to die once the fuel is gone
+    lat_q: float = 0.0          # lateral profile exponent; 0 means the Gaussian default of 2
 
     def split_rise_m(self):
         """Height over which a split develops: tied to the column width, not a free parameter."""
@@ -99,7 +100,8 @@ def _column(X, Y, T_, x0, y0, on, amp, height, width, spread, st, obstacles):
             push += st.deflect * near * side * inside
         xc = xc + push[None]
     wsafe = np.maximum(w, 1e-3)
-    lat = np.exp(-0.5 * ((X[None] - xc) / wsafe[None]) ** 2)
+    qlat = st.lat_q if st.lat_q > 0.0 else 2.0
+    lat = np.exp(-0.5 * np.abs((X[None] - xc) / wsafe[None]) ** qlat)
     if st.split_amp != 0.0 and obstacles:
         for o in obstacles:
             if o.y <= y0 or abs(x0 - o.x) > o.half_w + width:
