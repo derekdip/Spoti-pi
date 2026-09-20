@@ -15,3 +15,8 @@
 [  1461s] delayed_ignition: V0 0.8450
 [  2142s] delayed_ignition standard fit 0.5766 (de 0.675, two_stage 0.577) -> linear 0.5766 live 32 motion 0.52 681s | visual 0.595, heat 0.269, ignition 0.650, ai 0.694
 [  2142s] delayed_ignition standard heat wrong 16.2% ai wrong 12.6% ignition missed 11.1% glow corr 0.75
+[  2830s] delayed_ignition look     fit 0.5772 (de 0.577, two_stage 0.753) -> linear 0.5855 live 30 motion 0.07 688s | visual 0.730, heat 0.320, ignition 0.481, ai 0.710
+[  2830s] delayed_ignition look     heat wrong 17.8% ai wrong 13.2% ignition missed 11.1% glow corr 0.61
+[  2833s]    step 0: pick wind     E 0.8450->0.8139 (2 tried) 3.4s
+[  2834s]    step 1: pick base     E 0.8139->0.7876 (1 tried) 1.5s
+[  2837s]    step 2: pick cool     E 0.7876->0.7705 (2 tried) 3.0s
