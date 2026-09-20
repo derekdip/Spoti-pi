@@ -64,3 +64,6 @@
 [  6915s]    step 3: pick width    E 0.7543->0.7466 (4 tried) 5.3s
 [  6923s]    step 4: pick rise     E 0.7466->0.7168 (6 tried) 7.9s
 [  6927s] shelf_bed: greedy 0.7168 after 6 steps (exhausted), 0.382 of the floor's reduction
+[  6936s] split: V0 1.1896
+[  7344s] split standard fit 0.4170 (de 0.417, two_stage 0.488) -> linear 0.4170 live 12 motion 0.00 409s | visual 0.655, heat 0.151, ai 0.265
+[  7344s] split standard heat wrong 0.2% ai wrong 0.9% glow corr 0.77
