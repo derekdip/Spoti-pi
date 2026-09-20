@@ -13,3 +13,5 @@
 [  1449s]    step 7: pick width    E 0.6566->0.6477 (3 tried) 6.6s
 [  1453s] ignition: greedy 0.6477 after 9 steps (exhausted), 0.501 of the floor's reduction
 [  1461s] delayed_ignition: V0 0.8450
+[  2142s] delayed_ignition standard fit 0.5766 (de 0.675, two_stage 0.577) -> linear 0.5766 live 32 motion 0.52 681s | visual 0.595, heat 0.269, ignition 0.650, ai 0.694
+[  2142s] delayed_ignition standard heat wrong 16.2% ai wrong 12.6% ignition missed 11.1% glow corr 0.75
