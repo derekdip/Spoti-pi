@@ -60,7 +60,49 @@ reason F3 gave: to know whether a bar is reachable before freezing it.
 Its numbers are in `poc/results/puff_pilot.log` and are repeated here
 so that what the bars were set against is on record.
 
-PILOT_PLACEHOLDER
+The pilot ran three rounds, each of which changed something, and the
+grammar and protocol above are what the third round left:
+
+1. **Round one** summed parcel temperatures. Slow parcels near the source
+   piled into thousands of kelvin, the fitter shrank the train until it
+   was invisible, and both scenes fitted a hot disc. Temperature is
+   intensive; the combination is now a maximum.
+2. **Round two** (maximum combination, three Powell starts, standard and
+   look objectives) still parked every start in a disc-plus-invisible-
+   train optimum. Hand-built hot trains beat the fitted states, so the
+   optimiser was leaving value on the table; a train-only-then-all fit
+   on `windy` found 0.339 with glow correlation 0.93; seeded differential
+   evolution on `obstacle` found 0.41 on the look objective where the best
+   local start found 0.53. Pictures showed parcels flying through the
+   shelf or pushed to its far edge while the teacher's column ends at the
+   shelf. Three changes followed: shelf blocking, the profile exponent,
+   and the DE-plus-two-stage floor protocol.
+3. **Round three** is the grammar and protocol frozen here:
+
+| scene | objective | fit (de, two-stage) | standard error | column best-known | per consumer (vis, heat, ai) | burn wrong | passable wrong | glow corr | parcels |
+|---|---|---|---|---|---|---|---|---|---|
+| windy | standard | 0.329 (0.332, 0.329) | **0.329** | 0.385 | 0.474, 0.135, 0.286 | 0.6% | 0.4% | 0.90 | 6 |
+| windy | look | 0.255 (0.255, 0.257) | 0.354 | 0.385 | 0.515, 0.184, 0.279 | 0.9% | 0.5% | **0.92** | 7 |
+| obstacle | standard | 0.432 (0.432, 0.471) | **0.432** | 0.460 | 0.655, 0.137, 0.335 | 1.5% | 1.1% | 0.78 | 14 |
+| obstacle | look | 0.370 (0.370, 0.390) | 0.489 | 0.460 | 0.741, 0.144, 0.384 | 2.7% | 3.2% | **0.80** | 12 |
+
+The standard fit beats the column grammar on both seen scenes, by 15 and
+6 percent, and on every consumer. The look fit raises the glow
+correlation by 0.02 on each scene at a cost in linear error, and on
+`obstacle` its state misses 59 percent of hazard cells: the tone-mapped
+objective buys glow with hazard. The two optimisers agree within 1
+percent on three of four fits and DE wins the fourth by 9 percent. Glow
+correlation reached 0.92 on the simplest scene and 0.80 on the shelf
+scene; the 0.90 proposed in `docs/fire-decisions.md` is therefore not
+reachable as a median over scenes that are harder than `windy`, and the
+bar below is set at what the shelf scene reached. F3's absolute floor of
+0.35 is reached on `windy` and not on `obstacle`, so no absolute floor
+bar is frozen; the floor bar is relative to the column grammar, which is
+the question this experiment exists to answer.
+
+The pilot's fitted states are not used anywhere in the unseen run. Its
+starts are the DE Latin hypercube at seed 0 and the two-stage fit from
+V0, on every scene.
 
 ## Procedure (frozen)
 
@@ -72,13 +114,15 @@ and width, same `diagnose` and `select_projection` from
 blacklist, no stopping rule, no borrowed threshold (`NO_GATE = 1.01`).
 
 - **Standard floor.** `rgre_puffs.floor_fit` on the four standard
-  consumers: Powell from three starts (all classes on at their
-  on-states, V0, box midpoint), 40 evaluations per active parameter
-  each, minimum kept, the three values reported. Inert parameters are
-  pruned per scene as before (no bed without patches, no deflect
-  without a shelf, no attract with one burner). This is the number
-  comparable with every earlier floor, and it is "no worse than", as
-  the whole fire arc established.
+  consumers: the minimum of two candidates, both reported. Seeded
+  differential evolution (seed 0, population 12 per parameter, 30
+  generations, Latin hypercube start) followed by a Powell polish; and
+  Powell from a two-stage start, which first fits the train with the
+  hot disc, the soot and the floor held off and then hands everything
+  over. Inert parameters are pruned per scene as before (no bed without
+  patches, no deflect without a shelf, no attract with one burner).
+  This is the number comparable with every earlier floor, and it is
+  "no worse than", as the whole fire arc established.
 - **Look floor.** The same fit with the visual consumer tone-mapped,
   `glow ** (1/2.2)`, before comparison (`rgre_puffs.LookCase`). The
   pilot found that under a linear glow the sooted base holds nearly
@@ -106,7 +150,29 @@ were its out-of-vocabulary cases and are scored here.
 
 ## Bars (frozen)
 
-BARS_PLACEHOLDER
+Column reference values are the best-known floors from the fire arc and
+the decision rates of the f6 Powell states (`poc/results/column_reference.json`):
+best-known floors ignition 0.580, delayed_ignition 0.626, full 0.590,
+twin 0.503, shelf_bed 0.615, split 0.411, shutoff 0.551.
+
+- **F4-B1, glow.** Median glow correlation over the second half of the
+  run, at the look-fit state, over the seven unseen scenes `>= 0.80`.
+  For `shutoff`, where nothing glows in the second half, the full-run
+  correlation is used instead. The count of scenes at or above 0.90 is
+  reported.
+- **F4-B2, floor against the column.** The standard-fit error is below
+  the column grammar's best-known floor on at least 6 of the 7 unseen
+  scenes.
+- **F4-B3, decisions.** At the standard-fit state, median burn
+  disagreement `<= 5%` and median passable disagreement `<= 5%` over the
+  seven unseen scenes; median missed-alight `<= 25%` over the three
+  scorable bed scenes (`ignition`, `delayed_ignition`, `full`;
+  `shelf_bed`'s bed never lights in the teacher and is vacuous).
+- **F4-B4, cost.** Parcels per source at the standard-fit state `<= 24`
+  on every unseen scene.
+- **F4-B5, search.** Median greedy error reduction `>= 0.80` of the
+  standard floor's reduction, F3-B2 verbatim.
+
 
 ## Predictions, recorded before the run
 

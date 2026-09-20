@@ -15,3 +15,9 @@
 [ 1351s] obstacle standard fit 0.4323 (de 0.432, two_stage 0.471) -> linear 0.4323 (old column 0.4599) live 14 motion 0.00
         per consumer visual 0.655, heat 0.137, ai 0.335
         heat wrong 1.5% (missed 14.1%)  ai wrong 1.1% (missed 14.9%)  glow corr 0.78
+      de: 0.3702 in 7828 evals
+      two-stage: 0.4602 -> 0.3904 in 760 evals
+[ 1835s] obstacle look     fit 0.3702 (de 0.370, two_stage 0.390) -> linear 0.4891 (old column 0.4599) live 12 motion 0.00
+        per consumer visual 0.741, heat 0.144, ai 0.384
+        heat wrong 2.7% (missed 13.3%)  ai wrong 3.2% (missed 58.6%)  glow corr 0.80
+done
