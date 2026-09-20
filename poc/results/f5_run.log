@@ -64,3 +64,12 @@
 [  3922s]    step 0: pick width    E 1.3170->0.8686 (1 tried) 3.1s
 [  3924s]    step 1: pick base     E 0.8686->0.7170 (1 tried) 1.8s
 [  3928s]    step 2: pick wind     E 0.7170->0.6484 (1 tried) 4.0s
+[  3930s]    step 3: pick profile  E 0.6484->0.6360 (1 tried) 2.3s
+[  3933s]    step 4: pick cool     E 0.6360->0.5814 (1 tried) 3.0s
+[  3937s]    step 5: pick width    E 0.5814->0.5731 (2 tried) 4.1s
+[  3939s]    step 6: pick attract  E 0.5731->0.5609 (1 tried) 2.2s
+[  3945s]    step 7: pick cool     E 0.5609->0.5552 (2 tried) 6.0s
+[  3948s]    step 8: pick width    E 0.5552->0.5473 (1 tried) 3.1s
+[  3951s]    step 9: pick rise     E 0.5473->0.5311 (1 tried) 2.7s
+[  3951s] gust_twin: greedy 0.5311 after 10 steps (budget), 0.842 of the floor's reduction
+[  3959s] bed_chain: V0 0.8333, teacher sway 12.5 cm at 0.7 Hz
