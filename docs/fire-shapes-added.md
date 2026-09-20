@@ -181,3 +181,74 @@ next thing to fix is not the grammar. It is the measurement: coordinate
 descent from one start is not good enough to tell a real floor from an
 optimiser artifact, and until it is replaced no further statement about
 whether the vocabulary is adequate can be trusted.
+
+## Re-measuring the floor with a better optimiser, and a claim of mine that was wrong
+
+Coordinate descent had been shown to carry at least 16 percent slack, so the
+floor was re-measured with Powell from three starts, with parameters that
+cannot act on a scene pruned first. On a scene with no patches, no shelf and
+no burner shutoff, twelve of thirty parameters are inert, and removing them
+takes exact plateaus out of the search space rather than making a modelling
+choice.
+
+**The monotonicity I claimed for it was not implemented.** The claim was that
+including a known-good state among the starts makes the result monotone, so
+that a better optimiser can never report a worse floor. The three starts
+actually used were the all-classes-on state, V0, and the box midpoint. None
+of them was a previously found best, because those states were never saved,
+only their errors. So the guarantee never applied, and the results show it:
+
+| scene | previous best | Powell | |
+|---|---|---|---|
+| windy | 0.482 | **0.385** | +20.2% |
+| split | 0.469 | **0.411** | +12.3% |
+| shutoff | 0.587 | **0.551** | +6.2% |
+| twin | 0.517 | **0.503** | +2.6% |
+| obstacle | 0.466 | **0.460** | +1.3% |
+| full | 0.590 | 0.595 | -0.9% |
+| delayed_ignition | 0.626 | 0.634 | -1.3% |
+| ignition | 0.580 | 0.661 | -14.0% |
+| shelf_bed | 0.615 | 0.719 | -16.8% |
+
+Better on five of nine, worse on four, spanning -17 to +20 percent. Powell
+itself is multi-modal here: its three starts on `twin` landed at 0.503,
+0.531 and 0.544, an 8 percent spread. The previous-best column is a minimum
+over several coordinate-descent runs, so this compares one three-start
+Powell against an ensemble, and it does not win.
+
+**Taking the minimum over every method tried, which is monotone by
+construction:**
+
+| | V0 | F3 | + shapes | + profile | best of all |
+|---|---|---|---|---|---|
+| median | 0.818 | 0.626 | 0.593 | 0.590 | **0.580** |
+
+## The conclusion is robust even though the measurement is not
+
+After four optimisation approaches, per-scene floor estimates still disagree
+by up to 20 percent and no method dominates. The floor is not being measured
+reliably and more effort would move it by a few percent, not by the factor
+needed.
+
+That is enough to answer the question anyway. F3's bar was 0.35. The
+best-known floor per scene runs from 1.10 to 1.79 times that bar, median
+1.66 times. Even granting another 20 percent of unmeasured slack everywhere,
+six of seven scenes stay clear of it. **F3's conclusion stands: the
+vocabulary, not the search, is the limit.** The margin is much smaller than
+F3 reported, and the reason to believe it now is the spread across
+independent optimisers rather than any single number.
+
+`windy` is the exception worth naming. At 0.385 it is within 10 percent of
+the bar, and it is the simplest scene in the set: one burner, a steady
+crosswind, no obstacle, no fuel bed, no shutoff. The grammar can nearly
+express a leaning plume and cannot express much else.
+
+Per-consumer at the Powell floor: heat 0.288, visual 0.675, hazard grid
+0.721, ignition 0.724. The ordering has not changed through any of this.
+Point temperature near a flame is what an anchored column is good at, and
+everything that depends on the shape and extent of the hot region is not.
+
+**Stopping here rather than optimising further.** The remaining slack does
+not change any decision. What would change one is a grammar whose sources
+are not all anchored columns, and that is a different piece of work from
+anything in this arc.
