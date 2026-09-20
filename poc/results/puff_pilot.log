@@ -7,3 +7,7 @@
         heat wrong 0.7% (missed 4.6%)  ai wrong 0.3% (missed 4.4%)  glow corr 0.87
       start 0: 0.9491 -> 0.3569 in 640 evals
       start 1: 0.9674 -> 0.3047 in 640 evals
+      start 2: 2.3794 -> 0.5062 in 640 evals
+[  173s] windy look     fit 0.3047 (starts 0.357, 0.305, 0.506) -> linear 0.3866 (old column 0.3852) live 7 motion 0.00
+        per consumer visual 0.551, heat 0.144, ai 0.352
+        heat wrong 0.6% (missed 4.0%)  ai wrong 0.4% (missed 4.0%)  glow corr 0.89
