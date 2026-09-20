@@ -60,3 +60,7 @@
 [  6901s] shelf_bed look     heat wrong 13.4% ai wrong 9.2% ignition missed 0.0% glow corr 0.54
 [  6905s]    step 0: pick deflect  E 0.8544->0.7966 (2 tried) 4.5s
 [  6908s]    step 1: pick wind     E 0.7966->0.7778 (2 tried) 3.0s
+[  6910s]    step 2: pick base     E 0.7778->0.7543 (1 tried) 1.9s
+[  6915s]    step 3: pick width    E 0.7543->0.7466 (4 tried) 5.3s
+[  6923s]    step 4: pick rise     E 0.7466->0.7168 (6 tried) 7.9s
+[  6927s] shelf_bed: greedy 0.7168 after 6 steps (exhausted), 0.382 of the floor's reduction
