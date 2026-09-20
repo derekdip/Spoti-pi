@@ -18,3 +18,4 @@
 [  284s] obstacle standard fit 0.5468 (starts 0.547, 0.572, 0.588) -> linear 0.5468 (old column 0.4599) live 8 motion 0.00
         per consumer visual 0.800, heat 0.353, ai 0.363
         heat wrong 1.6% (missed 14.1%)  ai wrong 1.2% (missed 23.6%)  glow corr 0.63
+      start 0: 1.1851 -> 0.5319 in 720 evals
