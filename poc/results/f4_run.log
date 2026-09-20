@@ -81,3 +81,14 @@
 [  7780s] shutoff: V0 0.7774
 [  8031s] shutoff standard fit 0.5686 (de 0.569, two_stage 0.588) -> linear 0.5686 live 12 motion 0.00 251s | visual 0.704, heat 0.194, ai 0.661
 [  8031s] shutoff standard heat wrong 3.3% ai wrong 2.6% glow corr nan
+[  8263s] shutoff look     fit 0.5077 (de 0.508, two_stage 0.562) -> linear 0.5988 live 12 motion 0.00 232s | visual 0.809, heat 0.186, ai 0.621
+[  8263s] shutoff look     heat wrong 3.2% ai wrong 2.2% glow corr nan
+[  8265s]    step 0: pick wind     E 0.7774->0.7694 (1 tried) 1.5s
+[  8266s]    step 1: pick width    E 0.7694->0.6946 (1 tried) 1.7s
+[  8267s]    step 2: pick base     E 0.6946->0.6482 (1 tried) 1.0s
+[  8269s]    step 3: pick jitter   E 0.6482->0.6397 (2 tried) 1.5s
+[  8270s]    step 4: pick rate     E 0.6397->0.6135 (1 tried) 1.0s
+[  8271s]    step 5: pick cool     E 0.6135->0.6037 (1 tried) 1.3s
+[  8273s]    step 6: pick width    E 0.6037->0.5862 (1 tried) 1.6s
+[  8278s] shutoff: greedy 0.5862 after 8 steps (exhausted), 0.916 of the floor's reduction
+[  8278s] median standard floor 0.4810; median glow correlation at the look fit nan
