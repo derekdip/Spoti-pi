@@ -143,3 +143,21 @@ run establishes:
 
 The fire representation this produced is not worth carrying forward.
 The three points above are.
+
+## Amendment, added after F2
+
+F2 found that three classes, `soot`, `flicker` and `secondary`, were
+unreachable by the repair fitter: each is gated by more than one
+parameter at once, coordinate descent starts them all at zero, and the
+first parameter swept therefore selects zero and gates off the rest.
+Their measured gain was exactly 0.00 percent everywhere, the signature
+of a switched-off term rather than a weak one.
+
+This does not change any number above. It does change one reading. The
+section headed "greedy error-per-cost picked an unphysical mechanism
+over the right one" is not supported as written: `secondary` was the
+top-ranked class at step zero on four of seven scored scenes, so the
+residual did name it, and it was discarded because fitting it could not
+produce a gain, not because the objective preferred leaning the flame.
+The objective chose leaning over an inert alternative. See
+`docs/math-track-f2-results.md`. Nothing above is edited.

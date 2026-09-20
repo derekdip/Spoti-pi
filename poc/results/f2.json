@@ -559,5 +559,321 @@
    "cost_final": 4
   }
  ],
- "reported": []
+ "reported": [
+  {
+   "scene": "split",
+   "seen": false,
+   "e_v0": 0.8937521508015288,
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8701403157501788,
+    "heat": 0.2755364315155249,
+    "ai": 1.2503256483816307
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.36792529504197746,
+     "ranked": [
+      "width",
+      "rise",
+      "tilt",
+      "deflect"
+     ],
+     "picked": "width",
+     "why": "ok",
+     "evaluated": 1,
+     "oracle": "height",
+     "oracle_gain": 0.297036383894555,
+     "coherence_pick": "tilt",
+     "seconds": 6.7,
+     "e_before": 0.8937521508015288,
+     "e_after": 0.7720858439475956,
+     "rgre_gain": 0.1216663068539332,
+     "dcost": 1,
+     "v_cap": 0.4096006868206541
+    },
+    {
+     "step": 1,
+     "q_perp": 0.5424898526809545,
+     "ranked": [
+      "deflect",
+      "width",
+      "tilt",
+      "rise"
+     ],
+     "picked": "deflect",
+     "why": "ok",
+     "evaluated": 1,
+     "oracle": "height",
+     "oracle_gain": 0.04145331192396873,
+     "coherence_pick": "width",
+     "seconds": 7.1,
+     "e_before": 0.7720858439475956,
+     "e_after": 0.7629707961822932,
+     "rgre_gain": 0.009115047765302364,
+     "dcost": 1,
+     "v_cap": 0.21988708120645845
+    },
+    {
+     "step": 2,
+     "q_perp": 0.6086986186481628,
+     "ranked": [
+      "deflect",
+      "width",
+      "rise",
+      "height"
+     ],
+     "picked": "rise",
+     "why": "ok",
+     "evaluated": 3,
+     "oracle": "tilt",
+     "oracle_gain": 0.0347590117727587,
+     "coherence_pick": "width",
+     "seconds": 7.7,
+     "e_before": 0.7629707961822932,
+     "e_after": 0.7333132689169352,
+     "rgre_gain": 0.029657527265358086,
+     "dcost": 1,
+     "v_cap": 0.8532327518183719
+    },
+    {
+     "step": 3,
+     "q_perp": 0.5012550890769307,
+     "ranked": [
+      "width",
+      "deflect",
+      "floor",
+      "amp"
+     ],
+     "picked": "floor",
+     "why": "ok",
+     "evaluated": 1,
+     "oracle": "width",
+     "oracle_gain": 0.10173235730168584,
+     "coherence_pick": "width",
+     "seconds": 8.2,
+     "e_before": 0.7333132689169352,
+     "e_after": 0.6945684720745797,
+     "rgre_gain": 0.03874479684235543,
+     "dcost": 1,
+     "v_cap": 0.3808502807760396
+    },
+    {
+     "step": 4,
+     "q_perp": 0.6201082789045538,
+     "ranked": [
+      "deflect",
+      "width",
+      "tilt",
+      "soot"
+     ],
+     "picked": "tilt",
+     "why": "ok",
+     "evaluated": 1,
+     "oracle": "tilt",
+     "oracle_gain": 0.030704444419985877,
+     "coherence_pick": "width",
+     "seconds": 7.8,
+     "e_before": 0.6945684720745797,
+     "e_after": 0.6638640276545938,
+     "rgre_gain": 0.030704444419985877,
+     "dcost": 1,
+     "v_cap": 1.0
+    },
+    {
+     "step": 5,
+     "q_perp": 0.704873002128169,
+     "ranked": [
+      "deflect",
+      "width",
+      "soot",
+      "tilt"
+     ],
+     "picked": null,
+     "why": "exhausted",
+     "evaluated": 7,
+     "oracle": "deflect",
+     "oracle_gain": 0.010029148097386198,
+     "coherence_pick": "width",
+     "seconds": 8.6,
+     "e_before": 0.6638640276545938,
+     "e_after": 0.6638640276545938
+    }
+   ],
+   "e_at_6": 0.6638640276545938,
+   "stopped": "exhausted",
+   "e_final": 0.6638640276545938,
+   "steps_used": 5,
+   "per_consumer_final": {
+    "visual": 0.8814308984606978,
+    "heat": 0.33076355158945303,
+    "ai": 0.6601676952260208
+   },
+   "state_final": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.025,
+    "tilt": -0.22222222222222227,
+    "rise_speed": 0.3,
+    "deflect": 0.1777777777777777,
+    "floor": 106.66666666666667
+   },
+   "cost_final": 8,
+   "terminal_construct_check": {
+    "amp": 0.0,
+    "height": 0.31,
+    "width": 0.0,
+    "soot": 0.0,
+    "flicker": 0.0,
+    "tilt": 0.0,
+    "rise": 0.0,
+    "deflect": 1.51,
+    "secondary": 0.0,
+    "floor": 0.0
+   },
+   "terminal_max_single_class": 1.51
+  },
+  {
+   "scene": "shutoff",
+   "seen": false,
+   "e_v0": 0.7559384395525377,
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.9053264193619017,
+    "heat": 0.25751724743448834,
+    "ai": 0.9101635648928712
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.6380501401746865,
+     "ranked": [
+      "rise",
+      "tilt",
+      "width",
+      "height"
+     ],
+     "picked": "rise",
+     "why": "ok",
+     "evaluated": 1,
+     "oracle": "rise",
+     "oracle_gain": 0.09697152733692183,
+     "coherence_pick": "rise",
+     "seconds": 6.3,
+     "e_before": 0.7559384395525377,
+     "e_after": 0.6589669122156159,
+     "rgre_gain": 0.09697152733692183,
+     "dcost": 1,
+     "v_cap": 1.0
+    },
+    {
+     "step": 1,
+     "q_perp": 0.7602674214790365,
+     "ranked": [
+      "tilt",
+      "width",
+      "floor",
+      "amp"
+     ],
+     "picked": "width",
+     "why": "ok",
+     "evaluated": 2,
+     "oracle": "width",
+     "oracle_gain": 0.009985000793137355,
+     "coherence_pick": "tilt",
+     "seconds": 7.2,
+     "e_before": 0.6589669122156159,
+     "e_after": 0.6489819114224785,
+     "rgre_gain": 0.009985000793137355,
+     "dcost": 1,
+     "v_cap": 1.0
+    },
+    {
+     "step": 2,
+     "q_perp": 0.680164547566912,
+     "ranked": [
+      "tilt",
+      "flicker",
+      "width",
+      "amp"
+     ],
+     "picked": null,
+     "why": "exhausted",
+     "evaluated": 7,
+     "oracle": "tilt",
+     "oracle_gain": 0.00509078376672456,
+     "coherence_pick": "tilt",
+     "seconds": 6.9,
+     "e_before": 0.6489819114224785,
+     "e_after": 0.6489819114224785
+    }
+   ],
+   "e_at_6": 0.6489819114224785,
+   "stopped": "exhausted",
+   "e_final": 0.6489819114224785,
+   "steps_used": 2,
+   "per_consumer_final": {
+    "visual": 0.8595194783413046,
+    "heat": 0.2024455525680879,
+    "ai": 0.6955390921134585
+   },
+   "state_final": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.09,
+    "rise_speed": 1.2500000000000002
+   },
+   "cost_final": 5,
+   "terminal_construct_check": {
+    "amp": 0.0,
+    "height": 0.59,
+    "width": 0.0,
+    "soot": 0.0,
+    "flicker": 0.0,
+    "tilt": 1.57,
+    "rise": 0.0,
+    "deflect": 0.0,
+    "secondary": 0.0,
+    "floor": 0.0
+   },
+   "terminal_max_single_class": 1.57
+  }
+ ],
+ "bars": {
+  "B1_median_value_captured": {
+   "value": 0.635546001903669,
+   "target": 0.75,
+   "pass": false
+  },
+  "B2_median_repairs_per_step": {
+   "value": 1.0,
+   "target": 3.3333333333333335,
+   "pass": true
+  },
+  "B3_median_terminal_reduction": {
+   "value": 0.0,
+   "target": 0.4,
+   "pass": false
+  },
+  "B4_consumer_transfer": {
+   "value": 7,
+   "target": 6,
+   "pass": true
+  },
+  "B5_median_steps_used": {
+   "value": 0.0,
+   "target": 4.0,
+   "pass": false
+  },
+  "reported_median_reduction_at_6": 0.0
+ }
 }
