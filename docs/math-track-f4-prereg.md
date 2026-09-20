@@ -21,13 +21,16 @@ a grammar whose sources are not anchored shapes.
 `poc/fire/puffs.py`. A source emits parcels at a rate; a parcel emitted
 at `t_k` has, at time `t`, a position, a size and a temperature that are
 closed-form functions of its age `t - t_k`: it accelerates to a rise
-speed, drifts with the steady wind and the gust, is pushed toward the
-nearer edge of a shelf it would hit, grows laterally, holds its peak
-while its fuel burns and then cools exponentially. The field is the sum
-over live parcels, plus an optional hot disc at the burner and a
-parcel-carried soot. A bed lights on the same delay law as before and
-emits parcels on its own envelope. No state, no stepping: a frame is
-still evaluated on its own from the causes.
+speed, drifts with the steady wind and the gust, grows laterally, holds
+its peak while its fuel burns and then cools exponentially. Under a
+shelf it drifts sideways as it approaches, is held under the shelf as a
+flattened pancake spending its denied climb on sideways travel, and
+resumes climbing once it clears an edge. The field is the **maximum**
+over live parcels, because temperature is intensive and two parcels
+overlapping are the same gas; an optional hot disc at the burner and a
+parcel-carried soot are combined the same way. A bed lights on the same
+delay law as before and emits parcels on its own envelope. No state, no
+stepping: a frame is still evaluated on its own from the causes.
 
 The claim under test is structural. Flicker, detachment at switch-off
 and splitting around a shelf are not tokens here; they are what a train
@@ -36,11 +39,12 @@ the column grammar by construction, `shutoff` and `split`, are predicted
 to be in vocabulary now. That prediction is recorded below as P1.
 
 V0 is the train alone (nine parameters). Expansions, off at zero:
-`jitter`, `wind`, `deflect`, `base`, `soot`, `bed`, `attract`, and
-`floor`, the same deliberate wrong atom as before. Classes, ranges and
-on-states are in `poc/fire/rgre_puffs.py` and were written before any
-scored scene was fitted. V0 defaults were set from four numbers measured
-on `plume`, which no experiment scores (`poc/fire_puff_probe.py`,
+`jitter`, `wind`, `deflect` (with its reach), `base`, `soot`, `bed`,
+`attract`, `profile` (the parcel's profile exponent, Gaussian by
+default), and `floor`, the same deliberate wrong atom as before.
+Classes, ranges and on-states are in `poc/fire/rgre_puffs.py`. V0
+defaults were set from four numbers measured on `plume`, which no
+experiment scores (`poc/fire_puff_probe.py`,
 `poc/results/puff_probe.log`): the start-up front reaches 2.25 m/s by
 1.2 m, the mean centreline excess falls by a factor 0.47 over the 1.07 s
 it takes to climb from 0.3 to 1.8 m, the lateral sigma grows from 0.060

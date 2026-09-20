@@ -43,8 +43,9 @@ class PuffState:
     jitter: float = 0.0         # m of hashed lateral offset per parcel: asymmetry and flicker
     wind: float = 0.0           # m/s steady lateral drift
     gust: float = 0.0           # m/s amplitude of drift oscillating at GUST_HZ
-    deflect: float = 0.0        # fraction of the way to the nearer shelf edge a blocked parcel moves
-    reach: float = 0.0          # m below the shelf over which that push develops
+    deflect: float = 0.0        # m of sideways drift per metre climbed under a shelf's influence
+    reach: float = 0.0          # m below the shelf at which that influence starts
+    sharp: float = 0.0          # parcel profile exponent; 0 means the Gaussian default of 2
     base_amp: float = 0.0       # K excess held in the burner disc while it is on
     soot_amp: float = 0.0       # soot a parcel carries at birth
     soot_tau: float = 0.0       # s e-folding of that soot
@@ -82,10 +83,12 @@ def _hash(k, salt=0):
     return ((h >> 8) & 0xFFFFFF) / float(1 << 24)
 
 
-def _kinematics(st: PuffState, a, t_k, t, x0, y0, others, obstacles):
-    """Position and lateral sigma of parcels of ages `a` (array), emitted at `t_k`, now at `t`."""
+def _kinematics(st: PuffState, a, t_k, t, x0, y0, k, others, obstacles):
+    """Position and the two sigmas of parcels of ages `a` (array), emitted at `t_k`, now at `t`."""
     y = y0 + st.v_rise * (a - (1.0 - np.exp(-st.accel * a)) / st.accel)
     x = np.full_like(a, x0)
+    if st.jitter != 0.0:
+        x = x + st.jitter * (2.0 * _hash(k) - 1.0)
     if st.wind != 0.0:
         x = x + st.wind * a
     if st.gust != 0.0:
@@ -95,21 +98,37 @@ def _kinematics(st: PuffState, a, t_k, t, x0, y0, others, obstacles):
         for ox in others:
             x = x + st.attract * a * np.sign(ox - x0)
     sig = st.width + st.grow * a
+    sy = st.aspect * sig
     if st.deflect != 0.0 and obstacles:
         reach = max(st.reach, 0.05)
         for o in obstacles:
-            start = o.y - o.half_h - reach
-            below = y > start
+            bottom = o.y - o.half_h
+            start = bottom - reach
             under = np.abs(x - o.x) <= o.half_w + sig
-            hit = below & under
+            hit = (y > start) & under
             if not hit.any():
                 continue
             side = np.sign(x - o.x)
             side = np.where(side == 0.0, 1.0, side)
-            edge = o.x + side * (o.half_w + 2.0 * sig)
-            blend = np.clip((y - start) / reach, 0.0, 1.0)
-            x = np.where(hit, x + st.deflect * blend * (edge - x), x)
-    return x, y, sig
+            # approaching: drift sideways at `deflect` per metre climbed once inside the reach
+            climb = np.clip(y - start, 0.0, reach)
+            x_new = x + side * st.deflect * climb
+            # blocked: the climb the shelf denies is spent moving sideways under it, and whatever
+            # is left once the parcel clears the edge is climb again
+            denied = np.maximum(y - bottom, 0.0)
+            to_edge = np.maximum((o.half_w + 2.0 * sig) - np.abs(x_new - o.x), 0.0)
+            slide = np.minimum(denied, to_edge)
+            x_new = x_new + side * slide
+            # a parcel under the shelf is a pancake, not a blob: its vertical extent is capped by
+            # the gap left below the shelf, so its tail never heats the space above a shelf it
+            # has not cleared
+            y_new = np.where(denied > 0.0, bottom - 0.75 * sig + (denied - slide), y)
+            not_cleared = hit & (np.abs(x_new - o.x) <= o.half_w + 2.0 * sig)
+            flat = np.clip(bottom - y_new, 0.25 * sig, sy)
+            x = np.where(hit, x_new, x)
+            y = np.where(hit, y_new, y)
+            sy = np.where(not_cleared, flat, sy)
+    return x, y, sig, sy
 
 
 def _emit(st: PuffState, t, t_on, t_off, x0, y0, others, obstacles, k_salt):
@@ -127,17 +146,15 @@ def _emit(st: PuffState, t, t_on, t_off, x0, y0, others, obstacles, k_salt):
         k = k[-MAX_LIVE:]
     t_k = t_on + k / st.rate
     a = t - t_k
-    x, y, sig = _kinematics(st, a, t_k, t, x0, y0, others, obstacles)
-    if st.jitter != 0.0:
-        x = x + st.jitter * (2.0 * _hash(k + k_salt) - 1.0)
-    return x, y, sig, a, k
+    x, y, sig, sy = _kinematics(st, a, t_k, t, x0, y0, k + k_salt, others, obstacles)
+    return x, y, sig, sy, a, k
 
 
 def _envelope(st: PuffState, a):
     return np.where(a <= st.burn, 1.0, np.exp(-(a - st.burn) / max(st.cool, 1e-3)))
 
 
-def _splat(field, xs, ys, x, y, sx, sy, amp):
+def _splat(field, xs, ys, x, y, sx, sy, amp, q=2.0):
     """Combine separable Gaussian blobs into a (ny, nx) field by maximum, each on its own slice.
 
     Temperature is intensive: two parcels overlapping are the same hot gas, not twice as hot. A sum
@@ -154,8 +171,8 @@ def _splat(field, xs, ys, x, y, sx, sy, amp):
         j0 = max(int((yi - 3.5 * syi) / dx), 0); j1 = min(int((yi + 3.5 * syi) / dx) + 2, ny)
         if i1 <= i0 or j1 <= j0:
             continue
-        gx = np.exp(-0.5 * ((xs[i0:i1] - xi) / sxi) ** 2)
-        gy = np.exp(-0.5 * ((ys[j0:j1] - yi) / syi) ** 2)
+        gx = np.exp(-0.5 * np.abs((xs[i0:i1] - xi) / sxi) ** q)
+        gy = np.exp(-0.5 * np.abs((ys[j0:j1] - yi) / syi) ** q)
         np.maximum(field[j0:j1, i0:i1], ai * gy[:, None] * gx[None, :], out=field[j0:j1, i0:i1])
 
 
@@ -178,17 +195,17 @@ def evaluate(st: PuffState, p: FireParams, times, burners, patches, obstacles):
     exc = np.zeros((F, p.ny, p.nx))
     soot = np.zeros((F, p.ny, p.nx))
     burner_xy = [(b.x, b.y) for b in burners]
+    q = st.sharp if st.sharp > 0.0 else 2.0
     for f, t in enumerate(times):
         for bi, b in enumerate(burners):
             others = [ox for oi, (ox, oy) in enumerate(burner_xy) if oi != bi and burners[oi].t_on <= t] \
                 if st.attract != 0.0 else []
             em = _emit(st, t, b.t_on, b.t_off, b.x, b.y, others, obstacles, k_salt=1000 * bi)
             if em is not None:
-                x, y, sig, a, k = em
-                _splat(exc[f], xs, ys, x, y, sig, st.aspect * sig, st.amp * _envelope(st, a))
+                x, y, sig, sy, a, k = em
+                _splat(exc[f], xs, ys, x, y, sig, sy, st.amp * _envelope(st, a), q)
                 if st.soot_amp != 0.0 and st.soot_tau > 0.0:
-                    _splat(soot[f], xs, ys, x, y, sig, st.aspect * sig,
-                           st.soot_amp * np.exp(-a / st.soot_tau))
+                    _splat(soot[f], xs, ys, x, y, sig, sy, st.soot_amp * np.exp(-a / st.soot_tau), q)
             if st.base_amp != 0.0 and b.t_on <= t <= b.t_off:
                 r4 = (((X - b.x) ** 2 + (Y - b.y) ** 2) / max(b.radius, 1e-3) ** 2) ** 2
                 np.maximum(exc[f], st.base_amp * np.exp(-r4), out=exc[f])
@@ -201,10 +218,9 @@ def evaluate(st: PuffState, p: FireParams, times, burners, patches, obstacles):
                 em = _emit(st, t, t_ign, 1e9, q.x, q.y, [], obstacles, k_salt=5000 + 1000 * qi)
                 if em is None:
                     continue
-                x, y, sig, a, k = em
+                x, y, sig, sy, a, k = em
                 env_k = np.array([_bed_envelope(st, t - ak, t_ign) for ak in a])   # bed level at emission
-                _splat(exc[f], xs, ys, x, y, sig, st.aspect * sig,
-                       st.bed_amp * env_k * _envelope(st, a))
+                _splat(exc[f], xs, ys, x, y, sig, sy, st.bed_amp * env_k * _envelope(st, a), q)
     if st.floor != 0.0:
         exc += st.floor
     solid = np.zeros((p.ny, p.nx), dtype=bool)

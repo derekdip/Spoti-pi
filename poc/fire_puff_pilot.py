@@ -48,7 +48,7 @@ def main(maxfev=40):
             sc = score(case, st); sc.update(fit_objective=e, spread=spread, n_params=len(names))
             out[nm]["fits"][lab] = sc; states[lab] = st
             d = sc["decisions"]
-            print(f"[{time.time()-T0:5.0f}s] {nm} {lab:<8} fit {e:.4f} (starts {', '.join(f'{x:.3f}' for x in spread)}) -> "
+            print(f"[{time.time()-T0:5.0f}s] {nm} {lab:<8} fit {e:.4f} ({', '.join(f'{k} {v:.3f}' for k, v in spread.items())}) -> "
                   f"linear {sc['error']:.4f} (old column {old[nm]['floor']:.4f}) live {sc['live']} motion {sc['motion']:.2f}", flush=True)
             print(f"        per consumer " + ", ".join(f"{k} {v:.3f}" for k, v in sc["per_consumer"].items()), flush=True)
             print(f"        heat wrong {100*d['heat']['disagree']:.1f}% (missed {100*d['heat']['missed_burn']:.1f}%)  "

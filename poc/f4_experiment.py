@@ -80,7 +80,7 @@ def run_scene(nm, log):
         sc.update(fit_objective=e, spread=spread, n_params=len(names), seconds=round(time.time() - t0))
         rec["fits"][lab] = sc
         d = sc["decisions"]
-        log(f"{nm} {lab:<8} fit {e:.4f} (starts {', '.join(f'{x:.3f}' for x in spread)}) -> linear {sc['error']:.4f} "
+        log(f"{nm} {lab:<8} fit {e:.4f} ({', '.join(f'{k} {v:.3f}' for k, v in spread.items())}) -> linear {sc['error']:.4f} "
             f"live {sc['live']} motion {sc['motion']:.2f} {sc['seconds']}s | "
             + ", ".join(f"{k} {v:.3f}" for k, v in sc["per_consumer"].items()))
         log(f"{nm} {lab:<8} heat wrong {100*d['heat']['disagree']:.1f}% ai wrong {100*d['ai']['disagree']:.1f}% "
