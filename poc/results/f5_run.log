@@ -24,3 +24,10 @@
 [  1492s]    step 1: pick base     E 0.7721->0.7423 (2 tried) 1.9s
 [  1495s]    step 2: pick wind     E 0.7423->0.7212 (1 tried) 3.1s
 [  1499s]    step 3: pick cool     E 0.7212->0.6556 (3 tried) 3.9s
+[  1500s]    step 4: pick floor    E 0.6556->0.6489 (1 tried) 2.0s
+[  1503s]    step 5: pick width    E 0.6489->0.6337 (1 tried) 2.7s
+[  1506s]    step 6: pick width    E 0.6337->0.6259 (1 tried) 2.6s
+[  1509s]    step 7: pick width    E 0.6259->0.6165 (2 tried) 3.2s
+[  1517s]    step 8: pick rise     E 0.6165->0.5955 (7 tried) 8.2s
+[  1520s] gust_shelf: greedy 0.5955 after 10 steps (exhausted), 0.715 of the floor's reduction
+[  1528s] fast_gust: V0 0.6240, teacher sway 4.7 cm at 1.4 Hz

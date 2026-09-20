@@ -1,5 +1,366 @@
 {
- "fresh": [],
+ "fresh": [
+  {
+   "scene": "gust_shelf",
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "e_v0": 0.7874130018500037,
+   "gust_hz": 0.7,
+   "gust_amp": 1.8,
+   "teacher_sway": 0.10116042398040503,
+   "fits": {
+    "standard": {
+     "error": 0.5189152603900629,
+     "per_consumer": {
+      "visual": 0.5819616450812535,
+      "heat": 0.2554285604380762,
+      "ai": 0.635528155602813
+     },
+     "live": 12,
+     "sway_amp": 0.06348923181181726,
+     "sway_ratio": 0.627609388273375,
+     "sway_phase_err": 30.52381177912865,
+     "decisions": {
+      "heat": {
+       "disagree": 0.11065573770491803,
+       "missed_burn": 0.3194888178913738,
+       "false_burn": 0.05386620330147698,
+       "teacher_burn_rate": 0.21379781420765026
+      },
+      "ai": {
+       "disagree": 0.07404371584699454,
+       "missed_hazard": 0.3898989898989899,
+       "false_hazard": 0.024644549763033177,
+       "teacher_hazard_rate": 0.13524590163934427
+      },
+      "visual": {
+       "rel_rms": 0.5819616450812535,
+       "late_correlation": 0.7997633006571713,
+       "full_correlation": 0.8079809467448045
+      }
+     },
+     "state": {
+      "amp": 901.2700728364723,
+      "rate": 2.8243600487810965,
+      "v_rise": 0.5679089761867965,
+      "accel": 0.5609013224885251,
+      "burn": 0.6375401016908584,
+      "cool": 1.1005017037270575,
+      "width": 0.09367238654333931,
+      "grow": 0.03878449558362519,
+      "aspect": 1.4583230907019487,
+      "jitter": 0.03815622760062654,
+      "wind": -0.08078887366705124,
+      "gust": 0.536468640312352,
+      "gust_lag": 1.848275832377556,
+      "sway_base": 0.01772292712192849,
+      "deflect": 0.01913313698954261,
+      "reach": 0.12346690281177178,
+      "sharp": 1.928937664638514,
+      "base_amp": 1.510590836009714,
+      "soot_amp": 2.3890056060463096,
+      "soot_tau": 3.9945564318055,
+      "bed_amp": 0.0,
+      "bed_delay": 0.0,
+      "bed_speed": 0.0,
+      "bed_dur": 0.0,
+      "bed_fall": 0.0,
+      "attract": 0.0,
+      "floor": 21.568003255345054
+     },
+     "fit_objective": 0.5189152603900629,
+     "spread": {
+      "de": 0.5508003970721767,
+      "two_stage": 0.5189152603900629
+     },
+     "n_params": 21,
+     "seconds": 340
+    },
+    "look": {
+     "error": 0.5381437068079805,
+     "per_consumer": {
+      "visual": 0.6223403684671936,
+      "heat": 0.25832620382699606,
+      "ai": 0.6440155166791808
+     },
+     "live": 8,
+     "sway_amp": 0.09364556455165747,
+     "sway_ratio": 0.9257134447142767,
+     "sway_phase_err": 25.667765809556556,
+     "decisions": {
+      "heat": {
+       "disagree": 0.09972677595628415,
+       "missed_burn": 0.30670926517571884,
+       "false_burn": 0.043440486533449174,
+       "teacher_burn_rate": 0.21379781420765026
+      },
+      "ai": {
+       "disagree": 0.07431693989071038,
+       "missed_hazard": 0.37373737373737376,
+       "false_hazard": 0.027488151658767772,
+       "teacher_hazard_rate": 0.13524590163934427
+      },
+      "visual": {
+       "rel_rms": 0.6223403684671936,
+       "late_correlation": 0.8090457397950689,
+       "full_correlation": 0.7898492030792353
+      }
+     },
+     "state": {
+      "amp": 842.1803832284434,
+      "rate": 2.566473030829,
+      "v_rise": 0.6661670189372274,
+      "accel": 0.6624573289019686,
+      "burn": 0.536390402389042,
+      "cool": 0.8459642190602683,
+      "width": 0.10389346066316794,
+      "grow": 0.05808327510401459,
+      "aspect": 1.86622097836352,
+      "jitter": 0.046814452584561295,
+      "wind": -0.09807477861698156,
+      "gust": 0.6854317353991994,
+      "gust_lag": 1.7969544100033021,
+      "sway_base": 0.06133819828456563,
+      "deflect": 0.0005402808342472348,
+      "reach": 0.19270126016195327,
+      "sharp": 2.5659322855676256,
+      "base_amp": 0.007187908894264368,
+      "soot_amp": 2.9465324609537156,
+      "soot_tau": 3.9993598900059966,
+      "bed_amp": 0.0,
+      "bed_delay": 0.0,
+      "bed_speed": 0.0,
+      "bed_dur": 0.0,
+      "bed_fall": 0.0,
+      "attract": 0.0,
+      "floor": 4.745594470331168
+     },
+     "fit_objective": 0.5208895237459666,
+     "spread": {
+      "de": 0.521917293625378,
+      "two_stage": 0.5208895237459666
+     },
+     "n_params": 21,
+     "seconds": 375
+    }
+   },
+   "best": "standard",
+   "greedy": {
+    "steps": [
+     {
+      "step": 0,
+      "q_perp": 0.6342276860926078,
+      "ranked": [
+       "deflect",
+       "wind",
+       "width",
+       "cool"
+      ],
+      "picked": "deflect",
+      "evaluated": 1,
+      "seconds": 1.7,
+      "e_before": 0.8504060419980041,
+      "e_after": 0.7720929309830171,
+      "dcost": 2
+     },
+     {
+      "step": 1,
+      "q_perp": 0.7709368102657311,
+      "ranked": [
+       "deflect",
+       "base",
+       "wind",
+       "width"
+      ],
+      "picked": "base",
+      "evaluated": 2,
+      "seconds": 1.9,
+      "e_before": 0.7720929309830171,
+      "e_after": 0.7423394889335573,
+      "dcost": 1
+     },
+     {
+      "step": 2,
+      "q_perp": 0.8276972582213721,
+      "ranked": [
+       "deflect",
+       "wind",
+       "width",
+       "jitter"
+      ],
+      "picked": "wind",
+      "evaluated": 1,
+      "seconds": 3.1,
+      "e_before": 0.7423394889335573,
+      "e_after": 0.7212067349119782,
+      "dcost": 4
+     },
+     {
+      "step": 3,
+      "q_perp": 0.8308134830033762,
+      "ranked": [
+       "deflect",
+       "wind",
+       "jitter",
+       "cool"
+      ],
+      "picked": "cool",
+      "evaluated": 3,
+      "seconds": 3.9,
+      "e_before": 0.7212067349119782,
+      "e_after": 0.655616510971069,
+      "dcost": 1
+     },
+     {
+      "step": 4,
+      "q_perp": 0.8464522620381663,
+      "ranked": [
+       "deflect",
+       "floor",
+       "width",
+       "profile"
+      ],
+      "picked": "floor",
+      "evaluated": 1,
+      "seconds": 2.0,
+      "e_before": 0.655616510971069,
+      "e_after": 0.6489468147062235,
+      "dcost": 1
+     },
+     {
+      "step": 5,
+      "q_perp": 0.8635642789147457,
+      "ranked": [
+       "deflect",
+       "wind",
+       "width",
+       "jitter"
+      ],
+      "picked": "width",
+      "evaluated": 1,
+      "seconds": 2.7,
+      "e_before": 0.6489468147062235,
+      "e_after": 0.6337004985731446,
+      "dcost": 1
+     },
+     {
+      "step": 6,
+      "q_perp": 0.866894077685163,
+      "ranked": [
+       "deflect",
+       "wind",
+       "jitter",
+       "width"
+      ],
+      "picked": "width",
+      "evaluated": 1,
+      "seconds": 2.6,
+      "e_before": 0.6337004985731446,
+      "e_after": 0.6259024293938934,
+      "dcost": 1
+     },
+     {
+      "step": 7,
+      "q_perp": 0.8763668008017245,
+      "ranked": [
+       "deflect",
+       "wind",
+       "jitter",
+       "profile"
+      ],
+      "picked": "width",
+      "evaluated": 2,
+      "seconds": 3.2,
+      "e_before": 0.6259024293938934,
+      "e_after": 0.6164811573894202,
+      "dcost": 1
+     },
+     {
+      "step": 8,
+      "q_perp": 0.8702690276806079,
+      "ranked": [
+       "deflect",
+       "profile",
+       "wind",
+       "jitter"
+      ],
+      "picked": "rise",
+      "evaluated": 7,
+      "seconds": 8.2,
+      "e_before": 0.6164811573894202,
+      "e_after": 0.5955487248564578,
+      "dcost": 1
+     },
+     {
+      "step": 9,
+      "q_perp": 0.8828908360767787,
+      "ranked": [
+       "deflect",
+       "profile",
+       "width",
+       "wind"
+      ],
+      "picked": null,
+      "evaluated": 2,
+      "seconds": 3.0
+     }
+    ],
+    "traj": [
+     0.8504060419980041,
+     0.7720929309830171,
+     0.7423394889335573,
+     0.7212067349119782,
+     0.655616510971069,
+     0.6489468147062235,
+     0.6337004985731446,
+     0.6259024293938934,
+     0.6164811573894202,
+     0.5955487248564578
+    ],
+    "stopped": "exhausted",
+    "e_final": 0.5955487248564578,
+    "per_consumer": {
+     "visual": 0.669423382321805,
+     "heat": 0.3113051215166347,
+     "ai": 0.7204139834517419
+    },
+    "state": {
+     "amp": 600.0,
+     "rate": 6.0,
+     "v_rise": 1.1222222222222222,
+     "accel": 3.777777777777778,
+     "burn": 0.16666666666666666,
+     "cool": 0.7000000000000002,
+     "width": 0.11000000000000001,
+     "grow": 0.008333333333333333,
+     "aspect": 1.6055555555555556,
+     "jitter": 0.0,
+     "wind": -0.22222222222222227,
+     "gust": 0.7777777777777778,
+     "gust_lag": 1.7453292519943295,
+     "sway_base": 0.03333333333333333,
+     "deflect": 0.08333333333333333,
+     "reach": 0.10277777777777777,
+     "sharp": 0.0,
+     "base_amp": 666.6666666666667,
+     "soot_amp": 0.0,
+     "soot_tau": 0.0,
+     "bed_amp": 0.0,
+     "bed_delay": 0.0,
+     "bed_speed": 0.0,
+     "bed_dur": 0.0,
+     "bed_fall": 0.0,
+     "attract": 0.0,
+     "floor": 26.666666666666668
+    },
+    "seconds": 32
+   },
+   "evals": 17106
+  }
+ ],
  "paired": [],
  "transfer": [
   {
