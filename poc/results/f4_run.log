@@ -25,3 +25,5 @@
 [  2847s]    step 5: pick cool     E 0.7429->0.7321 (1 tried) 2.5s
 [  2855s] delayed_ignition: greedy 0.7321 after 7 steps (exhausted), 0.420 of the floor's reduction
 [  2862s] full: V0 0.8404
+[  3545s] full standard fit 0.4698 (de 0.470, two_stage 0.529) -> linear 0.4698 live 7 motion 0.80 683s | visual 0.632, heat 0.261, ignition 0.253, ai 0.592
+[  3545s] full standard heat wrong 9.4% ai wrong 6.9% ignition missed 11.1% glow corr 0.75
