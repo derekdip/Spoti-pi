@@ -195,7 +195,7 @@ def evaluate(st: PuffState, p: FireParams, times, burners, patches, obstacles):
     exc = np.zeros((F, p.ny, p.nx))
     soot = np.zeros((F, p.ny, p.nx))
     burner_xy = [(b.x, b.y) for b in burners]
-    q = st.sharp if st.sharp > 0.0 else 2.0
+    prof_q = st.sharp if st.sharp > 0.0 else 2.0
     for f, t in enumerate(times):
         for bi, b in enumerate(burners):
             others = [ox for oi, (ox, oy) in enumerate(burner_xy) if oi != bi and burners[oi].t_on <= t] \
@@ -203,9 +203,9 @@ def evaluate(st: PuffState, p: FireParams, times, burners, patches, obstacles):
             em = _emit(st, t, b.t_on, b.t_off, b.x, b.y, others, obstacles, k_salt=1000 * bi)
             if em is not None:
                 x, y, sig, sy, a, k = em
-                _splat(exc[f], xs, ys, x, y, sig, sy, st.amp * _envelope(st, a), q)
+                _splat(exc[f], xs, ys, x, y, sig, sy, st.amp * _envelope(st, a), prof_q)
                 if st.soot_amp != 0.0 and st.soot_tau > 0.0:
-                    _splat(soot[f], xs, ys, x, y, sig, sy, st.soot_amp * np.exp(-a / st.soot_tau), q)
+                    _splat(soot[f], xs, ys, x, y, sig, sy, st.soot_amp * np.exp(-a / st.soot_tau), prof_q)
             if st.base_amp != 0.0 and b.t_on <= t <= b.t_off:
                 r4 = (((X - b.x) ** 2 + (Y - b.y) ** 2) / max(b.radius, 1e-3) ** 2) ** 2
                 np.maximum(exc[f], st.base_amp * np.exp(-r4), out=exc[f])
@@ -220,7 +220,7 @@ def evaluate(st: PuffState, p: FireParams, times, burners, patches, obstacles):
                     continue
                 x, y, sig, sy, a, k = em
                 env_k = np.array([_bed_envelope(st, t - ak, t_ign) for ak in a])   # bed level at emission
-                _splat(exc[f], xs, ys, x, y, sig, sy, st.bed_amp * env_k * _envelope(st, a), q)
+                _splat(exc[f], xs, ys, x, y, sig, sy, st.bed_amp * env_k * _envelope(st, a), prof_q)
     if st.floor != 0.0:
         exc += st.floor
     solid = np.zeros((p.ny, p.nx), dtype=bool)

@@ -66,3 +66,17 @@ def test_deflection_keeps_parcels_out_of_the_shelf_shadow():
     X, Y = TT._grid(scene[0])
     above = (Y > o.y + o.half_h + 0.05) & (Y < o.y + 0.5) & (np.abs(X - o.x) < 0.10)
     assert T_off[0][above].max() > T_on[0][above].max()   # undeflected parcels pass straight through
+
+
+def test_bed_lights_on_its_own_clock_and_burns_out():
+    scene = scenes.ignition()
+    q = scene[2][0]
+    st = puffs.PuffState(bed_amp=600.0, bed_delay=0.4, bed_speed=0.0, bed_dur=1.0, bed_fall=0.3, sharp=3.0)
+    T, _ = _eval(st, scene, [0.2, 1.0, 3.5])
+    X, Y = TT._grid(scene[0])
+    near = ((X - q.x) ** 2 + (Y - q.y) ** 2) <= (q.radius + 0.05) ** 2
+    assert T[0][near].max() < TT.T_AMBIENT + 100     # not lit yet
+    assert T[1][near].max() > TT.T_AMBIENT + 300     # alight
+    assert T[2][near].max() < T[1][near].max() - 100  # dying after the fuel runs out
+    rec = puffs.as_record(st, scene[0], np.array([0.2, 1.0, 3.5]), *scene[1:])
+    assert rec.fuel[0][near].max() > rec.fuel[2][near].max()   # the bed depletes its fuel
