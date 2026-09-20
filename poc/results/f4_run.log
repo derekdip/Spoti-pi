@@ -31,3 +31,12 @@
 [  4199s] full look     heat wrong 9.5% ai wrong 7.0% ignition missed 5.6% glow corr 0.76
 [  4204s]    step 0: pick deflect  E 0.8404->0.7871 (2 tried) 5.0s
 [  4207s]    step 1: pick wind     E 0.7871->0.7432 (2 tried) 2.6s
+[  4208s]    step 2: pick base     E 0.7432->0.7143 (1 tried) 1.8s
+[  4212s]    step 3: pick width    E 0.7143->0.6922 (1 tried) 3.5s
+[  4215s]    step 4: pick soot     E 0.6922->0.6805 (1 tried) 3.0s
+[  4222s]    step 5: pick rise     E 0.6805->0.5535 (7 tried) 7.4s
+[  4229s]    step 6: pick width    E 0.5535->0.5411 (3 tried) 6.6s
+[  4232s]    step 7: pick cool     E 0.5411->0.5312 (1 tried) 3.0s
+[  4238s]    step 8: pick width    E 0.5312->0.5247 (3 tried) 5.9s
+[  4240s] full: greedy 0.5247 after 10 steps (exhausted), 0.852 of the floor's reduction
+[  4248s] twin: V0 0.7624
