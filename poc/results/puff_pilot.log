@@ -11,3 +11,5 @@
 [  173s] windy look     fit 0.3047 (starts 0.357, 0.305, 0.506) -> linear 0.3866 (old column 0.3852) live 7 motion 0.00
         per consumer visual 0.551, heat 0.144, ai 0.352
         heat wrong 0.6% (missed 4.0%)  ai wrong 0.4% (missed 4.0%)  glow corr 0.89
+[  190s] obstacle: V0 0.9285
+      start 0: 1.2058 -> 0.5468 in 720 evals
