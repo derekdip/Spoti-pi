@@ -10,3 +10,54 @@
    [ignition] step 1: pick width     E 0.7995->0.7507 (1 tried) 1.8s
    [ignition] step 2: pick tilt      E 0.7507->0.6405 (1 tried) 2.1s
    [ignition] step 3: pick tilt      E 0.6405->0.6152 (1 tried) 2.4s
+   [ignition] greedy 0.6152 (4 steps)  joint 0.6264 (42.3s)  V0 0.8163
+[   124s] delayed_ignition
+   [delayed_ignition] step 0: pick rise      E 0.8397->0.8240 (2 tried) 2.9s
+   [delayed_ignition] step 1: pick width     E 0.8240->0.7571 (1 tried) 1.7s
+   [delayed_ignition] greedy 0.7571 (2 steps)  joint 0.6817 (37.3s)  V0 0.8397
+[   182s] full
+   [full] step 0: pick rise      E 0.8176->0.7927 (3 tried) 3.7s
+   [full] step 1: pick width     E 0.7927->0.7540 (1 tried) 1.8s
+   [full] step 2: pick tilt      E 0.7540->0.6441 (1 tried) 2.2s
+   [full] step 3: pick height    E 0.6441->0.6254 (2 tried) 2.3s
+   [full] step 4: pick flicker   E 0.6254->0.6168 (6 tried) 8.1s
+   [full] greedy 0.6168 (5 steps)  joint 0.6083 (53.9s)  V0 0.8176
+[   268s] windy
+   [windy] step 0: pick tilt      E 0.8340->0.6761 (1 tried) 1.8s
+   [windy] step 1: pick rise      E 0.6761->0.5950 (2 tried) 2.5s
+   [windy] step 2: pick amp       E 0.5950->0.5829 (1 tried) 1.6s
+   [windy] step 3: pick height    E 0.5829->0.5526 (1 tried) 1.6s
+   [windy] step 4: pick amp       E 0.5526->0.5244 (1 tried) 1.7s
+   [windy] step 5: pick rise      E 0.5244->0.5100 (1 tried) 1.7s
+   [windy] step 6: pick soot      E 0.5100->0.4996 (1 tried) 2.7s
+   [windy] greedy 0.4996 (7 steps)  joint 0.4958 (18.8s)  V0 0.8340
+[   320s] twin
+   [twin] step 0: pick rise      E 0.7245->0.6636 (2 tried) 2.5s
+   [twin] step 1: pick amp       E 0.6636->0.5784 (1 tried) 1.7s
+   [twin] step 2: pick tilt      E 0.5784->0.5688 (1 tried) 2.8s
+   [twin] step 3: pick height    E 0.5688->0.5614 (3 tried) 4.5s
+   [twin] greedy 0.5614 (4 steps)  joint 0.5528 (50.4s)  V0 0.7245
+[   400s] shelf_bed
+   [shelf_bed] step 0: pick rise      E 0.8304->0.8040 (3 tried) 3.3s
+   [shelf_bed] step 1: pick width     E 0.8040->0.7410 (1 tried) 1.7s
+   [shelf_bed] greedy 0.7410 (2 steps)  joint 0.7144 (39.8s)  V0 0.8304
+[   460s] split (out of vocabulary, reported)
+   [split] step 0: pick width     E 0.8938->0.7721 (1 tried) 1.6s
+   [split] step 1: pick deflect   E 0.7721->0.7630 (1 tried) 1.4s
+   [split] step 2: pick rise      E 0.7630->0.7333 (3 tried) 2.1s
+   [split] step 3: pick floor     E 0.7333->0.6946 (1 tried) 1.3s
+   [split] step 4: pick tilt      E 0.6946->0.6639 (1 tried) 2.1s
+   [split] greedy 0.6639 (5 steps)  joint 0.6275 (21.1s)  V0 0.8938
+[   514s] shutoff (out of vocabulary, reported)
+   [shutoff] step 0: pick rise      E 0.7559->0.6590 (1 tried) 1.2s
+   [shutoff] step 1: pick width     E 0.6590->0.6490 (2 tried) 2.6s
+   [shutoff] greedy 0.6490 (2 steps)  joint 0.5839 (32.1s)  V0 0.7559
+[   572s] done
+
+BARS
+   B1_vocabulary_floor {'value': 0.626373195436712, 'target': 0.35, 'pass': False}
+   B2_search_adequacy {'value': 0.9593515342694809, 'target': 0.8, 'pass': True}
+   B3_gated_reachable {'value': ['flicker', 'soot'], 'target': '>=1 of soot/flicker/secondary', 'pass': True}
+   B4_terminal_reduction {'value': 0.2251983166273086, 'target': 0.4, 'pass': False}
+   B5_consumer_transfer {'value': 7, 'of': 7, 'target': 6, 'pass': True}
+   pick_histogram {'amp': 4, 'deflect': 1, 'flicker': 1, 'floor': 1, 'height': 4, 'rise': 10, 'soot': 1, 'tilt': 7, 'width': 7}

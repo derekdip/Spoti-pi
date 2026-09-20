@@ -162,7 +162,1190 @@
     "floor": 26.666666666666668
    },
    "joint_seconds": 21.4
+  },
+  {
+   "scene": "ignition",
+   "seen": true,
+   "e_v0": 0.8163372225640265,
+   "consumers": [
+    "visual",
+    "heat",
+    "ignition",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8512631159202252,
+    "heat": 0.4195017162039539,
+    "ignition": 1.0,
+    "ai": 0.8746400753166541
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.43388371313926805,
+     "ranked": [
+      "secondary",
+      "rise",
+      "width",
+      "tilt"
+     ],
+     "picked": "rise",
+     "evaluated": 2,
+     "seconds": 2.7,
+     "e_before": 0.8163372225640265,
+     "e_after": 0.7995284921010345,
+     "dcost": 1
+    },
+    {
+     "step": 1,
+     "q_perp": 0.4150946576736042,
+     "ranked": [
+      "secondary",
+      "width",
+      "floor",
+      "amp"
+     ],
+     "picked": "width",
+     "evaluated": 1,
+     "seconds": 1.8,
+     "e_before": 0.7995284921010345,
+     "e_after": 0.750669578757558,
+     "dcost": 1
+    },
+    {
+     "step": 2,
+     "q_perp": 0.444471251332141,
+     "ranked": [
+      "secondary",
+      "tilt",
+      "floor",
+      "flicker"
+     ],
+     "picked": "tilt",
+     "evaluated": 1,
+     "seconds": 2.1,
+     "e_before": 0.750669578757558,
+     "e_after": 0.640458598941635,
+     "dcost": 2
+    },
+    {
+     "step": 3,
+     "q_perp": 0.6572035859804354,
+     "ranked": [
+      "secondary",
+      "tilt",
+      "width",
+      "height"
+     ],
+     "picked": "tilt",
+     "evaluated": 1,
+     "seconds": 2.4,
+     "e_before": 0.640458598941635,
+     "e_after": 0.6152252002596562,
+     "dcost": 1
+    },
+    {
+     "step": 4,
+     "q_perp": 0.6902261811852473,
+     "ranked": [
+      "secondary",
+      "rise",
+      "soot",
+      "floor"
+     ],
+     "picked": null,
+     "evaluated": 8,
+     "seconds": 9.1
+    }
+   ],
+   "traj": [
+    0.8163372225640265,
+    0.7995284921010345,
+    0.750669578757558,
+    0.640458598941635,
+    0.6152252002596562
+   ],
+   "stopped": "exhausted",
+   "e_greedy": 0.6152252002596562,
+   "steps_used": 4,
+   "per_consumer_greedy": {
+    "visual": 0.7207865747425354,
+    "heat": 0.35939727764600676,
+    "ignition": 0.43059986348490403,
+    "ai": 0.8245557932586983
+   },
+   "state_greedy": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.2,
+    "tilt": 0.2777777777777777,
+    "tilt_gust": 0.4,
+    "rise_speed": 0.6166666666666667
+   },
+   "e_joint": 0.626373195436712,
+   "per_consumer_joint": {
+    "visual": 0.6149464925691177,
+    "heat": 0.3471895607830975,
+    "ignition": 0.6668132039349843,
+    "ai": 0.7912230349683522
+   },
+   "state_joint": {
+    "amp": 972.2222222222223,
+    "height": 0.5,
+    "width": 0.12000000000000002,
+    "soot_amp": 2.3333333333333335,
+    "soot_height": 3.0,
+    "flicker_amp": 0.05,
+    "flicker_hz": 2.5833333333333335,
+    "tilt": 0.05555555555555555,
+    "tilt_gust": 0.4,
+    "rise_speed": 0.6166666666666667,
+    "deflect": -0.4,
+    "sec_amp": 166.66666666666666,
+    "sec_delay": 0.08333333333333333,
+    "sec_speed": 0.3333333333333333,
+    "sec_dur": 2.3555555555555556,
+    "floor": 80.0
+   },
+   "joint_seconds": 42.3
+  },
+  {
+   "scene": "delayed_ignition",
+   "seen": false,
+   "e_v0": 0.8397166029187395,
+   "consumers": [
+    "visual",
+    "heat",
+    "ignition",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8815531653320098,
+    "heat": 0.45340504117055047,
+    "ignition": 1.0,
+    "ai": 0.9153052923499341
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.5033639934281977,
+     "ranked": [
+      "secondary",
+      "rise",
+      "soot",
+      "tilt"
+     ],
+     "picked": "rise",
+     "evaluated": 2,
+     "seconds": 2.9,
+     "e_before": 0.8397166029187395,
+     "e_after": 0.8239617499930154,
+     "dcost": 1
+    },
+    {
+     "step": 1,
+     "q_perp": 0.4811473018030131,
+     "ranked": [
+      "secondary",
+      "width",
+      "floor",
+      "amp"
+     ],
+     "picked": "width",
+     "evaluated": 1,
+     "seconds": 1.7,
+     "e_before": 0.8239617499930154,
+     "e_after": 0.7570755735684195,
+     "dcost": 1
+    },
+    {
+     "step": 2,
+     "q_perp": 0.46602321918531664,
+     "ranked": [
+      "secondary",
+      "tilt",
+      "floor",
+      "amp"
+     ],
+     "picked": null,
+     "evaluated": 8,
+     "seconds": 5.6
+    }
+   ],
+   "traj": [
+    0.8397166029187395,
+    0.8239617499930154,
+    0.7570755735684195
+   ],
+   "stopped": "exhausted",
+   "e_greedy": 0.7570755735684195,
+   "steps_used": 2,
+   "per_consumer_greedy": {
+    "visual": 0.7626950849835962,
+    "heat": 0.33975414843940926,
+    "ignition": 1.0,
+    "ai": 0.7716974940583146
+   },
+   "state_greedy": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.2,
+    "spread": 0.1,
+    "rise_speed": 0.4583333333333333
+   },
+   "e_joint": 0.6816848319492538,
+   "per_consumer_joint": {
+    "visual": 0.6884092976153989,
+    "heat": 0.3549331333516033,
+    "ignition": 0.7002109569566375,
+    "ai": 0.8766963932870294
+   },
+   "state_joint": {
+    "amp": 911.1111111111111,
+    "height": 0.4,
+    "width": 0.15000000000000002,
+    "soot_amp": 1.5555555555555556,
+    "soot_height": 3.0,
+    "flicker_amp": 0.03333333333333333,
+    "flicker_hz": 0.7083333333333334,
+    "flicker_lag": 0.3333333333333333,
+    "tilt": 0.5,
+    "tilt_gust": 0.4,
+    "rise_speed": 0.9333333333333333,
+    "deflect": -0.4,
+    "sec_dur": 0.1,
+    "floor": 86.66666666666667
+   },
+   "joint_seconds": 37.3
+  },
+  {
+   "scene": "full",
+   "seen": false,
+   "e_v0": 0.8176023359857612,
+   "consumers": [
+    "visual",
+    "heat",
+    "ignition",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8498495728099855,
+    "heat": 0.4004027174701134,
+    "ignition": 1.0,
+    "ai": 0.8895660102964409
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.39730932893499893,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "rise",
+      "width"
+     ],
+     "picked": "rise",
+     "evaluated": 3,
+     "seconds": 3.7,
+     "e_before": 0.8176023359857612,
+     "e_after": 0.7927045279844572,
+     "dcost": 1
+    },
+    {
+     "step": 1,
+     "q_perp": 0.3854424548023192,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "width",
+      "floor"
+     ],
+     "picked": "width",
+     "evaluated": 1,
+     "seconds": 1.8,
+     "e_before": 0.7927045279844572,
+     "e_after": 0.754013848122101,
+     "dcost": 1
+    },
+    {
+     "step": 2,
+     "q_perp": 0.37170596645424686,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "tilt",
+      "floor"
+     ],
+     "picked": "tilt",
+     "evaluated": 1,
+     "seconds": 2.2,
+     "e_before": 0.754013848122101,
+     "e_after": 0.6440864978406668,
+     "dcost": 2
+    },
+    {
+     "step": 3,
+     "q_perp": 0.5688757776917522,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "rise",
+      "height"
+     ],
+     "picked": "height",
+     "evaluated": 2,
+     "seconds": 2.3,
+     "e_before": 0.6440864978406668,
+     "e_after": 0.625356483672569,
+     "dcost": 1
+    },
+    {
+     "step": 4,
+     "q_perp": 0.6078171914922101,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "rise",
+      "amp"
+     ],
+     "picked": "flicker",
+     "evaluated": 6,
+     "seconds": 8.1,
+     "e_before": 0.625356483672569,
+     "e_after": 0.6168332781130996,
+     "dcost": 3
+    },
+    {
+     "step": 5,
+     "q_perp": 0.6070587490048317,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "rise",
+      "flicker"
+     ],
+     "picked": null,
+     "evaluated": 2,
+     "seconds": 4.6
+    }
+   ],
+   "traj": [
+    0.8176023359857612,
+    0.7927045279844572,
+    0.754013848122101,
+    0.6440864978406668,
+    0.625356483672569,
+    0.6168332781130996
+   ],
+   "stopped": "exhausted",
+   "e_greedy": 0.6168332781130996,
+   "steps_used": 5,
+   "per_consumer_greedy": {
+    "visual": 0.7412689913209124,
+    "heat": 0.34631678242824915,
+    "ignition": 0.46343644685966057,
+    "ai": 0.7985892563688324
+   },
+   "state_greedy": {
+    "amp": 605.5555555555557,
+    "height": 0.8,
+    "width": 0.19,
+    "flicker_amp": 0.03333333333333333,
+    "flicker_hz": 0.7083333333333334,
+    "flicker_lag": 0.8666666666666666,
+    "tilt": 0.4444444444444445,
+    "tilt_gust": 0.3888888888888889,
+    "rise_speed": 0.4583333333333333
+   },
+   "e_joint": 0.6083265380108911,
+   "per_consumer_joint": {
+    "visual": 0.615913079688731,
+    "heat": 0.3173132039567134,
+    "ignition": 0.6454600008500982,
+    "ai": 0.7639303001968988
+   },
+   "state_joint": {
+    "amp": 911.1111111111111,
+    "height": 0.4,
+    "width": 0.13,
+    "soot_amp": 2.3333333333333335,
+    "soot_height": 0.6666666666666667,
+    "flicker_amp": 0.03333333333333333,
+    "flicker_hz": 0.5,
+    "flicker_lag": 0.13333333333333333,
+    "tilt": 0.11111111111111106,
+    "tilt_gust": 0.4,
+    "rise_speed": 0.6166666666666667,
+    "deflect": -0.4,
+    "sec_amp": 166.66666666666666,
+    "sec_delay": 0.25,
+    "sec_speed": 0.5,
+    "sec_dur": 2.033333333333333,
+    "floor": 60.0
+   },
+   "joint_seconds": 53.9
+  },
+  {
+   "scene": "windy",
+   "seen": false,
+   "e_v0": 0.8340361219649397,
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8517947405908981,
+    "heat": 0.3557051354862346,
+    "ai": 1.111201302517843
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.5934572336088089,
+     "ranked": [
+      "tilt",
+      "width",
+      "rise",
+      "height"
+     ],
+     "picked": "tilt",
+     "evaluated": 1,
+     "seconds": 1.8,
+     "e_before": 0.8340361219649397,
+     "e_after": 0.676095246534988,
+     "dcost": 2
+    },
+    {
+     "step": 1,
+     "q_perp": 0.5365255494749012,
+     "ranked": [
+      "width",
+      "rise",
+      "height",
+      "floor"
+     ],
+     "picked": "rise",
+     "evaluated": 2,
+     "seconds": 2.5,
+     "e_before": 0.676095246534988,
+     "e_after": 0.5950267285699767,
+     "dcost": 1
+    },
+    {
+     "step": 2,
+     "q_perp": 0.6167806238147777,
+     "ranked": [
+      "width",
+      "amp",
+      "soot",
+      "floor"
+     ],
+     "picked": "amp",
+     "evaluated": 1,
+     "seconds": 1.6,
+     "e_before": 0.5950267285699767,
+     "e_after": 0.5829372782761543,
+     "dcost": 1
+    },
+    {
+     "step": 3,
+     "q_perp": 0.5542652226519921,
+     "ranked": [
+      "height",
+      "width",
+      "soot",
+      "rise"
+     ],
+     "picked": "height",
+     "evaluated": 1,
+     "seconds": 1.6,
+     "e_before": 0.5829372782761543,
+     "e_after": 0.5525858149776792,
+     "dcost": 1
+    },
+    {
+     "step": 4,
+     "q_perp": 0.5672907299699582,
+     "ranked": [
+      "width",
+      "amp",
+      "floor",
+      "rise"
+     ],
+     "picked": "amp",
+     "evaluated": 1,
+     "seconds": 1.7,
+     "e_before": 0.5525858149776792,
+     "e_after": 0.5244452998859543,
+     "dcost": 1
+    },
+    {
+     "step": 5,
+     "q_perp": 0.501286009907142,
+     "ranked": [
+      "width",
+      "rise",
+      "soot",
+      "height"
+     ],
+     "picked": "rise",
+     "evaluated": 1,
+     "seconds": 1.7,
+     "e_before": 0.5244452998859543,
+     "e_after": 0.5099786691714531,
+     "dcost": 1
+    },
+    {
+     "step": 6,
+     "q_perp": 0.5395807477592077,
+     "ranked": [
+      "width",
+      "soot",
+      "height",
+      "flicker"
+     ],
+     "picked": "soot",
+     "evaluated": 1,
+     "seconds": 2.7,
+     "e_before": 0.5099786691714531,
+     "e_after": 0.4995633643833246,
+     "dcost": 2
+    },
+    {
+     "step": 7,
+     "q_perp": 0.5698905634286611,
+     "ranked": [
+      "width",
+      "soot",
+      "floor",
+      "amp"
+     ],
+     "picked": null,
+     "evaluated": 7,
+     "seconds": 10.2
+    }
+   ],
+   "traj": [
+    0.8340361219649397,
+    0.676095246534988,
+    0.5950267285699767,
+    0.5829372782761543,
+    0.5525858149776792,
+    0.5244452998859543,
+    0.5099786691714531,
+    0.4995633643833246
+   ],
+   "stopped": "exhausted",
+   "e_greedy": 0.4995633643833246,
+   "steps_used": 7,
+   "per_consumer_greedy": {
+    "visual": 0.723927083285349,
+    "heat": 0.16869077197763677,
+    "ai": 0.4429036764777588
+   },
+   "state_greedy": {
+    "amp": 788.8888888888888,
+    "height": 0.6000000000000001,
+    "width": 0.07,
+    "soot_amp": 0.3888888888888889,
+    "soot_height": 3.0,
+    "tilt": 0.4166666666666667,
+    "tilt_gust": 0.03333333333333333,
+    "rise_speed": 0.9333333333333333
+   },
+   "e_joint": 0.4958438786883767,
+   "per_consumer_joint": {
+    "visual": 0.7075630811662996,
+    "heat": 0.1432148198233307,
+    "ai": 0.46521764546459804
+   },
+   "state_joint": {
+    "amp": 605.5555555555557,
+    "height": 0.5,
+    "width": 0.11000000000000001,
+    "soot_height": 0.2,
+    "flicker_hz": 0.5,
+    "tilt": 0.3888888888888888,
+    "rise_speed": 0.6166666666666667,
+    "deflect": -0.4,
+    "sec_dur": 0.1,
+    "floor": 40.0
+   },
+   "joint_seconds": 18.8
+  },
+  {
+   "scene": "twin",
+   "seen": false,
+   "e_v0": 0.7245343564120812,
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8699344108790102,
+    "heat": 0.3533794224755057,
+    "ai": 0.8325786481791815
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.5729533099340253,
+     "ranked": [
+      "soot",
+      "rise",
+      "tilt",
+      "amp"
+     ],
+     "picked": "rise",
+     "evaluated": 2,
+     "seconds": 2.5,
+     "e_before": 0.7245343564120812,
+     "e_after": 0.663616625078892,
+     "dcost": 1
+    },
+    {
+     "step": 1,
+     "q_perp": 0.6204389712987202,
+     "ranked": [
+      "soot",
+      "amp",
+      "tilt",
+      "floor"
+     ],
+     "picked": "amp",
+     "evaluated": 1,
+     "seconds": 1.7,
+     "e_before": 0.663616625078892,
+     "e_after": 0.5783893652499762,
+     "dcost": 1
+    },
+    {
+     "step": 2,
+     "q_perp": 0.7088567265685772,
+     "ranked": [
+      "tilt",
+      "height",
+      "width",
+      "soot"
+     ],
+     "picked": "tilt",
+     "evaluated": 1,
+     "seconds": 2.8,
+     "e_before": 0.5783893652499762,
+     "e_after": 0.5688258290985124,
+     "dcost": 2
+    },
+    {
+     "step": 3,
+     "q_perp": 0.7867169226870377,
+     "ranked": [
+      "rise",
+      "width",
+      "height",
+      "tilt"
+     ],
+     "picked": "height",
+     "evaluated": 3,
+     "seconds": 4.5,
+     "e_before": 0.5688258290985124,
+     "e_after": 0.5613704390094301,
+     "dcost": 1
+    },
+    {
+     "step": 4,
+     "q_perp": 0.8040495741342747,
+     "ranked": [
+      "rise",
+      "amp",
+      "tilt",
+      "soot"
+     ],
+     "picked": null,
+     "evaluated": 5,
+     "seconds": 7.7
+    }
+   ],
+   "traj": [
+    0.7245343564120812,
+    0.663616625078892,
+    0.5783893652499762,
+    0.5688258290985124,
+    0.5613704390094301
+   ],
+   "stopped": "exhausted",
+   "e_greedy": 0.5613704390094301,
+   "steps_used": 4,
+   "per_consumer_greedy": {
+    "visual": 0.6494345698758421,
+    "heat": 0.27425511157316923,
+    "ai": 0.6696485515605103
+   },
+   "state_greedy": {
+    "amp": 850.0,
+    "height": 1.0,
+    "width": 0.07,
+    "tilt": -0.05555555555555555,
+    "tilt_gust": 0.11111111111111112,
+    "rise_speed": 0.9333333333333333
+   },
+   "e_joint": 0.5528210387238461,
+   "per_consumer_joint": {
+    "visual": 0.592283434463846,
+    "heat": 0.29229425053499397,
+    "ai": 0.693251546648858
+   },
+   "state_joint": {
+    "amp": 1033.3333333333335,
+    "height": 0.6,
+    "width": 0.06,
+    "soot_amp": 0.3888888888888889,
+    "soot_height": 3.0,
+    "flicker_hz": 0.5,
+    "tilt_gust": 0.044444444444444446,
+    "rise_speed": 0.9333333333333333,
+    "deflect": -0.4,
+    "sec_dur": 0.1,
+    "floor": 46.66666666666667
+   },
+   "joint_seconds": 50.4
+  },
+  {
+   "scene": "shelf_bed",
+   "seen": false,
+   "e_v0": 0.8303970692189141,
+   "consumers": [
+    "visual",
+    "heat",
+    "ignition",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8571344634247201,
+    "heat": 0.4205983470049085,
+    "ignition": 1.0,
+    "ai": 0.9201384202258942
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.48065542441262515,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "rise",
+      "width"
+     ],
+     "picked": "rise",
+     "evaluated": 3,
+     "seconds": 3.3,
+     "e_before": 0.8303970692189141,
+     "e_after": 0.8040335993161647,
+     "dcost": 1
+    },
+    {
+     "step": 1,
+     "q_perp": 0.4504328637921697,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "width",
+      "floor"
+     ],
+     "picked": "width",
+     "evaluated": 1,
+     "seconds": 1.7,
+     "e_before": 0.8040335993161647,
+     "e_after": 0.7409802352607529,
+     "dcost": 1
+    },
+    {
+     "step": 2,
+     "q_perp": 0.45402852463090554,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "tilt",
+      "rise"
+     ],
+     "picked": null,
+     "evaluated": 8,
+     "seconds": 5.8
+    }
+   ],
+   "traj": [
+    0.8303970692189141,
+    0.8040335993161647,
+    0.7409802352607529
+   ],
+   "stopped": "exhausted",
+   "e_greedy": 0.7409802352607529,
+   "steps_used": 2,
+   "per_consumer_greedy": {
+    "visual": 0.7236255999271255,
+    "heat": 0.3132440482279789,
+    "ignition": 1.0,
+    "ai": 0.7579254538331447
+   },
+   "state_greedy": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.2,
+    "spread": 0.06666666666666667,
+    "rise_speed": 0.3
+   },
+   "e_joint": 0.7144027172074814,
+   "per_consumer_joint": {
+    "visual": 0.617190577583771,
+    "heat": 0.30659532568134734,
+    "ignition": 1.0,
+    "ai": 0.7527018444416688
+   },
+   "state_joint": {
+    "amp": 911.1111111111111,
+    "height": 0.4,
+    "width": 0.11000000000000001,
+    "soot_amp": 1.5555555555555556,
+    "soot_height": 3.0,
+    "flicker_amp": 0.06666666666666667,
+    "flicker_hz": 0.7083333333333334,
+    "tilt_gust": 0.4,
+    "rise_speed": 1.2500000000000002,
+    "deflect": -0.2222222222222223,
+    "sec_amp": 166.66666666666666,
+    "sec_delay": 0.08333333333333333,
+    "sec_speed": 0.5,
+    "sec_dur": 2.194444444444444,
+    "floor": 53.333333333333336
+   },
+   "joint_seconds": 39.8
   }
  ],
- "reported": []
+ "reported": [
+  {
+   "scene": "split",
+   "seen": false,
+   "e_v0": 0.8937521508015288,
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8701403157501788,
+    "heat": 0.2755364315155249,
+    "ai": 1.2503256483816307
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.36792529504197746,
+     "ranked": [
+      "width",
+      "rise",
+      "tilt",
+      "deflect"
+     ],
+     "picked": "width",
+     "evaluated": 1,
+     "seconds": 1.6,
+     "e_before": 0.8937521508015288,
+     "e_after": 0.7720858439475956,
+     "dcost": 1
+    },
+    {
+     "step": 1,
+     "q_perp": 0.5424898526809545,
+     "ranked": [
+      "deflect",
+      "width",
+      "tilt",
+      "rise"
+     ],
+     "picked": "deflect",
+     "evaluated": 1,
+     "seconds": 1.4,
+     "e_before": 0.7720858439475956,
+     "e_after": 0.7629707961822932,
+     "dcost": 1
+    },
+    {
+     "step": 2,
+     "q_perp": 0.6086986186481628,
+     "ranked": [
+      "deflect",
+      "width",
+      "rise",
+      "height"
+     ],
+     "picked": "rise",
+     "evaluated": 3,
+     "seconds": 2.1,
+     "e_before": 0.7629707961822932,
+     "e_after": 0.7333132689169352,
+     "dcost": 1
+    },
+    {
+     "step": 3,
+     "q_perp": 0.5012550890769307,
+     "ranked": [
+      "width",
+      "deflect",
+      "floor",
+      "amp"
+     ],
+     "picked": "floor",
+     "evaluated": 1,
+     "seconds": 1.3,
+     "e_before": 0.7333132689169352,
+     "e_after": 0.6945684720745797,
+     "dcost": 1
+    },
+    {
+     "step": 4,
+     "q_perp": 0.6201082789045538,
+     "ranked": [
+      "deflect",
+      "width",
+      "tilt",
+      "soot"
+     ],
+     "picked": "tilt",
+     "evaluated": 1,
+     "seconds": 2.1,
+     "e_before": 0.6945684720745797,
+     "e_after": 0.6638640276545938,
+     "dcost": 1
+    },
+    {
+     "step": 5,
+     "q_perp": 0.704873002128169,
+     "ranked": [
+      "deflect",
+      "width",
+      "soot",
+      "tilt"
+     ],
+     "picked": null,
+     "evaluated": 7,
+     "seconds": 5.8
+    }
+   ],
+   "traj": [
+    0.8937521508015288,
+    0.7720858439475956,
+    0.7629707961822932,
+    0.7333132689169352,
+    0.6945684720745797,
+    0.6638640276545938
+   ],
+   "stopped": "exhausted",
+   "e_greedy": 0.6638640276545938,
+   "steps_used": 5,
+   "per_consumer_greedy": {
+    "visual": 0.8814308984606978,
+    "heat": 0.33076355158945303,
+    "ai": 0.6601676952260208
+   },
+   "state_greedy": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.025,
+    "tilt": -0.22222222222222227,
+    "rise_speed": 0.3,
+    "deflect": 0.1777777777777777,
+    "floor": 106.66666666666667
+   },
+   "e_joint": 0.6274807404068103,
+   "per_consumer_joint": {
+    "visual": 1.0,
+    "heat": 0.3470247139952361,
+    "ai": 0.24651589527038872
+   },
+   "state_joint": {
+    "amp": 300.0,
+    "height": 0.5,
+    "width": 0.09,
+    "soot_height": 0.2,
+    "flicker_hz": 0.5,
+    "tilt": 0.05555555555555555,
+    "rise_speed": 0.9333333333333333,
+    "deflect": 0.04444444444444445,
+    "sec_dur": 0.1,
+    "floor": 33.333333333333336
+   },
+   "joint_seconds": 21.1,
+   "terminal_construct_check": {
+    "amp": 0.0,
+    "height": 0.31,
+    "width": 0.0,
+    "soot": 0.0,
+    "flicker": 0.0,
+    "tilt": 0.0,
+    "rise": 0.0,
+    "deflect": 1.51,
+    "secondary": 0.0,
+    "floor": 0.0
+   },
+   "terminal_max_single_class": 1.51
+  },
+  {
+   "scene": "shutoff",
+   "seen": false,
+   "e_v0": 0.7559384395525377,
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.9053264193619017,
+    "heat": 0.25751724743448834,
+    "ai": 0.9101635648928712
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.6380501401746865,
+     "ranked": [
+      "rise",
+      "tilt",
+      "width",
+      "height"
+     ],
+     "picked": "rise",
+     "evaluated": 1,
+     "seconds": 1.2,
+     "e_before": 0.7559384395525377,
+     "e_after": 0.6589669122156159,
+     "dcost": 1
+    },
+    {
+     "step": 1,
+     "q_perp": 0.7602674214790365,
+     "ranked": [
+      "tilt",
+      "width",
+      "floor",
+      "amp"
+     ],
+     "picked": "width",
+     "evaluated": 2,
+     "seconds": 2.6,
+     "e_before": 0.6589669122156159,
+     "e_after": 0.6489819114224785,
+     "dcost": 1
+    },
+    {
+     "step": 2,
+     "q_perp": 0.680164547566912,
+     "ranked": [
+      "tilt",
+      "flicker",
+      "width",
+      "amp"
+     ],
+     "picked": null,
+     "evaluated": 7,
+     "seconds": 5.0
+    }
+   ],
+   "traj": [
+    0.7559384395525377,
+    0.6589669122156159,
+    0.6489819114224785
+   ],
+   "stopped": "exhausted",
+   "e_greedy": 0.6489819114224785,
+   "steps_used": 2,
+   "per_consumer_greedy": {
+    "visual": 0.8595194783413046,
+    "heat": 0.2024455525680879,
+    "ai": 0.6955390921134585
+   },
+   "state_greedy": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.09,
+    "rise_speed": 1.2500000000000002
+   },
+   "e_joint": 0.5838552836122743,
+   "per_consumer_joint": {
+    "visual": 0.7216424701412902,
+    "heat": 0.1779840003361139,
+    "ai": 0.6857221139198001
+   },
+   "state_joint": {
+    "amp": 850.0,
+    "height": 0.8,
+    "width": 0.09,
+    "soot_amp": 2.3333333333333335,
+    "soot_height": 3.0,
+    "flicker_amp": 0.1,
+    "flicker_hz": 2.1666666666666665,
+    "tilt": 0.05555555555555555,
+    "rise_speed": 1.2500000000000002,
+    "deflect": -0.4,
+    "sec_dur": 0.1,
+    "floor": 20.0
+   },
+   "joint_seconds": 32.1,
+   "terminal_construct_check": {
+    "amp": 0.0,
+    "height": 0.59,
+    "width": 0.0,
+    "soot": 0.0,
+    "flicker": 0.19,
+    "tilt": -1.72,
+    "rise": 0.0,
+    "deflect": 0.0,
+    "secondary": 0.0,
+    "floor": 0.0
+   },
+   "terminal_max_single_class": 0.59
+  }
+ ],
+ "bars": {
+  "B1_vocabulary_floor": {
+   "value": 0.626373195436712,
+   "target": 0.35,
+   "pass": false
+  },
+  "B2_search_adequacy": {
+   "value": 0.9593515342694809,
+   "target": 0.8,
+   "pass": true
+  },
+  "B3_gated_reachable": {
+   "value": [
+    "flicker",
+    "soot"
+   ],
+   "target": ">=1 of soot/flicker/secondary",
+   "pass": true
+  },
+  "B4_terminal_reduction": {
+   "value": 0.2251983166273086,
+   "target": 0.4,
+   "pass": false
+  },
+  "B5_consumer_transfer": {
+   "value": 7,
+   "of": 7,
+   "target": 6,
+   "pass": true
+  },
+  "pick_histogram": {
+   "amp": 4,
+   "deflect": 1,
+   "flicker": 1,
+   "floor": 1,
+   "height": 4,
+   "rise": 10,
+   "soot": 1,
+   "tilt": 7,
+   "width": 7
+  }
+ }
 }
