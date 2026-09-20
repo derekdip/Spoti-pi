@@ -212,8 +212,10 @@
   <dl class="kv" id="devinfo"></dl>
   <p class="foot" style="margin-top:12px">
     <code>requestAnimationFrame</code> deltas quantise to whole vsync periods, so they cannot
-    resolve a couple of milliseconds. Instead each sample draws three frames and then forces the GPU
-    to finish with a one-pixel <code>readPixels</code>, timing that block. The readback stall is
+    resolve a couple of milliseconds. Instead each sample draws several frames and then forces the GPU
+    to finish with a one-pixel <code>readPixels</code>, timing that block. The clock's own
+    resolution is measured at start-up and the frames per block chosen from it, because Safari
+    clamps <code>performance.now()</code> to 1 ms; the resulting resolution is in the device list. The readback stall is
     identical in every mode, so it cancels out of the comparison against the baseline, though it does
     inflate the absolute figures a little. Calibration raises the stalk count until the no-bend
     baseline needs about 10 ms of GPU time, a realistic VR-scale load against a 13.9 ms budget at
@@ -240,7 +242,7 @@
 (function(){
 // ---------------------------------------------------------------- constants
 var FIELD = 24.0;              // metres, square
-var CAP   = 420000;            // instance pool cap
+var CAP   = 1100000;           // instance pool cap
 var PATHSEG = 20;              // walk polyline segments used for the per-instance query
 var STALK_H = 1.62;            // metres
 
@@ -805,7 +807,20 @@ function refreshHUD(){
 }
 
 // ---------------------------------------------------------------- measurement
-var REPS = 3;                 // frames drawn per forced sync, so the sync cost amortises
+// Safari clamps performance.now() to 1 ms against timing attacks, so a three-frame block
+// resolves only 0.33 ms and a cheap mode lands on the floor. Measure the real quantum and draw
+// enough frames per sync that the quotient resolves about 0.08 ms on any browser.
+function timerQuantum(){
+  var q = Infinity, a = performance.now(), b, ticks = 0, guard = 0;
+  while(guard++ < 2000000 && ticks < 6){
+    b = performance.now();
+    if(b > a){ q = Math.min(q, b - a); a = b; ticks++; }
+  }
+  return (isFinite(q) && q > 0) ? q : 1.0;
+}
+var QUANT = timerQuantum();
+var REPS = Math.max(3, Math.min(14, Math.ceil(QUANT / 0.08)));
+var SAMPLES = Math.max(9, Math.round(63 / REPS));
 var syncPx = new Uint8Array(4);
 
 // requestAnimationFrame deltas quantise to whole vsync periods, which is far too coarse to
@@ -911,7 +926,11 @@ function deviceInfo(){
     render: cv.width + "x" + cv.height,
     vsyncEstimateMs: +vsyncPeriod().toFixed(2),
     halfFloatRT: !!(extHalf || extFloat),
-    timerQuery: !!timerExt
+    timerQuery: !!timerExt,
+    timerQuantumMs: +QUANT.toFixed(4),
+    reps: REPS,
+    resolutionMs: +(QUANT / REPS).toFixed(4),
+    stalkPool: poolN
   };
 }
 function renderDevice(){
@@ -939,11 +958,11 @@ function calibrate(targetMs, onStep){
   function attempt(){
     state.N = Math.min(N, poolN);
     refreshHUD();
-    return measure(11, 4).then(function(m){
+    return measure(Math.max(5, SAMPLES >> 1), 3).then(function(m){
       onStep(state.N, m.median);
       if(m.median >= targetMs || state.N >= poolN || N > poolN) {
         state.mode = savedMode;
-        return {N: state.N, ms: m.median};
+        return {N: state.N, ms: m.median, capped: m.median < targetMs};
       }
       var grow = Math.max(1.35, Math.min(3.2, targetMs / Math.max(m.median, 0.5)));
       N = Math.ceil(N * grow);
@@ -977,7 +996,7 @@ function runSweep(presetId, clear){
         // drift check: baseline again
         state.mode = "off"; refreshHUD();
         setStatus("Re-running baseline to check for thermal drift…", 95);
-        return measure(21, 9).then(function(m){
+        return measure(SAMPLES, Math.max(4, SAMPLES >> 1)).then(function(m){
           results.push({mode:"off", N:state.N, median:m.median, p90:m.p90,
                         preset:pre.id, presetLabel:clear?null:pre.label, drift:true});
           renderTable(); publish(); finish(pre, cal);
@@ -987,7 +1006,7 @@ function runSweep(presetId, clear){
       refreshHUD();
       setStatus("Measuring <b>" + MODES[i].label + "</b> at " + state.N.toLocaleString() +
                 " stalks · " + pre.label, 10 + 80*i/order.length);
-      return measure(21, 9).then(function(m){
+      return measure(SAMPLES, Math.max(4, SAMPLES >> 1)).then(function(m){
         results.push({mode:order[i], N:state.N, median:m.median, p90:m.p90,
                       preset:pre.id, presetLabel:clear?null:pre.label, drift:false});
         renderTable(); publish();
@@ -1014,17 +1033,30 @@ function finish(pre, cal){
   var pct = 100*(six.median - bm)/bm;
   var perStalk = (six.median - bm) / (base.N/1000);
   var drift = dr ? 100*(dr.median - base.median)/base.median : 0;
+  var ship = perStalk * 15;
+  // anything smaller than a few timer ticks, or a couple of percent of the scene, is not a reading
+  var floor = Math.max(3 * (QUANT / REPS), 0.02 * bm);
+  var resolved = (six.median - bm) > floor;
   var v = $("verdict");
   v.hidden = false;
-  $("vtitle").textContent = pct < 5
-    ? "The bend arithmetic is free at this load"
+  $("vtitle").textContent = !resolved
+    ? "The bend arithmetic is below the measurement floor here"
     : (pct < 20 ? "The bend arithmetic is a minor slice" : "The bend arithmetic is a real cost here");
   $("vbody").innerHTML =
-    "All six terms cost <b>" + (six.median-bm).toFixed(2) + " ms</b> over the no-bend baseline at " +
-    base.N.toLocaleString() + " stalks, which is <b>" + pct.toFixed(0) + "%</b> of the scene's GPU time, or " +
-    perStalk.toFixed(3) + " ms per 1000 stalks. " +
-    (tex ? "Baking to a bend texture instead costs " +
-      (tex.median-bm).toFixed(2) + " ms over baseline. " : "") +
+    (resolved
+      ? "All six terms cost <b>" + (six.median-bm).toFixed(2) + " ms</b> over the no-bend baseline at " +
+        base.N.toLocaleString() + " stalks, which is <b>" + pct.toFixed(0) +
+        "%</b> of the scene's GPU time, or " + perStalk.toFixed(4) + " ms per 1000 stalks. " +
+        "Scaled to the 15,000 stalks a real cornfield uses, that is <b>" + ship.toFixed(3) +
+        " ms</b>, or " + (100 * ship / 13.9).toFixed(1) + "% of a 13.9 ms budget at 72 Hz. "
+      : "All six terms cost less than the <b>" + floor.toFixed(2) + " ms</b> this run can resolve, " +
+        "against a baseline of " + bm.toFixed(2) + " ms at " + base.N.toLocaleString() +
+        " stalks. Raise the resolution or the load to put a number on it. ") +
+    (tex ? "The bend texture differs from baseline by " +
+      (tex.median-bm >= 0 ? "+" : "") + (tex.median-bm).toFixed(2) + " ms. " : "") +
+    (cal && cal.capped ? "Calibration ran out of stalks before reaching the target, so this device " +
+      "is faster than the pool can load. " : "") +
+    "Timer resolution here is " + (QUANT / REPS).toFixed(3) + " ms. " +
     "The baseline was measured twice, opening and closing, and the two differ by " +
     Math.abs(drift).toFixed(0) + "%" +
     (Math.abs(drift) > 12
@@ -1041,7 +1073,7 @@ function runStress(){
   function step(){
     state.N = Math.min(N, poolN); refreshHUD();
     setStatus("Stress: <b>" + state.N.toLocaleString() + "</b> stalks, six terms…", Math.min(95, 100*N/poolN));
-    return measure(13, 5).then(function(m){
+    return measure(Math.max(7, SAMPLES >> 1), 3).then(function(m){
       rows.push({N: state.N, ms: m.median});
       if(m.median > 34 || state.N >= poolN){
         setBusy(false);
@@ -1139,7 +1171,8 @@ updateCamera();
 buildBendTarget();
 buildBlade(4);
 setTimeout(function(){
-  buildInstances(CAP, null);
+  try{ buildInstances(CAP, null); }
+  catch(e){ CAP = 420000; buildInstances(CAP, null); }
   // warm every program once so shader compilation never lands inside a measurement
   var savedMode = state.mode, savedN = state.N;
   state.N = 1;
