@@ -47,3 +47,10 @@
 [  5486s]    step 0: pick profile  E 0.7624->0.6807 (1 tried) 2.1s
 [  5488s]    step 1: pick attract  E 0.6807->0.5887 (1 tried) 2.2s
 [  5492s]    step 2: pick width    E 0.5887->0.5172 (1 tried) 3.3s
+[  5495s]    step 3: pick amp      E 0.5172->0.4750 (2 tried) 3.1s
+[  5497s]    step 4: pick base     E 0.4750->0.4542 (1 tried) 1.9s
+[  5502s]    step 5: pick width    E 0.4542->0.4405 (2 tried) 5.5s
+[  5509s]    step 6: pick rise     E 0.4405->0.4170 (5 tried) 6.5s
+[  5514s]    step 7: pick rate     E 0.4170->0.4116 (4 tried) 5.1s
+[  5517s] twin: greedy 0.4116 after 9 steps (exhausted), 1.138 of the floor's reduction
+[  5524s] shelf_bed: V0 0.8544

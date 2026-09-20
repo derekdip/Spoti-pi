@@ -1035,6 +1035,340 @@
     "seconds": 41
    },
    "evals": 23908
+  },
+  {
+   "scene": "twin",
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "e_v0": 0.7624358235805793,
+   "per_consumer_v0": {
+    "visual": 0.8095297662565551,
+    "heat": 0.338842392285951,
+    "ai": 0.9867991416552455
+   },
+   "fits": {
+    "standard": {
+     "error": 0.45418353608142487,
+     "per_consumer": {
+      "visual": 0.5395000094385016,
+      "heat": 0.2595518526331016,
+      "ai": 0.5103142452968191
+     },
+     "live": 16,
+     "motion": 0.44064455033691047,
+     "decisions": {
+      "heat": {
+       "disagree": 0.11953551912568305,
+       "missed_burn": 0.2,
+       "false_burn": 0.09611992945326278,
+       "teacher_burn_rate": 0.22540983606557377
+      },
+      "ai": {
+       "disagree": 0.07295081967213114,
+       "missed_hazard": 0.24545454545454545,
+       "false_hazard": 0.04244372990353698,
+       "teacher_hazard_rate": 0.15027322404371585
+      },
+      "visual": {
+       "rel_rms": 0.5395000094385016,
+       "late_correlation": 0.8317778467664356,
+       "full_correlation": 0.8352630387335386
+      }
+     },
+     "state": {
+      "amp": 666.0143693965799,
+      "rate": 8.588049110408619,
+      "v_rise": 1.686164176030872,
+      "accel": 4.673978521418066,
+      "burn": 0.2572158958189042,
+      "cool": 0.5052542749028364,
+      "width": 0.10123717592751096,
+      "grow": 0.01817908103958998,
+      "aspect": 0.5137286187186612,
+      "jitter": 0.0005557943579190608,
+      "wind": 0.019200631625012926,
+      "gust": 0.05713243818838254,
+      "deflect": 0.0,
+      "reach": 0.0,
+      "sharp": 5.994576499964944,
+      "base_amp": 922.7667862491381,
+      "soot_amp": 0.4078093072629337,
+      "soot_tau": 0.2006576670325065,
+      "bed_amp": 0.0,
+      "bed_delay": 0.0,
+      "bed_speed": 0.0,
+      "bed_dur": 0.0,
+      "bed_fall": 0.0,
+      "attract": 0.10294274075521569,
+      "floor": 44.65221105776755
+     },
+     "fit_objective": 0.45418353608142487,
+     "spread": {
+      "de": 0.45418353608142487,
+      "two_stage": 0.5238487483966782
+     },
+     "n_params": 18,
+     "seconds": 610
+    },
+    "look": {
+     "error": 0.4018293973357657,
+     "per_consumer": {
+      "visual": 0.47783805347677993,
+      "heat": 0.22418819113399358,
+      "ai": 0.4536640202785142
+     },
+     "live": 13,
+     "motion": 0.4953913582918549,
+     "decisions": {
+      "heat": {
+       "disagree": 0.06762295081967214,
+       "missed_burn": 0.19393939393939394,
+       "false_burn": 0.030864197530864196,
+       "teacher_burn_rate": 0.22540983606557377
+      },
+      "ai": {
+       "disagree": 0.06666666666666667,
+       "missed_hazard": 0.2690909090909091,
+       "false_hazard": 0.030868167202572346,
+       "teacher_hazard_rate": 0.15027322404371585
+      },
+      "visual": {
+       "rel_rms": 0.47783805347677993,
+       "late_correlation": 0.9121616351066835,
+       "full_correlation": 0.8890198293247663
+      }
+     },
+     "state": {
+      "amp": 842.9431193786447,
+      "rate": 4.149419015966612,
+      "v_rise": 0.8319500421847787,
+      "accel": 2.6276185709146453,
+      "burn": 0.9302349258279945,
+      "cool": 0.7148571888854729,
+      "width": 0.049877384179492314,
+      "grow": 0.004023816621008168,
+      "aspect": 2.873114373394082,
+      "jitter": 0.016495795941165174,
+      "wind": 0.015020447513291459,
+      "gust": 0.010507990127290789,
+      "deflect": 0.0,
+      "reach": 0.0,
+      "sharp": 3.180499015724762,
+      "base_amp": 1199.9993550114002,
+      "soot_amp": 2.2239409169565656,
+      "soot_tau": 3.999369990666894,
+      "bed_amp": 0.0,
+      "bed_delay": 0.0,
+      "bed_speed": 0.0,
+      "bed_dur": 0.0,
+      "bed_fall": 0.0,
+      "attract": 0.050889209329969584,
+      "floor": 67.20779645204314
+     },
+     "fit_objective": 0.3739938720272405,
+     "spread": {
+      "de": 0.3739938720272405,
+      "two_stage": 0.5409307883504844
+     },
+     "n_params": 18,
+     "seconds": 626
+    }
+   },
+   "greedy": {
+    "steps": [
+     {
+      "step": 0,
+      "q_perp": 0.34759953239903546,
+      "ranked": [
+       "profile",
+       "attract",
+       "width",
+       "wind"
+      ],
+      "picked": "profile",
+      "evaluated": 1,
+      "seconds": 2.1,
+      "e_before": 0.7624358235805793,
+      "e_after": 0.6806579368729433,
+      "dcost": 1
+     },
+     {
+      "step": 1,
+      "q_perp": 0.4266930754460448,
+      "ranked": [
+       "attract",
+       "wind",
+       "soot",
+       "base"
+      ],
+      "picked": "attract",
+      "evaluated": 1,
+      "seconds": 2.2,
+      "e_before": 0.6806579368729433,
+      "e_after": 0.5886520611306768,
+      "dcost": 1
+     },
+     {
+      "step": 2,
+      "q_perp": 0.5608740413402693,
+      "ranked": [
+       "width",
+       "soot",
+       "amp",
+       "base"
+      ],
+      "picked": "width",
+      "evaluated": 1,
+      "seconds": 3.3,
+      "e_before": 0.5886520611306768,
+      "e_after": 0.5172356918196076,
+      "dcost": 1
+     },
+     {
+      "step": 3,
+      "q_perp": 0.6745005163384904,
+      "ranked": [
+       "soot",
+       "amp",
+       "base",
+       "floor"
+      ],
+      "picked": "amp",
+      "evaluated": 2,
+      "seconds": 3.1,
+      "e_before": 0.5172356918196076,
+      "e_after": 0.4749938826268713,
+      "dcost": 1
+     },
+     {
+      "step": 4,
+      "q_perp": 0.7923729293309097,
+      "ranked": [
+       "base",
+       "wind",
+       "cool",
+       "width"
+      ],
+      "picked": "base",
+      "evaluated": 1,
+      "seconds": 1.9,
+      "e_before": 0.4749938826268713,
+      "e_after": 0.454247131157562,
+      "dcost": 1
+     },
+     {
+      "step": 5,
+      "q_perp": 0.841659931420868,
+      "ranked": [
+       "wind",
+       "soot",
+       "width",
+       "amp"
+      ],
+      "picked": "width",
+      "evaluated": 2,
+      "seconds": 5.5,
+      "e_before": 0.454247131157562,
+      "e_after": 0.4404711551523939,
+      "dcost": 1
+     },
+     {
+      "step": 6,
+      "q_perp": 0.8690092901029572,
+      "ranked": [
+       "wind",
+       "width",
+       "attract",
+       "jitter"
+      ],
+      "picked": "rise",
+      "evaluated": 5,
+      "seconds": 6.5,
+      "e_before": 0.4404711551523939,
+      "e_after": 0.4170393648802139,
+      "dcost": 1
+     },
+     {
+      "step": 7,
+      "q_perp": 0.7903076747207758,
+      "ranked": [
+       "width",
+       "floor",
+       "rise",
+       "attract"
+      ],
+      "picked": "rate",
+      "evaluated": 4,
+      "seconds": 5.1,
+      "e_before": 0.4170393648802139,
+      "e_after": 0.4115594023151699,
+      "dcost": 1
+     },
+     {
+      "step": 8,
+      "q_perp": 0.7747192266788355,
+      "ranked": [
+       "width",
+       "jitter",
+       "rise",
+       "wind"
+      ],
+      "picked": null,
+      "evaluated": 3,
+      "seconds": 3.4
+     }
+    ],
+    "traj": [
+     0.7624358235805793,
+     0.6806579368729433,
+     0.5886520611306768,
+     0.5172356918196076,
+     0.4749938826268713,
+     0.454247131157562,
+     0.4404711551523939,
+     0.4170393648802139,
+     0.4115594023151699
+    ],
+    "stopped": "exhausted",
+    "e_final": 0.4115594023151699,
+    "state": {
+     "amp": 727.7777777777778,
+     "rate": 10.0,
+     "v_rise": 1.327777777777778,
+     "accel": 2.1388888888888893,
+     "burn": 0.3,
+     "cool": 1.0,
+     "width": 0.05,
+     "grow": 0.0,
+     "aspect": 3.9555555555555557,
+     "jitter": 0.0,
+     "wind": 0.0,
+     "gust": 0.0,
+     "deflect": 0.0,
+     "reach": 0.0,
+     "sharp": 6.0,
+     "base_amp": 866.6666666666667,
+     "soot_amp": 0.0,
+     "soot_tau": 0.0,
+     "bed_amp": 0.0,
+     "bed_delay": 0.0,
+     "bed_speed": 0.0,
+     "bed_dur": 0.0,
+     "bed_fall": 0.0,
+     "attract": 0.09999999999999996,
+     "floor": 0.0
+    },
+    "per_consumer": {
+     "visual": 0.4589204060136554,
+     "heat": 0.22818748142654027,
+     "ai": 0.4954452130826715
+    },
+    "seconds": 33
+   },
+   "evals": 18009
   }
  ],
  "started": "2026-09-20 17:39:52"
