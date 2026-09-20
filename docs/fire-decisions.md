@@ -130,6 +130,31 @@ Read as a decision table:
   less hope, because the visual consumer sits at 0.76 correlation against
   a precedent of 0.98 and no decision threshold makes that number better.
 
+## What it looks like
+
+`poc/fire_render.py` draws the two side by side, `poc/results/fire_compare.png`:
+soot-obscured emission at full resolution, four times per scene, one
+colour scale per scene set by the teacher's brightest frame.
+
+The picture says what the glow correlation said, and more bluntly. The
+teacher's plume is a tall tapering tongue with a bright core and a dark
+tip that flickers, leans, and on `obstacle` splits into two thin
+streams that reach the shelf. The cheap fire is a short, dim, flat-topped
+block that does not reach the shelf, does not taper, does not flicker and
+barely moves. On `twin` the teacher's two plumes lean into each other and
+grow to three times their starting height; the cheap two stand still.
+The fitter chose a stubby dim column because a taller, brighter one that
+is wrong about where the tongue is costs more RMS than one that stays
+inside the region the teacher always fills. That is the correct answer to
+the question the fitter was asked and the wrong shape for a player to
+look at.
+
+At the decision level the same block is a fair hazard: the hot region a
+hand or an AI cell tests is near the base, which the block covers. At
+the visual level it is not fire. Nothing in the anchored-column grammar,
+with any parameter values, produces the tongue, and that is the rebuild
+the next section's last two rows point at.
+
 ## Caveats
 
 The states were fitted to relative RMS, not to these decisions, so a
