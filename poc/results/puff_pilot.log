@@ -5,3 +5,7 @@
         per consumer visual 0.474, heat 0.135, ai 0.286
         heat wrong 0.6% (missed 4.0%)  ai wrong 0.4% (missed 4.0%)  glow corr 0.90
       de: 0.2552 in 7004 evals
+      two-stage: 0.5071 -> 0.2571 in 680 evals
+[  845s] windy look     fit 0.2552 (de 0.255, two_stage 0.257) -> linear 0.3543 (old column 0.3852) live 7 motion 0.00
+        per consumer visual 0.515, heat 0.184, ai 0.279
+        heat wrong 0.9% (missed 4.0%)  ai wrong 0.5% (missed 4.0%)  glow corr 0.92
