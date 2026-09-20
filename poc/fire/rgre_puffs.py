@@ -25,7 +25,7 @@ CLASSES = {
     "width":   ["width", "grow", "aspect"],
     # expansions
     "jitter":  ["jitter"],
-    "wind":    ["wind", "gust"],
+    "wind":    ["wind", "gust", "gust_lag", "sway_base"],
     "deflect": ["deflect", "reach"],
     "base":    ["base_amp"],
     "soot":    ["soot_amp", "soot_tau"],
@@ -49,7 +49,9 @@ RANGES = {
     "aspect":    (0.3, 5.0),
     "jitter":    (0.0, 0.15),
     "wind":      (-1.0, 1.0),
-    "gust":      (0.0, 1.5),
+    "gust":      (0.0, 2.0),
+    "gust_lag":  (0.0, 6.283185307179586),
+    "sway_base": (0.0, 0.6),
     "deflect":   (0.0, 1.5),
     "reach":     (0.05, 1.0),
     "sharp":     (1.0, 6.0),
@@ -68,7 +70,7 @@ EPS = {k: 0.04 * (hi - lo) for k, (lo, hi) in RANGES.items()}
 
 ON = {
     "jitter":  {"jitter": 0.03},
-    "wind":    {"wind": 0.2, "gust": 0.3},
+    "wind":    {"wind": 0.2, "gust": 0.5, "gust_lag": 2.0, "sway_base": 0.1},
     "deflect": {"deflect": 0.5, "reach": 0.4},
     "base":    {"base_amp": 600.0},
     "soot":    {"soot_amp": 3.0, "soot_tau": 2.0},
@@ -145,6 +147,35 @@ class PuffCase(FireCase):
     def templates(self):
         t = super().templates()
         return {k: v for k, v in t.items() if k in SUPPORT_CLASSES}
+
+
+# ---------------------------------------------------------------- cost in the objective
+PARCEL_BUDGET = 16       # parcels per source a deployable state may use
+PARCEL_PENALTY = 0.02    # relative error charged per parcel over the budget
+
+
+class BudgetCase:
+    """A case whose error charges for parcels over the budget.
+
+    F4's floor fit bought accuracy with parcels: three scenes fitted 26 to 32 per source against a
+    bar of 24, because nothing in the objective said a parcel costs anything. The runtime cost of
+    this representation is parcels per source per frame, so the objective carries it here. The
+    penalty is one-sided and flat below the budget, so a state that fits the bar is scored exactly
+    as the unpenalised case scores it, and every bar is still reported on the unpenalised error.
+    """
+
+    def __init__(self, case, budget=PARCEL_BUDGET, penalty=PARCEL_PENALTY):
+        self.inner = case
+        self.budget, self.penalty = budget, penalty
+        for k in ("p", "burners", "patches", "obstacles", "times", "F", "probes", "names", "scale", "target"):
+            setattr(self, k, getattr(case, k))
+
+    def __getattr__(self, k):
+        return getattr(self.inner, k)
+
+    def error(self, st):
+        over = max(st.live_count() - self.budget, 0)
+        return self.inner.error(st) * (1.0 + self.penalty * over)
 
 
 # ---------------------------------------------------------------- repairs

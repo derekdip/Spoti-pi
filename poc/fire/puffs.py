@@ -22,7 +22,6 @@ import numpy as np
 
 from .teacher import FireParams, FireRecord, T_AMBIENT, _grid
 
-GUST_HZ = 0.7          # the teacher's crosswind gust frequency, a known property of the cause
 MAX_LIVE = 40          # hard cap on parcels per source per frame; the cost bar is lower
 
 
@@ -43,6 +42,8 @@ class PuffState:
     jitter: float = 0.0         # m of hashed lateral offset per parcel: asymmetry and flicker
     wind: float = 0.0           # m/s steady lateral drift
     gust: float = 0.0           # m/s amplitude of drift oscillating at GUST_HZ
+    gust_lag: float = 0.0       # rad the plume's sway lags the gust that forces it
+    sway_base: float = 0.0      # s of lateral response a parcel already has at birth
     deflect: float = 0.0        # m of sideways drift per metre climbed under a shelf's influence
     reach: float = 0.0          # m below the shelf at which that influence starts
     sharp: float = 0.0          # parcel profile exponent; 0 means the Gaussian default of 2
@@ -83,17 +84,27 @@ def _hash(k, salt=0):
     return ((h >> 8) & 0xFFFFFF) / float(1 << 24)
 
 
-def _kinematics(st: PuffState, a, t_k, t, x0, y0, k, others, obstacles):
+def _kinematics(st: PuffState, a, t_k, t, x0, y0, k, others, obstacles, gust_hz=0.7):
     """Position and the two sigmas of parcels of ages `a` (array), emitted at `t_k`, now at `t`."""
     y = y0 + st.v_rise * (a - (1.0 - np.exp(-st.accel * a)) / st.accel)
     x = np.full_like(a, x0)
     if st.jitter != 0.0:
         x = x + st.jitter * (2.0 * _hash(k) - 1.0)
-    if st.wind != 0.0:
-        x = x + st.wind * a
+    # Lateral drift is quasi-static, not carried from birth. The gust forces the whole velocity
+    # field at once, so the teacher's plume sways almost in phase at every height: measured phase
+    # slope 0.07 rad/m (`poc/results/gust_probe.log`), where carrying each parcel's birth phase
+    # upward would give w / v_rise, about 2 rad/m. Under that law neighbouring heights sway in
+    # opposite directions, superposing to no sway at all, which is what every F4 fit chose.
+    # Here a parcel instead sits on the instantaneous streamline: its offset is the current lateral
+    # air speed times the time it has been climbing, so all heights share one phase and the
+    # amplitude grows with height. For a steady wind the two laws agree, which is why `windy`
+    # was never affected.
+    drift = st.wind
     if st.gust != 0.0:
-        w = 2.0 * np.pi * GUST_HZ
-        x = x + (st.gust / w) * (np.cos(w * t_k) - np.cos(w * t))
+        drift = drift + st.gust * np.sin(2.0 * np.pi * gust_hz * t - st.gust_lag)
+    if st.wind != 0.0 or st.gust != 0.0:
+        climb = np.maximum(y - y0, 0.0)
+        x = x + drift * (climb / max(st.v_rise, 1e-3) + st.sway_base)
     if st.attract != 0.0 and others:
         for ox in others:
             x = x + st.attract * a * np.sign(ox - x0)
@@ -131,7 +142,7 @@ def _kinematics(st: PuffState, a, t_k, t, x0, y0, k, others, obstacles):
     return x, y, sig, sy
 
 
-def _emit(st: PuffState, t, t_on, t_off, x0, y0, others, obstacles, k_salt):
+def _emit(st: PuffState, t, t_on, t_off, x0, y0, others, obstacles, k_salt, gust_hz=0.7):
     """Parcels alive at time t from a source on over [t_on, t_off]: (x, y, sigma, age, index)."""
     life = st.life()
     if t <= t_on:
@@ -146,7 +157,7 @@ def _emit(st: PuffState, t, t_on, t_off, x0, y0, others, obstacles, k_salt):
         k = k[-MAX_LIVE:]
     t_k = t_on + k / st.rate
     a = t - t_k
-    x, y, sig, sy = _kinematics(st, a, t_k, t, x0, y0, k + k_salt, others, obstacles)
+    x, y, sig, sy = _kinematics(st, a, t_k, t, x0, y0, k + k_salt, others, obstacles, gust_hz)
     return x, y, sig, sy, a, k
 
 
@@ -200,7 +211,7 @@ def evaluate(st: PuffState, p: FireParams, times, burners, patches, obstacles):
         for bi, b in enumerate(burners):
             others = [ox for oi, (ox, oy) in enumerate(burner_xy) if oi != bi and burners[oi].t_on <= t] \
                 if st.attract != 0.0 else []
-            em = _emit(st, t, b.t_on, b.t_off, b.x, b.y, others, obstacles, k_salt=1000 * bi)
+            em = _emit(st, t, b.t_on, b.t_off, b.x, b.y, others, obstacles, 1000 * bi, p.gust_hz)
             if em is not None:
                 x, y, sig, sy, a, k = em
                 _splat(exc[f], xs, ys, x, y, sig, sy, st.amp * _envelope(st, a), prof_q)
@@ -215,7 +226,7 @@ def evaluate(st: PuffState, p: FireParams, times, burners, patches, obstacles):
             for qi, q in enumerate(patches):
                 d = float(np.hypot(q.x - bx, q.y - by))
                 t_ign = st.bed_delay + st.bed_speed * d
-                em = _emit(st, t, t_ign, 1e9, q.x, q.y, [], obstacles, k_salt=5000 + 1000 * qi)
+                em = _emit(st, t, t_ign, 1e9, q.x, q.y, [], obstacles, 5000 + 1000 * qi, p.gust_hz)
                 if em is None:
                     continue
                 x, y, sig, sy, a, k = em

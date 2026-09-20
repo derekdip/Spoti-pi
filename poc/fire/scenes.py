@@ -80,6 +80,48 @@ def split():
             [Obstacle(x=0.45, y=0.62, half_w=0.30, half_h=0.04)])
 
 
-SCENES = {"plume": plume, "obstacle": obstacle, "ignition": ignition,
+def gusty():
+    """A gusted plume with nothing else: no bed, no shelf, no shutoff.
+
+    Added for F5 as a pilot scene, declared seen. The gust is the one cause F4 could not follow,
+    and every F4 scene that has one also has a bed or a shelf, so none of them can be used to
+    diagnose it without spending a scored scene.
+    """
+    return FireParams(gust_amp=1.6), [Burner(**BURNER)], [], []
+
+
+def gust_shelf():
+    """A gust drives the plume under a shelf set downwind: sway and deflection at once, no bed."""
+    return (FireParams(gust_amp=1.8), [Burner(**BURNER)], [],
+            [Obstacle(x=0.72, y=0.70, half_w=0.22, half_h=0.035)])
+
+
+def fast_gust():
+    """The same gust at twice the frequency. The frequency is a property of the cause, so a model
+    that reads it rather than fitting it should transfer here with nothing refitted."""
+    return FireParams(gust_amp=1.6, gust_hz=1.4), [Burner(**BURNER)], [], []
+
+
+def strong_gust():
+    """A much stronger gust: does the sway law hold at an amplitude well outside the fitted range."""
+    return FireParams(gust_amp=2.6), [Burner(**BURNER)], [], []
+
+
+def gust_twin():
+    """Two burners in a gust: superposition and sway together."""
+    return (FireParams(gust_amp=1.5), [Burner(x=0.42, y=0.10, radius=0.09),
+                                       Burner(x=0.92, y=0.10, radius=0.09, t_on=0.4)], [], [])
+
+
+def bed_chain():
+    """Three beds in a line at increasing distance: the delay law has to hold over three events."""
+    return (FireParams(gust_amp=2.0), [Burner(**BURNER)],
+            [FuelPatch(x=0.70, y=0.24, radius=0.07, amount=1.5),
+             FuelPatch(x=0.88, y=0.36, radius=0.07, amount=1.4),
+             FuelPatch(x=1.00, y=0.38, radius=0.07, amount=1.4)], [])
+
+
+SCENES = {"plume": plume, "gusty": gusty, "gust_shelf": gust_shelf, "fast_gust": fast_gust,
+          "strong_gust": strong_gust, "gust_twin": gust_twin, "bed_chain": bed_chain, "obstacle": obstacle, "ignition": ignition,
           "delayed_ignition": delayed_ignition, "full": full,
           "windy": windy, "twin": twin, "shelf_bed": shelf_bed, "shutoff": shutoff, "split": split}

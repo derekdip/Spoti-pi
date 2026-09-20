@@ -44,7 +44,8 @@ class FireParams:
     jacobi: int = 50
     sponge: int = 12              # damping cells at the top edge
     wind: float = 0.0             # m/s steady crosswind
-    gust_amp: float = 0.0         # m/s amplitude of a 0.7 Hz crosswind gust
+    gust_amp: float = 0.0         # m/s amplitude of a crosswind gust
+    gust_hz: float = 0.7          # its frequency; a property of the cause, not of any model
     base_noise: float = 0.0       # m/s of optional seeded turbulence in the reacting zone; the
                                   # unforced column already flickers, so this is off by default
     seed: int = 0
@@ -236,7 +237,7 @@ def run(p: FireParams, burners=(), patches=(), obstacles=(), record_stride: int 
                 u = u + amp * rng.normal(0.0, 1.0, u.shape) * react
                 v = v + amp * rng.normal(0.0, 1.0, v.shape) * react
         if p.wind or p.gust_amp:
-            u += dt * 4.0 * (p.wind + p.gust_amp * np.sin(2 * np.pi * 0.7 * t) - u)
+            u += dt * 4.0 * (p.wind + p.gust_amp * np.sin(2 * np.pi * p.gust_hz * t) - u)
         u *= np.exp(-p.drag * dt)
         v *= np.exp(-p.drag * dt)
         u = np.where(solid, 0.0, u) * sponge
