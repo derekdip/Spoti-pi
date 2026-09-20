@@ -54,3 +54,5 @@
 [  5514s]    step 7: pick rate     E 0.4170->0.4116 (4 tried) 5.1s
 [  5517s] twin: greedy 0.4116 after 9 steps (exhausted), 1.138 of the floor's reduction
 [  5524s] shelf_bed: V0 0.8544
+[  6188s] shelf_bed standard fit 0.4945 (de 0.564, two_stage 0.494) -> linear 0.4945 live 30 motion 0.44 664s | visual 0.685, heat 0.282, ignition 0.276, ai 0.594
+[  6188s] shelf_bed standard heat wrong 11.5% ai wrong 7.6% ignition missed 0.0% glow corr 0.68
