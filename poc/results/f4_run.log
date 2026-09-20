@@ -20,3 +20,8 @@
 [  2833s]    step 0: pick wind     E 0.8450->0.8139 (2 tried) 3.4s
 [  2834s]    step 1: pick base     E 0.8139->0.7876 (1 tried) 1.5s
 [  2837s]    step 2: pick cool     E 0.7876->0.7705 (2 tried) 3.0s
+[  2841s]    step 3: pick width    E 0.7705->0.7543 (1 tried) 3.1s
+[  2844s]    step 4: pick rise     E 0.7543->0.7429 (3 tried) 3.5s
+[  2847s]    step 5: pick cool     E 0.7429->0.7321 (1 tried) 2.5s
+[  2855s] delayed_ignition: greedy 0.7321 after 7 steps (exhausted), 0.420 of the floor's reduction
+[  2862s] full: V0 0.8404
