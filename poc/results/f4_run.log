@@ -67,3 +67,9 @@
 [  6936s] split: V0 1.1896
 [  7344s] split standard fit 0.4170 (de 0.417, two_stage 0.488) -> linear 0.4170 live 12 motion 0.00 409s | visual 0.655, heat 0.151, ai 0.265
 [  7344s] split standard heat wrong 0.2% ai wrong 0.9% glow corr 0.77
+[  7749s] split look     fit 0.3018 (de 0.302, two_stage 0.311) -> linear 0.4130 live 5 motion 0.00 405s | visual 0.646, heat 0.095, ai 0.292
+[  7749s] split look     heat wrong 0.2% ai wrong 1.1% glow corr 0.91
+[  7751s]    step 0: pick width    E 1.1896->0.7636 (1 tried) 2.0s
+[  7752s]    step 1: pick base     E 0.7636->0.6421 (1 tried) 1.1s
+[  7755s]    step 2: pick wind     E 0.6421->0.6170 (2 tried) 3.0s
+[  7757s]    step 3: pick wind     E 0.6170->0.6014 (1 tried) 1.9s
