@@ -58,6 +58,7 @@ class FireState:
     bed_dur: float = 0.0        # s the bed holds its plateau before running out of fuel
     bed_fall: float = 0.0       # s the bed takes to die once the fuel is gone
     lat_q: float = 0.0          # lateral profile exponent; 0 means the Gaussian default of 2
+    ver_p: float = 0.0          # vertical profile exponent; 0 means the exponential default of 1
 
     def split_rise_m(self):
         """Height over which a split develops: tied to the column width, not a free parameter."""
@@ -79,7 +80,8 @@ def _column(X, Y, T_, x0, y0, on, amp, height, width, spread, st, obstacles):
     dy = Y - y0
     up = np.maximum(dy, 0.0)
     # vertical: exponential above the source, a short tail below it
-    prof = np.where(dy >= 0.0, np.exp(-up / max(height, 1e-3)),
+    pver = st.ver_p if st.ver_p > 0.0 else 1.0
+    prof = np.where(dy >= 0.0, np.exp(-(up / max(height, 1e-3)) ** pver),
                     np.exp(dy / max(0.12, 1e-3)))
     w = width + spread * up
     # lateral centre, per frame: steady lean, gust lean, obstacle deflection
@@ -135,7 +137,9 @@ def _puff(X, Y, T_, x0, y0, t_off, amp, height, width, spread, st):
         return np.zeros((len(T_),) + X.shape)
     shift = np.maximum(tau, 0.0) * st.puff_rise
     dy = Y[None] - y0 - shift[:, None, None]
-    prof = np.where(dy >= 0.0, np.exp(-dy / max(height, 1e-3)), np.exp(dy / 0.12))
+    pver = st.ver_p if st.ver_p > 0.0 else 1.0
+    prof = np.where(dy >= 0.0, np.exp(-(np.maximum(dy, 0.0) / max(height, 1e-3)) ** pver),
+                    np.exp(dy / 0.12))
     up = np.maximum(Y - y0, 0.0)
     w = np.maximum(width + spread * up, 1e-3)
     lat = np.exp(-0.5 * ((X - x0) / w) ** 2)

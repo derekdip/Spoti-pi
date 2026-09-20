@@ -33,6 +33,9 @@ CLASSES = {
     "split":     ["split_amp", "split_spread"],
     "puff":      ["puff_amp", "puff_rise", "puff_decay"],
     "bed":       ["bed_amp", "bed_delay", "bed_speed", "bed_dur", "bed_fall"],
+    # the shape of the column that already exists, never questioned before: the lateral profile
+    # was hard-coded Gaussian and the vertical one hard-coded exponential
+    "profile":   ["lat_q", "ver_p"],
 }
 SUPPORT_CLASSES = ("deflect", "secondary", "split", "bed")
 # Nothing here is unrepairable. `floor`, a uniform excess temperature, is a legal parameter and a
@@ -70,6 +73,8 @@ RANGES = {
     "bed_speed":   (0.0, 3.0),
     "bed_dur":     (0.1, 3.0),
     "bed_fall":    (0.05, 2.0),
+    "lat_q":       (1.0, 8.0),
+    "ver_p":       (0.5, 4.0),
 }
 # a small step away from zero, for the tangent direction of a switched-off expansion
 EPS = {k: 0.04 * (hi - lo) for k, (lo, hi) in RANGES.items()}
@@ -89,6 +94,7 @@ ON = {
     "split":     {"split_amp": 0.5, "split_spread": 0.20},
     "puff":      {"puff_amp": 0.7, "puff_rise": 1.2, "puff_decay": 1.0},
     "bed":       {"bed_amp": 500.0, "bed_delay": 0.5, "bed_speed": 0.5, "bed_dur": 1.2, "bed_fall": 0.5},
+    "profile":   {"lat_q": 3.0, "ver_p": 2.0},
 }
 
 V0_PARAMS = ("amp", "height", "width", "spread")
