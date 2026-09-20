@@ -80,3 +80,13 @@
 [  5093s] bed_chain: cross-evaluated best is the standard fit at 0.5318
 [  5097s]    step 0: pick bed      E 0.8999->0.8868 (1 tried) 4.5s
 [  5101s]    step 1: pick bed      E 0.8868->0.8551 (1 tried) 3.9s
+[  5106s]    step 2: pick wind     E 0.8551->0.8049 (2 tried) 5.1s
+[  5108s]    step 3: pick base     E 0.8049->0.7702 (1 tried) 1.9s
+[  5113s]    step 4: pick wind     E 0.7702->0.7367 (1 tried) 4.4s
+[  5116s]    step 5: pick rise     E 0.7367->0.7067 (2 tried) 3.6s
+[  5119s]    step 6: pick amp      E 0.7067->0.6973 (1 tried) 2.7s
+[  5123s]    step 7: pick profile  E 0.6973->0.6823 (2 tried) 4.2s
+[  5126s]    step 8: pick amp      E 0.6823->0.6719 (1 tried) 2.4s
+[  5133s]    step 9: pick rate     E 0.6719->0.6234 (7 tried) 7.1s
+[  5133s] bed_chain: greedy 0.6234 after 10 steps (budget), 0.696 of the floor's reduction
+[  5140s] ignition: V0 0.8152, teacher sway 9.5 cm at 0.7 Hz
