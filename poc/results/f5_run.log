@@ -38,3 +38,7 @@
 [  2237s] fast_gust: cross-evaluated best is the standard fit at 0.4607
 [  2241s]    step 0: pick soot     E 0.6740->0.6590 (2 tried) 4.1s
 [  2244s]    step 1: pick base     E 0.6590->0.6423 (1 tried) 3.3s
+[  2251s]    step 2: pick rate     E 0.6423->0.5976 (4 tried) 7.3s
+[  2255s]    step 3: pick rise     E 0.5976->0.5818 (4 tried) 3.7s
+[  2260s] fast_gust: greedy 0.5818 after 5 steps (exhausted), 0.259 of the floor's reduction
+[  2267s] strong_gust: V0 0.7947, teacher sway 16.8 cm at 0.7 Hz

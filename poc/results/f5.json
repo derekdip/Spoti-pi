@@ -359,6 +359,281 @@
     "seconds": 32
    },
    "evals": 17106
+  },
+  {
+   "scene": "fast_gust",
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "e_v0": 0.6240333932439842,
+   "gust_hz": 1.4,
+   "gust_amp": 1.6,
+   "teacher_sway": 0.04700687685663992,
+   "fits": {
+    "standard": {
+     "error": 0.46065639866804564,
+     "per_consumer": {
+      "visual": 0.6971141115757874,
+      "heat": 0.22820663950127523,
+      "ai": 0.3139531780869176
+     },
+     "live": 16,
+     "sway_amp": 0.034544983383072006,
+     "sway_ratio": 0.7348921199003754,
+     "sway_phase_err": 54.042357436346684,
+     "decisions": {
+      "heat": {
+       "disagree": 0.04644808743169399,
+       "missed_burn": 0.12374581939799331,
+       "false_burn": 0.026609442060085836,
+       "teacher_burn_rate": 0.20423497267759563
+      },
+      "ai": {
+       "disagree": 0.0412568306010929,
+       "missed_hazard": 0.11524822695035461,
+       "false_hazard": 0.027777777777777776,
+       "teacher_hazard_rate": 0.1540983606557377
+      },
+      "visual": {
+       "rel_rms": 0.6971141115757874,
+       "late_correlation": 0.6624025379525286,
+       "full_correlation": 0.7081212553339347
+      }
+     },
+     "state": {
+      "amp": 1393.953778365401,
+      "rate": 6.101069569664445,
+      "v_rise": 1.7293824477981412,
+      "accel": 0.7729665392266467,
+      "burn": 0.23959135562324949,
+      "cool": 0.7914382562135265,
+      "width": 0.031787754943325634,
+      "grow": 0.061385611107703984,
+      "aspect": 3.0336090259084463,
+      "jitter": 0.08520850908424153,
+      "wind": 0.014109389338697546,
+      "gust": 0.05430670122642791,
+      "gust_lag": 2.3108955259705497,
+      "sway_base": 0.580779719783907,
+      "deflect": 0.0,
+      "reach": 0.0,
+      "sharp": 3.9493787861774443,
+      "base_amp": 847.139070263834,
+      "soot_amp": 5.477691924107052,
+      "soot_tau": 3.642845324020019,
+      "bed_amp": 0.0,
+      "bed_delay": 0.0,
+      "bed_speed": 0.0,
+      "bed_dur": 0.0,
+      "bed_fall": 0.0,
+      "attract": 0.0,
+      "floor": 4.65621961523444
+     },
+     "fit_objective": 0.46065639866804564,
+     "spread": {
+      "de": 0.46065639866804564,
+      "two_stage": 0.4844949202515193
+     },
+     "n_params": 19,
+     "seconds": 350
+    },
+    "look": {
+     "error": 0.5165741958355089,
+     "per_consumer": {
+      "visual": 0.7912844861947222,
+      "heat": 0.18771246227954647,
+      "ai": 0.3730678126317149
+     },
+     "live": 15,
+     "sway_amp": 0.04258592071242426,
+     "sway_ratio": 0.9059508642171963,
+     "sway_phase_err": 57.78009877979913,
+     "decisions": {
+      "heat": {
+       "disagree": 0.03278688524590164,
+       "missed_burn": 0.10033444816053512,
+       "false_burn": 0.015450643776824034,
+       "teacher_burn_rate": 0.20423497267759563
+      },
+      "ai": {
+       "disagree": 0.043989071038251365,
+       "missed_hazard": 0.15070921985815602,
+       "false_hazard": 0.02454780361757106,
+       "teacher_hazard_rate": 0.1540983606557377
+      },
+      "visual": {
+       "rel_rms": 0.7912844861947222,
+       "late_correlation": 0.717046076024425,
+       "full_correlation": 0.6091241747476712
+      }
+     },
+     "state": {
+      "amp": 898.0649689150615,
+      "rate": 3.713810010064194,
+      "v_rise": 1.0191171751971468,
+      "accel": 1.3160859691602145,
+      "burn": 0.5952410909244057,
+      "cool": 1.9163068059328592,
+      "width": 0.07023347749419381,
+      "grow": 0.01671842700025237,
+      "aspect": 1.9092011848311394,
+      "jitter": 0.015213603284106285,
+      "wind": 0.005844084545868408,
+      "gust": 0.06888370749726608,
+      "gust_lag": 2.3472287169400357,
+      "sway_base": 0.38648615220388643,
+      "deflect": 0.0,
+      "reach": 0.0,
+      "sharp": 2.3745712651247706,
+      "base_amp": 1084.8412976664022,
+      "soot_amp": 5.271585537796117,
+      "soot_tau": 3.9993807241084744,
+      "bed_amp": 0.0,
+      "bed_delay": 0.0,
+      "bed_speed": 0.0,
+      "bed_dur": 0.0,
+      "bed_fall": 0.0,
+      "attract": 0.0,
+      "floor": 53.83585139280392
+     },
+     "fit_objective": 0.3838354303871607,
+     "spread": {
+      "de": 0.4491240046456553,
+      "two_stage": 0.3838354303871607
+     },
+     "n_params": 19,
+     "seconds": 359
+    }
+   },
+   "best": "standard",
+   "greedy": {
+    "steps": [
+     {
+      "step": 0,
+      "q_perp": 0.737546780702534,
+      "ranked": [
+       "wind",
+       "soot",
+       "jitter",
+       "base"
+      ],
+      "picked": "soot",
+      "evaluated": 2,
+      "seconds": 4.1,
+      "e_before": 0.673956064703503,
+      "e_after": 0.6590452770289942,
+      "dcost": 2
+     },
+     {
+      "step": 1,
+      "q_perp": 0.7663036386513574,
+      "ranked": [
+       "base",
+       "wind",
+       "jitter",
+       "width"
+      ],
+      "picked": "base",
+      "evaluated": 1,
+      "seconds": 3.3,
+      "e_before": 0.6590452770289942,
+      "e_after": 0.6422908836344557,
+      "dcost": 1
+     },
+     {
+      "step": 2,
+      "q_perp": 0.8142276900340282,
+      "ranked": [
+       "wind",
+       "jitter",
+       "soot",
+       "width"
+      ],
+      "picked": "rate",
+      "evaluated": 4,
+      "seconds": 7.3,
+      "e_before": 0.6422908836344557,
+      "e_after": 0.5976266945347769,
+      "dcost": 1
+     },
+     {
+      "step": 3,
+      "q_perp": 0.8185412552961066,
+      "ranked": [
+       "wind",
+       "jitter",
+       "soot",
+       "rate"
+      ],
+      "picked": "rise",
+      "evaluated": 4,
+      "seconds": 3.7,
+      "e_before": 0.5976266945347769,
+      "e_after": 0.5817882822061724,
+      "dcost": 1
+     },
+     {
+      "step": 4,
+      "q_perp": 0.8034077027082402,
+      "ranked": [
+       "jitter",
+       "width",
+       "floor",
+       "wind"
+      ],
+      "picked": null,
+      "evaluated": 4,
+      "seconds": 4.7
+     }
+    ],
+    "traj": [
+     0.673956064703503,
+     0.6590452770289942,
+     0.6422908836344557,
+     0.5976266945347769,
+     0.5817882822061724
+    ],
+    "stopped": "exhausted",
+    "e_final": 0.5817882822061724,
+    "per_consumer": {
+     "visual": 0.8183986638543418,
+     "heat": 0.32635795140829255,
+     "ai": 0.4890265130759653
+    },
+    "state": {
+     "amp": 600.0,
+     "rate": 4.722222222222221,
+     "v_rise": 1.5333333333333337,
+     "accel": 2.1388888888888893,
+     "burn": 0.3,
+     "cool": 1.0,
+     "width": 0.06,
+     "grow": 0.04,
+     "aspect": 2.5,
+     "jitter": 0.0,
+     "wind": 0.0,
+     "gust": 0.0,
+     "gust_lag": 0.0,
+     "sway_base": 0.0,
+     "deflect": 0.0,
+     "reach": 0.0,
+     "sharp": 0.0,
+     "base_amp": 666.6666666666667,
+     "soot_amp": 0.7777777777777778,
+     "soot_tau": 4.0,
+     "bed_amp": 0.0,
+     "bed_delay": 0.0,
+     "bed_speed": 0.0,
+     "bed_dur": 0.0,
+     "bed_fall": 0.0,
+     "attract": 0.0,
+     "floor": 0.0
+    },
+    "seconds": 23
+   },
+   "evals": 15165
   }
  ],
  "paired": [],
