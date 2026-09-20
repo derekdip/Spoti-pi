@@ -334,3 +334,63 @@ def joint_fit(case: FireCase, st: FireState, passes=2, grid=7):
             errs2 = [case.error(replace(cur, **{pname: float(v)})) for v in fine]
             cur = replace(cur, **{pname: float(fine[int(np.argmin(errs2))])})
     return cur, case.error(cur)
+
+
+# ---------------------------------------------------------------- a floor worth trusting
+def active_params(case: FireCase):
+    """Parameters that can do anything on this scene. A bed needs patches, a split needs a shelf.
+
+    Dropping the inert ones is not a modelling choice, it is removing exact plateaus from the
+    search space, which is what makes a derivative-free optimiser tractable here.
+    """
+    drop = set()
+    if not case.patches:
+        drop |= set(CLASSES["bed"]) | set(CLASSES["secondary"])
+    if not case.obstacles:
+        drop |= set(CLASSES["split"]) | set(CLASSES["deflect"])
+    if all(b.t_off > 1e8 for b in case.burners):
+        drop |= set(CLASSES["puff"])
+    return [q for params in CLASSES.values() for q in params if q not in drop]
+
+
+def _vec_to_state(x, names, base: FireState):
+    return replace(base, **{n: float(np.clip(v, *RANGES[n])) for n, v in zip(names, x)})
+
+
+def floor_fit(case: FireCase, base: FireState, starts=None, maxfev_per_dim=40, verbose=False):
+    """Best error reachable by the vocabulary on this scene, by Powell from several starts.
+
+    Powell never returns worse than the start it was given, so including a known-good state among
+    the starts makes the result monotone: adding parameters can then never raise the floor, which
+    is the property single-start coordinate descent failed and which made every earlier floor
+    figure an upper bound of unknown slack.
+    """
+    from scipy.optimize import minimize
+    names = active_params(case)
+    bounds = [RANGES[n] for n in names]
+    lo = np.array([b[0] for b in bounds]); hi = np.array([b[1] for b in bounds])
+
+    def obj(x):
+        return case.error(_vec_to_state(x, names, base))
+
+    if starts is None:
+        on = base
+        for cls in CLASSES:
+            if all(getattr(on, q) == 0.0 for q in CLASSES[cls]) and cls in ON:
+                on = replace(on, **ON[cls])
+        starts = [np.array([float(np.clip(getattr(on, n), *RANGES[n])) for n in names]),
+                  np.array([float(np.clip(getattr(base, n), *RANGES[n])) for n in names]),
+                  0.5 * (lo + hi)]
+    best_x, best_e = None, np.inf
+    for k, x0 in enumerate(starts):
+        x0 = np.clip(np.asarray(x0, float), lo, hi)
+        e0 = obj(x0)
+        r = minimize(obj, x0, method="Powell", bounds=list(zip(lo, hi)),
+                     options={"maxfev": maxfev_per_dim * len(names), "xtol": 1e-3, "ftol": 1e-4})
+        e = min(float(r.fun), e0)
+        x = r.x if r.fun <= e0 else x0
+        if verbose:
+            print(f"      start {k}: {e0:.4f} -> {e:.4f} in {r.nfev} evals", flush=True)
+        if e < best_e:
+            best_e, best_x = e, x
+    return _vec_to_state(best_x, names, base), float(best_e), names
