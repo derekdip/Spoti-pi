@@ -6,3 +6,4 @@
         per consumer visual 0.553, heat 0.174, ai 0.273
         heat wrong 0.7% (missed 4.6%)  ai wrong 0.3% (missed 4.4%)  glow corr 0.87
       start 0: 0.9491 -> 0.3569 in 640 evals
+      start 1: 0.9674 -> 0.3047 in 640 evals
