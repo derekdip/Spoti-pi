@@ -67,6 +67,7 @@ rules; the label each tree returned is given as returned.
 | F3 | fire, no stop rule | 9 scenes | greedy 0.96 of joint | 1 repair/step | floor 0.63 vs 0.35 bar; consumers 7/7 | C |
 | post-F3 | fire, unfrozen | 9 scenes | | | floor 0.63 to 0.58 across shapes, profile, Powell | vocabulary is the limit |
 | decisions | fire, unfrozen | 7 scenes | | | burn/passable wrong 1 to 4% on the two simplest scenes, 10 to 19% on the rest | owner's call |
+| F4 | fire, parcel grammar | 7 unseen | greedy 0.83 of a global floor | 1 repair/step | floor below column 5/7; glow corr 0.64 median; parcels up to 32 | D |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
@@ -184,6 +185,18 @@ I got wrong running it, and where it is recorded.
     passability on the two simplest scenes and 10 to 19 percent wrong on
     the rest, and misses the lit bed on 28 to 67 percent of
     alight frames (`fire-decisions.md`).
+
+11. **The grammar rebuild was better and still failed its bars.** F4
+    replaced the anchored column with a stateless parcel train after a
+    declared three-round pilot on two seen scenes. On seven unseen
+    scenes it beat the column's best-known floor on five, by 8 to 20
+    percent, and cut ignition misses from 28 to 67 percent to 6 to 11;
+    the two misses were the two scenes the design predicted it would
+    win, by margins inside the optimiser's own 15 percent disagreement.
+    The glow bar failed, partly because it was frozen on a tone-mapped
+    fit that collapses on gusted bed scenes, and the cost bar failed
+    because the floor objective has no cost in it
+    (`math-track-f4-results.md`).
 
 ## 5. What the whole arc says
 
