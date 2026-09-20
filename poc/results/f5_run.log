@@ -51,3 +51,8 @@
 [  2919s]    step 1: pick base     E 0.8029->0.7637 (1 tried) 1.3s
 [  2923s]    step 2: pick wind     E 0.7637->0.7413 (1 tried) 3.2s
 [  2926s]    step 3: pick cool     E 0.7413->0.6926 (2 tried) 3.7s
+[  2929s]    step 4: pick width    E 0.6926->0.6464 (1 tried) 2.5s
+[  2930s]    step 5: pick profile  E 0.6464->0.6382 (1 tried) 1.8s
+[  2933s]    step 6: pick cool     E 0.6382->0.6306 (2 tried) 2.7s
+[  2940s] strong_gust: greedy 0.6306 after 8 steps (exhausted), 0.549 of the floor's reduction
+[  2948s] gust_twin: V0 1.2194, teacher sway 5.1 cm at 0.7 Hz
