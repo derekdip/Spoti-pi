@@ -1,0 +1,12 @@
+[     0s] obstacle
+   [obstacle] step 0: pick width     E 0.7316->0.7059 (1 tried) 2.3s
+   [obstacle] step 1: pick rise      E 0.7059->0.6606 (2 tried) 2.5s
+   [obstacle] step 2: pick tilt      E 0.6606->0.6477 (1 tried) 3.0s
+   [obstacle] step 3: pick height    E 0.6477->0.6298 (3 tried) 4.1s
+   [obstacle] step 4: pick amp       E 0.6298->0.6189 (1 tried) 2.5s
+   [obstacle] greedy 0.6189 (5 steps)  joint 0.6436 (21.4s)  V0 0.7316
+[    54s] ignition
+   [ignition] step 0: pick rise      E 0.8163->0.7995 (2 tried) 2.7s
+   [ignition] step 1: pick width     E 0.7995->0.7507 (1 tried) 1.8s
+   [ignition] step 2: pick tilt      E 0.7507->0.6405 (1 tried) 2.1s
+   [ignition] step 3: pick tilt      E 0.6405->0.6152 (1 tried) 2.4s
