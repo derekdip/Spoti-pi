@@ -42,5 +42,44 @@ def full():
             [Obstacle(x=0.62, y=0.95, half_w=0.22, half_h=0.035)])
 
 
+def windy():
+    """A steady crosswind leans the column: the tilt case."""
+    return FireParams(wind=0.35), [Burner(**BURNER)], [], []
+
+
+def twin():
+    """Two burners half a metre apart, so the cheap model has to superpose two columns."""
+    return (FireParams(), [Burner(x=0.42, y=0.10, radius=0.09),
+                           Burner(x=0.95, y=0.10, radius=0.09, t_on=0.5)], [], [])
+
+
+def shelf_bed():
+    """A shelf and a bed beyond it: deflection and a delayed secondary source at once."""
+    return (FireParams(gust_amp=1.8), [Burner(**BURNER)],
+            [FuelPatch(x=1.02, y=0.38, radius=0.07, amount=1.5)],
+            [Obstacle(x=0.58, y=0.80, half_w=0.20, half_h=0.035)])
+
+
+def shutoff():
+    """The burner stops at 1.5 s and the hot gas detaches and keeps rising.
+
+    No token in the vocabulary is a detached buoyant puff: every source is anchored to its cause's
+    position. This is the out-of-vocabulary case.
+    """
+    return FireParams(), [Burner(x=0.45, y=0.10, radius=0.10, t_off=1.5, pilot_for=1.5)], [], []
+
+
+def split():
+    """A wide shelf directly over the burner: the plume splits and goes around both sides.
+
+    Every source in the cheap vocabulary is a single Gaussian column with one centre. Deflection
+    can move that centre but cannot make two of it, so a split plume has no representation at all.
+    This is the out-of-vocabulary case.
+    """
+    return (FireParams(), [Burner(**BURNER)], [],
+            [Obstacle(x=0.45, y=0.62, half_w=0.30, half_h=0.04)])
+
+
 SCENES = {"plume": plume, "obstacle": obstacle, "ignition": ignition,
-          "delayed_ignition": delayed_ignition, "full": full}
+          "delayed_ignition": delayed_ignition, "full": full,
+          "windy": windy, "twin": twin, "shelf_bed": shelf_bed, "shutoff": shutoff, "split": split}
