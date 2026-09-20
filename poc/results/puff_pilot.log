@@ -4,3 +4,4 @@
 [  426s] windy standard fit 0.3289 (de 0.332, two_stage 0.329) -> linear 0.3289 (old column 0.3852) live 6 motion 0.00
         per consumer visual 0.474, heat 0.135, ai 0.286
         heat wrong 0.6% (missed 4.0%)  ai wrong 0.4% (missed 4.0%)  glow corr 0.90
+      de: 0.2552 in 7004 evals
