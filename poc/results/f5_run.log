@@ -17,3 +17,10 @@
 [   773s] gust_shelf: V0 0.7874, teacher sway 10.1 cm at 0.7 Hz
 [  1113s] gust_shelf standard fit 0.5189 (de 0.551, two_stage 0.519) -> linear 0.5189 live 12 sway 6.3 cm (63%) phase err 31 deg 340s
 [  1113s] gust_shelf standard visual 0.582, heat 0.255, ai 0.636 | heat wrong 11.1% ai wrong 7.4% corr 0.80
+[  1488s] gust_shelf look     fit 0.5209 (de 0.522, two_stage 0.521) -> linear 0.5381 live 8 sway 9.4 cm (93%) phase err 26 deg 375s
+[  1488s] gust_shelf look     visual 0.622, heat 0.258, ai 0.644 | heat wrong 10.0% ai wrong 7.4% corr 0.81
+[  1488s] gust_shelf: cross-evaluated best is the standard fit at 0.5189
+[  1490s]    step 0: pick deflect  E 0.8504->0.7721 (1 tried) 1.7s
+[  1492s]    step 1: pick base     E 0.7721->0.7423 (2 tried) 1.9s
+[  1495s]    step 2: pick wind     E 0.7423->0.7212 (1 tried) 3.1s
+[  1499s]    step 3: pick cool     E 0.7212->0.6556 (3 tried) 3.9s
