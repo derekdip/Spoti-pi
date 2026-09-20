@@ -31,3 +31,5 @@
 [  1517s]    step 8: pick rise     E 0.6165->0.5955 (7 tried) 8.2s
 [  1520s] gust_shelf: greedy 0.5955 after 10 steps (exhausted), 0.715 of the floor's reduction
 [  1528s] fast_gust: V0 0.6240, teacher sway 4.7 cm at 1.4 Hz
+[  1878s] fast_gust standard fit 0.4607 (de 0.461, two_stage 0.484) -> linear 0.4607 live 16 sway 3.5 cm (73%) phase err 54 deg 350s
+[  1878s] fast_gust standard visual 0.697, heat 0.228, ai 0.314 | heat wrong 4.6% ai wrong 4.1% corr 0.66
