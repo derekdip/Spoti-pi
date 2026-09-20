@@ -13,3 +13,4 @@
         heat wrong 0.6% (missed 4.0%)  ai wrong 0.4% (missed 4.0%)  glow corr 0.89
 [  190s] obstacle: V0 0.9285
       start 0: 1.2058 -> 0.5468 in 720 evals
+      start 1: 0.9285 -> 0.5724 in 720 evals
