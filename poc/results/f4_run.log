@@ -40,3 +40,5 @@
 [  4238s]    step 8: pick width    E 0.5312->0.5247 (3 tried) 5.9s
 [  4240s] full: greedy 0.5247 after 10 steps (exhausted), 0.852 of the floor's reduction
 [  4248s] twin: V0 0.7624
+[  4858s] twin standard fit 0.4542 (de 0.454, two_stage 0.524) -> linear 0.4542 live 16 motion 0.44 610s | visual 0.540, heat 0.260, ai 0.510
+[  4858s] twin standard heat wrong 12.0% ai wrong 7.3% glow corr 0.83
