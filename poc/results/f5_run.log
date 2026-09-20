@@ -73,3 +73,5 @@
 [  3951s]    step 9: pick rise     E 0.5473->0.5311 (1 tried) 2.7s
 [  3951s] gust_twin: greedy 0.5311 after 10 steps (budget), 0.842 of the floor's reduction
 [  3959s] bed_chain: V0 0.8333, teacher sway 12.5 cm at 0.7 Hz
+[  4544s] bed_chain standard fit 0.5318 (de 0.560, two_stage 0.532) -> linear 0.5318 live 12 sway 9.6 cm (77%) phase err 26 deg 585s
+[  4544s] bed_chain standard visual 0.616, heat 0.280, ignition 0.409, ai 0.712 | heat wrong 15.0% ai wrong 12.7% alight missed 20.0% corr 0.81
