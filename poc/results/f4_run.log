@@ -1,3 +1,8 @@
 [     9s] ignition: V0 0.8152
 [   765s] ignition standard fit 0.4810 (de 0.481, two_stage 0.594) -> linear 0.4810 live 26 motion 0.45 756s | visual 0.628, heat 0.263, ignition 0.325, ai 0.597
 [   765s] ignition standard heat wrong 12.3% ai wrong 9.8% ignition missed 5.6% glow corr 0.73
+[  1411s] ignition look     fit 0.5416 (de 0.542, two_stage 0.619) -> linear 0.5890 live 21 motion 0.07 647s | visual 0.883, heat 0.325, ignition 0.356, ai 0.613
+[  1411s] ignition look     heat wrong 11.1% ai wrong 9.1% ignition missed 0.0% glow corr 0.39
+[  1415s]    step 0: pick bed      E 0.8152->0.8062 (1 tried) 3.6s
+[  1419s]    step 1: pick bed      E 0.8062->0.7716 (1 tried) 3.6s
+[  1424s]    step 2: pick wind     E 0.7716->0.7339 (2 tried) 4.9s
