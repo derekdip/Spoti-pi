@@ -29,8 +29,12 @@ CLASSES = {
     "deflect":   ["deflect"],
     "secondary": ["sec_amp", "sec_delay", "sec_speed", "sec_dur"],
     "floor":     ["floor"],
+    # added after F3, which found the single anchored Gaussian column is the binding limit
+    "split":     ["split_amp", "split_spread"],
+    "puff":      ["puff_amp", "puff_rise", "puff_decay"],
+    "bed":       ["bed_amp", "bed_delay", "bed_speed", "bed_dur", "bed_fall"],
 }
-SUPPORT_CLASSES = ("deflect", "secondary")
+SUPPORT_CLASSES = ("deflect", "secondary", "split", "bed")
 # Nothing here is unrepairable. `floor`, a uniform excess temperature, is a legal parameter and a
 # physically wrong model of a flame, so it is kept as a distractor rather than an abstention
 # trigger: the interesting question is whether the procedure spends a step on it, which requires
@@ -56,6 +60,16 @@ RANGES = {
     "sec_speed":   (0.0, 3.0),
     "sec_dur":     (0.1, 3.0),
     "floor":       (0.0, 120.0),
+    "split_amp":   (0.0, 1.0),
+    "split_spread": (0.0, 0.6),
+    "puff_amp":    (0.0, 1.5),
+    "puff_rise":   (0.2, 4.0),
+    "puff_decay":  (0.1, 3.0),
+    "bed_amp":     (0.0, 1200.0),
+    "bed_delay":   (0.0, 3.0),
+    "bed_speed":   (0.0, 3.0),
+    "bed_dur":     (0.1, 3.0),
+    "bed_fall":    (0.05, 2.0),
 }
 # a small step away from zero, for the tangent direction of a switched-off expansion
 EPS = {k: 0.04 * (hi - lo) for k, (lo, hi) in RANGES.items()}
@@ -72,6 +86,9 @@ ON = {
     "deflect":   {"deflect": 0.12},
     "secondary": {"sec_amp": 300.0, "sec_delay": 0.5, "sec_speed": 0.5, "sec_dur": 1.0},
     "floor":     {"floor": 30.0},
+    "split":     {"split_amp": 0.5, "split_spread": 0.20},
+    "puff":      {"puff_amp": 0.7, "puff_rise": 1.2, "puff_decay": 1.0},
+    "bed":       {"bed_amp": 500.0, "bed_delay": 0.5, "bed_speed": 0.5, "bed_dur": 1.2, "bed_fall": 0.5},
 }
 
 V0_PARAMS = ("amp", "height", "width", "spread")
@@ -233,6 +250,7 @@ class FireCase:
                         m[a:b] += ((np.abs(self.probes[:, 0] - o.x) <= o.half_w + 0.28) &
                                    (np.abs(self.probes[:, 1] - o.y) <= o.half_h + 0.34)).astype(float)
             out["deflect"] = (m > 0).astype(float)
+            out["split"] = out["deflect"]
         if self.patches:
             m = np.zeros(ntot)
             for cname in self.names:
@@ -250,6 +268,7 @@ class FireCase:
                         m[a:b] += (np.hypot(self.probes[:, 0] - q.x,
                                             self.probes[:, 1] - q.y) <= q.radius + 0.22).astype(float)
             out["secondary"] = (m > 0).astype(float)
+            out["bed"] = out["secondary"]
         return out
 
 

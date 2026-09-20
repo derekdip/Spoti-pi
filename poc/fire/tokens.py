@@ -46,6 +46,21 @@ class FireState:
     sec_speed: float = 0.0      # s per metre of extra delay with distance from the flame
     sec_dur: float = 0.0        # s the bed burns for
     floor: float = 0.0          # K of uniform excess: the deliberate wrong atom
+    # --- source shapes added after F3, which found the single anchored column is what fails
+    split_amp: float = 0.0      # fraction of the column diverted into two branches past a shelf
+    split_spread: float = 0.0   # m the branches diverge per metre climbed above the shelf
+    puff_amp: float = 0.0       # fraction of the column that detaches when its cause stops
+    puff_rise: float = 0.0      # m/s the detached puff climbs
+    puff_decay: float = 0.0     # s e-folding time of the detached puff
+    bed_amp: float = 0.0        # K excess of a bed fire at its plateau
+    bed_delay: float = 0.0      # s before the nearest bed lights
+    bed_speed: float = 0.0      # s per metre of extra delay with distance from the flame
+    bed_dur: float = 0.0        # s the bed holds its plateau before running out of fuel
+    bed_fall: float = 0.0       # s the bed takes to die once the fuel is gone
+
+    def split_rise_m(self):
+        """Height over which a split develops: tied to the column width, not a free parameter."""
+        return max(4.0 * self.width, 0.05)
 
     def enabled(self):
         """Names of the parameters currently doing anything, which is what a repair costs."""
@@ -83,7 +98,22 @@ def _column(X, Y, T_, x0, y0, on, amp, height, width, spread, st, obstacles):
             inside = (np.abs(X - o.x) <= o.half_w + 0.10)
             push += st.deflect * near * side * inside
         xc = xc + push[None]
-    lat = np.exp(-0.5 * ((X[None] - xc) / np.maximum(w, 1e-3)[None]) ** 2)
+    wsafe = np.maximum(w, 1e-3)
+    lat = np.exp(-0.5 * ((X[None] - xc) / wsafe[None]) ** 2)
+    if st.split_amp != 0.0 and obstacles:
+        for o in obstacles:
+            if o.y <= y0 or abs(x0 - o.x) > o.half_w + width:
+                continue                      # only a shelf sitting over this source splits it
+            rise = max(st.split_rise_m(), 1e-3)
+            above = np.clip((Y - (o.y + o.half_h)) / rise, 0.0, 1.0)
+            dyo = np.maximum(Y - o.y, 0.0)
+            shadow = np.exp(-0.5 * ((X - o.x) / max(o.half_w, 1e-3)) ** 2)
+            branch = np.zeros_like(X)
+            for side in (-1.0, 1.0):
+                xb = o.x + side * (o.half_w + st.split_spread * dyo)
+                branch += np.exp(-0.5 * ((X - xb) / wsafe) ** 2)
+            lat = lat * (1.0 - st.split_amp * (above * shadow)[None]) \
+                  + st.split_amp * 0.5 * (above[None] * branch[None])
     f = amp * prof[None] * lat
     # temporal: rise time up the column, then flicker
     gate = on[:, None, None]
@@ -93,6 +123,31 @@ def _column(X, Y, T_, x0, y0, on, amp, height, width, spread, st, obstacles):
         ph = 2.0 * np.pi * st.flicker_hz * (T_[:, None, None] - st.flicker_lag * up[None])
         gate = gate * (1.0 + st.flicker_amp * np.sin(ph))
     return f * gate
+
+
+def _puff(X, Y, T_, x0, y0, t_off, amp, height, width, spread, st):
+    """The column detaches at t_off and climbs, fading. Nothing in a fixed-anchor grammar does this."""
+    tau = T_ - t_off
+    live = tau > 0.0
+    if not live.any():
+        return np.zeros((len(T_),) + X.shape)
+    shift = np.maximum(tau, 0.0) * st.puff_rise
+    dy = Y[None] - y0 - shift[:, None, None]
+    prof = np.where(dy >= 0.0, np.exp(-dy / max(height, 1e-3)), np.exp(dy / 0.12))
+    up = np.maximum(Y - y0, 0.0)
+    w = np.maximum(width + spread * up, 1e-3)
+    lat = np.exp(-0.5 * ((X - x0) / w) ** 2)
+    fade = np.exp(-np.maximum(tau, 0.0) / max(st.puff_decay, 1e-3))
+    return (st.puff_amp * amp) * prof * lat[None] * fade[:, None, None] * live[:, None, None]
+
+
+def _bed_envelope(T_, t_ign, st):
+    """Light, hold, then die as the fuel runs out. Returns the (F,) envelope in [0, 1]."""
+    tau = T_ - t_ign
+    rise = max(0.15 * st.bed_dur, 1e-3)
+    up = 1.0 - np.exp(-np.maximum(tau, 0.0) / rise)
+    down = np.exp(-np.maximum(tau - st.bed_dur, 0.0) / max(st.bed_fall, 1e-3))
+    return np.where(tau > 0.0, up * down, 0.0)
 
 
 def _gate(times, t_on, t_off, y0, Y, rise_speed):
@@ -118,6 +173,8 @@ def evaluate(st: FireState, p: FireParams, times, burners, patches, obstacles):
         else:
             col = _column(X, Y, times, b.x, b.y, np.ones(F), st.amp, st.height, st.width, st.spread, st, obstacles) * g
         exc += col
+        if st.puff_amp != 0.0 and b.t_off < 1e8:
+            exc += _puff(X, Y, times, b.x, b.y, b.t_off, st.amp, st.height, st.width, st.spread, st)
         if st.soot_amp != 0.0:
             s = _column(X, Y, times, b.x, b.y, np.ones(F) if g.ndim > 1 else g,
                         st.soot_amp, max(st.soot_height, 1e-3), st.width, st.spread,
@@ -132,6 +189,17 @@ def evaluate(st: FireState, p: FireParams, times, burners, patches, obstacles):
             g = _gate(times, t_ign, t_ign + max(st.sec_dur, 1e-3), q.y, Y, 0.0)
             exc += _column(X, Y, times, q.x, q.y, g, st.sec_amp, max(st.height * 0.5, 1e-3),
                            q.radius, st.spread, replace(st, tilt_gust=0.0, deflect=0.0), obstacles)
+    if st.bed_amp != 0.0 and patches:
+        bx = burners[0].x if burners else p.nx * p.dx * 0.5
+        by = burners[0].y if burners else 0.0
+        for q in patches:
+            d = float(np.hypot(q.x - bx, q.y - by))
+            env = _bed_envelope(times, st.bed_delay + st.bed_speed * d, st)
+            if env.max() <= 0.0:
+                continue
+            exc += _column(X, Y, times, q.x, q.y, env, st.bed_amp, max(0.45 * st.height, 1e-3),
+                           max(q.radius, 1e-3), st.spread,
+                           replace(st, tilt_gust=0.0, deflect=0.0, split_amp=0.0), obstacles)
     if st.floor != 0.0:
         exc += st.floor
     solid = np.zeros((p.ny, p.nx), dtype=bool)
@@ -149,7 +217,19 @@ def as_record(st: FireState, p, times, burners, patches, obstacles) -> FireRecor
     for o in obstacles:
         solid |= (np.abs(X - o.x) <= o.half_w) & (np.abs(Y - o.y) <= o.half_h)
     fuel = np.zeros_like(Tf)
-    if st.sec_amp != 0.0 and patches:
+    if st.bed_amp != 0.0 and patches:
+        bx = burners[0].x if burners else 0.0
+        by = burners[0].y if burners else 0.0
+        for q in patches:
+            d = float(np.hypot(q.x - bx, q.y - by))
+            t_ign = st.bed_delay + st.bed_speed * d
+            tau = np.maximum(times - t_ign, 0.0)
+            # fuel is consumed over the plateau and is gone once it ends
+            left = np.clip(1.0 - tau / max(st.bed_dur, 1e-3), 0.0, 1.0)
+            left = np.where(times >= t_ign, left, 1.0)
+            m = ((X - q.x) ** 2 + (Y - q.y) ** 2) <= q.radius ** 2
+            fuel += (m[None] * q.amount) * left[:, None, None]
+    elif st.sec_amp != 0.0 and patches:
         bx = burners[0].x if burners else 0.0
         by = burners[0].y if burners else 0.0
         for q in patches:
