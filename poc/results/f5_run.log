@@ -58,3 +58,9 @@
 [  2948s] gust_twin: V0 1.2194, teacher sway 5.1 cm at 0.7 Hz
 [  3423s] gust_twin standard fit 0.4023 (de 0.402, two_stage 0.445) -> linear 0.4023 live 4 sway 3.9 cm (76%) phase err 109 deg 475s
 [  3423s] gust_twin standard visual 0.579, heat 0.225, ai 0.316 | heat wrong 1.9% ai wrong 2.0% corr 0.85
+[  3919s] gust_twin look     fit 0.3136 (de 0.323, two_stage 0.314) -> linear 0.4080 live 13 sway 0.7 cm (13%) phase err 71 deg 496s
+[  3919s] gust_twin look     visual 0.591, heat 0.176, ai 0.346 | heat wrong 1.8% ai wrong 1.9% corr 0.90
+[  3919s] gust_twin: cross-evaluated best is the standard fit at 0.4023
+[  3922s]    step 0: pick width    E 1.3170->0.8686 (1 tried) 3.1s
+[  3924s]    step 1: pick base     E 0.8686->0.7170 (1 tried) 1.8s
+[  3928s]    step 2: pick wind     E 0.7170->0.6484 (1 tried) 4.0s
