@@ -75,3 +75,8 @@
 [  3959s] bed_chain: V0 0.8333, teacher sway 12.5 cm at 0.7 Hz
 [  4544s] bed_chain standard fit 0.5318 (de 0.560, two_stage 0.532) -> linear 0.5318 live 12 sway 9.6 cm (77%) phase err 26 deg 585s
 [  4544s] bed_chain standard visual 0.616, heat 0.280, ignition 0.409, ai 0.712 | heat wrong 15.0% ai wrong 12.7% alight missed 20.0% corr 0.81
+[  5093s] bed_chain look     fit 0.5362 (de 0.536, two_stage 0.538) -> linear 0.5716 live 14 sway 10.9 cm (87%) phase err 17 deg 549s
+[  5093s] bed_chain look     visual 0.742, heat 0.287, ignition 0.414, ai 0.708 | heat wrong 15.1% ai wrong 11.7% alight missed 15.0% corr 0.68
+[  5093s] bed_chain: cross-evaluated best is the standard fit at 0.5318
+[  5097s]    step 0: pick bed      E 0.8999->0.8868 (1 tried) 4.5s
+[  5101s]    step 1: pick bed      E 0.8868->0.8551 (1 tried) 3.9s
