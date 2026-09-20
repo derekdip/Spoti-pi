@@ -1,0 +1,41 @@
+tongue: visible (T>700 K) up to y = 1.83 m; T>400 K up to y = 2.34 m; peak excess 907 K at y = 0.00
+   y=0.3: mean lateral-max excess    899 K
+   y=0.6: mean lateral-max excess    836 K
+   y=0.9: mean lateral-max excess    738 K
+   y=1.2: mean lateral-max excess    624 K
+   y=1.5: mean lateral-max excess    516 K
+   width: y=0.2  sigma=0.062 m  centre=0.46
+   width: y=0.4  sigma=0.059 m  centre=0.48
+   width: y=0.6  sigma=0.067 m  centre=0.48
+   width: y=0.8  sigma=0.082 m  centre=0.49
+   width: y=1.0  sigma=0.090 m  centre=0.49
+   width: y=1.2  sigma=0.094 m  centre=0.50
+   flicker: y=0.4 dominant 0.33 Hz, rms 6 K
+   flicker: y=0.8 dominant 0.33 Hz, rms 29 K
+   flicker: y=1.2 dominant 0.33 Hz, rms 122 K
+   rise: 0.3->0.6 m lag 0.000 s -> 300000000.00 m/s (corr 0.96)
+   rise: 0.6->0.9 m lag 0.000 s -> 300000000.00 m/s (corr 1.00)
+   rise: 0.9->1.2 m lag 0.000 s -> 300000000.00 m/s (corr 0.82)
+   soot: peak 10.09, mean over hot cells 4.93
+   rise: 0.6->0.9 m lag 0.000 s -> 300000000.00 m/s (corr 1.00)
+   rise: 0.9->1.2 m lag 0.000 s -> 300000000.00 m/s (corr 0.82)
+   soot: peak 10.09, mean over hot cells 4.93
+
+start-up front (first frame each height exceeds 400 K):
+   y=0.3: arrives t=0.30 s
+   y=0.6: arrives t=0.70 s  -> 0.75 m/s from 0.3
+   y=0.9: arrives t=0.93 s  -> 1.29 m/s from 0.6
+   y=1.2: arrives t=1.10 s  -> 1.80 m/s from 0.9
+   y=1.5: arrives t=1.23 s  -> 2.25 m/s from 1.2
+   y=1.8: arrives t=1.37 s  -> 2.25 m/s from 1.5
+centroid wobble (late frames):
+   y=0.6: rms 1.0 cm, dominant 0.33 Hz, second 0.66 Hz
+   y=1.0: rms 1.4 cm, dominant 0.33 Hz, second 0.66 Hz
+   y=1.4: rms 7.4 cm, dominant 1.66 Hz, second 0.99 Hz
+along-column decay of the mean centreline excess, as an age at the front speed:
+   y=0.3:   899 K   ln ratio to y=0.3: +0.00
+   y=0.6:   836 K   ln ratio to y=0.3: -0.07
+   y=0.9:   738 K   ln ratio to y=0.3: -0.20
+   y=1.2:   624 K   ln ratio to y=0.3: -0.36
+   y=1.5:   516 K   ln ratio to y=0.3: -0.56
+   y=1.8:   419 K   ln ratio to y=0.3: -0.76

@@ -20,8 +20,8 @@ BURN_T = TT.HAZARD_T           # 400 K: the teacher's own hazard threshold, used
 SC = ("obstacle", "ignition", "delayed_ignition", "full", "windy", "twin", "shelf_bed")
 
 
-def decisions(case, st):
-    rec = tokens.as_record(st, case.p, case.times, case.burners, case.patches, case.obstacles)
+def decisions(case, st, as_record=tokens.as_record):
+    rec = as_record(st, case.p, case.times, case.burners, case.patches, case.obstacles)
     out = {}
     # heat: burn / no burn at each probe, each frame
     t_heat = case.target["heat"]; c_heat = np.asarray(TT.g_heat(rec, case.probes), float).reshape(case.F, -1)
