@@ -1,0 +1,296 @@
+{
+ "tau": 0.5834212065969504,
+ "steps": 6,
+ "v0": {
+  "amp": 605.5555555555557,
+  "height": 1.2000000000000002,
+  "width": 0.07,
+  "spread": 0.0
+ },
+ "scored": [
+  {
+   "scene": "obstacle",
+   "seen": true,
+   "e_v0": 0.7316130637662859,
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.9115401856692675,
+    "heat": 0.2693075837467256,
+    "ai": 0.8380578383781229
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.4903900562453435,
+     "ranked": [
+      "width",
+      "rise",
+      "deflect",
+      "tilt"
+     ],
+     "picked": "width",
+     "why": "ok",
+     "evaluated": 1,
+     "oracle": "height",
+     "oracle_gain": 0.11114439571869328,
+     "coherence_pick": "rise",
+     "seconds": 7.9,
+     "e_before": 0.7316130637662859,
+     "e_after": 0.7058604501790867,
+     "rgre_gain": 0.025752613587199158,
+     "dcost": 1,
+     "v_cap": 0.23170411266060667
+    },
+    {
+     "step": 1,
+     "q_perp": 0.5868028706465342,
+     "ranked": [],
+     "picked": null,
+     "why": "unknown",
+     "evaluated": 0,
+     "oracle": "height",
+     "oracle_gain": 0.0504666778705648,
+     "coherence_pick": null,
+     "seconds": 7.4,
+     "e_before": 0.7058604501790867,
+     "e_after": 0.7058604501790867
+    }
+   ],
+   "stopped": "unknown",
+   "e_final": 0.7058604501790867,
+   "per_consumer_final": {
+    "visual": 0.9368042942524253,
+    "heat": 0.29680197150242654,
+    "ai": 0.7273398307280836
+   },
+   "state_final": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.05
+   },
+   "cost_final": 4,
+   "total_evals": 436
+  },
+  {
+   "scene": "ignition",
+   "seen": true,
+   "e_v0": 0.8163372225640265,
+   "consumers": [
+    "visual",
+    "heat",
+    "ignition",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8512631159202252,
+    "heat": 0.4195017162039539,
+    "ignition": 1.0,
+    "ai": 0.8746400753166541
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.43388371313926805,
+     "ranked": [
+      "secondary",
+      "rise",
+      "width",
+      "tilt"
+     ],
+     "picked": "rise",
+     "why": "ok",
+     "evaluated": 2,
+     "oracle": "rise",
+     "oracle_gain": 0.016808730462992028,
+     "coherence_pick": "secondary",
+     "seconds": 6.6,
+     "e_before": 0.8163372225640265,
+     "e_after": 0.7995284921010345,
+     "rgre_gain": 0.016808730462992028,
+     "dcost": 1,
+     "v_cap": 1.0
+    },
+    {
+     "step": 1,
+     "q_perp": 0.4150946576736042,
+     "ranked": [
+      "secondary",
+      "width",
+      "floor",
+      "amp"
+     ],
+     "picked": "width",
+     "why": "ok",
+     "evaluated": 1,
+     "oracle": "width",
+     "oracle_gain": 0.04885891334347647,
+     "coherence_pick": "secondary",
+     "seconds": 7.9,
+     "e_before": 0.7995284921010345,
+     "e_after": 0.750669578757558,
+     "rgre_gain": 0.04885891334347647,
+     "dcost": 1,
+     "v_cap": 1.0
+    },
+    {
+     "step": 2,
+     "q_perp": 0.444471251332141,
+     "ranked": [
+      "secondary",
+      "tilt",
+      "floor",
+      "flicker"
+     ],
+     "picked": "tilt",
+     "why": "ok",
+     "evaluated": 1,
+     "oracle": "tilt",
+     "oracle_gain": 0.06359453231850332,
+     "coherence_pick": "secondary",
+     "seconds": 7.3,
+     "e_before": 0.750669578757558,
+     "e_after": 0.6234805141205514,
+     "rgre_gain": 0.06359453231850332,
+     "dcost": 2,
+     "v_cap": 1.0
+    },
+    {
+     "step": 3,
+     "q_perp": 0.695187800003032,
+     "ranked": [],
+     "picked": null,
+     "why": "unknown",
+     "evaluated": 0,
+     "oracle": "tilt",
+     "oracle_gain": 0.008255313860895175,
+     "coherence_pick": null,
+     "seconds": 11.5,
+     "e_before": 0.6234805141205514,
+     "e_after": 0.6234805141205514
+    }
+   ],
+   "stopped": "unknown",
+   "e_final": 0.6234805141205514,
+   "per_consumer_final": {
+    "visual": 0.7285119553986341,
+    "heat": 0.3630735838656341,
+    "ignition": 0.4410699047946979,
+    "ai": 0.8353544448775785
+   },
+   "state_final": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.2,
+    "tilt": 0.33333333333333326,
+    "tilt_gust": 0.4,
+    "rise_speed": 0.6166666666666667
+   },
+   "cost_final": 7,
+   "total_evals": 899
+  },
+  {
+   "scene": "delayed_ignition",
+   "seen": false,
+   "e_v0": 0.8397166029187395,
+   "consumers": [
+    "visual",
+    "heat",
+    "ignition",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8815531653320098,
+    "heat": 0.45340504117055047,
+    "ignition": 1.0,
+    "ai": 0.9153052923499341
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.5033639934281977,
+     "ranked": [
+      "secondary",
+      "rise",
+      "soot",
+      "tilt"
+     ],
+     "picked": "rise",
+     "why": "ok",
+     "evaluated": 2,
+     "oracle": "rise",
+     "oracle_gain": 0.015754852925724094,
+     "coherence_pick": "secondary",
+     "seconds": 7.0,
+     "e_before": 0.8397166029187395,
+     "e_after": 0.8239617499930154,
+     "rgre_gain": 0.015754852925724094,
+     "dcost": 1,
+     "v_cap": 1.0
+    },
+    {
+     "step": 1,
+     "q_perp": 0.4811473018030131,
+     "ranked": [
+      "secondary",
+      "width",
+      "floor",
+      "amp"
+     ],
+     "picked": "width",
+     "why": "ok",
+     "evaluated": 1,
+     "oracle": "width",
+     "oracle_gain": 0.06688617642459593,
+     "coherence_pick": "secondary",
+     "seconds": 8.0,
+     "e_before": 0.8239617499930154,
+     "e_after": 0.7570755735684195,
+     "rgre_gain": 0.06688617642459593,
+     "dcost": 1,
+     "v_cap": 1.0
+    },
+    {
+     "step": 2,
+     "q_perp": 0.46602321918531664,
+     "ranked": [
+      "secondary",
+      "tilt",
+      "floor",
+      "amp"
+     ],
+     "picked": null,
+     "why": "exhausted",
+     "evaluated": 8,
+     "oracle": "tilt",
+     "oracle_gain": 0.002297559832331486,
+     "coherence_pick": "secondary",
+     "seconds": 7.7,
+     "e_before": 0.7570755735684195,
+     "e_after": 0.7570755735684195
+    }
+   ],
+   "stopped": "exhausted",
+   "e_final": 0.7570755735684195,
+   "per_consumer_final": {
+    "visual": 0.7626950849835962,
+    "heat": 0.33975414843940926,
+    "ignition": 1.0,
+    "ai": 0.7716974940583146
+   },
+   "state_final": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.2,
+    "spread": 0.1,
+    "rise_speed": 0.4583333333333333
+   },
+   "cost_final": 5,
+   "total_evals": 670
+  }
+ ],
+ "reported": []
+}

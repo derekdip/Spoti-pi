@@ -1,0 +1,10 @@
+[     0s] obstacle (seen=True)
+   [obstacle] step 0: q_perp 0.490  pick width     oracle height    E 0.7316->0.7059 V 0.232  7.9s
+[    26s] ignition (seen=True)
+   [ignition] step 0: q_perp 0.434  pick rise      oracle rise      E 0.8163->0.7995 V 1.0  6.6s
+   [ignition] step 1: q_perp 0.415  pick width     oracle width     E 0.7995->0.7507 V 1.0  7.9s
+   [ignition] step 2: q_perp 0.444  pick tilt      oracle tilt      E 0.7507->0.6235 V 1.0  7.3s
+[    69s] delayed_ignition (seen=False)
+   [delayed_ignition] step 0: q_perp 0.503  pick rise      oracle rise      E 0.8397->0.8240 V 1.0  7.0s
+   [delayed_ignition] step 1: q_perp 0.481  pick width     oracle width     E 0.8240->0.7571 V 1.0  8.0s
+[   101s] full (seen=False)
