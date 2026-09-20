@@ -1,1 +1,3 @@
 [     9s] ignition: V0 0.8152
+[   765s] ignition standard fit 0.4810 (de 0.481, two_stage 0.594) -> linear 0.4810 live 26 motion 0.45 756s | visual 0.628, heat 0.263, ignition 0.325, ai 0.597
+[   765s] ignition standard heat wrong 12.3% ai wrong 9.8% ignition missed 5.6% glow corr 0.73
