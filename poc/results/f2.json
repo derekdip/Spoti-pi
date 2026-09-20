@@ -1,0 +1,228 @@
+{
+ "no_gate": 1.01,
+ "oov": 0.1,
+ "dead": 0.01,
+ "steps": 10,
+ "v0": {
+  "amp": 605.5555555555557,
+  "height": 1.2000000000000002,
+  "width": 0.07,
+  "spread": 0.0
+ },
+ "scored": [
+  {
+   "scene": "obstacle",
+   "seen": true,
+   "e_v0": 0.7316130637662859,
+   "consumers": [
+    "visual",
+    "heat",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.9115401856692675,
+    "heat": 0.2693075837467256,
+    "ai": 0.8380578383781229
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.4903900562453435,
+     "ranked": [
+      "width",
+      "rise",
+      "deflect",
+      "tilt"
+     ],
+     "picked": null,
+     "why": "unknown",
+     "evaluated": 1,
+     "oracle": "height",
+     "oracle_gain": 0.11114439571869328,
+     "coherence_pick": "rise",
+     "seconds": 7.7,
+     "e_before": 0.7316130637662859,
+     "e_after": 0.7316130637662859
+    }
+   ],
+   "e_at_6": 0.7316130637662859,
+   "stopped": "unknown",
+   "e_final": 0.7316130637662859,
+   "steps_used": 0,
+   "per_consumer_final": {
+    "visual": 0.9115401856692675,
+    "heat": 0.2693075837467256,
+    "ai": 0.8380578383781229
+   },
+   "state_final": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.07
+   },
+   "cost_final": 4
+  },
+  {
+   "scene": "ignition",
+   "seen": true,
+   "e_v0": 0.8163372225640265,
+   "consumers": [
+    "visual",
+    "heat",
+    "ignition",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8512631159202252,
+    "heat": 0.4195017162039539,
+    "ignition": 1.0,
+    "ai": 0.8746400753166541
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.43388371313926805,
+     "ranked": [
+      "secondary",
+      "rise",
+      "width",
+      "tilt"
+     ],
+     "picked": null,
+     "why": "unknown",
+     "evaluated": 1,
+     "oracle": "rise",
+     "oracle_gain": 0.016808730462992028,
+     "coherence_pick": "secondary",
+     "seconds": 6.8,
+     "e_before": 0.8163372225640265,
+     "e_after": 0.8163372225640265
+    }
+   ],
+   "e_at_6": 0.8163372225640265,
+   "stopped": "unknown",
+   "e_final": 0.8163372225640265,
+   "steps_used": 0,
+   "per_consumer_final": {
+    "visual": 0.8512631159202252,
+    "heat": 0.4195017162039539,
+    "ignition": 1.0,
+    "ai": 0.8746400753166541
+   },
+   "state_final": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.07
+   },
+   "cost_final": 4
+  },
+  {
+   "scene": "delayed_ignition",
+   "seen": false,
+   "e_v0": 0.8397166029187395,
+   "consumers": [
+    "visual",
+    "heat",
+    "ignition",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8815531653320098,
+    "heat": 0.45340504117055047,
+    "ignition": 1.0,
+    "ai": 0.9153052923499341
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.5033639934281977,
+     "ranked": [
+      "secondary",
+      "rise",
+      "soot",
+      "tilt"
+     ],
+     "picked": null,
+     "why": "unknown",
+     "evaluated": 1,
+     "oracle": "rise",
+     "oracle_gain": 0.015754852925724094,
+     "coherence_pick": "secondary",
+     "seconds": 6.9,
+     "e_before": 0.8397166029187395,
+     "e_after": 0.8397166029187395
+    }
+   ],
+   "e_at_6": 0.8397166029187395,
+   "stopped": "unknown",
+   "e_final": 0.8397166029187395,
+   "steps_used": 0,
+   "per_consumer_final": {
+    "visual": 0.8815531653320098,
+    "heat": 0.45340504117055047,
+    "ignition": 1.0,
+    "ai": 0.9153052923499341
+   },
+   "state_final": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.07
+   },
+   "cost_final": 4
+  },
+  {
+   "scene": "full",
+   "seen": false,
+   "e_v0": 0.8176023359857612,
+   "consumers": [
+    "visual",
+    "heat",
+    "ignition",
+    "ai"
+   ],
+   "per_consumer_v0": {
+    "visual": 0.8498495728099855,
+    "heat": 0.4004027174701134,
+    "ignition": 1.0,
+    "ai": 0.8895660102964409
+   },
+   "steps": [
+    {
+     "step": 0,
+     "q_perp": 0.39730932893499893,
+     "ranked": [
+      "secondary",
+      "deflect",
+      "rise",
+      "width"
+     ],
+     "picked": null,
+     "why": "unknown",
+     "evaluated": 1,
+     "oracle": "rise",
+     "oracle_gain": 0.024897808001303923,
+     "coherence_pick": "secondary",
+     "seconds": 7.4,
+     "e_before": 0.8176023359857612,
+     "e_after": 0.8176023359857612
+    }
+   ],
+   "e_at_6": 0.8176023359857612,
+   "stopped": "unknown",
+   "e_final": 0.8176023359857612,
+   "steps_used": 0,
+   "per_consumer_final": {
+    "visual": 0.8498495728099855,
+    "heat": 0.4004027174701134,
+    "ignition": 1.0,
+    "ai": 0.8895660102964409
+   },
+   "state_final": {
+    "amp": 605.5555555555557,
+    "height": 1.2000000000000002,
+    "width": 0.07
+   },
+   "cost_final": 4
+  }
+ ],
+ "reported": []
+}

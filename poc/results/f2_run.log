@@ -1,0 +1,12 @@
+[     0s] obstacle (seen=True)
+[    18s] ignition (seen=True)
+[    34s] delayed_ignition (seen=False)
+[    51s] full (seen=False)
+[    68s] windy (seen=False)
+   [windy] step 0: q_perp 0.593  pick tilt      oracle tilt      E 0.8340->0.6763 V 1.0  6.5s
+   [windy] step 1: q_perp 0.531  pick rise      oracle height    E 0.6763->0.5949 V 0.977  6.9s
+   [windy] step 2: q_perp 0.601  pick amp       oracle width     E 0.5949->0.5835 V 0.758  7.2s
+   [windy] step 3: q_perp 0.562  pick height    oracle height    E 0.5835->0.5533 V 1.0  7.4s
+   [windy] step 4: q_perp 0.558  pick amp       oracle width     E 0.5533->0.5252 V 0.45  7.5s
+   [windy] step 5: q_perp 0.480  pick rise      oracle width     E 0.5252->0.5122 V 0.513  7.6s
+   [windy] step 6: q_perp 0.500  pick height    oracle width     E 0.5122->0.5034 V 0.361  6.9s
