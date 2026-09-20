@@ -1,7 +1,1 @@
-Traceback (most recent call last):
-  File "/home/user/Spoti-pi/poc/fire_puff_pilot.py", line 81, in <module>
-    main(maxfev=int(sys.argv[1]) if len(sys.argv) > 1 else 40)
-  File "/home/user/Spoti-pi/poc/fire_puff_pilot.py", line 41, in main
-    look = RP.LookCase(case)
-           ^^^^^^^^^^^
-AttributeError: module 'poc.fire.rgre_puffs' has no attribute 'LookCase'
+[    8s] windy: V0 0.9623
