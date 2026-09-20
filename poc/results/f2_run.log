@@ -10,3 +10,9 @@
    [windy] step 4: q_perp 0.558  pick amp       oracle width     E 0.5533->0.5252 V 0.45  7.5s
    [windy] step 5: q_perp 0.480  pick rise      oracle width     E 0.5252->0.5122 V 0.513  7.6s
    [windy] step 6: q_perp 0.500  pick height    oracle width     E 0.5122->0.5034 V 0.361  6.9s
+   [windy] step 7: q_perp 0.492  pick floor     oracle width     E 0.5034->0.4948 V 0.179  7.3s
+[   143s] twin (seen=False)
+[   162s] shelf_bed (seen=False)
+[   179s] split (out of vocabulary, reported)
+   [split] step 0: q_perp 0.368  pick width     oracle height    E 0.8938->0.7721 V 0.41  6.7s
+   [split] step 1: q_perp 0.542  pick deflect   oracle height    E 0.7721->0.7630 V 0.22  7.1s
