@@ -49,6 +49,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `docs/math-track-b5-prereg.md`, `docs/math-track-b5-results.md`, `poc/b5_experiment.py` | B5: smooth, singular, event decomposition on fresh corn paths. Failure by the frozen rules (three bars mis-defined, two substantive), with the residual naming the class before any repair, class repairs working where the residual lives, dwell a pure event coordinate, and a constant-free law within a factor 1.5. |
 | `docs/math-track-rgre1-prereg.md`, `docs/math-track-rgre1-results.md`, `poc/rgre/`, `poc/rgre1_experiment.py` | RGRE-1: residual-guided representation expansion on 78 fresh cases in two domains. Outcome A by the frozen tree (median oracle value 1.00 at a sixth of the evaluations, 0.88 two-step recovery, 5 of 6 unknowns abstain); the coherence-weighted score and known-case abstention lose to plain per-direction projection, which never loses. |
 | `docs/math-track-rgre1b-prereg.md`, `docs/math-track-rgre1b-results.md`, `poc/rgre/bench_b.py`, `poc/rgre1b_experiment.py` | RGRE-1b: the simplified selector replicates on 30 fresh cases. All four frozen bars hold, and the coherence rule it replaces is worse on every case the two disagree about. |
+| `poc/web/bendbench.html`, `docs/bendbench-results.md` | The on-device profiling step: a WebGL2 harness that measures what the bend arithmetic costs against vertex and fill cost, and the measurement from a phone. Six terms cost a third of the frame at half a million stalks and under 1% at a realistic 15,000; the bend texture costs nothing; op counts mispredict measured cost by up to 8x. |
 | `poc/fire/` | Fire teacher: 2-D buoyant reacting flow with fuel, soot and obstacles, four game-relevant consumers, and five validated scenes. Preparation for the end-to-end test. |
 | `docs/xi-hankel-ladder-check.md`, `poc/xi/` | Side track: exact-arithmetic check of a handed-over draft on an alternating spectral ladder for the xi Hankel kernel. Every checkable claim holds; the constants depend only on the quadratic jet; one corollary's factor of two is corrected. |
 | `docs/planar-triples-gaussian-frontier.md`, `poc/hyper/` | Side track, continued: the second note checked exactly (two corrections), the degree-six cumulant test run to k = 30, the marginal central limit theorem completed, the parity-mobile obstruction removed so the joint Gaussian law follows, the critical surface expanded exactly so the first unforced joint cumulant constants are exact rationals, a literature check that places the underlying series in Arquès 1986, and the explicit bridge: the parity-mobile system is the Arquès parametrisation, the series is `pqr(1-p-q-r)`, proved from the mobile side; the exact joint coefficient is a Lagrange-Good triple sum with no product form, and the local limit constant and the large-deviation rate function from the fold are confirmed against exact coefficients to k = 301. |
@@ -292,13 +293,30 @@ obstruction it met on the parity-refined mobile is removed by not
 weighting the pointed vertex, after which the joint Gaussian law it
 conjectures follows from standard theorems.
 
+The bend arithmetic has now been measured on real hardware
+(`docs/bendbench-results.md`), which closes the oldest open item in the
+Quest notes. A WebGL2 harness draws the identical field from the identical
+instance buffers in one instanced call and varies only the per-vertex
+arithmetic, timing it with a forced GPU sync rather than frame deltas,
+which quantise to whole vsync periods. On a phone, all six terms cost 37%,
+36% and 7% of frame time across three load shapes at 400,000 to 575,000
+stalks, and under 1% of a 72 Hz budget once scaled to the 15,000 stalks a
+real field uses. Baking the field to a texture and sampling it per
+instance, which the notes recommended on cost-model grounds, costs nothing
+measurable on any load shape. The uncomfortable finding is that the same
+arithmetic in the same compiled program costs eight times more per vertex
+invocation in one preset than in another, so the op-count cost term the
+compositional search uses does not predict milliseconds and should be
+treated as a tie-breaker rather than a budget.
+
 ## Where this should go next
 
 1. Replace the synthetic walks with recorded SquishLabVR hand and foot
    tracks (see `docs/data-sources.md`). Hands and crouching are different
    causes from a walking cylinder.
-2. Port the discovered primitives to HLSL as a stateless vertex function
-   and profile the composed shader on Quest; feed measured milliseconds back
-   into the cost term.
+2. Profile on a headset. The WebGL2 harness has now done this on a phone
+   (`docs/bendbench-results.md`); the Unity/HLSL path on Quest is still
+   unmeasured, and the measured milliseconds still need to replace the op
+   counts in the search's cost term.
 3. Then snow (Taichi MPM teacher), then water (corrected ring wave), then
    crowds (real pedestrian data), then fire.

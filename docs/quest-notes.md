@@ -62,7 +62,19 @@ Quest 2 pixel density) draw impostor cards or merged row meshes and skew
 them with the bend texture. The bend evaluation stays per instance from the
 texture at every LOD; only vertex count changes.
 
-## 4. Measure before optimising the math further
+## 4. Measured
+
+**Done, on a phone: `docs/bendbench-results.md`.** All six terms cost
+37%, 36% and 7% over a no-bend baseline on three load shapes, at 400,000 to
+575,000 stalks. Scaled to the 15,000 stalks this field actually uses, that is
+0.12 ms, under 1% of a 13.9 ms budget, so the claim below holds for the
+reason it gives. Baking to a bend texture (section 2) costs nothing
+measurable on any of the three. One caution the run added: the same
+arithmetic costs eight times more per vertex invocation in one preset than
+another, so the op counts this write-up quotes do not predict milliseconds.
+A phone is not a Quest 2, and none of this ran on a headset.
+
+## 4b. Measure before optimising the math further
 
 A cornfield on Quest 2 is usually fill-bound (alpha-tested leaves disable
 early-Z on Adreno) or vertex-count bound. The bend ALU is a small slice of
