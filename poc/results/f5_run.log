@@ -13,3 +13,5 @@
 [   745s]    step 6: pick width    E 0.5944->0.5861 (2 tried) 3.2s
 [   751s] gusty: greedy 0.5861 after 8 steps (exhausted), 0.562 of the floor's reduction
 [   758s] transfer -> fast_gust: teacher sway 4.7 cm at 1.4 Hz, model 6.6 cm (140%) phase err 31 deg, E 0.6921 (V0 0.6240) corr 0.64
+[   765s] transfer -> strong_gust: teacher sway 16.8 cm at 0.7 Hz, model 6.4 cm (38%) phase err 34 deg, E 0.5548 (V0 0.7947) corr 0.80
+[   773s] gust_shelf: V0 0.7874, teacher sway 10.1 cm at 0.7 Hz
