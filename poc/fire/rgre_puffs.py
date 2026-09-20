@@ -256,7 +256,7 @@ def two_stage_start(case, base: PuffState, names, maxfev_per_dim=40):
     return np.array([float(np.clip(getattr(st, n), *RANGES[n])) for n in names])
 
 
-def de_fit(case, base: PuffState, names, seed=0, popsize=12, maxiter=30, maxfev_per_dim=40):
+def de_fit(case, base: PuffState, names, seed=0, popsize=12, maxiter=22, maxfev_per_dim=40):
     """Seeded differential evolution over the active parameters, then a Powell polish.
 
     Every local start the pilot tried (all-on, V0, midpoint, two-stage) sat in a different basin
