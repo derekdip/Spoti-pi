@@ -56,3 +56,7 @@
 [  5524s] shelf_bed: V0 0.8544
 [  6188s] shelf_bed standard fit 0.4945 (de 0.564, two_stage 0.494) -> linear 0.4945 live 30 motion 0.44 664s | visual 0.685, heat 0.282, ignition 0.276, ai 0.594
 [  6188s] shelf_bed standard heat wrong 11.5% ai wrong 7.6% ignition missed 0.0% glow corr 0.68
+[  6901s] shelf_bed look     fit 0.5269 (de 0.558, two_stage 0.527) -> linear 0.5830 live 30 motion 0.35 712s | visual 0.830, heat 0.308, ignition 0.317, ai 0.689
+[  6901s] shelf_bed look     heat wrong 13.4% ai wrong 9.2% ignition missed 0.0% glow corr 0.54
+[  6905s]    step 0: pick deflect  E 0.8544->0.7966 (2 tried) 4.5s
+[  6908s]    step 1: pick wind     E 0.7966->0.7778 (2 tried) 3.0s
