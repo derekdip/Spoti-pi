@@ -1,0 +1,1159 @@
+<title>Bend Budget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --ground:#eceee7; --surface:#f8f9f5; --surface2:#e3e7dc;
+    --line:#d0d6c6; --line2:#b9c1ac;
+    --text:#191d16; --muted:#5d6656; --faint:#828b79;
+    --accent:#8a6410; --accent-soft:#e7d9b4;
+    --good:#3d6b33; --bad:#9c3f26; --info:#2f5f6b;
+    --shadow:0 1px 2px rgba(25,29,22,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#12150f; --surface:#1a1e16; --surface2:#242a1f;
+      --line:#2f3629; --line2:#454e3b;
+      --text:#e7ebde; --muted:#9ba492; --faint:#767f6d;
+      --accent:#d7a940; --accent-soft:#3a3320;
+      --good:#82b96c; --bad:#dd8360; --info:#79b3c0;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#12150f; --surface:#1a1e16; --surface2:#242a1f;
+    --line:#2f3629; --line2:#454e3b;
+    --text:#e7ebde; --muted:#9ba492; --faint:#767f6d;
+    --accent:#d7a940; --accent-soft:#3a3320;
+    --good:#82b96c; --bad:#dd8360; --info:#79b3c0;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{
+    background:var(--ground); color:var(--text);
+    font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.5; margin:0;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding-inline:16px; padding-block:22px 56px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace; font-variant-numeric:tabular-nums}
+
+  header{margin-bottom:18px}
+  h1{
+    font-size:26px; font-weight:700; letter-spacing:-.02em; margin:0 0 6px;
+    text-wrap:balance;
+  }
+  .sub{color:var(--muted); font-size:14px; margin:0; max-width:62ch}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 7px; font-weight:500;
+  }
+
+  .stage{position:relative; border:1px solid var(--line); border-radius:3px; overflow:hidden; background:#161b1d}
+  canvas{display:block; width:100%; height:auto; aspect-ratio:8/5; max-width:100%}
+  .hud{
+    position:absolute; top:0; left:0; right:0; display:flex; flex-wrap:wrap; gap:0;
+    font-family:"IBM Plex Mono",monospace; font-size:11px; line-height:1.2;
+    background:linear-gradient(180deg,rgba(8,10,7,.82),rgba(8,10,7,0));
+    padding:7px 9px 16px; color:#dfe6d4; pointer-events:none;
+  }
+  .hud div{margin-right:14px}
+  .hud b{color:#f0d79a; font-weight:600}
+  .stagenote{
+    position:absolute; bottom:0; left:0; right:0; padding:6px 9px 7px;
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:#b9c4ac;
+    background:linear-gradient(0deg,rgba(8,10,7,.85),rgba(8,10,7,0)); pointer-events:none;
+  }
+
+  .controls{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 0; align-items:stretch}
+  .seg{display:flex; border:1px solid var(--line2); border-radius:3px; overflow:hidden; background:var(--surface)}
+  .seg button{
+    font:inherit; font-size:13px; font-family:"IBM Plex Mono",monospace;
+    background:transparent; color:var(--muted); border:0; border-right:1px solid var(--line);
+    padding:7px 11px; cursor:pointer; white-space:nowrap;
+  }
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--accent-soft); color:var(--text); font-weight:600}
+  .seg button:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+  .seglabel{
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--faint); align-self:center; margin-right:-2px;
+  }
+
+  .runbar{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0}
+  button.go{
+    font:inherit; font-weight:600; font-size:14px; cursor:pointer;
+    background:var(--accent); color:var(--ground); border:1px solid var(--accent);
+    border-radius:3px; padding:9px 16px;
+  }
+  button.ghost{
+    font:inherit; font-size:14px; cursor:pointer; background:var(--surface); color:var(--text);
+    border:1px solid var(--line2); border-radius:3px; padding:9px 14px;
+  }
+  button:disabled{opacity:.45; cursor:default}
+  button.go:focus-visible,button.ghost:focus-visible{outline:2px solid var(--info); outline-offset:2px}
+
+  .status{
+    margin-top:14px; border-left:2px solid var(--accent); padding:8px 0 8px 12px;
+    font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--muted); min-height:38px;
+  }
+  .status b{color:var(--text); font-weight:600}
+  .bar{height:3px; background:var(--surface2); border-radius:2px; margin-top:8px; overflow:hidden}
+  .bar i{display:block; height:100%; background:var(--accent); width:0; transition:width .2s linear}
+
+  h2{font-size:13px; font-family:"IBM Plex Mono",monospace; letter-spacing:.1em; text-transform:uppercase;
+     color:var(--faint); font-weight:500; margin:30px 0 10px}
+
+  .tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:3px; background:var(--surface)}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:520px}
+  th,td{padding:8px 11px; text-align:right; border-bottom:1px solid var(--line); white-space:nowrap}
+  th{
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+    color:var(--faint); font-weight:500; background:var(--surface2);
+  }
+  th:first-child,td:first-child{text-align:left}
+  tbody tr:last-child td{border-bottom:0}
+  td.num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+  td.delta{font-family:"IBM Plex Mono",monospace}
+  .up{color:var(--bad)} .flat{color:var(--good)} .dim{color:var(--faint)}
+  tr.baseline td{background:var(--surface2)}
+  .empty{padding:22px 14px; color:var(--faint); font-size:13.5px}
+
+  .verdict{
+    margin-top:16px; border:1px solid var(--line); border-left:3px solid var(--info);
+    border-radius:3px; padding:13px 15px; background:var(--surface); font-size:14px;
+  }
+  .verdict h3{margin:0 0 5px; font-size:14px; font-weight:600}
+  .verdict p{margin:0; color:var(--muted)}
+
+  details{margin-top:14px; border-top:1px solid var(--line); padding-top:12px}
+  summary{cursor:pointer; font-size:13px; color:var(--muted); font-family:"IBM Plex Mono",monospace}
+  summary:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  pre{
+    font-family:"IBM Plex Mono",monospace; font-size:11.5px; background:var(--surface2);
+    border:1px solid var(--line); border-radius:3px; padding:11px; overflow-x:auto;
+    margin:10px 0 0; color:var(--text); max-height:300px;
+  }
+  dl.kv{display:grid; grid-template-columns:auto 1fr; gap:3px 14px; margin:10px 0 0; font-size:12.5px}
+  dl.kv dt{font-family:"IBM Plex Mono",monospace; color:var(--faint)}
+  dl.kv dd{margin:0; word-break:break-word}
+  .foot{margin-top:26px; font-size:12.5px; color:var(--faint); max-width:64ch}
+  .foot code{font-family:"IBM Plex Mono",monospace; background:var(--surface2); padding:1px 4px; border-radius:2px}
+  @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Quest notes &sect;4 &middot; measure before optimising the math</p>
+  <h1>Bend Budget</h1>
+  <p class="sub">How much does the reactive-field bend arithmetic actually cost on a mobile GPU?
+  Every mode below draws the identical field with the identical instance data in one
+  instanced call. Only the arithmetic per vertex changes.</p>
+</header>
+
+<div class="stage">
+  <canvas id="gl" width="1024" height="640" aria-label="Animated field of stalks bending around a walker"></canvas>
+  <div class="hud mono">
+    <div>fps <b id="hfps">—</b></div>
+    <div>ms <b id="hms">—</b></div>
+    <div>stalks <b id="hn">—</b></div>
+    <div>mode <b id="hmode">—</b></div>
+    <div>tris <b id="htris">—</b></div>
+  </div>
+  <div class="stagenote mono" id="stagenote">initialising</div>
+</div>
+
+<div class="controls">
+  <span class="seglabel">Bend</span>
+  <div class="seg" id="segMode" role="group" aria-label="Bend mode"></div>
+</div>
+<div class="controls">
+  <span class="seglabel">Load</span>
+  <div class="seg" id="segPreset" role="group" aria-label="Load preset"></div>
+</div>
+<div class="controls">
+  <span class="seglabel">Res</span>
+  <div class="seg" id="segRes" role="group" aria-label="Render resolution"></div>
+</div>
+
+<div class="runbar">
+  <button class="go" id="btnSweep">Run sweep</button>
+  <button class="ghost" id="btnStress">Stress ramp</button>
+  <button class="ghost" id="btnAll">All three loads</button>
+  <button class="ghost" id="btnCopy" disabled>Copy results</button>
+</div>
+
+<div class="status" id="status" role="status" aria-live="polite">
+  Idle. <b>Run sweep</b> calibrates the stalk count until the no-bend baseline needs about 10 ms of
+  GPU time, then measures every bend mode at that same count.
+  <div class="bar"><i id="bar"></i></div>
+</div>
+
+<h2>Results</h2>
+<div class="tablewrap">
+  <table id="tbl">
+    <thead><tr>
+      <th>Mode</th><th>Ops/vert</th><th>Stalks</th><th>GPU ms</th><th>p90 ms</th><th>vs baseline</th><th>ms/1k</th>
+    </tr></thead>
+    <tbody id="tbody">
+      <tr><td colspan="7" class="empty">No run yet. The canvas above is live at the current settings.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="verdict" id="verdict" hidden>
+  <h3 id="vtitle"></h3>
+  <p id="vbody"></p>
+</div>
+
+<details>
+  <summary>Device and method</summary>
+  <dl class="kv" id="devinfo"></dl>
+  <p class="foot" style="margin-top:12px">
+    <code>requestAnimationFrame</code> deltas quantise to whole vsync periods, so they cannot
+    resolve a couple of milliseconds. Instead each sample draws three frames and then forces the GPU
+    to finish with a one-pixel <code>readPixels</code>, timing that block. The readback stall is
+    identical in every mode, so it cancels out of the comparison against the baseline, though it does
+    inflate the absolute figures a little. Calibration raises the stalk count until the no-bend
+    baseline needs about 10 ms of GPU time, a realistic VR-scale load against a 13.9 ms budget at
+    72 Hz. The baseline is re-run last; a large drift means the device throttled and the run should
+    be repeated cool.
+  </p>
+</details>
+
+<details>
+  <summary>Results as JSON</summary>
+  <pre id="json" class="mono">Run a sweep to populate.</pre>
+</details>
+
+<p class="foot">
+  Kernels ported from <code>unity/ReactiveKernels.hlsl</code> with the fitted constants in
+  <code>docs/quest-notes.md</code>: wake B=0.43, w=0.131, t_lead=0.142, k=78.4, zeta=0.154, mix=0.81;
+  presence A=0.187, sigma=0.136, mix=0.65. Stalk density rises with the count over a fixed 24&nbsp;m
+  field, so high counts are a GPU load, not a realistic planting.
+</p>
+</div>
+
+<script>
+"use strict";
+(function(){
+// ---------------------------------------------------------------- constants
+var FIELD = 24.0;              // metres, square
+var CAP   = 420000;            // instance pool cap
+var PATHSEG = 20;              // walk polyline segments used for the per-instance query
+var STALK_H = 1.62;            // metres
+
+var MODES = [
+  {id:"off",  label:"off",       ops:"0",   note:"no bend at all"},
+  {id:"wake", label:"wake",      ops:"~26", note:"path wake only"},
+  {id:"wp",   label:"wake+pres", ops:"~48", note:"wake plus presence"},
+  {id:"six",  label:"six terms", ops:"~124",note:"wake, presence, 2 impulses, ring wave, saturate"},
+  {id:"tex",  label:"bend tex",  ops:"1 fetch", note:"six terms baked to a 128x128 field, sampled in the vertex shader"}
+];
+var PRESETS = [
+  {id:"balanced", label:"balanced", seg:4, wide:false, note:"4 segments, thin opaque blades"},
+  {id:"fill",     label:"fill-bound", seg:2, wide:true,  note:"2 segments, wide alpha-tested leaf cards"},
+  {id:"vertex",   label:"vertex-bound", seg:10, wide:false, note:"10 segments, thin opaque blades"}
+];
+var RESES = [
+  {id:"lo", label:"512", w:512,  h:320},
+  {id:"md", label:"1024", w:1024, h:640},
+  {id:"hi", label:"1536", w:1536, h:960}
+];
+
+// fitted constants
+var WK = {B:0.43, w:0.131, q:1.21, tLead:0.142, mix:0.81, lam:0.1, k:78.4, zeta:0.154};
+var PR = {A:0.187, sigma:0.136, q:1.23, mix:0.65};
+
+// ---------------------------------------------------------------- dom
+var $ = function(id){ return document.getElementById(id); };
+var cv = $("gl"), statusEl = $("status"), barEl = $("bar");
+var hfps=$("hfps"), hms=$("hms"), hn=$("hn"), hmode=$("hmode"), htris=$("htris"), stagenote=$("stagenote");
+
+var state = { mode:"six", preset:"balanced", res:"md", N:20000, running:false };
+var results = [];
+
+function setStatus(html, pct){
+  statusEl.innerHTML = html + '<div class="bar"><i style="width:'+(pct==null?0:pct)+'%"></i></div>';
+}
+
+// ---------------------------------------------------------------- gl
+var gl = cv.getContext("webgl2", {antialias:false, alpha:false, depth:true,
+                                  powerPreference:"high-performance", preserveDrawingBuffer:false});
+if(!gl){
+  setStatus("<b>WebGL2 is not available in this browser.</b> The harness needs WebGL2 for instanced drawing.");
+  stagenote.textContent = "no webgl2";
+  return;
+}
+
+var dbg = gl.getExtension("WEBGL_debug_renderer_info");
+var extHalf = gl.getExtension("EXT_color_buffer_half_float");
+var extFloat = gl.getExtension("EXT_color_buffer_float");
+var timerExt = gl.getExtension("EXT_disjoint_timer_query_webgl2");
+
+function compile(type, src){
+  var s = gl.createShader(type);
+  gl.shaderSource(s, src); gl.compileShader(s);
+  if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)){
+    var log = gl.getShaderInfoLog(s);
+    console.error(log, src);
+    throw new Error("shader: " + log);
+  }
+  return s;
+}
+function link(vs, fs){
+  var p = gl.createProgram();
+  gl.attachShader(p, compile(gl.VERTEX_SHADER, vs));
+  gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(p);
+  if(!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error("link: " + gl.getProgramInfoLog(p));
+  return p;
+}
+
+// ---------------------------------------------------------------- bend glsl (shared)
+var BEND_GLSL = [
+"uniform float uTime;",
+"uniform vec4  uSpring;      // lam, halfC, omega, a/omega",
+"uniform float uSpringPeak;",
+"uniform vec4  uWake;        // B, w, q, tLead",
+"uniform float uWakeMix;",
+"uniform vec4  uPres;        // A, sigma, q, mix",
+"uniform vec4  uCause;       // causePos.xy, causeDir.xy",
+"uniform vec4  uImpA;        // pos.xy, t0, A",
+"uniform vec4  uImpAb;       // dir.xy, sigma, mix",
+"uniform vec4  uImpB;",
+"uniform vec4  uImpBb;",
+"uniform vec4  uRing;        // pos.xy, t0, A",
+"uniform vec4  uRingB;       // lam, v, w, kappa",
+"uniform float uBMax;",
+"",
+"float springEnv(float tau){",
+"  if(tau <= 0.0) return 0.0;",
+"  float e1 = exp(-uSpring.x * tau);",
+"  float e2 = exp(-uSpring.y * tau);",
+"  float ph = uSpring.z * tau;",
+"  return uSpringPeak * (e1 - e2 * (cos(ph) - uSpring.w * sin(ph)));",
+"}",
+"float gkern(float d, float w, float q){",
+"  return exp(-0.5 * pow(abs(d) / w, q));",
+"}",
+"vec2 safeDir(vec2 a, vec2 b, float m){",
+"  vec2 d = mix(a, b, m);",
+"  return d / max(length(d), 1e-4);",
+"}",
+"vec2 wakeBend(float dPerp, float tPass, vec2 nOut, vec2 tanDir){",
+"  float env   = springEnv(uTime - (tPass - uWake.w));",
+"  float space = gkern(dPerp, uWake.y, uWake.z);",
+"  return uWake.x * env * space * safeDir(nOut, tanDir, uWakeMix);",
+"}",
+"vec2 presenceBend(vec2 pos){",
+"  vec2 dv = pos - uCause.xy;",
+"  float d = length(dv);",
+"  vec2 o  = dv / max(d, 1e-4);",
+"  return uPres.x * gkern(d, uPres.y, uPres.z) * safeDir(o, uCause.zw, uPres.w);",
+"}",
+"vec2 impulseBend(vec2 pos, vec4 P, vec4 Pb){",
+"  vec2 dv = pos - P.xy;",
+"  float d = length(dv);",
+"  vec2 o  = dv / max(d, 1e-4);",
+"  return P.w * springEnv(uTime - P.z) * gkern(d, Pb.z, 1.4) * safeDir(o, Pb.xy, Pb.w);",
+"}",
+"vec2 ringBend(vec2 pos){",
+"  float tau = uTime - uRing.z;",
+"  if(tau <= 0.0) return vec2(0.0);",
+"  vec2 dv = pos - uRing.xy;",
+"  float r = length(dv);",
+"  vec2 o  = dv / max(r, 1e-4);",
+"  float x = r - uRingB.y * tau;",
+"  float ring = exp(-x * x / (2.0 * uRingB.z * uRingB.z)) * cos(uRingB.w * x);",
+"  float spread = inversesqrt(1.0 + r / 0.5);",
+"  return uRing.w * exp(-uRingB.x * tau) * ring * spread * o;",
+"}",
+"vec2 saturateBend(vec2 b){",
+"  float m = length(b);",
+"  return b * (tanh(m / uBMax) * uBMax / max(m, 1e-6));",
+"}",
+"vec2 bendSix(vec2 pos, float dPerp, float tPass, vec2 nOut, vec2 tanDir){",
+"  vec2 b = wakeBend(dPerp, tPass, nOut, tanDir);",
+"  b += presenceBend(pos);",
+"  b += impulseBend(pos, uImpA, uImpAb);",
+"  b += impulseBend(pos, uImpB, uImpBb);",
+"  b += ringBend(pos);",
+"  return saturateBend(b);",
+"}"
+].join("\n");
+
+// ---------------------------------------------------------------- main program
+function mainVS(mode){
+  var body;
+  if(mode === "off")       body = "  vec2 bend = vec2(0.0);";
+  else if(mode === "wake") body = "  vec2 bend = wakeBend(iPath.z, iPath.w, iDir.xy, iDir.zw);";
+  else if(mode === "wp")   body = "  vec2 bend = wakeBend(iPath.z, iPath.w, iDir.xy, iDir.zw) + presenceBend(iPath.xy);";
+  else if(mode === "six")  body = "  vec2 bend = bendSix(iPath.xy, iPath.z, iPath.w, iDir.xy, iDir.zw);";
+  else                     body = "  vec2 bend = (texture(uBendTex, iPath.xy / uFieldExtent + 0.5).xy - 0.5) * uBendScale;";
+  return [
+  "#version 300 es",
+  "precision highp float;",
+  "in vec2 aPos;               // x: -0.5..0.5 across blade, y: 0..1 up",
+  "in vec4 iPath;              // base.xy, dPerp, tPass",
+  "in vec4 iDir;               // nOut.xy, tan.xy",
+  "uniform mat4 uVP;",
+  "uniform float uHalfWidth;",
+  "uniform float uZero;        // always 0 at run time; keeps iDir live in every program",
+  "uniform float uStalkH;",
+  "uniform float uFieldExtent;",
+  "uniform sampler2D uBendTex;",
+  "uniform float uBendScale;",
+  BEND_GLSL,
+  "out vec2 vUV;",
+  "out float vShade;",
+  "void main(){",
+  "  float h = aPos.y;",
+  body,
+  "  float yaw = fract(sin(dot(iPath.xy, vec2(12.9898, 78.233))) * 43758.5453) * 6.2831853;",
+  "  float hmul = 0.78 + 0.46 * abs(sin(yaw * 3.1));",
+  "  vec2 side = vec2(cos(yaw), sin(yaw)) * (aPos.x * uHalfWidth * (1.0 - 0.7 * h));",
+  "  side += (iDir.xy + iDir.zw) * uZero;",
+  "  vec3 p = vec3(iPath.x + side.x, h * uStalkH * hmul, iPath.y + side.y);",
+  "  p.xz += bend * (h * h);",
+  "  vUV = vec2(aPos.x + 0.5, h);",
+  "  vShade = 0.35 + 0.65 * h;",
+  "  gl_Position = uVP * vec4(p, 1.0);",
+  "}"
+  ].join("\n");
+}
+function mainFS(wide){
+  return [
+  "#version 300 es",
+  "precision mediump float;",
+  "in vec2 vUV;",
+  "in float vShade;",
+  "out vec4 o;",
+  "void main(){",
+  wide ? [
+    "  float t = vUV.y;",
+    "  float half_w = 0.5 - 0.42 * t * t;",
+    "  float a = 1.0 - smoothstep(half_w - 0.06, half_w, abs(vUV.x - 0.5));",
+    "  a *= 1.0 - smoothstep(0.86, 1.0, t);",
+    "  if(a < 0.5) discard;"
+  ].join("\n") : "",
+  "  vec3 base = mix(vec3(0.16, 0.20, 0.09), vec3(0.62, 0.66, 0.28), vShade);",
+  "  o = vec4(base * (0.75 + 0.25 * vUV.x), 1.0);",
+  "}"
+  ].join("\n");
+}
+
+// bend-texture prepass
+var PRE_VS = [
+"#version 300 es",
+"precision highp float;",
+"in vec2 aPos;",
+"out vec2 vP;",
+"void main(){ vP = aPos; gl_Position = vec4(aPos * 2.0 - 1.0, 0.0, 1.0); }"
+].join("\n");
+var PRE_FS = [
+"#version 300 es",
+"precision highp float;",
+"in vec2 vP;",
+"uniform float uFieldExtent;",
+"uniform float uEnc;          // 1 / (2 * bend range)",
+"uniform vec3 uPath[21];      // walk polyline: x, y, pass time",
+BEND_GLSL,
+"out vec4 o;",
+"void main(){",
+"  vec2 pos = (vP - 0.5) * uFieldExtent;",
+"  float best = 1e18, bd = 0.0, bt = 0.0;",
+"  vec2 btan = vec2(1.0, 0.0), bn = vec2(0.0, 1.0);",
+"  for(int i = 0; i < 20; i++){",
+"    vec2 a = uPath[i].xy;",
+"    vec2 e = uPath[i+1].xy - a;",
+"    float LL = max(dot(e, e), 1e-6);",
+"    float u = clamp(dot(pos - a, e) / LL, 0.0, 1.0);",
+"    vec2 dv = pos - (a + e * u);",
+"    float dd = dot(dv, dv);",
+"    if(dd < best){",
+"      best = dd;",
+"      float L = sqrt(LL);",
+"      btan = e / L;",
+"      bt = mix(uPath[i].z, uPath[i+1].z, u);",
+"      bd = sqrt(dd);",
+"      float sgn = (dv.x * -btan.y + dv.y * btan.x) >= 0.0 ? 1.0 : -1.0;",
+"      bn = vec2(-btan.y, btan.x) * sgn;",
+"    }",
+"  }",
+"  vec2 b = bendSix(pos, bd, bt, bn, btan);",
+"  o = vec4(b * uEnc + 0.5, 0.0, 1.0);",
+"}"
+].join("\n");
+
+var progs = {}, preProg = null;
+MODES.forEach(function(m){
+  progs[m.id] = { thin: link(mainVS(m.id), mainFS(false)), wide: link(mainVS(m.id), mainFS(true)) };
+});
+preProg = link(PRE_VS, PRE_FS);
+
+function uloc(p){
+  var n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS), m = {};
+  for(var i=0;i<n;i++){ var u = gl.getActiveUniform(p,i); m[u.name] = gl.getUniformLocation(p,u.name); }
+  return m;
+}
+var U = {};
+Object.keys(progs).forEach(function(k){ U[k] = {thin:uloc(progs[k].thin), wide:uloc(progs[k].wide)}; });
+var preU = uloc(preProg);
+
+// ---------------------------------------------------------------- spring constants (CPU side)
+function springConsts(lam, k, zeta){
+  var c = 2*zeta*Math.sqrt(k);
+  var w = Math.sqrt(k)*Math.sqrt(Math.max(1-zeta*zeta, 1e-9));
+  var a = lam - 0.5*c;
+  var P = k/(a*a + w*w);
+  function raw(x){
+    if(x<=0) return 0;
+    return P*(Math.exp(-lam*x) - Math.exp(-0.5*c*x)*(Math.cos(w*x) - (a/w)*Math.sin(w*x)));
+  }
+  var span = 4/Math.min(lam, 0.5*c) + 2*Math.PI/w, peak = 0;
+  for(var i=0;i<400;i++){ peak = Math.max(peak, Math.abs(raw(span*i/399))); }
+  return { lam:lam, halfC:0.5*c, omega:w, aOverOmega:a/w, peak:1/Math.max(peak,1e-12) };
+}
+var SC = springConsts(WK.lam, WK.k, WK.zeta);
+
+// ---------------------------------------------------------------- geometry
+var bladeVBO = gl.createBuffer(), bladeIBO = gl.createBuffer(), bladeCount = 0;
+function buildBlade(seg){
+  var v = [], idx = [];
+  for(var i=0;i<=seg;i++){
+    var y = i/seg;
+    v.push(-0.5, y,  0.5, y);
+  }
+  for(var i=0;i<seg;i++){
+    var a = i*2, b = a+1, c = a+2, d = a+3;
+    idx.push(a,b,c, b,d,c);
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, bladeVBO);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, bladeIBO);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(idx), gl.STATIC_DRAW);
+  bladeCount = idx.length;
+}
+
+// ---------------------------------------------------------------- the walk + instances
+var path = [];
+function buildPath(){
+  path = [];
+  var x = -9, y = -9.5, ang = 0.72, t = 0, speed = 1.35;
+  for(var i=0;i<=PATHSEG;i++){
+    path.push({x:x, y:y, t:t});
+    ang += Math.sin(i*0.9)*0.30 + 0.05;
+    var step = 1.0 + 0.25*Math.sin(i*1.7);
+    x += Math.cos(ang)*step; y += Math.sin(ang)*step;
+    t += step/speed;
+  }
+  pathDur = path[path.length-1].t;
+  for(var pi=0; pi<21; pi++){
+    var q = path[Math.min(pi, path.length-1)];
+    pathFlat[pi*3] = q.x; pathFlat[pi*3+1] = q.y; pathFlat[pi*3+2] = q.t;
+  }
+}
+var pathDur = 0, pathFlat = new Float32Array(21*3);
+function pathPoint(tt){
+  var i = 0;
+  while(i < path.length-2 && path[i+1].t < tt) i++;
+  var a = path[i], b = path[i+1];
+  var u = (tt - a.t) / Math.max(b.t - a.t, 1e-4);
+  u = Math.max(0, Math.min(1, u));
+  var dx = b.x-a.x, dy = b.y-a.y, L = Math.hypot(dx,dy) || 1;
+  return { x:a.x + dx*u, y:a.y + dy*u, tx:dx/L, ty:dy/L };
+}
+
+var instPath = null, instDir = null, instPathVBO = null, instDirVBO = null, poolN = 0;
+function buildInstances(n, onProgress){
+  buildPath();
+  var P = new Float32Array(n*4), D = new Float32Array(n*4);
+  // jittered grid over the field, then shuffled so any prefix is a uniform subset
+  var side = Math.ceil(Math.sqrt(n));
+  var bx = new Float32Array(n), by = new Float32Array(n);
+  var s = 1234567;
+  function rnd(){ s = (s*1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; }
+  for(var i=0;i<n;i++){
+    var gx = i % side, gy = (i/side)|0;
+    bx[i] = ((gx + rnd())/side - 0.5) * FIELD;
+    by[i] = ((gy + rnd())/side - 0.5) * FIELD;
+  }
+  for(var i=n-1;i>0;i--){
+    var j = (rnd()*(i+1))|0;
+    var t1 = bx[i]; bx[i]=bx[j]; bx[j]=t1;
+    var t2 = by[i]; by[i]=by[j]; by[j]=t2;
+  }
+  // nearest point on the walk polyline, per instance, once
+  var px = new Float32Array(path.length), py = new Float32Array(path.length), pt = new Float32Array(path.length);
+  for(var i=0;i<path.length;i++){ px[i]=path[i].x; py[i]=path[i].y; pt[i]=path[i].t; }
+  for(var i=0;i<n;i++){
+    var X = bx[i], Y = by[i], best = 1e18, bd=0, bt=0, btx=1, bty=0, bside=1;
+    for(var s2=0;s2<path.length-1;s2++){
+      var ax=px[s2], ay=py[s2], ex=px[s2+1]-ax, ey=py[s2+1]-ay;
+      var LL = ex*ex + ey*ey;
+      var u = ((X-ax)*ex + (Y-ay)*ey) / (LL || 1);
+      if(u<0) u=0; else if(u>1) u=1;
+      var qx = ax + ex*u, qy = ay + ey*u;
+      var ddx = X-qx, ddy = Y-qy, dd = ddx*ddx + ddy*ddy;
+      if(dd < best){
+        best = dd;
+        var L = Math.sqrt(LL) || 1;
+        btx = ex/L; bty = ey/L;
+        bt = pt[s2] + (pt[s2+1]-pt[s2])*u;
+        bd = Math.sqrt(dd);
+        bside = (ddx*(-bty) + ddy*btx) >= 0 ? 1 : -1;
+      }
+    }
+    P[i*4]=X; P[i*4+1]=Y; P[i*4+2]=bd; P[i*4+3]=bt;
+    D[i*4]= -bty*bside; D[i*4+1]= btx*bside; D[i*4+2]=btx; D[i*4+3]=bty;
+    if(onProgress && (i & 65535) === 0) onProgress(i/n);
+  }
+  instPath = P; instDir = D; poolN = n;
+  if(!instPathVBO){ instPathVBO = gl.createBuffer(); instDirVBO = gl.createBuffer(); }
+  gl.bindBuffer(gl.ARRAY_BUFFER, instPathVBO); gl.bufferData(gl.ARRAY_BUFFER, P, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, instDirVBO);  gl.bufferData(gl.ARRAY_BUFFER, D, gl.STATIC_DRAW);
+}
+
+// ---------------------------------------------------------------- vao
+var vao = null;
+function buildVAO(prog){
+  if(vao) gl.deleteVertexArray(vao);
+  vao = gl.createVertexArray();
+  gl.bindVertexArray(vao);
+  function bind(name, buf, size, div){
+    var l = gl.getAttribLocation(prog, name);
+    if(l < 0) return false;
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.enableVertexAttribArray(l);
+    gl.vertexAttribPointer(l, size, gl.FLOAT, false, 0, 0);
+    if(div) gl.vertexAttribDivisor(l, div);
+    return true;
+  }
+  bind("aPos", bladeVBO, 2, 0);
+  var okp = bind("iPath", instPathVBO, 4, 1);
+  var okd = bind("iDir", instDirVBO, 4, 1);
+  if(!okp || !okd) console.warn("instance attribute optimised out; modes are not comparable");
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, bladeIBO);
+  gl.bindVertexArray(null);
+}
+
+// ---------------------------------------------------------------- bend texture target
+var BT = 128, BEND_RANGE = 1.2, bendTex = null, bendFBO = null, quadVBO = null, quadVAO = null;
+function buildBendTarget(){
+  bendTex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, bendTex);
+  var ok = false;
+  if(extHalf || extFloat){
+    try{
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA16F, BT, BT, 0, gl.RGBA, gl.HALF_FLOAT, null);
+      ok = true;
+    }catch(e){ ok = false; }
+  }
+  if(!ok){
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, BT, BT, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+  }
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  bendFBO = gl.createFramebuffer();
+  gl.bindFramebuffer(gl.FRAMEBUFFER, bendFBO);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, bendTex, 0);
+  if(gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE){
+    gl.bindTexture(gl.TEXTURE_2D, bendTex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, BT, BT, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, bendTex, 0);
+  }
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  quadVBO = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quadVBO);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0,0, 2,0, 0,2]), gl.STATIC_DRAW);
+  quadVAO = gl.createVertexArray();
+  gl.bindVertexArray(quadVAO);
+  var l = gl.getAttribLocation(preProg, "aPos");
+  gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, 2, gl.FLOAT, false, 0, 0);
+  gl.bindVertexArray(null);
+}
+
+// ---------------------------------------------------------------- camera
+function perspective(fovy, aspect, near, far){
+  var f = 1/Math.tan(fovy/2), nf = 1/(near-far);
+  return new Float32Array([f/aspect,0,0,0, 0,f,0,0, 0,0,(far+near)*nf,-1, 0,0,2*far*near*nf,0]);
+}
+function lookAt(e, c, up){
+  var zx=e[0]-c[0], zy=e[1]-c[1], zz=e[2]-c[2];
+  var zl=Math.hypot(zx,zy,zz); zx/=zl; zy/=zl; zz/=zl;
+  var xx=up[1]*zz-up[2]*zy, xy=up[2]*zx-up[0]*zz, xz=up[0]*zy-up[1]*zx;
+  var xl=Math.hypot(xx,xy,xz)||1; xx/=xl; xy/=xl; xz/=xl;
+  var yx=zy*xz-zz*xy, yy=zz*xx-zx*xz, yz=zx*xy-zy*xx;
+  return new Float32Array([xx,yx,zx,0, xy,yy,zy,0, xz,yz,zz,0,
+    -(xx*e[0]+xy*e[1]+xz*e[2]), -(yx*e[0]+yy*e[1]+yz*e[2]), -(zx*e[0]+zy*e[1]+zz*e[2]), 1]);
+}
+function mul(a,b){
+  var o = new Float32Array(16);
+  for(var i=0;i<4;i++) for(var j=0;j<4;j++){
+    var s=0; for(var k=0;k<4;k++) s += a[k*4+j]*b[i*4+k];
+    o[i*4+j]=s;
+  }
+  return o;
+}
+var VP = null;
+function updateCamera(){
+  var asp = cv.width / cv.height;
+  VP = mul(perspective(1.10, asp, 0.05, 70), lookAt([0,1.55,6.5],[0,0.18,-4.5],[0,1,0]));
+}
+
+// ---------------------------------------------------------------- uniforms
+function setBendUniforms(u, t){
+  var pp = pathPoint(Math.min(t, pathDur));
+  if(!u["uTime"]) return;
+  gl.uniform1f(u["uTime"], t);
+  gl.uniform4f(u["uSpring"], SC.lam, SC.halfC, SC.omega, SC.aOverOmega);
+  gl.uniform1f(u["uSpringPeak"], SC.peak);
+  gl.uniform4f(u["uWake"], WK.B, WK.w, WK.q, WK.tLead);
+  gl.uniform1f(u["uWakeMix"], WK.mix);
+  gl.uniform4f(u["uPres"], PR.A, PR.sigma, PR.q, PR.mix);
+  gl.uniform4f(u["uCause"], pp.x, pp.y, pp.tx, pp.ty);
+  gl.uniform4f(u["uImpA"], -4.0, 2.5, 1.2, 0.30);
+  gl.uniform4f(u["uImpAb"], 0.7071, 0.7071, 0.55, 0.4);
+  gl.uniform4f(u["uImpB"], 5.5, -3.0, 4.0, 0.26);
+  gl.uniform4f(u["uImpBb"], -0.6, 0.8, 0.48, 0.35);
+  gl.uniform4f(u["uRing"], 1.0, 1.0, 2.0, 0.22);
+  gl.uniform4f(u["uRingB"], 0.55, 3.2, 0.42, 6.0);
+  gl.uniform1f(u["uBMax"], 0.85);
+}
+
+// ---------------------------------------------------------------- draw
+var curMode = null, curPreset = null;
+function applyConfig(){
+  var pre = PRESETS.filter(function(p){return p.id===state.preset;})[0];
+  var r  = RESES.filter(function(x){return x.id===state.res;})[0];
+  if(cv.width !== r.w){ cv.width = r.w; cv.height = r.h; updateCamera(); }
+  if(curPreset !== pre.id){ buildBlade(pre.seg); curPreset = pre.id; curMode = null; }
+  var prog = progs[state.mode][pre.wide ? "wide" : "thin"];
+  if(curMode !== state.mode + pre.id){ buildVAO(prog); curMode = state.mode + pre.id; }
+  return {pre:pre, prog:prog, u:U[state.mode][pre.wide ? "wide":"thin"]};
+}
+
+function drawFrame(t){
+  var c = applyConfig();
+  if(state.mode === "tex"){
+    gl.bindFramebuffer(gl.FRAMEBUFFER, bendFBO);
+    gl.viewport(0,0,BT,BT);
+    gl.disable(gl.DEPTH_TEST);
+    gl.useProgram(preProg);
+    setBendUniforms(preU, t);
+    gl.uniform1f(preU["uFieldExtent"], FIELD);
+    gl.uniform1f(preU["uEnc"], 0.5 / BEND_RANGE);
+    var pl = preU["uPath[0]"] || preU["uPath"];
+    if(pl) gl.uniform3fv(pl, pathFlat);
+    gl.bindVertexArray(quadVAO);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  }
+  gl.viewport(0,0,cv.width,cv.height);
+  gl.enable(gl.DEPTH_TEST);
+  gl.depthFunc(gl.LEQUAL);
+  gl.clearColor(0.085,0.105,0.115,1);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.useProgram(c.prog);
+  setBendUniforms(c.u, t);
+  gl.uniformMatrix4fv(c.u["uVP"], false, VP);
+  gl.uniform1f(c.u["uHalfWidth"], c.pre.wide ? 0.085 : 0.016);
+  gl.uniform1f(c.u["uStalkH"], STALK_H);
+  gl.uniform1f(c.u["uFieldExtent"], FIELD);
+  gl.uniform1f(c.u["uBendScale"], 2.0 * BEND_RANGE);
+  if(c.u["uZero"]) gl.uniform1f(c.u["uZero"], 0.0);
+  if(c.u["uBendTex"]){
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, bendTex);
+    gl.uniform1i(c.u["uBendTex"], 0);
+  }
+  gl.bindVertexArray(vao);
+  gl.drawElementsInstanced(gl.TRIANGLES, bladeCount, gl.UNSIGNED_SHORT, 0, state.N);
+  gl.bindVertexArray(null);
+}
+
+// ---------------------------------------------------------------- live loop
+var lastT = 0, fpsAcc = [], t0 = performance.now();
+function loop(now){
+  var t = ((now - t0) / 1000) % (pathDur + 3.0);
+  drawFrame(t);
+  if(lastT){
+    var dt = now - lastT;
+    fpsAcc.push(dt); if(fpsAcc.length > 30) fpsAcc.shift();
+    if(fpsAcc.length >= 10 && (fpsAcc.length % 10) === 0){
+      var srt = fpsAcc.slice().sort(function(a,b){return a-b;});
+      var med = srt[srt.length>>1];
+      hms.textContent = med.toFixed(1);
+      hfps.textContent = (1000/med).toFixed(0);
+    }
+  }
+  lastT = now;
+  if(!state.running) requestAnimationFrame(loop);
+}
+
+function refreshHUD(){
+  var pre = PRESETS.filter(function(p){return p.id===state.preset;})[0];
+  hn.textContent = state.N.toLocaleString();
+  hmode.textContent = state.mode;
+  htris.textContent = ((state.N * pre.seg * 2)/1e6).toFixed(2) + "M";
+  stagenote.textContent = pre.note + " · " + cv.width + "x" + cv.height +
+    " · pool " + poolN.toLocaleString();
+}
+
+// ---------------------------------------------------------------- measurement
+var REPS = 3;                 // frames drawn per forced sync, so the sync cost amortises
+var syncPx = new Uint8Array(4);
+
+// requestAnimationFrame deltas quantise to whole vsync periods, which is far too coarse to
+// resolve a couple of milliseconds. Draw REPS frames, then force the GPU to finish with a
+// one-pixel readPixels, and time that. The readback cost is identical in every mode, so it
+// cancels out of the comparison against the baseline.
+function measure(samples, warm){
+  return new Promise(function(resolve){
+    var vals = [], i = 0;
+    function step(now){
+      var t = ((now - t0) / 1000) % (pathDur + 3.0);
+      var a = performance.now();
+      for(var r = 0; r < REPS; r++) drawFrame(t + r * 0.0037);
+      gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, syncPx);
+      var b = performance.now();
+      i++;
+      if(i > warm) vals.push((b - a) / REPS);
+      if(vals.length >= samples){
+        vals.sort(function(x, y){ return x - y; });
+        resolve({
+          median: vals[vals.length >> 1],
+          p90: vals[Math.min(vals.length - 1, Math.floor(vals.length * 0.9))],
+          n: vals.length
+        });
+        return;
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+// The first configuration measured otherwise pays for pipeline creation and a cold GPU clock,
+// which lands on the baseline row and poisons every delta. Burn a fixed wall-clock budget
+// cycling through all the modes at the real load before any measurement counts.
+function warmUp(ms){
+  return new Promise(function(resolve){
+    var saved = state.mode, start = performance.now(), i = 0;
+    function step(now){
+      state.mode = MODES[i % MODES.length].id;
+      i++;
+      var t = ((now - t0) / 1000) % (pathDur + 3.0);
+      drawFrame(t);
+      gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, syncPx);
+      if(performance.now() - start >= ms){ state.mode = saved; resolve(); return; }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+function vsyncPeriod(){
+  if(fpsAcc.length < 8) return 16.7;
+  var srt = fpsAcc.slice().sort(function(a,b){return a-b;});
+  return Math.min(srt[srt.length>>1], 16.7);
+}
+
+// ---------------------------------------------------------------- sweep
+function fmt(x){ return x.toFixed(2); }
+
+// mean of the opening and closing baselines for the same preset
+function baselineMs(base){
+  if(!base) return 0;
+  var end = results.filter(function(r){ return r.drift && r.preset === base.preset; })[0];
+  return end ? 0.5 * (base.median + end.median) : base.median;
+}
+function renderTable(){
+  var tb = $("tbody");
+  if(!results.length){
+    tb.innerHTML = '<tr><td colspan="7" class="empty">No run yet. The canvas above is live at the current settings.</td></tr>';
+    return;
+  }
+  var base = results.filter(function(r){return r.mode==="off" && !r.drift;})[0];
+  var bm = baselineMs(base);
+  tb.innerHTML = results.map(function(r){
+    var d = "", cls = "dim";
+    if(base && r !== base && bm){
+      var diff = r.median - bm;
+      var pct = 100*diff/bm;
+      cls = Math.abs(pct) < 4 ? "flat" : (pct > 0 ? "up" : "flat");
+      d = (diff>=0?"+":"") + diff.toFixed(2) + " ms  " + (pct>=0?"+":"") + pct.toFixed(0) + "%";
+    }
+    var mi = MODES.filter(function(m){return m.id===r.mode;})[0] || {label:r.mode, ops:"—"};
+    return '<tr'+(r===base?' class="baseline"':'')+'>' +
+      '<td>' + mi.label + (r.drift ? ' <span class="dim">(repeat)</span>' : '') +
+      (r.presetLabel ? ' <span class="dim">· '+r.presetLabel+'</span>' : '') + '</td>' +
+      '<td class="num dim">' + mi.ops + '</td>' +
+      '<td class="num">' + r.N.toLocaleString() + '</td>' +
+      '<td class="num">' + fmt(r.median) + '</td>' +
+      '<td class="num dim">' + fmt(r.p90) + '</td>' +
+      '<td class="delta ' + cls + '">' + d + '</td>' +
+      '<td class="num dim">' + (r.median / (r.N/1000)).toFixed(3) + '</td></tr>';
+  }).join("");
+}
+
+function deviceInfo(){
+  return {
+    ua: navigator.userAgent,
+    gpu: dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : "masked",
+    vendor: dbg ? gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) : "masked",
+    dpr: window.devicePixelRatio,
+    screen: window.screen.width + "x" + window.screen.height,
+    render: cv.width + "x" + cv.height,
+    vsyncEstimateMs: +vsyncPeriod().toFixed(2),
+    halfFloatRT: !!(extHalf || extFloat),
+    timerQuery: !!timerExt
+  };
+}
+function renderDevice(){
+  var d = deviceInfo(), dl = $("devinfo"), h = "";
+  Object.keys(d).forEach(function(k){ h += "<dt>"+k+"</dt><dd>"+String(d[k])+"</dd>"; });
+  dl.innerHTML = h;
+}
+function publish(){
+  $("json").textContent = JSON.stringify({device:deviceInfo(), results:results}, null, 1);
+  $("btnCopy").disabled = false;
+  renderDevice();
+}
+
+function setBusy(b){
+  state.running = b;
+  ["btnSweep","btnStress","btnAll"].forEach(function(id){ $(id).disabled = b; });
+  if(!b){ lastT = 0; requestAnimationFrame(loop); }
+}
+
+function calibrate(targetMs, onStep){
+  // raise N until the no-bend baseline passes the target, so nothing is vsync clamped
+  var savedMode = state.mode;
+  state.mode = "off";
+  var N = 16000;
+  function attempt(){
+    state.N = Math.min(N, poolN);
+    refreshHUD();
+    return measure(11, 4).then(function(m){
+      onStep(state.N, m.median);
+      if(m.median >= targetMs || state.N >= poolN || N > poolN) {
+        state.mode = savedMode;
+        return {N: state.N, ms: m.median};
+      }
+      var grow = Math.max(1.35, Math.min(3.2, targetMs / Math.max(m.median, 0.5)));
+      N = Math.ceil(N * grow);
+      return attempt();
+    });
+  }
+  return attempt();
+}
+
+function runSweep(presetId, clear){
+  if(state.running) return Promise.resolve();
+  setBusy(true);
+  if(clear){ results = []; }
+  if(presetId) state.preset = presetId;
+  syncButtons();
+  var pre = PRESETS.filter(function(p){return p.id===state.preset;})[0];
+  var target = 10.0;
+  setStatus("Calibrating stalk count until the no-bend baseline draws in about <b>" +
+            target.toFixed(0) + " ms</b> of GPU time…", 5);
+  return calibrate(target, function(n, ms){
+    setStatus("Calibrating: <b>" + n.toLocaleString() + "</b> stalks &rarr; " + ms.toFixed(1) + " ms", 10);
+  }).then(function(cal){
+    setStatus("Warming up at " + state.N.toLocaleString() +
+              " stalks so the first mode measured is not penalised…", 12);
+    return warmUp(1600).then(function(){ return cal; });
+  }).then(function(cal){
+    var order = MODES.map(function(m){return m.id;});
+    var i = 0;
+    function next(){
+      if(i >= order.length){
+        // drift check: baseline again
+        state.mode = "off"; refreshHUD();
+        setStatus("Re-running baseline to check for thermal drift…", 95);
+        return measure(21, 9).then(function(m){
+          results.push({mode:"off", N:state.N, median:m.median, p90:m.p90,
+                        preset:pre.id, presetLabel:clear?null:pre.label, drift:true});
+          renderTable(); publish(); finish(pre, cal);
+        });
+      }
+      state.mode = order[i];
+      refreshHUD();
+      setStatus("Measuring <b>" + MODES[i].label + "</b> at " + state.N.toLocaleString() +
+                " stalks · " + pre.label, 10 + 80*i/order.length);
+      return measure(21, 9).then(function(m){
+        results.push({mode:order[i], N:state.N, median:m.median, p90:m.p90,
+                      preset:pre.id, presetLabel:clear?null:pre.label, drift:false});
+        renderTable(); publish();
+        i++;
+        return next();
+      });
+    }
+    return next();
+  }).catch(function(e){
+    setStatus("<b>Run failed.</b> " + (e && e.message ? e.message : e));
+    setBusy(false);
+  });
+}
+
+function finish(pre, cal){
+  setBusy(false);
+  var rs = results.filter(function(r){ return r.preset === pre.id; });
+  var base = rs.filter(function(r){return r.mode==="off" && !r.drift;})[0];
+  var six  = rs.filter(function(r){return r.mode==="six";})[0];
+  var tex  = rs.filter(function(r){return r.mode==="tex";})[0];
+  var dr   = rs.filter(function(r){return r.drift;})[0];
+  if(!base || !six){ setStatus("Done."); return; }
+  var bm = baselineMs(base);
+  var pct = 100*(six.median - bm)/bm;
+  var perStalk = (six.median - bm) / (base.N/1000);
+  var drift = dr ? 100*(dr.median - base.median)/base.median : 0;
+  var v = $("verdict");
+  v.hidden = false;
+  $("vtitle").textContent = pct < 5
+    ? "The bend arithmetic is free at this load"
+    : (pct < 20 ? "The bend arithmetic is a minor slice" : "The bend arithmetic is a real cost here");
+  $("vbody").innerHTML =
+    "All six terms cost <b>" + (six.median-bm).toFixed(2) + " ms</b> over the no-bend baseline at " +
+    base.N.toLocaleString() + " stalks, which is <b>" + pct.toFixed(0) + "%</b> of the scene's GPU time, or " +
+    perStalk.toFixed(3) + " ms per 1000 stalks. " +
+    (tex ? "Baking to a bend texture instead costs " +
+      (tex.median-bm).toFixed(2) + " ms over baseline. " : "") +
+    "The baseline was measured twice, opening and closing, and the two differ by " +
+    Math.abs(drift).toFixed(0) + "%" +
+    (Math.abs(drift) > 12
+      ? ". That is large, so the device was still warming or already throttling and the run is worth repeating."
+      : ", so the device held steady through the run.");
+  setStatus("Done · " + pre.label + " · " + base.N.toLocaleString() + " stalks. Results below.", 100);
+}
+
+function runStress(){
+  if(state.running) return;
+  setBusy(true);
+  state.mode = "six"; syncButtons(); refreshHUD();
+  var N = 20000, rows = [];
+  function step(){
+    state.N = Math.min(N, poolN); refreshHUD();
+    setStatus("Stress: <b>" + state.N.toLocaleString() + "</b> stalks, six terms…", Math.min(95, 100*N/poolN));
+    return measure(13, 5).then(function(m){
+      rows.push({N: state.N, ms: m.median});
+      if(m.median > 34 || state.N >= poolN){
+        setBusy(false);
+        var at = function(budget){
+          var best = 0;
+          for(var i=0;i<rows.length;i++) if(rows[i].ms <= budget) best = rows[i].N;
+          for(var i=1;i<rows.length;i++){
+            var a = rows[i-1], b = rows[i];
+            if(a.ms <= budget && b.ms > budget){
+              var u = (budget - a.ms)/(b.ms - a.ms);
+              best = Math.round(a.N + u*(b.N - a.N));
+            }
+          }
+          return best;
+        };
+        results.push({mode:"six", N:rows[rows.length-1].N, median:rows[rows.length-1].ms,
+                      p90:rows[rows.length-1].ms, preset:state.preset, presetLabel:"stress tail", drift:false});
+        renderTable();
+        $("json").textContent = JSON.stringify({device:deviceInfo(), stress:rows,
+          sustainable:{ "72Hz_13.9ms":at(13.9), "90Hz_11.1ms":at(11.1), "60Hz_16.7ms":at(16.7)}}, null, 1);
+        $("btnCopy").disabled = false; renderDevice();
+        var v = $("verdict"); v.hidden = false;
+        $("vtitle").textContent = "Stress ramp, six terms, " + state.preset;
+        $("vbody").innerHTML = "Sustainable stalk count at a <b>72 Hz</b> budget of 13.9 ms: <b>" +
+          at(13.9).toLocaleString() + "</b>. At 90 Hz (11.1 ms): " + at(11.1).toLocaleString() +
+          ". At 60 Hz (16.7 ms): " + at(16.7).toLocaleString() +
+          ". Ramp stopped at " + rows[rows.length-1].N.toLocaleString() + " stalks and " +
+          rows[rows.length-1].ms.toFixed(1) + " ms.";
+        setStatus("Stress done. Full ramp in the JSON below.", 100);
+        return;
+      }
+      N = Math.ceil(N * 1.6);
+      return step();
+    });
+  }
+  step();
+}
+
+function runAll(){
+  if(state.running) return;
+  results = [];
+  var ids = PRESETS.map(function(p){return p.id;}), i = 0;
+  function next(){
+    if(i >= ids.length){ setStatus("All three loads done. Compare the rows by preset.", 100); return; }
+    return runSweep(ids[i], false).then(function(){ i++; return next(); });
+  }
+  next();
+}
+
+// ---------------------------------------------------------------- ui wiring
+function seg(container, items, key){
+  container.innerHTML = items.map(function(it){
+    return '<button type="button" data-v="'+it.id+'" aria-pressed="'+(state[key]===it.id)+'">'+it.label+'</button>';
+  }).join("");
+  container.addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(!b || state.running) return;
+    state[key] = b.getAttribute("data-v");
+    syncButtons(); applyConfig(); refreshHUD();
+  });
+}
+function syncButtons(){
+  [["segMode",MODES,"mode"],["segPreset",PRESETS,"preset"],["segRes",RESES,"res"]].forEach(function(t){
+    var c = $(t[0]);
+    Array.prototype.forEach.call(c.querySelectorAll("button"), function(b){
+      b.setAttribute("aria-pressed", String(state[t[2]] === b.getAttribute("data-v")));
+    });
+  });
+}
+seg($("segMode"), MODES, "mode");
+seg($("segPreset"), PRESETS, "preset");
+seg($("segRes"), RESES, "res");
+
+$("btnSweep").addEventListener("click", function(){ runSweep(null, true); });
+$("btnStress").addEventListener("click", runStress);
+$("btnAll").addEventListener("click", runAll);
+$("btnCopy").addEventListener("click", function(){
+  var txt = $("json").textContent;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){
+      $("btnCopy").textContent = "Copied";
+      setTimeout(function(){ $("btnCopy").textContent = "Copy results"; }, 1600);
+    }).catch(function(){ $("btnCopy").textContent = "Select the JSON below"; });
+  } else { $("btnCopy").textContent = "Select the JSON below"; }
+});
+
+cv.addEventListener("webglcontextlost", function(e){
+  e.preventDefault(); state.running = true;
+  setStatus("<b>GPU context lost.</b> The load was too heavy for this device. Reload the page and use a lower resolution or the balanced preset.");
+  stagenote.textContent = "context lost";
+});
+
+// ---------------------------------------------------------------- boot
+setStatus("Building the stalk pool…", 3);
+updateCamera();
+buildBendTarget();
+buildBlade(4);
+setTimeout(function(){
+  buildInstances(CAP, null);
+  // warm every program once so shader compilation never lands inside a measurement
+  var savedMode = state.mode, savedN = state.N;
+  state.N = 1;
+  MODES.forEach(function(m){
+    PRESETS.forEach(function(p){
+      state.mode = m.id; state.preset = p.id;
+      try{ drawFrame(0.01); }catch(e){}
+    });
+  });
+  state.mode = savedMode; state.preset = "balanced"; state.N = savedN;
+  curMode = null; curPreset = null;
+  applyConfig(); refreshHUD(); renderDevice(); syncButtons();
+  setStatus("Ready. <b>Run sweep</b> calibrates the stalk count until the no-bend baseline needs about 10 ms of GPU time, then measures every bend mode at that same count.");
+  requestAnimationFrame(loop);
+}, 30);
+})();
+</script>
