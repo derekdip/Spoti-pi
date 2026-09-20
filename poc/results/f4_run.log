@@ -79,3 +79,5 @@
 [  7771s]    step 7: pick rise     E 0.5603->0.5501 (10 tried) 7.4s
 [  7773s] split: greedy 0.5501 after 9 steps (exhausted), 0.828 of the floor's reduction
 [  7780s] shutoff: V0 0.7774
+[  8031s] shutoff standard fit 0.5686 (de 0.569, two_stage 0.588) -> linear 0.5686 live 12 motion 0.00 251s | visual 0.704, heat 0.194, ai 0.661
+[  8031s] shutoff standard heat wrong 3.3% ai wrong 2.6% glow corr nan
