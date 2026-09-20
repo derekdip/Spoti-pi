@@ -255,8 +255,17 @@ class FireCase:
 
 # ---------------------------------------------------------------- repairs
 def fit_class(case: FireCase, st: FireState, cls, grid=7):
-    """Coordinate descent over the class's parameters: coarse sweep, then a refine around it."""
+    """Coordinate descent over the class's parameters: coarse sweep, then a refine around it.
+
+    A class gated by more than one parameter (soot needs an amplitude and a height, flicker an
+    amplitude and a frequency, secondary an amplitude and a duration) is unreachable from the
+    all-zero state: the first parameter swept changes nothing or makes things worse, zero wins, and
+    every later parameter is gated off. So an entirely-off class starts from the same canonical
+    on-state its tangent direction uses. F2 found this the hard way.
+    """
     cur = st
+    if all(getattr(st, q) == 0.0 for q in CLASSES[cls]) and cls in ON:
+        cur = replace(st, **ON[cls])
     for pname in CLASSES[cls]:
         lo, hi = RANGES[pname]
         vals = np.linspace(lo, hi, grid)
@@ -276,3 +285,27 @@ def repair_gain(case: FireCase, st: FireState, cls):
     new, e1 = fit_class(case, st, cls)
     dc = max(new.cost() - c0, 1)
     return dict(cls=cls, state=new, e0=e0, e1=e1, gain=(e0 - e1) / dc, drop=e0 - e1, dcost=dc)
+
+
+def joint_fit(case: FireCase, st: FireState, passes=2, grid=7):
+    """Every parameter of every class at once, no greed and no selection: the vocabulary's floor.
+
+    Off classes start from their canonical on-state for the same reason fit_class does.
+    """
+    cur = st
+    for cls in CLASSES:
+        if all(getattr(cur, q) == 0.0 for q in CLASSES[cls]) and cls in ON:
+            cur = replace(cur, **ON[cls])
+    order = [q for params in CLASSES.values() for q in params]
+    for _ in range(passes):
+        for pname in order:
+            lo, hi = RANGES[pname]
+            vals = np.linspace(lo, hi, grid)
+            errs = [case.error(replace(cur, **{pname: float(v)})) for v in vals]
+            i = int(np.argmin(errs))
+            cur = replace(cur, **{pname: float(vals[i])})
+            step = (hi - lo) / (grid - 1)
+            fine = np.linspace(max(lo, vals[i] - step), min(hi, vals[i] + step), grid)
+            errs2 = [case.error(replace(cur, **{pname: float(v)})) for v in fine]
+            cur = replace(cur, **{pname: float(fine[int(np.argmin(errs2))])})
+    return cur, case.error(cur)
