@@ -273,3 +273,49 @@ def floor_fit(case, base: PuffState, starts=None, maxfev_per_dim=40, verbose=Fal
         print(f"      two-stage: {e0:.4f} -> {e_ts:.4f} in {r.nfev} evals", flush=True)
     best_x, best_e = (x_de, e_de) if e_de <= e_ts else (x_ts, e_ts)
     return _vec_to_state(best_x, names, base), float(best_e), names, spread
+# ---------------------------------------------------------------- how much it moves, reported only
+def motion_ratio(case, st, k=4):
+    """Cheap over teacher temporal standard deviation of the coarse glow, median over the tenth of
+    cells where the teacher moves most, second half of the run. Not fitted and not a bar: the
+    frame-wise objective is minimised by the mean fire, so this says how much motion that cost."""
+    F = case.F
+    tgt = case.target["visual"][F // 2:].std(axis=0)
+    pred = case._consumers(st)["visual"][F // 2:].std(axis=0)
+    hot = tgt >= np.quantile(tgt, 0.9)
+    return float(np.median(pred[hot] / np.maximum(tgt[hot], 1e-9)))
+
+
+# ---------------------------------------------------------------- what the player actually sees
+GAMMA = 1.0 / 2.2   # display transfer: the tongue at a tenth of the base's glow is a third as bright
+
+
+class LookCase:
+    """The same case with the visual consumer tone-mapped before it is compared.
+
+    Under a linear glow the sooted base holds nearly all of the visual energy and the tongue, at a
+    tenth of its value, costs almost nothing to leave out; the first pilot fitted exactly that.
+    A player sees glow through a display gamma, so this consumer compares `glow ** (1/2.2)`.
+    Heat, ignition and hazard are untouched. Every bar is still scored on the untouched case.
+    """
+
+    def __init__(self, case: PuffCase):
+        self.inner = case
+        self.__dict__.update({k: v for k, v in case.__dict__.items() if k not in ("target", "scale", "_cache")})
+        self.target = dict(case.target)
+        self.scale = dict(case.scale)
+        t = case.target["visual"] ** GAMMA
+        self.target["visual"] = t
+        self.scale["visual"] = float(np.sqrt((t ** 2).mean()))
+        self._cache = {}
+
+    def _consumers(self, st):
+        out = dict(self.inner._consumers(st))
+        out["visual"] = out["visual"] ** GAMMA
+        return out
+
+    residual = FireCase.residual
+    error = FireCase.error
+    per_consumer = FireCase.per_consumer
+    blocks = FireCase.blocks
+    tangents = PuffCase.tangents
+    templates = PuffCase.templates
