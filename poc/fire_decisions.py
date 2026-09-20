@@ -48,9 +48,13 @@ def decisions(case, st, as_record=tokens.as_record):
     # visual: no decision; shape resemblance as corn reported it
     t_v = case.target["visual"]; c_v = np.asarray(TT.g_visual(rec), float).reshape(case.F, -1)
     late = slice(case.F // 2, None)
-    corr = float(np.corrcoef(t_v[late].ravel(), c_v[late].ravel())[0, 1])
+    def corr(a, b):
+        if a.std() <= 0 or b.std() <= 0:
+            return float("nan")                # a run with nothing glowing has no correlation
+        return float(np.corrcoef(a.ravel(), b.ravel())[0, 1])
     out["visual"] = dict(rel_rms=float(np.sqrt(((t_v - c_v) ** 2).mean()) / case.scale["visual"]),
-                         late_correlation=corr)
+                         late_correlation=corr(t_v[late], c_v[late]),
+                         full_correlation=corr(t_v, c_v))
     return out
 
 
