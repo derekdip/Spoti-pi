@@ -20,3 +20,8 @@
         heat wrong 1.6% (missed 14.1%)  ai wrong 1.2% (missed 23.6%)  glow corr 0.63
       start 0: 1.1851 -> 0.5319 in 720 evals
       start 1: 0.8785 -> 0.5325 in 720 evals
+      start 2: 2.8091 -> 0.5429 in 720 evals
+[  380s] obstacle look     fit 0.5319 (starts 0.532, 0.532, 0.543) -> linear 0.5658 (old column 0.4599) live 9 motion 0.00
+        per consumer visual 0.835, heat 0.331, ai 0.391
+        heat wrong 1.6% (missed 15.6%)  ai wrong 1.9% (missed 21.3%)  glow corr 0.61
+done
