@@ -90,3 +90,21 @@
 [  5133s]    step 9: pick rate     E 0.6719->0.6234 (7 tried) 7.1s
 [  5133s] bed_chain: greedy 0.6234 after 10 steps (budget), 0.696 of the floor's reduction
 [  5140s] ignition: V0 0.8152, teacher sway 9.5 cm at 0.7 Hz
+[  5580s] ignition standard fit 0.5378 (de 0.615, two_stage 0.538) -> linear 0.5378 live 13 sway 9.8 cm (103%) phase err 30 deg 439s
+[  5580s] ignition standard visual 0.636, heat 0.272, ignition 0.457, ai 0.685 | heat wrong 14.9% ai wrong 10.7% alight missed 27.8% corr 0.77
+[  6079s] ignition look     fit 0.4942 (de 0.494, two_stage 0.514) -> linear 0.5442 live 9 sway 6.3 cm (66%) phase err 10 deg 500s
+[  6079s] ignition look     visual 0.754, heat 0.285, ignition 0.301, ai 0.666 | heat wrong 12.4% ai wrong 10.0% alight missed 16.7% corr 0.70
+[  6079s] ignition: cross-evaluated best is the standard fit at 0.5378
+[  6086s] full: V0 0.8404, teacher sway 9.1 cm at 0.7 Hz
+[  6662s] full standard fit 0.4750 (de 0.496, two_stage 0.475) -> linear 0.4750 live 11 sway 7.7 cm (86%) phase err 22 deg 576s
+[  6662s] full standard visual 0.611, heat 0.245, ignition 0.384, ai 0.568 | heat wrong 8.7% ai wrong 6.4% alight missed 22.2% corr 0.74
+[  7262s] full look     fit 0.4816 (de 0.508, two_stage 0.482) -> linear 0.5007 live 12 sway 9.0 cm (99%) phase err 34 deg 599s
+[  7262s] full look     visual 0.670, heat 0.255, ignition 0.319, ai 0.622 | heat wrong 10.0% ai wrong 7.7% alight missed 11.1% corr 0.75
+[  7262s] full: cross-evaluated best is the standard fit at 0.4750
+[  7269s] windy: V0 0.9623, teacher sway 0.0 cm at 0.7 Hz
+[  7534s] windy standard fit 0.3723 (de 0.373, two_stage 0.372) -> linear 0.3723 live 10 sway 0.0 cm (90%) phase err 70 deg 265s
+[  7534s] windy standard visual 0.567, heat 0.167, ai 0.257 | heat wrong 2.3% ai wrong 0.5% corr 0.85
+[  7836s] windy look     fit 0.2763 (de 0.328, two_stage 0.276) -> linear 0.3667 live 6 sway 0.1 cm (437%) phase err 40 deg 302s
+[  7836s] windy look     visual 0.537, heat 0.130, ai 0.314 | heat wrong 0.7% ai wrong 0.3% corr 0.91
+[  7836s] windy: cross-evaluated best is the look fit at 0.3667
+[  7836s] done
