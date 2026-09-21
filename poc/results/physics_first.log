@@ -1,0 +1,10 @@
+constants measured once on the reference scene `plume`, applied unchanged everywhere:
+   amp       906.534
+   v_rise    3.466
+   accel     0.661
+   width     0.055
+   grow      0.140
+   cool      0.775
+   soot_amp  10.088
+
+scene          free E  phys E  free vis  phys vis  free corr  phys corr  free n  phys n
