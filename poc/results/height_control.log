@@ -4,3 +4,4 @@ gusty: teacher visible plume height 0.70 m mean, 1.34 m max (19 free parameters)
 [  608s]  v_rise pinned to 2.25  E 0.5184  visual 0.602  corr 0.77  height 0.44 m (teacher 0.70)  v_rise 2.25  live 16
 
 plume: teacher visible plume height 0.53 m mean, 0.78 m max (19 free parameters)
+[  910s]  free                   E 0.4753  visual 0.705  corr 0.75  height 0.53 m (teacher 0.53)  v_rise 1.70  live 14
