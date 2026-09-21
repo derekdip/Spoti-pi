@@ -89,3 +89,31 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def combined():
+    """Pin only the identifications that survived alone, fit the rest. The deliverable of the test.
+
+    `grow` and `cool` are excluded: both were measured as ensemble properties of the plume and both
+    made the fire worse on their own, `grow` catastrophically. `soot_amp` and `v_rise` at 2.25 are
+    excluded from the cheap set because each costs over 13 percent of total error alone; a variant
+    with `soot_amp` added is run for comparison.
+    """
+    const = measure_constants()
+    case = RP.PuffCase(SCENE, getattr(scenes, SCENE)())
+    allp = RP.active_params(case)
+    prev = json.load(open("poc/results/pin_one.json"))
+    free = prev["runs"]["free"]
+    out = dict(prev)
+    for lab, keys in (("cheap four", ("amp", "v_rise", "accel", "width")),
+                      ("cheap four + soot", ("amp", "v_rise", "accel", "width", "soot_amp"))):
+        fix = {k: const[k] for k in keys}
+        base = puffs.PuffState(**fix)
+        names = [n for n in allp if n not in fix]
+        x, e, _ = RP.de_fit(RP.BudgetCase(case), base, names)
+        r = evaluate(case, RP._vec_to_state(x, names, base))
+        out["runs"][lab] = dict(r, pinned=fix)
+        print(f"{lab:<20} {len(names):2d} free  E {r['error']:.4f} ({(r['error']-free['error'])/free['error']:+.1%})  "
+              f"visual {r['visual']:.3f} ({(r['visual']-free['visual'])/free['visual']:+.1%})  "
+              f"corr {r['corr']:.2f} ({r['corr']-free['corr']:+.3f})  live {r['live']}", flush=True)
+        json.dump(out, open("poc/results/pin_one.json", "w"), indent=1)

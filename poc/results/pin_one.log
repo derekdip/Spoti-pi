@@ -16,3 +16,12 @@ accel                         0.661   0.4333  -8.8%    0.639  -9.4%   0.86  +0.1
 width                         0.055   0.4516  -5.0%    0.657  -6.8%   0.85  +0.095    12
 grow                          0.140   0.7111 +49.6%    0.887 +25.9%   0.45  -0.302    10
 cool                          0.775   0.4828  +1.6%    0.699  -0.8%   0.67  -0.081    16
+soot_amp                     10.088   0.5468 +15.0%    0.766  +8.7%   0.83  +0.081    10
+v_rise@2.25                   2.250   0.5410 +13.8%    0.662  -6.1%   0.84  +0.092     7
+
+[2242s] VERDICT by the prediction in this file's docstring:
+  correlation improved by pinning, alone: amp, v_rise, accel, width, soot_amp, v_rise@2.25
+  correlation unchanged or worse:         grow, cool
+  6 of 8 identifications improve appearance on their own
+  v_rise at 2.25 replicates the height control: yes (0.75 -> 0.84)
+  -> identifications are individually sound; the seven-at-once failure was an interaction
