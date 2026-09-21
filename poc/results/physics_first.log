@@ -8,3 +8,4 @@ constants measured once on the reference scene `plume`, applied unchanged everyw
    soot_amp  10.088
 
 scene          free E  phys E  free vis  phys vis  free corr  phys corr  free n  phys n
+plume           0.475   0.524     0.705     0.759       0.75       0.65      14      16
