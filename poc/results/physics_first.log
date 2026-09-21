@@ -10,3 +10,4 @@ constants measured once on the reference scene `plume`, applied unchanged everyw
 scene          free E  phys E  free vis  phys vis  free corr  phys corr  free n  phys n
 plume           0.475   0.524     0.705     0.759       0.75       0.65      14      16
 gusty           0.464   0.573     0.583     0.735       0.82       0.60      11      16
+gust_shelf      0.519   0.614     0.582     0.773       0.80       0.56      12      10
