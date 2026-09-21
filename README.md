@@ -34,6 +34,7 @@ cheap closed-form kernels, and how much that costs in fidelity.
 | `poc/water/` | Exact linear-wave teacher, ripple tokens, a TensorFlow-free reader for the DeepMind water datasets, and slosh fits on real data. |
 | `toolkit/` | One card per effect: token, kernel, fitted parameters, teacher, scores, known limits. |
 | `unity/` | Reference HLSL kernels and C# constant helpers mirroring the Python (not yet compiled on device). |
+| `unity/Fire/`, `docs/unity-fire-integration.md` | The cheap fire as a Unity package: parcel maths on CPU and GPU, a procedural billboard shader whose max blend is the intensive physics rather than a look, the five fitted presets with the still-image reference beside each score, a gameplay API for burn, ignition and hazard queries, and an account of what is measured (the decisions), what is not (how it looks), and what has never been tried (three dimensions, a headset, two fires at once). Uncompiled. |
 | `docs/quest-notes.md` | What to ship, where to evaluate it, and what to measure on Quest. |
 | `docs/math-track-b0-review.md` | Review of the behavioural pseudometric track, with the tolerance-sweep results. |
 | `poc/knee_experiment.py` | Cost-versus-error envelope per consumer, liveness and path-tolerance scaling laws. |
