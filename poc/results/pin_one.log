@@ -12,3 +12,4 @@ scene plume: 19 fittable parameters; constants measured on the reference teacher
 pinned                        value        E      dE   visual    dvis   corr   dcorr  live
 amp                         906.534   0.4828  +1.6%    0.675  -4.2%   0.82  +0.071    13
 v_rise                        3.466   0.4825  +1.5%    0.669  -5.1%   0.83  +0.082    12
+accel                         0.661   0.4333  -8.8%    0.639  -9.4%   0.86  +0.105    13
