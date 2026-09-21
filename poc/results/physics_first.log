@@ -11,3 +11,11 @@ scene          free E  phys E  free vis  phys vis  free corr  phys corr  free n 
 plume           0.475   0.524     0.705     0.759       0.75       0.65      14      16
 gusty           0.464   0.573     0.583     0.735       0.82       0.60      11      16
 gust_shelf      0.519   0.614     0.582     0.773       0.80       0.56      12      10
+strong_gust     0.496   0.628     0.595     0.774       0.80       0.56      11      16
+bed_chain       0.532   0.599     0.616     0.790       0.81       0.56      12      12
+
+[1166s] VERDICT by the prediction in this file's docstring:
+  correlation rose on 0 of 5: none
+  correlation fell or held on: plume, gusty, gust_shelf, strong_gust, bed_chain
+  median visual error change +28.3%, median total error change +18.3%
+  -> the objective is NOT the binding constraint; the grammar is
