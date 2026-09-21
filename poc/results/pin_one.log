@@ -1,0 +1,12 @@
+scene plume: 19 fittable parameters; constants measured on the reference teacher:
+   amp       906.534
+   v_rise    3.466   (also tested at 2.25)
+   accel     0.661
+   width     0.055
+   grow      0.140
+   cool      0.775
+   soot_amp  10.088
+
+[  278s] free (nothing pinned)      E 0.4753  visual 0.705  corr 0.75  live 14
+
+pinned                        value        E      dE   visual    dvis   corr   dcorr  live
