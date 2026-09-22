@@ -171,6 +171,11 @@ def run_case(case, rng, log):
     s1 = table[cls]["state"] if (cls is not None and not rec["declined"]) else s0
     rec["e_after"] = case.error(s1)
     rec["defer"] = defer_test(case, s0, s1, signed, r)
+    if case.kind == "mixed":
+        # deferral scored after the FIELD-residual growth step, the rule RGRE-ML-1 validated
+        s1f = table[cls_v]["state"] if cls_v is not None and table[cls_v]["drop"] >= DEAD * e0 else s0
+        rec["grew_missing"] = (cls_v == case.missing[0])
+        rec["defer_field"] = defer_test(case, s0, s1f, signed, r)
     # two-step sequencing on the mixture cases, with each residual space; abstention off so the
     # sequencing is tested on its own, the way F3 tested the search without a stopping rule
     if case.kind == "two":
@@ -203,7 +208,8 @@ def run_case(case, rng, log):
     log(f"{case.name:<22} E0 {rec['e0']:.3f}  q_perp {rec['q_perp']:.2f}  rgre {str(cls):<8} oracle {oracle:<8} "
         f"value {rec['value']['rgre']:.2f}" + (f"  identity {'Y' if rec.get('identity') else 'n'}" if case.kind == "isolated" else "")
         + (f"  2-step field {rec['two']['field']['recovery']:.2f} consumer {rec['two']['consumer']['recovery']:.2f}" if case.kind == "two" else "")
-        + f"  defer og {rec['defer']['orth_global']:.3f} mag {rec['defer']['mag']:.3f}" + ("  DECLINED" if rec["declined"] else ""))
+        + (f"  grew {'Y' if rec['grew_missing'] else 'n'} defer(field step) og {rec['defer_field']['orth_global']:.3f} mag {rec['defer_field']['mag']:.3f} rand {rec['defer_field']['random']:.3f}" if case.kind == "mixed"
+           else f"  defer og {rec['defer']['orth_global']:.3f} mag {rec['defer']['mag']:.3f}") + ("  DECLINED" if rec["declined"] else ""))
     return rec
 
 
@@ -240,6 +246,13 @@ def summarise(recs):
     out["known_false_abstain"] = float(np.mean([r["abstained"] for r in known])) if known else float("nan")
     out["ctrl_abstain"] = float(np.mean([r["abstained"] for r in ctrl])) if ctrl else float("nan")
     out["q_perp_known"] = med([r["q_perp"] for r in known]); out["q_perp_oov"] = med([r["q_perp"] for r in oov])
+    mixed = [r for r in recs if r["kind"] == "mixed"]
+    if mixed:
+        out["mixed_grew_missing"] = float(np.mean([r["grew_missing"] for r in mixed]))
+        for crit in ("mag", "orth_global", "orth", "random", "none"):
+            out[f"defer_mixed_{crit}"] = med([r["defer_field"][crit] for r in mixed])
+        out["defer_mixed_orthg_wins"] = float(np.mean([r["defer_field"]["orth_global"] < r["defer_field"]["mag"] for r in mixed]))
+        out["defer_mixed_orthg_ties"] = float(np.mean([abs(r["defer_field"]["orth_global"] - r["defer_field"]["mag"]) < 1e-9 for r in mixed]))
     for grp, name in ((oov, "oov"), (iso, "iso")):
         if grp:
             out[f"defer_{name}_orth"] = med([r["defer"]["orth"] for r in grp])
@@ -271,5 +284,9 @@ if __name__ == "__main__":
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--out", default="poc/results/rgre_ml_pilot.json")
     ap.add_argument("--pilot", action="store_true")
+    ap.add_argument("--mixed", type=int, default=0, help="run only this many mixed cases (deferral study)")
     a = ap.parse_args()
-    main(a.seed, a.out, a.pilot)
+    if a.mixed:
+        main(a.seed, a.out, a.pilot, n=(0, 0, 0, 0, a.mixed))
+    else:
+        main(a.seed, a.out, a.pilot)

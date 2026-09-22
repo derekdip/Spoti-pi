@@ -163,7 +163,7 @@ def make_teacher(rng, present, oov=None, oov_amp=1.0):
     return theta, f
 
 
-def build_cases(seed, n_iso=18, n_two=8, n_oov=8, n_ctrl=4, log=print):
+def build_cases(seed, n_iso=18, n_two=8, n_oov=8, n_ctrl=4, n_mixed=0, log=print):
     """Fresh cases from one seed. Nothing about them is looked at before the freeze."""
     rng = np.random.default_rng(seed)
     cases = []
@@ -197,5 +197,14 @@ def build_cases(seed, n_iso=18, n_two=8, n_oov=8, n_ctrl=4, log=print):
     for k in range(n_ctrl):
         known = [c for c in rng.choice(others, size=2, replace=False)]
         cases.append(finish(f"ctrl_{k}", "control", ["linear"] + known, []))
-    log(f"built {len(cases)} cases from seed {seed}: {n_iso} isolated, {n_two} two-missing, {n_oov} oov, {n_ctrl} control")
+    # mixed: one module missing AND one term the dictionary cannot make. This is the case the
+    # deferral claim needs: growth can fix the first and cannot touch the second, so a deferral
+    # rule that ranks by "unexplainable" should send the teacher the second and not the first.
+    for k in range(n_mixed):
+        missing = rng.choice(others)
+        kind = OOV_KINDS[k % len(OOV_KINDS)]
+        known = [c for c in rng.choice([c for c in others if c != missing], size=1, replace=False)]
+        cases.append(finish(f"mixed_{missing}_{kind}_{k}", "mixed", ["linear"] + known + [missing], [missing],
+                            oov=kind, oov_amp=float(rng.uniform(0.8, 1.6))))
+    log(f"built {len(cases)} cases from seed {seed}: {n_iso} isolated, {n_two} two-missing, {n_oov} oov, {n_ctrl} control, {n_mixed} mixed")
     return cases
