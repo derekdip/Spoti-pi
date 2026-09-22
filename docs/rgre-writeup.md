@@ -71,11 +71,12 @@ rules; the label each tree returned is given as returned.
 | RGRE-ML-1 | additive models, 4th domain | 114 fresh | 1.00 (= matching pursuit) | 0.10 | OOV detection AUC 0.96; two-step 1.00; consumer residual halves identity | A |
 | RGRE-ML-1b | additive models, mixed cases | 36 fresh | | | orthogonal deferral beats magnitude 64%; medians 0.367 vs 0.378 vs random 0.368 | Holds, narrowly |
 | RGRE-ML-2 | six real regression datasets | 30 splits, 240 steps | 0.48 (bar 0.90) | 0.01 | stopping AUC 0.84 vs step index 0.62; noise 30/30; deferral ties magnitude | D |
+| RGRE-ML-3 | the same splits, stopping rule | 30 | | | null-calibrated stop: wins 15 / losses 9 vs the constant, median regret 0.002 vs 0.011, mean 0.035 vs 0.014 (one extrapolation) | Half |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
 `fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
-`rgre-ml2-results.md`.
+`rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`.
 
 ### What transfers, with no recalibration
 
@@ -241,6 +242,23 @@ I got wrong running it, and where it is recorded.
     dropped for real data. The one percent stopping constant stopped
     too early on the datasets with something to find, the fourth
     constant to fail in transfer (`math-track-rgre-ml2-results.md`).
+    The gap between a tangent and the repair it stands for was then
+    measured as a number, and it explains the selection record in both
+    domains: full value where the gap is under 0.1, half where it is
+    over 0.25; in fire the plume's rise, the oracle's first step on
+    five scenes of nine, has a gap of 0.98 and the projection never saw
+    it (`linearisation-gap.md`).
+
+14. **The constant can be replaced, and the replacement still cannot
+    see extrapolation.** RGRE-ML-3 swapped the one percent stopping
+    rule for a permutation test on the procedure's own statistic. It
+    beat the constant on 15 cases to 9 and in median regret, grew where
+    the constant had stopped at step zero, declined on shuffled targets
+    every time, and was indifferent to its shuffle budget. It failed
+    the frozen mean-regret bar on one case, where an exponential module
+    fitted within its bounds blew up on a test outlier: a rule that
+    reads the training residual cannot foresee that, and the module's
+    unbounded output is the defect (`math-track-rgre-ml3-results.md`).
 
 ## 5. What the whole arc says
 
@@ -259,11 +277,20 @@ Reduced to the claims that have survived every test:
   remaining 60 percent of error was the vocabulary's and nothing about
   the search would move it.
 - Any constant carried from one setting to another failed: two stopping
-  rules, both borrowed, both wrong for the same structural reason. The
-  procedure that works has no constant that needs to transfer except
-  the abstention threshold, and that one should be replaced by something
-  relative to the search's own trajectory before it is used again in a
-  multi-step setting.
+  rules in fire, the abstention threshold, the one percent rule, all
+  borrowed, all wrong for the same structural reason. The replacement
+  is a permutation test on the procedure's own statistic, with a
+  shuffle budget instead of a threshold; measured on the real datasets
+  it grows where the constant stopped and declines where the constant
+  grew, and its remaining failure is a module that extrapolates, which
+  no stopping rule reads (RGRE-ML-3).
+- Whether projection can rank a candidate is measurable before the
+  run: the linearisation gap, the share of the fitted repair outside
+  the tangent span. Under 0.1 the projection is the oracle; over 0.25
+  the candidate must be fitted to be ranked. In fire the plume's rise
+  was the oracle's first step on five scenes of nine and had a gap of
+  0.98; the projection never saw it, and the arc's selection results
+  were earned on the classes it could.
 - The abstention quantity, the residual energy no single candidate
   explains, is the part that transferred furthest: it separated
   shuffled from real targets on every real split and predicted a
