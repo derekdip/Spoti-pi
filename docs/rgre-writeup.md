@@ -68,6 +68,7 @@ rules; the label each tree returned is given as returned.
 | post-F3 | fire, unfrozen | 9 scenes | | | floor 0.63 to 0.58 across shapes, profile, Powell | vocabulary is the limit |
 | decisions | fire, unfrozen | 7 scenes | | | burn/passable wrong 1 to 4% on the two simplest scenes, 10 to 19% on the rest | owner's call |
 | F4 | fire, parcel grammar | 7 unseen | greedy 0.83 of a global floor | 1 repair/step | floor below column 5/7; glow corr 0.64 median; parcels up to 32 | D |
+| RGRE-ML-1 | additive models, 4th domain | 114 fresh | 1.00 (= matching pursuit) | 0.10 | OOV detection AUC 0.96; two-step 1.00; consumer residual halves identity | A |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
@@ -197,6 +198,19 @@ I got wrong running it, and where it is recorded.
     fit that collapses on gusted bed scenes, and the cost bar failed
     because the floor objective has no cost in it
     (`math-track-f4-results.md`).
+
+12. **In machine learning terms the selection rule is matching pursuit,
+    and the consumer-space residual hurts diagnosis.** RGRE-ML-1 grew
+    additive models toward teachers on 114 fresh cases. Its per-direction
+    projection agreed with matching pursuit's atom selection on every
+    case. Diagnosing on the consumer residual, the choice the whole
+    simulation arc made, halved the identification rate when one
+    consumer was a thresholded decision; diagnosing on the field residual
+    restored it. What survives as RGRE's own is the abstention signal
+    (out-of-vocabulary AUC 0.96, with the borrowed threshold failing a
+    third time) and the sequencing protocol (full two-step recovery).
+    The deferral claim was unmeasurable by the frozen design
+    (`math-track-rgre-ml1-results.md`).
 
 ## 5. What the whole arc says
 
