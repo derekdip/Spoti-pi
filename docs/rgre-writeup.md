@@ -69,10 +69,11 @@ rules; the label each tree returned is given as returned.
 | decisions | fire, unfrozen | 7 scenes | | | burn/passable wrong 1 to 4% on the two simplest scenes, 10 to 19% on the rest | owner's call |
 | F4 | fire, parcel grammar | 7 unseen | greedy 0.83 of a global floor | 1 repair/step | floor below column 5/7; glow corr 0.64 median; parcels up to 32 | D |
 | RGRE-ML-1 | additive models, 4th domain | 114 fresh | 1.00 (= matching pursuit) | 0.10 | OOV detection AUC 0.96; two-step 1.00; consumer residual halves identity | A |
+| RGRE-ML-1b | additive models, mixed cases | 36 fresh | | | orthogonal deferral beats magnitude 64%; medians 0.367 vs 0.378 vs random 0.368 | Holds, narrowly |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
-`fire-decisions.md`.
+`fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -210,7 +211,14 @@ I got wrong running it, and where it is recorded.
     (out-of-vocabulary AUC 0.96, with the borrowed threshold failing a
     third time) and the sequencing protocol (full two-step recovery).
     The deferral claim was unmeasurable by the frozen design
-    (`math-track-rgre-ml1-results.md`).
+    (`math-track-rgre-ml1-results.md`). RGRE-ML-1b then measured it on
+    36 mixed cases, one missing module plus one foreign term each, and
+    it holds by its frozen bars: deferring the regions the tangent span
+    cannot explain beats deferring the largest regions on 64 percent of
+    cases and by about two percent of the error, with a median margin
+    over random deferral of 0.001 and a case design in which two of the
+    four foreign terms turned out to be partly in vocabulary
+    (`math-track-rgre-ml1b-results.md`).
 
 ## 5. What the whole arc says
 
@@ -229,6 +237,12 @@ Reduced to the claims that have survived every test:
   the abstention threshold, and that one should be replaced by something
   relative to the search's own trajectory before it is used again in a
   multi-step setting.
+- Deferral belongs to the tangent span, not to the residual's size.
+  When the dictionary can explain some of the residual and not the
+  rest, sending the teacher the unexplainable regions beats sending the
+  largest ones, consistently but by a small margin (RGRE-ML-1b). It is
+  the one place the procedure adds something to matching pursuit
+  beyond the abstention signal, and it is worth two percent.
 - Relative RMS is the fitter's objective and not the consumer's
   question. The fire grammar that looked far from usable at 0.46 RMS is
   1.4 percent wrong on the decision a game would actually make from it,
