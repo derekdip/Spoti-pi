@@ -70,10 +70,12 @@ rules; the label each tree returned is given as returned.
 | F4 | fire, parcel grammar | 7 unseen | greedy 0.83 of a global floor | 1 repair/step | floor below column 5/7; glow corr 0.64 median; parcels up to 32 | D |
 | RGRE-ML-1 | additive models, 4th domain | 114 fresh | 1.00 (= matching pursuit) | 0.10 | OOV detection AUC 0.96; two-step 1.00; consumer residual halves identity | A |
 | RGRE-ML-1b | additive models, mixed cases | 36 fresh | | | orthogonal deferral beats magnitude 64%; medians 0.367 vs 0.378 vs random 0.368 | Holds, narrowly |
+| RGRE-ML-2 | six real regression datasets | 30 splits, 240 steps | 0.48 (bar 0.90) | 0.01 | stopping AUC 0.84 vs step index 0.62; noise 30/30; deferral ties magnitude | D |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
-`fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`.
+`fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
+`rgre-ml2-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -225,13 +227,33 @@ I got wrong running it, and where it is recorded.
     four foreign terms turned out to be partly in vocabulary
     (`math-track-rgre-ml1b-results.md`).
 
+13. **On real data the projection cannot rank modules whose shape must
+    be fitted.** RGRE-ML-2 grew dictionary models on six real
+    regression datasets, 30 splits, 240 steps. The oracle's best step
+    was a Gaussian bump or a sinusoid on 233 of them, and the pick
+    captured 0.48 of the oracle's gain in median there; on the 7 steps
+    where the best module had a fixed shape the pick was the oracle
+    every time. That is matching pursuit's premise, a fixed atom, met
+    and not met. The abstention quantity held: above the shuffled-
+    target value on every split, and a stopping signal at AUC 0.84
+    against 0.62 for the step index, most of it between datasets.
+    Deferral by orthogonality tied magnitude on 23 of 30 cases and is
+    dropped for real data. The one percent stopping constant stopped
+    too early on the datasets with something to find, the fourth
+    constant to fail in transfer (`math-track-rgre-ml2-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
 
 - The residual's projection onto a representation's tangent directions
   names the next repair, at full value and a tenth of the search, in
-  three domains, with no fitted weighting.
+  three simulation domains and on synthetic additive models, with no
+  fitted weighting. It does so only for candidates that have a fixed
+  direction before they are fitted. On six real datasets the useful
+  candidates were free-shape modules on 233 of 240 steps, and there the
+  projection captured half the oracle's value; a growth procedure for
+  real data must fit before it ranks.
 - It also says when it cannot help: the gap between greedy and joint
   fitting is the diagnostic, and in fire that gap was 4 percent, so the
   remaining 60 percent of error was the vocabulary's and nothing about
@@ -242,12 +264,18 @@ Reduced to the claims that have survived every test:
   the abstention threshold, and that one should be replaced by something
   relative to the search's own trajectory before it is used again in a
   multi-step setting.
+- The abstention quantity, the residual energy no single candidate
+  explains, is the part that transferred furthest: it separated
+  shuffled from real targets on every real split and predicted a
+  wasted growth step above the step-index baseline.
 - Deferral belongs to the tangent span, not to the residual's size.
   When the dictionary can explain some of the residual and not the
   rest, sending the teacher the unexplainable regions beats sending the
   largest ones, consistently but by a small margin (RGRE-ML-1b). It is
   the one place the procedure adds something to matching pursuit
-  beyond the abstention signal, and it is worth two percent.
+  beyond the abstention signal, and it is worth two percent. On real
+  data, where the dictionary explained almost none of the residual, it
+  tied magnitude and is dropped (RGRE-ML-2).
 - Relative RMS is the fitter's objective and not the consumer's
   question. The fire grammar that looked far from usable at 0.46 RMS is
   1.4 percent wrong on the decision a game would actually make from it,
