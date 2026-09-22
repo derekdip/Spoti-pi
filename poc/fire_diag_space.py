@@ -41,7 +41,7 @@ class FieldDiag:
         return (self.T - c) / (self.scale * np.sqrt(self.T.shape[1]))
 
     def tangents(self, st):
-        return RP.PuffCase.tangents.__func__(self, st)   # same finite-difference code, this residual
+        return RP.PuffCase.tangents(self, st)   # same finite-difference code, this residual
 
 
 def pick(diag_r, signed, templates, support):

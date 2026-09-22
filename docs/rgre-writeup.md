@@ -207,7 +207,12 @@ I got wrong running it, and where it is recorded.
     case. Diagnosing on the consumer residual, the choice the whole
     simulation arc made, halved the identification rate when one
     consumer was a thresholded decision; diagnosing on the field residual
-    restored it. What survives as RGRE's own is the abstention signal
+    restored it. Re-run on the nine fire scenes, the two residuals
+    diagnose the same (value medians 0.85 and 0.86, the oracle found on
+    two and three scenes), so the rule is narrower than it first read:
+    a per-sample decision consumer degrades the diagnostic, smooth and
+    averaged consumers do not, and the fire arc stands as diagnosed
+    (`fire-diag-space.md`). What survives as RGRE's own is the abstention signal
     (out-of-vocabulary AUC 0.96, with the borrowed threshold failing a
     third time) and the sequencing protocol (full two-step recovery).
     The deferral claim was unmeasurable by the frozen design
