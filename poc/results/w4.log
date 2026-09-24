@@ -1,0 +1,56 @@
+tangent coherence with time: A 0.019, lam 0.020, m 0.029, n 0.004, g_eff 0.824, phi 0.906, v_max 0.092, k_cut 0.094
+A=1: E_gain 0.343  E_phase 0.343 (dt -2.0 ms)  E_disp 0.343 (g 9.83)  E_phase+g 0.340 (dt -6.1 ms, g 9.77)  P_t 0.003  drift early/late -3/+2 ms
+A=2: E_gain 0.379  E_phase 0.355 (dt -11.4 ms)  E_disp 0.369 (g 9.92)  E_phase+g 0.353 (dt -15.0 ms, g 9.78)  P_t 0.130  drift early/late -14/-6 ms
+A=3: E_gain 0.474  E_phase 0.383 (dt -23.3 ms)  E_disp 0.425 (g 10.04)  E_phase+g 0.382 (dt -26.2 ms, g 9.79)  P_t 0.380  drift early/late -30/-18 ms
+A=4: E_gain 0.598  E_phase 0.424 (dt -35.7 ms)  E_disp 0.500 (g 10.16)  E_phase+g 0.423 (dt -37.6 ms, g 9.80)  P_t 0.572  drift early/late -51/-33 ms
+A=6: E_gain 0.825  E_phase 0.522 (dt -59.0 ms)  E_disp 0.657 (g 10.41)  E_phase+g 0.522 (dt -58.3 ms, g 9.84)  P_t 0.747  drift early/late -111/-77 ms
+A=8: E_gain 0.955  E_phase 0.614 (dt -79.0 ms)  E_disp 0.783 (g 10.64)  E_phase+g 0.614 (dt -74.9 ms, g 9.88)  P_t 0.755  drift early/late -243/-170 ms
+A=10: E_gain 0.997  E_phase 0.690 (dt -95.6 ms)  E_disp 0.870 (g 10.85)  E_phase+g 0.688 (dt -88.5 ms, g 9.93)  P_t 0.632  drift early/late -918/-617 ms
+{
+ "H1": {
+  "P_t_8": 0.7554776599981057,
+  "P_t_sequence_3_4_6_8_10": [
+   0.37992713701188396,
+   0.5723552384559203,
+   0.7471225463865825,
+   0.7554776599981057,
+   0.6324076592850777
+  ],
+  "non_decreasing": false,
+  "pass": true
+ },
+ "H2": {
+  "miss_sum_ms": {
+   "log": 54.23970802171665,
+   "lin": 12.406898287694483
+  },
+  "winner": "lin",
+  "pass": true,
+  "error_within_0.05": false
+ },
+ "H3": {
+  "pass": true,
+  "extrapolated_log_law_pass": true
+ },
+ "H4": {
+  "fraction": {
+   "3.0": 0.030913678619594084,
+   "6.0": 5.8681271237366744e-05,
+   "10.0": 0.004602649124160242
+  },
+  "g_slope_after_timing_per_logA": {
+   "2.0": -0.07369836097142513,
+   "3.0": -0.03727771004333367,
+   "4.0": -0.019821142169788225,
+   "6.0": 0.005633704043349982,
+   "8.0": 0.026821837173459987,
+   "10.0": 0.042969948570172375
+  },
+  "pass": true
+ },
+ "T1": {
+  "pass": true
+ },
+ "verdict": "coordinate confirmed"
+}
+wrote /home/user/Spoti-pi/poc/results/w4.md

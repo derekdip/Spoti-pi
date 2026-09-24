@@ -1,0 +1,170 @@
+{
+ "obstacle": {
+  "joint_new": 0.5927741605622392,
+  "joint_f3": 0.6435916169550351,
+  "e_v0": 0.7316130637662859,
+  "per_consumer": {
+   "visual": 0.9343381875630926,
+   "heat": 0.28113202671896226,
+   "ai": 0.3195630627982618
+  },
+  "shapes_on": {
+   "split_amp": 0.972,
+   "split_spread": 0.367,
+   "puff_rise": 0.2,
+   "puff_decay": 0.1,
+   "bed_dur": 0.1,
+   "bed_fall": 0.05
+  }
+ },
+ "ignition": {
+  "joint_new": 0.6325761924682715,
+  "joint_f3": 0.626373195436712,
+  "e_v0": 0.8163372225640265,
+  "per_consumer": {
+   "visual": 0.6636324969827213,
+   "heat": 0.34290430490091817,
+   "ignition": 0.6508818903856891,
+   "ai": 0.7867476523685794
+  },
+  "shapes_on": {
+   "puff_rise": 0.2,
+   "puff_decay": 0.1,
+   "bed_amp": 133.333,
+   "bed_delay": 3.0,
+   "bed_speed": 0.833,
+   "bed_dur": 0.583,
+   "bed_fall": 0.05
+  }
+ },
+ "delayed_ignition": {
+  "joint_new": 0.6832661845497738,
+  "joint_f3": 0.6816848319492538,
+  "e_v0": 0.8397166029187395,
+  "per_consumer": {
+   "visual": 0.7952846411910646,
+   "heat": 0.33298537040887527,
+   "ignition": 0.7302939748782227,
+   "ai": 0.7685860450415767
+  },
+  "shapes_on": {
+   "puff_rise": 0.2,
+   "puff_decay": 0.1,
+   "bed_amp": 333.333,
+   "bed_delay": 0.833,
+   "bed_speed": 0.5,
+   "bed_dur": 1.228,
+   "bed_fall": 0.158
+  }
+ },
+ "full": {
+  "joint_new": 0.5903500497243528,
+  "joint_f3": 0.6083265380108911,
+  "e_v0": 0.8176023359857612,
+  "per_consumer": {
+   "visual": 0.6738625667483239,
+   "heat": 0.317305688810496,
+   "ignition": 0.44852604952886843,
+   "ai": 0.7988137759929204
+  },
+  "shapes_on": {
+   "split_amp": 0.944,
+   "split_spread": 0.033,
+   "puff_rise": 0.2,
+   "puff_decay": 0.1,
+   "bed_amp": 33.333,
+   "bed_delay": 2.833,
+   "bed_speed": 0.5,
+   "bed_dur": 2.194,
+   "bed_fall": 0.05
+  }
+ },
+ "windy": {
+  "joint_new": 0.4958438786883767,
+  "joint_f3": 0.4958438786883767,
+  "e_v0": 0.8340361219649397,
+  "per_consumer": {
+   "visual": 0.7075630811662996,
+   "heat": 0.1432148198233307,
+   "ai": 0.46521764546459804
+  },
+  "shapes_on": {
+   "puff_rise": 0.2,
+   "puff_decay": 0.1,
+   "bed_dur": 0.1,
+   "bed_fall": 0.05
+  }
+ },
+ "twin": {
+  "joint_new": 0.5528210387238461,
+  "joint_f3": 0.5528210387238461,
+  "e_v0": 0.7245343564120812,
+  "per_consumer": {
+   "visual": 0.592283434463846,
+   "heat": 0.29229425053499397,
+   "ai": 0.693251546648858
+  },
+  "shapes_on": {
+   "puff_rise": 0.2,
+   "puff_decay": 0.1,
+   "bed_dur": 0.1,
+   "bed_fall": 0.05
+  }
+ },
+ "shelf_bed": {
+  "joint_new": 0.6151866510401455,
+  "joint_f3": 0.7144027172074814,
+  "e_v0": 0.8303970692189141,
+  "per_consumer": {
+   "visual": 0.8054720497937087,
+   "heat": 0.3655336493798935,
+   "ignition": 0.3958195474201882,
+   "ai": 0.7581195661135351
+  },
+  "shapes_on": {
+   "split_amp": 0.944,
+   "split_spread": 0.6,
+   "puff_rise": 0.2,
+   "puff_decay": 0.1,
+   "bed_amp": 266.667,
+   "bed_speed": 0.5,
+   "bed_dur": 1.228,
+   "bed_fall": 2.0
+  }
+ },
+ "split": {
+  "joint_new": 0.5468698420560333,
+  "joint_f3": null,
+  "e_v0": 0.8937521508015288,
+  "per_consumer": {
+   "visual": 0.8684681730884617,
+   "heat": 0.24765614487423027,
+   "ai": 0.28570848550506234
+  },
+  "shapes_on": {
+   "split_amp": 1.0,
+   "split_spread": 0.6,
+   "puff_rise": 0.2,
+   "puff_decay": 0.1,
+   "bed_dur": 0.1,
+   "bed_fall": 0.05
+  }
+ },
+ "shutoff": {
+  "joint_new": 0.6569403221793954,
+  "joint_f3": null,
+  "e_v0": 0.7559384395525377,
+  "per_consumer": {
+   "visual": 0.9089702859785258,
+   "heat": 0.2344222548032791,
+   "ai": 0.6430637498542168
+  },
+  "shapes_on": {
+   "puff_amp": 0.333,
+   "puff_rise": 0.2,
+   "puff_decay": 1.067,
+   "bed_dur": 0.1,
+   "bed_fall": 0.05
+  }
+ }
+}

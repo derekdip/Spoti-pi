@@ -1,0 +1,2797 @@
+{
+ "seed": 101,
+ "pilot": false,
+ "tau": 0.5834212065969504,
+ "cases": [
+  {
+   "name": "iso_cubic_0",
+   "kind": "isolated",
+   "missing": [
+    "cubic"
+   ],
+   "oov": null,
+   "e0": 0.27912237875468304,
+   "q_perp": 0.3198674635118092,
+   "q_perp_value": 0.005294695218965965,
+   "rgre": "sin2",
+   "reason": "ok",
+   "ranked": [
+    "sin2",
+    "cubic",
+    "pair",
+    "quad"
+   ],
+   "oracle": "cubic",
+   "oracle_cost": "cubic",
+   "oracle_drop": 0.24121422530791767,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.0005667493550936627,
+    "cheapest": 0.09622215778914761,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.22781073472017033,
+    "rgre_nogate": 0.22781073472017033,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.0005667493550936627,
+    "cheapest": 0.19244431557829522,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.30374764629356044,
+    "rgre_nogate": 0.30374764629356044,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "quad",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "cubic",
+    "rgre": "sin2",
+    "rgre_nogate": "sin2",
+    "rgre_value": "cubic",
+    "oracle": "cubic"
+   },
+   "repairs_evaluated": 1,
+   "identity": false,
+   "identity_nogate": false,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.22417118886232962,
+   "defer": {
+    "mag": 0.18479883578424827,
+    "orth": 0.20814435837127493,
+    "orth_global": 0.1999775361476564,
+    "random": 0.1987878614764094,
+    "none": 0.19465796020579754
+   }
+  },
+  {
+   "name": "iso_abs2_1",
+   "kind": "isolated",
+   "missing": [
+    "abs2"
+   ],
+   "oov": null,
+   "e0": 0.4138156161419228,
+   "q_perp": 0.19349313454893857,
+   "q_perp_value": 0.005511665714273308,
+   "rgre": "abs2",
+   "reason": "ok",
+   "ranked": [
+    "abs2",
+    "quad",
+    "exp3",
+    "bump"
+   ],
+   "oracle": "abs2",
+   "oracle_cost": "abs2",
+   "oracle_drop": 0.32458461249395454,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 1.0,
+    "cheapest": 1.0,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 1.0,
+    "cheapest": 1.0,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "abs2",
+    "cheapest": "abs2",
+    "gradnorm": "abs2",
+    "mp_value": "abs2",
+    "rgre": "abs2",
+    "rgre_nogate": "abs2",
+    "rgre_value": "abs2",
+    "oracle": "abs2"
+   },
+   "repairs_evaluated": 1,
+   "identity": true,
+   "identity_nogate": true,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.08923100364796825,
+   "defer": {
+    "mag": 0.020387185481860325,
+    "orth": 0.019817270576224164,
+    "orth_global": 0.01979677538090228,
+    "random": 0.020551183269033137,
+    "none": 0.020345699054683232
+   }
+  },
+  {
+   "name": "iso_sin1_2",
+   "kind": "isolated",
+   "missing": [
+    "sin1"
+   ],
+   "oov": null,
+   "e0": 0.5448085180698459,
+   "q_perp": 0.8543621393011956,
+   "q_perp_value": 0.3152746047861204,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "sin1",
+   "oracle_cost": "sin1",
+   "oracle_drop": 0.506669462175629,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.0022844784097086302,
+    "cheapest": 0.011126271748261835,
+    "gradnorm": 0.00965733682834624,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 0.00965733682834624,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.0034267176145629454,
+    "cheapest": 0.016689407622392752,
+    "gradnorm": 0.00482866841417312,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 0.00482866841417312,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "exp3",
+    "cheapest": "abs2",
+    "gradnorm": "pair",
+    "mp_value": "sin1",
+    "rgre": null,
+    "rgre_nogate": "pair",
+    "rgre_value": "sin1",
+    "oracle": "sin1"
+   },
+   "repairs_evaluated": 0,
+   "identity": false,
+   "identity_nogate": false,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.5448085180698459,
+   "defer": {
+    "mag": 0.4446044762428781,
+    "orth": 0.4622292732105991,
+    "orth_global": 0.4446044762428781,
+    "random": 0.46016573073110917,
+    "none": 0.46174278364170873
+   }
+  },
+  {
+   "name": "iso_abs2_3",
+   "kind": "isolated",
+   "missing": [
+    "abs2"
+   ],
+   "oov": null,
+   "e0": 0.7534757853187691,
+   "q_perp": 0.48329206327767965,
+   "q_perp_value": 0.0016624353239954532,
+   "rgre": "bump",
+   "reason": "ok",
+   "ranked": [
+    "bump",
+    "abs2",
+    "step1",
+    "quad"
+   ],
+   "oracle": "sin2",
+   "oracle_cost": "sin2",
+   "oracle_drop": 0.5784703663092539,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.4441644869898319,
+    "cheapest": 0.08862564339973002,
+    "gradnorm": 0.08862564339973002,
+    "mp_value": 0.08862564339973002,
+    "rgre": 0.8117194185937333,
+    "rgre_nogate": 0.8117194185937333,
+    "rgre_value": 0.08862564339973002,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.4441644869898319,
+    "cheapest": 0.13293846509959503,
+    "gradnorm": 0.13293846509959503,
+    "mp_value": 0.13293846509959503,
+    "rgre": 0.40585970929686666,
+    "rgre_nogate": 0.40585970929686666,
+    "rgre_value": 0.13293846509959503,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "step1",
+    "cheapest": "abs2",
+    "gradnorm": "abs2",
+    "mp_value": "abs2",
+    "rgre": "bump",
+    "rgre_nogate": "bump",
+    "rgre_value": "abs2",
+    "oracle": "sin2"
+   },
+   "repairs_evaluated": 1,
+   "identity": false,
+   "identity_nogate": false,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": false,
+   "e_after": 0.28392015590451763,
+   "defer": {
+    "mag": 0.1726770745822855,
+    "orth": 0.22640118277753524,
+    "orth_global": 0.22889981243299953,
+    "random": 0.21230549397714424,
+    "none": 0.21402256690444613
+   }
+  },
+  {
+   "name": "iso_exp3_4",
+   "kind": "isolated",
+   "missing": [
+    "exp3"
+   ],
+   "oov": null,
+   "e0": 0.793295372754574,
+   "q_perp": 0.38557992661869156,
+   "q_perp_value": 0.0010052643345721771,
+   "rgre": "exp3",
+   "reason": "ok",
+   "ranked": [
+    "exp3",
+    "abs2",
+    "step1",
+    "cubic"
+   ],
+   "oracle": "exp3",
+   "oracle_cost": "exp3",
+   "oracle_drop": 0.71406897581947,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.14662293771410273,
+    "cheapest": 0.10552674178466051,
+    "gradnorm": 0.10552674178466051,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.07331146885705137,
+    "cheapest": 0.10552674178466051,
+    "gradnorm": 0.10552674178466051,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "cubic",
+    "cheapest": "abs2",
+    "gradnorm": "abs2",
+    "mp_value": "exp3",
+    "rgre": "exp3",
+    "rgre_nogate": "exp3",
+    "rgre_value": "exp3",
+    "oracle": "exp3"
+   },
+   "repairs_evaluated": 1,
+   "identity": true,
+   "identity_nogate": true,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.07922639693510397,
+   "defer": {
+    "mag": 0.042423502528814695,
+    "orth": 0.04043101040766625,
+    "orth_global": 0.04123402684103768,
+    "random": 0.040753580593508504,
+    "none": 0.041192517426455535
+   }
+  },
+  {
+   "name": "iso_abs2_5",
+   "kind": "isolated",
+   "missing": [
+    "abs2"
+   ],
+   "oov": null,
+   "e0": 0.5160914348286,
+   "q_perp": 0.29755783429043764,
+   "q_perp_value": 0.02438249249943693,
+   "rgre": "abs2",
+   "reason": "ok",
+   "ranked": [
+    "abs2",
+    "step1",
+    "quad",
+    "bump"
+   ],
+   "oracle": "abs2",
+   "oracle_cost": "abs2",
+   "oracle_drop": 0.45232552056665465,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.32048975554418374,
+    "cheapest": 1.0,
+    "gradnorm": 0.36173050072457014,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.16024487777209187,
+    "cheapest": 1.0,
+    "gradnorm": 0.2411536671497134,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "quad",
+    "cheapest": "abs2",
+    "gradnorm": "step1",
+    "mp_value": "abs2",
+    "rgre": "abs2",
+    "rgre_nogate": "abs2",
+    "rgre_value": "abs2",
+    "oracle": "abs2"
+   },
+   "repairs_evaluated": 1,
+   "identity": true,
+   "identity_nogate": true,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.06376591426194536,
+   "defer": {
+    "mag": 0.020568713500298378,
+    "orth": 0.02062085966517601,
+    "orth_global": 0.020865232849310227,
+    "random": 0.020283141224497512,
+    "none": 0.020620901528840448
+   }
+  },
+  {
+   "name": "iso_step1_6",
+   "kind": "isolated",
+   "missing": [
+    "step1"
+   ],
+   "oov": null,
+   "e0": 0.7089580373809481,
+   "q_perp": 0.13138495687739254,
+   "q_perp_value": 0.0010251621660828626,
+   "rgre": "step1",
+   "reason": "ok",
+   "ranked": [
+    "step1",
+    "abs2",
+    "quad",
+    "bump"
+   ],
+   "oracle": "step1",
+   "oracle_cost": "step1",
+   "oracle_drop": 0.6451401603267609,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.3741662851957416,
+    "cheapest": 0.2854968656731906,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.28062471389680615,
+    "cheapest": 0.42824529850978593,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "quad",
+    "cheapest": "abs2",
+    "gradnorm": "step1",
+    "mp_value": "step1",
+    "rgre": "step1",
+    "rgre_nogate": "step1",
+    "rgre_value": "step1",
+    "oracle": "step1"
+   },
+   "repairs_evaluated": 1,
+   "identity": true,
+   "identity_nogate": true,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.06381787705418715,
+   "defer": {
+    "mag": 0.02051133577849207,
+    "orth": 0.02076969786781544,
+    "orth_global": 0.019821200719732583,
+    "random": 0.020592401622928653,
+    "none": 0.020745084561435014
+   }
+  },
+  {
+   "name": "iso_cubic_7",
+   "kind": "isolated",
+   "missing": [
+    "cubic"
+   ],
+   "oov": null,
+   "e0": 0.5573197776790597,
+   "q_perp": 0.6747162685741721,
+   "q_perp_value": 0.0015468412129138029,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "cubic",
+   "oracle_cost": "cubic",
+   "oracle_drop": 0.5035030884531901,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.04499180490572615,
+    "cheapest": 0.05782731857184217,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.05998907320763487,
+    "cheapest": 0.11565463714368435,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "sin1",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "cubic",
+    "rgre": null,
+    "rgre_nogate": "cubic",
+    "rgre_value": "cubic",
+    "oracle": "cubic"
+   },
+   "repairs_evaluated": 0,
+   "identity": false,
+   "identity_nogate": true,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.5573197776790597,
+   "defer": {
+    "mag": 0.4277326341397329,
+    "orth": 0.5125905114269764,
+    "orth_global": 0.509258246655965,
+    "random": 0.5083730805630294,
+    "none": 0.5218171880373609
+   }
+  },
+  {
+   "name": "iso_cubic_8",
+   "kind": "isolated",
+   "missing": [
+    "cubic"
+   ],
+   "oov": null,
+   "e0": 0.39335832783626057,
+   "q_perp": 0.524858598436248,
+   "q_perp_value": 0.003216656951463714,
+   "rgre": "sin1",
+   "reason": "ok",
+   "ranked": [
+    "sin1",
+    "cubic",
+    "step1",
+    "pair"
+   ],
+   "oracle": "cubic",
+   "oracle_cost": "cubic",
+   "oracle_drop": 0.32028850905797757,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.04686637171361807,
+    "cheapest": 0.04686637171361807,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.08759825852513613,
+    "rgre_nogate": 0.08759825852513613,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.09373274342723614,
+    "cheapest": 0.09373274342723614,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.11679767803351483,
+    "rgre_nogate": 0.11679767803351483,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "abs2",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "cubic",
+    "rgre": "sin1",
+    "rgre_nogate": "sin1",
+    "rgre_value": "cubic",
+    "oracle": "cubic"
+   },
+   "repairs_evaluated": 1,
+   "identity": false,
+   "identity_nogate": false,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.36530161221716945,
+   "defer": {
+    "mag": 0.27952379631507407,
+    "orth": 0.3111358429871244,
+    "orth_global": 0.3111358429871244,
+    "random": 0.30760548863747506,
+    "none": 0.3147113774411037
+   }
+  },
+  {
+   "name": "iso_exp3_9",
+   "kind": "isolated",
+   "missing": [
+    "exp3"
+   ],
+   "oov": null,
+   "e0": 0.6382768708406136,
+   "q_perp": 0.8022944604650243,
+   "q_perp_value": 0.0008930718821212452,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "exp3",
+   "oracle_cost": "exp3",
+   "oracle_drop": 0.5566051149375667,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.002421781122898746,
+    "cheapest": 0.06548437865117558,
+    "gradnorm": 0.23766269132865467,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 0.07200492402924343,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.000807260374299582,
+    "cheapest": 0.06548437865117558,
+    "gradnorm": 0.11883134566432733,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 0.04800328268616229,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "pair",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "exp3",
+    "rgre": null,
+    "rgre_nogate": "sin2",
+    "rgre_value": "exp3",
+    "oracle": "exp3"
+   },
+   "repairs_evaluated": 0,
+   "identity": false,
+   "identity_nogate": false,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.6382768708406136,
+   "defer": {
+    "mag": 0.6335091045906167,
+    "orth": 0.6616997045155845,
+    "orth_global": 0.6640242070310779,
+    "random": 0.682374854922991,
+    "none": 0.6628963089415412
+   }
+  },
+  {
+   "name": "iso_quad_10",
+   "kind": "isolated",
+   "missing": [
+    "quad"
+   ],
+   "oov": null,
+   "e0": 0.5399409996110902,
+   "q_perp": 0.4268325819336003,
+   "q_perp_value": 0.001842461833406594,
+   "rgre": "sin2",
+   "reason": "ok",
+   "ranked": [
+    "sin2",
+    "quad",
+    "exp3",
+    "bump"
+   ],
+   "oracle": "quad",
+   "oracle_cost": "quad",
+   "oracle_drop": 0.4665853441095651,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.030199502673741392,
+    "cheapest": 0.030199502673741392,
+    "gradnorm": 1.0,
+    "mp_value": 0.43204431139484917,
+    "rgre": 0.43204431139484917,
+    "rgre_nogate": 0.43204431139484917,
+    "rgre_value": 0.43204431139484917,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.060399005347482784,
+    "cheapest": 0.060399005347482784,
+    "gradnorm": 1.0,
+    "mp_value": 0.5760590818597989,
+    "rgre": 0.5760590818597989,
+    "rgre_nogate": 0.5760590818597989,
+    "rgre_value": 0.5760590818597989,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "abs2",
+    "cheapest": "abs2",
+    "gradnorm": "quad",
+    "mp_value": "sin2",
+    "rgre": "sin2",
+    "rgre_nogate": "sin2",
+    "rgre_value": "sin2",
+    "oracle": "quad"
+   },
+   "repairs_evaluated": 1,
+   "identity": false,
+   "identity_nogate": false,
+   "identity_value": false,
+   "identity_mp": false,
+   "oracle_identity": true,
+   "e_after": 0.3383554559083444,
+   "defer": {
+    "mag": 0.3136843158869356,
+    "orth": 0.3144557681498236,
+    "orth_global": 0.31897335934111587,
+    "random": 0.3144945889094485,
+    "none": 0.3156608304865522
+   }
+  },
+  {
+   "name": "iso_cubic_11",
+   "kind": "isolated",
+   "missing": [
+    "cubic"
+   ],
+   "oov": null,
+   "e0": 0.4421687450344319,
+   "q_perp": 0.5189149446322475,
+   "q_perp_value": 0.0025222290802613843,
+   "rgre": "sin2",
+   "reason": "ok",
+   "ranked": [
+    "sin2",
+    "sin1",
+    "cubic",
+    "exp3"
+   ],
+   "oracle": "cubic",
+   "oracle_cost": "cubic",
+   "oracle_drop": 0.4296160050780322,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 1.0,
+    "cheapest": 0.019525002376563422,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.40333142806357986,
+    "rgre_nogate": 0.40333142806357986,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 1.0,
+    "cheapest": 0.039050004753126845,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.5377752374181065,
+    "rgre_nogate": 0.5377752374181065,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "cubic",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "cubic",
+    "rgre": "sin2",
+    "rgre_nogate": "sin2",
+    "rgre_value": "cubic",
+    "oracle": "cubic"
+   },
+   "repairs_evaluated": 1,
+   "identity": false,
+   "identity_nogate": false,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.26889110818733897,
+   "defer": {
+    "mag": 0.21537281770109024,
+    "orth": 0.20952875909331353,
+    "orth_global": 0.2224005319733031,
+    "random": 0.2265281420935972,
+    "none": 0.2296304493682174
+   }
+  },
+  {
+   "name": "iso_sin2_12",
+   "kind": "isolated",
+   "missing": [
+    "sin2"
+   ],
+   "oov": null,
+   "e0": 0.4957956618493261,
+   "q_perp": 0.31546266798429146,
+   "q_perp_value": 0.0032141729117104788,
+   "rgre": "sin2",
+   "reason": "ok",
+   "ranked": [
+    "sin2",
+    "abs2",
+    "quad",
+    "cubic"
+   ],
+   "oracle": "sin2",
+   "oracle_cost": "sin2",
+   "oracle_drop": 0.4433902497232786,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.08576436676452151,
+    "cheapest": 0.17488522762913405,
+    "gradnorm": 1.0,
+    "mp_value": 0.17488522762913405,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 0.17488522762913405,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.06432327507339113,
+    "cheapest": 0.2623278414437011,
+    "gradnorm": 1.0,
+    "mp_value": 0.2623278414437011,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 0.2623278414437011,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "quad",
+    "cheapest": "abs2",
+    "gradnorm": "sin2",
+    "mp_value": "abs2",
+    "rgre": "sin2",
+    "rgre_nogate": "sin2",
+    "rgre_value": "abs2",
+    "oracle": "sin2"
+   },
+   "repairs_evaluated": 1,
+   "identity": true,
+   "identity_nogate": true,
+   "identity_value": false,
+   "identity_mp": false,
+   "oracle_identity": true,
+   "e_after": 0.05240541212604749,
+   "defer": {
+    "mag": 0.020275788452883747,
+    "orth": 0.019925001035921756,
+    "orth_global": 0.019563580429283335,
+    "random": 0.019955528517093223,
+    "none": 0.01968495098973478
+   }
+  },
+  {
+   "name": "iso_exp3_13",
+   "kind": "isolated",
+   "missing": [
+    "exp3"
+   ],
+   "oov": null,
+   "e0": 0.46230541735624703,
+   "q_perp": 0.23070884431741387,
+   "q_perp_value": 0.0017071059271121282,
+   "rgre": "exp3",
+   "reason": "ok",
+   "ranked": [
+    "exp3",
+    "step1",
+    "abs2",
+    "quad"
+   ],
+   "oracle": "exp3",
+   "oracle_cost": "exp3",
+   "oracle_drop": 0.4096672347564346,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.07882530992104192,
+    "cheapest": 0.06409923400009168,
+    "gradnorm": 0.07062551157154899,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.05255020661402795,
+    "cheapest": 0.06409923400009168,
+    "gradnorm": 0.047083674381032656,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "sin2",
+    "cheapest": "abs2",
+    "gradnorm": "step1",
+    "mp_value": "exp3",
+    "rgre": "exp3",
+    "rgre_nogate": "exp3",
+    "rgre_value": "exp3",
+    "oracle": "exp3"
+   },
+   "repairs_evaluated": 1,
+   "identity": true,
+   "identity_nogate": true,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.052638182599812434,
+   "defer": {
+    "mag": 0.020453031193976935,
+    "orth": 0.01944715353864679,
+    "orth_global": 0.01944715353864679,
+    "random": 0.020230894143940758,
+    "none": 0.020195244317686614
+   }
+  },
+  {
+   "name": "iso_sin1_14",
+   "kind": "isolated",
+   "missing": [
+    "sin1"
+   ],
+   "oov": null,
+   "e0": 0.7468847038216306,
+   "q_perp": 0.24823011247561105,
+   "q_perp_value": 0.0008039458889556989,
+   "rgre": "step1",
+   "reason": "ok",
+   "ranked": [
+    "step1",
+    "abs2",
+    "quad",
+    "sin2"
+   ],
+   "oracle": "sin1",
+   "oracle_cost": "sin1",
+   "oracle_drop": 0.6379928113820361,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.0015035336073094179,
+    "cheapest": 0.33044917107100424,
+    "gradnorm": 0.9414673776671665,
+    "mp_value": 0.9414673776671665,
+    "rgre": 0.9414673776671665,
+    "rgre_nogate": 0.9414673776671665,
+    "rgre_value": 0.9414673776671665,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.0007517668036547089,
+    "cheapest": 0.49567375660650637,
+    "gradnorm": 0.9414673776671665,
+    "mp_value": 0.9414673776671665,
+    "rgre": 0.9414673776671665,
+    "rgre_nogate": 0.9414673776671665,
+    "rgre_value": 0.9414673776671665,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "pair",
+    "cheapest": "abs2",
+    "gradnorm": "step1",
+    "mp_value": "step1",
+    "rgre": "step1",
+    "rgre_nogate": "step1",
+    "rgre_value": "step1",
+    "oracle": "sin1"
+   },
+   "repairs_evaluated": 1,
+   "identity": false,
+   "identity_nogate": false,
+   "identity_value": false,
+   "identity_mp": false,
+   "oracle_identity": true,
+   "e_after": 0.14623528471928196,
+   "defer": {
+    "mag": 0.036419020305408036,
+    "orth": 0.0332330912861475,
+    "orth_global": 0.02552317953496496,
+    "random": 0.03541883636605162,
+    "none": 0.033275418402795846
+   }
+  },
+  {
+   "name": "iso_step1_15",
+   "kind": "isolated",
+   "missing": [
+    "step1"
+   ],
+   "oov": null,
+   "e0": 0.7210066625027982,
+   "q_perp": 0.39771097745009576,
+   "q_perp_value": 0.0032072637747168654,
+   "rgre": "step1",
+   "reason": "ok",
+   "ranked": [
+    "step1",
+    "sin1",
+    "bump",
+    "abs2"
+   ],
+   "oracle": "step1",
+   "oracle_cost": "step1",
+   "oracle_drop": 0.6828683543641216,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.1148779194166668,
+    "cheapest": 0.1148779194166668,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.17231687912500018,
+    "cheapest": 0.17231687912500018,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "abs2",
+    "cheapest": "abs2",
+    "gradnorm": "step1",
+    "mp_value": "step1",
+    "rgre": "step1",
+    "rgre_nogate": "step1",
+    "rgre_value": "step1",
+    "oracle": "step1"
+   },
+   "repairs_evaluated": 1,
+   "identity": true,
+   "identity_nogate": true,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.03813830813867662,
+   "defer": {
+    "mag": 0.020310323770859017,
+    "orth": 0.019706357878651187,
+    "orth_global": 0.02028293043165732,
+    "random": 0.02037622799999136,
+    "none": 0.020183191808954275
+   }
+  },
+  {
+   "name": "iso_exp3_16",
+   "kind": "isolated",
+   "missing": [
+    "exp3"
+   ],
+   "oov": null,
+   "e0": 0.47571643746599235,
+   "q_perp": 0.6201505939944065,
+   "q_perp_value": 0.0016904040062494293,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "exp3",
+   "oracle_cost": "exp3",
+   "oracle_drop": 0.3941095844336195,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.47184805325096896,
+    "cheapest": 1.0,
+    "gradnorm": 0.47184805325096896,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.23592402662548448,
+    "cheapest": 1.0,
+    "gradnorm": 0.23592402662548448,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "cubic",
+    "cheapest": "exp3",
+    "gradnorm": "cubic",
+    "mp_value": "exp3",
+    "rgre": null,
+    "rgre_nogate": "exp3",
+    "rgre_value": "exp3",
+    "oracle": "exp3"
+   },
+   "repairs_evaluated": 0,
+   "identity": false,
+   "identity_nogate": true,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.47571643746599235,
+   "defer": {
+    "mag": 0.4493209816686717,
+    "orth": 0.47581440333475034,
+    "orth_global": 0.46918215150548526,
+    "random": 0.4757580141381214,
+    "none": 0.4711125717631797
+   }
+  },
+  {
+   "name": "iso_bump_17",
+   "kind": "isolated",
+   "missing": [
+    "bump"
+   ],
+   "oov": null,
+   "e0": 0.29817353799920965,
+   "q_perp": 0.30876366573071734,
+   "q_perp_value": 0.06744059832685256,
+   "rgre": "abs2",
+   "reason": "ok",
+   "ranked": [
+    "abs2",
+    "quad",
+    "bump",
+    "step1"
+   ],
+   "oracle": "bump",
+   "oracle_cost": "bump",
+   "oracle_drop": 0.24579344416357113,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.39733794682748924,
+    "cheapest": 0.2580875181110331,
+    "gradnorm": 0.29793164815723716,
+    "mp_value": 1.0,
+    "rgre": 0.2580875181110331,
+    "rgre_nogate": 0.2580875181110331,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.7946758936549785,
+    "cheapest": 0.7742625543330991,
+    "gradnorm": 0.44689747223585574,
+    "mp_value": 1.0,
+    "rgre": 0.7742625543330991,
+    "rgre_nogate": 0.7742625543330991,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "sin2",
+    "cheapest": "abs2",
+    "gradnorm": "quad",
+    "mp_value": "bump",
+    "rgre": "abs2",
+    "rgre_nogate": "abs2",
+    "rgre_value": "bump",
+    "oracle": "bump"
+   },
+   "repairs_evaluated": 1,
+   "identity": false,
+   "identity_nogate": false,
+   "identity_value": true,
+   "identity_mp": true,
+   "oracle_identity": true,
+   "e_after": 0.2347373180270708,
+   "defer": {
+    "mag": 0.14831759639056818,
+    "orth": 0.14831759639056818,
+    "orth_global": 0.14831759639056818,
+    "random": 0.16895589509986475,
+    "none": 0.1840639149131143
+   }
+  },
+  {
+   "name": "two_quad_sin2_0",
+   "kind": "two",
+   "missing": [
+    "quad",
+    "sin2"
+   ],
+   "oov": null,
+   "e0": 0.6317478893168843,
+   "q_perp": 0.463795109432199,
+   "q_perp_value": 0.00577878137334485,
+   "rgre": "abs2",
+   "reason": "ok",
+   "ranked": [
+    "abs2",
+    "step1",
+    "sin1",
+    "pair"
+   ],
+   "oracle": "abs2",
+   "oracle_cost": "abs2",
+   "oracle_drop": 0.43684440694177323,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.9688042142998492,
+    "cheapest": 1.0,
+    "gradnorm": 0.00042838874975672413,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.4844021071499246,
+    "cheapest": 1.0,
+    "gradnorm": 0.00021419437487836207,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "quad",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "abs2",
+    "rgre": "abs2",
+    "rgre_nogate": "abs2",
+    "rgre_value": "abs2",
+    "oracle": "abs2"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.19490348237511107,
+   "defer": {
+    "mag": 0.085126704117535,
+    "orth": 0.08909049909840626,
+    "orth_global": 0.0876120574852572,
+    "random": 0.08335317707340814,
+    "none": 0.08652223006943373
+   },
+   "two": {
+    "consumer": {
+     "steps": [
+      {
+       "pick": "abs2",
+       "e_before": 0.6317478893168843,
+       "e_after": 0.19490348237511107,
+       "q_perp": 0.463795109432199
+      },
+      {
+       "pick": "cubic",
+       "e_before": 0.19490348237511107,
+       "e_after": 0.190841841457089,
+       "q_perp": 0.5863087733990467
+      }
+     ],
+     "e_final": 0.190841841457089,
+     "e_oracle2": 0.11348585526330471,
+     "found": 0,
+     "recovery": 0.8507396237599242
+    },
+    "field": {
+     "steps": [
+      {
+       "pick": "abs2",
+       "e_before": 0.6317478893168843,
+       "e_after": 0.19490348237511107,
+       "q_perp": 0.00577878137334485
+      },
+      {
+       "pick": "sin2",
+       "spent": true
+      },
+      {
+       "pick": "cubic",
+       "e_before": 0.19490348237511107,
+       "e_after": 0.190841841457089,
+       "q_perp": 0.0686318045345435
+      }
+     ],
+     "e_final": 0.190841841457089,
+     "e_oracle2": 0.11348585526330471,
+     "found": 0,
+     "recovery": 0.8507396237599242
+    }
+   }
+  },
+  {
+   "name": "two_abs2_exp3_1",
+   "kind": "two",
+   "missing": [
+    "abs2",
+    "exp3"
+   ],
+   "oov": null,
+   "e0": 0.776543554985802,
+   "q_perp": 0.2884205834660933,
+   "q_perp_value": 0.0014544207528404982,
+   "rgre": "abs2",
+   "reason": "ok",
+   "ranked": [
+    "abs2",
+    "step1",
+    "sin2",
+    "quad"
+   ],
+   "oracle": "abs2",
+   "oracle_cost": "abs2",
+   "oracle_drop": 0.561990043735773,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.7149421516674959,
+    "cheapest": 1.0,
+    "gradnorm": 0.46814008895762166,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.23831405055583194,
+    "cheapest": 1.0,
+    "gradnorm": 0.23407004447881083,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "bump",
+    "cheapest": "abs2",
+    "gradnorm": "quad",
+    "mp_value": "abs2",
+    "rgre": "abs2",
+    "rgre_nogate": "abs2",
+    "rgre_value": "abs2",
+    "oracle": "abs2"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.214553511250029,
+   "defer": {
+    "mag": 0.1502090064880541,
+    "orth": 0.14680170854219654,
+    "orth_global": 0.15004253550143487,
+    "random": 0.15073918664562574,
+    "none": 0.1494030418928043
+   },
+   "two": {
+    "consumer": {
+     "steps": [
+      {
+       "pick": "abs2",
+       "e_before": 0.776543554985802,
+       "e_after": 0.214553511250029,
+       "q_perp": 0.2884205834660933
+      },
+      {
+       "pick": "exp3",
+       "e_before": 0.214553511250029,
+       "e_after": 0.11683489818231613,
+       "q_perp": 0.17507033169498795
+      }
+     ],
+     "e_final": 0.11683489818231613,
+     "e_oracle2": 0.11683489818231613,
+     "found": 2,
+     "recovery": 1.0
+    },
+    "field": {
+     "steps": [
+      {
+       "pick": "abs2",
+       "e_before": 0.776543554985802,
+       "e_after": 0.214553511250029,
+       "q_perp": 0.0014544207528404982
+      },
+      {
+       "pick": "exp3",
+       "e_before": 0.214553511250029,
+       "e_after": 0.11683489818231613,
+       "q_perp": 0.017108236779763128
+      }
+     ],
+     "e_final": 0.11683489818231613,
+     "e_oracle2": 0.11683489818231613,
+     "found": 2,
+     "recovery": 1.0
+    }
+   }
+  },
+  {
+   "name": "two_cubic_quad_2",
+   "kind": "two",
+   "missing": [
+    "cubic",
+    "quad"
+   ],
+   "oov": null,
+   "e0": 0.5385963623015779,
+   "q_perp": 0.4786187298196775,
+   "q_perp_value": 0.001404083352780674,
+   "rgre": "cubic",
+   "reason": "ok",
+   "ranked": [
+    "cubic",
+    "step1",
+    "sin2",
+    "bump"
+   ],
+   "oracle": "cubic",
+   "oracle_cost": "cubic",
+   "oracle_drop": 0.22852546048254624,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.7036002946905606,
+    "cheapest": 0.016424265733564883,
+    "gradnorm": 0.3290347039607047,
+    "mp_value": 0.37606008196449353,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 0.37606008196449353,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.46906686312704043,
+    "cheapest": 0.032848531467129766,
+    "gradnorm": 0.43871293861427296,
+    "mp_value": 0.37606008196449353,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 0.37606008196449353,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "bump",
+    "cheapest": "abs2",
+    "gradnorm": "step1",
+    "mp_value": "quad",
+    "rgre": "cubic",
+    "rgre_nogate": "cubic",
+    "rgre_value": "quad",
+    "oracle": "cubic"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.3100709018190317,
+   "defer": {
+    "mag": 0.2908756457000219,
+    "orth": 0.2747470713072021,
+    "orth_global": 0.27412859749649326,
+    "random": 0.283785414851849,
+    "none": 0.283372982808819
+   },
+   "two": {
+    "consumer": {
+     "steps": [
+      {
+       "pick": "cubic",
+       "e_before": 0.5385963623015779,
+       "e_after": 0.3100709018190317,
+       "q_perp": 0.4786187298196775
+      },
+      {
+       "pick": "quad",
+       "e_before": 0.3100709018190317,
+       "e_after": 0.12683901366902464,
+       "q_perp": 0.33124187627506085
+      }
+     ],
+     "e_final": 0.12683901366902464,
+     "e_oracle2": 0.116350552583793,
+     "found": 2,
+     "recovery": 0.9751602956291224
+    },
+    "field": {
+     "steps": [
+      {
+       "pick": "quad",
+       "e_before": 0.5385963623015779,
+       "e_after": 0.45265705890153796,
+       "q_perp": 0.001404083352780674
+      },
+      {
+       "pick": "cubic",
+       "e_before": 0.45265705890153796,
+       "e_after": 0.116350552583793,
+       "q_perp": 0.022131215965518782
+      }
+     ],
+     "e_final": 0.116350552583793,
+     "e_oracle2": 0.116350552583793,
+     "found": 2,
+     "recovery": 1.0
+    }
+   }
+  },
+  {
+   "name": "two_pair_exp3_3",
+   "kind": "two",
+   "missing": [
+    "pair",
+    "exp3"
+   ],
+   "oov": null,
+   "e0": 0.7662484370738476,
+   "q_perp": 0.7301473152325447,
+   "q_perp_value": 0.000586269274332557,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "bump",
+   "oracle_cost": "exp3",
+   "oracle_drop": 0.17070913517873076,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 1.0,
+    "cheapest": 0.29615154001619914,
+    "gradnorm": 0.7602633828586038,
+    "mp_value": 0.7584456735078876,
+    "rgre": 0.0,
+    "rgre_nogate": 0.29615154001619914,
+    "rgre_value": 0.7584456735078876,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.5404832863944888,
+    "cheapest": 0.48019487285623286,
+    "gradnorm": 0.6163644775392145,
+    "mp_value": 0.6148908152538369,
+    "rgre": 0.0,
+    "rgre_nogate": 0.48019487285623286,
+    "rgre_value": 0.6148908152538369,
+    "oracle": 0.5404832863944888
+   },
+   "picks": {
+    "random": "bump",
+    "cheapest": "abs2",
+    "gradnorm": "quad",
+    "mp_value": "cubic",
+    "rgre": null,
+    "rgre_nogate": "abs2",
+    "rgre_value": "cubic",
+    "oracle": "bump"
+   },
+   "repairs_evaluated": 0,
+   "e_after": 0.7662484370738476,
+   "defer": {
+    "mag": 0.8086867581679165,
+    "orth": 0.8213772404175568,
+    "orth_global": 0.8503052105348323,
+    "random": 0.9024480561026652,
+    "none": 0.8772504664032024
+   },
+   "two": {
+    "consumer": {
+     "steps": [
+      {
+       "pick": "abs2",
+       "e_before": 0.7662484370738476,
+       "e_after": 0.715692663795833,
+       "q_perp": 0.7301473152325447
+      },
+      {
+       "pick": "sin2",
+       "e_before": 0.715692663795833,
+       "e_after": 0.6904804979553373,
+       "q_perp": 0.8044192620582732
+      }
+     ],
+     "e_final": 0.6904804979553373,
+     "e_oracle2": 0.6510009508668942,
+     "found": 0,
+     "recovery": 0.6574368050202116
+    },
+    "field": {
+     "steps": [
+      {
+       "pick": "cubic",
+       "e_before": 0.7662484370738476,
+       "e_after": 0.6367748320692661,
+       "q_perp": 0.000586269274332557
+      },
+      {
+       "pick": "quad",
+       "e_before": 0.6367748320692661,
+       "e_after": 0.4872122740420257,
+       "q_perp": 0.0021403220746093266
+      }
+     ],
+     "e_final": 0.4872122740420257,
+     "e_oracle2": 0.6510009508668942,
+     "found": 0,
+     "recovery": 2.421190884205043
+    }
+   }
+  },
+  {
+   "name": "two_abs2_cubic_4",
+   "kind": "two",
+   "missing": [
+    "abs2",
+    "cubic"
+   ],
+   "oov": null,
+   "e0": 1.0558221994405161,
+   "q_perp": 0.4750810187334611,
+   "q_perp_value": 0.009655700446565307,
+   "rgre": "abs2",
+   "reason": "ok",
+   "ranked": [
+    "abs2",
+    "cubic",
+    "quad",
+    "step1"
+   ],
+   "oracle": "bump",
+   "oracle_cost": "abs2",
+   "oracle_drop": 0.4548641565938608,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.561427120413358,
+    "cheapest": 0.8052494632932089,
+    "gradnorm": 0.7676257586074835,
+    "mp_value": 0.7676257586074835,
+    "rgre": 0.8052494632932089,
+    "rgre_nogate": 0.8052494632932089,
+    "rgre_value": 0.7676257586074835,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.4648059564194375,
+    "cheapest": 1.0,
+    "gradnorm": 0.4766384788809069,
+    "mp_value": 0.4766384788809069,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 0.4766384788809069,
+    "oracle": 0.41395039491253827
+   },
+   "picks": {
+    "random": "sin1",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "cubic",
+    "rgre": "abs2",
+    "rgre_nogate": "abs2",
+    "rgre_value": "cubic",
+    "oracle": "bump"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.6895430814719916,
+   "defer": {
+    "mag": 0.6546939701954998,
+    "orth": 0.711192359462682,
+    "orth_global": 0.6242139644146064,
+    "random": 0.6444343238198718,
+    "none": 0.6632938270278321
+   },
+   "two": {
+    "consumer": {
+     "steps": [
+      {
+       "pick": "abs2",
+       "e_before": 1.0558221994405161,
+       "e_after": 0.6895430814719916,
+       "q_perp": 0.4750810187334611
+      },
+      {
+       "pick": "sin1",
+       "e_before": 0.6895430814719916,
+       "e_after": 0.48625332771237717,
+       "q_perp": 0.66510248911902
+      }
+     ],
+     "e_final": 0.48625332771237717,
+     "e_oracle2": 0.1877907245812314,
+     "found": 1,
+     "recovery": 0.6561615427833085
+    },
+    "field": {
+     "steps": [
+      {
+       "pick": "cubic",
+       "e_before": 1.0558221994405161,
+       "e_after": 0.7066567561718006,
+       "q_perp": 0.009655700446565307
+      },
+      {
+       "pick": "abs2",
+       "e_before": 0.7066567561718006,
+       "e_after": 0.3359290448455353,
+       "q_perp": 0.06824308318099552
+      }
+     ],
+     "e_final": 0.3359290448455353,
+     "e_oracle2": 0.1877907245812314,
+     "found": 2,
+     "recovery": 0.8293399207807316
+    }
+   }
+  },
+  {
+   "name": "two_abs2_sin1_5",
+   "kind": "two",
+   "missing": [
+    "abs2",
+    "sin1"
+   ],
+   "oov": null,
+   "e0": 0.6707086989538841,
+   "q_perp": 0.3547142799416399,
+   "q_perp_value": 0.004593424705023019,
+   "rgre": "step1",
+   "reason": "ok",
+   "ranked": [
+    "step1",
+    "sin1",
+    "abs2",
+    "quad"
+   ],
+   "oracle": "sin1",
+   "oracle_cost": "sin1",
+   "oracle_drop": 0.2809834059458696,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.5475051347259157,
+    "cheapest": 0.136449860302787,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.18123750468390218,
+    "rgre_nogate": 0.18123750468390218,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.27375256736295783,
+    "cheapest": 0.2046747904541805,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.1812375046839022,
+    "rgre_nogate": 0.1812375046839022,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "bump",
+    "cheapest": "abs2",
+    "gradnorm": "sin1",
+    "mp_value": "sin1",
+    "rgre": "step1",
+    "rgre_nogate": "step1",
+    "rgre_value": "sin1",
+    "oracle": "sin1"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.6197839676026707,
+   "defer": {
+    "mag": 0.33201928240413786,
+    "orth": 0.5778013658990085,
+    "orth_global": 0.3368351723128632,
+    "random": 0.6323514420316854,
+    "none": 0.574801676825379
+   },
+   "two": {
+    "consumer": {
+     "steps": [
+      {
+       "pick": "step1",
+       "e_before": 0.6707086989538841,
+       "e_after": 0.6197839676026707,
+       "q_perp": 0.3547142799416399
+      },
+      {
+       "pick": "abs2",
+       "e_before": 0.6197839676026707,
+       "e_after": 0.5027351650570854,
+       "q_perp": 0.35726779957070603
+      }
+     ],
+     "e_final": 0.5027351650570854,
+     "e_oracle2": 0.15155310883939177,
+     "found": 1,
+     "recovery": 0.3235514306217035
+    },
+    "field": {
+     "steps": [
+      {
+       "pick": "sin1",
+       "e_before": 0.6707086989538841,
+       "e_after": 0.38972529300801445,
+       "q_perp": 0.004593424705023019
+      },
+      {
+       "pick": "quad",
+       "e_before": 0.38972529300801445,
+       "e_after": 0.24768648466926138,
+       "q_perp": 0.01667249228563686
+      }
+     ],
+     "e_final": 0.24768648466926138,
+     "e_oracle2": 0.15155310883939177,
+     "found": 1,
+     "recovery": 0.8148274281152039
+    }
+   }
+  },
+  {
+   "name": "two_cubic_quad_6",
+   "kind": "two",
+   "missing": [
+    "cubic",
+    "quad"
+   ],
+   "oov": null,
+   "e0": 0.5446472841323441,
+   "q_perp": 0.45796521997084,
+   "q_perp_value": 0.0012008890624267267,
+   "rgre": "sin1",
+   "reason": "ok",
+   "ranked": [
+    "sin1",
+    "step1",
+    "cubic",
+    "quad"
+   ],
+   "oracle": "quad",
+   "oracle_cost": "quad",
+   "oracle_drop": 0.16011508182601125,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.6603265260480612,
+    "cheapest": -0.022543898676576562,
+    "gradnorm": 0.7042808606844675,
+    "mp_value": 0.6603265260480612,
+    "rgre": 0.5966081863361539,
+    "rgre_nogate": 0.5966081863361539,
+    "rgre_value": 0.6603265260480612,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.6603265260480612,
+    "cheapest": -0.045087797353153124,
+    "gradnorm": 0.9390411475792899,
+    "mp_value": 0.6603265260480612,
+    "rgre": 0.7954775817815385,
+    "rgre_nogate": 0.7954775817815385,
+    "rgre_value": 0.6603265260480612,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "cubic",
+    "cheapest": "exp3",
+    "gradnorm": "step1",
+    "mp_value": "cubic",
+    "rgre": "sin1",
+    "rgre_nogate": "sin1",
+    "rgre_value": "cubic",
+    "oracle": "quad"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.44912131555906265,
+   "defer": {
+    "mag": 0.4336745159457991,
+    "orth": 0.4514046601478076,
+    "orth_global": 0.43193618717715154,
+    "random": 0.4271941495816885,
+    "none": 0.4380847757540684
+   },
+   "two": {
+    "consumer": {
+     "steps": [
+      {
+       "pick": "sin1",
+       "e_before": 0.5446472841323441,
+       "e_after": 0.44912131555906265,
+       "q_perp": 0.45796521997084
+      },
+      {
+       "pick": "quad",
+       "e_before": 0.44912131555906265,
+       "e_after": 0.29042432957750414,
+       "q_perp": 0.7683432532919933
+      }
+     ],
+     "e_final": 0.29042432957750414,
+     "e_oracle2": 0.10763010778950574,
+     "found": 1,
+     "recovery": 0.5817230267292812
+    },
+    "field": {
+     "steps": [
+      {
+       "pick": "cubic",
+       "e_before": 0.5446472841323441,
+       "e_after": 0.438919048382273,
+       "q_perp": 0.0012008890624267267
+      },
+      {
+       "pick": "quad",
+       "e_before": 0.438919048382273,
+       "e_after": 0.1197725884179275,
+       "q_perp": 0.01710408806846236
+      }
+     ],
+     "e_final": 0.1197725884179275,
+     "e_oracle2": 0.10763010778950574,
+     "found": 2,
+     "recovery": 0.9722150952279826
+    }
+   }
+  },
+  {
+   "name": "two_sin2_cubic_7",
+   "kind": "two",
+   "missing": [
+    "sin2",
+    "cubic"
+   ],
+   "oov": null,
+   "e0": 0.9684593324708698,
+   "q_perp": 0.7527135425783582,
+   "q_perp_value": 0.04209553302373917,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "cubic",
+   "oracle_cost": "cubic",
+   "oracle_drop": 0.2322630292116964,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.16258478684188446,
+    "cheapest": 0.02992186792951263,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 0.3651709315563224,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.21677971578917926,
+    "cheapest": 0.05984373585902526,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 0.4868945754084299,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "sin1",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "cubic",
+    "rgre": null,
+    "rgre_nogate": "sin2",
+    "rgre_value": "cubic",
+    "oracle": "cubic"
+   },
+   "repairs_evaluated": 0,
+   "e_after": 0.9684593324708698,
+   "defer": {
+    "mag": 0.8582483417587957,
+    "orth": 0.9802961444540574,
+    "orth_global": 0.9292949761450051,
+    "random": 0.9486560887759911,
+    "none": 0.9378771097663258
+   },
+   "two": {
+    "consumer": {
+     "steps": [
+      {
+       "pick": "sin2",
+       "e_before": 0.9684593324708698,
+       "e_after": 0.8836436257275413,
+       "q_perp": 0.7527135425783582
+      },
+      {
+       "pick": "sin1",
+       "e_before": 0.8836436257275413,
+       "e_after": 0.8423809973624016,
+       "q_perp": 0.8217623647476373
+      }
+     ],
+     "e_final": 0.8423809973624016,
+     "e_oracle2": 0.7319326060164698,
+     "found": 1,
+     "recovery": 0.5330405447131358
+    },
+    "field": {
+     "steps": [
+      {
+       "pick": "cubic",
+       "e_before": 0.9684593324708698,
+       "e_after": 0.7361963032591734,
+       "q_perp": 0.04209553302373917
+      },
+      {
+       "pick": "abs2",
+       "spent": true
+      },
+      {
+       "pick": "sin2",
+       "spent": true
+      }
+     ],
+     "e_final": 0.7361963032591734,
+     "e_oracle2": 0.7319326060164698,
+     "found": 1,
+     "recovery": 0.9819737189677565
+    }
+   }
+  },
+  {
+   "name": "oov_prodfreq_0",
+   "kind": "oov",
+   "missing": [],
+   "oov": "prodfreq",
+   "e0": 0.45459686167570484,
+   "q_perp": 0.47848790336872704,
+   "q_perp_value": 0.13929548132655303,
+   "rgre": "pair",
+   "reason": "ok",
+   "ranked": [
+    "pair",
+    "sin2",
+    "abs2",
+    "sin1"
+   ],
+   "oracle": "pair",
+   "oracle_cost": "pair",
+   "oracle_drop": 0.2630246256662091,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.0005377494005381687,
+    "cheapest": 0.0309719667020001,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.0008066241008072532,
+    "cheapest": 0.0929159001060003,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "cubic",
+    "cheapest": "abs2",
+    "gradnorm": "pair",
+    "mp_value": "pair",
+    "rgre": "pair",
+    "rgre_nogate": "pair",
+    "rgre_value": "pair",
+    "oracle": "pair"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.19157223600949574,
+   "defer": {
+    "mag": 0.0919780916929043,
+    "orth": 0.0919780916929043,
+    "orth_global": 0.0919780916929043,
+    "random": 0.11481451356008297,
+    "none": 0.12653001616965454
+   }
+  },
+  {
+   "name": "oov_xor_1",
+   "kind": "oov",
+   "missing": [],
+   "oov": "xor",
+   "e0": 0.4815821855476299,
+   "q_perp": 0.8735918630575477,
+   "q_perp_value": 0.9580510533023017,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "bump",
+   "oracle_cost": "bump",
+   "oracle_drop": 0.03407558603185501,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.01042227832395444,
+    "cheapest": 0.039301950854083695,
+    "gradnorm": 0.0032635604512419635,
+    "mp_value": 0.028495516593218306,
+    "rgre": 0.0,
+    "rgre_nogate": 0.028495516593218306,
+    "rgre_value": 0.028495516593218306,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.01563341748593166,
+    "cheapest": 0.11790585256225107,
+    "gradnorm": 0.006527120902483927,
+    "mp_value": 0.056991033186436606,
+    "rgre": 0.0,
+    "rgre_nogate": 0.056991033186436606,
+    "rgre_value": 0.056991033186436606,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "quad",
+    "cheapest": "abs2",
+    "gradnorm": "step1",
+    "mp_value": "sin2",
+    "rgre": null,
+    "rgre_nogate": "sin2",
+    "rgre_value": "sin2",
+    "oracle": "bump"
+   },
+   "repairs_evaluated": 0,
+   "e_after": 0.4815821855476299,
+   "defer": {
+    "mag": 0.2891489706013185,
+    "orth": 0.3774602497399016,
+    "orth_global": 0.2891489706013185,
+    "random": 0.32413421030149764,
+    "none": 0.34052057408917713
+   }
+  },
+  {
+   "name": "oov_spiral_2",
+   "kind": "oov",
+   "missing": [],
+   "oov": "spiral",
+   "e0": 0.6290690730339726,
+   "q_perp": 0.9270750173336305,
+   "q_perp_value": 0.5356871032538911,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "pair",
+   "oracle_cost": "pair",
+   "oracle_drop": 0.03521107727771455,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.004232806678121727,
+    "cheapest": -0.024002142227243936,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.004232806678121726,
+    "cheapest": -0.07200642668173181,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "bump",
+    "cheapest": "abs2",
+    "gradnorm": "pair",
+    "mp_value": "pair",
+    "rgre": null,
+    "rgre_nogate": "pair",
+    "rgre_value": "pair",
+    "oracle": "pair"
+   },
+   "repairs_evaluated": 0,
+   "e_after": 0.6290690730339726,
+   "defer": {
+    "mag": 0.6243174756382818,
+    "orth": 0.6225636675301806,
+    "orth_global": 0.6208531685122677,
+    "random": 0.6491943304655946,
+    "none": 0.6447779717437111
+   }
+  },
+  {
+   "name": "oov_ridge_3",
+   "kind": "oov",
+   "missing": [],
+   "oov": "ridge",
+   "e0": 0.32889216572188024,
+   "q_perp": 0.40255559410545066,
+   "q_perp_value": 0.33732187379025286,
+   "rgre": "abs2",
+   "reason": "ok",
+   "ranked": [
+    "abs2",
+    "step1",
+    "bump",
+    "quad"
+   ],
+   "oracle": "bump",
+   "oracle_cost": "sin1",
+   "oracle_drop": 0.09498936870447469,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.5069135857156838,
+    "cheapest": 0.5069135857156838,
+    "gradnorm": 0.5929278270803501,
+    "mp_value": 1.0,
+    "rgre": 0.5069135857156838,
+    "rgre_nogate": 0.5069135857156838,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.9889945771384936,
+    "cheapest": 0.9889945771384936,
+    "gradnorm": 0.5784047046096299,
+    "mp_value": 0.6503373914919417,
+    "rgre": 0.9889945771384936,
+    "rgre_nogate": 0.9889945771384936,
+    "rgre_value": 0.6503373914919417,
+    "oracle": 0.6503373914919417
+   },
+   "picks": {
+    "random": "abs2",
+    "cheapest": "abs2",
+    "gradnorm": "quad",
+    "mp_value": "bump",
+    "rgre": "abs2",
+    "rgre_nogate": "abs2",
+    "rgre_value": "bump",
+    "oracle": "bump"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.2807407642270258,
+   "defer": {
+    "mag": 0.20767899802533926,
+    "orth": 0.206233996480739,
+    "orth_global": 0.20758696595434353,
+    "random": 0.2087598197487655,
+    "none": 0.21008054836391277
+   }
+  },
+  {
+   "name": "oov_prodfreq_4",
+   "kind": "oov",
+   "missing": [],
+   "oov": "prodfreq",
+   "e0": 0.579113776707759,
+   "q_perp": 0.7459933559456476,
+   "q_perp_value": 0.13802945636711597,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "pair",
+   "oracle_cost": "pair",
+   "oracle_drop": 0.3451803094973932,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.015282865262994319,
+    "cheapest": 0.00044185438162781576,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.045848595788982954,
+    "cheapest": 0.0013255631448834473,
+    "gradnorm": 1.0,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "exp3",
+    "cheapest": "abs2",
+    "gradnorm": "pair",
+    "mp_value": "pair",
+    "rgre": null,
+    "rgre_nogate": "pair",
+    "rgre_value": "pair",
+    "oracle": "pair"
+   },
+   "repairs_evaluated": 0,
+   "e_after": 0.579113776707759,
+   "defer": {
+    "mag": 0.431659336886905,
+    "orth": 0.431659336886905,
+    "orth_global": 0.431659336886905,
+    "random": 0.5425927806905106,
+    "none": 0.5553598937004379
+   }
+  },
+  {
+   "name": "oov_xor_5",
+   "kind": "oov",
+   "missing": [],
+   "oov": "xor",
+   "e0": 0.5688667718830471,
+   "q_perp": 0.8895362225383632,
+   "q_perp_value": 0.9475874883283707,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "bump",
+   "oracle_cost": "bump",
+   "oracle_drop": 0.06449597332999568,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.11182420140686243,
+    "cheapest": 0.07868241597368282,
+    "gradnorm": 0.16396185291432983,
+    "mp_value": 0.13752372010594974,
+    "rgre": 0.0,
+    "rgre_nogate": 0.16396185291432983,
+    "rgre_value": 0.13752372010594974,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.16773630211029367,
+    "cheapest": 0.23604724792104848,
+    "gradnorm": 0.32792370582865965,
+    "mp_value": 0.20628558015892462,
+    "rgre": 0.0,
+    "rgre_nogate": 0.32792370582865965,
+    "rgre_value": 0.20628558015892462,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "cubic",
+    "cheapest": "abs2",
+    "gradnorm": "sin1",
+    "mp_value": "quad",
+    "rgre": null,
+    "rgre_nogate": "sin1",
+    "rgre_value": "quad",
+    "oracle": "bump"
+   },
+   "repairs_evaluated": 0,
+   "e_after": 0.5688667718830471,
+   "defer": {
+    "mag": 0.4131522973154161,
+    "orth": 0.5551883530958625,
+    "orth_global": 0.4131522973154161,
+    "random": 0.48221415950727253,
+    "none": 0.5085776992399514
+   }
+  },
+  {
+   "name": "oov_spiral_6",
+   "kind": "oov",
+   "missing": [],
+   "oov": "spiral",
+   "e0": 0.5665275168575935,
+   "q_perp": 0.814503897858159,
+   "q_perp_value": 0.5112013574102063,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "pair",
+   "oracle_cost": "pair",
+   "oracle_drop": 0.054859561004502955,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.0945908171813743,
+    "cheapest": 0.014033739388443354,
+    "gradnorm": 0.014033739388443354,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 0.014033739388443354,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.14188622577206145,
+    "cheapest": 0.042101218165330065,
+    "gradnorm": 0.042101218165330065,
+    "mp_value": 1.0,
+    "rgre": 0.0,
+    "rgre_nogate": 0.042101218165330065,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "quad",
+    "cheapest": "abs2",
+    "gradnorm": "abs2",
+    "mp_value": "pair",
+    "rgre": null,
+    "rgre_nogate": "abs2",
+    "rgre_value": "pair",
+    "oracle": "pair"
+   },
+   "repairs_evaluated": 0,
+   "e_after": 0.5665275168575935,
+   "defer": {
+    "mag": 0.4942925609942409,
+    "orth": 0.5074863129144653,
+    "orth_global": 0.4942925609942409,
+    "random": 0.5207251086624861,
+    "none": 0.5145091985171019
+   }
+  },
+  {
+   "name": "oov_ridge_7",
+   "kind": "oov",
+   "missing": [],
+   "oov": "ridge",
+   "e0": 0.4736208689378158,
+   "q_perp": 0.5392233506278014,
+   "q_perp_value": 0.3586522796977187,
+   "rgre": "step1",
+   "reason": "ok",
+   "ranked": [
+    "step1",
+    "quad",
+    "sin1",
+    "exp3"
+   ],
+   "oracle": "sin1",
+   "oracle_cost": "sin1",
+   "oracle_drop": 0.08305278465503524,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.027228449248168772,
+    "cheapest": 0.24759876209188145,
+    "gradnorm": 0.9334111496853752,
+    "mp_value": 0.9334111496853752,
+    "rgre": 0.9334111496853752,
+    "rgre_nogate": 0.9334111496853752,
+    "rgre_value": 0.9334111496853752,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.02042133693612658,
+    "cheapest": 0.37139814313782216,
+    "gradnorm": 0.9334111496853752,
+    "mp_value": 0.9334111496853752,
+    "rgre": 0.9334111496853752,
+    "rgre_nogate": 0.9334111496853752,
+    "rgre_value": 0.9334111496853752,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "cubic",
+    "cheapest": "exp3",
+    "gradnorm": "step1",
+    "mp_value": "step1",
+    "rgre": "step1",
+    "rgre_nogate": "step1",
+    "rgre_value": "step1",
+    "oracle": "sin1"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.39609847372838747,
+   "defer": {
+    "mag": 0.3518144023434373,
+    "orth": 0.36542121731870675,
+    "orth_global": 0.3518144023434373,
+    "random": 0.3759116738326512,
+    "none": 0.37177543130045554
+   }
+  },
+  {
+   "name": "ctrl_0",
+   "kind": "control",
+   "missing": [],
+   "oov": null,
+   "e0": 0.0638610160518683,
+   "q_perp": 0.5256219661626664,
+   "q_perp_value": 0.9794775170484884,
+   "rgre": "cubic",
+   "reason": "ok",
+   "ranked": [
+    "cubic",
+    "quad",
+    "bump",
+    "exp3"
+   ],
+   "oracle": "exp3",
+   "oracle_cost": "exp3",
+   "oracle_drop": 0.02532476233914034,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": 0.00018780471417257144,
+    "cheapest": 0.00018780471417257144,
+    "gradnorm": 0.44206814860235905,
+    "mp_value": 0.00031263551633642155,
+    "rgre": 0.44206814860235905,
+    "rgre_nogate": 0.44206814860235905,
+    "rgre_value": 0.00031263551633642155,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.00018780471417257144,
+    "cheapest": 0.00018780471417257144,
+    "gradnorm": 0.22103407430117952,
+    "mp_value": 0.00020842367755761435,
+    "rgre": 0.22103407430117952,
+    "rgre_nogate": 0.22103407430117952,
+    "rgre_value": 0.00020842367755761435,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "abs2",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "step1",
+    "rgre": "cubic",
+    "rgre_nogate": "cubic",
+    "rgre_value": "step1",
+    "oracle": "exp3"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.052665745250809776,
+   "defer": {
+    "mag": 0.018869144063316363,
+    "orth": 0.01912970265494214,
+    "orth_global": 0.018869144063316363,
+    "random": 0.020304331146294066,
+    "none": 0.019948573029247543
+   }
+  },
+  {
+   "name": "ctrl_1",
+   "kind": "control",
+   "missing": [],
+   "oov": null,
+   "e0": 0.07316411605773476,
+   "q_perp": 0.6162206043597688,
+   "q_perp_value": 0.9487016323056001,
+   "rgre": null,
+   "reason": "unknown",
+   "ranked": [],
+   "oracle": "bump",
+   "oracle_cost": "bump",
+   "oracle_drop": 0.009565029974077058,
+   "abstained": true,
+   "declined": false,
+   "value": {
+    "random": 0.0004315617137206406,
+    "cheapest": 0.0013134119970190435,
+    "gradnorm": 0.0004315617137206406,
+    "mp_value": 0.0034918931369991952,
+    "rgre": 0.0,
+    "rgre_nogate": 0.0004315617137206406,
+    "rgre_value": 0.0034918931369991952,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.0004315617137206406,
+    "cheapest": 0.003940235991057131,
+    "gradnorm": 0.0004315617137206406,
+    "mp_value": 0.005237839705498793,
+    "rgre": 0.0,
+    "rgre_nogate": 0.0004315617137206406,
+    "rgre_value": 0.005237839705498793,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "pair",
+    "cheapest": "abs2",
+    "gradnorm": "pair",
+    "mp_value": "quad",
+    "rgre": null,
+    "rgre_nogate": "pair",
+    "rgre_value": "quad",
+    "oracle": "bump"
+   },
+   "repairs_evaluated": 0,
+   "e_after": 0.07316411605773476,
+   "defer": {
+    "mag": 0.019229396276643305,
+    "orth": 0.019210510295392245,
+    "orth_global": 0.019229396276643305,
+    "random": 0.02011014120666605,
+    "none": 0.02004952256163263
+   }
+  },
+  {
+   "name": "ctrl_2",
+   "kind": "control",
+   "missing": [],
+   "oov": null,
+   "e0": 0.052316334116924594,
+   "q_perp": 0.5458405908661451,
+   "q_perp_value": 0.9432743189062164,
+   "rgre": "pair",
+   "reason": "ok",
+   "ranked": [
+    "pair",
+    "quad",
+    "cubic",
+    "exp3"
+   ],
+   "oracle": "sin2",
+   "oracle_cost": "sin2",
+   "oracle_drop": 3.446613567131135e-05,
+   "abstained": false,
+   "declined": true,
+   "value": {
+    "random": 0.7690446695391031,
+    "cheapest": 0.14463430235836738,
+    "gradnorm": 0.23434889308870674,
+    "mp_value": 1.0,
+    "rgre": 0.5383769917016532,
+    "rgre_nogate": 0.5383769917016532,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": 0.5767835021543273,
+    "cheapest": 0.21695145353755108,
+    "gradnorm": 0.17576166981653005,
+    "mp_value": 1.0,
+    "rgre": 0.26918849585082655,
+    "rgre_nogate": 0.26918849585082655,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "quad",
+    "cheapest": "abs2",
+    "gradnorm": "cubic",
+    "mp_value": "sin2",
+    "rgre": "pair",
+    "rgre_nogate": "pair",
+    "rgre_value": "sin2",
+    "oracle": "sin2"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.052316334116924594,
+   "defer": {
+    "mag": 0.018448612307183726,
+    "orth": 0.018579026611684774,
+    "orth_global": 0.018448612307183726,
+    "random": 0.019377206402096295,
+    "none": 0.019150441802267368
+   }
+  },
+  {
+   "name": "ctrl_3",
+   "kind": "control",
+   "missing": [],
+   "oov": null,
+   "e0": 0.06379624298023194,
+   "q_perp": 0.5804986953678893,
+   "q_perp_value": 0.9652708480218013,
+   "rgre": "pair",
+   "reason": "ok",
+   "ranked": [
+    "pair",
+    "quad",
+    "step1",
+    "abs2"
+   ],
+   "oracle": "pair",
+   "oracle_cost": "pair",
+   "oracle_drop": 0.011224370505595223,
+   "abstained": false,
+   "declined": false,
+   "value": {
+    "random": -0.8454336831769471,
+    "cheapest": -0.84532900891092,
+    "gradnorm": 0.0019060651743313605,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "value_per_cost": {
+    "random": -1.6908673663538942,
+    "cheapest": -2.53598702673276,
+    "gradnorm": 0.002859097761497041,
+    "mp_value": 1.0,
+    "rgre": 1.0,
+    "rgre_nogate": 1.0,
+    "rgre_value": 1.0,
+    "oracle": 1.0
+   },
+   "picks": {
+    "random": "step1",
+    "cheapest": "abs2",
+    "gradnorm": "quad",
+    "mp_value": "pair",
+    "rgre": "pair",
+    "rgre_nogate": "pair",
+    "rgre_value": "pair",
+    "oracle": "pair"
+   },
+   "repairs_evaluated": 1,
+   "e_after": 0.05257187247463672,
+   "defer": {
+    "mag": 0.019912162807590835,
+    "orth": 0.019912162807590835,
+    "orth_global": 0.019912162807590835,
+    "random": 0.020863055265561214,
+    "none": 0.020871644285244986
+   }
+  }
+ ],
+ "summary": {
+  "value_rgre": 0.7009288248146814,
+  "value_mean_rgre": 0.5671213154380358,
+  "value_random": 0.3473280203699627,
+  "value_cheapest": 0.11020233060066364,
+  "value_gradnorm": 0.7639445707330437,
+  "value_mp_value": 1.0,
+  "value_rgre_nogate": 0.8765933981304499,
+  "value_rgre_value": 1.0,
+  "value_rgre_notabstained": 0.9707336888335832,
+  "identity_nogate": 0.5,
+  "identity_value": 0.8333333333333334,
+  "identity_mp": 0.8333333333333334,
+  "ctrl_declined_or_abstained": 0.5,
+  "q_perp_auc": 0.8365384615384616,
+  "q_perp_value_auc": 0.9903846153846154,
+  "search_fraction": 0.1,
+  "identity": 0.3888888888888889,
+  "oracle_identity": 0.9444444444444444,
+  "two_step_recovery_consumer": 0.65679917390176,
+  "two_step_recovery_field": 0.9770944070978695,
+  "two_step_found_field": 1.25,
+  "oov_abstain": 0.625,
+  "known_false_abstain": 0.23076923076923078,
+  "ctrl_abstain": 0.25,
+  "q_perp_known": 0.4423989009522201,
+  "q_perp_oov": 0.7802486269019033,
+  "defer_oov_orth": 0.4045597933134033,
+  "defer_oov_mag": 0.38248334982942667,
+  "defer_oov_random": 0.4290629166699619,
+  "defer_oov_orth_global": 0.38248334982942667,
+  "defer_oov_orth_wins": 0.25,
+  "defer_oov_orthg_wins": 0.25,
+  "defer_iso_orth": 0.17823097738092156,
+  "defer_iso_mag": 0.16049733548642686,
+  "defer_iso_random": 0.18387187828813706,
+  "defer_iso_orth_global": 0.1741475662691123,
+  "defer_iso_orth_wins": 0.3888888888888889,
+  "defer_iso_orthg_wins": 0.3888888888888889
+ }
+}

@@ -1,0 +1,7 @@
+ignition          column f6 0.6613 best-known 0.580  corr late 0.756 full 0.729  heat wrong 18.2%  ai wrong 14.7%  ignition missed 66.7%
+delayed_ignition  column f6 0.6345 best-known 0.626  corr late 0.708 full 0.722  heat wrong 18.9%  ai wrong 14.1%  ignition missed 55.6%
+full              column f6 0.5953 best-known 0.590  corr late 0.766 full 0.706  heat wrong 17.1%  ai wrong 10.7%  ignition missed 27.8%
+twin              column f6 0.5033 best-known 0.503  corr late 0.858 full 0.863  heat wrong 9.8%  ai wrong 11.3%
+shelf_bed         column f6 0.7186 best-known 0.615  corr late 0.722 full 0.733  heat wrong 15.6%  ai wrong 10.3%  ignition missed 0.0%
+split             column f6 0.4111 best-known 0.411  corr late 0.736 full 0.749  heat wrong 0.2%  ai wrong 0.9%
+shutoff           column f6 0.5511 best-known 0.551  corr late nan full 0.772  heat wrong 3.6%  ai wrong 2.6%

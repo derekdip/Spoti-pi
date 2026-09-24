@@ -1,0 +1,94 @@
+[     9s] ignition: V0 0.8152
+[   765s] ignition standard fit 0.4810 (de 0.481, two_stage 0.594) -> linear 0.4810 live 26 motion 0.45 756s | visual 0.628, heat 0.263, ignition 0.325, ai 0.597
+[   765s] ignition standard heat wrong 12.3% ai wrong 9.8% ignition missed 5.6% glow corr 0.73
+[  1411s] ignition look     fit 0.5416 (de 0.542, two_stage 0.619) -> linear 0.5890 live 21 motion 0.07 647s | visual 0.883, heat 0.325, ignition 0.356, ai 0.613
+[  1411s] ignition look     heat wrong 11.1% ai wrong 9.1% ignition missed 0.0% glow corr 0.39
+[  1415s]    step 0: pick bed      E 0.8152->0.8062 (1 tried) 3.6s
+[  1419s]    step 1: pick bed      E 0.8062->0.7716 (1 tried) 3.6s
+[  1424s]    step 2: pick wind     E 0.7716->0.7339 (2 tried) 4.9s
+[  1426s]    step 3: pick base     E 0.7339->0.7070 (1 tried) 2.2s
+[  1433s]    step 4: pick cool     E 0.7070->0.6905 (5 tried) 7.0s
+[  1437s]    step 5: pick width    E 0.6905->0.6777 (2 tried) 4.8s
+[  1442s]    step 6: pick rise     E 0.6777->0.6566 (3 tried) 4.6s
+[  1449s]    step 7: pick width    E 0.6566->0.6477 (3 tried) 6.6s
+[  1453s] ignition: greedy 0.6477 after 9 steps (exhausted), 0.501 of the floor's reduction
+[  1461s] delayed_ignition: V0 0.8450
+[  2142s] delayed_ignition standard fit 0.5766 (de 0.675, two_stage 0.577) -> linear 0.5766 live 32 motion 0.52 681s | visual 0.595, heat 0.269, ignition 0.650, ai 0.694
+[  2142s] delayed_ignition standard heat wrong 16.2% ai wrong 12.6% ignition missed 11.1% glow corr 0.75
+[  2830s] delayed_ignition look     fit 0.5772 (de 0.577, two_stage 0.753) -> linear 0.5855 live 30 motion 0.07 688s | visual 0.730, heat 0.320, ignition 0.481, ai 0.710
+[  2830s] delayed_ignition look     heat wrong 17.8% ai wrong 13.2% ignition missed 11.1% glow corr 0.61
+[  2833s]    step 0: pick wind     E 0.8450->0.8139 (2 tried) 3.4s
+[  2834s]    step 1: pick base     E 0.8139->0.7876 (1 tried) 1.5s
+[  2837s]    step 2: pick cool     E 0.7876->0.7705 (2 tried) 3.0s
+[  2841s]    step 3: pick width    E 0.7705->0.7543 (1 tried) 3.1s
+[  2844s]    step 4: pick rise     E 0.7543->0.7429 (3 tried) 3.5s
+[  2847s]    step 5: pick cool     E 0.7429->0.7321 (1 tried) 2.5s
+[  2855s] delayed_ignition: greedy 0.7321 after 7 steps (exhausted), 0.420 of the floor's reduction
+[  2862s] full: V0 0.8404
+[  3545s] full standard fit 0.4698 (de 0.470, two_stage 0.529) -> linear 0.4698 live 7 motion 0.80 683s | visual 0.632, heat 0.261, ignition 0.253, ai 0.592
+[  3545s] full standard heat wrong 9.4% ai wrong 6.9% ignition missed 11.1% glow corr 0.75
+[  4199s] full look     fit 0.4618 (de 0.462, two_stage 0.477) -> linear 0.4833 live 6 motion 0.80 654s | visual 0.632, heat 0.290, ignition 0.283, ai 0.608
+[  4199s] full look     heat wrong 9.5% ai wrong 7.0% ignition missed 5.6% glow corr 0.76
+[  4204s]    step 0: pick deflect  E 0.8404->0.7871 (2 tried) 5.0s
+[  4207s]    step 1: pick wind     E 0.7871->0.7432 (2 tried) 2.6s
+[  4208s]    step 2: pick base     E 0.7432->0.7143 (1 tried) 1.8s
+[  4212s]    step 3: pick width    E 0.7143->0.6922 (1 tried) 3.5s
+[  4215s]    step 4: pick soot     E 0.6922->0.6805 (1 tried) 3.0s
+[  4222s]    step 5: pick rise     E 0.6805->0.5535 (7 tried) 7.4s
+[  4229s]    step 6: pick width    E 0.5535->0.5411 (3 tried) 6.6s
+[  4232s]    step 7: pick cool     E 0.5411->0.5312 (1 tried) 3.0s
+[  4238s]    step 8: pick width    E 0.5312->0.5247 (3 tried) 5.9s
+[  4240s] full: greedy 0.5247 after 10 steps (exhausted), 0.852 of the floor's reduction
+[  4248s] twin: V0 0.7624
+[  4858s] twin standard fit 0.4542 (de 0.454, two_stage 0.524) -> linear 0.4542 live 16 motion 0.44 610s | visual 0.540, heat 0.260, ai 0.510
+[  4858s] twin standard heat wrong 12.0% ai wrong 7.3% glow corr 0.83
+[  5484s] twin look     fit 0.3740 (de 0.374, two_stage 0.541) -> linear 0.4018 live 13 motion 0.50 626s | visual 0.478, heat 0.224, ai 0.454
+[  5484s] twin look     heat wrong 6.8% ai wrong 6.7% glow corr 0.91
+[  5486s]    step 0: pick profile  E 0.7624->0.6807 (1 tried) 2.1s
+[  5488s]    step 1: pick attract  E 0.6807->0.5887 (1 tried) 2.2s
+[  5492s]    step 2: pick width    E 0.5887->0.5172 (1 tried) 3.3s
+[  5495s]    step 3: pick amp      E 0.5172->0.4750 (2 tried) 3.1s
+[  5497s]    step 4: pick base     E 0.4750->0.4542 (1 tried) 1.9s
+[  5502s]    step 5: pick width    E 0.4542->0.4405 (2 tried) 5.5s
+[  5509s]    step 6: pick rise     E 0.4405->0.4170 (5 tried) 6.5s
+[  5514s]    step 7: pick rate     E 0.4170->0.4116 (4 tried) 5.1s
+[  5517s] twin: greedy 0.4116 after 9 steps (exhausted), 1.138 of the floor's reduction
+[  5524s] shelf_bed: V0 0.8544
+[  6188s] shelf_bed standard fit 0.4945 (de 0.564, two_stage 0.494) -> linear 0.4945 live 30 motion 0.44 664s | visual 0.685, heat 0.282, ignition 0.276, ai 0.594
+[  6188s] shelf_bed standard heat wrong 11.5% ai wrong 7.6% ignition missed 0.0% glow corr 0.68
+[  6901s] shelf_bed look     fit 0.5269 (de 0.558, two_stage 0.527) -> linear 0.5830 live 30 motion 0.35 712s | visual 0.830, heat 0.308, ignition 0.317, ai 0.689
+[  6901s] shelf_bed look     heat wrong 13.4% ai wrong 9.2% ignition missed 0.0% glow corr 0.54
+[  6905s]    step 0: pick deflect  E 0.8544->0.7966 (2 tried) 4.5s
+[  6908s]    step 1: pick wind     E 0.7966->0.7778 (2 tried) 3.0s
+[  6910s]    step 2: pick base     E 0.7778->0.7543 (1 tried) 1.9s
+[  6915s]    step 3: pick width    E 0.7543->0.7466 (4 tried) 5.3s
+[  6923s]    step 4: pick rise     E 0.7466->0.7168 (6 tried) 7.9s
+[  6927s] shelf_bed: greedy 0.7168 after 6 steps (exhausted), 0.382 of the floor's reduction
+[  6936s] split: V0 1.1896
+[  7344s] split standard fit 0.4170 (de 0.417, two_stage 0.488) -> linear 0.4170 live 12 motion 0.00 409s | visual 0.655, heat 0.151, ai 0.265
+[  7344s] split standard heat wrong 0.2% ai wrong 0.9% glow corr 0.77
+[  7749s] split look     fit 0.3018 (de 0.302, two_stage 0.311) -> linear 0.4130 live 5 motion 0.00 405s | visual 0.646, heat 0.095, ai 0.292
+[  7749s] split look     heat wrong 0.2% ai wrong 1.1% glow corr 0.91
+[  7751s]    step 0: pick width    E 1.1896->0.7636 (1 tried) 2.0s
+[  7752s]    step 1: pick base     E 0.7636->0.6421 (1 tried) 1.1s
+[  7755s]    step 2: pick wind     E 0.6421->0.6170 (2 tried) 3.0s
+[  7757s]    step 3: pick wind     E 0.6170->0.6014 (1 tried) 1.9s
+[  7759s]    step 4: pick amp      E 0.6014->0.5947 (1 tried) 1.7s
+[  7761s]    step 5: pick cool     E 0.5947->0.5787 (1 tried) 2.0s
+[  7763s]    step 6: pick width    E 0.5787->0.5603 (1 tried) 2.4s
+[  7771s]    step 7: pick rise     E 0.5603->0.5501 (10 tried) 7.4s
+[  7773s] split: greedy 0.5501 after 9 steps (exhausted), 0.828 of the floor's reduction
+[  7780s] shutoff: V0 0.7774
+[  8031s] shutoff standard fit 0.5686 (de 0.569, two_stage 0.588) -> linear 0.5686 live 12 motion 0.00 251s | visual 0.704, heat 0.194, ai 0.661
+[  8031s] shutoff standard heat wrong 3.3% ai wrong 2.6% glow corr nan
+[  8263s] shutoff look     fit 0.5077 (de 0.508, two_stage 0.562) -> linear 0.5988 live 12 motion 0.00 232s | visual 0.809, heat 0.186, ai 0.621
+[  8263s] shutoff look     heat wrong 3.2% ai wrong 2.2% glow corr nan
+[  8265s]    step 0: pick wind     E 0.7774->0.7694 (1 tried) 1.5s
+[  8266s]    step 1: pick width    E 0.7694->0.6946 (1 tried) 1.7s
+[  8267s]    step 2: pick base     E 0.6946->0.6482 (1 tried) 1.0s
+[  8269s]    step 3: pick jitter   E 0.6482->0.6397 (2 tried) 1.5s
+[  8270s]    step 4: pick rate     E 0.6397->0.6135 (1 tried) 1.0s
+[  8271s]    step 5: pick cool     E 0.6135->0.6037 (1 tried) 1.3s
+[  8273s]    step 6: pick width    E 0.6037->0.5862 (1 tried) 1.6s
+[  8278s] shutoff: greedy 0.5862 after 8 steps (exhausted), 0.916 of the floor's reduction
+[  8278s] median standard floor 0.4810; median glow correlation at the look fit nan
