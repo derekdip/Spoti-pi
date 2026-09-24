@@ -72,11 +72,13 @@ rules; the label each tree returned is given as returned.
 | RGRE-ML-1b | additive models, mixed cases | 36 fresh | | | orthogonal deferral beats magnitude 64%; medians 0.367 vs 0.378 vs random 0.368 | Holds, narrowly |
 | RGRE-ML-2 | six real regression datasets | 30 splits, 240 steps | 0.48 (bar 0.90) | 0.01 | stopping AUC 0.84 vs step index 0.62; noise 30/30; deferral ties magnitude | D |
 | RGRE-ML-3 | the same splits, stopping rule | 30 | | | null-calibrated stop: wins 15 / losses 9 vs the constant, median regret 0.002 vs 0.011, mean 0.035 vs 0.014 (one extrapolation) | Half |
+| F6 | fire, both changes folded in | 15 scenes (6 unseen) | hybrid 1.00 vs projection 0.45 | 6 of 12 | terminal 14/15 wins over the selector, 0.90 of the oracle; check transfers 86%; null stop never stops | B (tree text wrong) |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
 `fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
-`rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`.
+`rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
+`f6-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -260,6 +262,21 @@ I got wrong running it, and where it is recorded.
     reads the training residual cannot foresee that, and the module's
     unbounded output is the defect (`math-track-rgre-ml3-results.md`).
 
+15. **Brought back to fire, the check works and the stop does not.** F6
+    fitted the six classes the gap table named and projected the rest:
+    per-step value went from 0.45 to 1.00 of the oracle at six repairs
+    a step instead of twelve, and the terminal state beat the arc's
+    selector on fourteen scenes of fifteen, six of them unseen, reaching
+    0.90 of the oracle's gain. What remained was the projection's
+    ranking among the small-gap classes, with F1's support templates
+    the suspect, and two classes whose gap depends on the state. The
+    shuffle-null stop ran to the budget on twelve scenes of fifteen and
+    stopped falsely once: fire's residual is structured everywhere and
+    reachable almost nowhere, so a test for structure cannot stop it.
+    The frozen tree's text for outcome B assumed the terminal state
+    could not move; it moved, and the letter stands with that noted
+    (`math-track-f6-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -283,14 +300,19 @@ Reduced to the claims that have survived every test:
   shuffle budget instead of a threshold; measured on the real datasets
   it grows where the constant stopped and declines where the constant
   grew, and its remaining failure is a module that extrapolates, which
-  no stopping rule reads (RGRE-ML-3).
+  no stopping rule reads (RGRE-ML-3). It is not a stop for fire, where
+  the residual is structured everywhere and the vocabulary is the
+  limit; there only a fitted gain says when to stop (F6).
 - Whether projection can rank a candidate is measurable before the
   run: the linearisation gap, the share of the fitted repair outside
   the tangent span. Under 0.1 the projection is the oracle; over 0.25
   the candidate must be fitted to be ranked. In fire the plume's rise
   was the oracle's first step on five scenes of nine and had a gap of
   0.98; the projection never saw it, and the arc's selection results
-  were earned on the classes it could.
+  were earned on the classes it could. Used as a rule, fit the classes
+  over the line and project the rest, it took the fire workflow to the
+  oracle's per-step value at half the oracle's cost and moved the
+  terminal state on fourteen scenes of fifteen (F6).
 - The abstention quantity, the residual energy no single candidate
   explains, is the part that transferred furthest: it separated
   shuffled from real targets on every real split and predicted a
