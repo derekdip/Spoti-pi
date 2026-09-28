@@ -75,12 +75,13 @@ rules; the label each tree returned is given as returned.
 | F6 | fire, both changes folded in | 15 scenes (6 unseen) | hybrid 1.00 vs projection 0.45 | 6 of 12 | terminal 14/15 wins over the selector, 0.90 of the oracle; check transfers 86%; null stop never stops | B (tree text wrong) |
 | F7 | fire, no templates, F4's scenes | 7 | 1.00 (mean 0.84; 0.93 with two) | 6 of 12 | terminal below F4's greedy 6/7; 0.73 of the DE floor; look unmoved | B |
 | G1 | locomotion, gait grammar, 5th domain | 14 (7 unseen) | 1.00 (mean 0.83) | 6 of 10 | identity 2/5 first step, 3/5 within two; mirrors 1/4; consumers worse 6/10 | C |
+| G2 | locomotion, exclusive classes | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; floor 0.98; consumers worse 6/10 | A |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
 `fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
-`f6-results.md`, `f7-results.md`, `g1-results.md`.
+`f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -292,6 +293,18 @@ I got wrong running it, and where it is recorded.
     classes on run-to-run variability. Three defects in the freeze are
     on record (`math-track-g1-results.md`).
 
+17. **With exclusive classes the damage is named, and the consumers
+    still lose.** G2 gave each impairment one class with a signed
+    side, let the walk base re-fit first, used the oracle, and added
+    an exclusivity table to the dictionary check. On the same fourteen
+    teachers identity went to four of four on the design bodies and
+    two of three on the mirrors, and the table had predicted the miss:
+    hop, a third absorbable by a base re-fit, was never worth a percent
+    on the right one-leg body once the base had re-fitted. Six
+    terminals of ten still worsen some consumer, the zero-tolerance
+    guard declines every repair at step zero, and the controls grow
+    impairment classes on teacher noise (`math-track-g2-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -358,9 +371,11 @@ Reduced to the claims that have survived every test:
   overlapped, in the fire's bed and wind and in the gait's hop and
   kneel and the two sides of an asymmetry, identity failed with the
   selection working. The dictionary check says whether projection can
-  rank a class; nothing yet says whether the classes are exclusive,
-  and that is the check the next grammar needs before it is grown
-  (G1).
+  rank a class. The exclusivity table, the share of one class's fitted
+  effect another can reproduce, says whether a class can be told from
+  its neighbours; built and run before G2, it predicted which
+  impairments would be named and which would not, and the run agreed
+  (G1, G2).
 
 What RGRE is good for is choosing between repairs the representation
 already contains, and saying when none of them is the answer. What it
