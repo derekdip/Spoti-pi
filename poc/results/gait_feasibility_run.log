@@ -38,3 +38,17 @@ noleg_left: nq 10 nu 7 mass 41.2 kg
   noleg_left: speed 0.70 m/s over 3s, torso z 0.96, head z 1.33, |pitch| 0.16 rad, stance {foot_r 0.31, hand_l 0.00, hand_r 0.00, thigh_r 0.19, shank_r 0.05, torso 0.00, pelvis 0.00, head 0.00}, hands 0.00, airborne 0.55 [64s]
 nolegs: nq 7 nu 4 mass 30.9 kg
   nolegs: speed 0.14 m/s over 3s, torso z 0.17, head z 0.22, |pitch| 1.41 rad, stance {hand_l 0.00, hand_r 0.13, torso 0.00, pelvis 0.85, head 0.77}, hands 0.13, airborne 0.03 [61s]
+intact: nq 13 nu 10 mass 51.5 kg
+  intact: speed 0.74 m/s over 3s, torso z 0.90, head z 1.27, |pitch| 0.11 rad, stance {foot_l 0.16, foot_r 0.50, hand_l 0.00, hand_r 0.00, thigh_l 0.32, thigh_r 0.15, shank_l 0.01, shank_r 0.00, torso 0.00, pelvis 0.00, head 0.00}, alternation 0.55, asymmetry 0.53, hands 0.00, airborne 0.12 [113s]
+weak_hip_left: nq 13 nu 10 mass 51.5 kg
+  weak_hip_left: speed 0.32 m/s over 3s, torso z 0.72, head z 1.10, |pitch| 0.13 rad, stance {foot_l 0.10, foot_r 0.07, hand_l 0.00, hand_r 0.00, thigh_l 0.70, thigh_r 0.38, shank_l 0.00, shank_r 0.01, torso 0.00, pelvis 0.00, head 0.00}, alternation 0.15, asymmetry 0.17, hands 0.00, airborne 0.07 [104s]
+locked_knee_left: nq 13 nu 10 mass 51.5 kg
+  locked_knee_left: speed 0.70 m/s over 3s, torso z 1.13, head z 1.51, |pitch| 0.08 rad, stance {foot_l 0.66, foot_r 0.68, hand_l 0.00, hand_r 0.00, thigh_l 0.00, thigh_r 0.00, shank_l 0.00, shank_r 0.00, torso 0.00, pelvis 0.00, head 0.00}, alternation 0.66, asymmetry 0.01, hands 0.00, airborne 0.00 [102s]
+short_shank_left: nq 13 nu 10 mass 50.2 kg
+  short_shank_left: speed 0.71 m/s over 3s, torso z 0.75, head z 1.13, |pitch| 0.10 rad, stance {foot_l 0.32, foot_r 0.18, hand_l 0.00, hand_r 0.00, thigh_l 0.38, thigh_r 0.31, shank_l 0.01, shank_r 0.00, torso 0.00, pelvis 0.00, head 0.00}, alternation 0.47, asymmetry 0.27, hands 0.00, airborne 0.17 [102s]
+stump_left: nq 11 nu 8 mass 46.8 kg
+  stump_left: speed 0.71 m/s over 3s, torso z 0.71, head z 1.08, |pitch| 0.14 rad, stance {foot_r 0.11, hand_l 0.00, hand_r 0.00, thigh_l 0.22, thigh_r 0.56, shank_r 0.01, torso 0.00, pelvis 0.00, head 0.00}, alternation 0.29, asymmetry 0.35, hands 0.00, airborne 0.19 [93s]
+noleg_left: nq 10 nu 7 mass 41.2 kg
+  noleg_left: speed 0.34 m/s over 3s, torso z 0.72, head z 1.09, |pitch| 0.14 rad, stance {foot_r 0.33, hand_l 0.00, hand_r 0.00, thigh_r 0.68, shank_r 0.00, torso 0.00, pelvis 0.00, head 0.00}, hands 0.00, airborne 0.20 [80s]
+nolegs: nq 7 nu 4 mass 30.9 kg
+  nolegs: speed -0.00 m/s over 3s, torso z 0.12, head z 0.10, |pitch| 1.64 rad, stance {hand_l 0.00, hand_r 0.00, torso 0.00, pelvis 1.00, head 1.00}, hands 0.00, airborne 0.00 [78s]

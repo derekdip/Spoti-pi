@@ -14,12 +14,17 @@ from __future__ import annotations
 import numpy as np
 import mujoco
 
-MORPHS = ("intact", "stump_left", "noleg_left", "nolegs")
+MORPHS = ("intact", "weak_hip_left", "locked_knee_left", "short_shank_left", "stump_left", "noleg_left", "nolegs")
+# iteration 6: a limp needs a leg that is present and impaired, so three impairments join the removals:
+#   weak_hip_left      the left hip actuator at a fifth of its gain
+#   locked_knee_left   the left knee's range closed to three degrees: a stiff leg
+#   short_shank_left   the left shank 0.16 m shorter: a leg-length discrepancy
+SHANK = 0.42
 STAND_Z = 1.16          # torso centre when standing on straight legs
 SPEED_TARGET = 0.8      # m/s, the same for every morphology
 
 
-def _leg(side, stump=False):
+def _leg(side, stump=False, shank=SHANK, knee_range=(0, 150)):
     y = 0.08 if side == "l" else -0.08
     s = f'''
       <body name="thigh_{side}" pos="0 {y} -0.25">
@@ -29,9 +34,9 @@ def _leg(side, stump=False):
     if not stump:
         s += f'''
         <body name="shank_{side}" pos="0 0 -0.42">
-          <joint name="knee_{side}" axis="0 1 0" range="0 150"/>
-          <geom name="shank_{side}" type="capsule" fromto="0 0 0 0 0 -0.42" size="0.05"/>
-          <body name="foot_{side}" pos="0 0 -0.42">
+          <joint name="knee_{side}" axis="0 1 0" range="{knee_range[0]} {knee_range[1]}"/>
+          <geom name="shank_{side}" type="capsule" fromto="0 0 0 0 0 -{shank}" size="0.05"/>
+          <body name="foot_{side}" pos="0 0 -{shank}">
             <joint name="ankle_{side}" axis="0 1 0" range="-45 45"/>
             <geom name="foot_{side}" type="capsule" fromto="-0.08 0 -0.03 0.16 0 -0.03" size="0.03"/>
             <site name="foot_{side}" pos="0.04 0 -0.03" size="0.14 0.05 0.05" type="box" rgba="0 0 0 0"/>
@@ -61,30 +66,37 @@ def _arm(side):
 
 def build_xml(morph="intact", z0=None):
     assert morph in MORPHS
-    legs = ""
-    if morph == "intact":
-        legs = _leg("l") + _leg("r")
-    elif morph == "stump_left":
-        legs = _leg("l", stump=True) + _leg("r")
+    full = ["hip_l", "knee_l", "ankle_l", "hip_r", "knee_r", "ankle_r", "shoulder_l", "elbow_l", "shoulder_r", "elbow_r"]
+    arms = ["shoulder_l", "elbow_l", "shoulder_r", "elbow_r"]
+    knee_l = (0, 3) if morph == "locked_knee_left" else (0, 150)
+    if morph == "stump_left":
+        legs = _leg("l", stump=True) + _leg("r"); present = ["hip_l", "hip_r", "knee_r", "ankle_r"] + arms
     elif morph == "noleg_left":
-        legs = _leg("r")
+        legs = _leg("r"); present = ["hip_r", "knee_r", "ankle_r"] + arms
+    elif morph == "nolegs":
+        legs = ""; present = arms
+    else:
+        legs = _leg("l", shank=0.26 if morph == "short_shank_left" else SHANK, knee_range=knee_l) + _leg("r"); present = full
     if z0 is None:
         z0 = STAND_Z if morph != "nolegs" else 0.6
-    joints = ["hip_l", "knee_l", "ankle_l", "hip_r", "knee_r", "ankle_r", "shoulder_l", "elbow_l", "shoulder_r", "elbow_r"]
-    present = {"intact": joints, "stump_left": ["hip_l", "hip_r", "knee_r", "ankle_r", "shoulder_l", "elbow_l", "shoulder_r", "elbow_r"],
-               "noleg_left": ["hip_r", "knee_r", "ankle_r", "shoulder_l", "elbow_l", "shoulder_r", "elbow_r"],
-               "nolegs": ["shoulder_l", "elbow_l", "shoulder_r", "elbow_r"]}[morph]
     # iteration 3 (docs/gait-feasibility.md): position actuators, so that zero action holds the
     # initial pose stiffly and the sampler explores steps from a body that stands by default
     kp = {"hip": 300, "knee": 300, "ankle": 100, "shoulder": 150, "elbow": 100}
-    rng_deg = {"hip": (-110, 30), "knee": (0, 150), "ankle": (-45, 45), "shoulder": (-180, 60), "elbow": (-150, 0)}
+    kp_joint = {j: kp[j.split("_")[0]] for j in full}
+    if morph == "weak_hip_left":
+        kp_joint["hip_l"] = 60
+    rng_deg = {j: {"hip": (-110, 30), "knee": (0, 150), "ankle": (-45, 45), "shoulder": (-180, 60), "elbow": (-150, 0)}[j.split("_")[0]] for j in full}
+    rng_deg["knee_l"] = knee_l
     def _rng(j):
-        lo, hi = rng_deg[j.split("_")[0]]; return f"{np.radians(lo):.4f} {np.radians(hi):.4f}"
-    actuators = "\n".join(f'    <position name="p_{j}" joint="{j}" kp="{kp[j.split("_")[0]]}" ctrlrange="{_rng(j)}"/>' for j in present)
+        lo, hi = rng_deg[j]; return f"{np.radians(lo):.4f} {np.radians(hi):.4f}"
+    # iteration 7: bounded actuator force. Unbounded position actuators let a legless body launch
+    # itself off its pelvis with arm swings; a person's joints cannot. Newton-metres.
+    fmax = {"hip": 150, "knee": 150, "ankle": 60, "shoulder": 60, "elbow": 40}
+    actuators = "\n".join(f'    <position name="p_{j}" joint="{j}" kp="{kp_joint[j]}" ctrlrange="{_rng(j)}" forcerange="-{fmax[j.split("_")[0]]} {fmax[j.split("_")[0]]}"/>' for j in present)
     jointsensors = "\n".join(f'    <jointpos name="q_{j}" joint="{j}"/>' for j in present)
+    has_l = morph not in ("noleg_left", "nolegs"); has_r = morph != "nolegs"; foot_l = has_l and morph != "stump_left"
     touch_sites = [s for s in ("foot_l", "foot_r", "knee_l", "knee_r", "hand_l", "hand_r") if
-                   (s.startswith("foot") and (morph == "intact" or (morph in ("stump_left", "noleg_left") and s == "foot_r")))
-                   or (s.startswith("knee") and (morph in ("intact", "stump_left") or (morph == "noleg_left" and s == "knee_r")))
+                   (s == "foot_l" and foot_l) or (s == "foot_r" and has_r) or (s == "knee_l" and has_l) or (s == "knee_r" and has_r)
                    or s.startswith("hand")]
     touches = "\n".join(f'    <touch name="touch_{s}" site="{s}"/>' for s in touch_sites)
     return f'''
@@ -125,10 +137,34 @@ def build_xml(morph="intact", z0=None):
 </mujoco>'''
 
 
+def rest_pose(m, d, morph):
+    """Each body starts at its own rest: standing on what legs it has; a legless body prone with the
+    arms ahead of the head and the hands on the floor (iteration 7)."""
+    if morph != "nolegs":
+        return
+    d.qpos[:] = 0
+    d.qpos[2] = np.pi / 2
+    hid = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_SITE, "hand_l")
+    best = None
+    for a in np.linspace(-np.pi, np.radians(60), 61):
+        d.qpos[3] = d.qpos[5] = a; d.qpos[4] = d.qpos[6] = 0.0
+        mujoco.mj_forward(m, d)
+        x = d.site_xpos[hid][0]
+        if best is None or x > best[0]:
+            best = (x, a)
+    d.qpos[3] = d.qpos[5] = best[1]
+    mujoco.mj_forward(m, d)
+    lowest = min(d.geom_xpos[g][2] - m.geom_rbound[g] for g in range(m.ngeom) if m.geom_type[g] != mujoco.mjtGeom.mjGEOM_PLANE)
+    d.qpos[1] -= lowest - 0.01
+    d.qvel[:] = 0
+    mujoco.mj_forward(m, d)
+
+
 def make(morph="intact"):
     xml = build_xml(morph)
     m = mujoco.MjModel.from_xml_string(xml)
     d = mujoco.MjData(m)
+    rest_pose(m, d, morph)
     return m, d
 
 

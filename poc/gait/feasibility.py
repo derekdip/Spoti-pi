@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 DURATION = 5.0
 SETTLE = 2.0        # metrics over [SETTLE, DURATION]
-TAG = "iter5"       # output files carry the iteration; earlier iterations' files are kept beside them
+TAG = "iter7"       # output files carry the iteration; earlier iterations' files are kept beside them
 
 
 def metrics(m, sens, qpos, contacts):

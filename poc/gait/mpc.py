@@ -13,7 +13,9 @@ from .biped import sensor_index, SPEED_TARGET
 
 HORIZON = 1.0        # s (iteration 5: 0.6 s let a legless body topple forward for the speed it gains
 KNOTS = 8            #  before the crash costs anything; at 1.0 s the crash is inside the horizon)
-N_SAMPLES = 128
+N_SAMPLES = 160
+N_ELITE = 1          # iteration 6: the nominal plan becomes the mean of the best N_ELITE samples (a
+                     # cross-entropy update) instead of the single best; predictive sampling is N_ELITE = 1
 SIGMA = 0.35
 CTRL_DT = 0.02       # s between replans
 # iteration 2 (docs/gait-feasibility.md): iteration 1's cost let every body flop forward and drag
@@ -76,9 +78,10 @@ class PredictiveSampler:
         init = np.repeat(state[None], N_SAMPLES, 0)
         _, sens = rollout.rollout(self.m, self.datas, init, ctrl, nstep=self.nstep)
         c = self.cost(sens, ctrl)
-        best = int(np.argmin(c))
-        self.knots = knots[best]
-        return ctrl[best], float(c[best])
+        elite = np.argsort(c)[:N_ELITE]
+        self.knots = knots[elite].mean(0)
+        u = self._controls(self.knots[None])[0]
+        return u, float(c[elite[0]])
 
     def shift(self):
         """Move the nominal plan forward by one control interval."""
