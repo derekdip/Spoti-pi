@@ -76,12 +76,14 @@ rules; the label each tree returned is given as returned.
 | F7 | fire, no templates, F4's scenes | 7 | 1.00 (mean 0.84; 0.93 with two) | 6 of 12 | terminal below F4's greedy 6/7; 0.73 of the DE floor; look unmoved | B |
 | G1 | locomotion, gait grammar, 5th domain | 14 (7 unseen) | 1.00 (mean 0.83) | 6 of 10 | identity 2/5 first step, 3/5 within two; mirrors 1/4; consumers worse 6/10 | C |
 | G2 | locomotion, exclusive classes | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; floor 0.98; consumers worse 6/10 | A |
+| G3 | locomotion, held-out acceptance and a measured guard | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 1/3; held-out error below V0 10/10; consumers worse 7/10, beyond tolerance 0/10; guard never fired | D |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
 `fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
-`f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`.
+`f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
+`g3-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -305,6 +307,22 @@ I got wrong running it, and where it is recorded.
     guard declines every repair at step zero, and the controls grow
     impairment classes on teacher noise (`math-track-g2-results.md`).
 
+18. **Held-out acceptance generalises the growth and cannot make a
+    control of a body that has structure.** G3 kept G2's procedure and
+    added two measured rules: a repair is applied only if it lowers
+    the error against a second run of the same teacher, and may not
+    worsen a consumer by more than the two runs differ on it. Every
+    damaged body's terminal state is better on the run it never saw
+    (ten of ten), the design-body identity is kept (four of four), and
+    the guard never fired: every consumer loss is inside the teacher's
+    own run-to-run spread, so the strict consumer bar asked more of
+    the student than the teacher has with itself. The test rejected
+    the right stump's kneel four times, fitted to one run's timing,
+    before admitting it, and let the intact body grow vault and weak
+    because both of its runs share what they express. Outcome D by
+    the frozen bars, on one mirror and the strict consumer clause
+    (`math-track-g3-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -330,7 +348,10 @@ Reduced to the claims that have survived every test:
   grew, and its remaining failure is a module that extrapolates, which
   no stopping rule reads (RGRE-ML-3). It is not a stop for fire, where
   the residual is structured everywhere and the vocabulary is the
-  limit; there only a fitted gain says when to stop (F6).
+  limit; there only a fitted gain says when to stop (F6). Where a
+  second run of the teacher can be had, acceptance against that run is
+  the constant-free rule: in the gait it generalised every damaged
+  body's growth and rejected one true class on one mirror (G3).
 - Whether projection can rank a candidate is measurable before the
   run: the linearisation gap, the share of the fitted repair outside
   the tangent span. Under 0.1 the projection is the oracle; over 0.25
