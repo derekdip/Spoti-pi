@@ -74,12 +74,13 @@ rules; the label each tree returned is given as returned.
 | RGRE-ML-3 | the same splits, stopping rule | 30 | | | null-calibrated stop: wins 15 / losses 9 vs the constant, median regret 0.002 vs 0.011, mean 0.035 vs 0.014 (one extrapolation) | Half |
 | F6 | fire, both changes folded in | 15 scenes (6 unseen) | hybrid 1.00 vs projection 0.45 | 6 of 12 | terminal 14/15 wins over the selector, 0.90 of the oracle; check transfers 86%; null stop never stops | B (tree text wrong) |
 | F7 | fire, no templates, F4's scenes | 7 | 1.00 (mean 0.84; 0.93 with two) | 6 of 12 | terminal below F4's greedy 6/7; 0.73 of the DE floor; look unmoved | B |
+| G1 | locomotion, gait grammar, 5th domain | 14 (7 unseen) | 1.00 (mean 0.83) | 6 of 10 | identity 2/5 first step, 3/5 within two; mirrors 1/4; consumers worse 6/10 | C |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
 `fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
-`f6-results.md`, `f7-results.md`.
+`f6-results.md`, `f7-results.md`, `g1-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -278,6 +279,19 @@ I got wrong running it, and where it is recorded.
     could not move; it moved, and the letter stands with that noted
     (`math-track-f6-results.md`).
 
+16. **In a fifth domain the selection carried and the classes did not
+    partition the gaits.** G1 grew a phase-clock gait grammar toward a
+    physics teacher's gaits for damaged bodies. Selection captured the
+    oracle's value at six repairs of ten and named the one-leg and
+    legless gaits at the first step every time. It named the locked
+    knee, the short shank and the stump on the design bodies within
+    two steps on one of three, and on the mirrors on none: a two-slot
+    selection miss where the oracle was right, two-sided classes that
+    fit each other's damage, and a hop class that produces a kneel's
+    contacts. A control against a second teacher seed grew four
+    classes on run-to-run variability. Three defects in the freeze are
+    on record (`math-track-g1-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -338,6 +352,15 @@ Reduced to the claims that have survived every test:
   1.4 percent wrong on the decision a game would actually make from it,
   on that scene. Whether the fire is deployable is a question about which
   decisions it must serve, and that is the owner's, not the procedure's.
+
+- A class names a defect only if no other class can produce the same
+  residual at nearly the same value. Where the grammar's classes
+  overlapped, in the fire's bed and wind and in the gait's hop and
+  kneel and the two sides of an asymmetry, identity failed with the
+  selection working. The dictionary check says whether projection can
+  rank a class; nothing yet says whether the classes are exclusive,
+  and that is the check the next grammar needs before it is grown
+  (G1).
 
 What RGRE is good for is choosing between repairs the representation
 already contains, and saying when none of them is the answer. What it
