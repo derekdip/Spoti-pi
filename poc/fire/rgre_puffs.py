@@ -350,3 +350,42 @@ class LookCase:
     blocks = FireCase.blocks
     tangents = PuffCase.tangents
     templates = PuffCase.templates
+
+# ---------------------------------------------------------------- the workflow's selector (F6, F7)
+# The dictionary check (docs/linearisation-gap.md): classes whose fitted repair lies mostly outside
+# their tangent span cannot be ranked by projection and are fitted to be ranked; the rest are ranked
+# by the signed tangents alone (no templates, F7) and the top K_SMALL are fitted. The best fitted
+# drop is taken. F6 and F7 measured this at 1.00 of the oracle's per-step value in median at six or
+# seven repairs a step of twelve. K_SMALL = 2 is a choice made on F7's reported variant.
+LARGE_GAP = ("amp", "cool", "wind", "rate", "bed", "rise")
+SMALL_GAP = ("width", "deflect", "profile", "base", "attract", "jitter", "soot", "floor")
+K_SMALL = 2
+
+
+def repairable_classes(case):
+    out = []
+    for c in CLASSES:
+        if c == "bed" and not case.patches: continue
+        if c == "deflect" and not case.obstacles: continue
+        if c == "attract" and len(case.burners) < 2: continue
+        out.append(c)
+    return out
+
+
+def hybrid_pick(case, st, blacklist=(), k_small=K_SMALL):
+    """One growth step of the fire workflow: returns (class, repair, evaluated) or (None, None, n).
+
+    Fits every live large-gap class and the top k_small projected small-gap classes, takes the best
+    drop. `repair` is the repair_gain record of the chosen class. The caller applies the spent rule.
+    """
+    from poc.rgre.core import diagnose as _diag, select_projection as _sel
+    cand = [c for c in repairable_classes(case) if c not in blacklist]
+    diag = _diag(case.residual(st), case.tangents(st), {}, support=())
+    _, _, ranked = _sel(diag, 1.01, {c: [c] for c in CLASSES}, unrepairable=(), blacklist=[])
+    small = [c for c in ranked if c in SMALL_GAP and c in cand][:k_small]
+    pool = [c for c in cand if c in LARGE_GAP] + small
+    if not pool:
+        return None, None, 0
+    table = {c: repair_gain(case, st, c) for c in pool}
+    best = max(pool, key=lambda c: table[c]["drop"])
+    return best, table[best], len(pool)
