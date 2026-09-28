@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 import mujoco
 from scipy.optimize import differential_evolution
-from .grammar import GaitState, CLASSES, V0_CLASSES, RANGES, ON, EPS, Body, trajectory, is_on, turn_on, WINDOW, FPS
+from .grammar import GaitState, CLASSES, V0_CLASSES, BASE_PARAMS, IMPAIRMENTS, RANGES, ON, EPS, Body, trajectory, is_on, turn_on, WINDOW, FPS
 from . import biped
 
 RESULTS = Path(__file__).resolve().parents[2] / "poc" / "results"
@@ -95,10 +95,20 @@ def consumers(body: Body, qpos):
     for j in range(contact.shape[1]):
         n, L = bouts(contact[:, j] > 0.5)
         stance += [contact[:, j].mean(), n / (T / FPS), L / FPS]
+    # pilot fix 6: left-right asymmetry as blocks of their own. A symmetric re-fit of the walk base
+    # absorbed most of every damaged body's residual and left the sided classes nothing to name; the
+    # asymmetry a limp is made of is a small part of the per-joint and per-part blocks, so it gets
+    # its own scale. Omitted where the body has no such pair, as the fire omitted ignition.
+    jstats = {n: np.array([joints[:, i].mean(), joints[:, i].std(), joints[:, i].min(), joints[:, i].max()]) for i, n in enumerate(body.jnames[3:])}
+    asym_j = [jstats[f"{j}_l"] - jstats[f"{j}_r"] for j in ("hip", "knee", "ankle", "shoulder") if f"{j}_l" in jstats and f"{j}_r" in jstats]
+    pstats = {g: np.array(stance[3 * i:3 * i + 3]) for i, g in enumerate(body.contact_geoms)}
+    asym_p = [pstats[f"{g}_l"] - pstats[f"{g}_r"] for g in ("foot", "thigh", "hand") if f"{g}_l" in pstats and f"{g}_r" in pstats]
     out = {
         "contact_t": binned(contact).ravel(),
         "stance": np.array(stance),
         "joint_stats": np.concatenate([joints.mean(0), joints.std(0), joints.min(0), joints.max(0)]),
+        "asym_joints": np.concatenate(asym_j) if asym_j else None,
+        "asym_stance": np.concatenate(asym_p) if asym_p else None,
         "speed": np.array([speed]),
         "height": np.concatenate([binned(tz), [hz.mean()]]),
         "pitch": np.array([pitch.mean(), pitch.std()]),      # two teacher seeds disagree on pitch in time by 1.5 scales: statistics only
@@ -106,7 +116,18 @@ def consumers(body: Body, qpos):
         "reach": np.array([reach[:, 0].max(), reach[:, 1].max(), reach[:, 2].max(), reach[:, 3].max()]),
         "pose_phase": phase_mean(joints, cyc).ravel(),
     }
-    return out
+    return {k: v for k, v in out.items() if v is not None}
+
+
+def scales(target):
+    """Each block's scale is its own rms, except the asymmetry blocks, which are in the units of the
+    block they are a difference of: an asymmetry of 0.1 rad counts as a 0.1 rad joint error would.
+    Scaled by their own rms, a symmetric body's tiny asymmetry made them a noise magnet (two teacher
+    seeds of the intact body differed by two scales there)."""
+    sc = {k: float(np.sqrt((v ** 2).mean())) or 1.0 for k, v in target.items()}
+    if "asym_joints" in sc: sc["asym_joints"] = sc["joint_stats"]
+    if "asym_stance" in sc: sc["asym_stance"] = sc["stance"]
+    return sc
 
 
 class GaitCase:
@@ -118,7 +139,7 @@ class GaitCase:
         self.q_teacher = teacher_qpos(morph, seed)
         self.target = consumers(self.body, self.q_teacher)
         self.names = list(self.target)
-        self.scale = {k: float(np.sqrt((v ** 2).mean())) or 1.0 for k, v in self.target.items()}
+        self.scale = scales(self.target)
         self._cache = {}; self.evals = 0
 
     def _consumers(self, st: GaitState):
@@ -158,16 +179,25 @@ class GaitCase:
     # ---- which classes can do anything on this body
     def repairable(self):
         has = self.body.has
+        legs = has["hip_l"] or has["hip_r"]; knees = has["knee_l"] or has["knee_r"]
         out = []
         for c in CLASSES:
-            if c in V0_CLASSES: continue
-            if c.endswith("_l") and not has["hip_l"]: continue
-            if c.endswith("_r") and not has["hip_r"]: continue
-            if c.startswith("stiff") or c.startswith("short"):
-                if not has[f"knee_{c[-1]}"]: continue
-            if c == "hop" and not (has["hip_l"] or has["hip_r"]): continue
+            if c in V0_CLASSES:
+                if c == "legs" and not legs: continue
+                out.append(c); continue
+            if c in ("stiff", "limp") and not knees: continue
+            if c in ("kneel", "weak", "hop") and not legs: continue
             out.append(c)
         return out
+
+    def with_target(self, target):
+        """A copy of this case scoring against another target (the exclusivity check)."""
+        c = GaitCase.__new__(GaitCase)
+        c.__dict__.update(self.__dict__)
+        c.target = dict(target); c.names = list(target)
+        c.scale = scales(target)
+        c._cache = {}; c.evals = 0
+        return c
 
     # ---- tangents: the direction each parameter moves the residual, before any fit
     def tangents(self, st: GaitState):
@@ -228,7 +258,7 @@ def repair_gain(case, st: GaitState, cls):
 
 def fit_base(case, seed=0, maxiter=40, popsize=10):
     """V0: the walk base fitted to the intact teacher by differential evolution over the gait class."""
-    names = CLASSES["gait"]
+    names = BASE_PARAMS
     bounds = [RANGES[p] for p in names]
     def f(x):
         return case.error(replace(GaitState(), **{n: float(v) for n, v in zip(names, x)}))
@@ -237,12 +267,27 @@ def fit_base(case, seed=0, maxiter=40, popsize=10):
     return st, float(r.fun)
 
 
-def joint_fit(case, st: GaitState, seed=0, maxiter=30, popsize=8):
-    """The floor: every repairable parameter of every class free at once, from the given state."""
-    names = list(CLASSES["gait"]) + [p for c in case.repairable() for p in CLASSES[c]]
-    bounds = [RANGES[p] for p in names]
-    x0 = np.array([getattr(st, p) for p in names])
+def load_v0(path="poc/results/gait_v0.json"):
+    """V0 restricted to the gait class (the saved state may carry old class fields)."""
+    import json
+    v = json.load(open(path))["state"]
+    return replace(GaitState(), **{k: v[k] for k in BASE_PARAMS if k in v})
+
+
+def local_floor(case, st: GaitState, maxfev=4000):
+    """The floor as G1's results named it: Powell over every repairable parameter from a given state,
+    with an explicit budget. G1's differential-evolution floor with 25 generations returned its start
+    on half the cases and was not a floor."""
+    from scipy.optimize import minimize
+    names = list(dict.fromkeys(BASE_PARAMS + [p for c in case.repairable() for p in CLASSES[c]]))
+    lo = np.array([RANGES[p][0] for p in names]); hi = np.array([RANGES[p][1] for p in names])
+    x0 = np.clip([getattr(st, p) for p in names], lo, hi)
+    best = [case.error(st), st]
     def f(x):
-        return case.error(replace(st, **{n: float(v) for n, v in zip(names, x)}))
-    r = differential_evolution(f, bounds, seed=seed, maxiter=maxiter, popsize=popsize, tol=1e-6, polish=False, x0=np.clip(x0, [b[0] for b in bounds], [b[1] for b in bounds]))
-    return replace(st, **{n: float(v) for n, v in zip(names, r.x)}), float(r.fun)
+        s2 = replace(st, **{n: float(v) for n, v in zip(names, np.clip(x, lo, hi))})
+        e = case.error(s2)
+        if e < best[0]:
+            best[0], best[1] = e, s2
+        return e
+    minimize(f, x0, method="Powell", bounds=list(zip(lo, hi)), options=dict(maxfev=maxfev, xtol=1e-3, ftol=1e-6))
+    return best[1], float(best[0])

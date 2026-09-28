@@ -14,5 +14,5 @@ if __name__ == "__main__":
     st, e = RG.fit_base(case, seed=0, maxiter=60, popsize=12)
     print(f"V0 fitted: error {e:.4f} (default state {case.error(G.GaitState()):.4f}) in {time.time()-t0:.0f}s, {case.evals} evaluations")
     print("per consumer", {k: round(v, 3) for k, v in case.per_consumer(st).items()})
-    print({k: round(v, 3) for k, v in asdict(st).items() if k in G.CLASSES["gait"]})
+    print({k: round(v, 3) for k, v in asdict(st).items() if k in G.BASE_PARAMS})
     json.dump(dict(state=asdict(st), error=e, evals=case.evals, seconds=round(time.time() - t0)), open("poc/results/gait_v0.json", "w"), indent=1)
