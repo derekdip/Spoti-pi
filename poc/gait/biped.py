@@ -15,6 +15,7 @@ import numpy as np
 import mujoco
 
 MORPHS = ("intact", "weak_hip_left", "locked_knee_left", "short_shank_left", "stump_left", "noleg_left", "nolegs")
+MIRRORS = ("weak_hip_right", "locked_knee_right", "short_shank_right", "stump_right", "noleg_right")   # the transfer bodies
 # iteration 6: a limp needs a leg that is present and impaired, so three impairments join the removals:
 #   weak_hip_left      the left hip actuator at a fifth of its gain
 #   locked_knee_left   the left knee's range closed to three degrees: a stiff leg
@@ -64,29 +65,44 @@ def _arm(side):
       </body>'''
 
 
+def side_of(morph):
+    """('left' | 'right' | None, kind): which side an impairment is on, and what it is."""
+    for k in ("weak_hip", "locked_knee", "short_shank", "stump", "noleg"):
+        if morph.startswith(k + "_"):
+            return morph[len(k) + 1:], k
+    return None, morph
+
+
 def build_xml(morph="intact", z0=None):
-    assert morph in MORPHS
+    assert morph in MORPHS or morph in MIRRORS
     full = ["hip_l", "knee_l", "ankle_l", "hip_r", "knee_r", "ankle_r", "shoulder_l", "elbow_l", "shoulder_r", "elbow_r"]
     arms = ["shoulder_l", "elbow_l", "shoulder_r", "elbow_r"]
-    knee_l = (0, 3) if morph == "locked_knee_left" else (0, 150)
-    if morph == "stump_left":
-        legs = _leg("l", stump=True) + _leg("r"); present = ["hip_l", "hip_r", "knee_r", "ankle_r"] + arms
-    elif morph == "noleg_left":
-        legs = _leg("r"); present = ["hip_r", "knee_r", "ankle_r"] + arms
+    side, kind = side_of(morph)
+    a = side[0] if side else None                     # the impaired side's letter
+    b = ("r" if a == "l" else "l") if a else None     # the other side
+    knee_rng = {"l": (0, 150), "r": (0, 150)}
+    if kind == "locked_knee":
+        knee_rng[a] = (0, 3)
+    if kind == "stump":
+        legs = _leg(a, stump=True) + _leg(b); present = [f"hip_{a}", f"hip_{b}", f"knee_{b}", f"ankle_{b}"] + arms
+    elif kind == "noleg":
+        legs = _leg(b); present = [f"hip_{b}", f"knee_{b}", f"ankle_{b}"] + arms
     elif morph == "nolegs":
         legs = ""; present = arms
     else:
-        legs = _leg("l", shank=0.26 if morph == "short_shank_left" else SHANK, knee_range=knee_l) + _leg("r"); present = full
+        legs = (_leg("l", shank=0.26 if (kind == "short_shank" and a == "l") else SHANK, knee_range=knee_rng["l"])
+                + _leg("r", shank=0.26 if (kind == "short_shank" and a == "r") else SHANK, knee_range=knee_rng["r"]))
+        present = full
     if z0 is None:
         z0 = STAND_Z if morph != "nolegs" else 0.6
     # iteration 3 (docs/gait-feasibility.md): position actuators, so that zero action holds the
     # initial pose stiffly and the sampler explores steps from a body that stands by default
     kp = {"hip": 300, "knee": 300, "ankle": 100, "shoulder": 150, "elbow": 100}
     kp_joint = {j: kp[j.split("_")[0]] for j in full}
-    if morph == "weak_hip_left":
-        kp_joint["hip_l"] = 60
+    if kind == "weak_hip":
+        kp_joint[f"hip_{a}"] = 60
     rng_deg = {j: {"hip": (-110, 30), "knee": (0, 150), "ankle": (-45, 45), "shoulder": (-180, 60), "elbow": (-150, 0)}[j.split("_")[0]] for j in full}
-    rng_deg["knee_l"] = knee_l
+    rng_deg["knee_l"] = knee_rng["l"]; rng_deg["knee_r"] = knee_rng["r"]
     def _rng(j):
         lo, hi = rng_deg[j]; return f"{np.radians(lo):.4f} {np.radians(hi):.4f}"
     # iteration 7: bounded actuator force. Unbounded position actuators let a legless body launch
@@ -94,10 +110,15 @@ def build_xml(morph="intact", z0=None):
     fmax = {"hip": 150, "knee": 150, "ankle": 60, "shoulder": 60, "elbow": 40}
     actuators = "\n".join(f'    <position name="p_{j}" joint="{j}" kp="{kp_joint[j]}" ctrlrange="{_rng(j)}" forcerange="-{fmax[j.split("_")[0]]} {fmax[j.split("_")[0]]}"/>' for j in present)
     jointsensors = "\n".join(f'    <jointpos name="q_{j}" joint="{j}"/>' for j in present)
-    has_l = morph not in ("noleg_left", "nolegs"); has_r = morph != "nolegs"; foot_l = has_l and morph != "stump_left"
+    has = {"l": True, "r": True}; foot = {"l": True, "r": True}
+    if morph == "nolegs":
+        has = {"l": False, "r": False}; foot = dict(has)
+    elif kind == "noleg":
+        has[a] = False; foot[a] = False
+    elif kind == "stump":
+        foot[a] = False
     touch_sites = [s for s in ("foot_l", "foot_r", "knee_l", "knee_r", "hand_l", "hand_r") if
-                   (s == "foot_l" and foot_l) or (s == "foot_r" and has_r) or (s == "knee_l" and has_l) or (s == "knee_r" and has_r)
-                   or s.startswith("hand")]
+                   (s.startswith("foot") and foot[s[-1]]) or (s.startswith("knee") and has[s[-1]]) or s.startswith("hand")]
     touches = "\n".join(f'    <touch name="touch_{s}" site="{s}"/>' for s in touch_sites)
     return f'''
 <mujoco model="planar_biped_{morph}">

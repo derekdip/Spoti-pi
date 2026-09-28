@@ -1,0 +1,10 @@
+body               class         q  drop/e0   gap
+  -> intact: e0 0.265; oracle weak_l (drop 0.008, gap 0.70); projection hop
+  -> weak_hip_left: e0 0.450; oracle hop (drop 0.072, gap 0.12); projection hop
+  -> locked_knee_left: e0 0.666; oracle stiff_l (drop 0.115, gap 0.02); projection hop
+  -> short_shank_left: e0 0.352; oracle short_r (drop 0.101, gap 0.07); projection short_l
+  -> stump_left: e0 0.679; oracle hop (drop 0.511, gap 0.31); projection kneel_l
+  -> noleg_left: e0 0.689; oracle hop (drop 0.431, gap 0.14); projection hop
+  -> nolegs: e0 0.796; oracle vault (drop 0.471, gap 0.07); projection vault
+
+median gap by class: {'stiff_r': 0.09, 'vault': 0.11, 'short_r': 0.13, 'weak_r': 0.19, 'stiff_l': 0.19, 'hop': 0.22, 'kneel_l': 0.35, 'weak_l': 0.7, 'kneel_r': 0.74, 'short_l': 0.92}
