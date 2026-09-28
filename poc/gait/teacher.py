@@ -13,6 +13,8 @@ from poc.gait.feasibility import metrics, strip, DURATION
 OUT = Path("poc/results")
 DESIGN = [(m, 0) for m in biped.MORPHS]
 TRANSFER = [(m, 0) for m in biped.MIRRORS] + [("intact", 1), ("nolegs", 1)]
+# G3: a second run of every remaining body, so that every case has a held-out realisation of its own teacher
+HELDOUT = [(m, 1) for m in ("weak_hip_left", "locked_knee_left", "short_shank_left", "stump_left", "noleg_left")] + [(m, 1) for m in biped.MIRRORS]
 
 
 def path(morph, seed):
@@ -31,7 +33,7 @@ def run(morph, seed):
 
 
 def main(which):
-    jobs = TRANSFER if which == "transfer" else DESIGN
+    jobs = {"transfer": TRANSFER, "design": DESIGN, "heldout": HELDOUT}[which]
     log = {}
     for morph, seed in jobs:
         if which == "design" and seed == 0 and (OUT / f"gait_iter7_{morph}_qpos.npy").exists():
