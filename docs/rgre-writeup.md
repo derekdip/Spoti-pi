@@ -80,13 +80,15 @@ rules; the label each tree returned is given as returned.
 | G4 | locomotion, two held-out runs | 13 scored (7 unseen) | oracle | 9 of 9 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; within tolerance 9/9; controls 4 impairment repairs; mean held-out below V0 9/9, both runs 6/9 | A |
 | G5 | locomotion, hop class removed, two ranges widened | 13 scored (7 unseen) | oracle | 8 of 9 | identity 2/3 first, 2/3 within two; mirrors 1/2; one-leg terminals above G4's on 2/2; within tolerance 9/9; controls 2 | D |
 | G6 | locomotion, hop class removed, ranges as G4 | 13 scored (7 unseen) | oracle | 9 of 9 | 12 of 12 non-hop cases reproduce G4 to 1e-6; one-leg terminal 0.477 vs 0.461 (2.8 percent of V0 above); identity 3/3 first, mirrors 2/2; within tolerance 9/9; controls 4 | B |
+| G7 | locomotion in 3D, unseen body | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 2/3 first, 2/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 impairment repairs | C |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
 `fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
 `f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
-`g3-results.md`, `g4-results.md`, `g5-results.md`, `g6-results.md`.
+`g3-results.md`, `g4-results.md`, `g5-results.md`, `g6-results.md`,
+`g7-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -372,6 +374,21 @@ I got wrong running it, and where it is recorded.
     generalises on nine damaged bodies of nine
     (`math-track-g6-results.md`).
 
+22. **The rule carries to 3D; the naming carries where the class owns
+    the damage.** G7 put the 2D grammar's design and G4's growth rule
+    on a free-rooted body with hip abduction, ankle roll and a
+    lateral base class, against a 3D teacher with three runs per
+    body. Before the freeze the exclusivity table found two twin
+    terms in the first draft (limp's hitch was vault's lift, hold's
+    other-knee term was limp's sink) and they were removed; after
+    that no pair was over a half. Outcome C, as predicted: every
+    damaged body ends below V0 on both held-out runs, no control
+    takes an impairment class, both locked knees name stiff first and
+    the left stump limp, and the legless body never names vault (the
+    3D crawl has no lift; the table said 5 percent) nor the right
+    stump limp, where a lateral refit reached the asymmetry first
+    (`math-track-g7-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -403,7 +420,10 @@ Reduced to the claims that have survived every test:
   body's growth and rejected one true class on one mirror (G3); on
   the mean of two runs, with each consumer guarded by the runs' own
   distance, that class was named too, at the price of admitting
-  repairs one run of the two rejects (G4).
+  repairs one run of the two rejects (G4). On the 3D body, with three
+  runs per teacher, the same rule generalised on every damaged body
+  and both of its held-out runs and added nothing to the undamaged
+  ones (G7).
 - Whether projection can rank a candidate is measurable before the
   run: the linearisation gap, the share of the fitted repair outside
   the tangent span. Under 0.1 the projection is the oracle; over 0.25
