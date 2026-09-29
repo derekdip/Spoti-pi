@@ -83,6 +83,7 @@ rules; the label each tree returned is given as returned.
 | G7 | locomotion in 3D, unseen body | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 2/3 first, 2/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 impairment repairs | C |
 | G8 | locomotion in 3D, base-first naming | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 1/3 first, 1/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 | C |
 | G9 | locomotion in 3D, planted grounding | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; speed from the stride matches the teacher on every body; identity 1/3 first, mirrors 0/2; within tolerance 8/9; controls 2 | C |
+| G10 | locomotion in 3D, teacher with a gait prior | 13 scored (7 unseen) | oracle | 8 of 9 | mean held-out below V0 8/9; speed from the stride matches the teacher on 8 bodies; identity 0/3 first, 1/3 within two, mirrors 1/2; within tolerance 9/9; controls 2 | C |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
@@ -90,7 +91,7 @@ Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
 `f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
 `g3-results.md`, `g4-results.md`, `g5-results.md`, `g6-results.md`,
-`g7-results.md`, `g8-results.md`, `g9-results.md`.
+`g7-results.md`, `g8-results.md`, `g9-results.md`, `g10-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -421,6 +422,21 @@ I got wrong running it, and where it is recorded.
     runtime defect the consumers cannot see is a missing consumer or
     a missing constraint (`math-track-g9-results.md`).
 
+25. **A teacher with a gait prior, and what it costs the names.** The
+    owner asked for a walk that reads as one. Seven recorded probes
+    rebuilt the 3D teacher: clock terms on the feet alone did not
+    track, a longer horizon diluted the search, a full clean-walk
+    reference from the grammar's own clock kept the body upright,
+    and the arms turned out to be still in every earlier teacher
+    because the hands caught on the pelvis box. With the reference,
+    scripted arms and sampling centred on it, G10's fitted states
+    walk with swinging arms at their teachers' speeds, growth
+    generalises on eight of nine, and the classes name the locked
+    knees and the short shank's limp and not the stumps, whose
+    designed class describes a hop the new teacher does not do. A
+    prior in the teacher is a choice about what the base is, and the
+    names follow it (`math-track-g10-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -463,7 +479,10 @@ Reduced to the claims that have survived every test:
   fitted states that slid on the floor at errors that looked fine,
   because no block measured slip, and a constraint in the grammar,
   the part on the floor planted, fixed what a consumer had not
-  measured (G9).
+  measured (G9). The teacher's own gait is a choice too: with a clean
+  walk as its base the fits read as walking and the classes name
+  different bodies than before, and neither the consumers nor the
+  procedure can tell a designer which base to want (G10).
 - Whether projection can rank a candidate is measurable before the
   run: the linearisation gap, the share of the fitted repair outside
   the tangent span. Under 0.1 the projection is the oracle; over 0.25
