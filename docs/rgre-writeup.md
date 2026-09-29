@@ -81,6 +81,7 @@ rules; the label each tree returned is given as returned.
 | G5 | locomotion, hop class removed, two ranges widened | 13 scored (7 unseen) | oracle | 8 of 9 | identity 2/3 first, 2/3 within two; mirrors 1/2; one-leg terminals above G4's on 2/2; within tolerance 9/9; controls 2 | D |
 | G6 | locomotion, hop class removed, ranges as G4 | 13 scored (7 unseen) | oracle | 9 of 9 | 12 of 12 non-hop cases reproduce G4 to 1e-6; one-leg terminal 0.477 vs 0.461 (2.8 percent of V0 above); identity 3/3 first, mirrors 2/2; within tolerance 9/9; controls 4 | B |
 | G7 | locomotion in 3D, unseen body | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 2/3 first, 2/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 impairment repairs | C |
+| G8 | locomotion in 3D, base-first naming | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 1/3 first, 1/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 | C |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
@@ -88,7 +89,7 @@ Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
 `f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
 `g3-results.md`, `g4-results.md`, `g5-results.md`, `g6-results.md`,
-`g7-results.md`.
+`g7-results.md`, `g8-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -389,6 +390,22 @@ I got wrong running it, and where it is recorded.
     stump limp, where a lateral refit reached the asymmetry first
     (`math-track-g7-results.md`).
 
+23. **Naming depends on the order of the base refits, in both
+    orders.** G8 gave the base every chance first and offered the
+    impairment classes only after it was spent. The right stump's
+    limp and the legless body's vault were worth nothing then, as
+    predicted, so the consumers do not support naming those bodies
+    by a class. And the left locked knee, the cleanest identity of
+    G7 (stiff at 31 percent with a gap of 0.03), was named limp:
+    four base refits absorbed enough of its stiffness to leave the
+    two sided classes within a percent of each other. The
+    exclusivity table's pairwise absorption (legs absorbs stiff 0.34)
+    underestimates what the whole base does in sequence. What
+    survives both orders is a class that owns a direction the base
+    cannot reach either way; the rest of the naming is a property of
+    the greedy fitter. Growth generalised on nine of nine and both
+    held-out runs in both orders (`math-track-g8-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -423,7 +440,10 @@ Reduced to the claims that have survived every test:
   repairs one run of the two rejects (G4). On the 3D body, with three
   runs per teacher, the same rule generalised on every damaged body
   and both of its held-out runs and added nothing to the undamaged
-  ones (G7).
+  ones, under two orders of growth (G7, G8). The label a body ends up
+  with is not that stable: it changes with the order in which the
+  base is refitted, so the deployable description of a body is the
+  grammar state and the label is a reading of it (G8).
 - Whether projection can rank a candidate is measurable before the
   run: the linearisation gap, the share of the fitted repair outside
   the tangent span. Under 0.1 the projection is the oracle; over 0.25
