@@ -44,7 +44,7 @@
 </style>
 <div class="wrap">
   <h1>Damaged Gait Player</h1>
-  <p class="lede">Every motion here is played from a fitted grammar state, about forty numbers and a phase clock, with no physics at runtime. The physics teacher each state was fitted to can be shown beside it.</p>
+  <p class="lede">Every motion here is played from a fitted grammar state, about forty numbers and a phase clock, with no physics at runtime. The part on the floor is planted and the body moves from its stride. The physics teacher each state was fitted to can be shown beside it, and a style layer puts a zombie's posture on the same gait.</p>
   <div class="stage" id="stage">
     <canvas id="view"></canvas>
     <div class="hud" id="hud">0.00 s</div>
@@ -66,6 +66,7 @@
     <h2>What you are looking at</h2>
     <p>The transition clip is the runtime doing the thing the case was built for: an intact body walks, its left leg is removed at 2.0 s, and the player blends over one second to the state fitted for a one-legged body. The root is kept on the floor by construction; the joints move at about twice their steady speed during the blend and the support flips from two feet to one at a threshold, which is the open item in the runtime note.</p>
     <p>The body clips show, for each of the seven design bodies, the state a growth run (G7) fitted to that body's physics teacher, played by the runtime, and the teacher itself over the same four seconds. The fit is scored in consumer space (contact timing, stance, joint statistics, orientation, rhythm, reach, phase-binned pose), so the two agree on what a viewer would read from the gait and not frame by frame; the teacher is also irregular from second to second where the runtime is periodic.</p>
+    <p>The style layer is six numbers on top of the fitted state: arms forward and stiff, elbows bent, head down, a little more lean. It is not fitted to anything; it shows that character and gait are separate parameters of one state. The legless body keeps its arms, which are its legs.</p>
     <p>Bodies: intact; weak left hip; locked left knee; short left shank; left stump (leg ends at the knee); left leg removed; both legs removed. Frames are 25 a second; the runtime can produce any rate.</p>
   </div>
 </div>
@@ -88,11 +89,14 @@
   const bodies = ['intact', 'weak_hip_left', 'locked_knee_left', 'short_shank_left', 'stump_left', 'noleg_left', 'nolegs'];
   const nice = { intact: 'intact', weak_hip_left: 'weak left hip', locked_knee_left: 'locked left knee', short_shank_left: 'short left shank', stump_left: 'left stump', noleg_left: 'left leg removed', nolegs: 'both legs removed' };
   const g0 = document.createElement('optgroup'); g0.label = 'Runtime transition';
-  g0.appendChild(new Option('Intact walk, left leg removed at 2 s', 'transition')); sel.appendChild(g0);
+  g0.appendChild(new Option('Intact walk, left leg removed at 2 s', 'transition'));
+  g0.appendChild(new Option('The same, with the style layer (arms forward, head down)', 'transition_zombie')); sel.appendChild(g0);
   const g1 = document.createElement('optgroup'); g1.label = 'Fitted state, played by the runtime';
   bodies.forEach(b => g1.appendChild(new Option(nice[b], b + '_student'))); sel.appendChild(g1);
   const g2 = document.createElement('optgroup'); g2.label = 'Physics teacher';
   bodies.forEach(b => g2.appendChild(new Option(nice[b], b + '_teacher'))); sel.appendChild(g2);
+  const g3 = document.createElement('optgroup'); g3.label = 'Fitted state with the style layer (arms forward, head down)';
+  bodies.forEach(b => g3.appendChild(new Option(nice[b], b + '_zombie'))); sel.appendChild(g3);
 
   // ---- three.js scene, z up as in the simulator
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
@@ -155,14 +159,14 @@
     figA.role = id.endsWith('_teacher') ? 'teacher' : 'student';
     figA.setColor(color(figA.role === 'teacher' ? '--teacher' : '--student'));
     caption.textContent = clip.title;
-    const canCompare = id.endsWith('_student'); compare.disabled = !canCompare;
+    const canCompare = id.endsWith('_student') || id.endsWith('_zombie'); compare.disabled = !canCompare;
     if (!canCompare) compare.checked = false;
     updateCompare();
   }
   function updateCompare() {
-    if (compare.checked && clip && clip.id.endsWith('_student')) {
+    if (compare.checked && clip && (clip.id.endsWith('_student') || clip.id.endsWith('_zombie'))) {
       if (!figB) figB = new Figure('teacher');
-      const tc = byId[clip.id.replace('_student', '_teacher')];
+      const tc = byId[clip.id.replace('_student', '_teacher').replace('_zombie', '_teacher')];
       figB.build(tc.segments[0].geoms); figB.setColor(color('--teacher')); figB.clipRef = tc;
     } else if (figB) { figB.clear(); scene.remove(figB.root); figB = null; }
   }
@@ -188,7 +192,7 @@
     const lookZ = 0.75;
     camera.position.set(lookX + dist * Math.cos(el) * Math.cos(az), lookY + dist * Math.cos(el) * Math.sin(az), lookZ + dist * Math.sin(el));
     camera.lookAt(lookX, lookY, lookZ);
-    hud.textContent = (k / clip.fps).toFixed(2) + ' s' + (clip.id === 'transition' ? (si === 0 ? ' · intact' : ' · one leg') : '');
+    hud.textContent = (k / clip.fps).toFixed(2) + ' s' + (clip.id.startsWith('transition') ? (si === 0 ? ' · intact' : ' · one leg') : '');
     resize(); renderer.render(scene, camera);
   }
 

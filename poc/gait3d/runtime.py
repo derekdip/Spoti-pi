@@ -21,7 +21,7 @@ import json
 from dataclasses import replace, fields, asdict
 import numpy as np
 import mujoco
-from .grammar3d import GaitState, Body, joint_angles, quat_wxyz
+from .grammar3d import GaitState, Body, joint_angles, quat_wxyz, Ground, pose_root
 
 CIRCULAR = {"phase0", "phase_r", "knee_lag", "ankle_lag", "sway_lag", "abd_lag", "pitch_lag", "roll_lag", "arm_lag", "vault_lag"}
 
@@ -39,29 +39,21 @@ def blend(a: GaitState, b: GaitState, w: float) -> GaitState:
     return GaitState(**out)
 
 
-def frame_at(st: GaitState, body: Body, phi: float, x: float):
-    """qpos for the grammar state at phase phi (the left leg's) and forward position x."""
+def frame_at(st: GaitState, body: Body, phi: float, ground: Ground, dt: float):
+    """qpos for the grammar state at phase phi (the left leg's); the root's x from the planted part."""
     t = np.array([(phi - st.phase0) / (2 * np.pi * st.freq)])       # the time at which the grammar's own clock reads phi
     q, pitch, roll, y, lift = joint_angles(st, body, t)
-    quat = quat_wxyz(roll, pitch)[0]
-    m, d = body.m, body.d
-    d.qpos[:] = 0.0
-    d.qpos[3:7] = quat
-    for n, a in body.jadr.items():
-        if n in q:
-            d.qpos[a] = q[n][0]
-    mujoco.mj_kinematics(m, d)
-    low = body.lowest(body.all_gids).min()
-    d.qpos[0] = x; d.qpos[1] = y[0]
-    d.qpos[2] = -low + max(0.0, float(lift[0]))
-    return d.qpos.copy()
+    quat = quat_wxyz(roll, pitch)
+    pose_root(body, q, 0, quat, y, lift)
+    body.d.qpos[0] = ground.step(body, dt)
+    return body.d.qpos.copy()
 
 
 class Player:
     def __init__(self, morph, state: GaitState, phi0=0.0):
         self.body = Body(morph); self.morph = morph
         self.state = state; self.target = None; self.blend_t = 0.0; self.blend_T = 0.0; self.source = None
-        self.phi = phi0; self.x = 0.0; self.t = 0.0
+        self.phi = phi0; self.t = 0.0; self.ground = Ground()
 
     def current(self) -> GaitState:
         if self.target is None:
@@ -73,17 +65,17 @@ class Player:
         self.source = self.current(); self.target = state; self.blend_T = seconds; self.blend_t = 0.0
         if morph is not None and morph != self.morph:
             self.body = Body(morph); self.morph = morph          # the model changes at the start of the blend
+            self.ground.planted = None                            # whatever was planted may be gone: re-plant on the next frame
 
     def advance(self, dt: float):
         st = self.current()
         self.phi += 2 * np.pi * st.freq * dt
-        self.x += st.speed * dt
         self.t += dt
         if self.target is not None:
             self.blend_t += dt
             if self.blend_t >= self.blend_T:
                 self.state, self.target, self.source = self.target, None, None
-        return frame_at(st, self.body, self.phi, self.x)
+        return frame_at(st, self.body, self.phi, self.ground, dt)
 
     def frames(self, seconds: float, fps: float):
         return np.array([self.advance(1.0 / fps) for _ in range(int(round(seconds * fps)))])

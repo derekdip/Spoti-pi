@@ -31,7 +31,6 @@ class GaitState:
     # ---- rhythm
     freq: float = 1.2
     duty: float = 0.6
-    speed: float = 0.5
     phase0: float = 0.0
     phase_r: float = 3.1416
     # ---- legs (sagittal)
@@ -91,7 +90,7 @@ class GaitState:
 
 
 CLASSES = {
-    "rhythm":  ["freq", "duty", "speed", "phase0", "phase_r"],
+    "rhythm":  ["freq", "duty", "phase0", "phase_r"],
     "legs":    ["hip_off", "hip_amp", "knee_off", "knee_amp", "knee_lag", "ankle_amp", "ankle_lag"],
     "lateral": ["sway_amp", "sway_lag", "abd_off", "abd_amp", "abd_lag", "ankle_x_amp"],
     "torso":   ["lean", "pitch_amp", "pitch_lag", "bob_amp", "roll_amp", "roll_lag"],
@@ -108,7 +107,7 @@ IMPAIRMENTS = ("stiff", "limp", "hold", "vault", "weak")
 SIDED = ("stiff", "limp", "hold", "weak")
 
 RANGES = {
-    "freq": (0.4, 3.0), "duty": (0.3, 0.85), "speed": (0.0, 1.5), "phase0": (-3.2, 3.2), "phase_r": (0.0, 6.3),
+    "freq": (0.4, 3.0), "duty": (0.3, 0.85), "phase0": (-3.2, 3.2), "phase_r": (0.0, 6.3),
     "hip_off": (-1.2, 0.4), "hip_amp": (0.0, 1.0), "knee_off": (0.0, 1.5), "knee_amp": (0.0, 1.8), "knee_lag": (-3.2, 3.2), "ankle_amp": (0.0, 0.7), "ankle_lag": (-3.2, 3.2),
     "sway_amp": (0.0, 0.1), "sway_lag": (-3.2, 3.2), "abd_off": (-0.3, 0.3), "abd_amp": (0.0, 0.3), "abd_lag": (-3.2, 3.2), "ankle_x_amp": (0.0, 0.3),
     "lean": (-0.5, 2.0), "pitch_amp": (0.0, 0.5), "pitch_lag": (-3.2, 3.2), "bob_amp": (0.0, 0.1), "roll_amp": (0.0, 0.4), "roll_lag": (-3.2, 3.2),
@@ -222,25 +221,62 @@ def quat_wxyz(roll, pitch):
     return np.concatenate([q[:, 3:4], q[:, :3]], 1)
 
 
+PLANT_EPS = 0.01     # m: a part this close to the floor after grounding is the planted one
+
+
+class Ground:
+    """The root's forward motion from the part that is on the floor, frame by frame: the lowest part
+    is planted where it touched down and the root moves so that it does not slide; while nothing is
+    down (a lift), the root keeps its last velocity. Speed is what the legs produce, not a parameter.
+    (Before this, the root moved at a fitted speed and the stance foot skated under the body, which
+    the consumers never measured and a viewer saw at once: docs/gait3d-runtime.md, G9.)"""
+    def __init__(self):
+        self.x = 0.0; self.v = 0.0; self.planted = None; self.plant_x = 0.0
+
+    def step(self, body: Body, dt: float):
+        """Call with the body posed at root x = 0 (joints, orientation, y and z set). Returns root x."""
+        m, d = body.m, body.d
+        lows = body.lowest(body.all_gids); i = int(np.argmin(lows)); g = body.all_gids[i]
+        px = float(d.geom_xpos[g][0])                       # the lowest part's centre, relative to the root
+        if lows[i] > PLANT_EPS:
+            self.planted = None; x = self.x + self.v * dt   # airborne: keep going
+        elif self.planted == g:
+            x = self.plant_x - px                          # the same part is down: it does not move
+        else:
+            x = self.x + self.v * dt                       # a new part touches down: plant it here
+            self.planted = g; self.plant_x = x + px
+        if dt > 0:
+            self.v = (x - self.x) / dt
+        self.x = x
+        return x
+
+
+def pose_root(body: Body, q, k, quat, y, lift):
+    """Set the body's joints, orientation, y and grounded z for frame k, with root x at zero."""
+    m, d = body.m, body.d
+    d.qpos[:] = 0.0
+    d.qpos[3:7] = quat[k]
+    for n, a in body.jadr.items():
+        if n in q:
+            d.qpos[a] = q[n][k]
+    mujoco.mj_kinematics(m, d)
+    low = body.lowest(body.all_gids).min()
+    d.qpos[1] = y[k]; d.qpos[2] = -low + max(0.0, lift[k])
+    mujoco.mj_kinematics(m, d)
+
+
 def trajectory(st: GaitState, body: Body, t=None):
-    """qpos over the window at FPS, grounded: the lowest point of the body touches the floor unless
-    lifted. (T, nq) in the model's qpos order; no clipping to the body's joint ranges."""
+    """qpos over the window at FPS, grounded and planted: the lowest point of the body touches the
+    floor unless lifted, and the part on the floor does not slide. (T, nq) in the model's qpos order;
+    no clipping to the body's joint ranges."""
     if t is None:
         t = np.arange(WINDOW[0], WINDOW[1], 1.0 / FPS)
     q, pitch, roll, y, lift = joint_angles(st, body, t)
     quat = quat_wxyz(roll, pitch)
     m, d = body.m, body.d
-    T = len(t); out = np.zeros((T, m.nq))
-    x = st.speed * (t - t[0])
+    T = len(t); out = np.zeros((T, m.nq)); ground = Ground()
     for k in range(T):
-        d.qpos[:] = 0.0
-        d.qpos[3:7] = quat[k]
-        for n, a in body.jadr.items():
-            if n in q:
-                d.qpos[a] = q[n][k]
-        mujoco.mj_kinematics(m, d)
-        low = body.lowest(body.all_gids).min()
-        d.qpos[0] = x[k]; d.qpos[1] = y[k]
-        d.qpos[2] = -low + max(0.0, lift[k])
+        pose_root(body, q, k, quat, y, lift)
+        d.qpos[0] = ground.step(body, (t[k] - t[k - 1]) if k else 0.0)
         out[k] = d.qpos
     return out
