@@ -72,7 +72,9 @@ class GaitState:
     kneel_other: float = 0.0     # rad, stance knee flexion added to the stepping leg
     # (G5: the one-leg hop class was removed. Every one of its parameters entered through a base
     # parameter, freq, phase_r, knee_off and bob_amp, so a hop state has an exact base twin,
-    # poc/gait/hop_equivalence.py; the base's knee_off and bob_amp ranges were widened to cover it.)
+    # poc/gait/hop_equivalence.py. G5 widened the base's knee_off and bob_amp ranges to cover it and
+    # that coarsened the grid sweeps of every base refit; G6 restored the ranges, which already held
+    # every hop state on the record.)
     # ---- arm vault: the arms drive, the torso pitches, the body lifts on the arms
     vault_drive: float = 0.0     # rad, shoulder amplitude added
     vault_off: float = 0.0       # rad, shoulder offset toward the floor ahead
@@ -111,8 +113,8 @@ SIDED = ("stiff", "limp", "kneel", "weak")
 
 RANGES = {
     "freq": (0.4, 3.0), "duty": (0.3, 0.85), "speed": (0.0, 1.5), "phase0": (-3.2, 3.2), "hip_off": (-1.2, 0.4), "hip_amp": (0.0, 1.0),
-    "knee_off": (0.0, 2.0), "knee_amp": (0.0, 1.8), "knee_lag": (-3.2, 3.2), "ankle_amp": (0.0, 0.7), "ankle_lag": (-3.2, 3.2),
-    "phase_r": (0.0, 6.3), "lean": (-0.5, 1.2), "pitch_amp": (0.0, 0.5), "pitch_lag": (-3.2, 3.2), "bob_amp": (0.0, 0.35),
+    "knee_off": (0.0, 1.5), "knee_amp": (0.0, 1.8), "knee_lag": (-3.2, 3.2), "ankle_amp": (0.0, 0.7), "ankle_lag": (-3.2, 3.2),
+    "phase_r": (0.0, 6.3), "lean": (-0.5, 1.2), "pitch_amp": (0.0, 0.5), "pitch_lag": (-3.2, 3.2), "bob_amp": (0.0, 0.1),
     "arm_amp": (0.0, 1.5), "arm_lag": (-3.2, 3.2), "arm_off": (-2.5, 0.8), "elbow_off": (-2.4, 0.0),
     "stiff_side": (-1.0, 1.0), "stiff_knee": (0.0, 1.0), "stiff_lift": (0.0, 0.6),
     "limp_side": (-1.0, 1.0), "limp_lift": (0.0, 1.0), "limp_sink": (0.0, 0.8), "limp_hitch": (0.0, 0.1), "limp_duty": (0.0, 0.35),
