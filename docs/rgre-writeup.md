@@ -78,13 +78,14 @@ rules; the label each tree returned is given as returned.
 | G2 | locomotion, exclusive classes | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; floor 0.98; consumers worse 6/10 | A |
 | G3 | locomotion, held-out acceptance and a measured guard | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 1/3; held-out error below V0 10/10; consumers worse 7/10, beyond tolerance 0/10; guard never fired | D |
 | G4 | locomotion, two held-out runs | 13 scored (7 unseen) | oracle | 9 of 9 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; within tolerance 9/9; controls 4 impairment repairs; mean held-out below V0 9/9, both runs 6/9 | A |
+| G5 | locomotion, hop class removed, two ranges widened | 13 scored (7 unseen) | oracle | 8 of 9 | identity 2/3 first, 2/3 within two; mirrors 1/2; one-leg terminals above G4's on 2/2; within tolerance 9/9; controls 2 | D |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
 `fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
 `f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
-`g3-results.md`, `g4-results.md`.
+`g3-results.md`, `g4-results.md`, `g5-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -339,6 +340,22 @@ I got wrong running it, and where it is recorded.
     worse. The right one-leg body's hop is absorbed by the base under
     a third selection rule, a grammar matter the exclusivity table
     predicted (`math-track-g4-results.md`).
+
+20. **A class with no direction of its own, and a range that is not
+    free.** Read before G5, the hop class was an exact
+    reparametrisation of the walk base: rate, sync, crouch and flight
+    each enter through a base parameter, every hop state has a base
+    twin with identical consumers on every body, and the intact
+    teacher is itself airborne a quarter of the time, so flight was
+    the base's from the start. G5 removed the class and widened the
+    two base ranges to cover it. Outcome D: the fitter's seven-point
+    sweeps are laid over each range, the widening coarsened every
+    legs and torso refit, stiff was never named on either locked
+    knee, the guard fired five times where G4 had one, and the
+    one-leg bodies ended above G4's terminals. The widening was not
+    needed: G4's one hop terminal has its twin inside the old ranges.
+    Whether hop was also a coordinated move the greedy base does not
+    find is left to G6 (`math-track-g5-results.md`).
 
 ## 5. What the whole arc says
 
