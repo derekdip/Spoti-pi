@@ -114,7 +114,76 @@ fails the row. The strips show a side view and a front view.
    (`gait3d_iter6_*`; these runs are the seed-0 teachers,
    `gait3d_teacher_*_s0_qpos.npy`.)
 
-## Result against the table
+7. **A gait clock in the cost, after the runtime viewer.** The web
+   player of the fitted states (`docs/gait3d-runtime.md`) showed the
+   teacher's own gait for what it is: a shuffle with the hips nearly
+   in phase (left-right hip correlation +0.15), still arms, feet
+   crossing. The owner asked for a walk that reads as one. Iteration
+   7 adds a gait prior, which the earlier iterations deliberately did
+   not have: each foot follows a half-wave height reference at 1 Hz,
+   the two half a cycle apart, and each shoulder a swing against its
+   own leg on the same clock (`mpc3d.gait_cost`); bodies without a
+   foot have no foot term. (a) Weights 40 on the feet and 0.5 on the
+   arms, horizon 1.0 s: the intact body walks more upright with
+   visible alternating steps, double support 34 percent, at 0.40
+   m/s, but the terms are too small against the rest of the cost (an
+   8 cm miss costs a quarter of a unit a step against hundreds): the
+   shoulders never move (spread 0.01 rad) and the feet lift 26 to 39
+   cm, from the walk's dynamics rather than the reference. (b) The
+   same with a 1.5 s horizon: slower (0.23 m/s), a fall at 2.5 s, costs
+   twice as high, at half again the compute; with the same 160
+   samples a longer horizon dilutes the search, and it is dropped. (c) Weights 600 and 20, horizon
+   1.0 s: faster (0.55 m/s) with the feet
+   alternating 70 percent of the time, and not clean: the hips are
+   still correlated (+0.30), only the right arm swings (spreads 0.02
+   and 0.22 rad), the body yaws 0.9 rad, and the planner's cost is
+   unstable. A sampling planner with 160 samples cannot follow a clock
+   on four joints while balancing with the rest. (d) The prior as a
+   full reference instead: the planner tracks every joint of a clean
+   walk from the grammar's own clock (the default grammar state at 1
+   Hz, legs half a cycle apart, arms against the legs), and does what
+   physics allows: upright (tilt 0.17 rad) at 0.38 m/s with
+   double support 41 percent, and still not the reference: the hips
+   correlate +0.27, the shoulders do not move (spread 0.02 rad), the
+   body yaws 0.67 rad. With 160 samples and one elite over fourteen
+   actuators, the arm terms are lost in the noise of balancing. (e)
+   The arms scripted from the clock when the body has legs (the
+   sampler plans the legs and torso only) and the leg reference at
+   weight 20: the body walks sideways (1.4 m of drift
+   for 0.05 m forward: at weight 20 the joint reference outweighs
+   heading and speed), and the arms still stop: they swing in the
+   first second (shoulder spread 0.09 rad) and are still by the last
+   (0.01). That is not the planner. The hands hang at pelvis height,
+   the pelvis box is 0.13 m wide and the arms sit 0.14 m from the
+   midline, so the hand sphere catches on the pelvis within a second
+   and stays there. Every teacher up to this one had still arms
+   because of a collision, not a cost. (f) Shoulders at 0.20 m, the
+   arms scripted from the clock, the leg reference at weight 5:
+   the arms swing for the whole run (shoulder
+   spread 0.21 and 0.22 rad, the same in the last second), which
+   settles the arms; the legs are still not a walk: the hips
+   correlate +0.55, one leg kicks out sideways at 2.8 s, 0.29 m/s.
+   The planner samples around its previous plan, so the reference
+   only pulls through the cost. (g) Sampling around the reference:
+   each replan's nominal is the clean walk at the current clock plus
+   the shifted deviation the last replan found, and the lateral
+   joints (hip abduction, ankle roll) get a third of the noise:
+   an upright walk at 0.39 m/s with the arms
+   swinging against the legs for the whole run (shoulder spread 0.20
+   and 0.21 rad), the feet alternating 68 percent of the time with
+   double support 24 percent and flight 8 percent, tilt 0.19 rad, no
+   sideways drift. The hips are still only weakly anti-phase
+   (correlation +0.10) and the feet lift high (22 and 31 cm, the
+   reference asks 8): a sampling planner tracks the clock's rhythm
+   and not its amplitudes. This is the teacher of iteration 7: the
+   clean-walk reference from the grammar's own clock, the arms
+   scripted on it where the body has legs, sampling centred on it,
+   shoulders at 0.20 m. It has a gait prior, which iterations 1 to 6
+   did not, and it says so here. (`gait3d_iter7*_*`; the teacher set
+   is rerun with it, the iteration-6 set kept under
+   `poc/results/teacher3d_iter6/`.)
+
+## Result against the table (iteration 6; iteration 7's teacher is recorded below it)
 
 | morphology | expected | got | numbers | by eye |
 |---|---|---|---|---|

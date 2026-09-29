@@ -48,7 +48,10 @@ def _leg(side, stump=False, shank=SHANK, knee_range=(0, 150)):
 
 
 def _arm(side):
-    y = 0.14 if side == "l" else -0.14
+    # iteration 7f (docs/gait3d-feasibility.md): shoulders at 0.20 m from the midline, not 0.14. The
+    # hands hang at pelvis height, and against a pelvis box 0.13 m wide a hand at 0.14 m jammed on it
+    # within a second of swinging; every teacher up to iteration 7e had still arms for this reason.
+    y = 0.20 if side == "l" else -0.20
     return f'''
       <body name="uarm_{side}" pos="0 {y} 0.22">
         <joint name="shoulder_{side}" axis="0 1 0" range="-180 60"/>
@@ -117,6 +120,8 @@ def build_xml(morph="intact", z0=None):
         lo, hi = rng[j]; return f"{np.radians(lo):.4f} {np.radians(hi):.4f}"
     actuators = "\n".join(f'    <position name="p_{j}" joint="{j}" kp="{kp[j]}" ctrlrange="{_rng(j)}" forcerange="-{FMAX[kind_of(j)]} {FMAX[kind_of(j)]}"/>' for j in present)
     jointsensors = "\n".join(f'    <jointpos name="q_{j}" joint="{j}"/>' for j in present)
+    feet = [s_ for s_ in "lr" if f"knee_{s_}" in present]           # a foot exists where a knee does
+    footsensors = "\n".join(f'    <framepos name="foot_pos_{s_}" objtype="site" objname="foot_{s_}"/>' for s_ in feet)
     return f'''
 <mujoco model="biped3d_{morph}">
   <option timestep="0.002" gravity="0 0 -9.81"/>
@@ -149,6 +154,7 @@ def build_xml(morph="intact", z0=None):
     <framexaxis name="torso_fwd" objtype="site" objname="torso_site"/>
     <framepos name="head_pos" objtype="site" objname="head"/>
 {jointsensors}
+{footsensors}
   </sensor>
 </mujoco>'''
 
