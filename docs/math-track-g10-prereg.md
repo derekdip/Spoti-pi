@@ -72,15 +72,48 @@ falling to its hands; the legless body crawls on hands and pelvis at
 
 ## V0
 
-V0_TEXT
+`poc/gait3d/v0.py` on the iteration-7 intact teacher (seed 0), 27
+base parameters under planted grounding, two seeds, the better kept
+(`poc/results/gait3d_v0.json`, from `gait3d_v0_iter7_s0.json`, error
+0.322; the other 0.327; the G9 V0 is kept as `gait3d_v0_g9.json`).
+The default state's error is 1.235. The fitted state is a striding
+walk: hip amplitude 0.43 rad, knee amplitude 1.0, cadence 0.51 Hz,
+stance fraction 0.52, the legs 1.77 rad apart, arms swinging 0.32
+rad, and it moves at 0.317 m/s from its stride against the teacher's
+0.416 (the speed block at 0.23 is the largest gap after contact
+timing 0.58 and the phase-binned pose 0.62). Per block: coupling
+0.30, stance 0.39, joint statistics 0.40, asymmetries 0.17 and 0.03,
+height 0.01, orientation 0.28, lateral 0.22, rhythm 0.04, reach 0.13
+(`gait3d_compare_intact_v0.png`). The teacher's shoulders are
+anti-phase (correlation -0.77, the scripted swing) and its hips
+weakly so (+0.10).
 
 ## Redundancy screen and exclusivity table
 
-CHECKS
+Redundancy screen (`poc/results/gait3d_redundancy_check_g10.*`): class
+steps stiff 0.66, limp 0.75, hold 0.84, vault 0.81, weak 0.51.
+
+Exclusivity table (`poc/results/gait3d_dictionary_check_g10.*`): no
+pair over a half; the largest are legs absorbing limp 0.47, stiff
+0.46 and hold 0.41. Per body at V0: the left locked knee, lateral 24
+percent, then stiff 8 on the correct side with a gap of 0.01, limp 3;
+the left stump, legs 16, hold 15 and weak 11 on the right (the
+stepping leg), limp 8 also on the right, stiff nothing; the short
+shank, limp 32 percent on the correct side, its oracle; the legless
+body, torso 17, rhythm 15, vault 13, arms 12. Under the new teacher
+the left stump kneel-steps on the stump (its thigh is down 78 percent
+of the time), so the class the preregistration carried over from G7,
+limp with the stump as the short side, describes a hop that this
+teacher's seed-0 run does not do; the classes that fit it put their
+side on the stepping leg. The designed classes are kept as G7's so
+that the run is comparable, and the stump's is predicted to fail.
 
 ## The declared pilot
 
-PILOT
+The legless body, teacher seed 1, seeds 0 and 2 held out, two steps
+(`poc/results/g10_pilot.*`): torso, then arms, both runs lower each
+time; fitting 0.580 to 0.526, held-out mean 0.622 to 0.533. Excluded
+from every bar. No change was made after it.
 
 ## Bars (frozen)
 
@@ -99,7 +132,16 @@ old teacher, so only as a reference and not a like-for-like).
 
 ## Predictions
 
-PREDICTIONS
+K4 holds: the rule has generalised on nine of nine in every 3D round.
+K2 holds. K3 is open. K1 fails: the left stump's designed class is
+worth 8 percent on the wrong side at V0 and the right stump's teacher
+hops, so neither stump names limp on its side within two; the locked
+knees name stiff after a lateral refit if the held-out test admits
+it, and the legless body names vault within two at 13 percent against
+the base classes' 12 to 17. Design 1 or 2 of 3 first, mirrors 0 or 1
+of 2, letter C. The round's claim is in the viewer: the fitted states
+walk, limp, hop and crawl with swinging arms, which no earlier teacher
+gave.
 
 ## Outcome (frozen, exclusive)
 
