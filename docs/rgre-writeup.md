@@ -79,13 +79,14 @@ rules; the label each tree returned is given as returned.
 | G3 | locomotion, held-out acceptance and a measured guard | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 1/3; held-out error below V0 10/10; consumers worse 7/10, beyond tolerance 0/10; guard never fired | D |
 | G4 | locomotion, two held-out runs | 13 scored (7 unseen) | oracle | 9 of 9 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; within tolerance 9/9; controls 4 impairment repairs; mean held-out below V0 9/9, both runs 6/9 | A |
 | G5 | locomotion, hop class removed, two ranges widened | 13 scored (7 unseen) | oracle | 8 of 9 | identity 2/3 first, 2/3 within two; mirrors 1/2; one-leg terminals above G4's on 2/2; within tolerance 9/9; controls 2 | D |
+| G6 | locomotion, hop class removed, ranges as G4 | 13 scored (7 unseen) | oracle | 9 of 9 | 12 of 12 non-hop cases reproduce G4 to 1e-6; one-leg terminal 0.477 vs 0.461 (2.8 percent of V0 above); identity 3/3 first, mirrors 2/2; within tolerance 9/9; controls 4 | B |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
 `fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
 `f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
-`g3-results.md`, `g4-results.md`, `g5-results.md`.
+`g3-results.md`, `g4-results.md`, `g5-results.md`, `g6-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -357,6 +358,20 @@ I got wrong running it, and where it is recorded.
     Whether hop was also a coordinated move the greedy base does not
     find is left to G6 (`math-track-g5-results.md`).
 
+21. **A class with no direction can still be a move.** G6 repeated
+    G5 with the ranges restored. Every case whose G4 path never used
+    hop reproduced G4 to six decimals, so G5's losses were the grid
+    and nothing else. The one case that had used hop, the left
+    one-leg body, ended 0.016 above G4's terminal: hop's state has a
+    base twin at a knee offset and a cycle rate the legs and rhythm
+    classes reach only together, and neither alone passes the
+    held-out test, so the greedy base never gets there. Hop named
+    nothing the base does not and was worth three percent of V0 as a
+    coordinated move. The gait grammar keeps five impairment classes,
+    identity is three of three and two of two mirrors, and growth
+    generalises on nine damaged bodies of nine
+    (`math-track-g6-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -433,7 +448,14 @@ Reduced to the claims that have survived every test:
   effect another can reproduce, says whether a class can be told from
   its neighbours; built and run before G2, it predicted which
   impairments would be named and which would not, and the run agreed
-  (G1, G2).
+  (G1, G2). The strongest form of the check is algebraic: where a
+  class is an exact combination of base parameters it has a base twin
+  with identical output, and such a class can name nothing. The gait's
+  hop was one, and was still worth a coordinated move the greedy
+  fitter does not make on its own; a class can be a search move
+  without being a label (G5, G6). A range is part of the fitter too:
+  the sweep's resolution follows it, and widening one changed every
+  fit of that class (G5).
 
 What RGRE is good for is choosing between repairs the representation
 already contains, and saying when none of them is the answer. What it
