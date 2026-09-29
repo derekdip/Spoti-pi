@@ -181,7 +181,13 @@ fails the row. The strips show a side view and a front view.
    shoulders at 0.20 m. It has a gait prior, which iterations 1 to 6
    did not, and it says so here. (`gait3d_iter7*_*`; the teacher set
    is rerun with it, the iteration-6 set kept under
-   `poc/results/teacher3d_iter6/`.)
+   `poc/results/teacher3d_iter6/`.) (h) In the teacher set the legless
+   body under the reference lay with its head on the floor at 0.03
+   m/s: a walk reference has nothing to say to a body without feet,
+   and sampling centred on it cannot find the crawl. The reference,
+   the scripted arms and the centred sampling apply where the body has
+   a foot; the legless body keeps iteration 6's planner and its three
+   runs were redone.
 
 ## Result against the table (iteration 6; iteration 7's teacher is recorded below it)
 

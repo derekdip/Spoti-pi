@@ -59,8 +59,11 @@ class PredictiveSampler:
         self.foot_z0 = None
         self.arm_idx = {s_: self.si[f"q_shoulder_{s_}"][0] for s_ in "lr" if f"q_shoulder_{s_}" in self.si}
         self.t0 = 0.0
-        self.ref = None
-        if W_TRACK > 0:
+        self.ref = None; self.ref_joints = []
+        # iteration 7h: the reference is a walk, and a body without a foot has nothing to track with it;
+        # the legless body under the reference lay with its head on the floor (0.03 m/s). Where there is
+        # no foot the planner is iteration 6's.
+        if W_TRACK > 0 and self.feet:
             from .grammar3d import GaitState, Body, joint_angles
             from dataclasses import replace
             self.ref_state = replace(GaitState(), freq=REF_FREQ)
@@ -124,7 +127,7 @@ class PredictiveSampler:
              + W_POSE * (q ** 2).sum(2))
         if (W_GAIT > 0 or W_ARM > 0) and (self.feet or self.arm_idx):
             c = c + self.gait_cost(sens)
-        if self.ref_joints if W_TRACK > 0 else False:
+        if self.ref_joints:
             c = c + self.track_cost(sens)
         return c.sum(1)
 
