@@ -186,7 +186,7 @@ class GaitCase:
                 if c == "legs" and not legs: continue
                 out.append(c); continue
             if c in ("stiff", "limp") and not knees: continue
-            if c in ("kneel", "weak", "hop") and not legs: continue
+            if c in ("kneel", "weak") and not legs: continue
             out.append(c)
         return out
 

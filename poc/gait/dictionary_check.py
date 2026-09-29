@@ -27,7 +27,7 @@ def gap_of(f, vs):
     return float(max(0.0, 1.0 - float(p @ p) / ff))
 
 
-def main(bodies=biped.MORPHS):
+def main(bodies=biped.MORPHS, out_path="poc/results/gait_dictionary_check.json"):
     v0 = RG.load_v0()
     out = {}
     T0 = time.time()
@@ -62,7 +62,7 @@ def main(bodies=biped.MORPHS):
         pick = max(rows, key=lambda c: rows[c]["q"]) if rows else None
         out[morph] = dict(e0=e0, rows=rows, absorb=absorb, oracle=oracle, pick=pick)
         print(f"  -> {morph}: e0 {e0:.3f}; oracle {oracle} (drop {rows[oracle]['drop']:.3f}, gap {rows[oracle]['gap']:.2f}, side {rows[oracle]['side']}); projection {pick}", flush=True)
-        json.dump(out, open("poc/results/gait_dictionary_check.json", "w"), indent=1)
+        json.dump(out, open(out_path, "w"), indent=1)
     by = {}
     for m in out.values():
         for c, r in m["rows"].items():
@@ -80,4 +80,5 @@ def main(bodies=biped.MORPHS):
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(out_path=sys.argv[1] if len(sys.argv) > 1 else "poc/results/gait_dictionary_check.json")

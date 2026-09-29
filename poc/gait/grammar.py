@@ -70,11 +70,9 @@ class GaitState:
     kneel_hip: float = 0.0       # rad, hip offset of the kneeling side
     kneel_amp: float = 0.0       # rad, swing of the kneeling side's hip
     kneel_other: float = 0.0     # rad, stance knee flexion added to the stepping leg
-    # ---- one-leg hop: both legs in phase, a crouch, a flight
-    hop_sync: float = 0.0        # 0..1, pulls the right leg's phase toward the left's
-    hop_crouch: float = 0.0      # rad, knee flexion added to both legs
-    hop_flight: float = 0.0      # m, lift amplitude
-    hop_rate: float = 1.0        # multiplies the cycle frequency
+    # (G5: the one-leg hop class was removed. Every one of its parameters entered through a base
+    # parameter, freq, phase_r, knee_off and bob_amp, so a hop state has an exact base twin,
+    # poc/gait/hop_equivalence.py; the base's knee_off and bob_amp ranges were widened to cover it.)
     # ---- arm vault: the arms drive, the torso pitches, the body lifts on the arms
     vault_drive: float = 0.0     # rad, shoulder amplitude added
     vault_off: float = 0.0       # rad, shoulder offset toward the floor ahead
@@ -103,24 +101,22 @@ CLASSES = {
     "stiff": ["stiff_side", "stiff_knee", "stiff_lift"],
     "limp":  ["limp_side", "limp_lift", "limp_sink", "limp_hitch", "limp_duty"],
     "kneel": ["kneel_side", "kneel_hip", "kneel_amp", "kneel_other"],
-    "hop":   ["hop_sync", "hop_crouch", "hop_flight", "hop_rate"],
     "vault": ["vault_drive", "vault_off", "vault_pitch", "vault_lift", "vault_elbow"],
     "weak":  ["weak_side", "weak_scale", "weak_lag"],
 }
 V0_CLASSES = ("rhythm", "legs", "torso", "arms")
 BASE_PARAMS = [p for c in V0_CLASSES for p in CLASSES[c]]
-IMPAIRMENTS = ("stiff", "limp", "kneel", "hop", "vault", "weak")
+IMPAIRMENTS = ("stiff", "limp", "kneel", "vault", "weak")
 SIDED = ("stiff", "limp", "kneel", "weak")
 
 RANGES = {
     "freq": (0.4, 3.0), "duty": (0.3, 0.85), "speed": (0.0, 1.5), "phase0": (-3.2, 3.2), "hip_off": (-1.2, 0.4), "hip_amp": (0.0, 1.0),
-    "knee_off": (0.0, 1.5), "knee_amp": (0.0, 1.8), "knee_lag": (-3.2, 3.2), "ankle_amp": (0.0, 0.7), "ankle_lag": (-3.2, 3.2),
-    "phase_r": (0.0, 6.3), "lean": (-0.5, 1.2), "pitch_amp": (0.0, 0.5), "pitch_lag": (-3.2, 3.2), "bob_amp": (0.0, 0.1),
+    "knee_off": (0.0, 2.0), "knee_amp": (0.0, 1.8), "knee_lag": (-3.2, 3.2), "ankle_amp": (0.0, 0.7), "ankle_lag": (-3.2, 3.2),
+    "phase_r": (0.0, 6.3), "lean": (-0.5, 1.2), "pitch_amp": (0.0, 0.5), "pitch_lag": (-3.2, 3.2), "bob_amp": (0.0, 0.35),
     "arm_amp": (0.0, 1.5), "arm_lag": (-3.2, 3.2), "arm_off": (-2.5, 0.8), "elbow_off": (-2.4, 0.0),
     "stiff_side": (-1.0, 1.0), "stiff_knee": (0.0, 1.0), "stiff_lift": (0.0, 0.6),
     "limp_side": (-1.0, 1.0), "limp_lift": (0.0, 1.0), "limp_sink": (0.0, 0.8), "limp_hitch": (0.0, 0.1), "limp_duty": (0.0, 0.35),
     "kneel_side": (-1.0, 1.0), "kneel_hip": (-1.0, 0.5), "kneel_amp": (0.0, 0.8), "kneel_other": (0.0, 1.6),
-    "hop_sync": (0.0, 1.0), "hop_crouch": (0.0, 1.2), "hop_flight": (0.0, 0.25), "hop_rate": (0.5, 2.5),
     "vault_drive": (0.0, 2.0), "vault_off": (-3.0, 0.5), "vault_pitch": (-0.5, 1.6), "vault_lift": (0.0, 0.3), "vault_elbow": (-2.0, 0.0),
     "weak_side": (-1.0, 1.0), "weak_scale": (0.0, 1.0), "weak_lag": (-1.5, 1.5),
 }
@@ -129,7 +125,6 @@ ON = {
     "stiff": {"stiff_side": -1.0, "stiff_knee": 0.1, "stiff_lift": 0.15},
     "limp":  {"limp_side": -1.0, "limp_lift": 0.4, "limp_sink": 0.3, "limp_hitch": 0.03, "limp_duty": 0.12},
     "kneel": {"kneel_side": -1.0, "kneel_hip": -0.2, "kneel_amp": 0.3, "kneel_other": 1.0},
-    "hop":   {"hop_sync": 1.0, "hop_crouch": 0.5, "hop_flight": 0.08, "hop_rate": 1.5},
     "vault": {"vault_drive": 1.0, "vault_off": -1.2, "vault_pitch": 0.4, "vault_lift": 0.05, "vault_elbow": -0.5},
     "weak":  {"weak_side": -1.0, "weak_scale": 0.6, "weak_lag": 0.3},
 }
@@ -199,9 +194,9 @@ def warp(phi, duty):
 
 def joint_angles(st: GaitState, body: Body, t):
     """Every present joint's angle over the time grid, and the torso pitch and lift, from the grammar."""
-    f = st.freq * st.hop_rate
+    f = st.freq
     phi_l = st.phase0 + 2 * np.pi * f * t
-    phase_r = st.phase_r * (1.0 - st.hop_sync)
+    phase_r = st.phase_r
     phi = {"l": phi_l, "r": phi_l + phase_r}
     q = {}
     for s in SIDES:
@@ -218,7 +213,7 @@ def joint_angles(st: GaitState, body: Body, t):
         knee_scale = 1.0 - (1.0 - st.stiff_knee) * w_stiff
         # the limp's lift and sink both act on the LONG side (the teacher's long knee flexes more in
         # stance, to keep the pelvis level, and in swing, to clear the ground while on the short leg)
-        knee = (st.knee_off + st.hop_crouch + st.limp_sink * w_limp_o + st.kneel_other * w_kneel_o
+        knee = (st.knee_off + st.limp_sink * w_limp_o + st.kneel_other * w_kneel_o
                 + (st.knee_amp * knee_scale + st.limp_lift * w_limp_o) * swing)
         ankle = st.ankle_amp * np.sin(u + st.ankle_lag)
         q[f"hip_{s}"] = hip; q[f"knee_{s}"] = knee; q[f"ankle_{s}"] = ankle
@@ -227,7 +222,7 @@ def joint_angles(st: GaitState, body: Body, t):
     pitch = st.lean + st.vault_pitch + st.pitch_amp * np.sin(2 * phi_l + st.pitch_lag)
     # the rise comes during the long side's stance: with the short side on the left, during the right leg's cycle
     hitch = st.limp_hitch * (_w(st.limp_side, "l") * np.maximum(0.0, np.sin(phi["r"])) + _w(st.limp_side, "r") * np.maximum(0.0, np.sin(phi["l"])))
-    lift = st.hop_flight * np.maximum(0.0, np.sin(2 * phi_l)) + st.vault_lift * np.maximum(0.0, np.sin(phi_l)) + hitch
+    lift = st.vault_lift * np.maximum(0.0, np.sin(phi_l)) + hitch
     bob = st.bob_amp * np.sin(2 * phi_l)
     return q, pitch, lift + bob
 
