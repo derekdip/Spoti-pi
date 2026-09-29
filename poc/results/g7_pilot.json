@@ -191,12 +191,10 @@
     "limp_side": 0.0,
     "limp_lift": 0.0,
     "limp_sink": 0.0,
-    "limp_hitch": 0.0,
     "limp_duty": 0.0,
     "hold_side": 0.0,
     "hold_hip": 0.0,
     "hold_amp": 0.0,
-    "hold_other": 0.0,
     "vault_lift": 0.0,
     "vault_lag": 0.0,
     "weak_side": 0.0,
@@ -204,7 +202,7 @@
     "weak_lag": 0.0,
     "weak_roll": 0.0
    },
-   "seconds": 11.851635932922363
+   "seconds": 12.309361696243286
   }
  ]
 }

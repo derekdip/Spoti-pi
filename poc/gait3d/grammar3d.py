@@ -69,13 +69,14 @@ class GaitState:
     limp_side: float = 0.0
     limp_lift: float = 0.0
     limp_sink: float = 0.0
-    limp_hitch: float = 0.0
     limp_duty: float = 0.0
-    # ---- one leg held: that side's hip at an offset with its own small swing, the other knee bent
+    # ---- one leg held: that side's hip at an offset with its own small swing. (The first draft also
+    # bent the other knee, which is limp's sink term on the same side; the exclusivity table put limp
+    # absorbing hold at 0.56 and it was removed before the freeze. Likewise limp's hitch, a half-wave
+    # lift during the long side's stance, was vault's lift at a lag, absorption 0.98, and is gone.)
     hold_side: float = 0.0
     hold_hip: float = 0.0
     hold_amp: float = 0.0
-    hold_other: float = 0.0
     # ---- arm vault: a lift at the arm cycle with its own phase (what the arm and torso base cannot do)
     vault_lift: float = 0.0
     vault_lag: float = 0.0
@@ -96,8 +97,8 @@ CLASSES = {
     "torso":   ["lean", "pitch_amp", "pitch_lag", "bob_amp", "roll_amp", "roll_lag"],
     "arms":    ["arm_amp", "arm_lag", "arm_off", "elbow_off"],
     "stiff": ["stiff_side", "stiff_knee", "stiff_lift"],
-    "limp":  ["limp_side", "limp_lift", "limp_sink", "limp_hitch", "limp_duty"],
-    "hold":  ["hold_side", "hold_hip", "hold_amp", "hold_other"],
+    "limp":  ["limp_side", "limp_lift", "limp_sink", "limp_duty"],
+    "hold":  ["hold_side", "hold_hip", "hold_amp"],
     "vault": ["vault_lift", "vault_lag"],
     "weak":  ["weak_side", "weak_scale", "weak_lag", "weak_roll"],
 }
@@ -113,15 +114,15 @@ RANGES = {
     "lean": (-0.5, 2.0), "pitch_amp": (0.0, 0.5), "pitch_lag": (-3.2, 3.2), "bob_amp": (0.0, 0.1), "roll_amp": (0.0, 0.4), "roll_lag": (-3.2, 3.2),
     "arm_amp": (0.0, 1.5), "arm_lag": (-3.2, 3.2), "arm_off": (-2.5, 0.8), "elbow_off": (-2.4, 0.0),
     "stiff_side": (-1.0, 1.0), "stiff_knee": (0.0, 1.0), "stiff_lift": (0.0, 0.6),
-    "limp_side": (-1.0, 1.0), "limp_lift": (0.0, 1.0), "limp_sink": (0.0, 0.8), "limp_hitch": (0.0, 0.1), "limp_duty": (0.0, 0.35),
-    "hold_side": (-1.0, 1.0), "hold_hip": (-1.0, 0.5), "hold_amp": (0.0, 0.8), "hold_other": (0.0, 1.6),
+    "limp_side": (-1.0, 1.0), "limp_lift": (0.0, 1.0), "limp_sink": (0.0, 0.8), "limp_duty": (0.0, 0.35),
+    "hold_side": (-1.0, 1.0), "hold_hip": (-1.0, 0.5), "hold_amp": (0.0, 0.8),
     "vault_lift": (0.0, 0.3), "vault_lag": (-3.2, 3.2),
     "weak_side": (-1.0, 1.0), "weak_scale": (0.0, 1.0), "weak_lag": (-1.5, 1.5), "weak_roll": (-0.4, 0.4),
 }
 ON = {
     "stiff": {"stiff_side": -1.0, "stiff_knee": 0.1, "stiff_lift": 0.15},
-    "limp":  {"limp_side": -1.0, "limp_lift": 0.4, "limp_sink": 0.3, "limp_hitch": 0.03, "limp_duty": 0.12},
-    "hold":  {"hold_side": -1.0, "hold_hip": -0.4, "hold_amp": 0.2, "hold_other": 0.6},
+    "limp":  {"limp_side": -1.0, "limp_lift": 0.4, "limp_sink": 0.3, "limp_duty": 0.12},
+    "hold":  {"hold_side": -1.0, "hold_hip": -0.4, "hold_amp": 0.2},
     "vault": {"vault_lift": 0.05, "vault_lag": 0.0},
     "weak":  {"weak_side": -1.0, "weak_scale": 0.6, "weak_lag": 0.3, "weak_roll": 0.1},
 }
@@ -192,7 +193,7 @@ def joint_angles(st: GaitState, body: Body, t):
     for s in SIDES:
         o = "r" if s == "l" else "l"
         w_stiff, w_limp, w_hold, w_weak = (_w(st.stiff_side, s), _w(st.limp_side, s), _w(st.hold_side, s), _w(st.weak_side, s))
-        w_limp_o, w_hold_o = _w(st.limp_side, o), _w(st.hold_side, o)
+        w_limp_o = _w(st.limp_side, o)
         scale = 1.0 - (1.0 - st.weak_scale) * w_weak
         lag = st.weak_lag * w_weak
         u = warp(phi[s] - lag, st.duty - st.limp_duty * w_limp)
@@ -200,8 +201,7 @@ def joint_angles(st: GaitState, body: Body, t):
         hip = st.hip_off + st.hold_hip * w_hold - hip_amp * np.cos(u)
         swing = np.maximum(0.0, -np.sin(u + st.knee_lag))
         knee_scale = 1.0 - (1.0 - st.stiff_knee) * w_stiff
-        knee = (st.knee_off + st.limp_sink * w_limp_o + st.hold_other * w_hold_o
-                + (st.knee_amp * knee_scale + st.limp_lift * w_limp_o) * swing)
+        knee = st.knee_off + st.limp_sink * w_limp_o + (st.knee_amp * knee_scale + st.limp_lift * w_limp_o) * swing
         ankle = st.ankle_amp * np.sin(u + st.ankle_lag)
         abd = SGN[s] * (st.abd_off + st.abd_amp * np.sin(phi[s] + st.abd_lag))
         q[f"hip_x_{s}"] = abd; q[f"hip_y_{s}"] = hip; q[f"knee_{s}"] = knee
@@ -210,8 +210,7 @@ def joint_angles(st: GaitState, body: Body, t):
         q[f"elbow_{s}"] = np.full_like(t, st.elbow_off)
     pitch = st.lean + st.pitch_amp * np.sin(2 * phi_l + st.pitch_lag)
     roll = st.roll_amp * np.sin(phi_l + st.roll_lag) + st.weak_roll * (_w(st.weak_side, "l") * np.maximum(0.0, np.sin(phi["l"])) + _w(st.weak_side, "r") * np.maximum(0.0, np.sin(phi["r"])))
-    hitch = st.limp_hitch * (_w(st.limp_side, "l") * np.maximum(0.0, np.sin(phi["r"])) + _w(st.limp_side, "r") * np.maximum(0.0, np.sin(phi["l"])))
-    lift = st.vault_lift * np.maximum(0.0, np.sin(phi_l + st.vault_lag)) + hitch + st.bob_amp * np.sin(2 * phi_l)
+    lift = st.vault_lift * np.maximum(0.0, np.sin(phi_l + st.vault_lag)) + st.bob_amp * np.sin(2 * phi_l)
     y = st.sway_amp * np.sin(phi_l + st.sway_lag)
     return q, pitch, roll, y, lift
 

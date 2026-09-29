@@ -24,13 +24,14 @@ TRANSFER = [(m, 0) for m in biped.MIRRORS] + [("intact", 1), ("nolegs", 1)]
 
 def designed(morph):
     """(class, side sign) the damage should be named by; (None, 0) for bodies with none. The locked
-    knee is stiff, the stump is hold (the 3D stump hops with the stump held up), the legless body is
-    vault; the one-leg body's hop is the base on one leg (G6), the weak hip walks, and the short
+    knee is stiff, the stump is limp with the stump as the short side (the 3D stump hops on the good
+    leg with the stump held up; the exclusivity table puts limp at 36 percent there and hold at 2), the
+    legless body is vault; the one-leg body's hop is the base on one leg (G6), the weak hip walks, and the short
     shank's limp is its geometry unless the dictionary check says otherwise (see the prereg)."""
     side, kind = biped.side_of(morph)
     sign = {"left": -1, "right": 1}.get(side, 0)
     if kind in ("locked_knee", "stump"):
-        return {"locked_knee": "stiff", "stump": "hold"}[kind], sign
+        return {"locked_knee": "stiff", "stump": "limp"}[kind], sign
     if morph == "nolegs":
         return "vault", 0
     return None, 0

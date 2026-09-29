@@ -27,27 +27,56 @@ sided terms act on one side of a symmetric base; limp's duty change
 is one-sided where the base duty is not; weak's lag shifts one leg's
 clock without the arm's; weak's roll and vault's lift are half-wave
 terms where the base terms are full sinusoids; vault's lag is a phase
-the base's bob does not have. Two impairment terms are twins of each
-other: limp's hitch (a half-wave lift during the long side's stance)
-is vault's lift at a lag of the leg phase difference, and the
-exclusivity table below measures that pair.
+the base's bob does not have. The first draft of the grammar had two impairment terms that were
+twins of each other, and the first exclusivity table
+(`poc/results/gait3d_dictionary_check_draft1.*`) found both: limp's
+hitch, a half-wave lift during the long side's stance, was vault's
+lift at a lag of the leg phase difference (limp absorbed vault 0.98),
+and hold's other-knee term was limp's sink on the same side (limp
+absorbed hold 0.56). Both terms were removed before this document was
+frozen; limp keeps its lift, sink and duty, hold its hip offset and
+amplitude. V0 is unaffected (no base parameter changed). The table
+below is the rerun on the grammar as frozen.
 
 **Redundancy screen** (`poc/gait3d/redundancy_check3d.py`, at V0):
 median over the design bodies, 1.0 meaning the base has the
 direction at first order (the screen's threshold limit is on record,
 `docs/math-track-g5-prereg.md`): stiff knee 0.81 and lift 0.85, class
-step 0.71; limp lift 0.30, hitch 0.86, sink 0.98, duty 0.99, step
-0.57; hold hip 0.65, amp 0.68, other 0.91, step 0.57; vault lift
-0.83, lag 0.95, step 0.64; weak scale 0.00, lag 0.99, roll 0.36, step
-0.81. Higher than the 2D screen throughout (there stiff's step was
-0.26 and hold's 0.43), which is what a base with a lateral class and
-torso roll buys: more of any sided change is reproducible at first
-order by symmetric terms. No parameter is an exact twin by the
-algebra; the exclusivity table is the check that matters.
+step 0.71; limp lift 0.47, sink 0.99, duty 0.80, step 0.51; hold hip
+0.86, amp 0.57, step 0.63; vault lift 0.83, lag 0.95, step 0.64; weak
+scale 0.00, lag 0.99, roll 0.36, step 0.81. Higher than the 2D screen
+throughout (there stiff's step was 0.26 and hold's 0.43), which is
+what a base with a lateral class and torso roll buys: more of any
+sided change is reproducible at first order by symmetric terms. No
+parameter is an exact twin of the base by the algebra; the
+exclusivity table is the check that matters.
 (`poc/results/gait3d_redundancy_check.*`)
 
 **Exclusivity table** (`poc/gait3d/dictionary_check3d.py`, at V0):
-EXCLUSIVITY
+no pair over a half. The largest: legs absorbs hold 0.40, limp
+absorbs weak 0.40, legs absorbs limp 0.39, hold absorbs vault 0.38,
+legs absorbs vault 0.37. Per body at V0, the oracle and the top
+impairment: the left locked knee, stiff at 31 percent on the correct
+side with a gap of 0.03, nothing else above 11; the left stump, torso
+at 47 percent, then limp at 36 percent on the stump's side and vault
+at 36, hold at 2; the legless body, arms and torso at 23 percent
+each, vault at 5. The one-leg body's oracle is the lateral class, the
+short shank's and the intact body's the legs, the weak hip's the
+torso. (`poc/results/gait3d_dictionary_check.*`; the draft grammar's
+table is `gait3d_dictionary_check_draft1.*`.)
+
+Two consequences for the design, decided here on that evidence and
+before the run. The 3D stump hops on the good leg with the stump held
+up (`docs/gait3d-feasibility.md`), and in this grammar's vocabulary
+that is a limp with the stump as the short side: the good leg's knee
+flexes more in swing and stance and the stump's stance fraction
+falls, which the table puts at 36 percent on the correct side, where
+hold, the class the 2D stump was named by, is worth 2. The stump's
+designed class is therefore limp, with its side; whether hold is ever
+added is reported. The legless body's vault is worth 5 percent at V0
+against 23 for the arm and torso refits: the 3D legless teacher crawls
+with little lift, and its designed class stays vault so that the run
+says whether a lift class survives the base refits on it.
 
 ## Consumers, and the two pilot fixes
 
@@ -99,8 +128,8 @@ distance between the fitting run and the held-out runs on it at V0)
 is applied; declined when none passes; six steps. Fourteen cases: the
 seven design bodies at seed 0, the five mirrors at seed 0, and the
 intact and legless bodies at seed 1. Designed classes: stiff for the
-locked knees, hold for the stumps, vault for the legless body; none
-for the one-leg bodies (the hop is the base on one leg, G6), the weak
+locked knees, limp for the stumps (see the exclusivity table), vault
+for the legless body; none for the one-leg bodies (the hop is the base on one leg, G6), the weak
 hips (the 3D weak hip walks with a mild limp) or the short shanks
 (the limp is their geometry in 2D; if the exclusivity table's oracle
 on the short shank is limp, that is recorded above and reported, not
@@ -138,14 +167,15 @@ terminal in side and front view.
 ## Predictions
 
 K4 holds: the rule generalised on nine of nine in 2D and the 3D
-teachers have three runs each. K1 is the open one: the 3D teacher's
-stump hops at two seeds and kneel-steps at one, the walk is
-irregular, and the base has a lateral class the impairments can
-trade with. Predicted K1 holds on the design bodies (stiff and vault
-have no competitor; hold is the stump's only sided class once the
-legs have refitted) and on the mirrors. K2 holds. K3 is open: the 3D
-weak hip limps a little, and a held-out-passing weak repair on it
-would count. Predicted letter A.
+teachers have three runs each. K1 fails, on the legless body: vault
+is worth 5 percent at V0 and the arm and torso refits it competes
+with are worth 23 each, so it is predicted spent before it is named,
+and the within-two bar (3 of 3) is then lost; the locked knees are
+predicted named first on both sides (stiff has no competitor above a
+third of it), and the stumps within two (limp on the stump's side,
+after the torso refit). K2 holds. K3 is open: the 3D weak hip limps a
+little, and a held-out-passing weak or limp repair on it would count.
+Predicted letter C.
 
 ## Outcome (frozen, exclusive)
 
