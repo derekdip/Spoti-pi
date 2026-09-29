@@ -145,3 +145,19 @@ with the stump the one gait that changed.
 - The consumers gain lateral terms: drift, roll, yaw, hip abduction
   and ankle roll statistics; the phase-binned pose block reads every
   present joint as before.
+
+## The teacher set
+
+Thirty-six runs, `poc/results/gait3d_teacher_{morph}_s{seed}_qpos.npy`
+for the seven design bodies and the five right-side mirrors at seeds
+0, 1 and 2 (`gait3d_teacher_all.json`, `.log`), about four minutes a
+run with two in parallel. The seed-to-seed variability the 2D case
+met is here too and larger on the bodies that have two ways to go:
+the left stump hops with the stump up at seeds 0 and 2 and
+kneel-steps on it at seed 1 (thigh down 37 percent); the legless body
+crawls on its hands at all three seeds but at seed 1 with the torso
+turned over (tilt 2.7 rad). The intact body walks at all three seeds
+(speed 0.32 to 0.37, airborne 6 to 17 percent), the locked knees at
+all six, the one-leg bodies hop at all six, facing forward. Which run
+is the fitting run and which are held out is the growth rule's
+business, not the teacher's.
