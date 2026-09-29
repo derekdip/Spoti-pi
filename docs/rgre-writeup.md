@@ -82,6 +82,7 @@ rules; the label each tree returned is given as returned.
 | G6 | locomotion, hop class removed, ranges as G4 | 13 scored (7 unseen) | oracle | 9 of 9 | 12 of 12 non-hop cases reproduce G4 to 1e-6; one-leg terminal 0.477 vs 0.461 (2.8 percent of V0 above); identity 3/3 first, mirrors 2/2; within tolerance 9/9; controls 4 | B |
 | G7 | locomotion in 3D, unseen body | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 2/3 first, 2/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 impairment repairs | C |
 | G8 | locomotion in 3D, base-first naming | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 1/3 first, 1/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 | C |
+| G9 | locomotion in 3D, planted grounding | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; speed from the stride matches the teacher on every body; identity 1/3 first, mirrors 0/2; within tolerance 8/9; controls 2 | C |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
@@ -89,7 +90,7 @@ Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
 `f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
 `g3-results.md`, `g4-results.md`, `g5-results.md`, `g6-results.md`,
-`g7-results.md`, `g8-results.md`.
+`g7-results.md`, `g8-results.md`, `g9-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -406,6 +407,20 @@ I got wrong running it, and where it is recorded.
     the greedy fitter. Growth generalised on nine of nine and both
     held-out runs in both orders (`math-track-g8-results.md`).
 
+24. **The consumers scored states that slid, and a viewer saw it in
+    one look.** The web player of the 3D runtime showed every fitted
+    gait sliding: the root moved at a fitted speed and the lowest
+    part was put on the floor, so the stance foot skated, and no
+    consumer measured slip. G9 planted the part on the floor and
+    made speed what the stride produces. Outcome C as predicted:
+    growth generalised on nine of nine and both held-out runs, every
+    state moved at its teacher's speed from its own stride, and
+    identity weakened further because every leg parameter now also
+    sets the speed, which the exclusivity table on the planted
+    grammar showed before the run as eight pairs over a half. A
+    runtime defect the consumers cannot see is a missing consumer or
+    a missing constraint (`math-track-g9-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -443,7 +458,12 @@ Reduced to the claims that have survived every test:
   ones, under two orders of growth (G7, G8). The label a body ends up
   with is not that stable: it changes with the order in which the
   base is refitted, so the deployable description of a body is the
-  grammar state and the label is a reading of it (G8).
+  grammar state and the label is a reading of it (G8). And the
+  consumers bound what the fit can get right: three rounds of 3D growth
+  fitted states that slid on the floor at errors that looked fine,
+  because no block measured slip, and a constraint in the grammar,
+  the part on the floor planted, fixed what a consumer had not
+  measured (G9).
 - Whether projection can rank a candidate is measurable before the
   run: the linearisation gap, the share of the fitted repair outside
   the tangent span. Under 0.1 the projection is the oracle; over 0.25

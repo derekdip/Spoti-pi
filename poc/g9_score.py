@@ -78,7 +78,7 @@ def main(path, g7_path="poc/results/g7.json"):
     import sys as _sys; _sys.path.insert(0, ".")
     from poc.gait3d import grammar3d as G, rgre_gait3d as RG
     from poc.gait3d.runtime import state_from_json
-    import numpy as np, mujoco
+    import mujoco                      # (scorer defect fixed after the run: a local numpy import shadowed the module's; bars untouched)
     def ground_speed(body, qs, eps=0.02):
         m, d = body.m, body.d; out = []
         for k in range(1, len(qs)):
@@ -96,4 +96,4 @@ def main(path, g7_path="poc/results/g7.json"):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "poc/results/g8.json")
+    main(sys.argv[1] if len(sys.argv) > 1 else "poc/results/g9.json")    # (default path fixed after the run; the run was scored with the path given)
