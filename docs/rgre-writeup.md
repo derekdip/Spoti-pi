@@ -77,13 +77,14 @@ rules; the label each tree returned is given as returned.
 | G1 | locomotion, gait grammar, 5th domain | 14 (7 unseen) | 1.00 (mean 0.83) | 6 of 10 | identity 2/5 first step, 3/5 within two; mirrors 1/4; consumers worse 6/10 | C |
 | G2 | locomotion, exclusive classes | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; floor 0.98; consumers worse 6/10 | A |
 | G3 | locomotion, held-out acceptance and a measured guard | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 1/3; held-out error below V0 10/10; consumers worse 7/10, beyond tolerance 0/10; guard never fired | D |
+| G4 | locomotion, two held-out runs | 13 scored (7 unseen) | oracle | 9 of 9 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; within tolerance 9/9; controls 4 impairment repairs; mean held-out below V0 9/9, both runs 6/9 | A |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
 `fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
 `f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
-`g3-results.md`.
+`g3-results.md`, `g4-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -323,6 +324,22 @@ I got wrong running it, and where it is recorded.
     the frozen bars, on one mirror and the strict consumer clause
     (`math-track-g3-results.md`).
 
+19. **Two held-out runs name the mirrors' damage; the mean of two
+    admits what one run rejects.** G4 gave every body a third teacher
+    run and accepted a repair on the mean of two held-out errors, the
+    guard's tolerance now the mean distance to both. Outcome A as
+    predicted: design identity four of four, mirrors two of three, no
+    consumer beyond tolerance on nine of nine, one control class
+    fewer than G3, mean held-out error below V0 on nine of nine. The
+    right stump's kneel came first because the guard, firing once in
+    the whole run, rejected the hop fit on reach, where that body's
+    two runs agree to 0.02. Twelve of forty-three applied repairs
+    lowered one held-out run only; on the left stump the mean followed
+    the run that resembles the fitting run while the other run got
+    worse. The right one-leg body's hop is absorbed by the base under
+    a third selection rule, a grammar matter the exclusivity table
+    predicted (`math-track-g4-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
@@ -351,7 +368,10 @@ Reduced to the claims that have survived every test:
   limit; there only a fitted gain says when to stop (F6). Where a
   second run of the teacher can be had, acceptance against that run is
   the constant-free rule: in the gait it generalised every damaged
-  body's growth and rejected one true class on one mirror (G3).
+  body's growth and rejected one true class on one mirror (G3); on
+  the mean of two runs, with each consumer guarded by the runs' own
+  distance, that class was named too, at the price of admitting
+  repairs one run of the two rejects (G4).
 - Whether projection can rank a candidate is measurable before the
   run: the linearisation gap, the share of the fitted repair outside
   the tangent span. Under 0.1 the projection is the oracle; over 0.25
