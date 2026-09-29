@@ -1,0 +1,13 @@
+overrides: ['W_HEAD=20']
+intact: nq 21 nu 14 mass 53.1 kg
+    t=0.00s x=-0.00 y=-0.00 z=1.17 cost 538.7 [1s]
+    t=0.50s x=0.12 y=0.02 z=1.13 cost 449.0 [16s]
+    t=1.00s x=0.29 y=0.07 z=1.11 cost 437.2 [31s]
+    t=1.50s x=0.64 y=0.08 z=1.16 cost 513.4 [45s]
+    t=2.00s x=0.84 y=0.14 z=1.16 cost 492.5 [59s]
+    t=2.50s x=1.06 y=0.23 z=1.03 cost 508.7 [73s]
+    t=3.00s x=1.22 y=0.28 z=1.09 cost 514.1 [87s]
+    t=3.50s x=1.36 y=0.31 z=1.12 cost 705.0 [101s]
+    t=4.00s x=1.49 y=0.31 z=1.17 cost 747.8 [115s]
+    t=4.50s x=1.73 y=0.30 z=1.14 cost 471.7 [130s]
+  intact: speed 0.37 m/s, lateral 0.09, drift 0.25 m, torso z 1.13, head z 1.50, tilt 0.22 rad, yaw 0.16, stance {foot_l 0.43, foot_r 0.63}, alternation 0.75, double 0.15, flight 0.10, asymmetry 0.19, hands 0.00, airborne 0.10 [144s]
