@@ -454,6 +454,23 @@ I got wrong running it, and where it is recorded.
     earlier set, and the runtime stands on the later one
     (`math-track-g11-results.md`).
 
+27. **The description that plays is not the one that names.** After
+    G11 the viewer still faulted the fitted states (steps that hardly
+    moved the body; the parametric runtime plays the G11 stump
+    backwards), and two more objectives were tried outside a round,
+    the support foot from the grammar's clock (a draft G12, whose
+    V0 refit lunged) and a fit of every parameter to the teacher's
+    own frames and then to its mean cycle (shuffled, then gamed).
+    Six objectives, each satisfied by its own number and faulted by
+    the eye on the next. The runtime now plays the teacher's own
+    motion, a mean cycle or a crossfaded loop with root motion from
+    the clip, and keeps the clock, the blend, the body switch and the
+    style layer; all seven bodies move at their teacher's speed. The
+    grammar state remains what named the damage and generalised to
+    the held-out runs; it is not, with these consumers, what a viewer
+    accepts, and a consumer set that a fit can satisfy without the
+    motion reading right is the finding (`gait3d-runtime.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:

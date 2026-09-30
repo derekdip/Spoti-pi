@@ -184,6 +184,20 @@ def warp(phi, duty):
     return np.where(x < duty, x / duty * np.pi, np.pi + (x - duty) / (1.0 - duty) * np.pi)
 
 
+def stance_phase(st: GaitState, t):
+    """Whether each side is in the grammar's stance half of its cycle at times t (the warped phase in
+    [0, pi)), with the same lag and duty terms joint_angles uses. Bodies without a leg on a side
+    still get a value; the caller ignores sides that have no foot."""
+    phi_l = st.phase0 + 2 * np.pi * st.freq * t
+    phi = {"l": phi_l, "r": phi_l + st.phase_r}
+    out = {}
+    for s in SIDES:
+        w_limp, w_weak = _w(st.limp_side, s), _w(st.weak_side, s)
+        u = warp(phi[s] - st.weak_lag * w_weak, st.duty - st.limp_duty * w_limp)
+        out[s] = u < np.pi
+    return out
+
+
 def joint_angles(st: GaitState, body: Body, t):
     """Every present joint's angle over the time grid, the root's pitch, roll, lateral offset and lift."""
     phi_l = st.phase0 + 2 * np.pi * st.freq * t
@@ -225,19 +239,34 @@ PLANT_EPS = 0.01     # m: a part this close to the floor after grounding is the 
 
 
 class Ground:
-    """The root's forward motion from the part that is on the floor, frame by frame: the lowest part
+    """The root's forward motion from the part that is on the floor, frame by frame: the support part
     is planted where it touched down and the root moves so that it does not slide; while nothing is
     down (a lift), the root keeps its last velocity. Speed is what the legs produce, not a parameter.
     (Before this, the root moved at a fitted speed and the stance foot skated under the body, which
-    the consumers never measured and a viewer saw at once: docs/gait3d-runtime.md, G9.)"""
+    the consumers never measured and a viewer saw at once: docs/gait3d-runtime.md, G9.)
+
+    Optional, off by default so the G9 to G11 states replay as scored: `stance` chooses the support
+    among the feet the grammar's own clock has in stance (the G12 draft, docs/math-track-g12-prereg.md,
+    not run: the fit under it lunged, docs/gait3d-runtime.md), `support_gid` names the part outright."""
     def __init__(self):
         self.x = 0.0; self.v = 0.0; self.planted = None; self.plant_x = 0.0
 
-    def step(self, body: Body, dt: float):
-        """Call with the body posed at root x = 0 (joints, orientation, y and z set). Returns root x."""
+    def step(self, body: Body, dt: float, stance=None, support_gid=None):
+        """Call with the body posed at root x = 0 (joints, orientation, y and z set). `stance` maps a
+        side to whether the grammar has it in stance; `support_gid` names the support part outright
+        (the cycle runtime, whose profile carries its own contact pattern). Returns root x."""
         m, d = body.m, body.d
-        lows = body.lowest(body.all_gids); i = int(np.argmin(lows)); g = body.all_gids[i]
-        px = float(d.geom_xpos[g][0])                       # the lowest part's centre, relative to the root
+        lows = body.lowest(body.all_gids); i = int(np.argmin(lows))
+        if support_gid is not None and support_gid in body.all_gids:
+            j = body.all_gids.index(support_gid)
+            if lows[j] <= PLANT_EPS: i = j
+        elif stance:
+            feet = [body.gid[f"foot_{s_}"] for s_ in SIDES if stance.get(s_) and f"foot_{s_}" in body.gid]
+            cands = [j for j, g_ in enumerate(body.all_gids) if g_ in feet and lows[j] <= PLANT_EPS]
+            if cands:
+                i = min(cands, key=lambda j: lows[j])
+        g = body.all_gids[i]
+        px = float(d.geom_xpos[g][0])                       # the support part's centre, relative to the root
         if lows[i] > PLANT_EPS:
             self.planted = None; x = self.x + self.v * dt   # airborne: keep going
         elif self.planted == g:
@@ -265,7 +294,7 @@ def pose_root(body: Body, q, k, quat, y, lift):
     mujoco.mj_kinematics(m, d)
 
 
-def trajectory(st: GaitState, body: Body, t=None):
+def trajectory(st: GaitState, body: Body, t=None, clock_support=False):
     """qpos over the window at FPS, grounded and planted: the lowest point of the body touches the
     floor unless lifted, and the part on the floor does not slide. (T, nq) in the model's qpos order;
     no clipping to the body's joint ranges."""
@@ -274,9 +303,9 @@ def trajectory(st: GaitState, body: Body, t=None):
     q, pitch, roll, y, lift = joint_angles(st, body, t)
     quat = quat_wxyz(roll, pitch)
     m, d = body.m, body.d
-    T = len(t); out = np.zeros((T, m.nq)); ground = Ground()
+    T = len(t); out = np.zeros((T, m.nq)); ground = Ground(); st_ph = stance_phase(st, t) if clock_support else None
     for k in range(T):
         pose_root(body, q, k, quat, y, lift)
-        d.qpos[0] = ground.step(body, (t[k] - t[k - 1]) if k else 0.0)
+        d.qpos[0] = ground.step(body, (t[k] - t[k - 1]) if k else 0.0, {s_: bool(st_ph[s_][k]) for s_ in SIDES} if clock_support else None)
         out[k] = d.qpos
     return out

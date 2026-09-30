@@ -21,7 +21,7 @@ import json
 from dataclasses import replace, fields, asdict
 import numpy as np
 import mujoco
-from .grammar3d import GaitState, Body, joint_angles, quat_wxyz, Ground, pose_root
+from .grammar3d import GaitState, Body, joint_angles, quat_wxyz, Ground, pose_root, stance_phase, SIDES
 
 CIRCULAR = {"phase0", "phase_r", "knee_lag", "ankle_lag", "sway_lag", "abd_lag", "pitch_lag", "roll_lag", "arm_lag", "vault_lag"}
 
@@ -39,13 +39,14 @@ def blend(a: GaitState, b: GaitState, w: float) -> GaitState:
     return GaitState(**out)
 
 
-def frame_at(st: GaitState, body: Body, phi: float, ground: Ground, dt: float):
+def frame_at(st: GaitState, body: Body, phi: float, ground: Ground, dt: float, clock_support=False):
     """qpos for the grammar state at phase phi (the left leg's); the root's x from the planted part."""
     t = np.array([(phi - st.phase0) / (2 * np.pi * st.freq)])       # the time at which the grammar's own clock reads phi
     q, pitch, roll, y, lift = joint_angles(st, body, t)
     quat = quat_wxyz(roll, pitch)
     pose_root(body, q, 0, quat, y, lift)
-    body.d.qpos[0] = ground.step(body, dt)
+    ph = stance_phase(st, t) if clock_support else None
+    body.d.qpos[0] = ground.step(body, dt, {s_: bool(ph[s_][0]) for s_ in SIDES} if clock_support else None)
     return body.d.qpos.copy()
 
 

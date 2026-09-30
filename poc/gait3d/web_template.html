@@ -44,7 +44,7 @@
 </style>
 <div class="wrap">
   <h1>Damaged Gait Player</h1>
-  <p class="lede">Every motion here is played from a fitted grammar state, about forty numbers and a phase clock, with no physics at runtime. The part on the floor is planted and the body moves from its stride. The physics teacher each state was fitted to can be shown beside it, and a style layer puts a zombie's posture on the same gait.</p>
+  <p class="lede">Every motion here is played by a runtime with no physics: a phase clock, root motion, a blend across clips and bodies, and a style layer. The clips at the top play the physics teacher's own motion, a mean cycle for the bodies that walk and a crossfaded loop for the stump, the hop and the crawl. Beneath them, for comparison, the fitted grammar states from the last growth round (G11), which a viewer faulted. The physics teacher can be shown beside either.</p>
   <div class="stage" id="stage">
     <canvas id="view"></canvas>
     <div class="hud" id="hud">0.00 s</div>
@@ -59,14 +59,14 @@
   </div>
   <div class="caption" id="caption"></div>
   <div class="legend">
-    <span><i class="swatch" style="background:var(--student)"></i>runtime, from the fitted state</span>
+    <span><i class="swatch" style="background:var(--student)"></i>runtime</span>
     <span><i class="swatch" style="background:var(--teacher)"></i>physics teacher (MuJoCo, predictive sampling)</span>
   </div>
   <div class="notes">
     <h2>What you are looking at</h2>
-    <p>The transition clip is the runtime doing the thing the case was built for: an intact body walks, its left leg is removed at 2.0 s, and the player blends over one second to the state fitted for a one-legged body. The root is kept on the floor by construction; the joints move at about twice their steady speed during the blend and the support flips from two feet to one at a threshold, which is the open item in the runtime note.</p>
-    <p>The body clips show, for each of the seven design bodies, the state a growth run (G7) fitted to that body's physics teacher, played by the runtime, and the teacher itself over the same four seconds. The fit is scored in consumer space (contact timing, stance, joint statistics, orientation, rhythm, reach, phase-binned pose), so the two agree on what a viewer would read from the gait and not frame by frame; the teacher is also irregular from second to second where the runtime is periodic.</p>
-    <p>The style layer is six numbers on top of the fitted state: arms forward and stiff, elbows bent, head down, a little more lean. It is not fitted to anything; it shows that character and gait are separate parameters of one state. The legless body keeps its arms, which are its legs.</p>
+    <p>The transition clip is the runtime doing the thing the case was built for: an intact body walks, its left leg is removed at 2.0 s, and the player blends over one second to the one-leg body's clip. The root is kept on the floor by construction and moved by the clip's own displacement, so each body travels at its teacher's speed. The blend is a crossfade in phase between a 0.93 s walking cycle and a 3.7 s hopping loop, not a path through a state space.</p>
+    <p>The body clips show, for each of the seven design bodies, the teacher's own motion played by the cycle runtime (the mean of its stride cycles, 32 phase bins, or its four-second window as a loop with a 0.3 s crossfaded seam), the teacher itself over the same four seconds, and the G11 fitted grammar state played by the parametric runtime. The fitted state is scored in consumer space (contact timing, stance, joint statistics, foot travel, orientation, rhythm, reach, phase-binned pose) and satisfies those numbers; on this teacher it did not satisfy the eye, after four rounds of adding what the eye had used, which is why the runtime now plays the clip. The mean cycle is periodic where the teacher is irregular from second to second; the loops carry the irregularity.</p>
+    <p>The style layer is a posture on top of either description: arms forward and stiff, elbows bent, the torso pitched forward (and on the fitted state, the head down). It is not fitted to anything; it shows that character and gait are separate layers. The legless body keeps its arms, which are its legs.</p>
     <p>Bodies: intact; weak left hip; locked left knee; short left shank; left stump (leg ends at the knee); left leg removed; both legs removed. Frames are 25 a second; the runtime can produce any rate.</p>
   </div>
 </div>
@@ -88,15 +88,20 @@
   // ---- the clip list
   const bodies = ['intact', 'weak_hip_left', 'locked_knee_left', 'short_shank_left', 'stump_left', 'noleg_left', 'nolegs'];
   const nice = { intact: 'intact', weak_hip_left: 'weak left hip', locked_knee_left: 'locked left knee', short_shank_left: 'short left shank', stump_left: 'left stump', noleg_left: 'left leg removed', nolegs: 'both legs removed' };
-  const g0 = document.createElement('optgroup'); g0.label = 'Runtime transition';
-  g0.appendChild(new Option('Intact walk, left leg removed at 2 s', 'transition'));
-  g0.appendChild(new Option('The same, with the style layer (arms forward, head down)', 'transition_zombie')); sel.appendChild(g0);
-  const g1 = document.createElement('optgroup'); g1.label = 'Fitted state, played by the runtime';
-  bodies.forEach(b => g1.appendChild(new Option(nice[b], b + '_student'))); sel.appendChild(g1);
-  const g2 = document.createElement('optgroup'); g2.label = 'Physics teacher';
-  bodies.forEach(b => g2.appendChild(new Option(nice[b], b + '_teacher'))); sel.appendChild(g2);
-  const g3 = document.createElement('optgroup'); g3.label = 'Fitted state with the style layer (arms forward, head down)';
-  bodies.forEach(b => g3.appendChild(new Option(nice[b], b + '_zombie'))); sel.appendChild(g3);
+  const group = (label, items) => { const g = document.createElement('optgroup'); g.label = label; items.forEach(([text, id]) => g.appendChild(new Option(text, id))); sel.appendChild(g); };
+  group('Runtime transition', [
+    ["Intact walk, left leg removed at 2 s (the teacher's cycle, then the one-leg loop)", 'transition_cycle'],
+    ['The same, with the style layer (arms forward, torso pitched)', 'transition_cycle_zombie'],
+    ['The same from the G11 fitted grammar states (parametric runtime)', 'transition'],
+    ['The G11 states with the style layer', 'transition_zombie']]);
+  group("The teacher's own motion, played by the cycle runtime", bodies.map(b => [nice[b], b + '_cycle']));
+  group('The same with the style layer (arms forward, torso pitched)', bodies.map(b => [nice[b], b + '_cycle_zombie']));
+  group('Physics teacher', bodies.map(b => [nice[b], b + '_teacher']));
+  group('G11 fitted grammar state, played by the parametric runtime', bodies.map(b => [nice[b], b + '_student']));
+  group('G11 fitted state with the style layer (arms forward, head down)', bodies.map(b => [nice[b], b + '_zombie']));
+  // a clip that has a teacher to compare with: its id minus the runtime suffix, plus _teacher
+  const SUFFIXES = ['_cycle_zombie', '_cycle', '_student', '_zombie'];
+  const teacherOf = id => { for (const s of SUFFIXES) if (id.endsWith(s)) return byId[id.slice(0, -s.length) + '_teacher']; return null; };
 
   // ---- three.js scene, z up as in the simulator
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
@@ -159,14 +164,14 @@
     figA.role = id.endsWith('_teacher') ? 'teacher' : 'student';
     figA.setColor(color(figA.role === 'teacher' ? '--teacher' : '--student'));
     caption.textContent = clip.title;
-    const canCompare = id.endsWith('_student') || id.endsWith('_zombie'); compare.disabled = !canCompare;
+    const canCompare = !!teacherOf(id); compare.disabled = !canCompare;
     if (!canCompare) compare.checked = false;
     updateCompare();
   }
   function updateCompare() {
-    if (compare.checked && clip && (clip.id.endsWith('_student') || clip.id.endsWith('_zombie'))) {
+    if (compare.checked && clip && teacherOf(clip.id)) {
       if (!figB) figB = new Figure('teacher');
-      const tc = byId[clip.id.replace('_student', '_teacher').replace('_zombie', '_teacher')];
+      const tc = teacherOf(clip.id);
       figB.build(tc.segments[0].geoms); figB.setColor(color('--teacher')); figB.clipRef = tc;
     } else if (figB) { figB.clear(); scene.remove(figB.root); figB = null; }
   }
@@ -209,6 +214,6 @@
   window.addEventListener('resize', resize);
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { playing = false; playBtn.textContent = 'Play'; }
 
-  applyTheme(); setClip('transition'); resize(); requestAnimationFrame(frame);
+  applyTheme(); setClip('transition_cycle'); resize(); requestAnimationFrame(frame);
 })();
 </script>

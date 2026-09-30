@@ -1,0 +1,1 @@
+weak_hip_left: pose error 0.777, joint rms 0.19 rad, foot rms 0.114 m, speed 0.42 (teacher 0.41), cycle 0.90 s (teacher 0.86), consumer error 0.473, 20985 evals [1543s]

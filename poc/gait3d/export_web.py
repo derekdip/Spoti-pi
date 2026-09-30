@@ -1,6 +1,8 @@
-"""Frames for the web viewer: world-space pose of every geom per frame, for the runtime transition
-and for each design body's fitted gait (the player) and its physics teacher. Written to
-poc/results/gait3d_web_data.json; the viewer embeds it."""
+"""Frames for the web viewer: world-space pose of every geom per frame. Three sources per design body:
+the physics teacher, the cycle runtime playing the teacher's own motion (poc/gait3d/cycle_runtime.py,
+the deployable description after G11), and the G11 fitted grammar state played by the parametric
+runtime (kept for comparison: the viewer faulted it, docs/gait3d-runtime.md). Two transitions, one per
+runtime. Written to poc/results/gait3d_web_data.json; the viewer embeds it."""
 from __future__ import annotations
 import json, sys
 from pathlib import Path
@@ -10,6 +12,7 @@ from scipy.spatial.transform import Rotation
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from poc.gait3d import biped3d, grammar3d as G, rgre_gait3d as RG
 from poc.gait3d.runtime import Player, load_states
+from poc.gait3d import cycle_runtime as CR
 from dataclasses import replace
 
 FPS = 25.0
@@ -50,32 +53,57 @@ def poses(body, frames):
     return out
 
 
-def main(states_path="poc/results/g7.json", out_path="poc/results/gait3d_web_data.json"):
+def speed_of(frames, fps=FPS):
+    return (frames[-1, 0] - frames[0, 0]) / (len(frames) / fps)
+
+
+def cycle_transition(profiles, style):
+    """Intact walk from the teacher's cycle, the leg removed at 2 s, a one-second blend to the one-leg loop."""
+    a, b = profiles["intact"], profiles["noleg_left"]
+    if style: a, b = CR.styled(a), CR.styled(b)
+    p = CR.CyclePlayer(a); before = p.frames(2.0, FPS); ib = p.body
+    p.transition(b, 1.0); after = p.frames(3.0, FPS)
+    return [dict(morph="intact", geoms=geoms_of(ib), frames=poses(ib, before)), dict(morph="noleg_left", geoms=geoms_of(p.body), frames=poses(p.body, after))]
+
+
+def main(states_path="poc/results/g11.json", out_path="poc/results/gait3d_web_data.json"):
     states = load_states(states_path)
     clips = []
-    # the transition: intact walk, leg removed at 2 s, one-second blend to the one-leg state
+    profiles = {m: CR.profile_for(m) for m in biped3d.MORPHS}
+    clips.append(dict(id="transition_cycle", title="Cycle runtime: intact walk from the teacher's cycle, left leg removed at 2.0 s, one-second blend to the one-leg loop", fps=FPS, segments=cycle_transition(profiles, False)))
+    clips.append(dict(id="transition_cycle_zombie", title="Cycle runtime with the style layer: the same transition, arms forward and the torso pitched", fps=FPS, segments=cycle_transition(profiles, True)))
+    # the parametric runtime's transition, from the G11 states
     p = Player("intact", states["intact_s0"]); before = p.frames(2.0, FPS); ib = p.body
     p.transition(states["noleg_left_s0"], 1.0, morph="noleg_left"); after = p.frames(3.0, FPS)
-    clips.append(dict(id="transition", title="Runtime: intact walk, left leg removed at 2.0 s, one-second blend to the one-leg state", fps=FPS,
+    clips.append(dict(id="transition", title="Parametric runtime (G11 states): intact walk, left leg removed at 2.0 s, one-second blend to the one-leg state", fps=FPS,
                       segments=[dict(morph="intact", geoms=geoms_of(ib), frames=poses(ib, before)), dict(morph="noleg_left", geoms=geoms_of(p.body), frames=poses(p.body, after))]))
     ps = Player("intact", styled(states["intact_s0"], "intact")); zb = ps.frames(2.0, FPS); zib = ps.body
     ps.transition(styled(states["noleg_left_s0"], "noleg_left"), 1.0, morph="noleg_left"); za = ps.frames(3.0, FPS)
-    clips.append(dict(id="transition_zombie", title="Runtime with the style layer: the same transition, arms forward and head down", fps=FPS,
+    clips.append(dict(id="transition_zombie", title="Parametric runtime with the style layer: the same transition, arms forward and head down", fps=FPS,
                       segments=[dict(morph="intact", geoms=geoms_of(zib), frames=poses(zib, zb)), dict(morph="noleg_left", geoms=geoms_of(ps.body), frames=poses(ps.body, za))]))
-    g7 = {c["case"]: c for c in json.load(open(states_path))["cases"]}
+    gstates = {c["case"]: c for c in json.load(open(states_path))["cases"]}
     for morph in biped3d.MORPHS:
-        case = RG.GaitCase(morph, 0); st = states[f"{morph}_s0"]
-        pl = Player(morph, st); student = pl.frames(4.0, FPS)
+        case = RG.GaitCase(morph, 0); st = states[f"{morph}_s0"]; geoms = geoms_of(case.body)
         teacher = case.q_teacher[::2]                                  # 50 to 25 frames a second
-        added = [f"{a}{s:+d}" if s else a for a, s in g7[f"{morph}_s0"]["added"]]
-        clips.append(dict(id=f"{morph}_student", title=f"{morph}: the fitted state played by the runtime (repairs {added}, error {case.error(st):.3f})", fps=FPS,
-                          segments=[dict(morph=morph, geoms=geoms_of(case.body), frames=poses(case.body, student))]))
-        clips.append(dict(id=f"{morph}_teacher", title=f"{morph}: the physics teacher (seed 0, seconds 1 to 5)", fps=FPS,
-                          segments=[dict(morph=morph, geoms=geoms_of(case.body), frames=poses(case.body, teacher))]))
+        v_t = speed_of(case.q_teacher, 50.0)
+        clips.append(dict(id=f"{morph}_teacher", title=f"{morph}: the physics teacher (seed 0, seconds 1 to 5, {v_t:.2f} m/s)", fps=FPS,
+                          segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, teacher))]))
+        prof = profiles[morph]; loop = morph in CR.LOOP_BODIES
+        what = f"the teacher's four-second window as a loop with a 0.3 s crossfaded seam" if loop else f"the teacher's mean cycle ({prof.dur:.2f} s, {len(prof.angles)} phase bins)"
+        cp = CR.CyclePlayer(prof); cyc = cp.frames(4.0, FPS)
+        clips.append(dict(id=f"{morph}_cycle", title=f"{morph}: {what}, played by the cycle runtime at {speed_of(cyc):.2f} m/s (teacher {v_t:.2f})", fps=FPS,
+                          segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, cyc))]))
+        cz = CR.CyclePlayer(CR.styled(prof)); cycz = cz.frames(4.0, FPS)
+        clips.append(dict(id=f"{morph}_cycle_zombie", title=f"{morph}: the same clip with the style layer (arms forward, torso pitched), played by the cycle runtime", fps=FPS,
+                          segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, cycz))]))
+        pl = Player(morph, st); student = pl.frames(4.0, FPS)
+        added = [f"{a}{s:+d}" if s else a for a, s in gstates[f"{morph}_s0"]["added"]]
+        clips.append(dict(id=f"{morph}_student", title=f"{morph}: the G11 fitted grammar state played by the parametric runtime (repairs {added}, error {case.error(st):.3f}, {speed_of(student):.2f} m/s)", fps=FPS,
+                          segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, student))]))
         pz = Player(morph, styled(st, morph)); zombie = pz.frames(4.0, FPS)
-        clips.append(dict(id=f"{morph}_zombie", title=f"{morph}: the fitted state with the style layer (arms forward, head down), played by the runtime", fps=FPS,
-                          segments=[dict(morph=morph, geoms=geoms_of(case.body), frames=poses(case.body, zombie))]))
-        print(morph, "student frames", len(student), "teacher frames", len(teacher), flush=True)
+        clips.append(dict(id=f"{morph}_zombie", title=f"{morph}: the G11 fitted state with the style layer (arms forward, head down), played by the parametric runtime", fps=FPS,
+                          segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, zombie))]))
+        print(f"{morph:<18} teacher {v_t:.2f} m/s; cycle runtime {speed_of(cyc):.2f}; parametric {speed_of(student):.2f}", flush=True)
     json.dump(dict(clips=clips), open(out_path, "w"), separators=(",", ":"))
     print("clips", len(clips), "size", Path(out_path).stat().st_size // 1024, "KB")
 
