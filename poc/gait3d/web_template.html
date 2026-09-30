@@ -65,7 +65,7 @@
   <div class="notes">
     <h2>What you are looking at</h2>
     <p>The transition clip is the runtime doing the thing the case was built for: an intact body walks, its left leg is removed at 2.0 s, and the player blends over one second to the one-leg body's clip. The root is kept on the floor by construction and moved by the clip's own displacement, so each body travels at its teacher's speed. The blend is a crossfade in phase between a 0.93 s walking cycle and a 3.7 s hopping loop, not a path through a state space.</p>
-    <p>The body clips show, for each of the seven design bodies, the teacher's own motion played by the cycle runtime (the mean of its stride cycles, 32 phase bins, or its four-second window as a loop with a 0.3 s crossfaded seam), the teacher itself over the same four seconds, and the G11 fitted grammar state played by the parametric runtime. The fitted state is scored in consumer space (contact timing, stance, joint statistics, foot travel, orientation, rhythm, reach, phase-binned pose) and satisfies those numbers; on this teacher it did not satisfy the eye, after four rounds of adding what the eye had used, which is why the runtime now plays the clip. The mean cycle is periodic where the teacher is irregular from second to second; the loops carry the irregularity.</p>
+    <p>The body clips show, for each of the seven design bodies, the teacher's own motion played by the cycle runtime (the mean of its stride cycles, 32 phase bins, or its four-second window as a loop with a 0.3 s crossfaded seam), the teacher itself over the same four seconds, and the G11 fitted grammar state played by the parametric runtime, and, where the G13 round has run, the intact teacher's cycle with the edits fitted to that body. The fitted state is scored in consumer space (contact timing, stance, joint statistics, foot travel, orientation, rhythm, reach, phase-binned pose) and satisfies those numbers; on this teacher it did not satisfy the eye, after four rounds of adding what the eye had used, which is why the runtime now plays the clip. The mean cycle is periodic where the teacher is irregular from second to second; the loops carry the irregularity.</p>
     <p>The style layer is a posture on top of either description: arms forward and stiff, elbows bent, the torso pitched forward (and on the fitted state, the head down). It is not fitted to anything; it shows that character and gait are separate layers. The legless body keeps its arms, which are its legs.</p>
     <p>Bodies: intact; weak left hip; locked left knee; short left shank; left stump (leg ends at the knee); left leg removed; both legs removed. Frames are 25 a second; the runtime can produce any rate.</p>
   </div>
@@ -96,11 +96,12 @@
     ['The G11 states with the style layer', 'transition_zombie']]);
   group("The teacher's own motion, played by the cycle runtime", bodies.map(b => [nice[b], b + '_cycle']));
   group('The same with the style layer (arms forward, torso pitched)', bodies.map(b => [nice[b], b + '_cycle_zombie']));
+  if (byId['intact_edit']) group("The intact teacher's cycle with the edits fitted to each body (G13)", bodies.map(b => [nice[b], b + '_edit']));
   group('Physics teacher', bodies.map(b => [nice[b], b + '_teacher']));
   group('G11 fitted grammar state, played by the parametric runtime', bodies.map(b => [nice[b], b + '_student']));
   group('G11 fitted state with the style layer (arms forward, head down)', bodies.map(b => [nice[b], b + '_zombie']));
   // a clip that has a teacher to compare with: its id minus the runtime suffix, plus _teacher
-  const SUFFIXES = ['_cycle_zombie', '_cycle', '_student', '_zombie'];
+  const SUFFIXES = ['_cycle_zombie', '_cycle', '_student', '_zombie', '_edit'];
   const teacherOf = id => { for (const s of SUFFIXES) if (id.endsWith(s)) return byId[id.slice(0, -s.length) + '_teacher']; return null; };
 
   // ---- three.js scene, z up as in the simulator

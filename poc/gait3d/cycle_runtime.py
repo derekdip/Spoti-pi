@@ -146,8 +146,8 @@ def blend(a: CycleProfile, b: CycleProfile, w: float) -> CycleProfile:
 
 
 class CyclePlayer:
-    def __init__(self, profile: CycleProfile, phase0=0.0):
-        self.profile = profile; self.body = Body(profile.morph); self.morph = profile.morph
+    def __init__(self, profile: CycleProfile, phase0=0.0, body: Body | None = None):
+        self.profile = profile; self.body = body if body is not None and body.morph == profile.morph else Body(profile.morph); self.morph = profile.morph
         self.phase = phase0; self.t = 0.0; self.x = 0.0; self.y = 0.0
         self.target = None; self.source = None; self.blend_t = 0.0; self.blend_T = 0.0
 

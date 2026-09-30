@@ -27,13 +27,13 @@ def gap_of(f, vs):
     return float(max(0.0, 1.0 - float(p @ p) / ff))
 
 
-def main(bodies=biped.MORPHS, out_path="poc/results/gait3d_dictionary_check.json"):
+def main(bodies=biped.MORPHS, out_path="poc/results/gait3d_dictionary_check.json", make_case=RG.GaitCase):
     v0 = RG.load_v0()
     out = {}
     T0 = time.time()
     print(f"{'body':<18} {'class':<6} {'q':>6} {'drop/e0':>8} {'gap':>5} {'side':>5}")
     for morph in bodies:
-        case = RG.GaitCase(morph, 0)
+        case = make_case(morph, 0)
         e0 = case.error(v0); r0 = case.residual(v0).ravel(); E = float(r0 @ r0)
         signed = case.tangents(v0)
         rows, fitted = {}, {}

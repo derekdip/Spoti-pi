@@ -29,10 +29,10 @@ def r2(t, B):
     return float(1.0 - ((t - B @ beta) ** 2).sum() / (t ** 2).sum())
 
 
-def main(bodies=biped.MORPHS, out_path="poc/results/gait3d_redundancy_check.json"):
+def main(bodies=biped.MORPHS, out_path="poc/results/gait3d_redundancy_check.json", make_case=RG.GaitCase):
     v0 = RG.load_v0(); out = {}; T0 = time.time()
     for morph in bodies:
-        case = RG.GaitCase(morph, 0); rep = case.repairable()
+        case = make_case(morph, 0); rep = case.repairable()
         out[morph] = {}
         for cls in G.IMPAIRMENTS:
             if cls not in rep: continue

@@ -66,8 +66,9 @@ def cycle_transition(profiles, style):
     return [dict(morph="intact", geoms=geoms_of(ib), frames=poses(ib, before)), dict(morph="noleg_left", geoms=geoms_of(p.body), frames=poses(p.body, after))]
 
 
-def main(states_path="poc/results/g11.json", out_path="poc/results/gait3d_web_data.json"):
+def main(states_path="poc/results/g11.json", out_path="poc/results/gait3d_web_data.json", edits_path="poc/results/g13.json"):
     states = load_states(states_path)
+    edits = load_states(edits_path) if Path(edits_path).exists() else {}
     clips = []
     profiles = {m: CR.profile_for(m) for m in biped3d.MORPHS}
     clips.append(dict(id="transition_cycle", title="Cycle runtime: intact walk from the teacher's cycle, left leg removed at 2.0 s, one-second blend to the one-leg loop", fps=FPS, segments=cycle_transition(profiles, False)))
@@ -96,6 +97,12 @@ def main(states_path="poc/results/g11.json", out_path="poc/results/gait3d_web_da
         cz = CR.CyclePlayer(CR.styled(prof)); cycz = cz.frames(4.0, FPS)
         clips.append(dict(id=f"{morph}_cycle_zombie", title=f"{morph}: the same clip with the style layer (arms forward, torso pitched), played by the cycle runtime", fps=FPS,
                           segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, cycz))]))
+        if f"{morph}_s0" in edits:                                  # G13: the intact clip with that body's fitted edits
+            from poc.gait3d import clip_edit as CEd
+            ref = RG.load_v0(); ep = CEd.edited_profile(edits[f"{morph}_s0"], case.body, ref); ecl = CR.CyclePlayer(ep, body=case.body).frames(4.0, FPS)
+            eadded = [f"{a}{s:+d}" if s else a for a, s in {c["case"]: c for c in json.load(open(edits_path))["cases"]}[f"{morph}_s0"]["added"]]
+            clips.append(dict(id=f"{morph}_edit", title=f"{morph}: the intact teacher's cycle with the edits G13 fitted to this body (edits {eadded}), played by the cycle runtime at {speed_of(ecl):.2f} m/s (teacher {v_t:.2f})", fps=FPS,
+                              segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, ecl))]))
         pl = Player(morph, st); student = pl.frames(4.0, FPS)
         added = [f"{a}{s:+d}" if s else a for a, s in gstates[f"{morph}_s0"]["added"]]
         clips.append(dict(id=f"{morph}_student", title=f"{morph}: the G11 fitted grammar state played by the parametric runtime (repairs {added}, error {case.error(st):.3f}, {speed_of(student):.2f} m/s)", fps=FPS,

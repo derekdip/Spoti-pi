@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 
 def compare(case, st, path, title, n=6):
     m, d = case.body.m, case.body.d
-    qt = case.q_teacher; qs = G.trajectory(st, case.body)
+    qt = case.q_teacher; qs = case.trajectory(st) if hasattr(case, "trajectory") else G.trajectory(st, case.body)
     idx = np.linspace(0, len(qt) - 1, n).astype(int)
     fig, axes = plt.subplots(4, n, figsize=(2.0 * n, 10.5))
     for r0, (q, lab) in enumerate(((qt, "teacher"), (qs, "student"))):
