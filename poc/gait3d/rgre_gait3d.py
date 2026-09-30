@@ -99,7 +99,11 @@ def consumers(body: Body, qpos):
             cyc = cycles_from_contact(contact[:, body.contact_geoms.index(g)] > 0.5)
             if cyc: break
     if not cyc:
-        ref_name = next(n for n in ("hip_y_l", "hip_y_r", "shoulder_l") if n in body.jadr)
+        # G14 defect fix, named in its results: the one-arm legless body has no hip and no left shoulder, and
+        # a StopIteration here ended a worker pool's iteration silently. Any present joint clocks the fallback.
+        ref_name = next((n for n in ("hip_y_l", "hip_y_r", "shoulder_l", "shoulder_r") if n in body.jadr), None)
+        if ref_name is None:
+            raise ValueError(f"no joint to clock the cycle on {body.morph}")
         cyc = cycles(qpos[:, body.jadr[ref_name]])
     durations = np.array([(b - a) / FPS for a, b in cyc])
     joints = qpos[:, 7:]
