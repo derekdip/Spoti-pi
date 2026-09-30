@@ -142,7 +142,44 @@ step is the exception (0.45, min 0.19), an offset of the hip the
 legs' offsets can follow only halfway.
 
 Exclusivity table (`poc/results/gait3d_dictionary_check_g13.*`):
-EXCLUSIVITY
+per body at V0, the value of each class's fitted edit as a share
+of the error, with the side. Intact: lateral 39 percent, weak 26 on
+the left, legs 25, limp 24 on the left, hold 22 on the right, torso
+21, rhythm 12, vault 1, stiff 0. Left weak hip: lateral 29, torso 29,
+limp 22 on the left, rhythm 18, vault 16, weak 10 on the right (the
+wrong side), stiff 7, legs 6. Left locked knee: limp 28 on the left,
+rhythm 24, weak 24 on the left, lateral 22, hold 20 on the right,
+torso 16, vault 13, legs 12, **stiff 3.8 on the left**. Left short
+shank: lateral 19, weak 13 on the right, torso 12, vault 12, limp 10
+on the left (its oracle side, but sixth), rhythm 10, hold 10, legs 9,
+stiff 5. Left stump: rhythm 23, legs 23, lateral 16, weak 15 on the
+right, hold 12 on the right, **limp 11 on the right** (the wrong
+side), vault 10, stiff 1. Left one-leg: lateral 28, torso 25, legs 24,
+weak 18, rhythm 17, vault 15, limp 13. Legless: arms 5.6, rhythm 4.8,
+torso 3.8, vault 0: the walk clip on the legless body has nothing an
+edit can reach, which is the clip-switch case stated in advance.
+
+Absorption, median over bodies (pairs over a half are not
+separable): weak absorbs limp 0.60, limp absorbs weak 0.58, lateral
+absorbs weak 0.50, limp absorbs hold 0.50; every other pair below.
+Per body: on the left stump, of limp's effect hold absorbs 0.81,
+lateral 0.77 and weak 0.66; on the left one-leg, of limp's effect
+weak absorbs 0.93 and lateral 0.89; on the left locked knee, of
+stiff's effect nothing above 0.35 (legs), and stiff is exclusive
+where it is worth anything, which on this clip is almost nowhere.
+Linearisation gaps are high for every impairment (medians stiff
+0.79, hold 0.76, weak 0.70, limp 0.66, vault 0.55; lateral 0.29,
+legs 0.34): on the clip the fitted edits lie mostly outside the
+tangent span, and the projection's pick agrees with the oracle on
+two bodies of seven (the short shank, the one-leg).
+
+What the table says before the run: the classes that name damage on
+the grammar do not name it as edits of this clip. The locked knee's
+stiff edit is worth four percent where a limp edit is worth 28: a
+walk clip with a clamped knee scores worse than the same clip
+re-timed as a limp, because the teacher's stiff-legged walk is a
+limp in every consumer but the knee's own statistics. The stump's
+limp edit is on the wrong side and behind four base edits.
 
 ## The declared pilot
 
@@ -176,7 +213,40 @@ Excluded from every bar. No change was made after it.
 
 ## Predictions
 
-PREDICTIONS
+- **K4 holds** (`>= 7` of 9). The raw clip is closer to every
+  damaged teacher than the walk base was, and the base edits are
+  worth 20 to 40 percent of the fitting error on every damaged body
+  but the legless one (5.6), where the pilot on the other seed still
+  generalised. The legless body is the likeliest miss.
+- **K2 holds**: the guard is applied at every step.
+- **K1 fails**, and worse than G11's: design 0 of 3 first (the
+  locked knee names limp, rhythm or weak before stiff at 3.8
+  percent; the stump's limp is on the wrong side behind rhythm and
+  legs; vault is worth nothing on the legless body), within two 0 or
+  1 of 3, mirrors 0 of 2. Letter **C**.
+- **K3 fails**: the intact clip on its own teacher's runs has limp,
+  weak and hold edits worth 22 to 26 percent at V0, the left weak hip
+  a limp worth 22, and lateral absorbs weak at a half; more than
+  four impairment repairs over the four controls, unless the
+  held-out test rejects them, which on the intact body's two runs
+  (0.511 apart from the clip) it may.
+- **K7, the claim.** On the walking bodies the terminal held-out
+  error falls below the raw clip's on both runs (K4's own
+  quantity), through base edits and limp or weak, not stiff; the
+  terminal speeds stay within 0.1 m/s of the teachers' (the raw clip
+  already is on three of four); and in the viewer the locked knee
+  reads as a limp, not a stiff leg, because the knee edit is never
+  applied. On the gait-switch bodies: the left stump's and the
+  legless body's terminals stay above G11's parametric terminal on
+  the held-out runs (0.469 and 0.561; the raw clip reads 0.797 and
+  1.017 and the edits are worth under a quarter); the one-leg bodies
+  and the right stump are within G11's at V0 already and stay so,
+  and in the viewer they read as one-legged walks gliding on a foot,
+  not hops, which is the limit of the consumer error this round
+  states rather than tests. The taxonomy the round expects: a
+  limp-like damage is a dial on the walk clip and reads as one; a
+  stiff leg is a dial the consumers do not choose; a hop, a
+  kneel-step and a crawl are clips of their own.
 
 ## Outcome (frozen, exclusive)
 
