@@ -78,7 +78,38 @@ against 0.434), which is declared and not corrected.
 
 ## V0 on the new bodies
 
-V0_TEXT
+The teachers first (`poc/results/gait3d_teacher_combined.log`). The
+one-arm walker walks at 0.41, 0.33 and 0.38 m/s (the intact teacher
+0.42), its first run with an uneven stance (the left foot down 25
+percent of the time, the right 78) and the other two even. The locked
+knee with a weak hip on the other side walks at 0.23, 0.45 and 0.28,
+three runs a factor of two apart. The locked knee without its right
+arm walks at 0.41, 0.19 and 0.46. The legless body with one arm does
+not crawl: 0.09, 0.14 and 0.09 m/s with its head on the floor 80 to
+90 percent of the time and its pelvis 75; the physics has no gait for
+it, and the third question is answered by the teacher before any
+edit is tried.
+
+The raw base clip with the missing parts dropped, against each run:
+the intact clip on the one-arm walker 0.548, 0.549, 0.489; on the
+locked knee with the weak hip 0.686, 0.672, 0.691; on the locked knee
+without an arm 0.518, 0.756, 0.558; the crawl loop on the one-arm
+legless body 2.667, 1.852, 2.080 (the loop crawls at 0.42 m/s and
+0.40 m high where the teacher lies at 0.15 m and moves at 0.1).
+
+Each body's own clip (its mean cycle or loop from run 0) against its
+runs 1 and 2: 0.691 and 0.614 (one-arm walker), 0.604 and 0.582
+(locked knee with weak hip), 0.821 and 0.714 (locked knee without an
+arm), 0.632 and 0.418 (one-arm legless). On two of the three walking
+bodies the raw intact clip is closer to the held-out runs than the
+body's own cycle is: the runs of these teachers differ by more than
+their damage, as in G13, and K9's first clause is met by the raw
+clip's numbers above (all three within 0.613) before the round runs;
+its open clause is whether the growth finds an impairment edit the
+held-out test accepts. On the combined bodies the raw clip's largest
+blocks are rhythm (1.47 on the locked knee with the weak hip, whose
+cadence and speed are not in either single edit), speed (0.76),
+stance (0.90) and joint asymmetry (0.85).
 
 ## Exclusivity table on the new bodies
 
