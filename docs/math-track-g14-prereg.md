@@ -113,11 +113,45 @@ stance (0.90) and joint asymmetry (0.85).
 
 ## Exclusivity table on the new bodies
 
-CHECKS
+`poc/results/gait3d_dictionary_check_g14.*`, the G13 operator on the
+three bodies with legs at V0 (the one-arm legless body has only the
+arm and root operators and is not tabled). The value of each class's
+fitted edit as a share of the error, with the side:
+
+- One-arm walker: lateral 30 percent (the oracle), **stiff 25 on the
+  right, limp 22 on the right, weak 21 on the right, hold 19**, vault
+  20, torso 16, legs 15, rhythm 13, arms 0. Impairment edits worth a
+  fifth to a quarter on a body with two sound legs: its first run
+  walks unevenly (V0 above), and an uneven run of a sound body reads
+  as a leg damage to every class that makes one.
+- Locked left knee with a weak right hip: rhythm 31 (the oracle),
+  limp 29 on the left, weak 28 on the left, torso 16, hold 21 on the
+  left, lateral 21, vault 19, legs 14, **stiff 2.8 on the right**.
+  Neither single edit carries a rhythm change, and the combined
+  teacher's cadence is the largest thing the raw clip misses.
+- Locked left knee without its right arm: lateral 13.5 (the oracle),
+  limp 13 on the left, weak 13 on the right, rhythm 12, torso 10,
+  hold 4, **stiff 4 on the left**, legs 3, arms 1, vault 0.
+
+Absorption: on the combined body, of stiff's effect weak absorbs
+0.83, limp 0.77 and hold 0.75; of weak's, limp 0.61 and legs 0.57; on
+the one-arm walker, of hold's effect limp absorbs 0.76 and stiff
+0.74; on the locked knee without an arm, of hold's effect weak
+absorbs 0.65. As in G13, stiff is worth little and the limp-like
+classes stand in for each other.
 
 ## The declared pilot
 
-PILOT
+The one-arm walker, teacher seed 2, seeds 0 and 1 held out, two steps
+(`poc/results/g14_pilot.*`): at the first step the two largest edits,
+lateral (18 percent) and torso (16), were rejected by the guard for
+moving the speed beyond the runs' distance, and **limp on the left**
+(13.5 percent) was applied, lowering both held-out runs; fitting 0.489
+to 0.422, held-out mean 0.549 to 0.499; at the second step every
+candidate was under 1 percent. Excluded from every bar. No change was
+made after it. What it shows is written into the predictions: the
+growth names a leg damage on a body whose legs are sound, because the
+teacher's runs of that body are uneven.
 
 ## Bars (frozen)
 
@@ -139,7 +173,39 @@ PILOT
 
 ## Predictions
 
-PREDICTIONS
+- **K9 fails on its second clause.** Its first clause is met by the
+  V0 numbers (the intact clip with the arm dropped is within 0.613 of
+  every one-arm run): a removed arm changes the consumers less than
+  the teacher's own run-to-run variation. Its second clause is
+  predicted to fail: the pilot applied limp on the one-arm walker's
+  third run, and on the first run stiff, limp, weak and hold are each
+  worth a fifth or more with the lateral base edit's speed change
+  likely to fall to the guard as it did in the pilot. The dropped arm
+  is free; the teacher's uneven run of the one-arm body is not, and
+  the growth names it a leg damage.
+- **K8 holds, narrowly.** On the locked knee without its right arm,
+  the carried G13 limp edit is worth about what any single edit is
+  worth there (13 percent), and the fresh growth starts from the
+  same raw clip: within 1.25 and below the raw clip on at least two
+  runs. On the locked knee with the weak hip, the composed edit
+  (limp on the left with weak on the left, G13's two terminals) is
+  predicted below the raw clip on all three runs, and its held-out
+  mean within 1.25 of the fresh growth's because the fresh growth's
+  largest candidate, rhythm, fits the first run's slow cadence (0.23
+  m/s) and the two held-out runs disagree on it (0.45 and 0.28), so
+  the held-out test is predicted to reject or halve it. If the fresh
+  growth does take rhythm and keep it, the composition loses this
+  clause: that is the risk, stated. Letter **B**.
+- **K10.** The crawl loop with the arm dropped stays far above the
+  crawl's own run-to-run error on every run (2 to 2.7 against 0.57),
+  and the growth on the loop, with torso, arms, rhythm and vault to
+  edit, ends above 1.5 on every run: the one-arm legless body has no
+  gait in the physics, lying at 0.15 m and moving at 0.1 m/s, and no
+  edit of a crawl at 0.42 m/s and 0.40 m reaches a body that does
+  not crawl.
+- **K11.** Held-out mean below V0's on `>= 3` of 4 bodies, the crawl
+  included (its raw error is far enough off that any torso edit
+  lowers both runs).
 
 ## Outcome (frozen, exclusive)
 
