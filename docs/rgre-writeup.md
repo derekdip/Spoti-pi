@@ -84,6 +84,7 @@ rules; the label each tree returned is given as returned.
 | G8 | locomotion in 3D, base-first naming | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 1/3 first, 1/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 | C |
 | G9 | locomotion in 3D, planted grounding | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; speed from the stride matches the teacher on every body; identity 1/3 first, mirrors 0/2; within tolerance 8/9; controls 2 | C |
 | G10 | locomotion in 3D, teacher with a gait prior | 13 scored (7 unseen) | oracle | 8 of 9 | mean held-out below V0 8/9; speed from the stride matches the teacher on 8 bodies; identity 0/3 first, 1/3 within two, mirrors 1/2; within tolerance 9/9; controls 2 | C |
+| G11 | locomotion in 3D, foot-travel consumer | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 8/9; swing speeds within a factor of two of the teacher's on every walking body; identity 0/3 first, mirrors 1/2; within tolerance 9/9; controls 2 | C |
 
 Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
@@ -91,7 +92,8 @@ Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
 `rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
 `f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
 `g3-results.md`, `g4-results.md`, `g5-results.md`, `g6-results.md`,
-`g7-results.md`, `g8-results.md`, `g9-results.md`, `g10-results.md`.
+`g7-results.md`, `g8-results.md`, `g9-results.md`, `g10-results.md`,
+`g11-results.md`.
 
 ### What transfers, with no recalibration
 
@@ -436,6 +438,21 @@ I got wrong running it, and where it is recorded.
     designed class describes a hop the new teacher does not do. A
     prior in the teacher is a choice about what the base is, and the
     names follow it (`math-track-g10-results.md`).
+
+26. **What a viewer reads and what names damage are different
+    consumers.** The G10 states swung their feet forward at a third
+    of the teacher's speed and backward on a third of the swing
+    frames, and read as stepping in place; no block looked at where a
+    foot goes in the world. G11 added one (each stepping part's swing
+    speed and step length): the fitted states' swing speeds landed
+    within a factor of two of the teacher's on every walking body,
+    growth generalised on nine of nine, and the exclusivity table
+    went from no pair over a half to four, the new block coupling
+    every class through the feet, so no design body named its class.
+    Each consumer added for the viewer (planting, travel) has cost
+    the classes separability; the naming results stand on the
+    earlier set, and the runtime stands on the later one
+    (`math-track-g11-results.md`).
 
 ## 5. What the whole arc says
 
