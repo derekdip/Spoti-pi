@@ -471,6 +471,22 @@ I got wrong running it, and where it is recorded.
     accepts, and a consumer set that a fit can satisfy without the
     motion reading right is the finding (`gait3d-runtime.md`).
 
+28. **The classes carry to the clip as edits, and the naming does
+    not.** G13 read the grammar's classes as edits of the intact
+    teacher's own cycle, each parameter acting on the clip's curves
+    as it acts in the closed form, with the identity edit exact.
+    The growth rule generalised on eight damaged bodies of nine
+    with the guard and the controls clean, and the edited clip
+    matched or beat the parametric fit on the held-out runs in
+    seven cases of thirteen. The left locked knee was named a limp
+    and the right one a stiff leg: the intact teacher's own walk is
+    asymmetric, and on a clip base a class names a damage only
+    relative to the clip's own asymmetry, which the grammar's
+    symmetric base never had. A limp, a weak hip and a stiff leg are
+    dials on the walk clip; a kneel-step, a hop and a crawl are not,
+    because the walk clip carries its height and its stance parts
+    and no edit gives them up (`math-track-g13-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:

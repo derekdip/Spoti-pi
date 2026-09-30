@@ -170,3 +170,10 @@ dial on it), and its transitions are crossfades, not paths in a state
 space. It is what plays. The viewer
 (`poc/results/damaged-gait-player.html`) shows both, the cycle
 runtime first and the G11 states beneath it for comparison.
+
+G13 (`docs/math-track-g13-results.md`) then asked whether the
+grammar's classes carry as edits of the clip: they do as a
+representation the growth rule can grow, they name the damage only
+relative to the clip's own asymmetry, and they reach the walking
+damages and not the kneel-step, the hop or the crawl, which stay
+clips of their own.
