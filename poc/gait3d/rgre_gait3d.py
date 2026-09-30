@@ -4,8 +4,8 @@ Euler angles, so the prone body has no gimbal lock), and a lateral block (the ro
 drift). Yaw and drift are left out: the grammar has no heading, so they would be a floor on every
 body, not a residual a class could explain.
 
-Blocks: contact_t, coupling, stance, joint_stats, asym_joints, asym_stance, speed, height, orient,
-lateral, rhythm, reach, pose_phase. Scales as 2D: each block by its own rms, the asymmetry blocks in their
+Blocks: contact_t, coupling, travel, stance, joint_stats, asym_joints, asym_stance, speed, height,
+orient, lateral, rhythm, reach, pose_phase. Scales as 2D: each block by its own rms, the asymmetry blocks in their
 parent block's units."""
 from __future__ import annotations
 from dataclasses import replace
@@ -74,9 +74,11 @@ def consumers(body: Body, qpos):
     hands = [mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, f"hand_{s}") for s in ("l", "r")]
     gids = [body.gid[g] for g in body.contact_geoms]
     contact = np.zeros((T, len(gids))); tz = np.zeros(T); hz = np.zeros(T); reach = np.zeros((T, 4)); up = np.zeros((T, 2))
+    gx = np.zeros((T, len(gids)))                                  # world x of every contact part's centre
     for k in range(T):
         d.qpos[:] = qpos[k]; mujoco.mj_kinematics(m, d)
         contact[k] = body.lowest(gids) <= CONTACT_EPS
+        gx[k] = [d.geom_xpos[g][0] for g in gids]
         tz[k] = d.xpos[torso][2]; hz[k] = d.xpos[head][2]
         R = d.xmat[torso].reshape(3, 3); up[k] = R[0, 2], R[1, 2]        # the torso's up axis: x (pitch) and y (roll) components
         for i, h in enumerate(hands):
@@ -120,9 +122,20 @@ def consumers(body: Body, qpos):
         return float(np.corrcoef(a, b_)[0, 1]) if a.std() > 1e-9 and b_.std() > 1e-9 else 0.0
     coupling = [corr(qpos[:, body.jadr[f"{j}_l"]], qpos[:, body.jadr[f"{j}_r"]]) for j in ("hip_y", "knee", "shoulder") if f"{j}_l" in body.jadr and f"{j}_r" in body.jadr]
     coupling += [corr(contact[:, body.contact_geoms.index(f"{g}_l")], contact[:, body.contact_geoms.index(f"{g}_r")]) for g in PAIRS_G if f"{g}_l" in body.gid and f"{g}_r" in body.gid]
+    # pilot fix 4 (3D, G11): where the feet go in the world. Every other block is body-relative, and
+    # the G10 states swung their feet forward at a third of the teacher's speed, backward on a third of
+    # the swing frames, and read as stepping in place. Per stepping part (feet, thighs, hands): its
+    # forward speed while off the floor, and the forward distance between its touchdowns.
+    travel = []
+    for i, g in enumerate(body.contact_geoms):
+        if g == "pelvis": continue
+        off = contact[:, i] < 0.5; v = np.diff(gx[:, i]) * FPS; sw = v[off[1:] & off[:-1]]
+        down = ~off; td = np.where(down[1:] & ~down[:-1])[0] + 1
+        travel += [float(sw.mean()) if len(sw) else 0.0, float(np.diff(gx[td, i]).mean()) if len(td) > 1 else 0.0]
     out = {
         "contact_t": binned(contact).ravel(),
         "coupling": np.array(coupling) if coupling else None,
+        "travel": np.array(travel) if travel else None,
         "stance": np.array(stance),
         "joint_stats": np.concatenate([joints.mean(0), joints.std(0), joints.min(0), joints.max(0)]),
         "asym_joints": np.concatenate(asym_j) if asym_j else None,
