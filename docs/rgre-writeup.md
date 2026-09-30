@@ -499,7 +499,9 @@ Reduced to the claims that have survived every test:
   measured (G9). The teacher's own gait is a choice too: with a clean
   walk as its base the fits read as walking and the classes name
   different bodies than before, and neither the consumers nor the
-  procedure can tell a designer which base to want (G10).
+  procedure can tell a designer which base to want (G10). And the consumers a viewer wants are not
+  the consumers that name damage: each block added to make the fits
+  read right coupled the classes further, until none was named (G11).
 - Whether projection can rank a candidate is measurable before the
   run: the linearisation gap, the share of the fitted repair outside
   the tangent span. Under 0.1 the projection is the oracle; over 0.25
