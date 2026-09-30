@@ -97,11 +97,17 @@
   group("The teacher's own motion, played by the cycle runtime", bodies.map(b => [nice[b], b + '_cycle']));
   group('The same with the style layer (arms forward, torso pitched)', bodies.map(b => [nice[b], b + '_cycle_zombie']));
   if (byId['intact_edit']) group("The intact teacher's cycle with the edits fitted to each body (G13)", bodies.map(b => [nice[b], b + '_edit']));
+  // G14: combined damages and removed arms, when the round has run
+  const g14 = ['noarm_left', 'locked_knee_left+weak_hip_right', 'locked_knee_left+noarm_right', 'nolegs+noarm_left'];
+  const nice14 = { 'noarm_left': 'left arm removed', 'locked_knee_left+weak_hip_right': 'locked left knee and weak right hip', 'locked_knee_left+noarm_right': 'locked left knee and right arm removed', 'nolegs+noarm_left': 'both legs and the left arm removed' };
+  const g14items = [];
+  g14.forEach(b => { [['_teacher', 'physics teacher'], ['_raw', 'base clip, parts dropped, no edit'], ['_composed', 'two edits composed, no fitting'], ['_edit', 'one edit carried over, no fitting'], ['_grown', 'edits fitted to this body']].forEach(([suf, what]) => { if (byId[b + suf]) g14items.push([nice14[b] + ': ' + what, b + suf]); }); });
+  if (g14items.length) group('Combined damages and removed arms (G14)', g14items);
   group('Physics teacher', bodies.map(b => [nice[b], b + '_teacher']));
   group('G11 fitted grammar state, played by the parametric runtime', bodies.map(b => [nice[b], b + '_student']));
   group('G11 fitted state with the style layer (arms forward, head down)', bodies.map(b => [nice[b], b + '_zombie']));
   // a clip that has a teacher to compare with: its id minus the runtime suffix, plus _teacher
-  const SUFFIXES = ['_cycle_zombie', '_cycle', '_student', '_zombie', '_edit'];
+  const SUFFIXES = ['_cycle_zombie', '_cycle', '_student', '_zombie', '_edit', '_raw', '_composed', '_grown'];
   const teacherOf = id => { for (const s of SUFFIXES) if (id.endsWith(s)) return byId[id.slice(0, -s.length) + '_teacher']; return null; };
 
   // ---- three.js scene, z up as in the simulator

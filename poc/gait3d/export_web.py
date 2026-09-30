@@ -111,6 +111,31 @@ def main(states_path="poc/results/g11.json", out_path="poc/results/gait3d_web_da
         clips.append(dict(id=f"{morph}_zombie", title=f"{morph}: the G11 fitted state with the style layer (arms forward, head down), played by the parametric runtime", fps=FPS,
                           segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, zombie))]))
         print(f"{morph:<18} teacher {v_t:.2f} m/s; cycle runtime {speed_of(cyc):.2f}; parametric {speed_of(student):.2f}", flush=True)
+    # G14: the new bodies' teachers, the no-fit compositions and the fresh growth's terminals, when the round has run
+    g14_path = "poc/results/g14.json"
+    if Path(g14_path).exists():
+        from poc.gait3d import clip_edit as CEd
+        from poc.gait3d.runtime import state_from_json
+        g14 = json.load(open(g14_path)); ref = RG.load_v0()
+        grown = {c["morph"]: c for c in g14["cases"] if c["group"] != "pilot"}
+        for morph, entries in g14["compositions"].items():
+            case = RG.GaitCase(morph, 0); geoms = geoms_of(case.body); v_t = speed_of(case.q_teacher, 50.0)
+            clips.append(dict(id=f"{morph}_teacher", title=f"{morph}: the physics teacher (seed 0, seconds 1 to 5, {v_t:.2f} m/s)", fps=FPS,
+                              segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, case.q_teacher[::2]))]))
+            base = CEd.base_clip(morph="nolegs") if biped3d.legless(morph) else CEd.base_clip()
+            for label, v in entries.items():
+                if label.startswith("raw") and morph != "noarm_left" and morph != "nolegs+noarm_left": continue
+                st = state_from_json(v["state"]); prof = CEd.edited_profile(st, case.body, ref, base, "clearance"); fr = CR.CyclePlayer(prof, body=case.body).frames(4.0, FPS)
+                cid = f"{morph}_" + ("raw" if label.startswith("raw") else ("composed" if label == "composed" else "edit"))
+                if any(c["id"] == cid for c in clips): continue
+                clips.append(dict(id=cid, title=f"{morph}: {label}, played by the cycle runtime at {speed_of(fr):.2f} m/s (teacher {v_t:.2f}); no fitting on this body", fps=FPS,
+                                  segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, fr))]))
+            if morph in grown:
+                c = grown[morph]; st = state_from_json(c["state"]); prof = CEd.edited_profile(st, case.body, ref, base, "clearance"); fr = CR.CyclePlayer(prof, body=case.body).frames(4.0, FPS)
+                added = [f"{a}{s:+d}" if s else a for a, s in c["added"]]
+                clips.append(dict(id=f"{morph}_grown", title=f"{morph}: the base clip with the edits G14 fitted to this body (edits {added}), played by the cycle runtime at {speed_of(fr):.2f} m/s (teacher {v_t:.2f})", fps=FPS,
+                                  segments=[dict(morph=morph, geoms=geoms, frames=poses(case.body, fr))]))
+            print(morph, "G14 clips", [c["id"] for c in clips if c["id"].startswith(morph)], flush=True)
     json.dump(dict(clips=clips), open(out_path, "w"), separators=(",", ":"))
     print("clips", len(clips), "size", Path(out_path).stat().st_size // 1024, "KB")
 

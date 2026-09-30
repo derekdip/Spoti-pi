@@ -72,6 +72,7 @@ def consumers(body: Body, qpos):
     T = len(qpos)
     torso = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, "torso"); head = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, "head")
     hands = [mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, f"hand_{s}") for s in ("l", "r")]
+    hands = [h for h in hands if h >= 0]                            # G14: an arm can be missing; every earlier body had both
     gids = [body.gid[g] for g in body.contact_geoms]
     contact = np.zeros((T, len(gids))); tz = np.zeros(T); hz = np.zeros(T); reach = np.zeros((T, 4)); up = np.zeros((T, 2))
     gx = np.zeros((T, len(gids)))                                  # world x of every contact part's centre
@@ -83,6 +84,7 @@ def consumers(body: Body, qpos):
         R = d.xmat[torso].reshape(3, 3); up[k] = R[0, 2], R[1, 2]        # the torso's up axis: x (pitch) and y (roll) components
         for i, h in enumerate(hands):
             reach[k, 2 * i] = d.xpos[h][0] - d.xpos[torso][0]; reach[k, 2 * i + 1] = d.xpos[h][2]
+    reach = reach[:, :2 * len(hands)]
     edges = np.linspace(0, T, BINS + 1).astype(int)
     binned = lambda v: np.array([v[a:b].mean(0) for a, b in zip(edges[:-1], edges[1:])])
     speed = (qpos[-1, 0] - qpos[0, 0]) / ((T - 1) / FPS)
@@ -145,7 +147,7 @@ def consumers(body: Body, qpos):
         "orient": np.array([up[:, 0].mean(), up[:, 0].std(), up[:, 1].mean(), up[:, 1].std()]),
         "lateral": np.array([(yy - trend).std()]),
         "rhythm": np.array([1.0 / durations.mean(), durations.std() / durations.mean()]),
-        "reach": np.array([reach[:, 0].max(), reach[:, 1].max(), reach[:, 2].max(), reach[:, 3].max()]),
+        "reach": reach.max(0),
         "pose_phase": phase_mean(joints, cyc).ravel(),
     }
     return {k: v for k, v in out.items() if v is not None}

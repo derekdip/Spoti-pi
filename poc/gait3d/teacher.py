@@ -14,6 +14,7 @@ OUT = Path("poc/results")
 SEEDS = (0, 1, 2)
 DESIGN = [(m, s) for m in biped3d.MORPHS for s in SEEDS]
 TRANSFER = [(m, s) for m in biped3d.MIRRORS for s in SEEDS]
+COMBINED = [(m, s) for m in biped3d.COMBINED for s in SEEDS]      # G14: combined damages and removed arms
 
 
 def path(morph, seed):
@@ -36,7 +37,7 @@ def _run(job):
 
 
 def main(which, workers=1):
-    jobs = {"design": DESIGN, "transfer": TRANSFER, "all": DESIGN + TRANSFER}[which]
+    jobs = {"design": DESIGN, "transfer": TRANSFER, "all": DESIGN + TRANSFER, "combined": COMBINED}[which]
     jobs = [j for j in jobs if not path(*j).exists()]
     log_path = OUT / f"gait3d_teacher_{which}.json"
     log = json.load(open(log_path)) if log_path.exists() else {}

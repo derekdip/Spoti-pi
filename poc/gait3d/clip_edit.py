@@ -24,17 +24,30 @@ import numpy as np
 import mujoco
 from scipy.spatial.transform import Rotation
 from .grammar3d import GaitState, Body, joint_angles, Ground, SIDES, SGN, FPS, WINDOW, warp, _w as G_w
+from . import grammar3d as G
 from .cycle_runtime import CycleProfile, CyclePlayer, NB, _qlerp
 from . import rgre_gait3d as RG
 
 CLIP_MORPH, CLIP_SEED = "intact", 0
 _cache = {}
+RATIO = ("hip_amp", "knee_amp", "ankle_amp", "abd_amp", "ankle_x_amp", "arm_amp", "freq")     # parameters that act as ratios to R
 
 
-def base_clip(nb=NB) -> CycleProfile:
-    if ("clip", nb) not in _cache:
-        _cache[("clip", nb)] = CycleProfile.from_teacher(CLIP_MORPH, CLIP_SEED, nb)
-    return _cache[("clip", nb)]
+def base_clip(nb=NB, morph=CLIP_MORPH, seed=CLIP_SEED) -> CycleProfile:
+    """The base clip: the intact teacher's mean cycle, or (G14) another body's own clip, a mean cycle
+    for a walker and a loop for a body with no clean cycle; carrying its clearance."""
+    key = ("clip", nb, morph, seed)
+    if key not in _cache:
+        from .cycle_runtime import LOOP_BODIES
+        prof = CycleProfile.from_teacher_loop(morph, seed) if morph in LOOP_BODIES else CycleProfile.from_teacher(morph, seed, nb)
+        _cache[key] = prof.with_clearance()
+    return _cache[key]
+
+
+def contact_parts(body: Body):
+    """The parts the clip steps with: the feet where the body has them, else the hands."""
+    feet = [s_ for s_ in SIDES if f"foot_{s_}" in body.gid]
+    return {s_: f"foot_{s_}" for s_ in feet} if feet else {s_: f"hand_{s_}" for s_ in SIDES if f"hand_{s_}" in body.gid}
 
 
 def _pose(body: Body, q, quat, y, z):
@@ -49,16 +62,17 @@ def _pose(body: Body, q, quat, y, z):
     return z
 
 
-def clip_stance(nb=NB):
-    """Which feet the raw clip has on the floor per bin, read on the intact body."""
-    if ("stance", nb) not in _cache:
-        clip = base_clip(nb); body = Body(CLIP_MORPH); out = []
+def clip_stance(clip: CycleProfile | None = None):
+    """Which stepping parts the raw clip has on the floor per bin, read on the clip's own body."""
+    clip = clip or base_clip(); nb = len(clip.angles); key = ("stance", id(clip))
+    if key not in _cache:
+        body = Body(clip.morph); parts = contact_parts(body); out = []
         for b in range(nb):
             q, z, quat = clip.at(b / nb); _pose(body, q, quat, clip.root_at(b / nb)[1], z)
-            lows = body.lowest([body.gid[f"foot_{s}"] for s in SIDES])
-            out.append({s: bool(lows[i] <= RG.CONTACT_EPS) for i, s in enumerate(SIDES)})
-        _cache[("stance", nb)] = out
-    return _cache[("stance", nb)]
+            lows = {s_: float(body.lowest([body.gid[g]])[0]) for s_, g in parts.items()}
+            out.append({s_: bool(lows.get(s_, 1.0) <= RG.CONTACT_EPS) for s_ in SIDES})
+        _cache[key] = out
+    return _cache[key]
 
 
 def grammar_root(st: GaitState, body: Body, nb):
@@ -79,25 +93,25 @@ def _warp_inv(u, duty):
     return np.where(u < np.pi, u / np.pi * duty, duty + (u - np.pi) / np.pi * (1.0 - duty))
 
 
-def stance_start(nb=NB):
-    """Where each foot's stance begins in the raw clip and how much of the cycle it lasts, in cycles
-    (the longest run of that foot's contact flags with gaps of up to two bins closed; the left foot's
-    start is 0 by the cut)."""
-    fl = clip_stance(nb); out = {}
+def stance_start(clip: CycleProfile | None = None):
+    """Where each stepping part's stance begins in the raw clip and how much of the cycle it lasts, in
+    cycles (the longest run of its contact flags with gaps of up to two bins closed; the left foot's
+    start is 0 by the cut of a mean cycle)."""
+    clip = clip or base_clip(); fl = clip_stance(clip); nb = len(fl); out = {}
     for s_ in SIDES:
         run = _longest_run([f[s_] for f in fl])
         out[s_] = ((run[0] % nb) / nb, (run[1] - run[0] + 1) / nb) if run else (0.0, 0.5)
     return out
 
 
-def leg_phases(st: GaitState, ref: GaitState, nb):
+def leg_phases(st: GaitState, ref: GaitState, nb, clip: CycleProfile | None = None):
     """For each side, the raw clip's phase to read at every bin, after the state's re-timing: the
     right leg's phase shift, that side's delay (weak) and stance fraction (duty, limp) through the
     grammar's warp about the clip's own stance start, the state's change of stance fraction against
     the reference applied to the clip's own stance fraction (the clip's feet are down for more of the
     cycle than the grammar's duty says, and a warp about the grammar's duty moved the clip's real
     toe-off into the stance run: the prereg's pre-build check)."""
-    phi = np.arange(nb) / nb; st0 = stance_start(nb); out = {}
+    phi = np.arange(nb) / nb; st0 = stance_start(clip); out = {}
     for s_ in SIDES:
         dr = ((st.phase_r - ref.phase_r) / (2 * np.pi)) if s_ == "r" else 0.0
         w_limp, w_weak = G_w(st.limp_side, s_), G_w(st.weak_side, s_)
@@ -115,8 +129,10 @@ def _qsample(quats, phases):
     return np.array([_qlerp(quats[ii], quats[jj], ww) for ii, jj, ww in zip(i, j, w)])
 
 
-def edited_profile(st: GaitState, body: Body, ref: GaitState, clip: CycleProfile | None = None) -> CycleProfile:
-    clip = clip or base_clip(); nb = len(clip.angles); phi = np.arange(nb) / nb; ph = leg_phases(st, ref, nb)
+def edited_profile(st: GaitState, body: Body, ref: GaitState, clip: CycleProfile | None = None, grounding="height") -> CycleProfile:
+    """`grounding`: "height" keeps the clip's root height and raises a body that would go below the floor
+    (G13, as scored); "clearance" carries the clip's clearance instead (G14, the declared design change)."""
+    clip = clip or base_clip(); nb = len(clip.angles); phi = np.arange(nb) / nb; ph = leg_phases(st, ref, nb, clip)
     dr = (st.phase_r - ref.phase_r) / (2 * np.pi)
     # the root and the arms follow the legs' re-timing, by the mean of the two sides' displacements
     # (the right leg's own phase shift excluded), so that the trunk's pitch and yaw stay with the stride
@@ -155,13 +171,14 @@ def edited_profile(st: GaitState, body: Body, ref: GaitState, clip: CycleProfile
     qc = _qsample(clip.quat, p_root)
     Rc = Rotation.from_quat(qc[:, [1, 2, 3, 0]]); Re = (RS * RR.inv() * Rc).as_quat(); quat = Re[:, [3, 0, 1, 2]]
     z = _sample(clip.z, p_root) + (lS - lR)
+    clear = None if (grounding != "clearance" or clip.clear is None) else np.maximum(0.0, _sample(clip.clear, p_root) + (lS - lR))
     y = _sample(clip.dy[:nb], p_root) + (yS - yR); dy = np.concatenate([y, y[:1]])
     dur = clip.dur * ref.freq / st.freq
-    prof = CycleProfile(body.morph, joints, ang, z, quat, dur, clip.dx, dy)
-    fl = clip_stance(nb); stance = [{s_: fl[int(np.floor(np.mod(ph[s_][b], 1.0) * nb + 1e-9)) % nb][s_] for s_ in SIDES} for b in range(nb)]
-    key = ("raw", body.morph, nb)
+    prof = CycleProfile(body.morph, joints, ang, z, quat, dur, clip.dx, dy, clear)
+    fl = clip_stance(clip); stance = [{s_: fl[int(np.floor(np.mod(ph[s_][b], 1.0) * nb + 1e-9)) % nb][s_] for s_ in SIDES} for b in range(nb)]
+    key = ("raw", body.morph, id(clip), grounding)
     if key not in _cache:
-        raw = CycleProfile(body.morph, joints, np.array([[C[j][b] if j in C else 0.0 for j in joints] for b in range(nb)]), clip.z, clip.quat, clip.dur, clip.dx, clip.dy)
+        raw = CycleProfile(body.morph, joints, np.array([[C[j][b] if j in C else 0.0 for j in joints] for b in range(nb)]), clip.z, clip.quat, clip.dur, clip.dx, clip.dy, clip.clear if grounding == "clearance" else None)
         _cache[key] = stride(raw, body, fl)
     s0 = _cache[key]
     prof.dx = clip.dx * (stride(prof, body, stance) / s0 if s0 > 1e-6 else 1.0)
@@ -212,20 +229,42 @@ def stride(prof: CycleProfile, body: Body, stance):
     return float(total)
 
 
-def edited_trajectory(st: GaitState, body: Body, ref: GaitState, clip: CycleProfile | None = None):
+def edited_trajectory(st: GaitState, body: Body, ref: GaitState, clip: CycleProfile | None = None, grounding="height"):
     """qpos over the window at FPS, the edited clip played by the cycle runtime. (T, nq)."""
-    prof = edited_profile(st, body, ref, clip)
+    prof = edited_profile(st, body, ref, clip, grounding)
     return CyclePlayer(prof, body=body).frames(WINDOW[1] - WINDOW[0], FPS)
 
 
+def compose(s1: GaitState, s2: GaitState, ref: GaitState) -> GaitState:
+    """Two edits as one (G14): a ratio parameter multiplies its ratios to R, any other parameter adds
+    its differences from R, and a sided class comes from whichever edit has it on (the larger side
+    weight if both). No fitting."""
+    from dataclasses import fields
+    out = {}
+    for f in fields(GaitState):
+        p = f.name; a, b, r = getattr(s1, p), getattr(s2, p), getattr(ref, p)
+        cls = next((c for c in G.IMPAIRMENTS if p in G.CLASSES[c]), None)
+        if cls is not None:
+            on1, on2 = G.is_on(s1, cls), G.is_on(s2, cls)
+            if on1 and on2 and cls in G.SIDED:
+                src = s1 if abs(getattr(s1, f"{cls}_side")) >= abs(getattr(s2, f"{cls}_side")) else s2
+                out[p] = getattr(src, p)
+            elif on1 and on2: out[p] = a + b - r
+            else: out[p] = a if on1 else (b if on2 else r)
+        elif p in RATIO: out[p] = r * (a / r) * (b / r) if abs(r) > 1e-9 else a + b - r
+        else: out[p] = a + b - r
+    return replace(ref, **out)
+
+
 class EditedGaitCase(RG.GaitCase):
-    """GaitCase with the clip as base: every state is an edit of the intact teacher's cycle."""
-    def __init__(self, morph, seed=0, ref: GaitState | None = None):
+    """GaitCase with a clip as base: every state is an edit of it. G13: the intact teacher's cycle, the
+    root at the clip's height. G14 adds a base clip per case and clearance grounding."""
+    def __init__(self, morph, seed=0, ref: GaitState | None = None, clip: CycleProfile | None = None, grounding="height"):
         super().__init__(morph, seed)
-        self.ref = ref or RG.load_v0()
+        self.ref = ref or RG.load_v0(); self.clip = clip; self.grounding = grounding
 
     def trajectory(self, st: GaitState):
-        return edited_trajectory(st, self.body, self.ref)
+        return edited_trajectory(st, self.body, self.ref, self.clip, self.grounding)
 
     def _consumers(self, st: GaitState):
         key = tuple(getattr(st, f) for f in st.__dataclass_fields__)

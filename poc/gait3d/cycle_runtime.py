@@ -18,6 +18,13 @@ right, so the deployable description is a clip of it:
 
 Orientation is the teacher's quaternion per bin, blended by normalised interpolation; no Euler
 angles, since the crawl is pitched to the floor with a heading.
+
+Grounding (G14, a declared design change): a profile carries its clearance per bin, the height of
+its own body's lowest part above the floor at that bin (clamped at zero), and the player puts the
+current body's lowest part at that clearance. On the body the clip came from this is the rule it
+replaces (the root at its recorded height unless a part would go below the floor); on a body that
+has lost the parts the clip stood on, the body comes down to the floor instead of hanging at the
+walk's height, which is how the G13 edited legless clip floated (docs/math-track-g13-results.md).
 """
 from __future__ import annotations
 import json
@@ -46,10 +53,24 @@ def _qlerp(a, b, w):
 
 
 class CycleProfile:
-    def __init__(self, morph, joints, angles, z, quat, dur, dx, dy):
+    def __init__(self, morph, joints, angles, z, quat, dur, dx, dy, clear=None):
         self.morph = morph; self.joints = list(joints); self.angles = np.asarray(angles, float); self.z = np.asarray(z, float)
         self.quat = np.asarray(quat, float); self.dur = float(dur)
         self.dx = np.asarray(dx, float); self.dy = np.asarray(dy, float)      # root displacement from the clip's start at nb + 1 phase edges
+        self.clear = None if clear is None else np.asarray(clear, float)      # lowest part's height above the floor per bin (G14 grounding)
+
+    def with_clearance(self, body=None):
+        """The same profile carrying its clearance, read on its own body."""
+        body = body if body is not None and body.morph == self.morph else Body(self.morph)
+        m, d = body.m, body.d; nb = len(self.angles); clear = np.zeros(nb)
+        for b in range(nb):
+            d.qpos[:] = 0.0; d.qpos[3:7] = self.quat[b]
+            for n, a in body.jadr.items():
+                k = self.joints.index(n) if n in self.joints else -1
+                if k >= 0: d.qpos[a] = self.angles[b, k]
+            d.qpos[2] = self.z[b]; mujoco.mj_kinematics(m, d)
+            clear[b] = max(0.0, float(body.lowest(body.all_gids).min()))
+        return CycleProfile(self.morph, self.joints, self.angles, self.z, self.quat, self.dur, self.dx, self.dy, clear)
 
     # ---- from the teacher
     @staticmethod
@@ -103,6 +124,10 @@ class CycleProfile:
         lerp = lambda a: (1 - w) * a[i] + w * a[j]
         return dict(zip(self.joints, lerp(self.angles))), float(lerp(self.z)), _qlerp(self.quat[i], self.quat[j], w)
 
+    def clear_at(self, phase):
+        nb = len(self.angles); x = (phase % 1.0) * nb; i = int(np.floor(x)) % nb; j = (i + 1) % nb; w = x - np.floor(x)
+        return float((1 - w) * self.clear[i] + w * self.clear[j])
+
     def root_at(self, phase):
         x = min(max(phase, 0.0), 1.0) * (len(self.dx) - 1); i = int(np.floor(x)); j = min(i + 1, len(self.dx) - 1); w = x - i
         return float((1 - w) * self.dx[i] + w * self.dx[j]), float((1 - w) * self.dy[i] + w * self.dy[j])
@@ -111,10 +136,13 @@ class CycleProfile:
         ph = np.arange(nb) / nb; rows = [self.at(p) for p in ph]
         ang = np.array([[r[0][j] for j in self.joints] for r in rows]); z = np.array([r[1] for r in rows]); quat = np.array([r[2] for r in rows])
         edges = np.arange(nb + 1) / nb
-        return CycleProfile(self.morph, self.joints, ang, z, quat, self.dur, [self.root_at(p)[0] for p in edges], [self.root_at(p)[1] for p in edges])
+        return CycleProfile(self.morph, self.joints, ang, z, quat, self.dur, [self.root_at(p)[0] for p in edges], [self.root_at(p)[1] for p in edges],
+                            None if self.clear is None else [self.clear_at(p) for p in ph])
 
     def to_json(self):
-        return dict(morph=self.morph, joints=self.joints, angles=self.angles.round(5).tolist(), z=self.z.round(5).tolist(), quat=self.quat.round(5).tolist(), dur=self.dur, dx=self.dx.round(5).tolist(), dy=self.dy.round(5).tolist())
+        out = dict(morph=self.morph, joints=self.joints, angles=self.angles.round(5).tolist(), z=self.z.round(5).tolist(), quat=self.quat.round(5).tolist(), dur=self.dur, dx=self.dx.round(5).tolist(), dy=self.dy.round(5).tolist())
+        if self.clear is not None: out["clear"] = self.clear.round(5).tolist()
+        return out
 
 
 def styled(p: CycleProfile) -> CycleProfile:
@@ -129,7 +157,7 @@ def styled(p: CycleProfile) -> CycleProfile:
     for b in range(len(quat)):
         r = Rotation.from_quat([quat[b, 1], quat[b, 2], quat[b, 3], quat[b, 0]]) * tilt          # the pitch in the body's own frame
         qq = r.as_quat(); quat[b] = [qq[3], qq[0], qq[1], qq[2]]
-    return CycleProfile(p.morph, p.joints, ang, p.z, quat, p.dur, p.dx, p.dy)
+    return CycleProfile(p.morph, p.joints, ang, p.z, quat, p.dur, p.dx, p.dy, p.clear)
 
 
 def blend(a: CycleProfile, b: CycleProfile, w: float) -> CycleProfile:
@@ -142,7 +170,8 @@ def blend(a: CycleProfile, b: CycleProfile, w: float) -> CycleProfile:
     for k, j in enumerate(b.joints):
         ang[:, k] = ((1 - w) * a.angles[:, a.joints.index(j)] + w * b.angles[:, k]) if j in a.joints else b.angles[:, k]
     quat = np.array([_qlerp(a.quat[i], b.quat[i], w) for i in range(nb)])
-    return CycleProfile(b.morph, b.joints, ang, (1 - w) * a.z + w * b.z, quat, (1 - w) * a.dur + w * b.dur, (1 - w) * a.dx + w * b.dx, (1 - w) * a.dy + w * b.dy)
+    clear = None if (a.clear is None or b.clear is None) else (1 - w) * a.clear + w * b.clear
+    return CycleProfile(b.morph, b.joints, ang, (1 - w) * a.z + w * b.z, quat, (1 - w) * a.dur + w * b.dur, (1 - w) * a.dx + w * b.dx, (1 - w) * a.dy + w * b.dy, clear)
 
 
 class CyclePlayer:
@@ -168,7 +197,8 @@ class CyclePlayer:
         for n, a in self.body.jadr.items():
             if n in q: d.qpos[a] = q[n]
         mujoco.mj_kinematics(m, d)
-        d.qpos[2] = max(z_ref, -self.body.lowest(self.body.all_gids).min())
+        low = float(self.body.lowest(self.body.all_gids).min())
+        d.qpos[2] = (-low + prof.clear_at(self.phase)) if prof.clear is not None else max(z_ref, -low)
         d.qpos[0] = self.x; d.qpos[1] = self.y
         return d.qpos.copy()
 

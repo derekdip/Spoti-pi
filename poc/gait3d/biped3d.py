@@ -13,6 +13,10 @@ import mujoco
 
 MORPHS = ("intact", "weak_hip_left", "locked_knee_left", "short_shank_left", "stump_left", "noleg_left", "nolegs")
 MIRRORS = ("weak_hip_right", "locked_knee_right", "short_shank_right", "stump_right", "noleg_right")
+# G14: damages combined with '+', and arms removed (noarm_*). A combined morph applies each part in turn;
+# the bodies above are unchanged (their XML is compared in the G14 prereg).
+COMBINED = ("noarm_left", "locked_knee_left+weak_hip_right", "locked_knee_left+noarm_right", "nolegs+noarm_left")
+LEG_KINDS = ("weak_hip", "locked_knee", "short_shank", "stump", "noleg")
 SHANK = 0.42
 STAND_Z = 1.17
 SPEED_TARGET = 0.6      # m/s: below the 2D target of 0.8, at which the planar teacher ran rather than walked
@@ -68,51 +72,67 @@ def _arm(side):
 
 
 def side_of(morph):
-    for k in ("weak_hip", "locked_knee", "short_shank", "stump", "noleg"):
-        if morph.startswith(k + "_"):
-            return morph[len(k) + 1:], k
+    """(side, kind) of the first leg damage in the morph name; (None, morph) for a body with none."""
+    for part in morph.split("+"):
+        for k in LEG_KINDS:
+            if part.startswith(k + "_"):
+                return part[len(k) + 1:], k
     return None, morph
 
 
+def parts_of(morph):
+    """The body's parts: per leg its kind ('normal', a leg damage, or 'missing') and per arm whether it
+    is there. A combined morph applies each '+' part in turn; 'nolegs' removes both legs."""
+    legs = {"l": "normal", "r": "normal"}; arms = {"l": True, "r": True}
+    for part in morph.split("+"):
+        if part == "intact": continue
+        if part == "nolegs": legs["l"] = legs["r"] = "missing"; continue
+        if part.startswith("noarm_"): arms[part[6]] = False; continue
+        side, kind = side_of(part)
+        assert side in ("left", "right") and kind in LEG_KINDS, part
+        legs[side[0]] = "missing" if kind == "noleg" else kind
+    return legs, arms
+
+
+def leg_order(legs):
+    """Legs in the body's XML order: a stump first, as the stump bodies were built (their teacher runs
+    store qpos in that order), else left then right."""
+    return sorted("lr", key=lambda s: (legs[s] != "stump", s))
+
+
 def present_joints(morph):
-    side, kind = side_of(morph)
-    a = side[0] if side else None
-    b = ("r" if a == "l" else "l") if a else None
-    arms = ["shoulder_l", "elbow_l", "shoulder_r", "elbow_r"]
-    leg = lambda s: [f"{j}_{s}" for j in LEG_JOINTS]
-    if kind == "stump":
-        return [f"hip_x_{a}", f"hip_y_{a}"] + leg(b) + arms
-    if kind == "noleg":
-        return leg(b) + arms
-    if morph == "nolegs":
-        return arms
-    return leg("l") + leg("r") + arms
+    legs, arms = parts_of(morph); out = []
+    for s in leg_order(legs):
+        if legs[s] == "stump": out += [f"hip_x_{s}", f"hip_y_{s}"]
+        elif legs[s] != "missing": out += [f"{j}_{s}" for j in LEG_JOINTS]
+    for s in "lr":
+        if arms[s]: out += [f"shoulder_{s}", f"elbow_{s}"]
+    return out
+
+
+def legless(morph):
+    return all(k == "missing" for k in parts_of(morph)[0].values())
 
 
 def build_xml(morph="intact", z0=None):
-    assert morph in MORPHS or morph in MIRRORS
-    side, kind = side_of(morph)
-    a = side[0] if side else None
-    b = ("r" if a == "l" else "l") if a else None
-    knee_rng = {"l": (0, 150), "r": (0, 150)}
-    if kind == "locked_knee":
-        knee_rng[a] = (0, 3)
-    if kind == "stump":
-        legs = _leg(a, stump=True) + _leg(b)
-    elif kind == "noleg":
-        legs = _leg(b)
-    elif morph == "nolegs":
-        legs = ""
-    else:
-        legs = (_leg("l", shank=0.26 if (kind == "short_shank" and a == "l") else SHANK, knee_range=knee_rng["l"])
-                + _leg("r", shank=0.26 if (kind == "short_shank" and a == "r") else SHANK, knee_range=knee_rng["r"]))
+    assert morph in MORPHS or morph in MIRRORS or morph in COMBINED, morph
+    legs_k, arms_p = parts_of(morph)
+    knee_rng = {s: ((0, 3) if legs_k[s] == "locked_knee" else (0, 150)) for s in "lr"}
+    legs = ""
+    for s in leg_order(legs_k):
+        k = legs_k[s]
+        if k == "missing": continue
+        if k == "stump": legs += _leg(s, stump=True); continue
+        legs += _leg(s, shank=0.26 if k == "short_shank" else SHANK, knee_range=knee_rng[s])
+    arm_xml = "".join(_arm(s) for s in "lr" if arms_p[s])
     present = present_joints(morph)
     if z0 is None:
-        z0 = STAND_Z if morph != "nolegs" else 0.6
+        z0 = STAND_Z if not legless(morph) else 0.6
     kind_of = lambda j: j.rsplit("_", 1)[0]
     kp = {j: KP[kind_of(j)] for j in present}
-    if kind == "weak_hip":
-        kp[f"hip_x_{a}"] = KP["hip_x"] // 5; kp[f"hip_y_{a}"] = KP["hip_y"] // 5
+    for s in "lr":
+        if legs_k[s] == "weak_hip":
+            kp[f"hip_x_{s}"] = KP["hip_x"] // 5; kp[f"hip_y_{s}"] = KP["hip_y"] // 5
     rng = {j: RANGE_DEG[kind_of(j)] for j in present}
     for s in "lr":
         if f"knee_{s}" in rng: rng[f"knee_{s}"] = knee_rng[s]
@@ -141,7 +161,7 @@ def build_xml(morph="intact", z0=None):
       <body name="head" pos="0 0 0.38">
         <geom name="head" type="sphere" size="0.1"/>
         <site name="head" pos="0 0 0" size="0.01" rgba="0 0 0 0"/>
-      </body>{_arm("l")}{_arm("r")}{legs}
+      </body>{arm_xml}{legs}
     </body>
   </worldbody>
   <actuator>
@@ -163,20 +183,19 @@ def rest_pose(m, d, morph):
     """Standing on what legs the body has; the legless body prone, head forward, arms ahead, hands on
     the floor, as in 2D (iteration 7)."""
     d.qpos[:] = 0; d.qpos[3] = 1.0
-    if morph != "nolegs":
+    if not legless(morph):
         d.qpos[2] = STAND_Z; mujoco.mj_forward(m, d); return
     d.qpos[3:7] = [np.cos(np.pi / 4), 0.0, np.sin(np.pi / 4), 0.0]     # pitched forward by 90 degrees
-    hid = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_SITE, "hand_l")
-    jl = m.jnt_qposadr[mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_JOINT, "shoulder_l")]
-    jr = m.jnt_qposadr[mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_JOINT, "shoulder_r")]
+    shoulders = [m.jnt_qposadr[mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_JOINT, f"shoulder_{s}")] for s in "lr" if mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_JOINT, f"shoulder_{s}") >= 0]
+    hid = next(mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_SITE, f"hand_{s}") for s in "lr" if mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_SITE, f"hand_{s}") >= 0)
     best = None
     for ang in np.linspace(-np.pi, np.radians(60), 61):
-        d.qpos[jl] = d.qpos[jr] = ang
+        for j in shoulders: d.qpos[j] = ang
         mujoco.mj_forward(m, d)
         x = d.site_xpos[hid][0]
         if best is None or x > best[0]:
             best = (x, ang)
-    d.qpos[jl] = d.qpos[jr] = best[1]
+    for j in shoulders: d.qpos[j] = best[1]
     mujoco.mj_forward(m, d)
     lowest = min(d.geom_xpos[g][2] - m.geom_rbound[g] for g in range(m.ngeom) if m.geom_type[g] != mujoco.mjtGeom.mjGEOM_PLANE)
     d.qpos[2] -= lowest - 0.01
