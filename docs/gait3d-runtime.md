@@ -177,3 +177,9 @@ representation the growth rule can grow, they name the damage only
 relative to the clip's own asymmetry, and they reach the walking
 damages and not the kneel-step, the hop or the crawl, which stay
 clips of their own.
+G14 (`docs/math-track-g14-results.md`) added clearance grounding to
+the cycle runtime (a profile carries its own lowest part's height,
+so a body that has lost the parts a clip stood on comes down to the
+floor) and showed that a dropped part needs no edit, that two edits
+compose to within a quarter of a fresh fit, and that a body the
+physics cannot move has no clip to switch to.

@@ -487,6 +487,23 @@ I got wrong running it, and where it is recorded.
     because the walk clip carries its height and its stance parts
     and no edit gives them up (`math-track-g13-results.md`).
 
+29. **A dropped part is free, edits compose to within a quarter of a
+    fresh fit, and a body with no gait has no clip.** G14 put four
+    new bodies to the teacher. The walk clip with an arm's joints
+    dropped described the one-arm walker within the intact teacher's
+    own run-to-run error, and the growth rule, offered impairment
+    edits worth a fifth on the fitting run, applied none: the
+    held-out test refused every one, the first control in the 3D arc
+    the procedure left untouched. Two single-damage edits composed by
+    rule with nothing fitted took the body with both damages below
+    the raw clip and below either edit alone on every run, and
+    landed at 1.26 of a fresh fit's held-out error where the bar was
+    1.25; the fresh fit found the combined teacher's cadence and
+    named the locked knee stiff on its own side with the limp in
+    place. The legless body with one arm does not crawl in the
+    physics, and no edit of the crawl reaches it: an absence, not a
+    switch (`math-track-g14-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
