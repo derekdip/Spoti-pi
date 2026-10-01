@@ -1,0 +1,8 @@
+   [nolegs_s1/projection] t0 pick vault  side +0 oracle vault  value 1.00 E 0.7238->0.3990 [9s]
+   [nolegs_s1/projection] t1 pick torso  side +0 oracle torso  value 1.00 E 0.3990->0.3563 [17s]
+   [nolegs_s1/oracle] t0 pick vault  side +0 oracle vault  value 1.00 E 0.7238->0.3990 [17s]
+   [nolegs_s1/oracle] t1 pick torso  side +0 oracle torso  value 1.00 E 0.3990->0.3563 [17s]
+   [nolegs_s1/oracle_safe] t0 pick arms   side +0 oracle vault  value 0.93 E 0.7238->0.4220 [19s]
+   [nolegs_s1/oracle_safe] t1 pick arms   side +0 oracle torso  value 0.00 E 0.4220->0.4220 [26s]
+nolegs_s1              [transfer] designed vault+0 v0 0.724 | projection 0.356 [('vault', 0), ('torso', 0)] oracle 0.356 [('vault', 0), ('torso', 0)] oracle_safe 0.422 [('arms', 0)] | floor 0.310 [59s]
+done: 1 cases in 59s -> poc/results/g2_pilot.json

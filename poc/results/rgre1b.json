@@ -1,0 +1,3609 @@
+{
+ "results": [
+  {
+   "name": "corn_tail_0",
+   "domain": "corn",
+   "classes": [
+    "tail"
+   ],
+   "E0": 0.2514241688349742,
+   "q": {
+    "coordinate": 0.0005877904540381434,
+    "tail": 0.5349429212470819,
+    "unary": 0.6641974396712063,
+    "stop": 0.0,
+    "smooth": 0.07692574482836018
+   },
+   "raw": {
+    "coordinate": 0.0005877904540381434,
+    "tail": 0.5349429212470819,
+    "unary": 0.6641974396712063,
+    "stop": 0.0017015823780426082,
+    "smooth": 0.07692574482836018
+   },
+   "q_perp": 0.030133403893604752,
+   "items": [
+    [
+     "unary",
+     "unary[1]",
+     0.6641881979239901
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.5349429212470828
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.3063118549114335
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.07692574482836018
+    ]
+   ],
+   "chosen_class": "unary",
+   "reason": "ok",
+   "ranked": [
+    "unary",
+    "tail",
+    "smooth",
+    "stop",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 798.0,
+     "dE": -0.0024259395733158273,
+     "value": -3.040024527964696e-06
+    },
+    "smooth_adaptive": {
+     "cost": 3.0,
+     "dE": 0.002804299383526665,
+     "value": 0.000934766461175555
+    },
+    "smooth_uniform": {
+     "cost": 3.0,
+     "dE": 0.0029387436727953964,
+     "value": 0.000979581224265132
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.18112197049193435,
+     "value": 0.18112197049193435
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.04625879126946461,
+     "value": 0.04625879126946461
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.10418296291567794,
+     "value": 0.10418296291567794
+    }
+   },
+   "oracle": "decay",
+   "oracle_class": "tail",
+   "pick": "amp",
+   "V_cap": 0.575208864130138,
+   "dE_rgre": 0.10418296291567794,
+   "dE_oracle": 0.18112197049193435,
+   "S_rule": {
+    "class": "smooth",
+    "reason": "ok",
+    "pick": "smooth_uniform",
+    "V_cap": 0.005408406399315065
+   },
+   "identity_gt": false,
+   "identity_oracle": false,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 3.759631872177124
+  },
+  {
+   "name": "corn_tail_1",
+   "domain": "corn",
+   "classes": [
+    "tail"
+   ],
+   "E0": 0.2035131333063652,
+   "q": {
+    "coordinate": 0.000348457233600756,
+    "tail": 0.667778626575545,
+    "unary": 0.584802680583614,
+    "stop": 0.0,
+    "smooth": 0.12761335562359577
+   },
+   "raw": {
+    "coordinate": 0.000348457233600756,
+    "tail": 0.667778626575545,
+    "unary": 0.584802680583614,
+    "stop": 0.00026755271275140814,
+    "smooth": 0.16307307614730499
+   },
+   "q_perp": 0.10296976882258113,
+   "items": [
+    [
+     "tail",
+     "tail[0]",
+     0.6677786265755448
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.5846350480362812
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.2738014127369831
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.16307307614730499
+    ]
+   ],
+   "chosen_class": "tail",
+   "reason": "ok",
+   "ranked": [
+    "tail",
+    "unary",
+    "smooth",
+    "coordinate",
+    "stop"
+   ],
+   "N_rgre": 1,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "smooth_adaptive": {
+     "cost": 15.0,
+     "dE": 0.013256857560750152,
+     "value": 0.0008837905040500101
+    },
+    "smooth_uniform": {
+     "cost": 12.0,
+     "dE": 0.015035967113750104,
+     "value": 0.0012529972594791754
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.1203402661709531,
+     "value": 0.1203402661709531
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.03252205536620245,
+     "value": 0.03252205536620245
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.07152682852145625,
+     "value": 0.07152682852145625
+    }
+   },
+   "oracle": "decay",
+   "oracle_class": "tail",
+   "pick": "decay",
+   "V_cap": 1.0,
+   "dE_rgre": 0.1203402661709531,
+   "dE_oracle": 0.1203402661709531,
+   "S_rule": {
+    "class": "smooth",
+    "reason": "ok",
+    "pick": "smooth_uniform",
+    "V_cap": 0.010412119728065012
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 4.318203687667847
+  },
+  {
+   "name": "corn_tail_2",
+   "domain": "corn",
+   "classes": [
+    "tail"
+   ],
+   "E0": 0.2127946455972138,
+   "q": {
+    "coordinate": 0.00378042889736553,
+    "tail": 0.9614060871759309,
+    "unary": 0.49598669850537264,
+    "stop": 0.0,
+    "smooth": 0.02818045821326031
+   },
+   "raw": {
+    "coordinate": 0.00378042889736553,
+    "tail": 0.9614060871759309,
+    "unary": 0.49598669850537264,
+    "stop": 0.00031456385697206635,
+    "smooth": 0.030039641470478853
+   },
+   "q_perp": 0.008679708879501325,
+   "items": [
+    [
+     "tail",
+     "tail[0]",
+     0.9614060871759318
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.4955214351185304
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.26453053153735084
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.030039641470478853
+    ]
+   ],
+   "chosen_class": "tail",
+   "reason": "ok",
+   "ranked": [
+    "tail",
+    "unary",
+    "smooth",
+    "coordinate",
+    "stop"
+   ],
+   "N_rgre": 1,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 609.0,
+     "dE": -0.005272314959750807,
+     "value": -8.65733162520658e-06
+    },
+    "smooth_adaptive": {
+     "cost": 1.0,
+     "dE": -1.1593755893435365e-05,
+     "value": -1.1593755893435365e-05
+    },
+    "smooth_uniform": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.1767559037278849,
+     "value": 0.1767559037278849
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.026274623411966153,
+     "value": 0.026274623411966153
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.05837169667247255,
+     "value": 0.05837169667247255
+    }
+   },
+   "oracle": "decay",
+   "oracle_class": "tail",
+   "pick": "decay",
+   "V_cap": 1.0,
+   "dE_rgre": 0.1767559037278849,
+   "dE_oracle": 0.1767559037278849,
+   "S_rule": {
+    "class": "tail",
+    "reason": "ok",
+    "pick": "decay",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 3.2873523235321045
+  },
+  {
+   "name": "corn_coordinate_0",
+   "domain": "corn",
+   "classes": [
+    "coordinate"
+   ],
+   "E0": 0.1607394986359484,
+   "q": {
+    "coordinate": 0.7203148498153122,
+    "tail": 0.000287229896882935,
+    "unary": 0.0154271186596477,
+    "stop": 0.0,
+    "smooth": 0.25689579048481637
+   },
+   "raw": {
+    "coordinate": 0.7203148498153122,
+    "tail": 0.000287229896882935,
+    "unary": 0.0154271186596477,
+    "stop": 0.0037507746153212945,
+    "smooth": 0.25689579048481637
+   },
+   "q_perp": 0.07503601867405273,
+   "items": [
+    [
+     "coordinate",
+     "coordinate[0]",
+     0.720314849815312
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.25689579048481637
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.014453380809518123
+    ],
+    [
+     "stop",
+     "stop",
+     0.0037507746153212945
+    ]
+   ],
+   "chosen_class": "coordinate",
+   "reason": "ok",
+   "ranked": [
+    "coordinate",
+    "smooth",
+    "unary",
+    "stop",
+    "tail"
+   ],
+   "N_rgre": 1,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.09215064741643583,
+     "value": 0.09215064741643583
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 285.0,
+     "dE": 0.00020832618823918292,
+     "value": 7.309690815409927e-07
+    },
+    "smooth_adaptive": {
+     "cost": 6.0,
+     "dE": 0.009759476296611197,
+     "value": 0.0016265793827685328
+    },
+    "smooth_uniform": {
+     "cost": 3.0,
+     "dE": 0.007441031115011043,
+     "value": 0.002480343705003681
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.0009026474904977322,
+     "value": 0.0009026474904977322
+    }
+   },
+   "oracle": "shift",
+   "oracle_class": "coordinate",
+   "pick": "shift",
+   "V_cap": 1.0,
+   "dE_rgre": 0.09215064741643583,
+   "dE_oracle": 0.09215064741643583,
+   "S_rule": {
+    "class": "coordinate",
+    "reason": "ok",
+    "pick": "shift",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 3.9406144618988037
+  },
+  {
+   "name": "corn_coordinate_1",
+   "domain": "corn",
+   "classes": [
+    "coordinate"
+   ],
+   "E0": 0.21626613345519966,
+   "q": {
+    "coordinate": 0.7216091680481311,
+    "tail": 0.004018050277454533,
+    "unary": 0.013151240579182174,
+    "stop": 0.0,
+    "smooth": 0.2174193070230308
+   },
+   "raw": {
+    "coordinate": 0.7216091680481311,
+    "tail": 0.004018050277454533,
+    "unary": 0.013151240579182174,
+    "stop": 0.009290333222419353,
+    "smooth": 0.23731077278233642
+   },
+   "q_perp": 0.06558420417121225,
+   "items": [
+    [
+     "coordinate",
+     "coordinate[0]",
+     0.7216091680481308
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.23731077278233642
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.01237002599836635
+    ],
+    [
+     "stop",
+     "stop",
+     0.009290333222419353
+    ]
+   ],
+   "chosen_class": "coordinate",
+   "reason": "ok",
+   "ranked": [
+    "coordinate",
+    "smooth",
+    "unary",
+    "stop",
+    "tail"
+   ],
+   "N_rgre": 1,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.1610698041272583,
+     "value": 0.1610698041272583
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 351.0,
+     "dE": -0.0022646953853890095,
+     "value": -6.452123605096893e-06
+    },
+    "smooth_adaptive": {
+     "cost": 12.0,
+     "dE": 0.0038983079227921102,
+     "value": 0.00032485899356600917
+    },
+    "smooth_uniform": {
+     "cost": 9.0,
+     "dE": 0.004499497271396535,
+     "value": 0.0004999441412662817
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.00020483366751142262,
+     "value": 0.00020483366751142262
+    }
+   },
+   "oracle": "shift",
+   "oracle_class": "coordinate",
+   "pick": "shift",
+   "V_cap": 1.0,
+   "dE_rgre": 0.1610698041272583,
+   "dE_oracle": 0.1610698041272583,
+   "S_rule": {
+    "class": "coordinate",
+    "reason": "ok",
+    "pick": "shift",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 4.5561981201171875
+  },
+  {
+   "name": "corn_unary_0",
+   "domain": "corn",
+   "classes": [
+    "unary"
+   ],
+   "E0": 0.285405027766915,
+   "q": {
+    "coordinate": 0.00028107781262286035,
+    "tail": 0.22779857818285168,
+    "unary": 0.9253970363475321,
+    "stop": 0.0,
+    "smooth": 0.02984688007002554
+   },
+   "raw": {
+    "coordinate": 0.00028107781262286035,
+    "tail": 0.22779857818285168,
+    "unary": 0.9253970363475321,
+    "stop": 0.003262474226913362,
+    "smooth": 0.07132931977428474
+   },
+   "q_perp": 0.05266453606568808,
+   "items": [
+    [
+     "unary",
+     "unary[0]",
+     0.9032880115188875
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.38517145297414856
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.22779857818285232
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.07132931977428474
+    ]
+   ],
+   "chosen_class": "unary",
+   "reason": "ok",
+   "ranked": [
+    "unary",
+    "tail",
+    "smooth",
+    "stop",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "smooth_adaptive": {
+     "cost": 9.0,
+     "dE": 0.0036440494703125492,
+     "value": 0.00040489438559028327
+    },
+    "smooth_uniform": {
+     "cost": 9.0,
+     "dE": 0.004707186020465104,
+     "value": 0.0005230206689405671
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.035468125379357396,
+     "value": 0.035468125379357396
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.19802509564520843,
+     "value": 0.19802509564520843
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.06096574578726621,
+     "value": 0.06096574578726621
+    }
+   },
+   "oracle": "width",
+   "oracle_class": "unary",
+   "pick": "width",
+   "V_cap": 1.0,
+   "dE_rgre": 0.19802509564520843,
+   "dE_oracle": 0.19802509564520843,
+   "S_rule": {
+    "class": "unary",
+    "reason": "ok",
+    "pick": "width",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 3.95539927482605
+  },
+  {
+   "name": "water_coordinate_0",
+   "domain": "water",
+   "classes": [
+    "coordinate"
+   ],
+   "E0": 0.5333817708127591,
+   "q": {
+    "coordinate": 0.5623282195789682,
+    "unary": 0.3988667046627105,
+    "tail": 0.005676772549670432,
+    "floor": 0.3727911138922511
+   },
+   "raw": {
+    "coordinate": 0.5623282195789682,
+    "unary": 0.3988667046627105,
+    "tail": 0.005676772549670432,
+    "floor": 0.3727911138922511
+   },
+   "q_perp": 0.0805726902114872,
+   "items": [
+    [
+     "coordinate",
+     "coordinate[0]",
+     0.5623282195789704
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.3773684080195658
+    ],
+    [
+     "floor",
+     "floor[0]",
+     0.37279111389223946
+    ],
+    [
+     "unary",
+     "unary[3]",
+     0.011844485251550631
+    ]
+   ],
+   "chosen_class": "coordinate",
+   "reason": "ok",
+   "ranked": [
+    "coordinate",
+    "unary",
+    "floor",
+    "tail"
+   ],
+   "N_rgre": 1,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.1825822274233967,
+     "value": 0.1825822274233967
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.00014071520572178642,
+     "value": 0.00014071520572178642
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.13045712632374967,
+     "value": 0.04348570877458322
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.0011533837242314604,
+     "value": 0.0011533837242314604
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    }
+   },
+   "oracle": "shift",
+   "oracle_class": "coordinate",
+   "pick": "shift",
+   "V_cap": 1.0,
+   "dE_rgre": 0.1825822274233967,
+   "dE_oracle": 0.1825822274233967,
+   "S_rule": {
+    "class": "coordinate",
+    "reason": "ok",
+    "pick": "shift",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 11.040499925613403
+  },
+  {
+   "name": "water_coordinate_1",
+   "domain": "water",
+   "classes": [
+    "coordinate"
+   ],
+   "E0": 0.9577453911449345,
+   "q": {
+    "coordinate": 0.5600941569634412,
+    "unary": 0.5669300224146905,
+    "tail": 0.15051746484250636,
+    "floor": 0.014602607439981943
+   },
+   "raw": {
+    "coordinate": 0.5600941569634412,
+    "unary": 0.5669300224146905,
+    "tail": 0.15051746484250636,
+    "floor": 0.014602607439981943
+   },
+   "q_perp": 0.15415142740761897,
+   "items": [
+    [
+     "coordinate",
+     "coordinate[0]",
+     0.5600941569634436
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.3475359575494434
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.15257564747447702
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.1427741060359885
+    ]
+   ],
+   "chosen_class": "coordinate",
+   "reason": "ok",
+   "ranked": [
+    "coordinate",
+    "unary",
+    "tail",
+    "floor"
+   ],
+   "N_rgre": 1,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.42254252203959897,
+     "value": 0.42254252203959897
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.07605849981859603,
+     "value": 0.07605849981859603
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.35216671202124283,
+     "value": 0.11738890400708095
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.052184112870589994,
+     "value": 0.052184112870589994
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.0396208828277691,
+     "value": 0.0396208828277691
+    }
+   },
+   "oracle": "shift",
+   "oracle_class": "coordinate",
+   "pick": "shift",
+   "V_cap": 1.0,
+   "dE_rgre": 0.42254252203959897,
+   "dE_oracle": 0.42254252203959897,
+   "S_rule": {
+    "class": "coordinate",
+    "reason": "ok",
+    "pick": "shift",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 11.601399660110474
+  },
+  {
+   "name": "water_unary_0",
+   "domain": "water",
+   "classes": [
+    "unary"
+   ],
+   "E0": 0.63026677085647,
+   "q": {
+    "coordinate": 0.0018996852827807577,
+    "unary": 0.7023534290571868,
+    "tail": 0.5692908358523906,
+    "floor": 0.1216200246900685
+   },
+   "raw": {
+    "coordinate": 0.0018996852827807577,
+    "unary": 0.7023534290571868,
+    "tail": 0.5692908358523906,
+    "floor": 0.1216200246900685
+   },
+   "q_perp": 0.03047130762785103,
+   "items": [
+    [
+     "unary",
+     "unary[0]",
+     0.6725175775078105
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.42378976795852696
+    ],
+    [
+     "tail",
+     "tail[1]",
+     0.2021060348217441
+    ],
+    [
+     "unary",
+     "unary[2]",
+     0.12993723204546886
+    ]
+   ],
+   "chosen_class": "unary",
+   "reason": "ok",
+   "ranked": [
+    "unary",
+    "tail",
+    "floor",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.2693639839731751,
+     "value": 0.2693639839731751
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.1944166161575825,
+     "value": 0.06480553871919416
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.14573667252008005,
+     "value": 0.14573667252008005
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.05668859144078009,
+     "value": 0.05668859144078009
+    }
+   },
+   "oracle": "gain",
+   "oracle_class": "unary",
+   "pick": "gain",
+   "V_cap": 1.0,
+   "dE_rgre": 0.2693639839731751,
+   "dE_oracle": 0.2693639839731751,
+   "S_rule": {
+    "class": "unary",
+    "reason": "ok",
+    "pick": "gain",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 10.918715000152588
+  },
+  {
+   "name": "water_tail_0",
+   "domain": "water",
+   "classes": [
+    "tail"
+   ],
+   "E0": 0.5500108042956373,
+   "q": {
+    "coordinate": 0.0006168098370985885,
+    "unary": 0.4137588410522783,
+    "tail": 0.6265489591995053,
+    "floor": 0.21382540939657266
+   },
+   "raw": {
+    "coordinate": 0.0006168098370985885,
+    "unary": 0.4137588410522783,
+    "tail": 0.6265489591995053,
+    "floor": 0.21382540939657266
+   },
+   "q_perp": 0.029190946620486734,
+   "items": [
+    [
+     "tail",
+     "tail[0]",
+     0.6262267421504831
+    ],
+    [
+     "tail",
+     "tail[1]",
+     0.5199573992665076
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.4024560857526381
+    ],
+    [
+     "floor",
+     "floor[0]",
+     0.21382540939656608
+    ]
+   ],
+   "chosen_class": "tail",
+   "reason": "ok",
+   "ranked": [
+    "tail",
+    "unary",
+    "floor",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.12392605224831865,
+     "value": 0.12392605224831865
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.05922809392005102,
+     "value": 0.019742697973350338
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.16789890229054777,
+     "value": 0.16789890229054777
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.1442361216550559,
+     "value": 0.1442361216550559
+    }
+   },
+   "oracle": "lam",
+   "oracle_class": "tail",
+   "pick": "lam",
+   "V_cap": 1.0,
+   "dE_rgre": 0.16789890229054777,
+   "dE_oracle": 0.16789890229054777,
+   "S_rule": {
+    "class": "tail",
+    "reason": "ok",
+    "pick": "lam",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 11.669016361236572
+  },
+  {
+   "name": "corn_stop_0",
+   "domain": "corn",
+   "classes": [
+    "stop"
+   ],
+   "E0": 0.242706100011867,
+   "q": {
+    "coordinate": 2.6792520771268208e-06,
+    "tail": 0.00014092414738630093,
+    "unary": 0.0004710992672642241,
+    "stop": 0.992656189903498,
+    "smooth": 0.006118161612051453
+   },
+   "raw": {
+    "coordinate": 2.6792520771268208e-06,
+    "tail": 0.00014092414738630093,
+    "unary": 0.0004710992672642241,
+    "stop": 0.992656189903498,
+    "smooth": 0.006866411098277316
+   },
+   "q_perp": 0.00282819069475304,
+   "items": [
+    [
+     "stop",
+     "stop",
+     0.992656189903498
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.006866411098277316
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.00029572557572279007
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.00014092414738630082
+    ]
+   ],
+   "chosen_class": "stop",
+   "reason": "ok",
+   "ranked": [
+    "stop",
+    "smooth",
+    "unary",
+    "tail",
+    "coordinate"
+   ],
+   "N_rgre": 1,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 12.0,
+     "dE": 0.21233602002476498,
+     "value": 0.017694668335397082
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 93.0,
+     "dE": 3.251935113968152e-07,
+     "value": 3.4967044236216684e-09
+    },
+    "smooth_adaptive": {
+     "cost": 6.0,
+     "dE": -1.716821513020328e-05,
+     "value": -2.8613691883672132e-06
+    },
+    "smooth_uniform": {
+     "cost": 3.0,
+     "dE": 2.7454105933077955e-09,
+     "value": 9.151368644359318e-10
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": -0.00254765647345101,
+     "value": -0.00254765647345101
+    }
+   },
+   "oracle": "events",
+   "oracle_class": "stop",
+   "pick": "events",
+   "V_cap": 1.0,
+   "dE_rgre": 0.21233602002476498,
+   "dE_oracle": 0.21233602002476498,
+   "S_rule": {
+    "class": "stop",
+    "reason": "ok",
+    "pick": "events",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 1.901205062866211
+  },
+  {
+   "name": "corn_stop_1",
+   "domain": "corn",
+   "classes": [
+    "stop"
+   ],
+   "E0": 0.1050391753727425,
+   "q": {
+    "coordinate": 6.943293302925736e-06,
+    "tail": 0.007366422014517556,
+    "unary": 0.01945825448995332,
+    "stop": 0.7941334351169471,
+    "smooth": 0.11715420114286193
+   },
+   "raw": {
+    "coordinate": 6.943293302925736e-06,
+    "tail": 0.007366422014517556,
+    "unary": 0.01945825448995332,
+    "stop": 0.7941334351169471,
+    "smooth": 0.18615409279937786
+   },
+   "q_perp": 0.10910622813022847,
+   "items": [
+    [
+     "stop",
+     "stop",
+     0.7941334351169471
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.18615409279937786
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.010089303857462989
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.007366422014517547
+    ]
+   ],
+   "chosen_class": "stop",
+   "reason": "ok",
+   "ranked": [
+    "stop",
+    "smooth",
+    "unary",
+    "tail",
+    "coordinate"
+   ],
+   "N_rgre": 1,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 27.0,
+     "dE": 0.04439745756890354,
+     "value": 0.0016443502803297606
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 81.0,
+     "dE": 5.126241572074586e-05,
+     "value": 6.328693298857513e-07
+    },
+    "smooth_adaptive": {
+     "cost": 12.0,
+     "dE": 0.006195288214506933,
+     "value": 0.0005162740178755778
+    },
+    "smooth_uniform": {
+     "cost": 21.0,
+     "dE": 0.008072624343378354,
+     "value": 0.00038441068301801683
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.0003671295445314554,
+     "value": 0.0003671295445314554
+    }
+   },
+   "oracle": "events",
+   "oracle_class": "stop",
+   "pick": "events",
+   "V_cap": 1.0,
+   "dE_rgre": 0.04439745756890354,
+   "dE_oracle": 0.04439745756890354,
+   "S_rule": {
+    "class": "stop",
+    "reason": "ok",
+    "pick": "events",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 2.882673501968384
+  },
+  {
+   "name": "corn_corner_0",
+   "domain": "corn",
+   "classes": [
+    "corner"
+   ],
+   "E0": 0.15105876465488727,
+   "q": {
+    "coordinate": 6.746243529635137e-05,
+    "tail": 0.00011750929475385998,
+    "unary": 0.002721048320823858,
+    "corner": 0.9449715358984512,
+    "stop": 0.01128358002182157,
+    "smooth": 0.02415490960265054
+   },
+   "raw": {
+    "coordinate": 6.746243529635137e-05,
+    "tail": 0.00011750929475385998,
+    "unary": 0.002721048320823858,
+    "corner": 0.9449715358984512,
+    "stop": 0.01128358002182157,
+    "smooth": 0.04080172950402314
+   },
+   "q_perp": 0.023133062687169727,
+   "items": [
+    [
+     "corner",
+     "corner",
+     0.9449715358984512
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.04080172950402314
+    ],
+    [
+     "stop",
+     "stop",
+     0.01128358002182157
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.0024522394578202454
+    ]
+   ],
+   "chosen_class": "corner",
+   "reason": "ok",
+   "ranked": [
+    "corner",
+    "smooth",
+    "stop",
+    "unary",
+    "tail",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 21.0,
+     "dE": 0.05325941242259871,
+     "value": 0.0025361624963142243
+    },
+    "tangent_alloc": {
+     "cost": 465.0,
+     "dE": 0.07991972634131313,
+     "value": 0.00017187037922863037
+    },
+    "smooth_adaptive": {
+     "cost": 33.0,
+     "dE": -0.004902927428054316,
+     "value": -0.00014857355842588836
+    },
+    "smooth_uniform": {
+     "cost": 30.0,
+     "dE": 0.06780508101399242,
+     "value": 0.0022601693671330807
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 2.942579705186854e-05,
+     "value": 2.942579705186854e-05
+    }
+   },
+   "oracle": "corner_tighten",
+   "oracle_class": "corner",
+   "pick": "corner_tighten",
+   "V_cap": 1.0,
+   "dE_rgre": 0.05325941242259871,
+   "dE_oracle": 0.05325941242259871,
+   "S_rule": {
+    "class": "corner",
+    "reason": "ok",
+    "pick": "corner_tighten",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 2.9321348667144775
+  },
+  {
+   "name": "corn_corner_1",
+   "domain": "corn",
+   "classes": [
+    "corner"
+   ],
+   "E0": 0.20226939903304755,
+   "q": {
+    "coordinate": 3.6283602886315826e-05,
+    "tail": 0.004156022401394019,
+    "unary": 0.00718386067119173,
+    "corner": 0.8851636628527632,
+    "stop": 0.0,
+    "smooth": 0.08561007438853262
+   },
+   "raw": {
+    "coordinate": 3.6283602886315826e-05,
+    "tail": 0.004156022401394019,
+    "unary": 0.00718386067119173,
+    "corner": 0.8851636628527632,
+    "stop": 0.00027259591408768455,
+    "smooth": 0.10718083163614042
+   },
+   "q_perp": 0.05127689041817162,
+   "items": [
+    [
+     "corner",
+     "corner",
+     0.8851636628527632
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.10718083163614042
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.005449536272303898
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.004156022401394021
+    ]
+   ],
+   "chosen_class": "corner",
+   "reason": "ok",
+   "ranked": [
+    "corner",
+    "smooth",
+    "unary",
+    "tail",
+    "stop",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 12.0,
+     "dE": 0.12146401430205636,
+     "value": 0.01012200119183803
+    },
+    "tangent_alloc": {
+     "cost": 441.0,
+     "dE": 0.14957099931590734,
+     "value": 0.0003391632637548919
+    },
+    "smooth_adaptive": {
+     "cost": 21.0,
+     "dE": 0.003411983152167425,
+     "value": 0.00016247538819844881
+    },
+    "smooth_uniform": {
+     "cost": 21.0,
+     "dE": 0.13688774672948842,
+     "value": 0.006518464129975639
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.0005223603343437466,
+     "value": 0.0005223603343437466
+    }
+   },
+   "oracle": "corner_tighten",
+   "oracle_class": "corner",
+   "pick": "corner_tighten",
+   "V_cap": 1.0,
+   "dE_rgre": 0.12146401430205636,
+   "dE_oracle": 0.12146401430205636,
+   "S_rule": {
+    "class": "corner",
+    "reason": "ok",
+    "pick": "corner_tighten",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 2.6618943214416504
+  },
+  {
+   "name": "water_interaction_0",
+   "domain": "water",
+   "classes": [
+    "interaction"
+   ],
+   "E0": 0.5803445601697113,
+   "q": {
+    "coordinate": 0.028937876913869683,
+    "unary": 0.21251534956738144,
+    "tail": 0.06461968285928386,
+    "floor": 0.2551611470474215,
+    "interaction": 0.4790497864980877
+   },
+   "raw": {
+    "coordinate": 0.028937876913869683,
+    "unary": 0.21251534956738144,
+    "tail": 0.06461968285928386,
+    "floor": 0.2551611470474215,
+    "interaction": 0.4790497864980877
+   },
+   "q_perp": 0.10121292974780102,
+   "items": [
+    [
+     "interaction",
+     "interaction",
+     0.4790497864980877
+    ],
+    [
+     "floor",
+     "floor[0]",
+     0.2551611470474134
+    ],
+    [
+     "unary",
+     "unary[2]",
+     0.06306886050700328
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.058390933637653526
+    ]
+   ],
+   "chosen_class": "interaction",
+   "reason": "ok",
+   "ranked": [
+    "interaction",
+    "floor",
+    "unary",
+    "coordinate",
+    "tail"
+   ],
+   "N_rgre": 1,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.006365377194913924,
+     "value": 0.006365377194913924
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.01700654659286982,
+     "value": 0.01700654659286982
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.06426207337329604,
+     "value": 0.021420691124432012
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.06213341766764424,
+     "value": 0.06213341766764424
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.0030945350497709745,
+     "value": 0.0030945350497709745
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    }
+   },
+   "oracle": "pair",
+   "oracle_class": "interaction",
+   "pick": "pair",
+   "V_cap": 1.0,
+   "dE_rgre": 0.06213341766764424,
+   "dE_oracle": 0.06213341766764424,
+   "S_rule": {
+    "class": "interaction",
+    "reason": "ok",
+    "pick": "pair",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 20.009019136428833
+  },
+  {
+   "name": "water_interaction_1",
+   "domain": "water",
+   "classes": [
+    "interaction"
+   ],
+   "E0": 0.5930379226748291,
+   "q": {
+    "coordinate": 0.0063413261394680755,
+    "unary": 0.2366918623339598,
+    "tail": 0.03533546945351775,
+    "floor": 0.14329844023854216,
+    "interaction": 0.6076527045618692
+   },
+   "raw": {
+    "coordinate": 0.0063413261394680755,
+    "unary": 0.2366918623339598,
+    "tail": 0.03533546945351775,
+    "floor": 0.14329844023854216,
+    "interaction": 0.6076527045618692
+   },
+   "q_perp": 0.17404255233751242,
+   "items": [
+    [
+     "interaction",
+     "interaction",
+     0.6076527045618692
+    ],
+    [
+     "floor",
+     "floor[0]",
+     0.1432984402385363
+    ],
+    [
+     "unary",
+     "unary[3]",
+     0.11727620926180474
+    ],
+    [
+     "unary",
+     "unary[2]",
+     0.06256774589247856
+    ]
+   ],
+   "chosen_class": "interaction",
+   "reason": "ok",
+   "ranked": [
+    "interaction",
+    "floor",
+    "unary",
+    "coordinate",
+    "tail"
+   ],
+   "N_rgre": 1,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.001113262562491113,
+     "value": 0.001113262562491113
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.006056620522030265,
+     "value": 0.006056620522030265
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.07035959095168631,
+     "value": 0.023453196983895436
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.03664256324299919,
+     "value": 0.03664256324299919
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    }
+   },
+   "oracle": "pair",
+   "oracle_class": "interaction",
+   "pick": "pair",
+   "V_cap": 1.0,
+   "dE_rgre": 0.03664256324299919,
+   "dE_oracle": 0.03664256324299919,
+   "S_rule": {
+    "class": "interaction",
+    "reason": "ok",
+    "pick": "pair",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "isolated",
+   "seconds": 19.59823703765869
+  },
+  {
+   "name": "mix_interaction_coordinate_0",
+   "domain": "water",
+   "classes": [
+    "interaction",
+    "coordinate"
+   ],
+   "E0": 0.9000759331493943,
+   "q": {
+    "coordinate": 0.738216625418478,
+    "unary": 0.44684932254512116,
+    "tail": 0.01286355065900374,
+    "floor": 0.03550684181930571,
+    "interaction": 0.16785485322429072
+   },
+   "raw": {
+    "coordinate": 0.738216625418478,
+    "unary": 0.44684932254512116,
+    "tail": 0.01286355065900374,
+    "floor": 0.03550684181930571,
+    "interaction": 0.16785485322429072
+   },
+   "q_perp": 0.03734493337063173,
+   "items": [
+    [
+     "coordinate",
+     "coordinate[0]",
+     0.7382166254184829
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.4218742050597886
+    ],
+    [
+     "interaction",
+     "interaction",
+     0.16785485322429072
+    ],
+    [
+     "floor",
+     "floor[0]",
+     0.035506841819303844
+    ]
+   ],
+   "chosen_class": "coordinate",
+   "reason": "ok",
+   "ranked": [
+    "coordinate",
+    "unary",
+    "interaction",
+    "floor",
+    "tail"
+   ],
+   "N_rgre": 1,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.23884057094265276,
+     "value": 0.23884057094265276
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.005611070689625963,
+     "value": 0.005611070689625963
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.16766392240238281,
+     "value": 0.055887974134127605
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.0055919293265563885,
+     "value": 0.0055919293265563885
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.005966115807382488,
+     "value": 0.005966115807382488
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.004093997002508898,
+     "value": 0.004093997002508898
+    }
+   },
+   "oracle": "shift",
+   "oracle_class": "coordinate",
+   "pick": "shift",
+   "V_cap": 1.0,
+   "dE_rgre": 0.23884057094265276,
+   "dE_oracle": 0.23884057094265276,
+   "S_rule": {
+    "class": "interaction",
+    "reason": "ok",
+    "pick": "pair",
+    "V_cap": 0.023412811753406204
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "two_step": {
+    "oracle_pair": [
+     "shift",
+     "gain"
+    ],
+    "dE_oracle2": 0.291561601559542,
+    "cls1": "coordinate",
+    "pick1": "shift",
+    "cls2": "interaction",
+    "reason2": "ok",
+    "pick2": "pair",
+    "E1": 0.6612353622067415,
+    "E2": 0.6586982463899779,
+    "dE_rgre2": 0.2413776867594164,
+    "recovery2": 0.8278788615109278,
+    "blacklist": [],
+    "q_perp1": 0.11714166805618612,
+    "N_eval2": 2
+   },
+   "group": "mixture",
+   "seconds": 86.59963726997375
+  },
+  {
+   "name": "mix_interaction_coordinate_1",
+   "domain": "water",
+   "classes": [
+    "interaction",
+    "coordinate"
+   ],
+   "E0": 0.9350381174185274,
+   "q": {
+    "coordinate": 0.7577430479514117,
+    "unary": 0.4475088337164959,
+    "tail": 0.006948925358020792,
+    "floor": 0.013250984851990303,
+    "interaction": 0.19001641100957947
+   },
+   "raw": {
+    "coordinate": 0.7577430479514117,
+    "unary": 0.4475088337164959,
+    "tail": 0.006948925358020792,
+    "floor": 0.013250984851990303,
+    "interaction": 0.19001641100957947
+   },
+   "q_perp": 0.04517407897676559,
+   "items": [
+    [
+     "coordinate",
+     "coordinate[0]",
+     0.7577430479514145
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.42299356099450064
+    ],
+    [
+     "interaction",
+     "interaction",
+     0.19001641100957947
+    ],
+    [
+     "unary",
+     "unary[2]",
+     0.01399078426452877
+    ]
+   ],
+   "chosen_class": "coordinate",
+   "reason": "ok",
+   "ranked": [
+    "coordinate",
+    "unary",
+    "interaction",
+    "floor",
+    "tail"
+   ],
+   "N_rgre": 1,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.19335166561501282,
+     "value": 0.19335166561501282
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.0005619774339149508,
+     "value": 0.0005619774339149508
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.14689053759235415,
+     "value": 0.048963512530784715
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 6.894518315325726e-05,
+     "value": 6.894518315325726e-05
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.002296098539887881,
+     "value": 0.002296098539887881
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.0031287900698074855,
+     "value": 0.0031287900698074855
+    }
+   },
+   "oracle": "shift",
+   "oracle_class": "coordinate",
+   "pick": "shift",
+   "V_cap": 1.0,
+   "dE_rgre": 0.19335166561501282,
+   "dE_oracle": 0.19335166561501282,
+   "S_rule": {
+    "class": "interaction",
+    "reason": "ok",
+    "pick": "pair",
+    "V_cap": 0.00035657920470432195
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "two_step": {
+    "oracle_pair": [
+     "shift",
+     "gain"
+    ],
+    "dE_oracle2": 0.3125307572544097,
+    "cls1": "coordinate",
+    "pick1": "shift",
+    "cls2": "interaction",
+    "reason2": "ok",
+    "pick2": "pair",
+    "E1": 0.7416864518035146,
+    "E2": 0.7415686740464723,
+    "dE_rgre2": 0.19346944337205507,
+    "recovery2": 0.6190412907570725,
+    "blacklist": [],
+    "q_perp1": 0.11946365738045701,
+    "N_eval2": 2
+   },
+   "group": "mixture",
+   "seconds": 79.98501563072205
+  },
+  {
+   "name": "mix_unary_stop_0",
+   "domain": "corn",
+   "classes": [
+    "unary",
+    "stop"
+   ],
+   "E0": 0.42055839600285566,
+   "q": {
+    "coordinate": 0.00032911603011018074,
+    "tail": 0.23426523130087057,
+    "unary": 0.7526075894764689,
+    "stop": 0.20624877564090038,
+    "smooth": 0.007085579870583461
+   },
+   "raw": {
+    "coordinate": 0.00032911603011018074,
+    "tail": 0.23426523130087057,
+    "unary": 0.7526075894764689,
+    "stop": 0.20624877564090038,
+    "smooth": 0.04076039159172949
+   },
+   "q_perp": 0.03537851874209793,
+   "items": [
+    [
+     "unary",
+     "unary[0]",
+     0.7206883391919305
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.438403808932366
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.23426523130087087
+    ],
+    [
+     "stop",
+     "stop",
+     0.20624877564090038
+    ]
+   ],
+   "chosen_class": "unary",
+   "reason": "ok",
+   "ranked": [
+    "unary",
+    "tail",
+    "stop",
+    "smooth",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 21.0,
+     "dE": 0.02745082020309675,
+     "value": 0.0013071819144331784
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "smooth_adaptive": {
+     "cost": 6.0,
+     "dE": 0.00872285678628254,
+     "value": 0.0014538094643804234
+    },
+    "smooth_uniform": {
+     "cost": 12.0,
+     "dE": 0.008747722730694296,
+     "value": 0.0007289768942245247
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0523306168592268,
+     "value": 0.0523306168592268
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.22750780183961436,
+     "value": 0.22750780183961436
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.1029757752403972,
+     "value": 0.1029757752403972
+    }
+   },
+   "oracle": "width",
+   "oracle_class": "unary",
+   "pick": "width",
+   "V_cap": 1.0,
+   "dE_rgre": 0.22750780183961436,
+   "dE_oracle": 0.22750780183961436,
+   "S_rule": {
+    "class": "stop",
+    "reason": "ok",
+    "pick": "events",
+    "V_cap": 0.005745657528504008
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "two_step": {
+    "oracle_pair": [
+     "events",
+     "width"
+    ],
+    "dE_oracle2": 0.349268007207342,
+    "cls1": "unary",
+    "pick1": "width",
+    "cls2": "stop",
+    "reason2": "ok",
+    "pick2": "events",
+    "E1": 0.1930505941632413,
+    "E2": 0.07129038879551365,
+    "dE_rgre2": 0.349268007207342,
+    "recovery2": 1.0,
+    "blacklist": [],
+    "q_perp1": 0.009714289845191482,
+    "N_eval2": 3
+   },
+   "group": "mixture",
+   "seconds": 18.184681177139282
+  },
+  {
+   "name": "mix_unary_stop_1",
+   "domain": "corn",
+   "classes": [
+    "unary",
+    "stop"
+   ],
+   "E0": 0.32120976684737385,
+   "q": {
+    "coordinate": 5.3158534582365837e-05,
+    "tail": 0.32842271331567346,
+    "unary": 0.7917431467622807,
+    "stop": 0.1871494645407536,
+    "smooth": 0.007319579004487502
+   },
+   "raw": {
+    "coordinate": 5.3158534582365837e-05,
+    "tail": 0.32842271331567346,
+    "unary": 0.7917431467622807,
+    "stop": 0.1871494645407536,
+    "smooth": 0.02082157429884446
+   },
+   "q_perp": 0.014749140353080194,
+   "items": [
+    [
+     "unary",
+     "unary[0]",
+     0.7706327989866087
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.5400040270157757
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.3284227133156733
+    ],
+    [
+     "stop",
+     "stop",
+     0.1871494645407536
+    ]
+   ],
+   "chosen_class": "unary",
+   "reason": "ok",
+   "ranked": [
+    "unary",
+    "tail",
+    "stop",
+    "smooth",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 18.0,
+     "dE": 0.017602801320245498,
+     "value": 0.0009779334066803054
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "smooth_adaptive": {
+     "cost": 9.0,
+     "dE": 0.0007531046279320996,
+     "value": 8.367829199245552e-05
+    },
+    "smooth_uniform": {
+     "cost": 6.0,
+     "dE": 0.00022180396885645992,
+     "value": 3.696732814274332e-05
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0581127120372541,
+     "value": 0.0581127120372541
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.16786434426755462,
+     "value": 0.16786434426755462
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.10058119820934575,
+     "value": 0.10058119820934575
+    }
+   },
+   "oracle": "width",
+   "oracle_class": "unary",
+   "pick": "width",
+   "V_cap": 1.0,
+   "dE_rgre": 0.16786434426755462,
+   "dE_oracle": 0.16786434426755462,
+   "S_rule": {
+    "class": "stop",
+    "reason": "ok",
+    "pick": "events",
+    "V_cap": 0.00582573631671061
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "two_step": {
+    "oracle_pair": [
+     "events",
+     "width"
+    ],
+    "dE_oracle2": 0.24149355738244677,
+    "cls1": "unary",
+    "pick1": "width",
+    "cls2": "stop",
+    "reason2": "ok",
+    "pick2": "events",
+    "E1": 0.15334542257981923,
+    "E2": 0.07971620946492707,
+    "dE_rgre2": 0.24149355738244677,
+    "recovery2": 1.0,
+    "blacklist": [],
+    "q_perp1": 0.008821343100091085,
+    "N_eval2": 3
+   },
+   "group": "mixture",
+   "seconds": 12.472680807113647
+  },
+  {
+   "name": "mix_coordinate_corner_0",
+   "domain": "corn",
+   "classes": [
+    "coordinate",
+    "corner"
+   ],
+   "E0": 0.21026066488114395,
+   "q": {
+    "coordinate": 0.594779186220631,
+    "tail": 0.001199845484937574,
+    "unary": 0.011597207392524764,
+    "corner": 0.2603261059086377,
+    "stop": 0.0,
+    "smooth": 0.11005580800002697
+   },
+   "raw": {
+    "coordinate": 0.594779186220631,
+    "tail": 0.001199845484937574,
+    "unary": 0.011597207392524764,
+    "corner": 0.2603261059086377,
+    "stop": 0.0065357654172322945,
+    "smooth": 0.11878528115053204
+   },
+   "q_perp": 0.042262855796764934,
+   "items": [
+    [
+     "coordinate",
+     "coordinate[0]",
+     0.5947791862206306
+    ],
+    [
+     "corner",
+     "corner",
+     0.2603261059086377
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.11878528115053204
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.011585759280596967
+    ]
+   ],
+   "chosen_class": "coordinate",
+   "reason": "ok",
+   "ranked": [
+    "coordinate",
+    "corner",
+    "smooth",
+    "unary",
+    "stop",
+    "tail"
+   ],
+   "N_rgre": 1,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.09702752601987336,
+     "value": 0.09702752601987336
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 12.0,
+     "dE": 0.010424751161140944,
+     "value": 0.000868729263428412
+    },
+    "tangent_alloc": {
+     "cost": 429.0,
+     "dE": 0.026010587674641844,
+     "value": 6.063074050033064e-05
+    },
+    "smooth_adaptive": {
+     "cost": 21.0,
+     "dE": 0.0029601166312283878,
+     "value": 0.0001409579348203994
+    },
+    "smooth_uniform": {
+     "cost": 15.0,
+     "dE": 0.012915925542025364,
+     "value": 0.000861061702801691
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.0008316905819089337,
+     "value": 0.0008316905819089337
+    }
+   },
+   "oracle": "shift",
+   "oracle_class": "coordinate",
+   "pick": "shift",
+   "V_cap": 1.0,
+   "dE_rgre": 0.09702752601987336,
+   "dE_oracle": 0.09702752601987336,
+   "S_rule": {
+    "class": "coordinate",
+    "reason": "ok",
+    "pick": "shift",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "two_step": {
+    "oracle_pair": [
+     "shift",
+     "tangent_alloc"
+    ],
+    "dE_oracle2": 0.1585732336439286,
+    "cls1": "coordinate",
+    "pick1": "shift",
+    "cls2": "corner",
+    "reason2": "ok",
+    "pick2": "tangent_alloc",
+    "E1": 0.1132331388612706,
+    "E2": 0.05168743123721535,
+    "dE_rgre2": 0.1585732336439286,
+    "recovery2": 1.0,
+    "blacklist": [],
+    "q_perp1": 0.1133957929865069,
+    "N_eval2": 3
+   },
+   "group": "mixture",
+   "seconds": 19.274943828582764
+  },
+  {
+   "name": "mix_tail_smooth_0",
+   "domain": "corn",
+   "classes": [
+    "tail",
+    "smooth"
+   ],
+   "E0": 0.35140682049597577,
+   "q": {
+    "coordinate": 0.005533030014996829,
+    "tail": 0.906238533027475,
+    "unary": 0.3759154481126054,
+    "stop": 0.0,
+    "smooth": 0.0844628344565682
+   },
+   "raw": {
+    "coordinate": 0.005533030014996829,
+    "tail": 0.906238533027475,
+    "unary": 0.3759154481126054,
+    "stop": 0.005174704211208235,
+    "smooth": 0.08823369821717428
+   },
+   "q_perp": 0.0371554321403274,
+   "items": [
+    [
+     "tail",
+     "tail[0]",
+     0.9062385330274743
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.37591415991903876
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.1740541277956171
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.08823369821717428
+    ]
+   ],
+   "chosen_class": "tail",
+   "reason": "ok",
+   "ranked": [
+    "tail",
+    "unary",
+    "smooth",
+    "coordinate",
+    "stop"
+   ],
+   "N_rgre": 1,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0008078829457462411,
+     "value": 0.0008078829457462411
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 3006.0,
+     "dE": 0.009288705691009758,
+     "value": 3.090055120096393e-06
+    },
+    "smooth_adaptive": {
+     "cost": 12.0,
+     "dE": 0.003972356992321346,
+     "value": 0.0003310297493601122
+    },
+    "smooth_uniform": {
+     "cost": 12.0,
+     "dE": 0.0027982361912047282,
+     "value": 0.0002331863492670607
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.25703337805676973,
+     "value": 0.25703337805676973
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0258739598633555,
+     "value": 0.0258739598633555
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.06919776088480745,
+     "value": 0.06919776088480745
+    }
+   },
+   "oracle": "decay",
+   "oracle_class": "tail",
+   "pick": "decay",
+   "V_cap": 1.0,
+   "dE_rgre": 0.25703337805676973,
+   "dE_oracle": 0.25703337805676973,
+   "S_rule": {
+    "class": "tail",
+    "reason": "ok",
+    "pick": "decay",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "two_step": {
+    "oracle_pair": [
+     "tangent_alloc",
+     "decay"
+    ],
+    "dE_oracle2": 0.3211120970998555,
+    "cls1": "tail",
+    "pick1": "decay",
+    "cls2": "smooth",
+    "reason2": "ok",
+    "pick2": "smooth_adaptive",
+    "E1": 0.09437344243920603,
+    "E2": 0.0748170570840582,
+    "dE_rgre2": 0.27658976341191754,
+    "recovery2": 0.861349559577343,
+    "blacklist": [],
+    "q_perp1": 0.4687219831762799,
+    "N_eval2": 3
+   },
+   "group": "mixture",
+   "seconds": 28.260841131210327
+  },
+  {
+   "name": "mix_corner_stop_0",
+   "domain": "corn",
+   "classes": [
+    "corner",
+    "stop"
+   ],
+   "E0": 0.21371239295927583,
+   "q": {
+    "coordinate": 0.000316912018917074,
+    "tail": 0.004455604267043276,
+    "unary": 0.007891740073754011,
+    "corner": 0.6275260972385003,
+    "stop": 0.3282138238568674,
+    "smooth": 0.03612384606043729
+   },
+   "raw": {
+    "coordinate": 0.000316912018917074,
+    "tail": 0.004455604267043276,
+    "unary": 0.007891740073754011,
+    "corner": 0.6275260972385003,
+    "stop": 0.3282138238568674,
+    "smooth": 0.03612384606043729
+   },
+   "q_perp": 0.013480880147856542,
+   "items": [
+    [
+     "corner",
+     "corner",
+     0.6275260972385003
+    ],
+    [
+     "stop",
+     "stop",
+     0.3282138238568674
+    ],
+    [
+     "smooth",
+     "smooth",
+     0.03612384606043729
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.007865394553057754
+    ]
+   ],
+   "chosen_class": "corner",
+   "reason": "ok",
+   "ranked": [
+    "corner",
+    "stop",
+    "smooth",
+    "unary",
+    "tail",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 15.0,
+     "dE": 0.026297312761387942,
+     "value": 0.0017531541840925295
+    },
+    "corner_tighten": {
+     "cost": 12.0,
+     "dE": 0.040513219501572356,
+     "value": 0.0033761016251310297
+    },
+    "tangent_alloc": {
+     "cost": 246.0,
+     "dE": 0.07990825345159167,
+     "value": 0.00032483029858370596
+    },
+    "smooth_adaptive": {
+     "cost": 15.0,
+     "dE": 0.033706256426441455,
+     "value": 0.0022470837617627635
+    },
+    "smooth_uniform": {
+     "cost": 21.0,
+     "dE": 0.03892703714602397,
+     "value": 0.001853668435524951
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.0006041209210840559,
+     "value": 0.0006041209210840559
+    }
+   },
+   "oracle": "corner_tighten",
+   "oracle_class": "corner",
+   "pick": "corner_tighten",
+   "V_cap": 1.0,
+   "dE_rgre": 0.040513219501572356,
+   "dE_oracle": 0.040513219501572356,
+   "S_rule": {
+    "class": "corner",
+    "reason": "ok",
+    "pick": "corner_tighten",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "two_step": {
+    "oracle_pair": [
+     "events",
+     "tangent_alloc"
+    ],
+    "dE_oracle2": 0.13641440422073758,
+    "cls1": "corner",
+    "pick1": "corner_tighten",
+    "cls2": "stop",
+    "reason2": "ok",
+    "pick2": "events",
+    "E1": 0.17319917345770347,
+    "E2": 0.17319917345770347,
+    "dE_rgre2": 0.040513219501572356,
+    "recovery2": 0.29698637569106195,
+    "blacklist": [],
+    "q_perp1": 0.4707646458962191,
+    "N_eval2": 3
+   },
+   "group": "mixture",
+   "seconds": 16.57634687423706
+  },
+  {
+   "name": "mix_coordinate_unary_0",
+   "domain": "water",
+   "classes": [
+    "coordinate",
+    "unary"
+   ],
+   "E0": 0.791698564074979,
+   "q": {
+    "coordinate": 0.45867451152254424,
+    "unary": 0.5506813272828674,
+    "tail": 0.24461224083706323,
+    "floor": 0.05554474705718711
+   },
+   "raw": {
+    "coordinate": 0.45867451152254424,
+    "unary": 0.5506813272828674,
+    "tail": 0.24461224083706323,
+    "floor": 0.05554474705718711
+   },
+   "q_perp": 0.07196716621090393,
+   "items": [
+    [
+     "coordinate",
+     "coordinate[0]",
+     0.4586745115225412
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.3023213066079479
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.25535452528607544
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.18448528494818522
+    ]
+   ],
+   "chosen_class": "coordinate",
+   "reason": "ok",
+   "ranked": [
+    "coordinate",
+    "unary",
+    "tail",
+    "floor"
+   ],
+   "N_rgre": 1,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.2652433167472157,
+     "value": 0.2652433167472157
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.13038027355536397,
+     "value": 0.13038027355536397
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.2259805791738675,
+     "value": 0.0753268597246225
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.07376793427090478,
+     "value": 0.07376793427090478
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.030694445712072915,
+     "value": 0.030694445712072915
+    }
+   },
+   "oracle": "shift",
+   "oracle_class": "coordinate",
+   "pick": "shift",
+   "V_cap": 1.0,
+   "dE_rgre": 0.2652433167472157,
+   "dE_oracle": 0.2652433167472157,
+   "S_rule": {
+    "class": "coordinate",
+    "reason": "ok",
+    "pick": "shift",
+    "V_cap": 1.0
+   },
+   "identity_gt": true,
+   "identity_oracle": true,
+   "abstained": false,
+   "two_step": {
+    "oracle_pair": [
+     "shift",
+     "shape"
+    ],
+    "dE_oracle2": 0.3682990768917211,
+    "cls1": "coordinate",
+    "pick1": "shift",
+    "cls2": "unary",
+    "reason2": "ok",
+    "pick2": "shape",
+    "E1": 0.5264552473277633,
+    "E2": 0.42339948718325787,
+    "dE_rgre2": 0.3682990768917211,
+    "recovery2": 1.0,
+    "blacklist": [],
+    "q_perp1": 0.2800972748996184,
+    "N_eval2": 3
+   },
+   "group": "mixture",
+   "seconds": 39.09606647491455
+  },
+  {
+   "name": "unknown_wind_0",
+   "domain": "corn",
+   "classes": [
+    "unknown"
+   ],
+   "E0": 0.37160721279899195,
+   "q": {
+    "coordinate": 0.0002523000778089231,
+    "tail": 1.4074531546922222e-05,
+    "unary": 0.005189822130772976,
+    "stop": 0.0,
+    "smooth": 0.13610014622384572
+   },
+   "raw": {
+    "coordinate": 0.0002523000778089231,
+    "tail": 1.4074531546922222e-05,
+    "unary": 0.005189822130772976,
+    "stop": 0.0010501283175487703,
+    "smooth": 0.9926181206889012
+   },
+   "q_perp": 0.9158067378948811,
+   "items": [
+    [
+     "smooth",
+     "smooth",
+     0.9926181206889012
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.004572391195685035
+    ],
+    [
+     "stop",
+     "stop",
+     0.0010501283175487703
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.0010070323366704285
+    ]
+   ],
+   "chosen_class": null,
+   "reason": "unknown",
+   "ranked": [],
+   "N_rgre": 0,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 597.0,
+     "dE": -0.00010606174503297039,
+     "value": -1.7765786437683482e-07
+    },
+    "smooth_adaptive": {
+     "cost": 12.0,
+     "dE": 0.0023207402166018354,
+     "value": 0.00019339501805015294
+    },
+    "smooth_uniform": {
+     "cost": 12.0,
+     "dE": 0.0026106124409694953,
+     "value": 0.00021755103674745793
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.00017690342491566424,
+     "value": 0.00017690342491566424
+    }
+   },
+   "oracle": "smooth_uniform",
+   "oracle_class": "smooth",
+   "pick": null,
+   "V_cap": 0.0,
+   "dE_rgre": 0.0,
+   "dE_oracle": 0.0026106124409694953,
+   "S_rule": {
+    "class": null,
+    "reason": "unknown",
+    "pick": null,
+    "V_cap": 0.0
+   },
+   "identity_gt": false,
+   "identity_oracle": false,
+   "abstained": true,
+   "group": "unknown",
+   "seconds": 4.541259288787842
+  },
+  {
+   "name": "unknown_wind_1",
+   "domain": "corn",
+   "classes": [
+    "unknown"
+   ],
+   "E0": 0.39580719246653556,
+   "q": {
+    "coordinate": 0.001161075954599986,
+    "tail": 0.00019528248829604828,
+    "unary": 0.01758299667555501,
+    "stop": 0.0,
+    "smooth": 0.09242396769579224
+   },
+   "raw": {
+    "coordinate": 0.001161075954599986,
+    "tail": 0.00019528248829604828,
+    "unary": 0.01758299667555501,
+    "stop": 0.0018811428848873155,
+    "smooth": 0.9758162042952594
+   },
+   "q_perp": 0.9248305386888279,
+   "items": [
+    [
+     "smooth",
+     "smooth",
+     0.9758162042952594
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.017298062256587667
+    ],
+    [
+     "unary",
+     "unary[1]",
+     0.005533487713851424
+    ],
+    [
+     "stop",
+     "stop",
+     0.0018811428848873155
+    ]
+   ],
+   "chosen_class": null,
+   "reason": "unknown",
+   "ranked": [],
+   "N_rgre": 0,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "smooth_adaptive": {
+     "cost": 6.0,
+     "dE": 0.0004848197592754455,
+     "value": 8.080329321257425e-05
+    },
+    "smooth_uniform": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 0.001062557193684921,
+     "value": 0.001062557193684921
+    }
+   },
+   "oracle": "amp",
+   "oracle_class": "unary",
+   "pick": null,
+   "V_cap": 0.0,
+   "dE_rgre": 0.0,
+   "dE_oracle": 0.001062557193684921,
+   "S_rule": {
+    "class": null,
+    "reason": "unknown",
+    "pick": null,
+    "V_cap": 0.0
+   },
+   "identity_gt": false,
+   "identity_oracle": false,
+   "abstained": true,
+   "group": "unknown",
+   "seconds": 3.711625337600708
+  },
+  {
+   "name": "unknown_hidden_walker_0",
+   "domain": "corn",
+   "classes": [
+    "unknown"
+   ],
+   "E0": 0.6985129124046644,
+   "q": {
+    "coordinate": 2.5154380253002968e-06,
+    "tail": 2.932703947875851e-05,
+    "unary": 0.006090062457729305,
+    "stop": 0.0,
+    "smooth": 0.0057817981215512095
+   },
+   "raw": {
+    "coordinate": 2.5154380253002968e-06,
+    "tail": 2.932703947875851e-05,
+    "unary": 0.006090062457729305,
+    "stop": 0.0463310115241398,
+    "smooth": 0.947574310804725
+   },
+   "q_perp": 0.9911900354207449,
+   "items": [
+    [
+     "smooth",
+     "smooth",
+     0.947574310804725
+    ],
+    [
+     "stop",
+     "stop",
+     0.0463310115241398
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.003878254106905112
+    ],
+    [
+     "tail",
+     "tail[0]",
+     2.9327039478758515e-05
+    ]
+   ],
+   "chosen_class": null,
+   "reason": "unknown",
+   "ranked": [],
+   "N_rgre": 0,
+   "N_all": 9,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "events": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "corner_tighten": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "tangent_alloc": {
+     "cost": 594.0,
+     "dE": 8.334151328148742e-05,
+     "value": 1.4030557791496199e-07
+    },
+    "smooth_adaptive": {
+     "cost": 15.0,
+     "dE": 0.0015928437132841644,
+     "value": 0.00010618958088561096
+    },
+    "smooth_uniform": {
+     "cost": 15.0,
+     "dE": 0.0015957490176935485,
+     "value": 0.00010638326784623656
+    },
+    "decay": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "width": {
+     "cost": 1.0,
+     "dE": 0.0014893935857303031,
+     "value": 0.0014893935857303031
+    },
+    "amp": {
+     "cost": 1.0,
+     "dE": 8.140097048414674e-06,
+     "value": 8.140097048414674e-06
+    }
+   },
+   "oracle": "width",
+   "oracle_class": "unary",
+   "pick": null,
+   "V_cap": 0.0,
+   "dE_rgre": 0.0,
+   "dE_oracle": 0.0014893935857303031,
+   "S_rule": {
+    "class": null,
+    "reason": "unknown",
+    "pick": null,
+    "V_cap": 0.0
+   },
+   "identity_gt": false,
+   "identity_oracle": false,
+   "abstained": true,
+   "group": "unknown",
+   "seconds": 4.178658723831177
+  },
+  {
+   "name": "unknown_hidden_splash_0",
+   "domain": "water",
+   "classes": [
+    "unknown"
+   ],
+   "E0": 0.5861911661650325,
+   "q": {
+    "coordinate": 0.0017341161330736495,
+    "unary": 0.016029149891023456,
+    "tail": 0.004878391971538644,
+    "floor": 0.29380102410791903
+   },
+   "raw": {
+    "coordinate": 0.0017341161330736495,
+    "unary": 0.016029149891023456,
+    "tail": 0.004878391971538644,
+    "floor": 0.29380102410791903
+   },
+   "q_perp": 0.7046963794560756,
+   "items": [
+    [
+     "floor",
+     "floor[0]",
+     0.2938010241079097
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.009808526645656651
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.004711775486887559
+    ],
+    [
+     "tail",
+     "tail[1]",
+     0.004653078426067512
+    ]
+   ],
+   "chosen_class": null,
+   "reason": "unknown",
+   "ranked": [],
+   "N_rgre": 0,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.0028300776222653923,
+     "value": 0.0028300776222653923
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.0026645969109933,
+     "value": 0.0008881989703311
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.0012464465242369993,
+     "value": 0.0012464465242369993
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    }
+   },
+   "oracle": "gain",
+   "oracle_class": "unary",
+   "pick": null,
+   "V_cap": 0.0,
+   "dE_rgre": 0.0,
+   "dE_oracle": 0.0028300776222653923,
+   "S_rule": {
+    "class": null,
+    "reason": "unknown",
+    "pick": null,
+    "V_cap": 0.0
+   },
+   "identity_gt": false,
+   "identity_oracle": false,
+   "abstained": true,
+   "group": "unknown",
+   "seconds": 11.234534978866577
+  },
+  {
+   "name": "unknown_hidden_splash_1",
+   "domain": "water",
+   "classes": [
+    "unknown"
+   ],
+   "E0": 0.5737268204685743,
+   "q": {
+    "coordinate": 0.0017814601075285387,
+    "unary": 0.01597956443085143,
+    "tail": 0.005387316088972887,
+    "floor": 0.29599091311745734
+   },
+   "raw": {
+    "coordinate": 0.0017814601075285387,
+    "unary": 0.01597956443085143,
+    "tail": 0.005387316088972887,
+    "floor": 0.29599091311745734
+   },
+   "q_perp": 0.7033933056842884,
+   "items": [
+    [
+     "floor",
+     "floor[0]",
+     0.2959909131174482
+    ],
+    [
+     "unary",
+     "unary[0]",
+     0.009860610369043779
+    ],
+    [
+     "tail",
+     "tail[1]",
+     0.005262667632942345
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.005058151760064179
+    ]
+   ],
+   "chosen_class": null,
+   "reason": "unknown",
+   "ranked": [],
+   "N_rgre": 0,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.002786265840949209,
+     "value": 0.002786265840949209
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.002251692481994305,
+     "value": 0.0007505641606647684
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.0013111438966324496,
+     "value": 0.0013111438966324496
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    }
+   },
+   "oracle": "gain",
+   "oracle_class": "unary",
+   "pick": null,
+   "V_cap": 0.0,
+   "dE_rgre": 0.0,
+   "dE_oracle": 0.002786265840949209,
+   "S_rule": {
+    "class": null,
+    "reason": "unknown",
+    "pick": null,
+    "V_cap": 0.0
+   },
+   "identity_gt": false,
+   "identity_oracle": false,
+   "abstained": true,
+   "group": "unknown",
+   "seconds": 11.419738054275513
+  },
+  {
+   "name": "gap_offcentre_0",
+   "domain": "water",
+   "classes": [
+    "space_coordinate"
+   ],
+   "E0": 1.321562744602359,
+   "q": {
+    "coordinate": 6.414956529781743e-05,
+    "unary": 0.4365531950104652,
+    "tail": 0.3404299732475568,
+    "floor": 0.004073253722160747
+   },
+   "raw": {
+    "coordinate": 6.414956529781743e-05,
+    "unary": 0.4365531950104652,
+    "tail": 0.3404299732475568,
+    "floor": 0.004073253722160747
+   },
+   "q_perp": 0.558538841632195,
+   "items": [
+    [
+     "unary",
+     "unary[0]",
+     0.4277053872299988
+    ],
+    [
+     "tail",
+     "tail[0]",
+     0.2853575782345926
+    ],
+    [
+     "tail",
+     "tail[1]",
+     0.1596660619064596
+    ],
+    [
+     "unary",
+     "unary[3]",
+     0.09240323815005384
+    ]
+   ],
+   "chosen_class": "unary",
+   "reason": "ok",
+   "ranked": [
+    "unary",
+    "tail",
+    "floor",
+    "coordinate"
+   ],
+   "N_rgre": 2,
+   "N_all": 6,
+   "repairs": {
+    "shift": {
+     "cost": 1.0,
+     "dE": 0.029387703548398036,
+     "value": 0.029387703548398036
+    },
+    "gain": {
+     "cost": 1.0,
+     "dE": 0.32179588477679155,
+     "value": 0.32179588477679155
+    },
+    "shape": {
+     "cost": 3.0,
+     "dE": 0.32156271280843596,
+     "value": 0.10718757093614532
+    },
+    "pair": {
+     "cost": 1.0,
+     "dE": 0.0,
+     "value": 0.0
+    },
+    "lam": {
+     "cost": 1.0,
+     "dE": 0.0902703359906667,
+     "value": 0.0902703359906667
+    },
+    "m": {
+     "cost": 1.0,
+     "dE": 0.06586604293770448,
+     "value": 0.06586604293770448
+    }
+   },
+   "oracle": "gain",
+   "oracle_class": "unary",
+   "pick": "gain",
+   "V_cap": 1.0,
+   "dE_rgre": 0.32179588477679155,
+   "dE_oracle": 0.32179588477679155,
+   "S_rule": {
+    "class": "unary",
+    "reason": "ok",
+    "pick": "gain",
+    "V_cap": 1.0
+   },
+   "identity_gt": false,
+   "identity_oracle": true,
+   "abstained": false,
+   "group": "gap",
+   "seconds": 10.88275694847107
+  }
+ ],
+ "tests": {
+  "B1": {
+   "median_V_cap": 1.0,
+   "mean_V_cap": 0.9823003693387559,
+   "n": 24,
+   "by_domain": {
+    "corn": 1.0,
+    "water": 1.0
+   },
+   "pass": true
+  },
+  "B2": {
+   "median_N_ratio": 0.16666666666666666,
+   "pass": true
+  },
+  "B3": {
+   "unknown_abstained": 5,
+   "n_unknown": 5,
+   "known_false_abstain": 0,
+   "n_known": 24,
+   "q_perp_unknown": [
+    0.9158067378948811,
+    0.9248305386888279,
+    0.9911900354207449,
+    0.7046963794560756,
+    0.7033933056842884
+   ],
+   "pass": true
+  },
+  "B4": {
+   "median_recovery2": 0.9306747797886715,
+   "n": 8,
+   "pass": true
+  },
+  "reported_S_rule": {
+   "median_V_cap": 1.0,
+   "mean_V_cap": 0.7521317212887794,
+   "projection_wins": 6,
+   "projection_loses": 0
+  },
+  "reported_gap": [
+   {
+    "name": "gap_offcentre_0",
+    "q_perp": 0.558538841632195,
+    "chosen": "unary",
+    "oracle": "gain",
+    "dE_oracle_frac": 0.2434964863311244
+   }
+  ],
+  "reported_identity": {
+   "vs_injected": 0.9583333333333334,
+   "vs_oracle": 0.9583333333333334
+  },
+  "reported_V_cap_by_class": {
+   "tail": 1.0,
+   "coordinate": 1.0,
+   "unary": 1.0,
+   "stop": 1.0,
+   "corner": 1.0,
+   "interaction": 1.0
+  }
+ },
+ "verdict": "replicated: the simplified selector holds on fresh cases",
+ "seed": 20260916,
+ "tau_perp": 0.5834212065969504
+}

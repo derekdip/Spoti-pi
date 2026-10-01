@@ -1,0 +1,149 @@
+{
+ "blend": [
+  {
+   "morph": "weak_hip_left",
+   "errors": [
+    0.368,
+    0.344,
+    0.339,
+    0.289,
+    0.287,
+    0.326,
+    0.306,
+    0.303,
+    0.284,
+    0.286,
+    0.255
+   ],
+   "bump": 0.0,
+   "monotone": false,
+   "violations": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "morph": "locked_knee_left",
+   "errors": [
+    0.574,
+    0.537,
+    0.504,
+    0.549,
+    0.564,
+    0.541,
+    0.511,
+    0.491,
+    0.466,
+    0.439,
+    0.272
+   ],
+   "bump": 0.0,
+   "monotone": false,
+   "violations": [
+    0.071,
+    0.071,
+    0.071
+   ]
+  },
+  {
+   "morph": "short_shank_left",
+   "errors": [
+    1.033,
+    1.031,
+    1.03,
+    1.029,
+    1.028,
+    0.476,
+    0.467,
+    0.435,
+    0.435,
+    0.367,
+    0.308
+   ],
+   "bump": 0.0,
+   "monotone": false,
+   "violations": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "morph": "stump_left",
+   "errors": [
+    0.663,
+    0.661,
+    0.66,
+    0.658,
+    0.656,
+    0.654,
+    0.306,
+    0.294,
+    0.286,
+    0.281,
+    0.274
+   ],
+   "bump": 0.0,
+   "monotone": true,
+   "violations": [
+    0.0,
+    0.0,
+    0.021
+   ]
+  },
+  {
+   "morph": "noleg_left",
+   "errors": [
+    0.694,
+    0.702,
+    0.709,
+    0.714,
+    0.717,
+    0.721,
+    0.726,
+    0.731,
+    0.738,
+    0.638,
+    0.659
+   ],
+   "bump": 0.045,
+   "monotone": false,
+   "violations": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "morph": "nolegs",
+   "errors": [
+    0.651,
+    0.611,
+    0.601,
+    0.628,
+    0.62,
+    0.528,
+    0.539,
+    0.526,
+    0.507,
+    0.481,
+    0.446
+   ],
+   "bump": 0.0,
+   "monotone": false,
+   "violations": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  }
+ ],
+ "transition": {
+  "max_joint_speed_at_switch": 1.82,
+  "max_joint_speed_first_0p2s": 2.13,
+  "max_joint_speed_steady": 0.81,
+  "root_height_step_at_switch": 0.0045,
+  "root_height_steady_max_step": 0.0143
+ }
+}

@@ -1,0 +1,122 @@
+body               class       q  drop/e0   gap  side
+intact             rhythm  0.135    0.093  0.35     0   [13s]
+intact             legs    0.136   -0.076  0.42     0   [29s]
+intact             lateral  0.125    0.024  0.28     0   [43s]
+intact             torso   0.227    0.063  0.08     0   [57s]
+intact             arms    0.034    0.007  0.07     0   [66s]
+intact             stiff   0.052    0.000  1.00     0   [72s]
+intact             limp    0.041    0.009  0.06    -1   [81s]
+intact             hold    0.045    0.008  0.18    -1   [87s]
+intact             vault   0.036    0.021  0.03     0   [91s]
+intact             weak    0.125    0.048  0.50     1   [99s]
+  intact: of vault's effect, legs absorbs 0.00, lateral absorbs 0.13, stiff absorbs 0.00, limp absorbs 0.06, hold absorbs 0.07, weak absorbs 0.30   [159s]
+  intact: of weak's effect, legs absorbs 0.00, lateral absorbs 0.05, stiff absorbs 0.00, limp absorbs 0.06, hold absorbs 0.12, vault absorbs 0.00   [212s]
+  -> intact: e0 0.322; oracle rhythm (drop 0.093, gap 0.35, side 0); projection torso
+weak_hip_left      rhythm  0.100    0.056  0.35     0   [226s]
+weak_hip_left      legs    0.081    0.061  0.53     0   [242s]
+weak_hip_left      lateral  0.123    0.067  0.48     0   [256s]
+weak_hip_left      torso   0.327    0.131  0.39     0   [269s]
+weak_hip_left      arms    0.016   -0.002  0.00     0   [277s]
+weak_hip_left      stiff   0.128    0.011  0.13    -1   [284s]
+weak_hip_left      limp    0.064    0.002  0.18    -1   [292s]
+weak_hip_left      hold    0.093    0.039  0.49    -1   [298s]
+weak_hip_left      vault   0.052    0.028  0.45     0   [302s]
+weak_hip_left      weak    0.112    0.045  0.55     1   [312s]
+  weak_hip_left: of stiff's effect, legs absorbs 0.46, lateral absorbs 0.29, limp absorbs 0.29, hold absorbs 0.11, vault absorbs 0.30, weak absorbs 0.27   [369s]
+  weak_hip_left: of hold's effect, legs absorbs 0.00, lateral absorbs 0.01, stiff absorbs 0.17, limp absorbs 0.02, vault absorbs 0.07, weak absorbs 0.00   [424s]
+  weak_hip_left: of vault's effect, legs absorbs 0.25, lateral absorbs 0.22, stiff absorbs 0.38, limp absorbs 0.29, hold absorbs 0.32, weak absorbs 0.26   [481s]
+  weak_hip_left: of weak's effect, legs absorbs 0.00, lateral absorbs 0.20, stiff absorbs 0.12, limp absorbs 0.02, hold absorbs 0.00, vault absorbs 0.09   [535s]
+  -> weak_hip_left: e0 0.356; oracle torso (drop 0.131, gap 0.39, side 0); projection torso
+locked_knee_left   rhythm  0.061    0.008  0.76     0   [548s]
+locked_knee_left   legs    0.054   -0.011  0.64     0   [564s]
+locked_knee_left   lateral  0.427    0.236  0.01     0   [576s]
+locked_knee_left   torso   0.030    0.016  0.12     0   [588s]
+locked_knee_left   arms    0.014    0.004  0.00     0   [597s]
+locked_knee_left   stiff   0.156    0.079  0.01    -1   [603s]
+locked_knee_left   limp    0.106    0.026  0.08    -1   [612s]
+locked_knee_left   hold    0.003    0.004  0.96     1   [619s]
+locked_knee_left   vault   0.010    0.000  1.00     0   [622s]
+locked_knee_left   weak    0.016    0.012  0.65    -1   [631s]
+  locked_knee_left: of stiff's effect, legs absorbs 0.18, lateral absorbs 0.05, limp absorbs 0.20, hold absorbs 0.07, vault absorbs 0.10, weak absorbs 0.06   [688s]
+  locked_knee_left: of limp's effect, legs absorbs 0.12, lateral absorbs 0.11, stiff absorbs 0.13, hold absorbs 0.00, vault absorbs 0.00, weak absorbs 0.00   [740s]
+  locked_knee_left: of weak's effect, legs absorbs 0.00, lateral absorbs 0.05, stiff absorbs 0.00, limp absorbs 0.10, hold absorbs 0.00, vault absorbs 0.00   [794s]
+  -> locked_knee_left: e0 0.600; oracle lateral (drop 0.236, gap 0.01, side 0); projection lateral
+short_shank_left   rhythm  0.141    0.200  0.66     0   [807s]
+short_shank_left   legs    0.111    0.267  0.59     0   [823s]
+short_shank_left   lateral  0.039    0.220  0.63     0   [838s]
+short_shank_left   torso   0.120    0.274  0.63     0   [852s]
+short_shank_left   arms    0.029    0.026  0.30     0   [860s]
+short_shank_left   stiff   0.093    0.120  0.44    -1   [867s]
+short_shank_left   limp    0.387    0.322  0.28    -1   [874s]
+short_shank_left   hold    0.247    0.103  0.00    -1   [880s]
+short_shank_left   vault   0.114    0.052  0.00     0   [882s]
+short_shank_left   weak    0.092    0.119  0.79     1   [892s]
+  short_shank_left: of stiff's effect, legs absorbs 0.46, lateral absorbs 0.15, limp absorbs 0.22, hold absorbs 0.31, vault absorbs 0.04, weak absorbs 0.42   [949s]
+  short_shank_left: of limp's effect, legs absorbs 0.73, lateral absorbs 0.41, stiff absorbs 0.05, hold absorbs 0.17, vault absorbs 0.10, weak absorbs 0.29   [1004s]
+  short_shank_left: of hold's effect, legs absorbs 0.44, lateral absorbs 0.03, stiff absorbs 0.02, limp absorbs 0.41, vault absorbs 0.06, weak absorbs 0.61   [1062s]
+  short_shank_left: of vault's effect, legs absorbs 0.36, lateral absorbs 0.07, stiff absorbs 0.05, limp absorbs 0.21, hold absorbs 0.16, weak absorbs 0.13   [1122s]
+  short_shank_left: of weak's effect, legs absorbs 0.59, lateral absorbs 0.04, stiff absorbs 0.02, limp absorbs 0.48, hold absorbs 0.56, vault absorbs 0.06   [1175s]
+  -> short_shank_left: e0 0.494; oracle limp (drop 0.322, gap 0.28, side -1); projection limp
+stump_left         rhythm  0.227    0.131  0.15     0   [1187s]
+stump_left         legs    0.245    0.157  0.28     0   [1202s]
+stump_left         lateral  0.156    0.051  0.05     0   [1213s]
+stump_left         torso   0.247    0.099  0.00     0   [1225s]
+stump_left         arms    0.009    0.004  0.13     0   [1232s]
+stump_left         stiff   0.001    0.000  1.00    -1   [1238s]
+stump_left         limp    0.181    0.080  0.11     1   [1245s]
+stump_left         hold    0.020    0.149  0.95     1   [1251s]
+stump_left         vault   0.193    0.031  0.26     0   [1254s]
+stump_left         weak    0.022    0.108  0.98     1   [1262s]
+  stump_left: of limp's effect, legs absorbs 0.47, lateral absorbs 0.02, stiff absorbs 0.00, hold absorbs 0.00, vault absorbs 0.00, weak absorbs 0.09   [1310s]
+  stump_left: of hold's effect, legs absorbs 0.41, lateral absorbs 0.06, stiff absorbs 0.00, limp absorbs 0.16, vault absorbs 0.22, weak absorbs 0.25   [1358s]
+  stump_left: of vault's effect, legs absorbs 0.43, lateral absorbs 0.09, stiff absorbs 0.16, limp absorbs 0.26, hold absorbs 0.16, weak absorbs 0.49   [1410s]
+  stump_left: of weak's effect, legs absorbs 0.70, lateral absorbs 0.12, stiff absorbs 0.00, limp absorbs 0.45, hold absorbs 0.17, vault absorbs 0.19   [1457s]
+  -> stump_left: e0 0.623; oracle legs (drop 0.157, gap 0.28, side 0); projection torso
+noleg_left         rhythm  0.177    0.104  0.35     0   [1469s]
+noleg_left         legs    0.062    0.037  0.11     0   [1481s]
+noleg_left         lateral  0.242    0.128  0.01     0   [1491s]
+noleg_left         torso   0.261    0.102  0.00     0   [1502s]
+noleg_left         arms    0.070    0.018  0.00     0   [1509s]
+noleg_left         limp    0.014    0.002  0.00    -1   [1515s]
+noleg_left         vault   0.013    0.000  1.00     0   [1518s]
+noleg_left         weak    0.066    0.007  0.42     1   [1525s]
+  -> noleg_left: e0 0.354; oracle lateral (drop 0.128, gap 0.01, side 0); projection torso
+nolegs             rhythm  0.185    0.145  0.54     0   [1532s]
+nolegs             torso   0.212    0.168  0.39     0   [1541s]
+nolegs             arms    0.341    0.123  0.64     0   [1546s]
+nolegs             vault   0.226    0.132  0.34     0   [1549s]
+  nolegs: of vault's effect,    [1549s]
+  -> nolegs: e0 0.666; oracle torso (drop 0.168, gap 0.39, side 0); projection arms
+
+median gap by class over repairs worth >= 1%: {'limp': 0.11, 'torso': 0.12, 'stiff': 0.13, 'lateral': 0.17, 'vault': 0.26, 'arms': 0.3, 'rhythm': 0.35, 'legs': 0.41, 'hold': 0.49, 'weak': 0.65}
+median absorption over bodies, B of A's effect (pairs over 0.5 are not separable):
+  legs   absorbs limp   0.47  (n=3)
+  legs   absorbs stiff  0.46  (n=3)
+  legs   absorbs hold   0.41  (n=3)
+  legs   absorbs vault  0.31  (n=4)
+  weak   absorbs vault  0.28  (n=4)
+  weak   absorbs stiff  0.27  (n=3)
+  weak   absorbs hold   0.25  (n=3)
+  limp   absorbs vault  0.24  (n=4)
+  limp   absorbs stiff  0.22  (n=3)
+  hold   absorbs vault  0.16  (n=4)
+  limp   absorbs hold   0.16  (n=3)
+  lateral absorbs stiff  0.15  (n=3)
+  hold   absorbs weak   0.12  (n=5)
+  lateral absorbs limp   0.11  (n=3)
+  hold   absorbs stiff  0.11  (n=3)
+  lateral absorbs vault  0.11  (n=4)
+  stiff  absorbs vault  0.11  (n=4)
+  vault  absorbs stiff  0.10  (n=3)
+  limp   absorbs weak   0.10  (n=5)
+  weak   absorbs limp   0.09  (n=3)
+  vault  absorbs hold   0.07  (n=3)
+  vault  absorbs weak   0.06  (n=5)
+  lateral absorbs weak   0.05  (n=5)
+  stiff  absorbs limp   0.05  (n=3)
+  lateral absorbs hold   0.03  (n=3)
+  stiff  absorbs hold   0.02  (n=3)
+  legs   absorbs weak   0.00  (n=5)
+  stiff  absorbs weak   0.00  (n=5)
+  hold   absorbs limp   0.00  (n=3)
+  vault  absorbs limp   0.00  (n=3)

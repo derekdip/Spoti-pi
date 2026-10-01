@@ -1,0 +1,612 @@
+# Residual-guided representation expansion: the procedure, the evidence, and the failures
+
+This consolidates seven frozen experiments and one unfrozen arc into one
+account of what RGRE is, what it has been shown to do, and where it has
+failed. Each claim below points to the document that measured it; nothing
+here is new data. The results documents are the record and are unchanged.
+
+## 1. The problem it addresses
+
+The runtime this repository is about replaces an expensive, stateful
+simulation with a cheap, stateless representation: a small vocabulary of
+closed-form tokens, anchored to causes, evaluated on demand. That
+representation is never right the first time. The question RGRE answers
+is: given a teacher, a cheap representation, and a set of consumers that
+read it, which part of the representation should be changed next, and
+can the answer be read off the error rather than searched for.
+
+A consumer is a function `G` from a field to what a game uses: a coarse
+grid an AI queries, a set of probes, a threshold decision. The residual
+is `r = G(F) - G(F_R)`, teacher minus representation, in consumer space.
+The claim under test throughout is that the geometry of `r` names the
+repair.
+
+## 2. The procedure, as it stands after RGRE-1b
+
+`poc/rgre/core.py`. Nothing in it is fitted to the domains it was run on
+except one threshold, discussed under failures.
+
+1. **Residual.** `r = G(F) - G(F_R)`, for every consumer, stacked.
+2. **Tangents.** For each parameter of the representation, the finite
+   difference of `G(F_R)` in that parameter; for a parameter that is
+   currently off, the secant from its declared on-state, so a switched-off
+   class is visible to the diagnosis. Classes group parameters; a class
+   may also carry templates (fixed shapes that are not derivatives) and a
+   support (where in consumer space it can act).
+3. **Diagnosis** (`diagnose`). Project `r` onto each tangent direction and
+   each template, one number each: the fraction of the residual's energy
+   that direction alone explains. Also record `q_perp`, the fraction
+   orthogonal to the span of every direction of every class.
+4. **Selection** (`select_projection`). Rank individual directions by
+   their own fraction and take the class of the top one. No coherence
+   weighting, no class-level aggregation. Abstain if `q_perp` exceeds
+   `tau = 0.5834`. Skip a class whose every repair has been spent.
+5. **Repair.** Fit only the selected class's parameters, from the class's
+   on-state if it is off (`fit_class`). Keep the best error reduction per
+   unit cost. A repair that reduces error by under one percent is
+   blacklisted and cannot be nominated again.
+6. **Repeat** from the moved residual.
+
+The design decisions that were tested and lost are not in that list: a
+coherence multiplier on the class score, class-level aggregation of
+ownership, abstention on partially explained known cases, and a
+fixed-percentage stopping rule.
+
+## 3. The evidence
+
+Seven frozen experiments, three domains, two teachers of the corn and
+water kind and one fluid teacher for fire. All results are by the frozen
+rules; the label each tree returned is given as returned.
+
+| experiment | domain | cases | value captured (median) | search fraction | other bars | outcome |
+|---|---|---|---|---|---|---|
+| RGRE-1 | corn, water | 78 | 1.00 (mean 0.82) | 0.17 | mixtures 0.88; abstain 5/6 unknown, 4/72 known | A; H3, H6, H7 fail |
+| RGRE-1b | corn, water | 30 fresh | 1.00 (mean 0.98) | 0.17 | mixtures 0.93; abstain 5/5 and 0/24 | replicated, 4/4 |
+| F1 | fire | 9 scenes, 13 steps | 1.00 | 0.10 | terminal reduction 0.10 vs 0.40 bar; consumers 6/7 | B |
+| F2 | fire, new stop rule | 9 scenes | 0.64 | 0.10 | stop decisions 1/9 correct | C and D both fire |
+| F3 | fire, no stop rule | 9 scenes | greedy 0.96 of joint | 1 repair/step | floor 0.63 vs 0.35 bar; consumers 7/7 | C |
+| post-F3 | fire, unfrozen | 9 scenes | | | floor 0.63 to 0.58 across shapes, profile, Powell | vocabulary is the limit |
+| decisions | fire, unfrozen | 7 scenes | | | burn/passable wrong 1 to 4% on the two simplest scenes, 10 to 19% on the rest | owner's call |
+| F4 | fire, parcel grammar | 7 unseen | greedy 0.83 of a global floor | 1 repair/step | floor below column 5/7; glow corr 0.64 median; parcels up to 32 | D |
+| RGRE-ML-1 | additive models, 4th domain | 114 fresh | 1.00 (= matching pursuit) | 0.10 | OOV detection AUC 0.96; two-step 1.00; consumer residual halves identity | A |
+| RGRE-ML-1b | additive models, mixed cases | 36 fresh | | | orthogonal deferral beats magnitude 64%; medians 0.367 vs 0.378 vs random 0.368 | Holds, narrowly |
+| RGRE-ML-2 | six real regression datasets | 30 splits, 240 steps | 0.48 (bar 0.90) | 0.01 | stopping AUC 0.84 vs step index 0.62; noise 30/30; deferral ties magnitude | D |
+| RGRE-ML-3 | the same splits, stopping rule | 30 | | | null-calibrated stop: wins 15 / losses 9 vs the constant, median regret 0.002 vs 0.011, mean 0.035 vs 0.014 (one extrapolation) | Half |
+| F6 | fire, both changes folded in | 15 scenes (6 unseen) | hybrid 1.00 vs projection 0.45 | 6 of 12 | terminal 14/15 wins over the selector, 0.90 of the oracle; check transfers 86%; null stop never stops | B (tree text wrong) |
+| F7 | fire, no templates, F4's scenes | 7 | 1.00 (mean 0.84; 0.93 with two) | 6 of 12 | terminal below F4's greedy 6/7; 0.73 of the DE floor; look unmoved | B |
+| G1 | locomotion, gait grammar, 5th domain | 14 (7 unseen) | 1.00 (mean 0.83) | 6 of 10 | identity 2/5 first step, 3/5 within two; mirrors 1/4; consumers worse 6/10 | C |
+| G2 | locomotion, exclusive classes | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; floor 0.98; consumers worse 6/10 | A |
+| G3 | locomotion, held-out acceptance and a measured guard | 14 (7 unseen) | oracle | 10 of 10 | identity 4/4 first impairment repair, 4/4 within two; mirrors 1/3; held-out error below V0 10/10; consumers worse 7/10, beyond tolerance 0/10; guard never fired | D |
+| G4 | locomotion, two held-out runs | 13 scored (7 unseen) | oracle | 9 of 9 | identity 4/4 first impairment repair, 4/4 within two; mirrors 2/3; within tolerance 9/9; controls 4 impairment repairs; mean held-out below V0 9/9, both runs 6/9 | A |
+| G5 | locomotion, hop class removed, two ranges widened | 13 scored (7 unseen) | oracle | 8 of 9 | identity 2/3 first, 2/3 within two; mirrors 1/2; one-leg terminals above G4's on 2/2; within tolerance 9/9; controls 2 | D |
+| G6 | locomotion, hop class removed, ranges as G4 | 13 scored (7 unseen) | oracle | 9 of 9 | 12 of 12 non-hop cases reproduce G4 to 1e-6; one-leg terminal 0.477 vs 0.461 (2.8 percent of V0 above); identity 3/3 first, mirrors 2/2; within tolerance 9/9; controls 4 | B |
+| G7 | locomotion in 3D, unseen body | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 2/3 first, 2/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 impairment repairs | C |
+| G8 | locomotion in 3D, base-first naming | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; identity 1/3 first, 1/3 within two, mirrors 1/2; within tolerance 9/9; controls 0 | C |
+| G9 | locomotion in 3D, planted grounding | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 9/9; speed from the stride matches the teacher on every body; identity 1/3 first, mirrors 0/2; within tolerance 8/9; controls 2 | C |
+| G10 | locomotion in 3D, teacher with a gait prior | 13 scored (7 unseen) | oracle | 8 of 9 | mean held-out below V0 8/9; speed from the stride matches the teacher on 8 bodies; identity 0/3 first, 1/3 within two, mirrors 1/2; within tolerance 9/9; controls 2 | C |
+| G11 | locomotion in 3D, foot-travel consumer | 13 scored (7 unseen) | oracle | 9 of 9 | mean held-out below V0 9/9, both runs 8/9; swing speeds within a factor of two of the teacher's on every walking body; identity 0/3 first, mirrors 1/2; within tolerance 9/9; controls 2 | C |
+
+Documents: `docs/math-track-rgre1-results.md`, `rgre1b-results.md`,
+`f1-results.md`, `f2-results.md`, `f3-results.md`, `fire-shapes-added.md`,
+`fire-decisions.md`, `rgre-ml1-results.md`, `rgre-ml1b-results.md`,
+`rgre-ml2-results.md`, `rgre-ml3-results.md`, `linearisation-gap.md`,
+`f6-results.md`, `f7-results.md`, `g1-results.md`, `g2-results.md`,
+`g3-results.md`, `g4-results.md`, `g5-results.md`, `g6-results.md`,
+`g7-results.md`, `g8-results.md`, `g9-results.md`, `g10-results.md`,
+`g11-results.md`.
+
+### What transfers, with no recalibration
+
+**Selection.** On two benchmarks totalling 108 cases in corn and water
+and 13 greedy steps in fire, the class named by the largest single projection is the class
+whose repair an exhaustive search would have bought, in the median case,
+while evaluating a sixth to a tenth of the repair space. Fire is the
+strongest evidence because it is the cleanest: with every stopping rule
+removed and every parameter of every class free, greedy selection by
+projection reaches 96 percent of a full joint fit while evaluating one
+repair per step, and beats the joint fit outright on three of seven
+scenes (F3). Selection is not the bottleneck in any domain tried.
+
+**Sequencing.** After a correct first repair the first class's ownership
+collapses and the second's rises, and the second repair is found. Median
+two-step recovery 0.88 and 0.93 on two benchmarks.
+
+**Consumer safety.** A repair chosen on the mean over consumers made no
+consumer worse on 7 of 7 fire scenes in F3 and 6 of 7 in F1. The one
+exception, `obstacle` in F1, is on record: one repair improved the hazard
+grid and worsened the glow and the probes.
+
+**Abstention on genuinely foreign residual.** Ten of eleven
+out-of-vocabulary cases in corn and water abstained. The eleventh was a
+case the vocabulary could partly absorb with a gain, and the oracle agreed
+that was the best available move.
+
+**Simplicity.** The rule that survives has no weighting and one constant.
+Every refinement tried on top of it lost value on the cases where they
+disagreed: RGRE-1's coherence rule lost 12 and won 0 against plain
+projection; RGRE-1b measured the same, 6 and 0.
+
+## 4. The failures, in full
+
+These are the content. Each is a thing the procedure got wrong or a thing
+I got wrong running it, and where it is recorded.
+
+1. **The abstention threshold does not survive a multi-step search.**
+   `tau = 0.5834` was calibrated on RGRE-1's development cases, one- and
+   two-defect problems on near-complete models. In fire, `q_perp` is driven upward by the
+   procedure's own success, because greedy fitting removes in-span energy
+   by construction, so a fixed threshold fires after a roughly fixed
+   number of steps rather than when the vocabulary is exhausted. Seven of
+   nine fire scenes stopped this way inside four steps; `windy`, the one
+   scene whose defect the vocabulary explicitly contained, abstained at
+   step zero by one part in sixty and did nothing (F1).
+2. **The replacement stopping rule was worse.** A ten-percent step-zero
+   gain test, borrowed from RGRE-1b's constant for whether any class can
+   explain a whole case, got eight of nine decisions wrong and wrong in
+   both directions: it blocked six in-vocabulary scenes and ran both
+   out-of-vocabulary ones. Same structural reason: a constant calibrated
+   where one thing is missing reused where many are (F2).
+3. **The measured value and the physics came apart.** The rule RGRE-1b
+   retired, coherence weighting, would have named `secondary`, the class
+   that models the burning bed, on 13 of the 14 fire steps where the two
+   rules disagreed. It was retired for capturing less value, and it does
+   capture less value; the value metric preferred leaning the flame over
+   lighting the bed (F1). Per-unit-cost error is not a safe objective on
+   its own.
+4. **Three classes were unreachable by the fitter, and a claim was built
+   on their silence.** Classes gated by more than one parameter (`soot`,
+   `flicker`, `secondary`) started every parameter at zero, so coordinate
+   descent selected zero for the first and gated off the rest. Their gain
+   was exactly 0.00 percent, everywhere. F1's reading that the objective
+   preferred an unphysical mechanism over `secondary` was therefore
+   unsupported: `secondary` was top-ranked at step zero on four of seven
+   scenes and was rejected because fitting it could not act, not because
+   the objective preferred something else. Fixed by fitting from the
+   on-state; an amendment is appended to F1 and F1 is not edited (F2).
+5. **A bar was frozen above the achievable.** F1's terminal-reduction
+   target of 40 percent had a ceiling of about 23 percent, measurable in
+   under a minute a scene by fitting everything jointly. Two experiments
+   were spent repairing a search whose target was out of reach. The
+   check is cheap and is now part of the method: fit jointly, then freeze
+   (F3).
+6. **Three outcome-tree defects in three fire freezes.** F1's B3 as
+   above; F2's C and D were written as exclusive and both fired; F3's C
+   versus D boundary was written as "a wide margin" and never quantified.
+   Each is named in its own results document rather than resolved in
+   whichever direction flatters the run.
+7. **The floor is not being measured reliably.** Single-start coordinate
+   descent carries up to 16 percent slack in either direction; Powell
+   from three starts is better on five of nine scenes and worse on four,
+   spanning -17 to +20 percent, and is itself multi-modal by 8 percent
+   across its own starts. A monotonicity guarantee I claimed for the
+   Powell fit was not implemented, because the starts never included a
+   previously found best state. Every floor number in the fire arc is
+   "no worse than", and the conclusion that the vocabulary is the limit
+   rests on the spread across independent optimisers, not on any single
+   number (`fire-shapes-added.md`).
+8. **A cost-model bias.** Re-fitting a parameter that is already on costs
+   one unit even though it adds no complexity, which favours re-fitting
+   `width` over switching on `soot`. Frozen, reported, not fixed (F1).
+9. **Overlapping tangents remain unresolved.** When two directions are
+   nearly aligned, corn's tail and unary, water's dispersion and time
+   shift, the projection names the wrong owner and the identity score
+   pays for it. Simplification raised identity from 0.69 to 0.96 without
+   solving this; it is the same problem W4 met and the one fire was told
+   to watch for (RGRE-1b).
+10. **RGRE does not design vocabularies, and fire needed one designed.**
+    The fire representation's gap was shapes, not parameters: a column
+    that cannot split around a shelf, detach when its burner stops, or
+    hand off to a bed with its own life cycle. No repair reaches a shape
+    the grammar does not contain, and F3 showed that switching on more
+    of the existing vocabulary does not help. The three shapes were
+    designed by hand from F3's diagnosis and each activated only where
+    its physics applies, which is what a correct implementation looks
+    like; together with two fitted profile exponents they moved the
+    floor from 0.63 to 0.58, where about 0.35 was asked for. At the
+    decision level the same grammar is 1 to 4 percent wrong on burn and
+    passability on the two simplest scenes and 10 to 19 percent wrong on
+    the rest, and misses the lit bed on 28 to 67 percent of
+    alight frames (`fire-decisions.md`).
+
+11. **The grammar rebuild was better and still failed its bars.** F4
+    replaced the anchored column with a stateless parcel train after a
+    declared three-round pilot on two seen scenes. On seven unseen
+    scenes it beat the column's best-known floor on five, by 8 to 20
+    percent, and cut ignition misses from 28 to 67 percent to 6 to 11;
+    the two misses were the two scenes the design predicted it would
+    win, by margins inside the optimiser's own 15 percent disagreement.
+    The glow bar failed, partly because it was frozen on a tone-mapped
+    fit that collapses on gusted bed scenes, and the cost bar failed
+    because the floor objective has no cost in it
+    (`math-track-f4-results.md`).
+
+12. **In machine learning terms the selection rule is matching pursuit,
+    and the consumer-space residual hurts diagnosis.** RGRE-ML-1 grew
+    additive models toward teachers on 114 fresh cases. Its per-direction
+    projection agreed with matching pursuit's atom selection on every
+    case. Diagnosing on the consumer residual, the choice the whole
+    simulation arc made, halved the identification rate when one
+    consumer was a thresholded decision; diagnosing on the field residual
+    restored it. Re-run on the nine fire scenes, the two residuals
+    diagnose the same (value medians 0.85 and 0.86, the oracle found on
+    two and three scenes), so the rule is narrower than it first read:
+    a per-sample decision consumer degrades the diagnostic, smooth and
+    averaged consumers do not, and the fire arc stands as diagnosed
+    (`fire-diag-space.md`). What survives as RGRE's own is the abstention signal
+    (out-of-vocabulary AUC 0.96, with the borrowed threshold failing a
+    third time) and the sequencing protocol (full two-step recovery).
+    The deferral claim was unmeasurable by the frozen design
+    (`math-track-rgre-ml1-results.md`). RGRE-ML-1b then measured it on
+    36 mixed cases, one missing module plus one foreign term each, and
+    it holds by its frozen bars: deferring the regions the tangent span
+    cannot explain beats deferring the largest regions on 64 percent of
+    cases and by about two percent of the error, with a median margin
+    over random deferral of 0.001 and a case design in which two of the
+    four foreign terms turned out to be partly in vocabulary
+    (`math-track-rgre-ml1b-results.md`).
+
+13. **On real data the projection cannot rank modules whose shape must
+    be fitted.** RGRE-ML-2 grew dictionary models on six real
+    regression datasets, 30 splits, 240 steps. The oracle's best step
+    was a Gaussian bump or a sinusoid on 233 of them, and the pick
+    captured 0.48 of the oracle's gain in median there; on the 7 steps
+    where the best module had a fixed shape the pick was the oracle
+    every time. That is matching pursuit's premise, a fixed atom, met
+    and not met. The abstention quantity held: above the shuffled-
+    target value on every split, and a stopping signal at AUC 0.84
+    against 0.62 for the step index, most of it between datasets.
+    Deferral by orthogonality tied magnitude on 23 of 30 cases and is
+    dropped for real data. The one percent stopping constant stopped
+    too early on the datasets with something to find, the fourth
+    constant to fail in transfer (`math-track-rgre-ml2-results.md`).
+    The gap between a tangent and the repair it stands for was then
+    measured as a number, and it explains the selection record in both
+    domains: full value where the gap is under 0.1, half where it is
+    over 0.25; in fire the plume's rise, the oracle's first step on
+    five scenes of nine, has a gap of 0.98 and the projection never saw
+    it (`linearisation-gap.md`).
+
+14. **The constant can be replaced, and the replacement still cannot
+    see extrapolation.** RGRE-ML-3 swapped the one percent stopping
+    rule for a permutation test on the procedure's own statistic. It
+    beat the constant on 15 cases to 9 and in median regret, grew where
+    the constant had stopped at step zero, declined on shuffled targets
+    every time, and was indifferent to its shuffle budget. It failed
+    the frozen mean-regret bar on one case, where an exponential module
+    fitted within its bounds blew up on a test outlier: a rule that
+    reads the training residual cannot foresee that, and the module's
+    unbounded output is the defect (`math-track-rgre-ml3-results.md`).
+
+15. **Brought back to fire, the check works and the stop does not.** F6
+    fitted the six classes the gap table named and projected the rest:
+    per-step value went from 0.45 to 1.00 of the oracle at six repairs
+    a step instead of twelve, and the terminal state beat the arc's
+    selector on fourteen scenes of fifteen, six of them unseen, reaching
+    0.90 of the oracle's gain. What remained was the projection's
+    ranking among the small-gap classes, with F1's support templates
+    the suspect, and two classes whose gap depends on the state. The
+    shuffle-null stop ran to the budget on twelve scenes of fifteen and
+    stopped falsely once: fire's residual is structured everywhere and
+    reachable almost nowhere, so a test for structure cannot stop it.
+    The frozen tree's text for outcome B assumed the terminal state
+    could not move; it moved, and the letter stands with that noted
+    (`math-track-f6-results.md`).
+
+16. **In a fifth domain the selection carried and the classes did not
+    partition the gaits.** G1 grew a phase-clock gait grammar toward a
+    physics teacher's gaits for damaged bodies. Selection captured the
+    oracle's value at six repairs of ten and named the one-leg and
+    legless gaits at the first step every time. It named the locked
+    knee, the short shank and the stump on the design bodies within
+    two steps on one of three, and on the mirrors on none: a two-slot
+    selection miss where the oracle was right, two-sided classes that
+    fit each other's damage, and a hop class that produces a kneel's
+    contacts. A control against a second teacher seed grew four
+    classes on run-to-run variability. Three defects in the freeze are
+    on record (`math-track-g1-results.md`).
+
+17. **With exclusive classes the damage is named, and the consumers
+    still lose.** G2 gave each impairment one class with a signed
+    side, let the walk base re-fit first, used the oracle, and added
+    an exclusivity table to the dictionary check. On the same fourteen
+    teachers identity went to four of four on the design bodies and
+    two of three on the mirrors, and the table had predicted the miss:
+    hop, a third absorbable by a base re-fit, was never worth a percent
+    on the right one-leg body once the base had re-fitted. Six
+    terminals of ten still worsen some consumer, the zero-tolerance
+    guard declines every repair at step zero, and the controls grow
+    impairment classes on teacher noise (`math-track-g2-results.md`).
+
+18. **Held-out acceptance generalises the growth and cannot make a
+    control of a body that has structure.** G3 kept G2's procedure and
+    added two measured rules: a repair is applied only if it lowers
+    the error against a second run of the same teacher, and may not
+    worsen a consumer by more than the two runs differ on it. Every
+    damaged body's terminal state is better on the run it never saw
+    (ten of ten), the design-body identity is kept (four of four), and
+    the guard never fired: every consumer loss is inside the teacher's
+    own run-to-run spread, so the strict consumer bar asked more of
+    the student than the teacher has with itself. The test rejected
+    the right stump's kneel four times, fitted to one run's timing,
+    before admitting it, and let the intact body grow vault and weak
+    because both of its runs share what they express. Outcome D by
+    the frozen bars, on one mirror and the strict consumer clause
+    (`math-track-g3-results.md`).
+
+19. **Two held-out runs name the mirrors' damage; the mean of two
+    admits what one run rejects.** G4 gave every body a third teacher
+    run and accepted a repair on the mean of two held-out errors, the
+    guard's tolerance now the mean distance to both. Outcome A as
+    predicted: design identity four of four, mirrors two of three, no
+    consumer beyond tolerance on nine of nine, one control class
+    fewer than G3, mean held-out error below V0 on nine of nine. The
+    right stump's kneel came first because the guard, firing once in
+    the whole run, rejected the hop fit on reach, where that body's
+    two runs agree to 0.02. Twelve of forty-three applied repairs
+    lowered one held-out run only; on the left stump the mean followed
+    the run that resembles the fitting run while the other run got
+    worse. The right one-leg body's hop is absorbed by the base under
+    a third selection rule, a grammar matter the exclusivity table
+    predicted (`math-track-g4-results.md`).
+
+20. **A class with no direction of its own, and a range that is not
+    free.** Read before G5, the hop class was an exact
+    reparametrisation of the walk base: rate, sync, crouch and flight
+    each enter through a base parameter, every hop state has a base
+    twin with identical consumers on every body, and the intact
+    teacher is itself airborne a quarter of the time, so flight was
+    the base's from the start. G5 removed the class and widened the
+    two base ranges to cover it. Outcome D: the fitter's seven-point
+    sweeps are laid over each range, the widening coarsened every
+    legs and torso refit, stiff was never named on either locked
+    knee, the guard fired five times where G4 had one, and the
+    one-leg bodies ended above G4's terminals. The widening was not
+    needed: G4's one hop terminal has its twin inside the old ranges.
+    Whether hop was also a coordinated move the greedy base does not
+    find is left to G6 (`math-track-g5-results.md`).
+
+21. **A class with no direction can still be a move.** G6 repeated
+    G5 with the ranges restored. Every case whose G4 path never used
+    hop reproduced G4 to six decimals, so G5's losses were the grid
+    and nothing else. The one case that had used hop, the left
+    one-leg body, ended 0.016 above G4's terminal: hop's state has a
+    base twin at a knee offset and a cycle rate the legs and rhythm
+    classes reach only together, and neither alone passes the
+    held-out test, so the greedy base never gets there. Hop named
+    nothing the base does not and was worth three percent of V0 as a
+    coordinated move. The gait grammar keeps five impairment classes,
+    identity is three of three and two of two mirrors, and growth
+    generalises on nine damaged bodies of nine
+    (`math-track-g6-results.md`).
+
+22. **The rule carries to 3D; the naming carries where the class owns
+    the damage.** G7 put the 2D grammar's design and G4's growth rule
+    on a free-rooted body with hip abduction, ankle roll and a
+    lateral base class, against a 3D teacher with three runs per
+    body. Before the freeze the exclusivity table found two twin
+    terms in the first draft (limp's hitch was vault's lift, hold's
+    other-knee term was limp's sink) and they were removed; after
+    that no pair was over a half. Outcome C, as predicted: every
+    damaged body ends below V0 on both held-out runs, no control
+    takes an impairment class, both locked knees name stiff first and
+    the left stump limp, and the legless body never names vault (the
+    3D crawl has no lift; the table said 5 percent) nor the right
+    stump limp, where a lateral refit reached the asymmetry first
+    (`math-track-g7-results.md`).
+
+23. **Naming depends on the order of the base refits, in both
+    orders.** G8 gave the base every chance first and offered the
+    impairment classes only after it was spent. The right stump's
+    limp and the legless body's vault were worth nothing then, as
+    predicted, so the consumers do not support naming those bodies
+    by a class. And the left locked knee, the cleanest identity of
+    G7 (stiff at 31 percent with a gap of 0.03), was named limp:
+    four base refits absorbed enough of its stiffness to leave the
+    two sided classes within a percent of each other. The
+    exclusivity table's pairwise absorption (legs absorbs stiff 0.34)
+    underestimates what the whole base does in sequence. What
+    survives both orders is a class that owns a direction the base
+    cannot reach either way; the rest of the naming is a property of
+    the greedy fitter. Growth generalised on nine of nine and both
+    held-out runs in both orders (`math-track-g8-results.md`).
+
+24. **The consumers scored states that slid, and a viewer saw it in
+    one look.** The web player of the 3D runtime showed every fitted
+    gait sliding: the root moved at a fitted speed and the lowest
+    part was put on the floor, so the stance foot skated, and no
+    consumer measured slip. G9 planted the part on the floor and
+    made speed what the stride produces. Outcome C as predicted:
+    growth generalised on nine of nine and both held-out runs, every
+    state moved at its teacher's speed from its own stride, and
+    identity weakened further because every leg parameter now also
+    sets the speed, which the exclusivity table on the planted
+    grammar showed before the run as eight pairs over a half. A
+    runtime defect the consumers cannot see is a missing consumer or
+    a missing constraint (`math-track-g9-results.md`).
+
+25. **A teacher with a gait prior, and what it costs the names.** The
+    owner asked for a walk that reads as one. Seven recorded probes
+    rebuilt the 3D teacher: clock terms on the feet alone did not
+    track, a longer horizon diluted the search, a full clean-walk
+    reference from the grammar's own clock kept the body upright,
+    and the arms turned out to be still in every earlier teacher
+    because the hands caught on the pelvis box. With the reference,
+    scripted arms and sampling centred on it, G10's fitted states
+    walk with swinging arms at their teachers' speeds, growth
+    generalises on eight of nine, and the classes name the locked
+    knees and the short shank's limp and not the stumps, whose
+    designed class describes a hop the new teacher does not do. A
+    prior in the teacher is a choice about what the base is, and the
+    names follow it (`math-track-g10-results.md`).
+
+26. **What a viewer reads and what names damage are different
+    consumers.** The G10 states swung their feet forward at a third
+    of the teacher's speed and backward on a third of the swing
+    frames, and read as stepping in place; no block looked at where a
+    foot goes in the world. G11 added one (each stepping part's swing
+    speed and step length): the fitted states' swing speeds landed
+    within a factor of two of the teacher's on every walking body,
+    growth generalised on nine of nine, and the exclusivity table
+    went from no pair over a half to four, the new block coupling
+    every class through the feet, so no design body named its class.
+    Each consumer added for the viewer (planting, travel) has cost
+    the classes separability; the naming results stand on the
+    earlier set, and the runtime stands on the later one
+    (`math-track-g11-results.md`).
+
+27. **The description that plays is not the one that names.** After
+    G11 the viewer still faulted the fitted states (steps that hardly
+    moved the body; the parametric runtime plays the G11 stump
+    backwards), and two more objectives were tried outside a round,
+    the support foot from the grammar's clock (a draft G12, whose
+    V0 refit lunged) and a fit of every parameter to the teacher's
+    own frames and then to its mean cycle (shuffled, then gamed).
+    Six objectives, each satisfied by its own number and faulted by
+    the eye on the next. The runtime now plays the teacher's own
+    motion, a mean cycle or a crossfaded loop with root motion from
+    the clip, and keeps the clock, the blend, the body switch and the
+    style layer; all seven bodies move at their teacher's speed. The
+    grammar state remains what named the damage and generalised to
+    the held-out runs; it is not, with these consumers, what a viewer
+    accepts, and a consumer set that a fit can satisfy without the
+    motion reading right is the finding (`gait3d-runtime.md`).
+
+28. **The classes carry to the clip as edits, and the naming does
+    not.** G13 read the grammar's classes as edits of the intact
+    teacher's own cycle, each parameter acting on the clip's curves
+    as it acts in the closed form, with the identity edit exact.
+    The growth rule generalised on eight damaged bodies of nine
+    with the guard and the controls clean, and the edited clip
+    matched or beat the parametric fit on the held-out runs in
+    seven cases of thirteen. The left locked knee was named a limp
+    and the right one a stiff leg: the intact teacher's own walk is
+    asymmetric, and on a clip base a class names a damage only
+    relative to the clip's own asymmetry, which the grammar's
+    symmetric base never had. A limp, a weak hip and a stiff leg are
+    dials on the walk clip; a kneel-step, a hop and a crawl are not,
+    because the walk clip carries its height and its stance parts
+    and no edit gives them up (`math-track-g13-results.md`).
+
+29. **A dropped part is free, edits compose to within a quarter of a
+    fresh fit, and a body with no gait has no clip.** G14 put four
+    new bodies to the teacher. The walk clip with an arm's joints
+    dropped described the one-arm walker within the intact teacher's
+    own run-to-run error, and the growth rule, offered impairment
+    edits worth a fifth on the fitting run, applied none: the
+    held-out test refused every one, the first control in the 3D arc
+    the procedure left untouched. Two single-damage edits composed by
+    rule with nothing fitted took the body with both damages below
+    the raw clip and below either edit alone on every run, and
+    landed at 1.26 of a fresh fit's held-out error where the bar was
+    1.25; the fresh fit found the combined teacher's cadence and
+    named the locked knee stiff on its own side with the limp in
+    place. The legless body with one arm does not crawl in the
+    physics, and no edit of the crawl reaches it: an absence, not a
+    switch (`math-track-g14-results.md`).
+
+## 5. What the whole arc says
+
+Reduced to the claims that have survived every test:
+
+- The residual's projection onto a representation's tangent directions
+  names the next repair, at full value and a tenth of the search, in
+  three simulation domains and on synthetic additive models, with no
+  fitted weighting. It does so only for candidates that have a fixed
+  direction before they are fitted. On six real datasets the useful
+  candidates were free-shape modules on 233 of 240 steps, and there the
+  projection captured half the oracle's value; a growth procedure for
+  real data must fit before it ranks.
+- It also says when it cannot help: the gap between greedy and joint
+  fitting is the diagnostic, and in fire that gap was 4 percent, so the
+  remaining 60 percent of error was the vocabulary's and nothing about
+  the search would move it.
+- Any constant carried from one setting to another failed: two stopping
+  rules in fire, the abstention threshold, the one percent rule, all
+  borrowed, all wrong for the same structural reason. The replacement
+  is a permutation test on the procedure's own statistic, with a
+  shuffle budget instead of a threshold; measured on the real datasets
+  it grows where the constant stopped and declines where the constant
+  grew, and its remaining failure is a module that extrapolates, which
+  no stopping rule reads (RGRE-ML-3). It is not a stop for fire, where
+  the residual is structured everywhere and the vocabulary is the
+  limit; there only a fitted gain says when to stop (F6). Where a
+  second run of the teacher can be had, acceptance against that run is
+  the constant-free rule: in the gait it generalised every damaged
+  body's growth and rejected one true class on one mirror (G3); on
+  the mean of two runs, with each consumer guarded by the runs' own
+  distance, that class was named too, at the price of admitting
+  repairs one run of the two rejects (G4). On the 3D body, with three
+  runs per teacher, the same rule generalised on every damaged body
+  and both of its held-out runs and added nothing to the undamaged
+  ones, under two orders of growth (G7, G8). The label a body ends up
+  with is not that stable: it changes with the order in which the
+  base is refitted, so the deployable description of a body is the
+  grammar state and the label is a reading of it (G8). And the
+  consumers bound what the fit can get right: three rounds of 3D growth
+  fitted states that slid on the floor at errors that looked fine,
+  because no block measured slip, and a constraint in the grammar,
+  the part on the floor planted, fixed what a consumer had not
+  measured (G9). The teacher's own gait is a choice too: with a clean
+  walk as its base the fits read as walking and the classes name
+  different bodies than before, and neither the consumers nor the
+  procedure can tell a designer which base to want (G10). And the consumers a viewer wants are not
+  the consumers that name damage: each block added to make the fits
+  read right coupled the classes further, until none was named (G11).
+- Whether projection can rank a candidate is measurable before the
+  run: the linearisation gap, the share of the fitted repair outside
+  the tangent span. Under 0.1 the projection is the oracle; over 0.25
+  the candidate must be fitted to be ranked. In fire the plume's rise
+  was the oracle's first step on five scenes of nine and had a gap of
+  0.98; the projection never saw it, and the arc's selection results
+  were earned on the classes it could. Used as a rule, fit the classes
+  over the line and project the rest, it took the fire workflow to the
+  oracle's per-step value at half the oracle's cost and moved the
+  terminal state on fourteen scenes of fifteen (F6), and, without the
+  templates, below the arc's own ten-step workflow on six of F4's seven
+  scenes (F7). It is the fire workflow's selector now.
+- Whether the search is the limit depends on the grammar. The column
+  grammar's greedy reached 96 percent of its joint fit (F3); the puff
+  grammar's, with the best selector measured, reaches 73 percent of
+  its differential-evolution floor (F7). What remains there is the
+  price of fitting one class at a time, not of choosing the wrong one.
+- The abstention quantity, the residual energy no single candidate
+  explains, is the part that transferred furthest: it separated
+  shuffled from real targets on every real split and predicted a
+  wasted growth step above the step-index baseline.
+- Deferral belongs to the tangent span, not to the residual's size.
+  When the dictionary can explain some of the residual and not the
+  rest, sending the teacher the unexplainable regions beats sending the
+  largest ones, consistently but by a small margin (RGRE-ML-1b). It is
+  the one place the procedure adds something to matching pursuit
+  beyond the abstention signal, and it is worth two percent. On real
+  data, where the dictionary explained almost none of the residual, it
+  tied magnitude and is dropped (RGRE-ML-2).
+- Relative RMS is the fitter's objective and not the consumer's
+  question. The fire grammar that looked far from usable at 0.46 RMS is
+  1.4 percent wrong on the decision a game would actually make from it,
+  on that scene. Whether the fire is deployable is a question about which
+  decisions it must serve, and that is the owner's, not the procedure's.
+
+- A class names a defect only if no other class can produce the same
+  residual at nearly the same value. Where the grammar's classes
+  overlapped, in the fire's bed and wind and in the gait's hop and
+  kneel and the two sides of an asymmetry, identity failed with the
+  selection working. The dictionary check says whether projection can
+  rank a class. The exclusivity table, the share of one class's fitted
+  effect another can reproduce, says whether a class can be told from
+  its neighbours; built and run before G2, it predicted which
+  impairments would be named and which would not, and the run agreed
+  (G1, G2). The strongest form of the check is algebraic: where a
+  class is an exact combination of base parameters it has a base twin
+  with identical output, and such a class can name nothing. The gait's
+  hop was one, and was still worth a coordinated move the greedy
+  fitter does not make on its own; a class can be a search move
+  without being a label (G5, G6). A range is part of the fitter too:
+  the sweep's resolution follows it, and widening one changed every
+  fit of that class (G5).
+
+What RGRE is good for is choosing between repairs the representation
+already contains, and saying when none of them is the answer. What it
+does not do is invent the shape that is missing. In every domain here
+that step was done by a person reading the residual RGRE produced, and it
+was the step that mattered most.

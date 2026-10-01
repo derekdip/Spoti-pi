@@ -1,0 +1,539 @@
+{
+  "convention": "expectation over recorded inputs (training + held-out walks, averaged)",
+  "representations": [
+    {
+      "name": "field only, 8x8 (wake+presence baked)",
+      "kind": "field",
+      "cost": 13.92,
+      "mean": {
+        "visual": 0.8433030389199854,
+        "ai": 0.7016455708485483,
+        "gameplay": 0.2768301277498861
+      },
+      "training": {
+        "visual": 0.8158332758433867,
+        "ai": 0.6762126752612272,
+        "gameplay": 0.24778582107699987
+      },
+      "held-out": {
+        "visual": 0.870772801996584,
+        "ai": 0.7270784664358694,
+        "gameplay": 0.3058744344227723
+      }
+    },
+    {
+      "name": "field only, 10x10 (wake+presence baked)",
+      "kind": "field",
+      "cost": 15.0,
+      "mean": {
+        "visual": 0.7616705511421751,
+        "ai": 0.6129166278720919,
+        "gameplay": 0.195108918545306
+      },
+      "training": {
+        "visual": 0.7729991497584991,
+        "ai": 0.6207705482119148,
+        "gameplay": 0.21559523358061095
+      },
+      "held-out": {
+        "visual": 0.750341952525851,
+        "ai": 0.6050627075322691,
+        "gameplay": 0.17462260351000103
+      }
+    },
+    {
+      "name": "field only, 16x16 (wake+presence baked)",
+      "kind": "field",
+      "cost": 19.68,
+      "mean": {
+        "visual": 0.609168072122563,
+        "ai": 0.37134291182003865,
+        "gameplay": 0.03636526182992211
+      },
+      "training": {
+        "visual": 0.620150874978809,
+        "ai": 0.3803959547538601,
+        "gameplay": 0.035033088363630616
+      },
+      "held-out": {
+        "visual": 0.598185269266317,
+        "ai": 0.3622898688862171,
+        "gameplay": 0.03769743529621361
+      }
+    },
+    {
+      "name": "field only, 20x20 (wake+presence baked)",
+      "kind": "field",
+      "cost": 24.0,
+      "mean": {
+        "visual": 0.538791486778879,
+        "ai": 0.3371414796788647,
+        "gameplay": 0.041278571162180255
+      },
+      "training": {
+        "visual": 0.5501803351921067,
+        "ai": 0.3560488131398018,
+        "gameplay": 0.060284472603057804
+      },
+      "held-out": {
+        "visual": 0.5274026383656514,
+        "ai": 0.3182341462179276,
+        "gameplay": 0.022272669721302707
+      }
+    },
+    {
+      "name": "field only, 25x25 (wake+presence baked)",
+      "kind": "field",
+      "cost": 30.75,
+      "mean": {
+        "visual": 0.49602385412202415,
+        "ai": 0.29567232181081665,
+        "gameplay": 0.025767140513053788
+      },
+      "training": {
+        "visual": 0.5026753789723977,
+        "ai": 0.2925807696492579,
+        "gameplay": 0.03490966403895501
+      },
+      "held-out": {
+        "visual": 0.48937232927165064,
+        "ai": 0.2987638739723754,
+        "gameplay": 0.016624616987152563
+      }
+    },
+    {
+      "name": "field only, 32x32 (wake+presence baked)",
+      "kind": "field",
+      "cost": 42.72,
+      "mean": {
+        "visual": 0.45296202775255207,
+        "ai": 0.2728448833397145,
+        "gameplay": 0.01992445762820244
+      },
+      "training": {
+        "visual": 0.45754242842676934,
+        "ai": 0.2650680647146805,
+        "gameplay": 0.026002711013967228
+      },
+      "held-out": {
+        "visual": 0.4483816270783348,
+        "ai": 0.28062170196474856,
+        "gameplay": 0.013846204242437654
+      }
+    },
+    {
+      "name": "field only, 40x40 (wake+presence baked)",
+      "kind": "field",
+      "cost": 60.0,
+      "mean": {
+        "visual": 0.4016929142621166,
+        "ai": 0.2507060448695601,
+        "gameplay": 0.019657317166050015
+      },
+      "training": {
+        "visual": 0.40420202248666326,
+        "ai": 0.24922423211564096,
+        "gameplay": 0.02449017710790291
+      },
+      "held-out": {
+        "visual": 0.3991838060375699,
+        "ai": 0.25218785762347923,
+        "gameplay": 0.014824457224197118
+      }
+    },
+    {
+      "name": "field only, 64x64 (wake+presence baked)",
+      "kind": "field",
+      "cost": 134.88,
+      "mean": {
+        "visual": 0.41961770941350873,
+        "ai": 0.25640737065051655,
+        "gameplay": 0.019873410659876523
+      },
+      "training": {
+        "visual": 0.42450665140571453,
+        "ai": 0.24989719821957146,
+        "gameplay": 0.0241649739003994
+      },
+      "held-out": {
+        "visual": 0.41472876742130294,
+        "ai": 0.2629175430814617,
+        "gameplay": 0.015581847419353645
+      }
+    },
+    {
+      "name": "path only (wake)",
+      "kind": "direct",
+      "cost": 26.0,
+      "mean": {
+        "visual": 0.42182425616775954,
+        "ai": 0.26038436342382987,
+        "gameplay": 0.01741496798293246
+      },
+      "training": {
+        "visual": 0.42397276183703714,
+        "ai": 0.2630791423716752,
+        "gameplay": 0.02284359062339858
+      },
+      "held-out": {
+        "visual": 0.41967575049848194,
+        "ai": 0.25768958447598456,
+        "gameplay": 0.011986345342466342
+      }
+    },
+    {
+      "name": "path + local kernels (wake + presence)",
+      "kind": "direct",
+      "cost": 48.0,
+      "mean": {
+        "visual": 0.4016929142621166,
+        "ai": 0.2507060448695601,
+        "gameplay": 0.019657317166050015
+      },
+      "training": {
+        "visual": 0.40420202248666326,
+        "ai": 0.24922423211564096,
+        "gameplay": 0.02449017710790291
+      },
+      "held-out": {
+        "visual": 0.3991838060375699,
+        "ai": 0.25218785762347923,
+        "gameplay": 0.014824457224197118
+      }
+    },
+    {
+      "name": "path + local + event residuals (subset of six)",
+      "kind": "direct",
+      "cost": 75.95341098169717,
+      "mean": {
+        "visual": 0.38726879590970364,
+        "ai": 0.2217538283881233,
+        "gameplay": 0.018489778246947475
+      },
+      "training": {
+        "visual": 0.39182410275624296,
+        "ai": 0.22382864107518677,
+        "gameplay": 0.02358797805144275
+      },
+      "held-out": {
+        "visual": 0.38271348906316427,
+        "ai": 0.21967901570105983,
+        "gameplay": 0.013391578442452201
+      }
+    },
+    {
+      "name": "full grammar (six terms)",
+      "kind": "direct",
+      "cost": 124.21963394342762,
+      "mean": {
+        "visual": 0.3864167394705054,
+        "ai": 0.22143265726261657,
+        "gameplay": 0.018480031742867387
+      },
+      "training": {
+        "visual": 0.390416139616914,
+        "ai": 0.2233309088990057,
+        "gameplay": 0.023552883980744177
+      },
+      "held-out": {
+        "visual": 0.3824173393240968,
+        "ai": 0.21953440562622745,
+        "gameplay": 0.013407179504990596
+      }
+    },
+    {
+      "name": "teacher itself",
+      "kind": "teacher",
+      "cost": 320.0,
+      "mean": {
+        "visual": 0.0,
+        "ai": 0.0,
+        "gameplay": 0.0
+      },
+      "training": {
+        "visual": 0.0,
+        "ai": 0.0,
+        "gameplay": 0.0
+      },
+      "held-out": {
+        "visual": 0.0,
+        "ai": 0.0,
+        "gameplay": 0.0
+      }
+    }
+  ],
+  "envelope": {
+    "visual": [
+      {
+        "cost": 13.92,
+        "error": 0.8433030389199854,
+        "name": "field only, 8x8 (wake+presence baked)"
+      },
+      {
+        "cost": 15.0,
+        "error": 0.7616705511421751,
+        "name": "field only, 10x10 (wake+presence baked)"
+      },
+      {
+        "cost": 19.68,
+        "error": 0.609168072122563,
+        "name": "field only, 16x16 (wake+presence baked)"
+      },
+      {
+        "cost": 24.0,
+        "error": 0.538791486778879,
+        "name": "field only, 20x20 (wake+presence baked)"
+      },
+      {
+        "cost": 26.0,
+        "error": 0.42182425616775954,
+        "name": "path only (wake)"
+      },
+      {
+        "cost": 48.0,
+        "error": 0.4016929142621166,
+        "name": "path + local kernels (wake + presence)"
+      },
+      {
+        "cost": 75.95341098169717,
+        "error": 0.38726879590970364,
+        "name": "path + local + event residuals (subset of six)"
+      },
+      {
+        "cost": 124.21963394342762,
+        "error": 0.3864167394705054,
+        "name": "full grammar (six terms)"
+      },
+      {
+        "cost": 320.0,
+        "error": 0.0,
+        "name": "teacher itself"
+      }
+    ],
+    "ai": [
+      {
+        "cost": 13.92,
+        "error": 0.7016455708485483,
+        "name": "field only, 8x8 (wake+presence baked)"
+      },
+      {
+        "cost": 15.0,
+        "error": 0.6129166278720919,
+        "name": "field only, 10x10 (wake+presence baked)"
+      },
+      {
+        "cost": 19.68,
+        "error": 0.37134291182003865,
+        "name": "field only, 16x16 (wake+presence baked)"
+      },
+      {
+        "cost": 24.0,
+        "error": 0.3371414796788647,
+        "name": "field only, 20x20 (wake+presence baked)"
+      },
+      {
+        "cost": 26.0,
+        "error": 0.26038436342382987,
+        "name": "path only (wake)"
+      },
+      {
+        "cost": 48.0,
+        "error": 0.2507060448695601,
+        "name": "path + local kernels (wake + presence)"
+      },
+      {
+        "cost": 75.95341098169717,
+        "error": 0.2217538283881233,
+        "name": "path + local + event residuals (subset of six)"
+      },
+      {
+        "cost": 124.21963394342762,
+        "error": 0.22143265726261657,
+        "name": "full grammar (six terms)"
+      },
+      {
+        "cost": 320.0,
+        "error": 0.0,
+        "name": "teacher itself"
+      }
+    ],
+    "gameplay": [
+      {
+        "cost": 13.92,
+        "error": 0.2768301277498861,
+        "name": "field only, 8x8 (wake+presence baked)"
+      },
+      {
+        "cost": 15.0,
+        "error": 0.195108918545306,
+        "name": "field only, 10x10 (wake+presence baked)"
+      },
+      {
+        "cost": 19.68,
+        "error": 0.03636526182992211,
+        "name": "field only, 16x16 (wake+presence baked)"
+      },
+      {
+        "cost": 26.0,
+        "error": 0.01741496798293246,
+        "name": "path only (wake)"
+      },
+      {
+        "cost": 320.0,
+        "error": 0.0,
+        "name": "teacher itself"
+      }
+    ]
+  },
+  "liveness": [
+    {
+      "eps": 0.3,
+      "live_mean": 0.8017738184008968,
+      "visual": 0.38600935525991015,
+      "predicted": 0.3871474917248994
+    },
+    {
+      "eps": 0.1,
+      "live_mean": 1.0727428506525893,
+      "visual": 0.38619606432119147,
+      "predicted": 0.740415431339312
+    },
+    {
+      "eps": 0.03,
+      "live_mean": 1.2763048083713167,
+      "visual": 0.3863640888557672,
+      "predicted": 1.1275629230642112
+    },
+    {
+      "eps": 0.01,
+      "live_mean": 1.4072621863595736,
+      "visual": 0.3864076700905655,
+      "predicted": 1.480830862678624
+    },
+    {
+      "eps": 0.003,
+      "live_mean": 1.5048123219144598,
+      "visual": 0.3864155101297278,
+      "predicted": 1.8679783544035231
+    },
+    {
+      "eps": 0.001,
+      "live_mean": 1.5587083520575207,
+      "visual": 0.3864167394705054,
+      "predicted": 2.2212462940179356
+    },
+    {
+      "eps": 0.0003,
+      "live_mean": 2.5512762899936297,
+      "visual": 0.38641951853144213,
+      "predicted": 2.6083937857428348
+    },
+    {
+      "eps": 0.0001,
+      "live_mean": 2.844961259450571,
+      "visual": 0.38641985172666926,
+      "predicted": 2.961661725357248
+    },
+    {
+      "eps": 1e-05,
+      "live_mean": 3.152011595004469,
+      "visual": 0.3864199984353789,
+      "predicted": 3.7020771566965593
+    }
+  ],
+  "path": [
+    {
+      "tol": 1.0,
+      "points_mean": 3.5,
+      "excess": {
+        "visual": 0.32121610603799666,
+        "ai": 0.28220776349179305,
+        "gameplay": 0.03790553424623938
+      }
+    },
+    {
+      "tol": 0.5,
+      "points_mean": 3.5,
+      "excess": {
+        "visual": 0.32121610603799666,
+        "ai": 0.28220776349179305,
+        "gameplay": 0.03790553424623938
+      }
+    },
+    {
+      "tol": 0.2,
+      "points_mean": 5.0,
+      "excess": {
+        "visual": 0.22427914556156306,
+        "ai": 0.2215121349300701,
+        "gameplay": 0.01898467352979316
+      }
+    },
+    {
+      "tol": 0.1,
+      "points_mean": 6.5,
+      "excess": {
+        "visual": 0.1841266436589607,
+        "ai": 0.19628135225820675,
+        "gameplay": 0.012462786278574667
+      }
+    },
+    {
+      "tol": 0.05,
+      "points_mean": 9.5,
+      "excess": {
+        "visual": 0.05644073969569913,
+        "ai": 0.045305723665775,
+        "gameplay": -0.004233954390420458
+      }
+    },
+    {
+      "tol": 0.02,
+      "points_mean": 14.5,
+      "excess": {
+        "visual": 0.034988983679369645,
+        "ai": 0.018925374779547685,
+        "gameplay": -0.004706942935568781
+      }
+    },
+    {
+      "tol": 0.01,
+      "points_mean": 21.0,
+      "excess": {
+        "visual": 0.027799818430329915,
+        "ai": 0.012604334944795084,
+        "gameplay": -0.004399874674383852
+      }
+    },
+    {
+      "tol": 0.005,
+      "points_mean": 29.0,
+      "excess": {
+        "visual": 0.020046720124993672,
+        "ai": 0.004178973686248019,
+        "gameplay": -0.00415748531257476
+      }
+    },
+    {
+      "tol": 0.002,
+      "points_mean": 48.5,
+      "excess": {
+        "visual": 0.011033784441228628,
+        "ai": 0.003774919009764413,
+        "gameplay": -0.00400471225210608
+      }
+    }
+  ],
+  "fits": {
+    "points_vs_tol_slope": -0.44383648084469135,
+    "excess_visual_vs_tol_slope": 0.5969348017260361,
+    "live_vs_log_inv_eps_slope": 0.23749640199079186,
+    "live_predicted_slope": 0.32155833614667917
+  },
+  "radial_decay": {
+    "lam": 9.53,
+    "k": 162.0,
+    "zeta": 0.733,
+    "lam_eff": 9.329566870975308
+  }
+}

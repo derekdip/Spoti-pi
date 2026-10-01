@@ -1,0 +1,79 @@
+body               class       q  drop/e0   gap  side
+noarm_left         rhythm  0.086    0.129  0.94     0   [8s]
+noarm_left         legs    0.383    0.145  0.39     0   [18s]
+noarm_left         lateral  0.476    0.295  0.09     0   [27s]
+noarm_left         torso   0.504    0.164  0.24     0   [34s]
+noarm_left         arms    0.001   -0.001  0.00     0   [39s]
+noarm_left         stiff   0.383    0.252  0.41     1   [43s]
+noarm_left         limp    0.422    0.218  0.31     1   [49s]
+noarm_left         hold    0.417    0.192  0.07     1   [52s]
+noarm_left         vault   0.285    0.195  0.20     0   [54s]
+noarm_left         weak    0.457    0.214  0.21     1   [60s]
+  noarm_left: of stiff's effect, legs absorbs 0.37, lateral absorbs 0.12, limp absorbs 0.16, hold absorbs 0.19, vault absorbs 0.26, weak absorbs 0.27   [95s]
+  noarm_left: of limp's effect, legs absorbs 0.36, lateral absorbs 0.36, stiff absorbs 0.42, hold absorbs 0.30, vault absorbs 0.25, weak absorbs 0.47   [127s]
+  noarm_left: of hold's effect, legs absorbs 0.35, lateral absorbs 0.58, stiff absorbs 0.74, limp absorbs 0.76, vault absorbs 0.58, weak absorbs 0.48   [159s]
+  noarm_left: of vault's effect, legs absorbs 0.02, lateral absorbs 0.30, stiff absorbs 0.51, limp absorbs 0.35, hold absorbs 0.30, weak absorbs 0.32   [192s]
+  noarm_left: of weak's effect, legs absorbs 0.33, lateral absorbs 0.20, stiff absorbs 0.43, limp absorbs 0.23, hold absorbs 0.21, vault absorbs 0.36   [222s]
+  -> noarm_left: e0 0.548; oracle lateral (drop 0.295, gap 0.09, side 0); projection torso
+locked_knee_left+weak_hip_right rhythm  0.191    0.312  0.70     0   [232s]
+locked_knee_left+weak_hip_right legs    0.576    0.137  0.25     0   [242s]
+locked_knee_left+weak_hip_right lateral  0.144    0.214  0.67     0   [251s]
+locked_knee_left+weak_hip_right torso   0.240    0.164  0.47     0   [259s]
+locked_knee_left+weak_hip_right arms    0.003    0.003  0.48     0   [265s]
+locked_knee_left+weak_hip_right stiff   0.251    0.028  0.44     1   [270s]
+locked_knee_left+weak_hip_right limp    0.363    0.294  0.28    -1   [275s]
+locked_knee_left+weak_hip_right hold    0.403    0.206  0.01    -1   [279s]
+locked_knee_left+weak_hip_right vault   0.276    0.190  0.45     0   [281s]
+locked_knee_left+weak_hip_right weak    0.422    0.281  0.56    -1   [287s]
+  locked_knee_left+weak_hip_right: of stiff's effect, legs absorbs 0.00, lateral absorbs 0.35, limp absorbs 0.77, hold absorbs 0.75, vault absorbs 0.00, weak absorbs 0.83   [324s]
+  locked_knee_left+weak_hip_right: of limp's effect, legs absorbs 0.34, lateral absorbs 0.42, stiff absorbs 0.01, hold absorbs 0.25, vault absorbs 0.01, weak absorbs 0.63   [359s]
+  locked_knee_left+weak_hip_right: of hold's effect, legs absorbs 0.28, lateral absorbs 0.21, stiff absorbs 0.15, limp absorbs 0.15, vault absorbs 0.30, weak absorbs 0.30   [397s]
+  locked_knee_left+weak_hip_right: of vault's effect, legs absorbs 0.34, lateral absorbs 0.36, stiff absorbs 0.05, limp absorbs 0.32, hold absorbs 0.22, weak absorbs 0.17   [436s]
+  locked_knee_left+weak_hip_right: of weak's effect, legs absorbs 0.57, lateral absorbs 0.48, stiff absorbs 0.01, limp absorbs 0.61, hold absorbs 0.38, vault absorbs 0.02   [472s]
+  -> locked_knee_left+weak_hip_right: e0 0.686; oracle rhythm (drop 0.312, gap 0.70, side 0); projection legs
+locked_knee_left+noarm_right rhythm  0.053    0.119  0.93     0   [480s]
+locked_knee_left+noarm_right legs    0.241    0.029  0.55     0   [490s]
+locked_knee_left+noarm_right lateral  0.254    0.135  0.08     0   [497s]
+locked_knee_left+noarm_right torso   0.272    0.095  0.34     0   [504s]
+locked_knee_left+noarm_right arms    0.019    0.014  0.09     0   [510s]
+locked_knee_left+noarm_right stiff   0.355    0.041  0.37    -1   [513s]
+locked_knee_left+noarm_right limp    0.273    0.130  0.28    -1   [518s]
+locked_knee_left+noarm_right hold    0.097    0.044  0.13    -1   [521s]
+locked_knee_left+noarm_right vault   0.115    0.000  0.97     0   [523s]
+locked_knee_left+noarm_right weak    0.104    0.129  0.80     1   [528s]
+  locked_knee_left+noarm_right: of stiff's effect, legs absorbs 0.00, lateral absorbs 0.20, limp absorbs 0.49, hold absorbs 0.11, vault absorbs 0.00, weak absorbs 0.53   [561s]
+  locked_knee_left+noarm_right: of limp's effect, legs absorbs 0.00, lateral absorbs 0.13, stiff absorbs 0.02, hold absorbs 0.11, vault absorbs 0.02, weak absorbs 0.45   [593s]
+  locked_knee_left+noarm_right: of hold's effect, legs absorbs 0.00, lateral absorbs 0.11, stiff absorbs 0.51, limp absorbs 0.48, vault absorbs 0.00, weak absorbs 0.65   [626s]
+  locked_knee_left+noarm_right: of weak's effect, legs absorbs 0.10, lateral absorbs 0.16, stiff absorbs 0.02, limp absorbs 0.37, hold absorbs 0.06, vault absorbs 0.01   [657s]
+  -> locked_knee_left+noarm_right: e0 0.518; oracle lateral (drop 0.135, gap 0.08, side 0); projection stiff
+Traceback (most recent call last):
+  File "<string>", line 7, in <module>
+  File "/home/user/Spoti-pi/poc/gait3d/dictionary_check3d.py", line 43, in main
+    g = RG.repair_gain(case, v0, c)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/gait3d/rgre_gait3d.py", line 277, in repair_gain
+    new, e1 = fit_class(case, st, cls)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/gait3d/rgre_gait3d.py", line 271, in fit_class
+    cur = _sweep(case, cur, p, grid)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/gait3d/rgre_gait3d.py", line 259, in _sweep
+    errs = [case.error(replace(cur, **{pname: float(v)})) for v in vals]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/gait3d/rgre_gait3d.py", line 259, in <listcomp>
+    errs = [case.error(replace(cur, **{pname: float(v)})) for v in vals]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/gait3d/rgre_gait3d.py", line 191, in error
+    r = self.residual(st)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/gait3d/rgre_gait3d.py", line 186, in residual
+    p = self._consumers(st)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/gait3d/clip_edit.py", line 273, in _consumers
+    out = RG.consumers(self.body, self.trajectory(st))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/gait3d/rgre_gait3d.py", line 102, in consumers
+    ref_name = next(n for n in ("hip_y_l", "hip_y_r", "shoulder_l") if n in body.jadr)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+CHECKS_DONE

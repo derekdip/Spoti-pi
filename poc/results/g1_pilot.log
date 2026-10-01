@@ -1,0 +1,5 @@
+   [nolegs_s1/projection] t0 pick vault    oracle vault    value 1.00 E 0.7766->0.4080 (1 of 1) [3s]
+   [nolegs_s1/hybrid] t0 pick vault    oracle vault    value 1.00 E 0.7766->0.4080 (1 of 1) [3s]
+   [nolegs_s1/oracle] t0 pick vault    oracle vault    value 1.00 E 0.7766->0.4080 (1 of 1) [3s]
+nolegs_s1              [transfer] designed vault v0 0.777 | projection 0.408 ['vault'] hybrid 0.408 ['vault'] oracle 0.408 ['vault'] | floor 0.360 [98s]
+done: 1 cases in 98s -> poc/results/g1_pilot.json

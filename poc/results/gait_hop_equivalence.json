@@ -1,0 +1,72 @@
+[
+ {
+  "state": "intact hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 3.94143963386953
+ },
+ {
+  "state": "weak_hip_left hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 4.157957535277805
+ },
+ {
+  "state": "locked_knee_left hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 7.546731503675708
+ },
+ {
+  "state": "short_shank_left hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 3.584315689612445
+ },
+ {
+  "state": "stump_left hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 2.3322500322835844
+ },
+ {
+  "state": "noleg_left hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 1.2094563100081785
+ },
+ {
+  "state": "weak_hip_right hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 3.8576574639255634
+ },
+ {
+  "state": "locked_knee_right hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 7.794942538845545
+ },
+ {
+  "state": "short_shank_right hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 3.83524883635645
+ },
+ {
+  "state": "stump_right hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 1.8279356468820456
+ },
+ {
+  "state": "noleg_right hop on-state",
+  "twin_diff": 0.0,
+  "v0_diff": 1.2379740837949964
+ },
+ {
+  "state": "g3 terminal noleg_left_s0",
+  "twin_diff": 0.0,
+  "v0_diff": 1.3285323486211087
+ },
+ {
+  "state": "g3 terminal stump_right_s0",
+  "twin_diff": 0.0019505907700931896,
+  "v0_diff": 2.4585740620827656
+ },
+ {
+  "state": "g4 terminal noleg_left_s0",
+  "twin_diff": 0.0,
+  "v0_diff": 2.111241615508666
+ }
+]

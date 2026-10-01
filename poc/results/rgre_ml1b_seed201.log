@@ -1,0 +1,48 @@
+[  0.0s] built 12 cases from seed 201: 0 isolated, 0 two-missing, 0 oov, 0 control, 12 mixed
+[  0.1s] mixed_cubic_prodfreq_0 E0 0.594  q_perp 0.65  rgre None     oracle pair     value 0.00  grew n defer(field step) og 0.270 mag 0.288 rand 0.274
+[  0.3s] mixed_pair_xor_1       E0 0.687  q_perp 0.67  rgre None     oracle pair     value 0.00  grew Y defer(field step) og 0.159 mag 0.163 rand 0.173
+[  0.4s] mixed_quad_spiral_2    E0 0.633  q_perp 0.78  rgre None     oracle quad     value 0.00  grew Y defer(field step) og 0.502 mag 0.527 rand 0.518
+[  0.5s] mixed_cubic_ridge_3    E0 0.721  q_perp 0.41  rgre exp3     oracle cubic    value 0.22  grew Y defer(field step) og 0.426 mag 0.445 rand 0.443
+[  0.6s] mixed_cubic_prodfreq_4 E0 0.695  q_perp 0.48  rgre pair     oracle pair     value 1.00  grew n defer(field step) og 0.404 mag 0.440 rand 0.481
+[  0.8s] mixed_sin2_xor_5       E0 0.889  q_perp 0.44  rgre sin2     oracle sin2     value 1.00  grew Y defer(field step) og 0.500 mag 0.499 rand 0.539
+[  0.9s] mixed_bump_spiral_6    E0 0.626  q_perp 0.87  rgre None     oracle bump     value 0.00  grew n defer(field step) og 0.572 mag 0.587 rand 0.611
+[  1.1s] mixed_exp3_ridge_7     E0 1.093  q_perp 0.78  rgre None     oracle exp3     value 0.00  grew Y defer(field step) og 0.150 mag 0.148 rand 0.162
+[  1.2s] mixed_cubic_prodfreq_8 E0 0.878  q_perp 0.60  rgre None     oracle cubic    value 0.00  grew n defer(field step) og 0.695 mag 0.670 rand 0.689
+[  1.3s] mixed_abs2_xor_9       E0 0.924  q_perp 0.53  rgre abs2     oracle bump     value 0.99  grew Y defer(field step) og 0.350 mag 0.351 rand 0.338
+[  1.5s] mixed_abs2_spiral_10   E0 0.835  q_perp 0.64  rgre None     oracle sin2     value 0.00  grew Y defer(field step) og 0.689 mag 0.643 rand 0.761
+[  1.6s] mixed_bump_ridge_11    E0 0.477  q_perp 0.66  rgre None     oracle bump     value 0.00  grew n defer(field step) og 0.443 mag 0.443 rand 0.464
+
+summary:
+  value_rgre               nan
+  value_mean_rgre          nan
+  value_random             nan
+  value_cheapest           nan
+  value_gradnorm           nan
+  value_mp_value           nan
+  value_rgre_nogate        nan
+  value_rgre_value         nan
+  value_rgre_notabstained  nan
+  identity_nogate          nan
+  identity_value           nan
+  identity_mp              nan
+  ctrl_declined_or_abstained nan
+  search_fraction          nan
+  identity                 nan
+  oracle_identity          nan
+  two_step_recovery_consumer nan
+  two_step_recovery_field  nan
+  two_step_found_field     nan
+  oov_abstain              nan
+  known_false_abstain      nan
+  ctrl_abstain             nan
+  q_perp_known             nan
+  q_perp_oov               nan
+  mixed_grew_missing       0.583
+  defer_mixed_mag          0.444
+  defer_mixed_orth_global  0.434
+  defer_mixed_orth         0.440
+  defer_mixed_random       0.472
+  defer_mixed_none         0.463
+  defer_mixed_orthg_wins   0.583
+  defer_mixed_orthg_ties   0.000
+[  1.6s] wrote poc/results/rgre_ml1b_seed201.json

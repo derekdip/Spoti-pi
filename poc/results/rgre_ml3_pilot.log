@@ -1,0 +1,2 @@
+mpg         seed 0  lin 0.391 best 0.312@8 | stop M9 7 M19 5 M49 3 dead 8 | q_top0 0.197 null max 0.049 | gap oracle med 0.59 pick 0.00 | perm q_top 0.006 null max 0.039 [4s]
+done: 1 cases in 4s -> poc/results/rgre_ml3_pilot.json
