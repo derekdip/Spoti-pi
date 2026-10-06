@@ -1,0 +1,1 @@
+locked_knee_left: pose error 0.968, joint rms 0.31 rad, foot rms 0.101 m, speed 0.32 (teacher 0.34), cycle 1.25 s (teacher 1.23), consumer error 0.708, 20985 evals [1511s]

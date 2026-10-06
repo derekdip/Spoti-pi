@@ -1,0 +1,108 @@
+[     0s] water floor field
+[     2s] building the fresh benchmark (seed 20260916)
+[     4s]   corn isolated tangent built (6)
+[     5s]   water_coordinate_0 (delay 2)
+[     7s]   water_coordinate_1 (delay 5)
+[     9s]   isolated tangent done (10)
+[    26s]   water_interaction_0 A=5.5 D=0.2344 (single fit gain 3.88 dt -52 ms)
+[    43s]   water_interaction_1 A=7.0 D=0.3281 (single fit gain 4.26 dt -68 ms)
+[    43s]   isolated done (16)
+[    59s]   mix_interaction_coordinate_0 A=6.5 D=0.2344
+[    76s]   mix_interaction_coordinate_1 A=7.5 D=0.2812
+[    85s]   mixtures done (8)
+[    89s]   unknown done (5)
+[    90s]   gap case done (1, unscored)
+[    94s] isolated corn_tail_0                  E0 0.251 q_perp 0.03 chose unary       (ok) oracle decay         [tail       ] V 0.58 (S-rule smooth      V 0.01)
+[    98s] isolated corn_tail_1                  E0 0.204 q_perp 0.10 chose tail        (ok) oracle decay         [tail       ] V 1.00 (S-rule smooth      V 0.01)
+[   101s] isolated corn_tail_2                  E0 0.213 q_perp 0.01 chose tail        (ok) oracle decay         [tail       ] V 1.00 (S-rule tail        V 1.00)
+[   105s] isolated corn_coordinate_0            E0 0.161 q_perp 0.08 chose coordinate  (ok) oracle shift         [coordinate ] V 1.00 (S-rule coordinate  V 1.00)
+[   110s] isolated corn_coordinate_1            E0 0.216 q_perp 0.07 chose coordinate  (ok) oracle shift         [coordinate ] V 1.00 (S-rule coordinate  V 1.00)
+[   114s] isolated corn_unary_0                 E0 0.285 q_perp 0.05 chose unary       (ok) oracle width         [unary      ] V 1.00 (S-rule unary       V 1.00)
+[   125s] isolated water_coordinate_0           E0 0.533 q_perp 0.08 chose coordinate  (ok) oracle shift         [coordinate ] V 1.00 (S-rule coordinate  V 1.00)
+[   136s] isolated water_coordinate_1           E0 0.958 q_perp 0.15 chose coordinate  (ok) oracle shift         [coordinate ] V 1.00 (S-rule coordinate  V 1.00)
+[   147s] isolated water_unary_0                E0 0.630 q_perp 0.03 chose unary       (ok) oracle gain          [unary      ] V 1.00 (S-rule unary       V 1.00)
+[   159s] isolated water_tail_0                 E0 0.550 q_perp 0.03 chose tail        (ok) oracle lam           [tail       ] V 1.00 (S-rule tail        V 1.00)
+[   161s] isolated corn_stop_0                  E0 0.243 q_perp 0.00 chose stop        (ok) oracle events        [stop       ] V 1.00 (S-rule stop        V 1.00)
+[   164s] isolated corn_stop_1                  E0 0.105 q_perp 0.11 chose stop        (ok) oracle events        [stop       ] V 1.00 (S-rule stop        V 1.00)
+[   167s] isolated corn_corner_0                E0 0.151 q_perp 0.02 chose corner      (ok) oracle corner_tighten[corner     ] V 1.00 (S-rule corner      V 1.00)
+[   169s] isolated corn_corner_1                E0 0.202 q_perp 0.05 chose corner      (ok) oracle corner_tighten[corner     ] V 1.00 (S-rule corner      V 1.00)
+[   189s] isolated water_interaction_0          E0 0.580 q_perp 0.10 chose interaction (ok) oracle pair          [interaction] V 1.00 (S-rule interaction V 1.00)
+[   209s] isolated water_interaction_1          E0 0.593 q_perp 0.17 chose interaction (ok) oracle pair          [interaction] V 1.00 (S-rule interaction V 1.00)
+[   295s] mixture  mix_interaction_coordinate_0 E0 0.900 q_perp 0.04 chose coordinate  (ok) oracle shift         [coordinate ] V 1.00 (S-rule interaction V 0.02)  2-step 0.83 via interaction
+[   375s] mixture  mix_interaction_coordinate_1 E0 0.935 q_perp 0.05 chose coordinate  (ok) oracle shift         [coordinate ] V 1.00 (S-rule interaction V 0.00)  2-step 0.62 via interaction
+[   394s] mixture  mix_unary_stop_0             E0 0.421 q_perp 0.04 chose unary       (ok) oracle width         [unary      ] V 1.00 (S-rule stop        V 0.01)  2-step 1.0 via stop
+[   406s] mixture  mix_unary_stop_1             E0 0.321 q_perp 0.01 chose unary       (ok) oracle width         [unary      ] V 1.00 (S-rule stop        V 0.01)  2-step 1.0 via stop
+[   425s] mixture  mix_coordinate_corner_0      E0 0.210 q_perp 0.04 chose coordinate  (ok) oracle shift         [coordinate ] V 1.00 (S-rule coordinate  V 1.00)  2-step 1.0 via corner
+[   454s] mixture  mix_tail_smooth_0            E0 0.351 q_perp 0.04 chose tail        (ok) oracle decay         [tail       ] V 1.00 (S-rule tail        V 1.00)  2-step 0.86 via smooth
+[   470s] mixture  mix_corner_stop_0            E0 0.214 q_perp 0.01 chose corner      (ok) oracle corner_tighten[corner     ] V 1.00 (S-rule corner      V 1.00)  2-step 0.3 via stop
+[   509s] mixture  mix_coordinate_unary_0       E0 0.792 q_perp 0.07 chose coordinate  (ok) oracle shift         [coordinate ] V 1.00 (S-rule coordinate  V 1.00)  2-step 1.0 via unary
+[   514s] unknown  unknown_wind_0               E0 0.372 q_perp 0.92 chose None        (unknown) oracle smooth_uniform[smooth     ] V 0.00 (S-rule None        V 0.00)
+[   518s] unknown  unknown_wind_1               E0 0.396 q_perp 0.92 chose None        (unknown) oracle amp           [unary      ] V 0.00 (S-rule None        V 0.00)
+[   522s] unknown  unknown_hidden_walker_0      E0 0.699 q_perp 0.99 chose None        (unknown) oracle width         [unary      ] V 0.00 (S-rule None        V 0.00)
+[   533s] unknown  unknown_hidden_splash_0      E0 0.586 q_perp 0.70 chose None        (unknown) oracle gain          [unary      ] V 0.00 (S-rule None        V 0.00)
+[   544s] unknown  unknown_hidden_splash_1      E0 0.574 q_perp 0.70 chose None        (unknown) oracle gain          [unary      ] V 0.00 (S-rule None        V 0.00)
+[   555s] gap      gap_offcentre_0              E0 1.322 q_perp 0.56 chose unary       (ok) oracle gain          [unary      ] V 1.00 (S-rule unary       V 1.00)
+[   556s] {
+ "B1": {
+  "median_V_cap": 1.0,
+  "mean_V_cap": 0.9823003693387559,
+  "n": 24,
+  "by_domain": {
+   "corn": 1.0,
+   "water": 1.0
+  },
+  "pass": true
+ },
+ "B2": {
+  "median_N_ratio": 0.16666666666666666,
+  "pass": true
+ },
+ "B3": {
+  "unknown_abstained": 5,
+  "n_unknown": 5,
+  "known_false_abstain": 0,
+  "n_known": 24,
+  "q_perp_unknown": [
+   0.9158067378948811,
+   0.9248305386888279,
+   0.9911900354207449,
+   0.7046963794560756,
+   0.7033933056842884
+  ],
+  "pass": true
+ },
+ "B4": {
+  "median_recovery2": 0.9306747797886715,
+  "n": 8,
+  "pass": true
+ },
+ "reported_S_rule": {
+  "median_V_cap": 1.0,
+  "mean_V_cap": 0.7521317212887794,
+  "projection_wins": 6,
+  "projection_loses": 0
+ },
+ "reported_gap": [
+  {
+   "name": "gap_offcentre_0",
+   "q_perp": 0.558538841632195,
+   "chosen": "unary",
+   "oracle": "gain",
+   "dE_oracle_frac": 0.2434964863311244
+  }
+ ],
+ "reported_identity": {
+  "vs_injected": 0.9583333333333334,
+  "vs_oracle": 0.9583333333333334
+ },
+ "reported_V_cap_by_class": {
+  "tail": 1.0,
+  "coordinate": 1.0,
+  "unary": 1.0,
+  "stop": 1.0,
+  "corner": 1.0,
+  "interaction": 1.0
+ }
+}
+[   556s] verdict: replicated: the simplified selector holds on fresh cases
+[   556s] wrote /home/user/Spoti-pi/poc/results/rgre1b.md

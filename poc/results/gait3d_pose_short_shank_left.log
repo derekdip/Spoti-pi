@@ -1,0 +1,1 @@
+short_shank_left: pose error 0.916, joint rms 0.36 rad, foot rms 0.082 m, speed 0.33 (teacher 0.33), cycle 0.83 s (teacher 0.77), consumer error 0.660, 20985 evals [1546s]

@@ -1,0 +1,1 @@
+intact: pose error 0.895, joint rms 0.26 rad, foot rms 0.088 m, speed 0.41 (teacher 0.42), cycle 0.87 s (teacher 0.93), consumer error 0.604, 20985 evals [1517s]

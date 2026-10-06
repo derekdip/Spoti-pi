@@ -1,0 +1,18 @@
+[1.0s] rooted planar hypermaps with k darts and c vertices
+  k= 1 total=           1 by c1: [1]  tutte agrees: True
+  k= 2 total=           3 by c1: [2, 1]  tutte agrees: True
+  k= 3 total=          12 by c1: [5, 6, 1]  tutte agrees: True
+  k= 4 total=          56 by c1: [14, 29, 12, 1]  tutte agrees: True
+  k= 5 total=         288 by c1: [42, 130, 95, 20, 1]  tutte agrees: True
+  k= 6 total=        1584 by c1: [132, 562, 624, 235, 30, 1]  tutte agrees: True
+  k= 7 total=        9152 by c1: [429, 2380, 3682, 2128, 490, 42, 1]  tutte agrees: True
+  k= 8 total=       54912 by c1: [1430, 9949, 20264, 16450, 5852, 910, 56, 1]  tutte agrees: True
+  k= 9 total=      339456 by c1: [4862, 41226, 106203, 114264, 57414, 13860, 1554, 72, 1]  tutte agrees: True
+  k=10 total=     2149888 by c1: [16796, 169766, 536840, 734655, 491556, 168294, 29400, 2490, 90, 1]  tutte agrees: True
+  k=11 total=    13891584 by c1: [58786, 695860, 2639230, 4455000, 3806880, 1741740, 432894, 57288, 3795, 110, 1]  tutte agrees: True
+  k=12 total=    91287552 by c1: [208012, 2842226, 12692360, 25805230, 27296280, 15999060, 5328576, 1005774, 104346, 5555, 132, 1]  tutte agrees: True
+  k=13 total=   608583680 by c1: [742900, 11576916, 59957846, 144064440, 184123654, 133956680, 57295524, 14524224, 2153580, 179894, 7865, 156, 1]  tutte agrees: True
+  k=14 total=  4107939840 by c1: [2674440, 47050564, 279081152, 780280046, 1181852308, 1041446406, 554123856, 180751428, 36060024, 4312308, 296296, 10829, 182, 1]  tutte agrees: True
+character table == Tutte slicings table for all k <= 14 : True
+first and second moments of c1 agree with hyper_moments.json: True
+wrote /home/user/Spoti-pi/poc/results/hyper_bivariate.json

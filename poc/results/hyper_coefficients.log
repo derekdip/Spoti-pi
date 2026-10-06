@@ -1,0 +1,15 @@
+Lagrange-Good coefficient formula equals the character data for every (k, c1, c2), k <= 12: True  [0.1s]
+support is the whole triangle c1, c2, c3 >= 1 (lattice span 1): True
+prime factorisations of some joint counts at k = 12 (c1, c2, c3):
+   (4,4,6): 6195560 = [2, 2, 2, 5, 7, 7, 29, 109]
+   (3,5,6): 3915576 = [2, 2, 2, 3, 3, 7, 17, 457]
+   (5,5,4): 9032898 = [2, 3, 7, 431, 499]
+   (2,6,6): 925190 = [2, 5, 7, 13217]
+   (6,2,6): 925190 = [2, 5, 7, 13217]
+   (7,3,4): 1936308 = [2, 2, 3, 11, 14669]
+local limit test: k Pr(c1 = c2 = m), m = (k+2)/3, against 27 sqrt3/(10 pi) = 1.488588
+   k=  31  k Pr = 1.431312   ratio to limit 0.96152  [0.0s]
+   k=  61  k Pr = 1.458115   ratio to limit 0.97953  [0.2s]
+   k=  91  k Pr = 1.467830   ratio to limit 0.98606  [0.9s]
+   k= 121  k Pr = 1.472849   ratio to limit 0.98943  [2.4s]
+   Richardson (1/k) extrapolation from the last two: 1.488071   ratio 0.99965

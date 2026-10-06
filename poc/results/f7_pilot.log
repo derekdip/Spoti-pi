@@ -1,0 +1,6 @@
+   [windy/hybrid_nt] t0 pick rise      oracle rise      value 1.00 E 0.9623->0.6478 (6 of 11) [19s]
+   [windy/hybrid_nt] t1 pick jitter    oracle jitter    value 1.00 E 0.6478->0.5914 (6 of 11) [29s]
+   [windy/hybrid_nt2] t0 pick rise      oracle rise      value 1.00 E 0.9623->0.6478 (7 of 11) [38s]
+   [windy/hybrid_nt2] t1 pick jitter    oracle jitter    value 1.00 E 0.6478->0.5914 (7 of 11) [48s]
+windy             v0 0.962 | hybrid_nt 0.591 (value med 1.00, glow 0.87) hybrid_nt2 0.591 (value med 1.00, glow 0.87) [48s]
+done: 1 scenes in 48s -> poc/results/f7_pilot.json

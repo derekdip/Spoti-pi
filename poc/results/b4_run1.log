@@ -1,0 +1,42 @@
+straight       N_sup=[14, 14, 10, 10] N_rms=[10, 8, 8, 8] N_event=4 K=0.00 turning=0.00
+s_curve        N_sup=[228, 107, 58, 31] N_rms=[78, 51, 27, 23] N_event=4 K=0.00 turning=3.60
+stop_start     N_sup=[54, 54, 34, 34] N_rms=[38, 34, 26, 26] N_event=16 K=0.00 turning=0.00
+slalom         N_sup=[None, None, 286, 74] N_rms=[286, 143, 67, 67] N_event=4 K=0.00 turning=11.99
+zigzag         N_sup=[223, 135, 135, 58] N_rms=[127, 58, 28, 24] N_event=4 K=6.92 turning=7.69
+wandering      N_sup=[None, 230, 92, 60] N_rms=[121, 64, 53, 36] N_event=12 K=1.90 turning=4.23
+circle         N_sup=[259, 135, 69, 37] N_rms=[135, 69, 37, 37] N_event=4 K=0.00 turning=4.80
+tangential_probe N_sup=[34, 34, 24, 17] N_rms=[24, 16, 12, 10] N_event=4 K=0.00 turning=0.00
+corner_L4      N_sup=[None, None, None, None] N_rms=[None, None, None, None] N_event=4 K=1.38 turning=1.57
+straight_L4    N_sup=[None, None, None, None] N_rms=[None, None, None, None] N_event=4 K=0.00 turning=0.00
+corner_L8      N_sup=[None, None, None, None] N_rms=[None, None, None, None] N_event=4 K=1.38 turning=1.57
+straight_L8    N_sup=[None, None, None, None] N_rms=[None, None, None, None] N_event=4 K=0.00 turning=0.00
+corner_L16     N_sup=[None, None, None, None] N_rms=[None, None, None, None] N_event=4 K=1.38 turning=1.57
+straight_L16   N_sup=[None, None, None, None] N_rms=[None, None, None, 8] N_event=4 K=0.00 turning=0.00
+corner_L32     N_sup=[None, 80, 46, 31] N_rms=[19, 13, 13, 13] N_event=4 K=1.38 turning=1.57
+straight_L32   N_sup=[None, None, None, None] N_rms=[None, None, 8, 8] N_event=4 K=0.00 turning=0.00
+H0 sup eps 4.84 mm: N_corner by L {4: None, 8: None, 16: None, 32: None} ratio None
+H0 sup eps 9.68 mm: N_corner by L {4: None, 8: None, 16: None, 32: None} ratio None
+H0 sup eps 19.35 mm: N_corner by L {4: None, 8: None, 16: None, 32: None} ratio None
+H0 sup eps 38.70 mm: N_corner by L {4: None, 8: None, 16: None, 32: None} ratio None
+H0 rms control eps 0.65 mm: N_corner by L {4: None, 8: None, 16: None, 32: None} ratio 32/4 None
+H0 rms control eps 1.30 mm: N_corner by L {4: None, 8: None, 16: None, 32: None} ratio 32/4 None
+H0 rms control eps 2.61 mm: N_corner by L {4: None, 8: None, 16: None, 32: 5} ratio 32/4 None
+H0 rms control eps 5.21 mm: N_corner by L {4: None, 8: None, 16: None, 32: 5} ratio 32/4 None
+  m_par at 4.84 mm: 0.002362945719078735
+  m_par at 9.68 mm: 0.03888264552730827
+  m_par at 19.35 mm: 0.14349709537669794
+  m_par at 38.70 mm: 0.44960332890853716
+frozen m_par = 0.0493
+/home/user/Spoti-pi/poc/b4_experiment.py:234: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  rho = float(spearmanr(dens[clean], bp[clean]).correlation) if clean.sum() >= 6 and np.std(bp[clean]) > 1e-9 else None
+{
+  "H0": {
+    "pass": true,
+    "control": false
+  },
+  "H1": {},
+  "H2": {},
+  "H4": 1.0
+}
+wrote /home/user/Spoti-pi/poc/results
+EXIT 0
