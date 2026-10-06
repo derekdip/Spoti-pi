@@ -47,12 +47,20 @@ https://claude.ai/artifact/J6FuC4UF6NAxPaJYbMJ39j shows every clip.
    clip's clearance (its own lowest part's height above the floor),
    not the root height, so a body that has lost the parts a clip
    stood on comes down to the floor.
-8. **Transitions are crossfades in phase space** over about a second,
+8. **Streaming latency is not a target** (`docs/streaming-latency-check.md`).
+   On a headset that streams from a PC, local reconstruction of a
+   player-caused effect pays only when the round trip exceeds the
+   effect's time scale times the reconstruction's own error, 80 to 120
+   ms for grass; a dedicated low-latency link is well under that, and
+   pasting the reconstruction over the stream makes the frame worse.
+   The runtime's value is standalone play, where the effect is computed
+   on the device.
+9. **Transitions are crossfades in phase space** over about a second,
    with the skeleton switched at the start and the phase and root
    position continuous. They read as a blend, not a stumble. The cheap
    way to a stumble is a physics run of the injury event itself,
    banked as a clip.
-9. **Which class "names" a damage is a research result, not a runtime
+10. **Which class "names" a damage is a research result, not a runtime
    need.** On a real clip the naming depends on the clip's own
    asymmetry (G13). The runtime never needs a label.
 
