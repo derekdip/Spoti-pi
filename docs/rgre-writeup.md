@@ -5,6 +5,8 @@ account of what RGRE is, what it has been shown to do, and where it has
 failed. Each claim below points to the document that measured it; nothing
 here is new data. The results documents are the record and are unchanged.
 
+> See also `docs/ecs-theory-snapshot.md`, the theory side's frozen snapshot of 2026-10-06 with a reconciliation against this record and a first-pass audit; this write-up is the record it reconciles with.
+
 ## 1. The problem it addresses
 
 The runtime this repository is about replaces an expensive, stateful
