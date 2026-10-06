@@ -1465,6 +1465,9 @@ G14's were wrong in direction and right about the margins).
 
 # Editorial: first-pass audit of the mathematics
 
+> The full audit, with the numerical checks and the confirmed citations, is `docs/ecs-audit.md`; the table below is the summary it started from.
+
+
 The snapshot asks for an audit of every theorem against the
 approximation, manifold and transport literature before a paper is
 built. This is the first pass, from memory of the literature, and
