@@ -1,0 +1,16 @@
+intact             stiff side 0.36 knee 0.52 lift 0.52 step 0.35  limp side 0.62 lift 0.23 sink 0.37 hitch 0.04 duty 0.74 step 0.46  kneel side 0.30 hip 0.38 amp 0.28 other 0.32 step 0.31  hop sync 0.03 crouch 1.00 flight 0.22 rate 0.77 step 0.16  vault drive 1.00 off 1.00 pitch 1.00 lift 0.30 elbow 1.00 step 0.94  weak side 0.46 scale 0.98 lag 0.54 step 0.52
+weak_hip_left      stiff side 0.32 knee 0.47 lift 0.48 step 0.26  limp side 0.62 lift 0.26 sink 0.39 hitch 0.03 duty 0.75 step 0.49  kneel side 0.32 hip 0.38 amp 0.29 other 0.35 step 0.32  hop sync 0.03 crouch 1.00 flight 0.17 rate 0.73 step 0.26  vault drive 1.00 off 1.00 pitch 1.00 lift 0.27 elbow 1.00 step 0.97  weak side 0.48 scale 0.97 lag 0.57 step 0.40
+locked_knee_left   stiff side 0.24 knee 0.34 lift 0.34 step 0.21  limp side 0.58 lift 0.27 sink 0.36 hitch 0.02 duty 0.77 step 0.55  kneel side 0.33 hip 0.36 amp 0.30 other 0.34 step 0.33  hop sync 0.05 crouch 1.00 flight 0.31 rate 0.66 step 0.42  vault drive 1.00 off 1.00 pitch 1.00 lift 0.24 elbow 1.00 step 0.97  weak side 0.55 scale 0.92 lag 0.63 step 0.32
+short_shank_left   stiff side 0.40 knee 0.42 lift 0.05 step 0.40  limp side 0.57 lift 0.38 sink 0.38 hitch 0.62 duty 0.78 step 0.52  kneel side 0.32 hip 0.30 amp 0.35 other 0.86 step 0.52  hop sync 0.91 crouch 1.00 flight 0.22 rate 0.79 step 0.43  vault drive 1.00 off 1.00 pitch 1.00 lift 0.28 elbow 1.00 step 0.94  weak side 0.50 scale 0.00 lag 0.59 step 0.22
+stump_left         stiff side 0.09 knee nan lift 0.09 step 0.09  limp side 0.61 lift 0.98 sink 1.00 hitch 0.03 duty 0.93 step 0.92  kneel side 0.86 hip 0.19 amp 0.15 other 1.00 step 0.75  hop sync 0.50 crouch 1.00 flight 0.33 rate 0.72 step 0.15  vault drive 1.00 off 1.00 pitch 1.00 lift 0.24 elbow 1.00 step 0.87  weak side 0.34 scale 0.01 lag 0.62 step 0.14
+noleg_left         stiff side nan knee nan lift nan step nan  limp side 0.83 lift 0.97 sink 0.99 hitch 0.22 duty nan step 0.79  kneel side 1.00 hip nan amp nan other 1.00 step 0.94  hop sync 0.56 crouch 1.00 flight 0.29 rate 0.73 step 0.26  vault drive 1.00 off 1.00 pitch 1.00 lift 0.24 elbow 1.00 step 0.93  weak side nan scale nan lag nan step nan
+nolegs             vault drive 0.90 off 0.98 pitch 0.98 lift 0.99 elbow 0.95 step 0.74
+
+median redundancy over bodies (1.0 = the base has this direction; parameters over 0.9 add range, not direction):
+  stiff  stiff_side   0.32 (min 0.09)  stiff_knee   0.44 (min 0.34)  stiff_lift   0.34 (min 0.05)  class step   0.26 (min 0.09)  n=6
+  limp   limp_side    0.61 (min 0.57)  limp_lift    0.32 (min 0.23)  limp_sink    0.38 (min 0.36)  limp_hitch   0.04 (min 0.02)  limp_duty    0.77 (min 0.74)  class step   0.54 (min 0.46)  n=6
+  kneel  kneel_side   0.33 (min 0.30)  kneel_hip    0.36 (min 0.19)  kneel_amp    0.29 (min 0.15)  kneel_other  0.60 (min 0.32)  class step   0.43 (min 0.31)  n=6
+  hop    hop_sync     0.28 (min 0.03)  hop_crouch   1.00 (min 1.00)  hop_flight   0.26 (min 0.17)  hop_rate     0.73 (min 0.66)  class step   0.26 (min 0.15)  n=6
+  vault  vault_drive  1.00 (min 0.90)  vault_off    1.00 (min 0.98)  vault_pitch  1.00 (min 0.98)  vault_lift   0.27 (min 0.24)  vault_elbow  1.00 (min 0.95)  class step   0.94 (min 0.74)  n=7
+  weak   weak_side    0.48 (min 0.34)  weak_scale   0.92 (min 0.00)  weak_lag     0.59 (min 0.54)  class step   0.32 (min 0.14)  n=6
+[23s]

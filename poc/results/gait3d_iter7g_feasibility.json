@@ -1,0 +1,33 @@
+{
+ "intact": {
+  "speed": 0.38807873789048275,
+  "lateral_speed": 0.1233394297714467,
+  "torso_z": 1.138872861639616,
+  "head_z": 1.5106711688353243,
+  "tilt": 0.18862083704392682,
+  "yaw": 0.28998612348073116,
+  "distance": 1.8764333822261199,
+  "drift": -0.05523215746126321,
+  "stance": {
+   "foot_l": 0.658,
+   "foot_r": 0.5,
+   "hand_l": 0.0,
+   "hand_r": 0.0,
+   "thigh_l": 0.0,
+   "thigh_r": 0.0,
+   "shank_l": 0.007333333333333333,
+   "shank_r": 0.0,
+   "torso": 0.0,
+   "pelvis": 0.0,
+   "head": 0.0
+  },
+  "alternation": 0.678,
+  "double_support": 0.24,
+  "flight": 0.082,
+  "stance_asymmetry": 0.1364421416234888,
+  "hands_any": 0.0,
+  "no_contact": 0.082,
+  "seconds": 182,
+  "mean_cost": 2611.905642978754
+ }
+}

@@ -1,0 +1,8 @@
+   [plume/projection] t0 pick wind      oracle rise      value -1.98 in 0.6726->0.6726 ho 0.6903 q_top 0.139 null 0.006 [33s]
+   [plume/projection] t1 pick width     oracle rise      value 0.55 in 0.6726->0.6491 ho 0.6628 q_top 0.139 null 0.005 [34s]
+   [plume/hybrid] t0 pick rise      oracle rise      value 1.00 in 0.6726->0.6298 ho 0.6337 q_top 0.139 null 0.006 [34s]
+   [plume/hybrid] t1 pick jitter    oracle jitter    value 1.00 in 0.6298->0.6100 ho 0.6236 q_top 0.167 null 0.001 [45s]
+   [plume/oracle] t0 pick rise      oracle rise      value 1.00 in 0.6726->0.6298 ho 0.6337 q_top 0.139 null 0.006 [45s]
+   [plume/oracle] t1 pick jitter    oracle jitter    value 1.00 in 0.6298->0.6100 ho 0.6236 q_top 0.167 null 0.001 [52s]
+plume             [transfer] v0 0.673 floor 0.163 | final in/ho: projection 0.649/0.663 hybrid 0.610/0.624 oracle 0.610/0.624 | value med proj -0.71 hyb 1.00 [52s]
+done: 1 scenes in 52s -> poc/results/f6_pilot.json

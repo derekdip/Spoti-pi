@@ -1,0 +1,11 @@
+correlation a perfect STATIC blob (the teacher's own time-average) reaches, per scene:
+
+scene                      gust  static ref    best model in arc
+plume                      none       0.997                 0.88
+gusty          1.6 m/s @ 0.7 Hz       0.852                 0.82
+gust_shelf     1.8 m/s @ 0.7 Hz       0.853                 0.80
+strong_gust    2.6 m/s @ 0.7 Hz       0.796                 0.80   MODEL BEATS IT
+bed_chain      2.0 m/s @ 0.7 Hz       0.827                 0.81
+twin                       none       0.989                 0.86
+ignition       1.6 m/s @ 0.7 Hz       0.852                 0.73
+full           1.6 m/s @ 0.7 Hz       0.860                 0.76

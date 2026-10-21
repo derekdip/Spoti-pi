@@ -1,0 +1,14 @@
+{
+ "dictionary": true,
+ "derivative_identity": true,
+ "pointed_is_e2": true,
+ "fold_stationary": true,
+ "U_expansion": [
+  "1/4",
+  "0",
+  "-1",
+  "2",
+  "-3",
+  "4"
+ ]
+}

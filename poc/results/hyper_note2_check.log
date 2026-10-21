@@ -1,0 +1,34 @@
+ok   S2  U = M - M^2 has coefficients N_k
+ok   S2  D_z U = M (1 + 2M)
+ok   S2  z D_z U = w M
+ok   S2  Q = z D_z U + w Q
+ok   S5  Lagrange formula (4) for Q_k
+ok   S5  A = 2M^2/((1-2M)(1+M)) equals sum c1(c1-1)
+ok   S5  B = M/((1-2M)(1+M)) equals sum c1 c2
+ok   S5  A = 2 M B
+ok   S7  M = (1-eps)/(2(1+eps)) solves M = z(1+2M)^2 with z = (1-eps^2)/8
+ok   S7  Q = (1-eps)^2 / (2(1+eps)(3+eps))
+ok   S7  Q = 1/6 - 5/9 eps + 23/27 eps^2 - 77/81 eps^3 + ...
+     Q_k/L_k = (5/9) k^-0 + (-16/27) k^-1 + (-32/243) k^-2 + (256/2187) k^-3 + (448/2187) k^-4 + (1856/19683) k^-5
+ok   S7  (6): Q_k/L_k = 5/9 - 16/(27k) + O(k^-2)
+     Var(c1-c2) = 10/27 k + 28/81 + (-640/729)/k + ...;  note's (7) claims constant 4/81
+ok   S7  (7) constant term is 28/81, not 4/81
+     residual of the k^-2 truncation times k^3 at k=24: 0.306
+ok   S7  1/k expansion of Var(c1-c2) matches the exact data to O(k^-3)
+ok   S8  critical curve at q=1/2: F_u = 0 and F = (1-q)^2(1+2q)/(4q^3)
+ok   S8  critical curve at q=1/3: F_u = 0 and F = (1-q)^2(1+2q)/(4q^3)
+ok   S8  critical curve at q=2/5: F_u = 0 and F = (1-q)^2(1+2q)/(4q^3)
+ok   S8  critical curve at q=3/4: F_u = 0 and F = (1-q)^2(1+2q)/(4q^3)
+ok   S8  s = 1 gives q = 1/2, rho = 1/8, u = 3/2
+     Lambda(t) coefficients: ['2/3', '5/81', '-7/2187', '-47/78732', '469/6377292', '2917/344373768', '-26369/15496819560', '-2823749/23431191174720']
+ok   S9  (10): Lambda = 2/3 t + 5/81 t^2 - 7/2187 t^3 - 47/78732 t^4 + 469/6377292 t^5 + ...
+     predicted kappa_r(c_i)/k: {1: '-2/3', 2: '10/81', 3: '14/729', 4: '-94/6561', 5: '-4690/531441', 6: '29170/4782969', 7: '369166/43046721', 8: '-5647498/1162261467'}
+ok   S10 kappa_3, kappa_4, kappa_5 constants are 14/729, -94/6561, -4690/531441
+ok   S14 K_i(R,R) = C(2i-1,i-1) R^(i-1): sum_i z^i K_i(R,R) = Phi(R)
+FAIL S14 note's (16) closed form
+ok   S14 corrected closed form Phi_0 = (1 + z(X-Y) - Delta) / (2 X Delta)
+ok   S17 (19): Psi(R) = M^2 / ((1+2M)(1+M)^2)
+ok   S17 lambda_- = -M^2/(1+2M)
+ok   S17 (20): R/(1 - lambda_-) = 1/(1 - w)
+
+ALL: False (26/27)

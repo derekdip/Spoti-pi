@@ -1,0 +1,14 @@
+body               class       q  drop/e0   gap  side
+intact             rhythm  0.017   -0.231  0.90     0   [11s]
+intact             legs    0.174    0.055  0.21     0   [24s]
+intact             lateral  0.151    0.062  0.07     0   [35s]
+intact             torso   0.077   -0.067  0.43     0   [45s]
+intact             arms    0.110    0.045  0.00     0   [51s]
+intact             stiff   0.024    0.000  1.00     0   [56s]
+intact             limp    0.212    0.037  0.83    -1   [63s]
+intact             hold    0.085    0.000  1.00     0   [68s]
+intact             vault   0.033    0.000  1.00     0   [70s]
+intact             weak    0.078    0.051  0.23    -1   [78s]
+  intact: of limp's effect, legs absorbs 0.52, lateral absorbs 0.80, stiff absorbs 0.00, hold absorbs 0.00, vault absorbs 0.00, weak absorbs 0.66   [119s]
+  intact: of weak's effect, legs absorbs 0.29, lateral absorbs 0.27, stiff absorbs 0.00, limp absorbs 0.31, hold absorbs 0.00, vault absorbs 0.00   [160s]
+  -> intact: e0 0.331; oracle lateral (drop 0.062, gap 0.07, side 0); projection limp

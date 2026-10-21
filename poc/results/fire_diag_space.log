@@ -1,0 +1,15 @@
+scene             oracle   mech     | cons+tmpl  consumer   field      | value cons+t / cons / field
+windy             rise     wind     | width      width      cool       | 0.48 / 0.48 / 0.75   [28s]
+obstacle          rise     deflect  | deflect    deflect    cool       | 0.90 / 0.90 / 0.86   [55s]
+twin              rise     attract  | profile    profile    attract    | 0.85 / 0.85 / 0.68   [85s]
+split             rise     deflect  | width      width      cool       | 0.66 / 0.66 / 0.88   [111s]
+shutoff           cool     None     | width      width      base       | 0.72 / 0.72 / 0.22   [136s]
+ignition          wind     bed      | bed        wind       wind       | 0.09 / 1.00 / 1.00   [163s]
+delayed_ignition  wind     bed      | bed        wind       wind       | 0.07 / 1.00 / 1.00   [191s]
+full              wind     bed      | bed        deflect    wind       | 0.02 / 0.67 / 1.00   [221s]
+shelf_bed         rise     bed      | bed        deflect    wind       | 0.05 / 0.91 / 0.60   [250s]
+
+summary over 9 scenes:
+  cons_tmpl  value median 0.48 mean 0.43 | pick = oracle 0% | oracle in top-3 44% | pick = scene's mechanism 62% of 8
+  consumer   value median 0.85 mean 0.80 | pick = oracle 22% | oracle in top-3 44% | pick = scene's mechanism 12% of 8
+  field      value median 0.86 mean 0.78 | pick = oracle 33% | oracle in top-3 44% | pick = scene's mechanism 12% of 8

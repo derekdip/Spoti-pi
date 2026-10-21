@@ -1,0 +1,15 @@
+intact             stiff side 0.72 knee 0.54 lift 0.97 step 0.92  limp side 0.98 lift 0.57 sink 0.46 duty 0.72 step 0.65  hold side 0.99 hip 0.99 amp 0.68 step 0.45  vault lift 0.46 lag 0.77 step 0.81  weak side 0.76 scale 0.90 lag 0.70 roll 0.93 step 0.86
+weak_hip_left      stiff side 0.74 knee 0.57 lift 0.99 step 0.96  limp side 0.98 lift 0.58 sink 0.48 duty 0.74 step 0.68  hold side 1.00 hip 0.99 amp 0.71 step 0.51  vault lift 0.52 lag 0.78 step 0.89  weak side 0.78 scale 0.91 lag 0.71 roll 0.96 step 0.93
+locked_knee_left   stiff side 0.69 knee 0.51 lift 0.98 step 0.94  limp side 0.98 lift 0.55 sink 0.45 duty 0.68 step 0.66  hold side 0.99 hip 0.99 amp 0.66 step 0.47  vault lift 0.40 lag 0.78 step 0.87  weak side 0.75 scale 0.85 lag 0.65 roll 0.95 step 0.89
+short_shank_left   stiff side 0.65 knee 0.23 lift 0.88 step 0.61  limp side 0.87 lift 0.80 sink 0.97 duty 0.96 step 0.84  hold side 0.23 hip 0.22 amp 0.25 step 0.26  vault lift 0.75 lag 0.83 step 0.75  weak side 0.81 scale 0.15 lag 1.00 roll 0.03 step 0.96
+stump_left         stiff side 0.54 knee nan lift 0.57 step 0.18  limp side 0.90 lift 0.93 sink 0.98 duty 0.99 step 0.85  hold side 0.18 hip 0.16 amp 0.49 step 0.19  vault lift 0.81 lag 0.88 step 0.85  weak side 0.90 scale 0.72 lag 1.00 roll 0.04 step 0.94
+noleg_left         stiff side nan knee nan lift nan step nan  limp side 0.84 lift 0.91 sink 0.98 duty 0.98 step 0.84  hold side nan hip nan amp nan step nan  vault lift 0.73 lag 0.82 step 0.76  weak side 0.97 scale nan lag 1.00 roll 0.01 step 0.92
+nolegs             vault lift 0.65 lag 0.59 step 0.54
+
+median redundancy over bodies (1.0 = the base has this direction; parameters over 0.9 add range, not direction):
+  stiff  stiff_side   0.69 (min 0.54)  stiff_knee   0.52 (min 0.23)  stiff_lift   0.97 (min 0.57)  class step   0.92 (min 0.18)  n=6
+  limp   limp_side    0.94 (min 0.84)  limp_lift    0.69 (min 0.55)  limp_sink    0.72 (min 0.45)  limp_duty    0.85 (min 0.68)  class step   0.76 (min 0.65)  n=6
+  hold   hold_side    0.99 (min 0.18)  hold_hip     0.99 (min 0.16)  hold_amp     0.66 (min 0.25)  class step   0.45 (min 0.19)  n=6
+  vault  vault_lift   0.65 (min 0.40)  vault_lag    0.78 (min 0.59)  class step   0.81 (min 0.54)  n=7
+  weak   weak_side    0.79 (min 0.75)  weak_scale   0.85 (min 0.15)  weak_lag     0.85 (min 0.65)  weak_roll    0.48 (min 0.01)  class step   0.93 (min 0.86)  n=6
+[54s]

@@ -1,0 +1,522 @@
+{
+ "STEPS": 2,
+ "DEAD": 0.01,
+ "cases": [
+  {
+   "case": "nolegs_s1",
+   "morph": "nolegs",
+   "seed": 1,
+   "group": "transfer",
+   "designed": "vault",
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "torso",
+    "arms",
+    "vault"
+   ],
+   "e_v0": 0.7238312364147809,
+   "per_consumer_v0": {
+    "contact_t": 1.1032027531169737,
+    "stance": 1.0020069502380033,
+    "joint_stats": 0.9910361287714098,
+    "asym_joints": 0.12870133908665982,
+    "asym_stance": 0.2741921450316664,
+    "speed": 0.2634963348420309,
+    "height": 0.12002280070095106,
+    "pitch": 0.5634455341111898,
+    "rhythm": 0.5078445123335148,
+    "reach": 0.8854163146829398,
+    "pose_phase": 1.0124728482285439
+   },
+   "variants": {
+    "projection": {
+     "steps": [
+      {
+       "t": 0,
+       "ranked": [
+        "vault",
+        "torso",
+        "arms",
+        "rhythm"
+       ],
+       "oracle": "vault",
+       "oracle_drop_rel": 0.4487416816526374,
+       "e_before": 0.7238312364147809,
+       "drops": {
+        "rhythm": 0.09186107292898751,
+        "torso": 0.17784825111207433,
+        "arms": 0.41693635626656755,
+        "vault": 0.4487416816526374
+       },
+       "sides": {
+        "rhythm": 0,
+        "torso": 0,
+        "arms": 0,
+        "vault": 0
+       },
+       "worse": {
+        "rhythm": [
+         "joint_stats"
+        ],
+        "torso": [],
+        "arms": [],
+        "vault": [
+         "pitch"
+        ]
+       },
+       "pick": "vault",
+       "side": 0,
+       "dead": false,
+       "drop_rel": 0.4487416816526374,
+       "value": 1.0,
+       "e_after": 0.39901799015330436
+      },
+      {
+       "t": 1,
+       "ranked": [
+        "torso",
+        "vault",
+        "rhythm",
+        "arms"
+       ],
+       "oracle": "torso",
+       "oracle_drop_rel": 0.1070863919969381,
+       "e_before": 0.39901799015330436,
+       "drops": {
+        "rhythm": 0.08737421928766449,
+        "torso": 0.1070863919969381,
+        "arms": 0.028094324295987235,
+        "vault": 0.0
+       },
+       "sides": {
+        "rhythm": 0,
+        "torso": 0,
+        "arms": 0,
+        "vault": 0
+       },
+       "worse": {
+        "rhythm": [
+         "stance",
+         "asym_joints",
+         "asym_stance",
+         "pitch"
+        ],
+        "torso": [],
+        "arms": [
+         "asym_joints",
+         "asym_stance"
+        ],
+        "vault": []
+       },
+       "pick": "torso",
+       "side": 0,
+       "dead": false,
+       "drop_rel": 0.1070863919969381,
+       "value": 1.0,
+       "e_after": 0.3562885932459172
+      }
+     ],
+     "e_final": 0.3562885932459172,
+     "active": [
+      "vault"
+     ],
+     "per_consumer": {
+      "contact_t": 0.4605392994366026,
+      "stance": 0.13735330344239025,
+      "joint_stats": 0.5521544797527311,
+      "asym_joints": 0.12587753386485181,
+      "asym_stance": 0.272794215301438,
+      "speed": 0.2634963348420309,
+      "height": 0.014687575416088476,
+      "pitch": 0.34376565768665135,
+      "rhythm": 0.5078445123335148,
+      "reach": 0.18286703139486032,
+      "pose_phase": 0.5395286133114873
+     },
+     "state": {
+      "freq": 1.1874064643786908,
+      "duty": 0.8180873044488389,
+      "speed": 0.7672585893918631,
+      "phase0": 0.4523694206438137,
+      "hip_off": -0.3738835990525368,
+      "hip_amp": 0.3984087831954234,
+      "knee_off": 0.6354901244739074,
+      "knee_amp": 1.2498562274916276,
+      "knee_lag": 0.7500327689768419,
+      "ankle_amp": 0.48835921435178464,
+      "ankle_lag": -2.5049999176047564,
+      "phase_r": 3.057760622477464,
+      "lean": -0.02777777777777779,
+      "pitch_amp": 0.4444444444444444,
+      "pitch_lag": -3.2,
+      "bob_amp": 0.02777777777777778,
+      "arm_amp": 0.09499718335179852,
+      "arm_lag": -2.51497286331762,
+      "arm_off": 0.16298048840549895,
+      "elbow_off": -0.18650250962502013,
+      "stiff_side": 0.0,
+      "stiff_knee": 1.0,
+      "stiff_lift": 0.0,
+      "limp_side": 0.0,
+      "limp_lift": 0.0,
+      "limp_sink": 0.0,
+      "limp_hitch": 0.0,
+      "limp_duty": 0.0,
+      "kneel_side": 0.0,
+      "kneel_hip": 0.0,
+      "kneel_amp": 0.0,
+      "kneel_other": 0.0,
+      "hop_sync": 0.0,
+      "hop_crouch": 0.0,
+      "hop_flight": 0.0,
+      "hop_rate": 1.0,
+      "vault_drive": 0.4444444444444444,
+      "vault_off": -1.0555555555555554,
+      "vault_pitch": 0.31666666666666665,
+      "vault_lift": 0.0,
+      "vault_elbow": -0.6666666666666667,
+      "weak_side": 0.0,
+      "weak_scale": 1.0,
+      "weak_lag": 0.0
+     },
+     "added": [
+      [
+       "vault",
+       0
+      ],
+      [
+       "torso",
+       0
+      ]
+     ]
+    },
+    "oracle": {
+     "steps": [
+      {
+       "t": 0,
+       "ranked": [
+        "vault",
+        "torso",
+        "arms",
+        "rhythm"
+       ],
+       "oracle": "vault",
+       "oracle_drop_rel": 0.4487416816526374,
+       "e_before": 0.7238312364147809,
+       "drops": {
+        "rhythm": 0.09186107292898751,
+        "torso": 0.17784825111207433,
+        "arms": 0.41693635626656755,
+        "vault": 0.4487416816526374
+       },
+       "sides": {
+        "rhythm": 0,
+        "torso": 0,
+        "arms": 0,
+        "vault": 0
+       },
+       "worse": {
+        "rhythm": [
+         "joint_stats"
+        ],
+        "torso": [],
+        "arms": [],
+        "vault": [
+         "pitch"
+        ]
+       },
+       "pick": "vault",
+       "side": 0,
+       "dead": false,
+       "drop_rel": 0.4487416816526374,
+       "value": 1.0,
+       "e_after": 0.39901799015330436
+      },
+      {
+       "t": 1,
+       "ranked": [
+        "torso",
+        "vault",
+        "rhythm",
+        "arms"
+       ],
+       "oracle": "torso",
+       "oracle_drop_rel": 0.1070863919969381,
+       "e_before": 0.39901799015330436,
+       "drops": {
+        "rhythm": 0.08737421928766449,
+        "torso": 0.1070863919969381,
+        "arms": 0.028094324295987235,
+        "vault": 0.0
+       },
+       "sides": {
+        "rhythm": 0,
+        "torso": 0,
+        "arms": 0,
+        "vault": 0
+       },
+       "worse": {
+        "rhythm": [
+         "stance",
+         "asym_joints",
+         "asym_stance",
+         "pitch"
+        ],
+        "torso": [],
+        "arms": [
+         "asym_joints",
+         "asym_stance"
+        ],
+        "vault": []
+       },
+       "pick": "torso",
+       "side": 0,
+       "dead": false,
+       "drop_rel": 0.1070863919969381,
+       "value": 1.0,
+       "e_after": 0.3562885932459172
+      }
+     ],
+     "e_final": 0.3562885932459172,
+     "active": [
+      "vault"
+     ],
+     "per_consumer": {
+      "contact_t": 0.4605392994366026,
+      "stance": 0.13735330344239025,
+      "joint_stats": 0.5521544797527311,
+      "asym_joints": 0.12587753386485181,
+      "asym_stance": 0.272794215301438,
+      "speed": 0.2634963348420309,
+      "height": 0.014687575416088476,
+      "pitch": 0.34376565768665135,
+      "rhythm": 0.5078445123335148,
+      "reach": 0.18286703139486032,
+      "pose_phase": 0.5395286133114873
+     },
+     "state": {
+      "freq": 1.1874064643786908,
+      "duty": 0.8180873044488389,
+      "speed": 0.7672585893918631,
+      "phase0": 0.4523694206438137,
+      "hip_off": -0.3738835990525368,
+      "hip_amp": 0.3984087831954234,
+      "knee_off": 0.6354901244739074,
+      "knee_amp": 1.2498562274916276,
+      "knee_lag": 0.7500327689768419,
+      "ankle_amp": 0.48835921435178464,
+      "ankle_lag": -2.5049999176047564,
+      "phase_r": 3.057760622477464,
+      "lean": -0.02777777777777779,
+      "pitch_amp": 0.4444444444444444,
+      "pitch_lag": -3.2,
+      "bob_amp": 0.02777777777777778,
+      "arm_amp": 0.09499718335179852,
+      "arm_lag": -2.51497286331762,
+      "arm_off": 0.16298048840549895,
+      "elbow_off": -0.18650250962502013,
+      "stiff_side": 0.0,
+      "stiff_knee": 1.0,
+      "stiff_lift": 0.0,
+      "limp_side": 0.0,
+      "limp_lift": 0.0,
+      "limp_sink": 0.0,
+      "limp_hitch": 0.0,
+      "limp_duty": 0.0,
+      "kneel_side": 0.0,
+      "kneel_hip": 0.0,
+      "kneel_amp": 0.0,
+      "kneel_other": 0.0,
+      "hop_sync": 0.0,
+      "hop_crouch": 0.0,
+      "hop_flight": 0.0,
+      "hop_rate": 1.0,
+      "vault_drive": 0.4444444444444444,
+      "vault_off": -1.0555555555555554,
+      "vault_pitch": 0.31666666666666665,
+      "vault_lift": 0.0,
+      "vault_elbow": -0.6666666666666667,
+      "weak_side": 0.0,
+      "weak_scale": 1.0,
+      "weak_lag": 0.0
+     },
+     "added": [
+      [
+       "vault",
+       0
+      ],
+      [
+       "torso",
+       0
+      ]
+     ]
+    },
+    "oracle_safe": {
+     "steps": [
+      {
+       "t": 0,
+       "ranked": [
+        "vault",
+        "torso",
+        "arms",
+        "rhythm"
+       ],
+       "oracle": "vault",
+       "oracle_drop_rel": 0.4487416816526374,
+       "e_before": 0.7238312364147809,
+       "drops": {
+        "rhythm": 0.09186107292898751,
+        "torso": 0.17784825111207433,
+        "arms": 0.41693635626656755,
+        "vault": 0.4487416816526374
+       },
+       "sides": {
+        "rhythm": 0,
+        "torso": 0,
+        "arms": 0,
+        "vault": 0
+       },
+       "worse": {
+        "rhythm": [
+         "joint_stats"
+        ],
+        "torso": [],
+        "arms": [],
+        "vault": [
+         "pitch"
+        ]
+       },
+       "pick": "arms",
+       "side": 0,
+       "dead": false,
+       "drop_rel": 0.41693635626656755,
+       "value": 0.9291233092746447,
+       "e_after": 0.4220396781520777
+      },
+      {
+       "t": 1,
+       "ranked": [
+        "torso",
+        "vault",
+        "arms",
+        "rhythm"
+       ],
+       "oracle": "torso",
+       "oracle_drop_rel": 0.14810576079151266,
+       "e_before": 0.4220396781520777,
+       "drops": {
+        "rhythm": 0.14402004871472307,
+        "torso": 0.14810576079151266,
+        "arms": 0.0,
+        "vault": 0.041000076556373846
+       },
+       "sides": {
+        "rhythm": 0,
+        "torso": 0,
+        "arms": 0,
+        "vault": 0
+       },
+       "worse": {
+        "rhythm": [
+         "stance",
+         "joint_stats",
+         "asym_joints",
+         "pitch"
+        ],
+        "torso": [
+         "stance"
+        ],
+        "arms": [],
+        "vault": [
+         "pitch",
+         "reach"
+        ]
+       },
+       "pick": "arms",
+       "side": 0,
+       "dead": true,
+       "drop_rel": 0.0,
+       "value": 0.0,
+       "e_after": 0.4220396781520777
+      }
+     ],
+     "e_final": 0.4220396781520777,
+     "active": [],
+     "per_consumer": {
+      "contact_t": 0.6378226318466782,
+      "stance": 0.18582191295214867,
+      "joint_stats": 0.5410693233461431,
+      "asym_joints": 0.12615011250558153,
+      "asym_stance": 0.27398912641025264,
+      "speed": 0.2634963348420309,
+      "height": 0.06179551166848722,
+      "pitch": 0.5634455341111898,
+      "rhythm": 0.49629516156816267,
+      "reach": 0.31618587346145943,
+      "pose_phase": 0.630240211102365
+     },
+     "state": {
+      "freq": 1.1874064643786908,
+      "duty": 0.8180873044488389,
+      "speed": 0.7672585893918631,
+      "phase0": 0.4523694206438137,
+      "hip_off": -0.3738835990525368,
+      "hip_amp": 0.3984087831954234,
+      "knee_off": 0.6354901244739074,
+      "knee_amp": 1.2498562274916276,
+      "knee_lag": 0.7500327689768419,
+      "ankle_amp": 0.48835921435178464,
+      "ankle_lag": -2.5049999176047564,
+      "phase_r": 3.057760622477464,
+      "lean": 0.02617350221314113,
+      "pitch_amp": 0.27505811686504444,
+      "pitch_lag": -1.253316447163137,
+      "bob_amp": 0.04700801671516516,
+      "arm_amp": 0.75,
+      "arm_lag": -3.2,
+      "arm_off": -0.8500000000000001,
+      "elbow_off": -0.40000000000000013,
+      "stiff_side": 0.0,
+      "stiff_knee": 1.0,
+      "stiff_lift": 0.0,
+      "limp_side": 0.0,
+      "limp_lift": 0.0,
+      "limp_sink": 0.0,
+      "limp_hitch": 0.0,
+      "limp_duty": 0.0,
+      "kneel_side": 0.0,
+      "kneel_hip": 0.0,
+      "kneel_amp": 0.0,
+      "kneel_other": 0.0,
+      "hop_sync": 0.0,
+      "hop_crouch": 0.0,
+      "hop_flight": 0.0,
+      "hop_rate": 1.0,
+      "vault_drive": 0.0,
+      "vault_off": 0.0,
+      "vault_pitch": 0.0,
+      "vault_lift": 0.0,
+      "vault_elbow": 0.0,
+      "weak_side": 0.0,
+      "weak_scale": 1.0,
+      "weak_lag": 0.0
+     },
+     "added": [
+      [
+       "arms",
+       0
+      ]
+     ]
+    }
+   },
+   "floor": {
+    "e": 0.3102232095752161,
+    "from_v0": 0.3102232095752161,
+    "from_oracle": 0.32590063127399993,
+    "seconds": 34
+   },
+   "seconds": 59.30980825424194
+  }
+ ]
+}

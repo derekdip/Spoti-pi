@@ -1,0 +1,27 @@
+locked_knee_left+weak_hip_right  raw clip                                                   errors 0.686 0.672 0.691  speed 0.40/0.23
+locked_knee_left+weak_hip_right  locked knee edit alone (G13 locked_knee_left_s0)           errors 0.529 0.509 0.515  speed 0.41/0.23
+locked_knee_left+weak_hip_right  weak hip edit alone (G13 weak_hip_right_s0)                errors 0.502 0.539 0.525  speed 0.41/0.23
+locked_knee_left+weak_hip_right  composed                                                   errors 0.497 0.528 0.519  speed 0.42/0.23
+locked_knee_left+noarm_right     raw clip (arm dropped)                                     errors 0.518 0.756 0.558  speed 0.40/0.41
+locked_knee_left+noarm_right     locked knee edit (G13 locked_knee_left_s0), arm dropped    errors 0.453 0.638 0.475  speed 0.41/0.41
+noarm_left                       raw clip (arm dropped)                                     errors 0.548 0.549 0.489  speed 0.40/0.41
+nolegs+noarm_left                raw crawl loop (arm dropped)                               errors 2.667 1.852 2.080  speed 0.42/0.09
+   [nolegs+noarm_left_s0] t0 pick torso  side +0 (oracle rhythm, value 0.40) fit 2.6668->1.9220 held-out 1.9660->1.2511 (2 of 2) rejected ['rhythm'] [12s]
+   [nolegs+noarm_left_s0] t1 pick arms   side +0 (oracle rhythm, value 0.04) fit 1.9220->1.8727 held-out 1.2511->1.1927 (2 of 2) rejected ['rhythm'] [23s]
+   [nolegs+noarm_left_s0] t2 declined: rhythm guard: orient, reach; torso spent; arms spent; vault spent [31s]
+nolegs+noarm_left_s0                 [design] base nolegs v0 2.667/1.966 -> 1.873/1.193 added ['torso', 'arms'] [31s]
+   [noarm_left_s0] t0 declined: lateral held-out 0.5623 >= 0.5187 (1 of 2 runs lower); stiff held-out 0.6468 >= 0.5187 (0 of 2 runs lower); limp held-out 0.6258 >= 0.5187 (0 of 2 runs lower); weak held-out 0.6411 >= 0.5187 (0 of 2 runs lower) [56s]
+   [locked_knee_left+noarm_right_s0] t0 pick lateral side +0 (oracle lateral, value 1.00) fit 0.5177->0.4479 held-out 0.6572->0.6034 (2 of 2) rejected [] [57s]
+noarm_left_s0                        [design] base intact v0 0.548/0.519 -> 0.548/0.519 added [] [56s]
+   [locked_knee_left+weak_hip_right_s0] t0 pick limp   side -1 (oracle rhythm, value 0.94) fit 0.6858->0.4842 held-out 0.6815->0.5094 (2 of 2) rejected ['rhythm'] [66s]
+   [locked_knee_left+noarm_right_s0] t1 pick hold   side +1 (oracle hold, value 1.00) fit 0.4479->0.4270 held-out 0.6034->0.5671 (2 of 2) rejected [] [109s]
+   [locked_knee_left+weak_hip_right_s0] t1 pick rhythm side +0 (oracle rhythm, value 1.00) fit 0.4842->0.4551 held-out 0.5094->0.5048 (1 of 2) rejected [] [125s]
+   [locked_knee_left+noarm_right_s0] t2 pick arms   side +0 (oracle arms, value 1.00) fit 0.4270->0.4174 held-out 0.5671->0.5650 (2 of 2) rejected [] [159s]
+   [locked_knee_left+weak_hip_right_s0] t2 pick weak   side -1 (oracle weak, value 1.00) fit 0.4551->0.4224 held-out 0.5048->0.4889 (2 of 2) rejected [] [184s]
+   [locked_knee_left+noarm_right_s0] t3 declined: arms spent; lateral spent; stiff spent; limp spent [206s]
+locked_knee_left+noarm_right_s0      [design] base intact v0 0.518/0.657 -> 0.417/0.565 added ['lateral', 'hold+1', 'arms'] [206s]
+   [locked_knee_left+weak_hip_right_s0] t3 pick stiff  side -1 (oracle stiff, value 1.00) fit 0.4224->0.3703 held-out 0.4889->0.4472 (2 of 2) rejected [] [241s]
+   [locked_knee_left+weak_hip_right_s0] t4 pick lateral side +0 (oracle lateral, value 1.00) fit 0.3703->0.3430 held-out 0.4472->0.4160 (2 of 2) rejected [] [296s]
+   [locked_knee_left+weak_hip_right_s0] t5 declined: arms held-out 0.4231 >= 0.4160 (0 of 2 runs lower); legs held-out 0.4280 >= 0.4160 (0 of 2 runs lower); hold held-out 0.4255 >= 0.4160 (0 of 2 runs lower); lateral held-out 0.4168 >= 0.4160 (0 of 2 runs lower) [346s]
+locked_knee_left+weak_hip_right_s0   [design] base intact v0 0.686/0.682 -> 0.343/0.416 added ['limp-1', 'rhythm', 'weak-1', 'stiff-1', 'lateral'] [346s]
+done: 4 cases in 349s -> poc/results/g14.json
