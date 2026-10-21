@@ -126,6 +126,49 @@ the stars. "Copy stars as JSON" gives the list; saved as
 the Python side use the same picks. The configuration the stream
 needs is therefore a set of stars per word, a chaos level and a seed.
 
+## Deployment: one service, two launchers
+
+The bots are a service that takes a room code and joins the room as
+web players (`poc/doodle/run_bots.js`), driven by the same simulation
+module the studio runs (`poc/doodle/sim.js`, embedded in the page at
+build time, so there is one copy of the rules). The game sits behind
+an adapter (`poc/doodle/adapters/mock.js` is the contract and a mock
+game): the service asks the adapter to connect to the room, to take
+and give up seats, and to send pen events (down, move, up, with x and
+y in [0, 1] of the game's canvas) and optional lines; the adapter
+tells the service when a round starts (with the word and the
+seconds), when it ends, who is in the room, what a person drew (the
+bots align to the first person's stroke), and when the room closes.
+The service loops rounds until the room closes, applies the room
+rule on every join and leave (a bot finishes its stroke, says bye,
+frees its seat), sits out a word it does not know, and stops.
+
+Where it runs is a launcher detail, and the recommendation is to
+start outside the game:
+
+1. **Now, for the stream:** run it from a laptop against the live
+   site, `node run_bots.js --room ABCD --bots 4 --chaos 0.3 --seed 7
+   --stars doodle_curated.json --adapter ./doodlefigure.js`. The only
+   code to write is the adapter over the web client's transport, one
+   connection per bot so the server and the VR player see players.
+   Nothing in the game changes; if the server needs a web player to
+   press start when no person is present, the adapter can press it
+   for the first bot after a pause (a flag).
+2. **Later, in the site:** host the same service beside the game
+   server and add one endpoint, `POST /rooms/{code}/bots {count,
+   chaos, seed}`, that starts it; the "play with bots" button calls
+   that with the room code. The shipped version needs what a
+   dev feature does not: only the room's host may request bots, a
+   cap on count, bots marked as bots in the player list and excluded
+   from stats, and a kill switch.
+
+Verified against the mock game (`node run_bots.js --room DEMO
+--adapter mock`, five rounds of twenty seconds): bots join, draw each
+round, two people join and the bots stay, a third sends a bot away
+after its stroke, an unknown word is sat out with a line, two more
+people send two bots away, a person leaving brings a bot back
+mid-round, and the room closing frees every seat and exits.
+
 ## What this does not do, and what it needs from the game
 
 - **The words.** Six were sampled. Quick, Draw! has 345; the game's
@@ -162,7 +205,8 @@ needs is therefore a set of stars per word, a chaos level and a seed.
 - `poc/doodle/bank.py`, `edits.py`, `hand.py`, `bots.py`,
   `evaluate.py`; the recorded-session viewer `export_web.py`,
   `build_web.py`, `web_template.html`; the studio `export_live.py`,
-  `build_live.py`, `live_template.html`.
+  `build_live.py`, `live_template.html`; the shared simulation
+  `sim.js`; the bot service `run_bots.js` and `adapters/mock.js`.
 - `poc/results/doodle_bank/<word>.ndjson`: the first 4000 records of
   six words from the public bucket (`gs://quickdraw_dataset/full/simplified/`).
 - `poc/results/doodle_eval.md`, `doodle_sessions.json`,
