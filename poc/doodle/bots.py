@@ -27,12 +27,17 @@ from .hand import PERSONAS, execute_stroke, TRAVEL
 
 CANVAS = (640.0, 420.0)
 EXTRAS = 2              # details added to a finished plan, per round, at most
+CALLOUTS = 3            # foreign strokes a team bot calls out per round before it gives up
+SCRIBBLES = 2           # strokes a fixer scribbles out per round, at most
 NAMES = ["Pip", "Mo", "Zed", "Lou", "Kit", "Bea", "Ash", "Rue", "Tam", "Jo"]
 COLORS = ["#1e7b73", "#c0552b", "#5b4fb8", "#b8892f", "#a3326f", "#2f7fb8", "#5f8a2f", "#8a4a2f", "#2f8a7a", "#7a2f8a"]
 LINES = dict(claim=["{part}!", "I'll do this bit", "on it", "mine", "watch this"], confused=["wait, where is it?", "is that the {word}?", "hm", "which way is up?", "ok ok"],
              fix=["that's not where it goes", "let me fix that", "no no, like this", "moving it"], copy=["same", "like that?", "me too", "copying you"],
              solo=["I'll just draw my own", "doing it my way", "mine's better", "another {word}"], misheard=["{word}? I heard {other}", "oh. {other}, right?", "drawing a {other}"],
-             leave=["gotta go, have fun!", "people are here, bye", "I'll make room", "later!"], join=["hi!", "hello everyone", "what are we drawing?", "I'm here"])
+             leave=["gotta go, have fun!", "people are here, bye", "I'll make room", "later!"], join=["hi!", "hello everyone", "what are we drawing?", "I'm here"],
+             foreign=["hey, what's that?", "who drew that?", "that's not a {word}", "excuse me", "stop that", "not there!"], retreat=["oops", "fine, I'll go over here", "ok ok, my corner", "sorry!"],
+             realise=["{word}? oh. {word}!", "ohh, {word}. got it", "wait, {word}? ok joining"], scribble=["nope", "undo!", "that's gone", "fixing this"])
+CORNERS = [(105.0, 95.0), (535.0, 95.0), (105.0, 325.0), (535.0, 325.0)]       # where a solo bot does its own thing
 
 
 @dataclass
@@ -49,8 +54,9 @@ class Stroke:
     bot: str
     t: np.ndarray
     xy: np.ndarray
-    kind: str                   # plan, solo, misheard, copy, fix
+    kind: str                   # plan, extra, solo, misheard, copy, fix, scribble
     source_index: int = -1      # which stroke of the shared plan, for the frame inference and the fixer
+    scribbled: bool = False
 
 
 @dataclass
@@ -72,6 +78,9 @@ class Bot:
     strokes: int = 0
     leaving: bool = False
     bubbles: list = field(default_factory=list)
+    noticed: set = field(default_factory=set)      # foreign strokes this team bot has called out
+    called_out: int = 0                            # times this non-team bot was called out or scribbled over
+    in_corner: bool = False
 
     def say(self, t, kind, **kw):
         line = LINES[kind][int(hash((self.name, len(self.bubbles))) % len(LINES[kind]))].format(**kw)
@@ -90,6 +99,34 @@ def make_bots(n, chaos, rng, personas=None):
         bots.append(Bot(nm, COLORS[i % len(COLORS)], personas[i % len(personas)] if personas else str(rng.choice(list(PERSONAS))), behaviour, skill,
                         stubborn=float(np.clip(rng.normal(0.2 + 0.6 * chaos, 0.2), 0.0, 1.0)), copycat=float(0.25 * chaos * rng.random()), fixer=float(0.35 * chaos * rng.random())))
     return bots
+
+
+def team_box(canvas, margin=20.0):
+    """The box the team's figure occupies so far, grown by a margin; None before the first stroke."""
+    pts = [s.xy for s in canvas if s.kind in ("plan", "extra", "fix")]
+    if not pts:
+        return None
+    a = np.concatenate(pts, 0); return a.min(0) - margin, a.max(0) + margin
+
+
+def inside(box, xy):
+    if box is None:
+        return False
+    c = xy.mean(0); return bool(np.all(c >= box[0]) and np.all(c <= box[1]))
+
+
+def scribble_over(xy, rng):
+    """A zigzag across a stroke's box: the fixer's undo."""
+    lo, hi = xy.min(0) - 4, xy.max(0) + 4; n = int(rng.integers(3, 6)); pts = []
+    for i in range(n + 1):
+        x = lo[0] + (hi[0] - lo[0]) * i / n; pts.append([x, lo[1] if i % 2 == 0 else hi[1]])
+    return np.array(pts, float)
+
+
+def far_corner(anchor, rng, scale):
+    """A frame in the canvas corner farthest from an anchor, at a smaller scale."""
+    c = max(CORNERS, key=lambda c_: np.linalg.norm(np.array(c_) - anchor))
+    return Frame(np.array(c, float) + rng.uniform(-15, 15, 2), scale * rng.uniform(0.5, 0.7))
 
 
 def transplant(plan, donor, rng):
@@ -137,8 +174,10 @@ def run_round(word, bank, bots, chaos, rng, duration=45.0, t0=0.0, frame=None):
         err = (1.0 - b.skill) * np.array([rng.uniform(-110, 110), rng.uniform(-70, 70)])
         b.belief = Frame(frame.anchor + err, frame.scale * float(np.clip(rng.normal(1.0, 0.35 * (1 - b.skill)), 0.5, 1.8)))
         b.own_next = 0; b.strokes = 0; b.free_at = t0 + rng.uniform(0.3, 2.5); b.last_xy = None
+        b.noticed = set(); b.called_out = 0; b.in_corner = False
         if b.behaviour == "solo":
             b.own_word = word; b.own_plan = variation(shareable(word), rng); b.say(b.free_at, "solo", word=word)
+            b.belief = far_corner(b.belief.anchor, rng, frame.scale); b.in_corner = True     # a solo bot takes a corner and does its own thing
         elif b.behaviour == "misheard":
             others = [w for w in bank if w != word]; b.own_word = str(rng.choice(others)); b.own_plan = variation(shareable(b.own_word), rng); b.say(b.free_at, "misheard", word=word, other=b.own_word)
     t_end = t0 + duration
@@ -155,6 +194,25 @@ def run_round(word, bank, bots, chaos, rng, duration=45.0, t0=0.0, frame=None):
                 b.belief = Frame(b.belief.anchor + w * (inf.anchor - b.belief.anchor), b.belief.scale + w * (inf.scale - b.belief.scale))
         action = None
         others = [s for s in canvas if s.bot != b.name]
+        box = team_box(canvas)
+        if b.behaviour == "team":
+            # a foreign stroke inside the team's figure: call it out; a fixer may scribble it out
+            foreign = [(i, s) for i, s in enumerate(canvas) if s.kind in ("solo", "misheard") and i not in b.noticed and inside(box, s.xy)]
+            if foreign and len(b.noticed) < CALLOUTS:
+                i, s = foreign[-1]; b.noticed.add(i)
+                culprit = next((x for x in bots if x.name == s.bot), None)
+                if culprit is not None: culprit.called_out += 1
+                scribbles = sum(1 for x in canvas if x.kind == "scribble" and x.bot == b.name)
+                if b.fixer > 0 and scribbles < SCRIBBLES and rng.random() < min(0.6, b.fixer * 3) and not s.scribbled:
+                    s.scribbled = True; b.say(t, "scribble"); action = ("scribble", scribble_over(s.xy, rng), -1)
+                else:
+                    b.say(t, "foreign", word=word)
+        elif b.called_out and not b.in_corner and rng.random() < (1.0 - b.stubborn):
+            # called out or scribbled over: the misheard bot may realise, the solo bot retreats to a corner
+            if b.behaviour == "misheard" and rng.random() < 0.6:
+                b.say(t, "realise", word=word); b.behaviour = "team"; b.own_plan = None; b.called_out = 0
+            else:
+                b.say(t, "retreat"); b.belief = far_corner(b.belief.anchor, rng, frame.scale); b.in_corner = True; b.called_out = 0
         if b.fixer > 0 and others and rng.random() < b.fixer:
             # a stroke of the plan drawn far from where this bot believes it belongs
             for s in reversed(others[-4:]):

@@ -67,8 +67,9 @@ def main(seed=0):
     X = np.stack([raster(d) for w in WORDS for d in train[w]]); y = [i for i, w in enumerate(WORDS) for _ in train[w]]; knn = KNN(X, y)
     L = ["# Doodle bots: coherence and novelty", "", f"Nearest-neighbour classifier (k = 7, cosine on {G}x{G} bitmaps) over six words, trained on 1500 human doodles per word; test sets of 400 held-out human doodles per word.", ""]
     acc = lambda Q, w: float(np.mean(knn.predict(Q) == WORDS.index(w)))
-    L += ["## Coherence: fraction classified as the word", "", "| word | held-out humans | bank variations | variations drawn by a hand | canvas, chaos 0.15 | chaos 0.5 | chaos 0.85 |", "|---|---|---|---|---|---|---|"]
-    tot = {k: [] for k in ("h", "v", "e", "c15", "c50", "c85")}
+    L += ["## Coherence: fraction classified as the word", "", "The canvas columns score everything on the canvas; the team columns score the team's figure alone (its plan, details, fixes and copies), which is what the VR player builds, leaving out a solo bot's corner figure, a misheard bot's other word and the scribbles.", "",
+          "| word | held-out humans | bank variations | variations drawn by a hand | canvas, chaos 0.15 | chaos 0.5 | chaos 0.85 | team figure, chaos 0.15 | chaos 0.5 | chaos 0.85 |", "|---|---|---|---|---|---|---|---|---|---|"]
+    tot = {k: [] for k in ("h", "v", "e", "c15", "c50", "c85", "t15", "t50", "t85")}
     for w in WORDS:
         H = np.stack([raster(d) for d in test[w]]); a_h = acc(H, w)
         V = [variation(train[w][:400], rng) for _ in range(300)]; a_v = acc(np.stack([raster(d) for d in V]), w)
@@ -76,15 +77,17 @@ def main(seed=0):
         for d in V[:200]:
             ex = execute(d, PERSONAS[str(rng.choice(list(PERSONAS)))], rng); E.append([pts for _, pts in ex])
         a_e = acc(np.stack([raster(d) for d in E]), w)
-        a_c = {}
+        a_c, a_t = {}, {}
         for chaos in (0.15, 0.5, 0.85):
-            C = []
+            C, T = [], []
             for _ in range(60):
                 bots = make_bots(int(rng.integers(3, 6)), chaos, rng); canvas, frame, plan = run_round(w, train, bots, chaos, rng, duration=45.0)
                 if canvas: C.append([s.xy for s in canvas])
-            a_c[chaos] = acc(np.stack([raster(d) for d in C]), w)
-        L.append(f"| {w} | {a_h:.2f} | {a_v:.2f} | {a_e:.2f} | {a_c[0.15]:.2f} | {a_c[0.5]:.2f} | {a_c[0.85]:.2f} |")
-        for k, v in zip(tot, (a_h, a_v, a_e, a_c[0.15], a_c[0.5], a_c[0.85])): tot[k].append(v)
+                team = [s.xy for s in canvas if s.kind in ("plan", "extra", "fix", "copy")]
+                if team: T.append(team)
+            a_c[chaos] = acc(np.stack([raster(d) for d in C]), w); a_t[chaos] = acc(np.stack([raster(d) for d in T]), w)
+        L.append(f"| {w} | {a_h:.2f} | {a_v:.2f} | {a_e:.2f} | {a_c[0.15]:.2f} | {a_c[0.5]:.2f} | {a_c[0.85]:.2f} | {a_t[0.15]:.2f} | {a_t[0.5]:.2f} | {a_t[0.85]:.2f} |")
+        for k, v in zip(tot, (a_h, a_v, a_e, a_c[0.15], a_c[0.5], a_c[0.85], a_t[0.15], a_t[0.5], a_t[0.85])): tot[k].append(v)
     L.append("| **mean** | " + " | ".join(f"{np.mean(tot[k]):.2f}" for k in tot) + " |"); L.append("")
     # novelty
     L += ["## Novelty: distance to the nearest bank doodle, and spread", "", "| word | held-out human to bank | variation to bank (own source excluded) | hand-drawn variation to bank | spread of 20 variations of one source | spread of 20 human doodles |", "|---|---|---|---|---|---|"]

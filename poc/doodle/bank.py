@@ -20,8 +20,10 @@ WORDS = ("house", "cat", "bicycle", "tree", "sun", "fish")
 BOX = 256.0
 
 
-def load_word(word, n=None, recognized_only=True, skip=0):
-    """Doodles of a word: a list of drawings, each a list of (K, 2) float arrays in the 256 box."""
+def load_word(word, n=None, recognized_only=True, skip=0, with_ids=False, only_ids=None):
+    """Doodles of a word: a list of drawings, each a list of (K, 2) float arrays in the 256 box; with
+    `with_ids`, (key_id, drawing) pairs; with `only_ids`, only the curated doodles (the stars from the
+    live tool, poc/results/doodle_curated.json)."""
     out, seen = [], 0
     with open(DATA / f"{word}.ndjson") as f:
         for line in f:
@@ -33,9 +35,9 @@ def load_word(word, n=None, recognized_only=True, skip=0):
                 continue
             strokes = [np.stack([np.asarray(s[0], float), np.asarray(s[1], float)], 1) for s in r["drawing"]]
             strokes = [s for s in strokes if len(s) >= 1]
-            if not strokes:
+            if not strokes or (only_ids is not None and r["key_id"] not in only_ids):
                 continue
-            out.append(centre(strokes))
+            out.append((r["key_id"], centre(strokes)) if with_ids else centre(strokes))
             if n and len(out) >= n:
                 break
     return out
@@ -56,5 +58,8 @@ def stroke_length(s):
     return float(np.linalg.norm(np.diff(s, axis=0), axis=1).sum()) if len(s) > 1 else 0.0
 
 
-def load_bank(words=WORDS, n=400, skip=0):
-    return {w: load_word(w, n, skip=skip) for w in words}
+def load_bank(words=WORDS, n=400, skip=0, curated=None):
+    """The bank; with `curated` (a path to the live tool's stars, {word: [key_id, ...]}), a word with any
+    stars uses only its starred doodles."""
+    stars = json.load(open(curated)) if curated and Path(curated).exists() else {}
+    return {w: load_word(w, n if not stars.get(w) else None, skip=skip, only_ids=set(stars[w]) if stars.get(w) else None) for w in words}

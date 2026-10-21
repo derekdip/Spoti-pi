@@ -45,12 +45,23 @@ Variation comes from causes, not from the paths:
   back as details to add once the figure stands.
 - **Chaos as a knob** in [0, 1]: it sets how wrong beliefs start, how
   stubborn bots are, the share of bots that are not team (solo: their
-  own variation of the word in their own frame; misheard: a variation
-  of another word), and two traits any bot can have, copycat
-  (retraces a stroke someone just drew) and fixer (redraws another
-  bot's stroke where its own belief says it belongs). Bots speak
-  short lines at their events ("I'll do the roof", "wait, where is
-  it?", "that's not where it goes", "house? I heard cat").
+  own variation of the word, in a corner of the canvas at a smaller
+  scale, doing their own thing; misheard: a variation of another
+  word, drawn where the figure is because they think they are
+  helping), and two traits any bot can have, copycat (retraces a
+  stroke someone just drew) and fixer (redraws another bot's stroke
+  where its own belief says it belongs). Bots speak short lines at
+  their events ("I'll do the roof", "wait, where is it?", "that's not
+  where it goes", "house? I heard cat").
+- **Interference is a scene, not a shrug.** A stroke that lands inside
+  the team's figure from a bot that is not on the team gets called out
+  by the next team bot to notice ("who drew that?", "that's not a
+  house"); a fixer may scribble it out, at most twice a round; the
+  culprit, if not too stubborn, retreats to a corner ("fine, I'll go
+  over here"), and a misheard bot may realise instead ("cat? oh,
+  house!") and join the team. Team bots give up calling out after
+  three, so a stubborn intruder becomes the running joke rather than
+  a wall of complaints.
 - **The room**: eight seats, one VR and seven web. Bots fill the web
   seats to four when the room is empty, stay as the first people
   arrive (company), and leave one by one, at the end of the current
@@ -67,11 +78,15 @@ cat, bicycle, tree, sun, fish; k = 7 on 32 by 32 bitmaps) trained on
 ceiling), to bank variations, to variations drawn by a hand, and to
 whole collaborative canvases at three chaos levels.
 
-| | held-out humans | bank variations | drawn by a hand | canvas, chaos 0.15 | chaos 0.5 | chaos 0.85 |
-|---|---|---|---|---|---|---|
-| classified as the word, mean of six | 0.90 | 0.88 | 0.86 | 0.79 | 0.55 | 0.37 |
-| worst word | sun 0.76 | sun 0.73 | sun 0.70 | sun 0.60 | sun 0.18 | sun 0.03 |
-| best word | tree 0.98 | bicycle 0.95 | bicycle 0.96 | tree 0.95 | tree 0.98 | tree 0.88 |
+| | held-out humans | bank variations | drawn by a hand | whole canvas, chaos 0.15 | 0.5 | 0.85 | team's figure, chaos 0.15 | 0.5 | 0.85 |
+|---|---|---|---|---|---|---|---|---|---|
+| classified as the word, mean of six | 0.90 | 0.89 | 0.87 | 0.76 | 0.49 | 0.31 | 0.79 | 0.59 | 0.39 |
+| worst word | sun 0.76 | sun 0.74 | sun 0.72 | sun 0.60 | sun 0.18 | sun 0.03 | sun 0.62 | sun 0.23 | sun 0.03 |
+| best word | tree 0.98 | bicycle 0.95 | bicycle 0.96 | bicycle 0.90 | bicycle 0.77 | tree 0.67 | tree 0.93 | tree 0.92 | tree 0.78 |
+
+The whole-canvas columns score everything, a solo bot's corner figure
+and the scribbles included; the team's-figure columns score what the
+team drew, which is what the VR player builds.
 
 Novelty: a variation's distance to its nearest bank doodle (its own
 source and donors excluded) equals a fresh human doodle's (0.74
@@ -82,9 +97,9 @@ distance, which saturates for anything not near-identical, so it says
 only that they are not near-identical.
 
 Reading: a bot's single drawing is as recognisable as a fresh
-person's and as new. A team at low chaos keeps most of that (0.79);
-the chaos knob takes it down to 0.55 and 0.37, which is the knob
-doing its job. Two defects were found and fixed on the way, by
+person's and as new. A team at low chaos keeps most of that (0.79 on
+its figure); the chaos knob takes it down to 0.59 and 0.39, which is
+the knob doing its job. Two defects were found and fixed on the way, by
 measuring each factor in turn (`poc/doodle/bots.py` carries the
 notes): details transplanted from other doodles cost up to a third
 of the coherence, so details are now the plan's own held-back
@@ -93,6 +108,23 @@ a third of four-bot rounds with a second figure, so it now grows with
 the square of chaos. The sun and the fish stay the fragile words: a
 sun is a circle with rays and a misplaced ray is a different thing;
 these are also the words the classifier is worst at on people.
+
+## The studio: a tool for the stream
+
+`poc/results/doodle-bots-live.html` (built by `export_live.py` and
+`build_live.py` from `live_template.html`) runs the whole simulation
+in the browser, so a round can be configured and watched live with
+no Python: word, number of bots, chaos, round length, speed, a seed
+that reproduces a round, and per-bot persona and behaviour (auto,
+team, solo in a corner, misheard). "+ person joins" and "− person
+leaves" drive the room rule live: a bot finishes its stroke, says
+bye and greys out. The Bank tab shows 300 doodles per word as
+thumbnails; starring a doodle keeps it (in this browser) and, when
+any doodle of a word is starred, the bots draw that word only from
+the stars. "Copy stars as JSON" gives the list; saved as
+`poc/results/doodle_curated.json`, `bank.load_bank(curated=...)` makes
+the Python side use the same picks. The configuration the stream
+needs is therefore a set of stars per word, a chaos level and a seed.
 
 ## What this does not do, and what it needs from the game
 
@@ -128,9 +160,10 @@ these are also the words the classifier is worst at on people.
 ## Files
 
 - `poc/doodle/bank.py`, `edits.py`, `hand.py`, `bots.py`,
-  `evaluate.py`, `export_web.py`, `build_web.py`,
-  `web_template.html`.
+  `evaluate.py`; the recorded-session viewer `export_web.py`,
+  `build_web.py`, `web_template.html`; the studio `export_live.py`,
+  `build_live.py`, `live_template.html`.
 - `poc/results/doodle_bank/<word>.ndjson`: the first 4000 records of
   six words from the public bucket (`gs://quickdraw_dataset/full/simplified/`).
 - `poc/results/doodle_eval.md`, `doodle_sessions.json`,
-  `doodle-bots.html`.
+  `doodle-bots.html`, `doodle_live_bank.json`, `doodle-bots-live.html`.
