@@ -1,0 +1,44 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[20:38:21] world: 32 train and 32 held-out probes, state dim 2048 (33s)
+[20:38:24] planted rank 2 on v@7 at scale 0.5: distance base to target 0.039 (held-out 0.024)
+[20:38:26] planted rank 2 on v@7 at scale 1.0: distance base to target 0.076 (held-out 0.047)
+[20:38:27] planted rank 2 on v@7 at scale 2.0: distance base to target 0.145 (held-out 0.092)
+[20:38:29] planted rank 2 on fc@7 at scale 0.5: distance base to target 0.020 (held-out 0.016)
+[20:38:31] planted rank 2 on fc@7 at scale 1.0: distance base to target 0.041 (held-out 0.032)
+[20:38:33] planted rank 2 on fc@7 at scale 2.0: distance base to target 0.083 (held-out 0.064)
+E1030 20:39:11.954704    2583 slow_operation_alarm.cc:74] Constant folding an instruction is taking > 1s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1430), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+E1030 20:39:12.425272    2552 slow_operation_alarm.cc:141] The operation took 1.470852468s
+Constant folding an instruction is taking > 1s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1430), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[20:40:01] rank-2 student lr 0.001  15 steps: D 0.0519 D_held 0.0481 s 2.51e-01 (86s)
+E1030 20:40:22.139418    2583 slow_operation_alarm.cc:74] Constant folding an instruction is taking > 2s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1430), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+E1030 20:40:22.198578    2552 slow_operation_alarm.cc:141] The operation took 2.059355087s
+Constant folding an instruction is taking > 2s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1430), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[20:41:13] rank-2 student lr 0.001  30 steps: D 0.0385 D_held 0.0467 s 3.13e-01 (72s)
+[20:42:59] rank-2 student lr 0.001  60 steps: D 0.0236 D_held 0.0456 s 6.78e-02 (106s)
+[20:45:34] rank-2 student lr 0.001 120 steps: D 0.0147 D_held 0.0438 s 4.75e-02 (155s)
+[20:46:23] rank-2 student lr 0.003  15 steps: D 0.0368 D_held 0.0468 s 3.91e-01 (49s)
+[20:47:17] rank-2 student lr 0.003  30 steps: D 0.0251 D_held 0.0448 s 2.47e-01 (54s)
