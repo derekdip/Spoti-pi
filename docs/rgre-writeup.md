@@ -506,6 +506,28 @@ I got wrong running it, and where it is recorded.
     physics, and no edit of the crawl reaches it: an absence, not a
     switch (`math-track-g14-results.md`).
 
+30. **The decision rule holds on a model, and two of its instruments
+    are not the ones doing the work.** ED1 ran ECS-Decision v1,
+    unchanged in structure, on a small transformer whose
+    representation grows by adapters, with every case's right action
+    planted. All eight actions right, the equivalent syntaxes told
+    from the distinct ones, each ablated layer losing the cases it
+    was for, the misspecification sweep turning STOP into EXPAND
+    where the deployment bar says so. Three of the handoff's
+    proposals were replaced before the freeze with the reason
+    written: a LoRA pair's exact gauge makes the literal smallest
+    singular value zero everywhere, a budgeted optimiser is never
+    stationary to the precision an exact solver is, and the
+    matched-dimension equivalence tolerances read the
+    parameterisation and fail the handoff's own equivalent pair
+    while containment on the full novel spans holds it. What the
+    run adds: the first-order proposal score ranks the planted
+    module third on one case and a beam of three carried it, so the
+    full fit decides and the score only nominates; and with every
+    fitted student indefinite, the saddle is told from exhaustion by
+    the bounded budget and not by the curvature test
+    (`math-track-ed1-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
