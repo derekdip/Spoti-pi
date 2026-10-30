@@ -1,0 +1,24 @@
+[06:47:22] base step 500 loss 1.861
+[06:47:35] base step 1000 loss 1.846
+[06:47:47] base step 1500 loss 1.805
+[06:48:15] reuse: D 0.284 s 2.39e-03 D_held 0.297
+[06:48:20]   joint fit with wv@0 (256 params added): D_train 0.008 D_held 0.012
+[06:48:26]   joint fit with wo@0 (256 params added): D_train 0.011 D_held 0.016
+[06:48:31]   joint fit with w2@1 (384 params added): D_train 0.134 D_held 0.274
+[06:48:36]   joint fit with w1@1 (384 params added): D_train 0.120 D_held 0.230
+[06:48:41]   joint fit with out_bias (16 params added): D_train 0.261 D_held 0.288
+[06:48:47]   joint fit with fallback (1808 params added): D_train 0.008 D_held 0.024
+[06:49:12] extend: D 0.207 s 1.56e-02 D_held 0.241
+[06:49:17]   joint fit with wv@0 (256 params added): D_train 0.158 D_held 0.243
+[06:49:21]   joint fit with wo@0 (256 params added): D_train 0.156 D_held 0.243
+[06:49:26]   joint fit with w2@1 (384 params added): D_train 0.011 D_held 0.023
+[06:49:31]   joint fit with w1@1 (384 params added): D_train 0.058 D_held 0.165
+[06:49:35]   joint fit with out_bias (16 params added): D_train 0.191 D_held 0.235
+[06:49:40]   joint fit with fallback (1808 params added): D_train 0.009 D_held 0.050
+[06:50:03] noise: D 0.444 s 5.11e-03 D_held 0.465
+[06:50:08]   joint fit with wv@0 (256 params added): D_train 0.431 D_held 0.487
+[06:50:12]   joint fit with wo@0 (256 params added): D_train 0.430 D_held 0.486
+[06:50:17]   joint fit with w2@1 (384 params added): D_train 0.419 D_held 0.547
+[06:50:21]   joint fit with w1@1 (384 params added): D_train 0.408 D_held 0.541
+[06:50:25]   joint fit with out_bias (16 params added): D_train 0.442 D_held 0.468
+[06:50:30]   joint fit with fallback (1808 params added): D_train 0.363 D_held 0.628
