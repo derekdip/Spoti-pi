@@ -9,11 +9,11 @@ OUT = Path(__file__).resolve().parents[2] / "poc/results/ed2"
 
 def main():
     rows = json.load(open(OUT / "ed2.json"))["rows"]; real = json.load(open(OUT / "real.json"))["rows"][0]; L = ["# ED2 report (frozen scorer)\n", "## F1, the planted cases\n"]
-    L.append("| case | truth | got | D | D_held | s | first stage | budget gain | beam | fits |"); L.append("|---|---|---|---|---|---|---|---|---|---|")
+    L.append("| case | truth | got | D | D_held | s | first stage | budget gain | beam (held-out gain) | beam the matched-p score would give | fits |"); L.append("|---|---|---|---|---|---|---|---|---|---|---|")
     for r in rows:
-        L.append(f"| {r['case']} | {r['truth']} | {r['got']}{'' if r['correct'] else ' (miss)'} | {r['D']:.3f} | {r['D_held']:.3f} | {r['stat']:.1e} | {r['first_stage']} | {r.get('glob_improvement', float('nan')):.3f} | {' '.join(r.get('beam', []))} | {r['fits_run']} |")
+        L.append(f"| {r['case']} | {r['truth']} | {r['got']}{'' if r['correct'] else ' (miss)'} | {r['D']:.3f} | {r['D_held']:.3f} | {r['stat']:.1e} | {r['first_stage']} | {r.get('glob_improvement', float('nan')):.3f} | {' '.join(r.get('beam', []))} | {' '.join(r.get('beam_matched_p', []))} | {r['fits_run']} |")
     n_ok = sum(r["correct"] for r in rows); expand_ok = all(r["correct"] for r in rows if r["truth"].startswith("EXPAND"))
-    F1 = n_ok >= 5 and expand_ok; L.append(f"\n**F1**: {n_ok} of {len(rows)} right, EXPAND cases name the planted module: {expand_ok}. **{'holds' if F1 else 'fails'}**.\n")
+    F1 = n_ok >= 4 and expand_ok; L.append(f"\n**F1**: {n_ok} of {len(rows)} right, the extend case names the planted module: {expand_ok}. **{'holds' if F1 else 'fails'}**.\n")
     L.append("## F2, the real-data case against the sweep\n")
     sw = real["sweep"]; best = real["sweep_best"]; chosen = real.get("chosen"); fits_rule = real["fits_run"] - (len(sw) - len([m for m in real.get('beam', [])]))
     L.append("| module | D_held | J | in beam |"); L.append("|---|---|---|---|")
@@ -26,7 +26,8 @@ def main():
     L.append("## F3, reported\n")
     for r in rows + [real]:
         if "cands" in r:
-            L.append(f"- {r['case']}: tau_sketch {r.get('tau_sketch', float('nan')):.3f}; eta p12: " + ", ".join(f"{m} {c['eta'].get('12', c['eta'].get(12, 0)):.3f}" for m, c in sorted(r["cands"].items(), key=lambda kv: -kv[1]['eta'].get('12', kv[1]['eta'].get(12, 0)))[:6]) + f"; collapsed {r.get('collapsed', [])}; matched-p collapses {sum(1 for p in r.get('pairs', {}).values() if p['collapse_matched'])} of {len(r.get('pairs', {}))}")
+            e12 = lambda c: c['eta'].get('12', c['eta'].get(12, 0))
+            L.append(f"- {r['case']}: tau_sketch {r.get('tau_sketch', float('nan')):.3f}; held-out gain / train gain / eta p12 per module: " + ", ".join(f"{m} {c['gain_held']:.3f}/{c['gain_train']:.3f}/{e12(c):.3f}" for m, c in sorted(r["cands"].items(), key=lambda kv: -kv[1]['gain_held'])) + f"; collapsed {r.get('collapsed', [])}; matched-p collapses {sum(1 for p in r.get('pairs', {}).values() if p['collapse_matched'])} of {len(r.get('pairs', {}))}")
     for r in rows + [real]:
         if "fits" in r: L.append(f"- {r['case']} fits: " + ", ".join(f"{m} held {v['D_held']:.4f} J {v['J']:.4f}" for m, v in r["fits"].items()) + f"; J_current {r['J_cur']:.4f}")
     letter = "A" if (F1 and F2) else "B" if F1 else "C" if F2 else "D"

@@ -151,7 +151,29 @@ in the pilot section). ED1 tested reuse with exact geometry.
 
 `poc/results/ed2/config.json`, committed with this document.
 
-VALUES_TABLE
+| quantity | value | source |
+|---|---|---|
+| `eps_g` | 0.5 | pilot: the student after 10 percent of the budget sits at `s` 0.87 to 0.88; students fitted to the budget at 0.17 to 0.23, at twice the budget 0.04; a budgeted Adam run on this model is not stationary to better than a tenth, so the threshold sits between the start of a fit and its end |
+| `D_max` | 0.015 | pilot: the adequate student (twice the budget on its own teacher) at 0.0071, the extend student at 0.049, the refine student at 0.17; a factor 2.1 below and 3.3 above |
+| `eps_H` | `1e-6 ||H_F||` | relative, as in ED1, loosened for float32 |
+| budget | 2 multistarts at scale 0.02, better = 10 percent of `F` | pilot: the budget found 0.0 percent on the extend student; two is the cost this machine allows |
+| tangent sketch | 16 directions | one JVP each |
+| candidate sketch | 8 directions, one subspace iteration | for the reported matched-`p` score |
+| linearised fit | 30 Adam steps at 3e-3, rank 2 | pilot: train gains 0.65 to 0.88, held-out gains -0.33 to 0.37 on the extend case |
+| ranking | held-out gain | see the rule, item 6 |
+| beam | 3 | the handoff's value |
+| candidate rank | 2 | the teachers' rank |
+| equivalence | containment 0.95 both ways on the sketched spans | as ED1; expected to fire on nothing |
+| `lambda_s` | 1e-7 per parameter | a candidate's 3072 to 7680 parameters cost 0.0003 to 0.0008 and the fallback's 55k cost 0.0055, against held-out distortions of a few hundredths |
+| spent | 1 percent | the repository's rule |
+| fit | 60 Adam steps at 3e-3 | pilot: 60 steps brings a student to `D` 0.017 on its own teacher from 0.21; 120 to 0.007; a fit is 50 to 70 seconds |
+| teachers | 10 steps at 3e-3 on the training probes' next tokens, doubled | pilot: base to target 0.21 to 0.49 on the training probes, 0.05 to 0.06 held out |
+| refine fraction | 10 percent (6 steps) | pilot: `D` 0.17, `s` 0.88 |
+| adequate | twice the budget | pilot: `D` 0.0071 |
+| noise case | 0.5 of the state's rms | the base plus independent noise on each probe set |
+| probes | 48 and 48 for the planted cases, 96 and 96 for the real-data case; 16-token contexts; support 256 | memory and time |
+| library | `v, o, fc, proj` at layers 3, 7, 11 | 12 syntaxes; the planted module among them |
+| worlds | seed 1 (planted), seed 2 (real) | the pilot is seed 0 |
 
 ## The declared pilot
 

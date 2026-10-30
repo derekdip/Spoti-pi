@@ -224,7 +224,8 @@ def pilot3():
 
 
 def run(mode):
-    cfg = json.load(open(OUT / "config.json")); SK.TH.update(cfg["thresholds"]); T0 = time.time(); out = dict(rows=[])
+    global LIBRARY
+    cfg = json.load(open(OUT / "config.json")); SK.TH.update(cfg["thresholds"]); LIBRARY = list(cfg["library"]); T0 = time.time(); out = dict(rows=[])
     if mode == "run":
         W = make_world(cfg["seed"], cfg["n_probe"], cfg["n_probe"])
         for i, name in enumerate(("refine", "saddle", "extend", "noise", "adequate")):
@@ -232,7 +233,6 @@ def run(mode):
         fn = "ed2.json"
     else:
         W = make_world(cfg["seed"] + 1, cfg["n_probe_real"], cfg["n_probe_real"]); rec = run_case("real", W, jax.random.PRNGKey(2000), cfg)
-        if rec["action"] == "EXPAND": rec["nll_held"]["chosen"] = None
         out["rows"].append(rec); fn = "real.json"
     out["seconds"] = time.time() - T0
     json.dump(out, open(OUT / fn, "w"), indent=1, default=lambda o: float(o) if isinstance(o, (np.floating, np.integer)) else str(o)); log(f"done -> {fn} in {out['seconds']:.0f}s")
