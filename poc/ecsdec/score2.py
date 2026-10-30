@@ -18,8 +18,8 @@ def main():
     sw = real["sweep"]; best = real["sweep_best"]; chosen = real.get("chosen"); fits_rule = real["fits_run"] - (len(sw) - len([m for m in real.get('beam', [])]))
     L.append("| module | D_held | J | in beam |"); L.append("|---|---|---|---|")
     for m, v in sorted(sw.items(), key=lambda kv: kv[1]["J"]): L.append(f"| {m}{' (sweep best)' if m == best else ''}{' (chosen)' if m == chosen else ''} | {v['D_held']:.4f} | {v['J']:.4f} | {'yes' if m in real.get('beam', []) else ''} |")
-    fb = real["fits"]["fallback"]; L.append(f"| fallback | {fb['D_held']:.4f} | {fb['J']:.4f} | |"); L.append(f"| current | {real['D_held']:.4f} | {real['J_cur']:.4f} | |")
-    J_best = sw[best]["J"]; J_chosen = sw[chosen]["J"] if chosen in sw else (fb["J"] if chosen == "fallback" else real["J_cur"])
+    fb = real["fits"]["base"]; am = real["fits"]["all_modules"]; L.append(f"| base (the fallback) | {fb['D_held']:.4f} | {fb['J']:.4f} | |"); L.append(f"| all modules (reported) | {am['D_held']:.4f} | {am['J']:.4f} | |"); L.append(f"| current | {real['D_held']:.4f} | {real['J_cur']:.4f} | |")
+    J_best = sw[best]["J"]; J_chosen = sw[chosen]["J"] if chosen in sw else (fb["J"] if chosen == "base" else real["J_cur"])
     F2 = real["action"] in ("EXPAND", "FALLBACK") and J_chosen <= J_best * (1 + 0.01) + 1e-12
     L.append(f"\nAction {real['got']}; the sweep's best is {best} (J {J_best:.4f}); the rule's choice scores J {J_chosen:.4f}. Fits: rule {fits_rule} (budget plus beam plus fallback), sweep {len(sw)} plus the fallback. Held-out NLL: {real.get('nll_held')}.")
     L.append(f"\n**F2**: the rule's choice is within 1 percent of the sweep's best deployment objective: **{'holds' if F2 else 'fails'}**.\n")

@@ -147,7 +147,8 @@ def decide(world, fam, theta, x, x_held, cands, key, steps, lr, log=print, sweep
     """The rule on a world: world.G(fam, extra) builds (theta, P) -> training state, world.Gh the held-out
     state, world.delta_products(extra, library) gives the dense-delta JVP and VJP per module, world.shape_of,
     world.P the weights passed to every jitted program as a runtime argument. `cands` is a list of
-    module keys; the fallback is rank-cand_rank adapters on every candidate module. With sweep=True every candidate
+    module keys; the fallback of the decision is the base model (no adapter); the all-modules adapter is
+    fitted and reported. With sweep=True every candidate
     is fitted in full as well (the comparison the real-data case needs) and recorded under 'sweep'."""
     ks = jax.random.split(key, 8); G = world.G(fam); C = world.P; rec = dict(n_theta=int(theta.shape[0]), fits_run=0)
     st = stationarity(G, x, theta, ks[0], C); r = st["r"]; rec.update(D=normD(x, x - r), stat=st["stat"], smax=st["smax"], grad_norm=st["grad_norm"])
@@ -188,11 +189,12 @@ def decide(world, fam, theta, x, x_held, cands, key, steps, lr, log=print, sweep
         log(f"  fit {name}: D_train {fits[name]['D_train']:.4f} D_held {Dh:.4f} J {fits[name]['J']:.4f}")
     rk = TH["cand_rank"]
     for i, m in enumerate(beam): joint(m, [(m, rk)], jax.random.fold_in(ks[5], i))
-    joint("fallback", [(m, rk) for m in cands], ks[6])
-    rec["fits"] = fits; rec["J_cur"] = J_cur
+    joint("all_modules", [(m, rk) for m in cands], ks[6])
+    fits["base"] = dict(D_train=normD(x, world.base_state("tr")), D_held=normD(x_held, world.base_state("ho")), J=deployment(normD(x_held, world.base_state("ho")), 0), params=0)
+    rec["fits"] = fits; rec["J_cur"] = J_cur; J_fb = fits["base"]["J"]                           # the fallback is the base model: no adapter
     best_m = min(beam, key=lambda m: fits[m]["J"]) if beam else None
-    if best_m is not None and fits[best_m]["J"] < (1 - TH["spent"]) * J_cur and fits[best_m]["J"] <= fits["fallback"]["J"]: rec.update(action="EXPAND", chosen=best_m)
-    else: rec.update(action="FALLBACK", chosen="fallback" if fits["fallback"]["J"] < (1 - TH["spent"]) * J_cur else "current")
+    if best_m is not None and fits[best_m]["J"] < (1 - TH["spent"]) * J_cur and fits[best_m]["J"] <= J_fb: rec.update(action="EXPAND", chosen=best_m)
+    else: rec.update(action="FALLBACK", chosen="base" if J_fb < (1 - TH["spent"]) * J_cur else "current")
     if sweep:
         rec["sweep"] = {}
         for i, m in enumerate(cands):

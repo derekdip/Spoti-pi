@@ -40,19 +40,25 @@ def corpus(seed, n_tr, n_ho, tok):
 
 class World:
     """Probe sets, support sets and the state functions. Every state function takes the weights P as an
-    argument so that jitted programs built on it receive P at run time (never folded in as constants)."""
-    def __init__(self, P, toks_tr, toks_ho):
-        self.P = P; self.shape_of = GM.shape_of
-        f = jax.jit(lambda P, t: jax.nn.softmax(GM.forward(P, t)[:, -1, :], -1))
-        self.toks = dict(tr=jnp.asarray(toks_tr[:, :CTX]), ho=jnp.asarray(toks_ho[:, :CTX])); self.nxt = dict(tr=toks_tr[:, CTX], ho=toks_ho[:, CTX]); self.idx = {}
+    argument so that jitted programs built on it receive P at run time (never folded in as constants).
+    positions="last": the state is each context's last-position distribution (the planted cases);
+    positions="all": every position's distribution, each on its own support (the real-data case)."""
+    def __init__(self, P, toks_tr, toks_ho, positions="last"):
+        self.P = P; self.shape_of = GM.shape_of; self.positions = positions
+        sl = (lambda a: a[:, -1:, :]) if positions == "last" else (lambda a: a)
+        f = jax.jit(lambda P, t: jax.nn.softmax(sl(GM.forward(P, t)), -1))
+        self.toks = dict(tr=jnp.asarray(toks_tr[:, :CTX]), ho=jnp.asarray(toks_ho[:, :CTX]))
+        self.nxt = dict(tr=toks_tr[:, CTX:CTX + 1] if positions == "last" else toks_tr[:, 1:CTX + 1], ho=toks_ho[:, CTX:CTX + 1] if positions == "last" else toks_ho[:, 1:CTX + 1]); self.idx = {}
         for s in ("tr", "ho"):
-            p = np.asarray(f(P, self.toks[s])); idx = np.argsort(-p, 1)[:, :SUPPORT]
-            for i in range(len(idx)):
-                if self.nxt[s][i] not in idx[i]: idx[i, -1] = self.nxt[s][i]
+            p = np.asarray(f(P, self.toks[s])); idx = np.argsort(-p, -1)[..., :SUPPORT]
+            for i in range(idx.shape[0]):
+                for j in range(idx.shape[1]):
+                    if self.nxt[s][i, j] not in idx[i, j]: idx[i, j, -1] = self.nxt[s][i, j]
             self.idx[s] = jnp.asarray(idx)
-        self.base = {s: np.asarray(self._state(s, {}, P)) for s in ("tr", "ho")}
+        self._sl = sl; self.base = {s: np.asarray(self._state(s, {}, P)) for s in ("tr", "ho")}
+    def base_state(self, s): return self.base[s]
     def _state(self, s, deltas, P):
-        p = jax.nn.softmax(GM.forward(P, self.toks[s], deltas)[:, -1, :], -1); return jnp.take_along_axis(p, self.idx[s], 1).reshape(-1)
+        p = jax.nn.softmax(self._sl(GM.forward(P, self.toks[s], deltas)), -1); return jnp.take_along_axis(p, self.idx[s], -1).reshape(-1)
     def _G(self, s, fam, extra):
         def G(theta, P):
             d = SK.deltas_of(fam, theta, self.shape_of)
@@ -78,11 +84,13 @@ class World:
         return jvp, vjp
     def onehot(self, s):
         idx = np.asarray(self.idx[s]); x = np.zeros(idx.shape, np.float32)
-        for i in range(len(idx)): x[i, np.where(idx[i] == self.nxt[s][i])[0][0]] = 1.0
+        for i in range(idx.shape[0]):
+            for j in range(idx.shape[1]): x[i, j, np.where(idx[i, j] == self.nxt[s][i, j])[0][0]] = 1.0
         return jnp.asarray(x.reshape(-1))
     def nll(self, s, fam, theta):
-        d = SK.deltas_of(fam, theta, self.shape_of); lp = jax.nn.log_softmax(jax.jit(GM.forward)(self.P, self.toks[s], d)[:, -1, :], -1)
-        return float(-lp[jnp.arange(len(self.nxt[s])), jnp.asarray(self.nxt[s])].mean())
+        """Held-out cross-entropy on the full vocabulary over the positions the state covers."""
+        d = SK.deltas_of(fam, theta, self.shape_of); lp = jax.nn.log_softmax(self._sl(jax.jit(GM.forward)(self.P, self.toks[s], d)), -1)
+        return float(-jnp.take_along_axis(lp, jnp.asarray(self.nxt[s])[..., None], -1).mean())
 
 
 def planted(key, module, rank, scale):
@@ -140,8 +148,8 @@ def run_case(name, W, key, cfg):
     return rec
 
 
-def make_world(seed, n_tr, n_ho):
-    P = GM.load_params(); tok = GM.tokenizer(); tr, ho = corpus(seed, n_tr, n_ho, tok); return World(P, tr, ho)
+def make_world(seed, n_tr, n_ho, positions="last"):
+    P = GM.load_params(); tok = GM.tokenizer(); tr, ho = corpus(seed, n_tr, n_ho, tok); return World(P, tr, ho, positions)
 
 
 def pilot():
@@ -223,6 +231,24 @@ def pilot3():
     log(f"pilot3 done in {time.time() - T0:.0f}s")
 
 
+def pilot4():
+    """The fourth declared pilot block: the real-data case with every position as a target."""
+    T0 = time.time(); W2 = make_world(1, 96, 96, "all"); x, xh = W2.onehot("tr"), W2.onehot("ho"); f = [("v@7", 2)]
+    log(f"real world (all positions): state dim {x.size}, base D {SK.normD(x, W2.base['tr']):.4f} held {SK.normD(xh, W2.base['ho']):.4f} nll_held {W2.nll('ho', [], jnp.zeros(0)):.3f} ({time.time() - T0:.0f}s)")
+    for lr in (1e-3, 3e-3):
+        t = time.time(); th = student(W2, f, x, jax.random.PRNGKey(5), 60, lr); st = SK.stationarity(W2.G(f), x, th, jax.random.PRNGKey(1), W2.P)
+        log(f"real student rank-2 v@7 lr {lr}: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W2.Gh(f)(th, W2.P)):.4f} s {st['stat']:.2e} nll_held {W2.nll('ho', f, th):.3f} ({time.time() - t:.0f}s)")
+    th = student(W2, f, x, jax.random.PRNGKey(5), 60, 3e-3); t = time.time(); cv = SK.curvature(W2.G(f), x, th, jax.random.PRNGKey(2), W2.P); log(f"  lam_min {cv['lam_min']:.2e} |H| {cv['hnorm']:.2e} ({time.time() - t:.0f}s)")
+    st = SK.stationarity(W2.G(f), x, th, jax.random.PRNGKey(1), W2.P); Q_T = SK.tangent_sketch(W2.G(f), th, jax.random.PRNGKey(3), W2.P); r = st["r"].astype(np.float64); r_perp = r - Q_T @ (Q_T.T @ r)
+    r_held = np.asarray(xh) - np.asarray(W2.Gh(f)(th, W2.P)); extra = SK.deltas_of(f, th, W2.shape_of); jvp_d, vjp_d = W2.delta_products(extra, LIBRARY); jvp_h, _ = W2.delta_products(extra, LIBRARY, "ho")
+    for i, m in enumerate(("fc@11", "v@3", "proj@7")):
+        t = time.time(); c = SK.linearised_gain(jvp_d, vjp_d, jvp_h, m, W2.shape_of(m), 2, r_perp, r_held, jax.random.PRNGKey(100 + i)); log(f"  real {m}: gain train {c['gain_train']:.3f} held {c['gain_held']:.3f} ({time.time() - t:.0f}s)")
+    for m in ("fc@11", "v@3"):
+        t = time.time(); jf = list(f) + [(m, 2)]; th0 = jnp.concatenate([th, SK.init_theta([(m, 2)], jax.random.PRNGKey(12), W2.shape_of)]); thj, Fv = SK.fit(W2.G(jf), x, th0, 60, 3e-3, W2.P)
+        log(f"  real joint fit with {m}: D_train {float(np.sqrt(2 * Fv) / np.linalg.norm(np.asarray(x))):.4f} D_held {SK.normD(xh, W2.Gh(jf)(thj, W2.P)):.4f} nll_held {W2.nll('ho', jf, thj):.3f} ({time.time() - t:.0f}s)")
+    log(f"pilot4 done in {time.time() - T0:.0f}s")
+
+
 def run(mode):
     global LIBRARY
     cfg = json.load(open(OUT / "config.json")); SK.TH.update(cfg["thresholds"]); LIBRARY = list(cfg["library"]); T0 = time.time(); out = dict(rows=[])
@@ -232,7 +258,7 @@ def run(mode):
             rec = run_case(name, W, jax.random.PRNGKey(1000 + i), cfg); out["rows"].append(rec); log(f"[{time.time() - T0:.0f}s]")
         fn = "ed2.json"
     else:
-        W = make_world(cfg["seed"] + 1, cfg["n_probe_real"], cfg["n_probe_real"]); rec = run_case("real", W, jax.random.PRNGKey(2000), cfg)
+        W = make_world(cfg["seed"] + 1, cfg["n_probe_real"], cfg["n_probe_real"], "all"); rec = run_case("real", W, jax.random.PRNGKey(2000), cfg)
         out["rows"].append(rec); fn = "real.json"
     out["seconds"] = time.time() - T0
     json.dump(out, open(OUT / fn, "w"), indent=1, default=lambda o: float(o) if isinstance(o, (np.floating, np.integer)) else str(o)); log(f"done -> {fn} in {out['seconds']:.0f}s")
@@ -240,4 +266,4 @@ def run(mode):
 
 if __name__ == "__main__":
     a = sys.argv[1] if len(sys.argv) > 1 else "pilot"
-    pilot() if a == "pilot" else pilot2() if a == "pilot2" else pilot3() if a == "pilot3" else run(a)
+    pilot() if a == "pilot" else pilot2() if a == "pilot2" else pilot3() if a == "pilot3" else pilot4() if a == "pilot4" else run(a)

@@ -56,10 +56,16 @@ therefore has a small range on the planted cases and the size term
 of the deployment objective is set well below it.
 
 **The documents themselves, for the real-data case.** The target is
-the one-hot of the actual next token on the support, the Brier form
-of the fine-tuning objective, on 96 training probes, with 96
-held-out probes for the deployment objective. No truth is planted:
-the question is whether the rule's choice matches a full sweep.
+the one-hot of the actual next token on the support at every
+position of every context (96 contexts of 16 tokens, 1536 targets),
+the Brier form of the fine-tuning objective, with the same on 96
+held-out contexts for the deployment objective. The pilot's
+last-position version (96 targets) overfitted at every setting
+(held-out distortion 1.01 against the base's 0.97, held-out
+cross-entropy 6.5 against 5.5), which is what 96 examples do to an
+adapter; every position costs no extra forward pass. No truth is
+planted: the question is whether the rule's choice matches a full
+sweep, or says, when it is so, that no adapter beats the base.
 
 ## The rule with sketched geometry
 
@@ -122,12 +128,16 @@ and Hessian-vector products:
    fitted in full as the augmented model (the current adapter and a
    rank-2 adapter on the module, together, from the current state);
    the beam the matched-`p` score would have given is recorded. The
-   fallback is the current adapter with rank-2 adapters on all 12
-   modules.
+   fallback of the decision is the base model, no adapter: the safe
+   default of a fine-tune, and the only answer available when
+   fitting hurts held-out, which the pilot's real-data case did. The
+   all-modules adapter (rank 2 on all 12) is fitted and reported, as
+   ED1's fallback was, but does not enter the decision.
 9. **Deployment objective.** `J = D_held + lambda_s n`, `n` the
-   adapter's parameter count. EXPAND when the best fitted candidate's
-   `J` is under `(1 - 0.01) J_current` and not above the fallback's;
-   otherwise FALLBACK naming the fallback or the current.
+   adapter's parameter count (zero for the base). EXPAND when the
+   best fitted candidate's `J` is under `(1 - 0.01) J_current` and
+   not above the base's; otherwise FALLBACK naming the base when it
+   beats the current by the same margin, else the current.
 
 ## The cases
 
@@ -194,9 +204,9 @@ PILOT_NUMBERS
 - **F1, the planted cases.** The rule returns the truth on at least 4
   of the 5 cases, with the extend case naming `fc@7`.
 - **F2, the real-data case.** The rule's choice (the chosen module,
-  the fallback, or the current, whichever it returns) has a
-  deployment objective within 1 percent of the sweep's best single
-  module. Fits used by each are reported.
+  the base, or the current, whichever it returns) has a deployment
+  objective within 1 percent of the sweep's best single module, or
+  better. Fits used by each are reported.
 - **F3, reported.** The sketched `tau`, every candidate `eta`, the
   pairs under both equivalence rules, the held-out cross-entropy of
   the base, the current and the chosen adapter on the real-data
