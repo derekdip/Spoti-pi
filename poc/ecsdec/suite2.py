@@ -63,7 +63,7 @@ class World:
     def G(self, fam, extra=None): return self._G("tr", fam, extra)
     def Gh(self, fam, extra=None): return self._G("ho", fam, extra)
     def state(self, s, deltas): return self._state(s, deltas, self.P)
-    def delta_products(self, extra, library):
+    def delta_products(self, extra, library, s="tr"):
         """One compiled JVP and one compiled VJP for dense deltas on every library module at once (the
         tangent or cotangent is a dict over the library), so the candidate sketches compile twice per
         case rather than three times per module. Returns (jvp(module, D), vjp(module, y))."""
@@ -71,7 +71,7 @@ class World:
         def f(D, P):
             d = dict(extra)
             for m in library: d[m] = d.get(m, 0) + D[m]
-            return self._state("tr", d, P)
+            return self._state(s, d, P)
         jv = jax.jit(lambda T, P: jax.jvp(lambda D: f(D, P), (zeros,), (T,))[1]); vj = jax.jit(lambda y, P: jax.vjp(lambda D: f(D, P), zeros)[1](y)[0])
         def jvp(module, D): T = dict(zeros); T[module] = D; return jv(T, self.P)
         def vjp(module, y): return vj(y, self.P)[module]
@@ -177,7 +177,7 @@ def pilot2():
             jvp_d, vjp_d = W.delta_products(extra, LIBRARY)
             for i, m in enumerate(LIBRARY): cg[m] = SK.candidate_sketch(jvp_d, vjp_d, m, W.shape_of(m), jax.random.fold_in(jax.random.PRNGKey(4), i), Q_T, r_perp)
             log(f"  candidate sketches ({time.time() - t:.0f}s), eta p1/p3/p12/sketch: " + ", ".join(f"{m} {c['eta'][1]:.3f}/{c['eta'][3]:.3f}/{c['eta'][12]:.3f}/{c['eta_sketch']:.3f}" for m, c in cg.items()))
-            for a, b in (("v@7", "o@7"), ("q@7", "k@7"), ("fc@7", "proj@7"), ("v@7", "fc@7")):
+            for a, b in (("v@7", "o@7"), ("fc@7", "proj@7"), ("v@7", "fc@7")):
                 pg = SK.pair_geometry(cg[a], cg[b]); log(f"  pair {a}|{b}: containment {pg['c_ij']:.2f}/{pg['c_ji']:.2f} align {pg['align']:.3f} " + " ".join(f"p{p} mu {v['mu']:.2f} d {v['d']:.2f}" for p, v in pg["p"].items()))
             rk = SK.TH["cand_rank"]
             for m in ("fc@7", "proj@7", "v@7", "o@11"):
@@ -191,6 +191,36 @@ def pilot2():
         t = time.time(); th = student(W2, f, x, jax.random.PRNGKey(5), 60, lr); st = SK.stationarity(W2.G(f), x, th, jax.random.PRNGKey(1), W2.P)
         log(f"real student rank-2 v@7 lr {lr} 60 steps: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W2.Gh(f)(th, W2.P)):.4f} s {st['stat']:.2e} nll_held {W2.nll('ho', f, th):.3f} ({time.time() - t:.0f}s)")
     log(f"pilot2 done in {time.time() - T0:.0f}s")
+
+
+def pilot3():
+    """The third declared pilot block: the linearised held-out gain as the proposal score, on the extend
+    case and on the real-data world, beside the matched-p score."""
+    T0 = time.time(); W = make_world(0, 48, 48); key = jax.random.PRNGKey(100)
+    cfg = dict(steps=60, lr=3e-3, refine_frac=0.1, adequate_frac=2.0, noise_level=0.5, student_restarts=1, teacher_steps=10, teacher_lr=3e-3, teacher_amp=2.0)
+    def gains(W, f, th, xx, xxh, tag):
+        t = time.time(); st = SK.stationarity(W.G(f), xx, th, jax.random.PRNGKey(1), W.P); Q_T = SK.tangent_sketch(W.G(f), th, jax.random.PRNGKey(3), W.P)
+        r = st["r"].astype(np.float64); r_perp = r - Q_T @ (Q_T.T @ r); r_held = np.asarray(xxh) - np.asarray(W.Gh(f)(th, W.P)); extra = SK.deltas_of(f, th, W.shape_of)
+        jvp_d, vjp_d = W.delta_products(extra, LIBRARY); jvp_h, _ = W.delta_products(extra, LIBRARY, "ho"); out = {}
+        for i, m in enumerate(LIBRARY):
+            c = SK.candidate_sketch(jvp_d, vjp_d, m, W.shape_of(m), jax.random.fold_in(jax.random.PRNGKey(4), i), Q_T, r_perp)
+            c.update(SK.linearised_gain(jvp_d, vjp_d, jvp_h, m, W.shape_of(m), SK.TH["cand_rank"], r_perp, r_held, jax.random.fold_in(jax.random.PRNGKey(4), 100 + i))); out[m] = c
+            log(f"  {tag} {m}: eta12 {c['eta'][12]:.3f} gain train {c['gain_train']:.3f} held {c['gain_held']:.3f} |delta| {c['delta_norm']:.3f} ({time.time() - t:.0f}s)")
+        rank = sorted(LIBRARY, key=lambda m: -out[m]["gain_held"]); log(f"  {tag} ranking by held gain: {rank}"); return out
+    truth, f, th, xx, xxh = build_case("extend", W, jax.random.PRNGKey(6), cfg); log(f"extend: D {SK.normD(xx, W.G(f)(th, W.P)):.4f} D_held {SK.normD(xxh, W.Gh(f)(th, W.P)):.4f}")
+    gains(W, f, th, xx, xxh, "extend")
+    for m in ("fc@7", "proj@11", "v@11", "v@3"):
+        t = time.time(); jf = list(f) + [(m, 2)]; th0 = jnp.concatenate([th, SK.init_theta([(m, 2)], jax.random.PRNGKey(12), W.shape_of)]); thj, Fv = SK.fit(W.G(jf), xx, th0, cfg["steps"], cfg["lr"], W.P)
+        log(f"  extend joint fit with {m}: D_train {float(np.sqrt(2 * Fv) / np.linalg.norm(np.asarray(xx))):.4f} D_held {SK.normD(xxh, W.Gh(jf)(thj, W.P)):.4f} ({time.time() - t:.0f}s)")
+    t = time.time(); W2 = make_world(1, 96, 96); x, xh = W2.onehot("tr"), W2.onehot("ho"); f = [("v@7", 2)]
+    log(f"real world: base D {SK.normD(x, W2.base['tr']):.4f} held {SK.normD(xh, W2.base['ho']):.4f} nll_held {W2.nll('ho', [], jnp.zeros(0)):.3f} ({time.time() - t:.0f}s)")
+    t = time.time(); th = student(W2, f, x, jax.random.PRNGKey(5), 60, 3e-3); st = SK.stationarity(W2.G(f), x, th, jax.random.PRNGKey(1), W2.P); cv = SK.curvature(W2.G(f), x, th, jax.random.PRNGKey(2), W2.P)
+    log(f"real student rank-2 v@7: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W2.Gh(f)(th, W2.P)):.4f} s {st['stat']:.2e} lam_min {cv['lam_min']:.2e} |H| {cv['hnorm']:.2e} nll_held {W2.nll('ho', f, th):.3f} ({time.time() - t:.0f}s)")
+    gains(W2, f, th, x, xh, "real")
+    for m in ("fc@11", "v@3", "proj@7"):
+        t = time.time(); jf = list(f) + [(m, 2)]; th0 = jnp.concatenate([th, SK.init_theta([(m, 2)], jax.random.PRNGKey(12), W2.shape_of)]); thj, Fv = SK.fit(W2.G(jf), x, th0, cfg["steps"], cfg["lr"], W2.P)
+        log(f"  real joint fit with {m}: D_train {float(np.sqrt(2 * Fv) / np.linalg.norm(np.asarray(x))):.4f} D_held {SK.normD(xh, W2.Gh(jf)(thj, W2.P)):.4f} nll_held {W2.nll('ho', jf, thj):.3f} ({time.time() - t:.0f}s)")
+    log(f"pilot3 done in {time.time() - T0:.0f}s")
 
 
 def run(mode):
@@ -210,4 +240,4 @@ def run(mode):
 
 if __name__ == "__main__":
     a = sys.argv[1] if len(sys.argv) > 1 else "pilot"
-    pilot() if a == "pilot" else pilot2() if a == "pilot2" else run(a)
+    pilot() if a == "pilot" else pilot2() if a == "pilot2" else pilot3() if a == "pilot3" else run(a)

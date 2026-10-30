@@ -17,7 +17,8 @@ from __future__ import annotations
 import numpy as np, jax, jax.numpy as jnp
 
 TH = dict(eps_g=None, D_max=None, eps_H_rel=1e-6, p_set=(1, 3, 12), beam=3, contain_min=0.95, d_max=0.2, mu_min=0.95,
-          multistarts=2, better_frac=0.10, lam_s=None, spent=0.01, m_T=16, m_c=12, subspace_iters=1, power_iters=6, lanczos=12, cand_rank=2)
+          multistarts=2, better_frac=0.10, lam_s=None, spent=0.01, m_T=16, m_c=8, subspace_iters=1, power_iters=6, lanczos=12, cand_rank=2,
+          lin_steps=30, lin_lr=3e-3, rank_by="held_gain")
 
 
 # ---- adapters on a model with named modules
@@ -108,6 +109,25 @@ def candidate_sketch(jvp_d, vjp_d, module, shape, key, Q_T, r_perp, quotient=Tru
                 atom=atom / an if an > 0 else atom, sv=s[keep])
 
 
+def linearised_gain(jvp_tr, vjp_tr, jvp_ho, module, shape, rank, r_perp, r_held, key):
+    """The complexity-adjusted proposal score: a rank-`rank` adapter on the module fitted to the training
+    residual in the linearised model (lin_steps of Adam, one JVP and one VJP per step, through the dense
+    block's products), then the fraction of the held-out residual the same delta removes at first order
+    (one held-out JVP). Returns the training and held-out gains and the delta's norm."""
+    a, b = shape; k1, k2 = jax.random.split(key); A = jax.random.normal(k1, (rank, b)) * 0.02; Bm = jnp.zeros((a, rank)); r = jnp.asarray(r_perp, jnp.float32)
+    mA = 0 * A; vA = 0 * A; mB = 0 * Bm; vB = 0 * Bm; lr = TH["lin_lr"]; den = float(r @ r) + 1e-30; best = (den, A, Bm)
+    for i in range(1, TH["lin_steps"] + 1):
+        D = Bm @ A; y = jvp_tr(module, D); e = y - r; L = float(e @ e)
+        if L < best[0]: best = (L, A, Bm)
+        gD = vjp_tr(module, e); gB = gD @ A.T; gA = Bm.T @ gD
+        mA = 0.9 * mA + 0.1 * gA; vA = 0.999 * vA + 0.001 * gA ** 2; A = A - lr * (mA / (1 - 0.9 ** i)) / (jnp.sqrt(vA / (1 - 0.999 ** i)) + 1e-8)
+        mB = 0.9 * mB + 0.1 * gB; vB = 0.999 * vB + 0.001 * gB ** 2; Bm = Bm - lr * (mB / (1 - 0.9 ** i)) / (jnp.sqrt(vB / (1 - 0.999 ** i)) + 1e-8)
+    D = Bm @ A; y = jvp_tr(module, D); e = y - r; L = float(e @ e)
+    if L < best[0]: best = (L, A, Bm)
+    L, A, Bm = best; D = Bm @ A; rh = jnp.asarray(r_held, jnp.float32); yh = jvp_ho(module, D); eh = yh - rh
+    return dict(gain_train=float(1 - L / den), gain_held=float(1 - float(eh @ eh) / (float(rh @ rh) + 1e-30)), delta_norm=float(jnp.linalg.norm(D)))
+
+
 def pair_geometry(ci, cj):
     res = {"p": {}}
     for p in TH["p_set"]:
@@ -143,18 +163,23 @@ def decide(world, fam, theta, x, x_held, cands, key, steps, lr, log=print, sweep
     rec["glob_improvement"] = float(1 - best[0] / max(F0, 1e-30)); log(f"  budget: F {F0:.4e} -> {best[0]:.4e} ({100 * rec['glob_improvement']:.1f} percent)")
     if best[0] < (1 - TH["better_frac"]) * F0: rec["action"] = "GLOBALIZE"; return rec
     Q_T = tangent_sketch(G, theta, ks[3], C); r_perp = r.astype(np.float64) - Q_T @ (Q_T.T @ r); rec["tau_sketch"] = float(1 - (r_perp @ r_perp) / max(float(r @ r), 1e-30))
-    extra = deltas_of(fam, theta, world.shape_of); cg = {}; jvp_d, vjp_d = world.delta_products(extra, cands)
+    extra = deltas_of(fam, theta, world.shape_of); cg = {}; jvp_d, vjp_d = world.delta_products(extra, cands); jvp_h, _ = world.delta_products(extra, cands, "ho")
+    r_held = np.asarray(x_held) - np.asarray(world.Gh(fam)(theta, C))
     for i, m in enumerate(cands):
         cg[m] = candidate_sketch(jvp_d, vjp_d, m, world.shape_of(m), jax.random.fold_in(ks[4], i), Q_T, r_perp)
-    rec["cands"] = {m: dict(eta=c["eta"], eta_sketch=c["eta_sketch"], dim=c["dim"]) for m, c in cg.items()}
-    log("  eta p12/sketch: " + ", ".join(f"{m} {c['eta'][12]:.3f}/{c['eta_sketch']:.3f}" for m, c in cg.items()))
+        cg[m].update(linearised_gain(jvp_d, vjp_d, jvp_h, m, world.shape_of(m), TH["cand_rank"], r_perp, r_held, jax.random.fold_in(ks[4], 100 + i)))
+    rec["cands"] = {m: dict(eta=c["eta"], eta_sketch=c["eta_sketch"], dim=c["dim"], gain_train=c["gain_train"], gain_held=c["gain_held"], delta_norm=c["delta_norm"]) for m, c in cg.items()}
+    log("  eta p12 / linearised gain train / held: " + ", ".join(f"{m} {c['eta'][12]:.3f}/{c['gain_train']:.3f}/{c['gain_held']:.3f}" for m, c in cg.items()))
     pairs = {}; dropped = set()
     for i in range(len(cands)):
         for j in range(i + 1, len(cands)):
             a, b = cands[i], cands[j]; pg = pair_geometry(cg[a], cg[b]); pg["collapse"] = equivalent(pg); pg["collapse_matched"] = equivalent_matched(pg); pairs[f"{a}|{b}"] = pg
             if pg["collapse"]: dropped.add(b if family_size([(b, TH["cand_rank"])], world.shape_of) >= family_size([(a, TH["cand_rank"])], world.shape_of) else a)
     rec["pairs"] = pairs; rec["collapsed"] = sorted(dropped)
-    beam = [m for m in sorted(cands, key=lambda m: -cg[m]["eta"][max(TH["p_set"])]) if m not in dropped][:TH["beam"]]; rec["beam"] = beam
+    score = (lambda m: cg[m]["gain_held"]) if TH["rank_by"] == "held_gain" else (lambda m: cg[m]["eta"][max(TH["p_set"])])
+    beam = [m for m in sorted(cands, key=lambda m: -score(m)) if m not in dropped][:TH["beam"]]; rec["beam"] = beam
+    rec["beam_matched_p"] = [m for m in sorted(cands, key=lambda m: -cg[m]["eta"][max(TH["p_set"])]) if m not in dropped][:TH["beam"]]
+    log(f"  beam {beam} (the matched-p score would give {rec['beam_matched_p']})")
     n_cur = int(theta.shape[0]); J_cur = deployment(rec["D_held"], n_cur); fits = {}
     def joint(name, cfam, k):
         jf = list(fam) + list(cfam); th0 = jnp.concatenate([theta, init_theta(cfam, k, world.shape_of)])

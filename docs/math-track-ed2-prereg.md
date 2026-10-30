@@ -87,29 +87,43 @@ and Hessian-vector products:
    family's tangent space (16 JVPs, orthonormalised); the residual's
    component in it is removed. The sketched `tau` is a lower bound
    on the exact one and is reported as such.
-6. **Candidates.** The library is six module kinds at layers 3, 7
-   and 11 (18 syntaxes). Each candidate's first-order block at its
-   neutral state, with the current adapter folded in, is sketched by
-   16 random direction matrices on the module pushed through one JVP
-   each, then one round of subspace iteration (16 VJPs and 16 JVPs),
-   so the sketch's span approaches the block's top principal
-   directions; projected off the tangent sketch and orthonormalised.
-   `eta` at matched `p in {1, 3, 12}` on the sketched principal
-   directions, and on the whole sketch; coherence and projector
-   distance at each `p`; containment between the sketched spans; the
-   winning atoms' alignment. Every `eta` here is a lower bound on the
-   full-span value, at the same sketch size for every candidate, and
-   candidates are ranked on `eta` at `p = 12`.
+6. **Candidates.** The library is four module kinds (`v, o, fc,
+   proj`) at layers 3, 7 and 11 (12 syntaxes), with one compiled JVP
+   and one compiled VJP serving every module's dense first-order
+   block at its neutral state, the current adapter folded in. Two
+   scores are computed for each candidate:
+   - the handoff's matched-`p` score, reported: a sketch of 8 random
+     direction matrices pushed through one JVP each, one round of
+     subspace iteration (8 VJPs and 8 JVPs) toward the block's top
+     principal directions, projected off the tangent sketch and
+     orthonormalised; `eta` at `p in {1, 3, 12}`, coherence,
+     projector distance, containment, winning atoms. The pilot found
+     this score does not rank the planted module (8th of 12 on the
+     extend case): with 48 contexts any module's rank-2 adapter can
+     mimic the target on the training probes, so no training-residual
+     geometry separates modules, and the top principal directions
+     measure a module's sensitivity rather than its relevance.
+   - the **linearised held-out gain**, the preregistered ranking
+     score, the handoff's "complexity-adjusted variant" of section
+     13: a rank-2 adapter on the module fitted to the training
+     residual in the linearised model by 30 Adam steps (one JVP and
+     one VJP per step, explicit chain rule through the factors), then
+     the fraction of the current held-out residual that the same
+     delta removes at first order (one held-out JVP). It asks, at
+     first order and at the deployment data, what the full fit will
+     be judged on. Candidates are ranked on it.
 7. **Equivalence.** COLLAPSE when the sketched spans contain each
    other at 0.95 both ways; the matched-`p` rule reported beside it.
    GPT-2 has twelve heads, so no pair of modules spans one
    first-order space (ED1's two-head pilot measured 0.74 for the
    value and output pair); no COLLAPSE truth is constructed and the
    stage is expected to fire on nothing.
-8. **Beam and full fits.** The top 3 survivors are fitted in full as
-   the augmented model (the current adapter and a rank-2 adapter on
-   the module, together, from the current state); the fallback is
-   the current adapter with rank-2 adapters on all 18 modules.
+8. **Beam and full fits.** The top 3 survivors by held-out gain are
+   fitted in full as the augmented model (the current adapter and a
+   rank-2 adapter on the module, together, from the current state);
+   the beam the matched-`p` score would have given is recorded. The
+   fallback is the current adapter with rank-2 adapters on all 12
+   modules.
 9. **Deployment objective.** `J = D_held + lambda_s n`, `n` the
    adapter's parameter count. EXPAND when the best fitted candidate's
    `J` is under `(1 - 0.01) J_current` and not above the fallback's;
@@ -121,15 +135,17 @@ and Hessian-vector products:
 |---|---|---|---|
 | refine | teacher rank 2 on `v@7` | rank 2 on `v@7`, 10 percent of the budget | REFINE |
 | saddle | the same | `theta = 0` | GLOBALIZE |
-| reuse | teacher rank 3 on `v@7` | rank 1 on `v@7`, fitted | EXPAND on `v@7` |
 | extend | teacher rank 2 on `fc@7` | rank 2 on `v@7`, fitted | EXPAND on `fc@7` |
 | noise | the base state plus independent noise on each probe set | rank 2 on `v@7`, fitted | FALLBACK |
-| adequate | teacher rank 2 on `v@7` | rank 2 on `v@7`, fitted | STOP |
+| adequate | teacher rank 2 on `v@7` | rank 2 on `v@7`, fitted at twice the budget | STOP |
 | real | the documents' next tokens | rank 2 on `v@7`, fitted; then the rule with every candidate also fitted (the sweep) | none |
 
-The reuse teacher has rank 3 so that the student's rank 1 plus a
-rank-2 candidate can represent it; the extend teacher has rank 2 for
-the same reason.
+Teachers are amplified twofold (their delta doubled) so that the
+held-out range is usable. There is no reuse case: the pilot found a
+rank-1 student fits a rank-3 teacher on the same module to within
+1.3 of a rank-3 student on the training probes and within 1.2 on
+held-out, at this budget, so no bar separates them (the numbers are
+in the pilot section). ED1 tested reuse with exact geometry.
 
 ## The frozen values
 
@@ -153,8 +169,8 @@ PILOT_NUMBERS
 
 `poc/ecsdec/score2.py`, committed with this document.
 
-- **F1, the planted cases.** The rule returns the truth on at least 5
-  of the 6 cases, with both EXPAND cases naming the planted module.
+- **F1, the planted cases.** The rule returns the truth on at least 4
+  of the 5 cases, with the extend case naming `fc@7`.
 - **F2, the real-data case.** The rule's choice (the chosen module,
   the fallback, or the current, whichever it returns) has a
   deployment objective within 1 percent of the sweep's best single
