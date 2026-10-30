@@ -22,7 +22,7 @@ from poc.ecsdec import sketch as SK
 OUT = Path(__file__).resolve().parents[2] / "poc/results/ed2"; OUT.mkdir(parents=True, exist_ok=True)
 log = lambda m: print(f"[{time.strftime('%H:%M:%S')}] {m}", flush=True)
 CTX, SUPPORT = 16, 256
-LIBRARY = [f"{n}@{l}" for l in (3, 7, 11) for n in ("q", "k", "v", "o", "fc", "proj")]
+LIBRARY = [f"{n}@{l}" for l in (3, 7, 11) for n in ("v", "o", "fc", "proj")]
 
 
 def corpus(seed, n_tr, n_ho, tok):
@@ -39,37 +39,49 @@ def corpus(seed, n_tr, n_ho, tok):
 
 
 class World:
+    """Probe sets, support sets and the state functions. Every state function takes the weights P as an
+    argument so that jitted programs built on it receive P at run time (never folded in as constants)."""
     def __init__(self, P, toks_tr, toks_ho):
         self.P = P; self.shape_of = GM.shape_of
-        f = jax.jit(lambda t: jax.nn.softmax(GM.forward(P, t)[:, -1, :], -1))
+        f = jax.jit(lambda P, t: jax.nn.softmax(GM.forward(P, t)[:, -1, :], -1))
         self.toks = dict(tr=jnp.asarray(toks_tr[:, :CTX]), ho=jnp.asarray(toks_ho[:, :CTX])); self.nxt = dict(tr=toks_tr[:, CTX], ho=toks_ho[:, CTX]); self.idx = {}
         for s in ("tr", "ho"):
-            p = np.asarray(f(self.toks[s])); idx = np.argsort(-p, 1)[:, :SUPPORT]
+            p = np.asarray(f(P, self.toks[s])); idx = np.argsort(-p, 1)[:, :SUPPORT]
             for i in range(len(idx)):
                 if self.nxt[s][i] not in idx[i]: idx[i, -1] = self.nxt[s][i]
             self.idx[s] = jnp.asarray(idx)
-        self.base = {s: np.asarray(self._state(s, {})) for s in ("tr", "ho")}
-    def _state(self, s, deltas):
-        p = jax.nn.softmax(GM.forward(self.P, self.toks[s], deltas)[:, -1, :], -1); return jnp.take_along_axis(p, self.idx[s], 1).reshape(-1)
+        self.base = {s: np.asarray(self._state(s, {}, P)) for s in ("tr", "ho")}
+    def _state(self, s, deltas, P):
+        p = jax.nn.softmax(GM.forward(P, self.toks[s], deltas)[:, -1, :], -1); return jnp.take_along_axis(p, self.idx[s], 1).reshape(-1)
     def _G(self, s, fam, extra):
-        def G(theta):
+        def G(theta, P):
             d = SK.deltas_of(fam, theta, self.shape_of)
             if extra:
                 for k, v in extra.items(): d[k] = d.get(k, 0) + v
-            return self._state(s, d)
+            return self._state(s, d, P)
         return G
     def G(self, fam, extra=None): return self._G("tr", fam, extra)
     def Gh(self, fam, extra=None): return self._G("ho", fam, extra)
-    def G_delta(self, module, extra):
-        def Gd(D):
-            d = dict(extra); d[module] = d.get(module, 0) + D; return self._state("tr", d)
-        return Gd
+    def state(self, s, deltas): return self._state(s, deltas, self.P)
+    def delta_products(self, extra, library):
+        """One compiled JVP and one compiled VJP for dense deltas on every library module at once (the
+        tangent or cotangent is a dict over the library), so the candidate sketches compile twice per
+        case rather than three times per module. Returns (jvp(module, D), vjp(module, y))."""
+        zeros = {m: jnp.zeros(self.shape_of(m), jnp.float32) for m in library}
+        def f(D, P):
+            d = dict(extra)
+            for m in library: d[m] = d.get(m, 0) + D[m]
+            return self._state("tr", d, P)
+        jv = jax.jit(lambda T, P: jax.jvp(lambda D: f(D, P), (zeros,), (T,))[1]); vj = jax.jit(lambda y, P: jax.vjp(lambda D: f(D, P), zeros)[1](y)[0])
+        def jvp(module, D): T = dict(zeros); T[module] = D; return jv(T, self.P)
+        def vjp(module, y): return vj(y, self.P)[module]
+        return jvp, vjp
     def onehot(self, s):
         idx = np.asarray(self.idx[s]); x = np.zeros(idx.shape, np.float32)
         for i in range(len(idx)): x[i, np.where(idx[i] == self.nxt[s][i])[0][0]] = 1.0
         return jnp.asarray(x.reshape(-1))
     def nll(self, s, fam, theta):
-        d = SK.deltas_of(fam, theta, self.shape_of); lp = jax.nn.log_softmax(GM.forward(self.P, self.toks[s], d)[:, -1, :], -1)
+        d = SK.deltas_of(fam, theta, self.shape_of); lp = jax.nn.log_softmax(jax.jit(GM.forward)(self.P, self.toks[s], d)[:, -1, :], -1)
         return float(-lp[jnp.arange(len(self.nxt[s])), jnp.asarray(self.nxt[s])].mean())
 
 
@@ -82,18 +94,18 @@ def planted(key, module, rank, scale):
 def teacher(W, module, rank, key, steps, lr, amp=1.0):
     """A teacher adapter: a rank-`rank` LoRA on `module` fitted on the training probes' next tokens for
     `steps` steps, its delta amplified by `amp`; the target of the planted cases."""
-    fam = [(module, rank)]; th, _ = SK.fit(W.G(fam), W.onehot("tr"), SK.init_theta(fam, key, W.shape_of), steps, lr)
+    fam = [(module, rank)]; th, _ = SK.fit(W.G(fam), W.onehot("tr"), SK.init_theta(fam, key, W.shape_of), steps, lr, W.P)
     return {module: amp * SK.deltas_of(fam, th, W.shape_of)[module]}
 
 
 def target(W, deltas):
-    return jnp.asarray(np.asarray(W._state("tr", deltas))), jnp.asarray(np.asarray(W._state("ho", deltas)))
+    return jnp.asarray(np.asarray(W.state("tr", deltas))), jnp.asarray(np.asarray(W.state("ho", deltas)))
 
 
 def student(W, fam, x, key, steps, lr, frac=1.0, restarts=1):
     best = None
     for k in jax.random.split(key, restarts):
-        th, Fv = SK.fit(W.G(fam), x, SK.init_theta(fam, k, W.shape_of), max(1, int(frac * steps)), lr)
+        th, Fv = SK.fit(W.G(fam), x, SK.init_theta(fam, k, W.shape_of), max(1, int(frac * steps)), lr, W.P)
         if best is None or Fv < best[1]: best = (th, Fv)
     return best[0]
 
@@ -103,7 +115,7 @@ def build_case(name, W, key, cfg):
     if name in ("refine", "saddle", "adequate"):
         x, xh = target(W, T("v@7", 2)); fam = [("v@7", 2)]
         if name == "saddle": return "GLOBALIZE", fam, jnp.zeros(SK.family_size(fam, W.shape_of), jnp.float32), x, xh
-        if name == "adequate": return "STOP", fam, student(W, fam, x, ks[2], steps, lr, 1.0, cfg["student_restarts"]), x, xh
+        if name == "adequate": return "STOP", fam, student(W, fam, x, ks[2], steps, lr, cfg["adequate_frac"], cfg["student_restarts"]), x, xh
         return "REFINE", fam, student(W, fam, x, ks[2], steps, lr, cfg["refine_frac"]), x, xh
     if name == "reuse":
         x, xh = target(W, T("v@7", 3)); fam = [("v@7", 1)]; return "EXPAND:v@7", fam, student(W, fam, x, ks[2], steps, lr, 1.0, cfg["student_restarts"]), x, xh
@@ -146,37 +158,38 @@ def pilot2():
     """The second declared pilot block, on the chosen teacher (10 steps at 3e-3): the exhausted students, the
     budget, the sketches, the joint fits, the real-data world."""
     T0 = time.time(); W = make_world(0, 48, 48); key = jax.random.PRNGKey(100)
-    cfg = dict(steps=60, lr=3e-3, refine_frac=0.1, noise_level=0.5, student_restarts=1, teacher_steps=10, teacher_lr=3e-3, teacher_amp=1.0)
-    x, xh = target(W, teacher(W, "v@7", 2, key, cfg["teacher_steps"], cfg["teacher_lr"])); fam = [("v@7", 2)]
+    cfg = dict(steps=60, lr=3e-3, refine_frac=0.1, adequate_frac=2.0, noise_level=0.5, student_restarts=1, teacher_steps=10, teacher_lr=3e-3, teacher_amp=2.0)
+    x, xh = target(W, teacher(W, "v@7", 2, key, cfg["teacher_steps"], cfg["teacher_lr"], cfg["teacher_amp"])); fam = [("v@7", 2)]
     for steps in (6, 60, 120):
-        t = time.time(); th = student(W, fam, x, jax.random.PRNGKey(5), steps, cfg["lr"]); st = SK.stationarity(W.G(fam), x, th, jax.random.PRNGKey(1))
-        log(f"rank-2 student on its teacher, {steps:>3} steps: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W.Gh(fam)(th)):.4f} s {st['stat']:.2e} ({time.time() - t:.0f}s)")
+        t = time.time(); th = student(W, fam, x, jax.random.PRNGKey(5), steps, cfg["lr"]); st = SK.stationarity(W.G(fam), x, th, jax.random.PRNGKey(1), W.P)
+        log(f"rank-2 student on its teacher, {steps:>3} steps: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W.Gh(fam)(th, W.P)):.4f} s {st['stat']:.2e} ({time.time() - t:.0f}s)")
     log(f"  base to target: {SK.normD(x, W.base['tr']):.4f} (held {SK.normD(xh, W.base['ho']):.4f})")
-    for name, k in (("reuse", 4), ("extend", 6), ("noise", 8)):
-        t = time.time(); truth, f, th, xx, xxh = build_case(name, W, jax.random.PRNGKey(k), cfg); st = SK.stationarity(W.G(f), xx, th, jax.random.PRNGKey(1)); cv = SK.curvature(W.G(f), xx, th, jax.random.PRNGKey(2))
-        log(f"{name} student fitted: D {SK.normD(xx, xx - st['r']):.4f} D_held {SK.normD(xxh, W.Gh(f)(th)):.4f} s {st['stat']:.2e} lam_min {cv['lam_min']:.2e} |H| {cv['hnorm']:.2e} ({time.time() - t:.0f}s)")
+    for name, k in (("extend", 6), ("noise", 8)):
+        t = time.time(); truth, f, th, xx, xxh = build_case(name, W, jax.random.PRNGKey(k), cfg); st = SK.stationarity(W.G(f), xx, th, jax.random.PRNGKey(1), W.P); cv = SK.curvature(W.G(f), xx, th, jax.random.PRNGKey(2), W.P)
+        log(f"{name} student fitted: D {SK.normD(xx, xx - st['r']):.4f} D_held {SK.normD(xxh, W.Gh(f)(th, W.P)):.4f} s {st['stat']:.2e} lam_min {cv['lam_min']:.2e} |H| {cv['hnorm']:.2e} ({time.time() - t:.0f}s)")
         if name == "extend":
             F0 = 0.5 * float(st["r"] @ st["r"]); best = F0; t = time.time()
             for kk in jax.random.split(jax.random.PRNGKey(11), SK.TH["multistarts"]):
-                _, Fv = SK.fit(W.G(f), xx, SK.init_theta(f, kk, W.shape_of, 0.02, 0.02), cfg["steps"], cfg["lr"]); best = min(best, Fv)
+                _, Fv = SK.fit(W.G(f), xx, SK.init_theta(f, kk, W.shape_of, 0.02, 0.02), cfg["steps"], cfg["lr"], W.P); best = min(best, Fv)
             log(f"  budget of {SK.TH['multistarts']}: F {F0:.4e} -> {best:.4e} ({100 * (1 - best / F0):.1f} percent) ({time.time() - t:.0f}s)")
-            t = time.time(); Q_T = SK.tangent_sketch(W.G(f), th, jax.random.PRNGKey(3)); r = st["r"].astype(np.float64); r_perp = r - Q_T @ (Q_T.T @ r); log(f"  tangent sketch: tau {1 - (r_perp @ r_perp) / (r @ r):.3f} ({time.time() - t:.0f}s)")
+            t = time.time(); Q_T = SK.tangent_sketch(W.G(f), th, jax.random.PRNGKey(3), W.P); r = st["r"].astype(np.float64); r_perp = r - Q_T @ (Q_T.T @ r); log(f"  tangent sketch: tau {1 - (r_perp @ r_perp) / (r @ r):.3f} ({time.time() - t:.0f}s)")
             extra = SK.deltas_of(f, th, W.shape_of); cg = {}; t = time.time()
-            for i, m in enumerate(LIBRARY): cg[m] = SK.candidate_sketch(W.G_delta(m, extra), W.shape_of(m), jax.random.fold_in(jax.random.PRNGKey(4), i), Q_T, r_perp)
+            jvp_d, vjp_d = W.delta_products(extra, LIBRARY)
+            for i, m in enumerate(LIBRARY): cg[m] = SK.candidate_sketch(jvp_d, vjp_d, m, W.shape_of(m), jax.random.fold_in(jax.random.PRNGKey(4), i), Q_T, r_perp)
             log(f"  candidate sketches ({time.time() - t:.0f}s), eta p1/p3/p12/sketch: " + ", ".join(f"{m} {c['eta'][1]:.3f}/{c['eta'][3]:.3f}/{c['eta'][12]:.3f}/{c['eta_sketch']:.3f}" for m, c in cg.items()))
             for a, b in (("v@7", "o@7"), ("q@7", "k@7"), ("fc@7", "proj@7"), ("v@7", "fc@7")):
                 pg = SK.pair_geometry(cg[a], cg[b]); log(f"  pair {a}|{b}: containment {pg['c_ij']:.2f}/{pg['c_ji']:.2f} align {pg['align']:.3f} " + " ".join(f"p{p} mu {v['mu']:.2f} d {v['d']:.2f}" for p, v in pg["p"].items()))
             rk = SK.TH["cand_rank"]
             for m in ("fc@7", "proj@7", "v@7", "o@11"):
-                t = time.time(); jf = list(f) + [(m, rk)]; th0 = jnp.concatenate([th, SK.init_theta([(m, rk)], jax.random.PRNGKey(12), W.shape_of)]); thj, Fv = SK.fit(W.G(jf), xx, th0, cfg["steps"], cfg["lr"])
-                log(f"  joint fit with {m}: D_train {float(np.sqrt(2 * Fv) / np.linalg.norm(np.asarray(xx))):.4f} D_held {SK.normD(xxh, W.Gh(jf)(thj)):.4f} ({time.time() - t:.0f}s)")
-            jf = list(f) + [(m, rk) for m in LIBRARY]; th0 = jnp.concatenate([th, SK.init_theta([(m, rk) for m in LIBRARY], jax.random.PRNGKey(12), W.shape_of)]); t = time.time(); thj, Fv = SK.fit(W.G(jf), xx, th0, cfg["steps"], cfg["lr"])
-            log(f"  joint fit with the fallback ({SK.family_size(jf, W.shape_of)} params): D_train {float(np.sqrt(2 * Fv) / np.linalg.norm(np.asarray(xx))):.4f} D_held {SK.normD(xxh, W.Gh(jf)(thj)):.4f} ({time.time() - t:.0f}s)")
+                t = time.time(); jf = list(f) + [(m, rk)]; th0 = jnp.concatenate([th, SK.init_theta([(m, rk)], jax.random.PRNGKey(12), W.shape_of)]); thj, Fv = SK.fit(W.G(jf), xx, th0, cfg["steps"], cfg["lr"], W.P)
+                log(f"  joint fit with {m}: D_train {float(np.sqrt(2 * Fv) / np.linalg.norm(np.asarray(xx))):.4f} D_held {SK.normD(xxh, W.Gh(jf)(thj, W.P)):.4f} ({time.time() - t:.0f}s)")
+            jf = list(f) + [(m, rk) for m in LIBRARY]; th0 = jnp.concatenate([th, SK.init_theta([(m, rk) for m in LIBRARY], jax.random.PRNGKey(12), W.shape_of)]); t = time.time(); thj, Fv = SK.fit(W.G(jf), xx, th0, cfg["steps"], cfg["lr"], W.P)
+            log(f"  joint fit with the fallback ({SK.family_size(jf, W.shape_of)} params): D_train {float(np.sqrt(2 * Fv) / np.linalg.norm(np.asarray(xx))):.4f} D_held {SK.normD(xxh, W.Gh(jf)(thj, W.P)):.4f} ({time.time() - t:.0f}s)")
     t = time.time(); W2 = make_world(1, 96, 96); x, xh = W2.onehot("tr"), W2.onehot("ho"); f = [("v@7", 2)]
     log(f"real world: base D {SK.normD(x, W2.base['tr']):.4f} held {SK.normD(xh, W2.base['ho']):.4f} nll_held {W2.nll('ho', [], jnp.zeros(0)):.3f} ({time.time() - t:.0f}s)")
     for lr in (1e-3, 3e-3):
-        t = time.time(); th = student(W2, f, x, jax.random.PRNGKey(5), 60, lr); st = SK.stationarity(W2.G(f), x, th, jax.random.PRNGKey(1))
-        log(f"real student rank-2 v@7 lr {lr} 60 steps: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W2.Gh(f)(th)):.4f} s {st['stat']:.2e} nll_held {W2.nll('ho', f, th):.3f} ({time.time() - t:.0f}s)")
+        t = time.time(); th = student(W2, f, x, jax.random.PRNGKey(5), 60, lr); st = SK.stationarity(W2.G(f), x, th, jax.random.PRNGKey(1), W2.P)
+        log(f"real student rank-2 v@7 lr {lr} 60 steps: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W2.Gh(f)(th, W2.P)):.4f} s {st['stat']:.2e} nll_held {W2.nll('ho', f, th):.3f} ({time.time() - t:.0f}s)")
     log(f"pilot2 done in {time.time() - T0:.0f}s")
 
 
@@ -184,7 +197,7 @@ def run(mode):
     cfg = json.load(open(OUT / "config.json")); SK.TH.update(cfg["thresholds"]); T0 = time.time(); out = dict(rows=[])
     if mode == "run":
         W = make_world(cfg["seed"], cfg["n_probe"], cfg["n_probe"])
-        for i, name in enumerate(("refine", "saddle", "reuse", "extend", "noise", "adequate")):
+        for i, name in enumerate(("refine", "saddle", "extend", "noise", "adequate")):
             rec = run_case(name, W, jax.random.PRNGKey(1000 + i), cfg); out["rows"].append(rec); log(f"[{time.time() - T0:.0f}s]")
         fn = "ed2.json"
     else:
