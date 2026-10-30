@@ -1,6 +1,7 @@
 """ED2: ECS-Decision with sketched geometry on GPT-2 base (docs/math-track-ed2-prereg.md).
 
-  /usr/bin/python3 -m poc.ecsdec.suite2 pilot      the declared pilot (nothing scored) -> poc/results/ed2/pilot.log
+  /usr/bin/python3 -m poc.ecsdec.suite2 pilot      the declared pilot's first block (teacher scan, fit curves)
+  /usr/bin/python3 -m poc.ecsdec.suite2 pilot2     its second block (exhausted students, sketches, fits, real data)
   /usr/bin/python3 -m poc.ecsdec.suite2 run        the frozen suite -> poc/results/ed2/ed2.json
   /usr/bin/python3 -m poc.ecsdec.suite2 real       the real-data case alone -> poc/results/ed2/real.json
 
@@ -138,14 +139,19 @@ def pilot():
         for tsteps, tlr in ((5, 1e-3), (10, 1e-3), (20, 1e-3), (10, 3e-3)):
             t = time.time(); d = teacher(W, mod, r, key, tsteps, tlr); x, xh = target(W, d)
             log(f"teacher rank {r} on {mod}, {tsteps} steps at lr {tlr}: distance base to target {SK.normD(x, W.base['tr']):.3f} (held {SK.normD(xh, W.base['ho']):.3f}), |delta|_F {float(jnp.linalg.norm(d[mod])):.2f} ({time.time() - t:.0f}s)")
-    cfg = dict(steps=60, lr=3e-3, refine_frac=0.1, noise_level=0.5, student_restarts=1, teacher_steps=10, teacher_lr=1e-3, teacher_amp=1.0)
+    log(f"pilot done in {time.time() - T0:.0f}s")
+
+
+def pilot2():
+    """The second declared pilot block, on the chosen teacher (10 steps at 3e-3): the exhausted students, the
+    budget, the sketches, the joint fits, the real-data world."""
+    T0 = time.time(); W = make_world(0, 48, 48); key = jax.random.PRNGKey(100)
+    cfg = dict(steps=60, lr=3e-3, refine_frac=0.1, noise_level=0.5, student_restarts=1, teacher_steps=10, teacher_lr=3e-3, teacher_amp=1.0)
     x, xh = target(W, teacher(W, "v@7", 2, key, cfg["teacher_steps"], cfg["teacher_lr"])); fam = [("v@7", 2)]
-    for lr in (1e-3, 3e-3):
-        for steps in (15, 30, 60, 120):
-            t = time.time(); th = student(W, fam, x, jax.random.PRNGKey(5), steps, lr); st = SK.stationarity(W.G(fam), x, th, jax.random.PRNGKey(1))
-            log(f"rank-2 student lr {lr} {steps:>3} steps: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W.Gh(fam)(th)):.4f} s {st['stat']:.2e} ({time.time() - t:.0f}s)")
-    t = time.time(); th0 = jnp.zeros(SK.family_size(fam, W.shape_of), jnp.float32); st = SK.stationarity(W.G(fam), x, th0, jax.random.PRNGKey(1)); cv = SK.curvature(W.G(fam), x, th0, jax.random.PRNGKey(2))
-    log(f"theta = 0: s {st['stat']:.2e} lam_min {cv['lam_min']:.3e} |H| {cv['hnorm']:.3e} ({time.time() - t:.0f}s)")
+    for steps in (6, 60, 120):
+        t = time.time(); th = student(W, fam, x, jax.random.PRNGKey(5), steps, cfg["lr"]); st = SK.stationarity(W.G(fam), x, th, jax.random.PRNGKey(1))
+        log(f"rank-2 student on its teacher, {steps:>3} steps: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W.Gh(fam)(th)):.4f} s {st['stat']:.2e} ({time.time() - t:.0f}s)")
+    log(f"  base to target: {SK.normD(x, W.base['tr']):.4f} (held {SK.normD(xh, W.base['ho']):.4f})")
     for name, k in (("reuse", 4), ("extend", 6), ("noise", 8)):
         t = time.time(); truth, f, th, xx, xxh = build_case(name, W, jax.random.PRNGKey(k), cfg); st = SK.stationarity(W.G(f), xx, th, jax.random.PRNGKey(1)); cv = SK.curvature(W.G(f), xx, th, jax.random.PRNGKey(2))
         log(f"{name} student fitted: D {SK.normD(xx, xx - st['r']):.4f} D_held {SK.normD(xxh, W.Gh(f)(th)):.4f} s {st['stat']:.2e} lam_min {cv['lam_min']:.2e} |H| {cv['hnorm']:.2e} ({time.time() - t:.0f}s)")
@@ -171,7 +177,7 @@ def pilot():
     for lr in (1e-3, 3e-3):
         t = time.time(); th = student(W2, f, x, jax.random.PRNGKey(5), 60, lr); st = SK.stationarity(W2.G(f), x, th, jax.random.PRNGKey(1))
         log(f"real student rank-2 v@7 lr {lr} 60 steps: D {SK.normD(x, x - st['r']):.4f} D_held {SK.normD(xh, W2.Gh(f)(th)):.4f} s {st['stat']:.2e} nll_held {W2.nll('ho', f, th):.3f} ({time.time() - t:.0f}s)")
-    log(f"pilot done in {time.time() - T0:.0f}s")
+    log(f"pilot2 done in {time.time() - T0:.0f}s")
 
 
 def run(mode):
@@ -191,4 +197,4 @@ def run(mode):
 
 if __name__ == "__main__":
     a = sys.argv[1] if len(sys.argv) > 1 else "pilot"
-    pilot() if a == "pilot" else run(a)
+    pilot() if a == "pilot" else pilot2() if a == "pilot2" else run(a)
