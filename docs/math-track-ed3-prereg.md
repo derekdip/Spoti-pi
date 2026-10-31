@@ -78,7 +78,18 @@ is a generalising one and its held-out effect is large.
 
 `poc/results/ed3/config.json`, committed with this document.
 
-VALUES_TABLE
+| quantity | value | source |
+|---|---|---|
+| transform | alternating capitalisation | pilot: base held-out cross-entropy 6.68; single rank-2 modules gain 0.3 to 0.4 nats on held-out |
+| deployment objective | held-out cross-entropy (full vocabulary) plus `1e-7` per parameter for the format case; held-out distortion plus the same for the planted case | the distortion on the support is blind under this shift (1.004 to 1.000) while cross-entropy moves by a third of a nat; the planted case's teacher target is a distribution, where ED2 showed distortion separates modules |
+| fit | 60 Adam steps at 1e-3 | pilot on upper-casing: 1e-3 generalised where 3e-3 overfitted on two of three modules; the alternating-caps pilot runs at it |
+| students | best of 3 fits; restarts beating the first by 10 percent counted | ED2's extend case |
+| teacher | rank 2 on `fc@7`, 60 steps at 1e-3 on the format targets, delta doubled | a generalising teacher: fitted on the rule, not on memorised tokens |
+| library | `v, o, fc, proj` at layers 3, 7, 11 | as ED2; attention and MLP modules both present, where the literature expects a difference |
+| `eps_g`, `D_max`, `eps_H`, budget, sketches, linearised fit, beam, equivalence, spent | as ED2's config | unchanged; `D_max` is moot on the format case (`D` near 1) and kept for the planted one |
+| probes | 96 contexts of 16 tokens each side, every position, support 256 | as ED2's real case |
+| selectors | held-out gain (the rule's), matched-`p`, Auto-RGN, random (one draw and the expectation over 2000), the sweep | read off the one sweep |
+| world | seed 1 | the pilot is seed 0 |
 
 ## The declared pilot
 
