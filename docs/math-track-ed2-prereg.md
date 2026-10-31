@@ -188,14 +188,66 @@ in the pilot section). ED1 tested reuse with exact geometry.
 ## The declared pilot
 
 World seed 0 (the scored run uses seed 1 for the planted cases and
-seed 2 for the real-data case), `poc/results/ed2/pilot.log`; a first
-pilot on a 64-token support, `pilot0_support64.log`, is kept for the
-sizing defect it found (2048 state numbers against 3072 adapter
-parameters, so fits were underdetermined and held-out distortion
-could not discriminate modules) and the random-direction targets it
-used. Excluded from every bar; nothing is changed after it.
+seed 2 for the real-data case). A first pilot on a 64-token support,
+`pilot0_support64.log`, is kept for the sizing defect it found (2048
+state numbers against 3072 adapter parameters, so fits were
+underdetermined) and the random-direction targets it used. Excluded
+from every bar; nothing is changed after it.
 
-PILOT_NUMBERS
+Logs: `pilot1_teacher_scan.log` (teachers, fit curves),
+`pilot2.log` (the chosen teacher: students, budget, tangent, the
+matched-`p` candidate scores on an 18-module library),
+`pilot3_mimicry.log`, `pilot4_heldgain.log` (the held-out gain on the
+extend case, joint fits), `pilot5_allpositions.log` (the real-data
+case on every position); `pilot2_oomkilled.log` is the block the
+memory cgroup killed when every program still folded the weights in.
+
+- **Teachers.** Fitted on the training probes' next tokens, a
+  rank-2 teacher on `v@7` moves the training-probe state by 0.007,
+  0.028 and 0.142 after 5, 10 and 20 steps at 1e-3 and by 0.222
+  after 10 steps at 3e-3; on `fc@7` by 0.014, 0.067, 0.295 and 0.370.
+  Held-out effects are 5 to 7 times smaller. Doubled, the `v@7`
+  teacher of the chosen block sits at 0.208 (held-out 0.055), the
+  `fc@7` teacher at 0.49 (0.049).
+- **A student on its own teacher (rank 2 on `v@7`, doubled).** After
+  6, 60 and 120 steps at 3e-3: `D` 0.171, 0.017, 0.0071; held-out
+  0.050, 0.021, 0.017; `s` 0.88, 0.19, 0.041.
+- **The extend student (rank 2 on `v@7` against the `fc@7` teacher).**
+  `D` 0.049, held-out 0.053, `s` 0.17, `lambda_min` -0.025 against
+  `||H||` 2.5; the budget of 2 lowers `F` by 0.0 percent; the sketched
+  `tau` 0.19 (0.085 at single amplitude).
+- **Mimicry.** On 48 contexts at the budget, the wrong family fits
+  the training state nearly as well as the right one: for the `fc@7`
+  teacher, a `v@7` student reaches 0.029 (0.060 doubled) against an
+  `fc@7` student's 0.019 (0.041); for a rank-3 `v@7` teacher a rank-1
+  student reaches 0.014 against a rank-3 student's 0.011; at 96
+  contexts the right family is not even ahead on training distortion
+  (0.028 against 0.019). Held-out separates by about 2 (0.040 against
+  0.020; 0.087 against 0.036 doubled). Hence no reuse case and the
+  held-out gain as the ranking.
+- **Candidate scores on the extend case.** Matched-`p` `eta` at
+  `p = 12` ranks the planted `fc@7` 8th of 18 (with `q, k` in the
+  library) and 4th of 12 (0.110 behind `proj@11` 0.154, `proj@3`
+  0.124, `v@3` 0.118). The linearised train gains are 0.65 to 0.88
+  for every module. The held-out gains: `proj@7` 0.366, `o@7` 0.362,
+  `fc@7` 0.288, `o@3` 0.174, `v@7` 0.132, `fc@3` 0.110, `proj@3`
+  0.068, the layer-11 modules and `v@3` negative (-0.08 to -0.33).
+  Joint fits (held-out `D`): `fc@7` 0.028, `proj@11` 0.032, `v@11`
+  0.032, `v@3` 0.035, the current 0.053; `proj@7` and `o@7` were not
+  fitted in the pilot.
+- **The real-data case, every position (96 contexts, 1536 targets).**
+  Base `D` 0.98 (held-out 0.99), held-out cross-entropy 6.04. The
+  rank-2 `v@7` student after 60 steps: at 3e-3 `D` 0.955, held-out
+  0.986, cross-entropy 6.02, `s` 0.016, `lambda_min` -2.6 against
+  `||H||` 207; at 1e-3 held-out 0.984 and cross-entropy 5.94. Held-out
+  gains: `fc@11` 0.001, `v@3` -0.019, `proj@7` -0.018 (train 0.02 to
+  0.03). The joint fit with `fc@11`: training 0.87, held-out 1.03,
+  cross-entropy 8.2. At this budget an added rank-2 module anywhere
+  overfits; the last-position version (96 targets) did so even for
+  the student alone.
+- **Costs.** A 60-step fit 50 to 70 s on 48 contexts, 130 to 220 s on
+  96; a candidate's two scores 165 s on 48 contexts and 270 s on 96;
+  Lanczos 30 to 70 s; peak memory 2 to 3.5 GB.
 
 ## Bars (frozen)
 
@@ -214,7 +266,37 @@ PILOT_NUMBERS
 
 ## Predictions
 
-PREDICTIONS
+- **F1 holds, 5 of 5, with one named risk.** refine: REFINE (`s`
+  about 0.9 against 0.5). saddle: first stage GLOBALIZE, the budget
+  lowers `F` by far more than 10 percent, GLOBALIZE. adequate: STOP
+  (`D` about 0.007 against 0.015). noise: inadequate, stationary,
+  the budget finds nothing, every held-out gain near zero, no fit
+  improves held-out, the base (at the noise level, about 0.5) beats
+  the current (about 0.57) by more than 1 percent: FALLBACK naming
+  the base. extend: inadequate (`D` about 0.05), stationary, first
+  stage GLOBALIZE, the budget finds nothing; the held-out gain puts
+  `fc@7` in the beam with `proj@7` and `o@7` (the pilot's order:
+  `proj@7`, `o@7`, `fc@7`); the joint fit on `fc@7` wins on held-out
+  by 10 to 20 percent over the others and `J` falls under the
+  current's by half: EXPAND on `fc@7`. The risk: the two same-layer
+  modules above it were not fitted in the pilot, and if one lands
+  within that margin the case is lost on the module name alone;
+  F1 then fails although the rule's action and the deployment gain
+  are right.
+- **F2 holds, by the base and the current beating every module.**
+  The real student is stationary and indefinite, the budget finds
+  nothing, every held-out gain is within 0.02 of zero, every joint
+  fit overfits (held-out above 1.0 against the current's 0.986 and
+  the base's 0.99); the rule returns FALLBACK naming the current
+  (the base is not 1 percent better); the sweep's best module has
+  `J` above 1.0; the rule's choice is better. The finding to expect:
+  on 1536 real targets at this budget no rank-2 module anywhere
+  improves held-out, and the first-order held-out gain says so
+  before any fit.
+- **F3.** The matched-`p` beam on extend excludes `fc@7`; the
+  equivalence stage collapses nothing (containments below 0.6);
+  sketched `tau` 0.1 to 0.2 on the planted cases.
+- Letter **A**, with the extend module name as the way it becomes B.
 
 ## Outcome (frozen, exclusive)
 
