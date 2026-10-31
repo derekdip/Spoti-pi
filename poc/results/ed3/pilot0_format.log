@@ -7,3 +7,5 @@ None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be ava
 [04:18:55] rank-2 on fc@11, 60 steps at 0.003: D 0.8825 D_held 0.9703 s 1.91e-02 nll_held 5.296 (110s)
 [04:21:52] rank-2 on fc@11, 120 steps at 0.001: D 0.8889 D_held 0.9686 s 1.59e-02 nll_held 5.230 (178s)
 [04:25:42] rank-2 on v@3, 60 steps at 0.003: D 0.9195 D_held 0.9523 s 2.98e-02 nll_held 4.854 (230s)
+[04:35:24] rank-2 on v@3, 120 steps at 0.001: D 0.9226 D_held 0.9520 s 2.97e-02 nll_held 4.836 (582s)
+[04:35:24] format pilot done in 2086s

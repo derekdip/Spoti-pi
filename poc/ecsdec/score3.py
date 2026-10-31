@@ -26,8 +26,9 @@ def main():
     L.append("## G3, reported\n")
     for name, rr in rows.items():
         if "predictor" in rr:
-            L.append(f"- {name}: first-order held-out gain against fitted held-out gain, Pearson {rr['predictor']['pearson']:.2f}, Spearman {rr['predictor']['spearman']:.2f}; per module (predicted / fitted): " + ", ".join(f"{m} {rr['cands'][m]['gain_held']:+.3f}/{rr['predictor']['fitted_gain'][m]:+.3f}" for m in sorted(rr["cands"], key=lambda m: -rr['cands'][m]['gain_held'])))
-            L.append(f"- {name}: D {rr['D']:.4f} D_held {rr['D_held']:.4f} s {rr['stat']:.2e} first stage {rr['first_stage']} tau_sketch {rr.get('tau_sketch', float('nan')):.3f} fits {rr['fits_run']}; sweep (held-out D): " + ", ".join(f"{m} {rr['sweep'][m]['D_held']:.4f}" for m in sorted(rr["sweep"], key=lambda m: rr["sweep"][m]["J"])))
+            pr = rr["predictor"]; extra = f", against the fitted cross-entropy gain Pearson {pr['pearson_nll']:.2f}, Spearman {pr['spearman_nll']:.2f}" if "pearson_nll" in pr else ""
+            L.append(f"- {name}: first-order held-out gain against the fitted held-out distortion gain, Pearson {pr['pearson']:.2f}, Spearman {pr['spearman']:.2f}{extra}; per module (predicted / fitted distortion gain" + (" / fitted cross-entropy gain" if "fitted_nll_gain" in pr else "") + "): " + ", ".join(f"{m} {rr['cands'][m]['gain_held']:+.3f}/{pr['fitted_gain'][m]:+.3f}" + (f"/{pr['fitted_nll_gain'][m]:+.3f}" if "fitted_nll_gain" in pr else "") for m in sorted(rr["cands"], key=lambda m: -rr['cands'][m]['gain_held'])))
+            L.append(f"- {name}: D {rr['D']:.4f} D_held {rr['D_held']:.4f} s {rr['stat']:.2e} first stage {rr['first_stage']} tau_sketch {rr.get('tau_sketch', float('nan')):.3f} fits {rr['fits_run']}; sweep (J): " + ", ".join(f"{m} {rr['sweep'][m]['J']:.4f}" for m in sorted(rr["sweep"], key=lambda m: rr["sweep"][m]["J"])))
     letter = "A" if (G1 and G2) else "B" if G1 else "C" if G2 else "D"
     L.append(f"\n## Letter: **{letter}** (G1 {'holds' if G1 else 'fails'}, G2 {'holds' if G2 else 'fails'})\n")
     (OUT / "report.md").write_text("\n".join(L) + "\n"); print("\n".join(L))

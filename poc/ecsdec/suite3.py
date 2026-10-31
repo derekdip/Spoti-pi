@@ -70,7 +70,8 @@ def build_case(name, W, key, cfg):
 
 
 def run_case(name, W, key, cfg, library):
-    truth, fam, th, x, xh, note = build_case(name, W, key, cfg); log(f"case {name}: truth {truth} ({note})")
+    SK.TH["objective"] = cfg["objective"][name]                                   # "D" for the planted case, "nll" for the format targets
+    truth, fam, th, x, xh, note = build_case(name, W, key, cfg); log(f"case {name}: truth {truth} ({note}); objective {SK.TH['objective']}")
     rec = SK.decide(W, fam, th, x, xh, library, jax.random.fold_in(key, 7), cfg["steps"], cfg["lr"], log=log, sweep=True)
     got = rec["action"] + (":" + rec["chosen"] if rec["action"] == "EXPAND" else ""); rec.update(case=name, truth=truth, got=got, note=note, correct=(got == truth) if truth != "?" else None)
     rec["nll_held"] = dict(base=W.nll("ho", [], jnp.zeros(0)), current=W.nll("ho", fam, th))

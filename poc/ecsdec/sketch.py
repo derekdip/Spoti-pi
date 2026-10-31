@@ -18,7 +18,7 @@ import numpy as np, jax, jax.numpy as jnp
 
 TH = dict(eps_g=None, D_max=None, eps_H_rel=1e-6, p_set=(1, 3, 12), beam=3, contain_min=0.95, d_max=0.2, mu_min=0.95,
           multistarts=2, better_frac=0.10, lam_s=None, spent=0.01, m_T=16, m_c=8, subspace_iters=1, power_iters=6, lanczos=12, cand_rank=2,
-          lin_steps=30, lin_lr=3e-3, rank_by="held_gain")
+          lin_steps=30, lin_lr=3e-3, rank_by="held_gain", objective="D")      # objective: "D" (held-out distortion) or "nll" (held-out cross-entropy)
 
 
 # ---- adapters on a model with named modules
@@ -189,16 +189,20 @@ def decide(world, fam, theta, x, x_held, cands, key, steps, lr, log=print, sweep
     rec["beam_matched_p"] = [m for m in sorted(cands, key=lambda m: -cg[m]["eta"][max(TH["p_set"])]) if m not in dropped][:TH["beam"]]
     rec["beam_rgn"] = [m for m in sorted(cands, key=lambda m: -cg[m]["rgn"]) if m not in dropped][:TH["beam"]]
     log(f"  beam {beam} (matched-p would give {rec['beam_matched_p']}, Auto-RGN {rec['beam_rgn']})")
-    n_cur = int(theta.shape[0]); J_cur = deployment(rec["D_held"], n_cur); fits = {}
+    n_cur = int(theta.shape[0]); use_nll = TH["objective"] == "nll"
+    rec["nll_held_current"] = float(world.nll("ho", fam, theta)) if use_nll else None
+    J_cur = deployment(rec["nll_held_current"] if use_nll else rec["D_held"], n_cur); fits = {}
     def joint(name, cfam, k):
         jf = list(fam) + list(cfam); th0 = jnp.concatenate([theta, init_theta(cfam, k, world.shape_of)])
         th, Fv = fit(world.G(jf), x, th0, steps, lr, C); Dh = normD(x_held, world.Gh(jf)(th, C)); rec["fits_run"] += 1
-        fits[name] = dict(D_train=float(np.sqrt(2 * Fv) / np.linalg.norm(np.asarray(x))), D_held=Dh, J=deployment(Dh, n_cur + family_size(cfam, world.shape_of)), params=int(family_size(cfam, world.shape_of)))
-        log(f"  fit {name}: D_train {fits[name]['D_train']:.4f} D_held {Dh:.4f} J {fits[name]['J']:.4f}")
+        nh = float(world.nll("ho", jf, th)) if use_nll else None
+        fits[name] = dict(D_train=float(np.sqrt(2 * Fv) / np.linalg.norm(np.asarray(x))), D_held=Dh, nll_held=nh, J=deployment(nh if use_nll else Dh, n_cur + family_size(cfam, world.shape_of)), params=int(family_size(cfam, world.shape_of)))
+        log(f"  fit {name}: D_train {fits[name]['D_train']:.4f} D_held {Dh:.4f}" + (f" nll_held {nh:.4f}" if use_nll else "") + f" J {fits[name]['J']:.4f}")
     rk = TH["cand_rank"]
     for i, m in enumerate(beam): joint(m, [(m, rk)], jax.random.fold_in(ks[5], i))
     joint("all_modules", [(m, rk) for m in cands], ks[6])
-    fits["base"] = dict(D_train=normD(x, world.base_state("tr")), D_held=normD(x_held, world.base_state("ho")), J=deployment(normD(x_held, world.base_state("ho")), 0), params=0)
+    nb = float(world.nll("ho", [], jnp.zeros(0))) if use_nll else None
+    fits["base"] = dict(D_train=normD(x, world.base_state("tr")), D_held=normD(x_held, world.base_state("ho")), nll_held=nb, J=deployment(nb if use_nll else normD(x_held, world.base_state("ho")), 0), params=0)
     rec["fits"] = fits; rec["J_cur"] = J_cur; J_fb = fits["base"]["J"]                           # the fallback is the base model: no adapter
     best_m = min(beam, key=lambda m: fits[m]["J"]) if beam else None
     if best_m is not None and fits[best_m]["J"] < (1 - TH["spent"]) * J_cur and fits[best_m]["J"] <= J_fb: rec.update(action="EXPAND", chosen=best_m)
@@ -217,8 +221,11 @@ def decide(world, fam, theta, x, x_held, cands, key, steps, lr, log=print, sweep
         rec["selector_J"]["expected_random"] = float(np.mean([min(sw[m]["J"] for m in rng.choice(cands, size=min(TH["beam"], len(cands)), replace=False)) for _ in range(2000)]))
         # the predictor's accuracy: first-order held-out gain against the fitted held-out gain, per module
         fitted = {m: 1 - sw[m]["D_held"] / rec["D_held"] for m in cands}; pred = {m: cg[m]["gain_held"] for m in cands}
-        a = np.array([pred[m] for m in cands]); b = np.array([fitted[m] for m in cands])
-        rec["predictor"] = dict(fitted_gain=fitted, pearson=float(np.corrcoef(a, b)[0, 1]) if a.std() > 0 and b.std() > 0 else float("nan"),
-                                spearman=float(np.corrcoef(np.argsort(np.argsort(a)), np.argsort(np.argsort(b)))[0, 1]) if a.std() > 0 and b.std() > 0 else float("nan"))
-        log(f"  selectors' best J: " + ", ".join(f"{k} {v:.4f}" for k, v in rec["selector_J"].items()) + f"; predictor Pearson {rec['predictor']['pearson']:.2f} Spearman {rec['predictor']['spearman']:.2f}")
+        corr = lambda a, b: (float(np.corrcoef(a, b)[0, 1]), float(np.corrcoef(np.argsort(np.argsort(a)), np.argsort(np.argsort(b)))[0, 1])) if a.std() > 0 and b.std() > 0 else (float("nan"), float("nan"))
+        a = np.array([pred[m] for m in cands]); pe, sp = corr(a, np.array([fitted[m] for m in cands]))
+        rec["predictor"] = dict(fitted_gain=fitted, pearson=pe, spearman=sp)
+        if use_nll:
+            fitted_nll = {m: rec["nll_held_current"] - sw[m]["nll_held"] for m in cands}; pe2, sp2 = corr(a, np.array([fitted_nll[m] for m in cands]))
+            rec["predictor"].update(fitted_nll_gain=fitted_nll, pearson_nll=pe2, spearman_nll=sp2)
+        log(f"  selectors' best J: " + ", ".join(f"{k} {v:.4f}" for k, v in rec["selector_J"].items()) + f"; predictor Pearson {pe:.2f} Spearman {sp:.2f}" + (f" (against NLL gain: {rec['predictor']['pearson_nll']:.2f} / {rec['predictor']['spearman_nll']:.2f})" if use_nll else ""))
     return rec
