@@ -548,6 +548,25 @@ I got wrong running it, and where it is recorded.
     and the held-out gains had said so before a fit
     (`math-track-ed2-results.md`).
 
+32. **A first-order held-out gain finds where an adapter should go,
+    and the standard shortcuts do not.** ED3 put GPT-2 under a format
+    shift it does not know (alternating capitalisation), where a
+    rank-2 adapter's held-out gain ranges over 0.43 nats across
+    twelve modules. The rule's proposal score, a linearised rank-2
+    fit on each module scored on held-out data at a third of a fit's
+    cost, ranked a planted module first of twelve and, on the shift
+    itself, chose the module a thirteen-fit sweep would have chosen,
+    at six fits. The handoff's principal-subspace score and the
+    literature's validation-gradient norm chose wrong modules on both
+    cases and did no better than random placement. Qualifications:
+    the predictor's order beyond its top pick is weak against
+    cross-entropy because it predicts a Brier residual; the
+    all-modules adapter won the planted case and overfitted the real
+    one; one model, one shift, one rank. With ED2's finding that the
+    same score reads negative where no module helps, the LLM use case
+    now has a pre-screen and a go/no-go sign, each measured once
+    (`math-track-ed3-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
