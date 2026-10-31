@@ -528,6 +528,26 @@ I got wrong running it, and where it is recorded.
     the bounded budget and not by the curvature test
     (`math-track-ed1-results.md`).
 
+31. **On a real model the rule's first stage holds, its restarts
+    bite, and its module score has to read held-out data.** ED2 ran
+    ECS-Decision on GPT-2 base with every quantity estimated by
+    products. Refine, saddle, adequate and noise were called as on
+    the toy, the noise case to the end: a residual no module can
+    fit, the base chosen over the adapter. The extend case was lost
+    before its module stage because two restarts found a same-family
+    fit 15 percent better than the single-fit student, which is the
+    handoff's own Case 12 and the right refusal; the construction
+    should have had best-of-restarts students as ED1 did. Measured
+    on the way: with a few hundred contexts, a rank-2 adapter on any
+    module removes 65 to 88 percent of a planted target's residual at
+    first order, so no training-residual geometry can rank modules
+    and the handoff's proposal score put the planted one eighth of
+    twelve; a linearised fit scored on held-out put it third. On real
+    data the rule kept its adapter at six fits while every module of
+    a thirteen-fit sweep would have made the held-out model worse,
+    and the held-out gains had said so before a fit
+    (`math-track-ed2-results.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
