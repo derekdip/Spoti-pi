@@ -1,0 +1,34 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[00:27:25] case refine: truth REFINE
+[00:27:48]   D 0.2748 D_held 0.0664 s 9.61e-01
+[00:27:48]   -> REFINE (ok) fits 0
+[00:27:48] [60s]
+[00:28:03] case saddle: truth GLOBALIZE
+[00:28:25]   D 0.3696 D_held 0.0686 s 0.00e+00
+[00:28:54]   lam_min -3.72e+00 |H| 3.72e+00 (12 Lanczos steps)
+[00:30:28]   budget: F 6.9116e-01 -> 5.6136e-04 (99.9 percent)
+[00:30:28]   -> GLOBALIZE (ok) fits 2
+[00:30:28] [220s]
+[00:31:26] case extend: truth EXPAND:fc@7
+[00:31:45]   D 0.0465 D_held 0.0607 s 2.43e-01
+[00:32:11]   lam_min -7.01e-02 |H| 1.25e+00 (12 Lanczos steps)
+[00:33:40]   budget: F 1.1430e-02 -> 9.7049e-03 (15.1 percent)
+[00:33:40]   -> GLOBALIZE (MISS) fits 2
+[00:33:40] [411s]
+[00:34:27] case noise: truth FALLBACK
+[00:34:47]   D 0.4400 D_held 0.4816 s 2.80e-03
+[00:35:15]   lam_min 4.31e-04 |H| 1.29e+01 (12 Lanczos steps)
+[00:36:47]   budget: F 1.0633e+00 -> 1.0589e+00 (0.4 percent)
+[01:09:20]   eta p12 / linearised gain train / held: v@3 0.000/0.006/-0.024, o@3 0.000/0.008/-0.041, fc@3 0.000/0.014/-0.043, proj@3 0.000/0.009/-0.051, v@7 0.000/0.007/-0.005, o@7 0.000/0.008/-0.037, fc@7 0.000/0.025/-0.060, proj@7 0.000/0.015/-0.062, v@11 0.000/0.011/-0.025, o@11 0.000/0.015/-0.027, fc@11 0.000/0.027/-0.027, proj@11 0.000/0.019/-0.041
+[01:09:20]   beam ['v@7', 'v@3', 'v@11'] (the matched-p score would give ['proj@3', 'fc@7', 'proj@7'])
+[01:10:08]   fit v@7: D_train 0.4386 D_held 0.4873 J 0.4879
+[01:11:25]   fit v@3: D_train 0.4383 D_held 0.4914 J 0.4920
+[01:12:13]   fit v@11: D_train 0.4368 D_held 0.4908 J 0.4914
+[01:14:21]   fit all_modules: D_train 0.4297 D_held 0.5012 J 0.5080
+[01:14:21]   -> FALLBACK (ok) fits 6
+[01:14:21] [2853s]
+[01:16:02] case adequate: truth STOP
+[01:16:23]   D 0.0082 D_held 0.0287 s 6.97e-02
+[01:16:23]   -> STOP (ok) fits 0
+[01:16:23] [2974s]
+[01:16:23] done -> ed2.json in 2974s
