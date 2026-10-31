@@ -1,0 +1,20 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[22:30:42] rank-2 student on its teacher,   6 steps: D 0.1706 D_held 0.0498 s 8.82e-01 (31s)
+[22:31:53] rank-2 student on its teacher,  60 steps: D 0.0170 D_held 0.0209 s 1.91e-01 (71s)
+[22:33:51] rank-2 student on its teacher, 120 steps: D 0.0071 D_held 0.0172 s 4.12e-02 (118s)
+[22:33:51]   base to target: 0.2084 (held 0.0554)
+[22:35:46] extend student fitted: D 0.0489 D_held 0.0526 s 1.74e-01 lam_min -2.51e-02 |H| 2.53e+00 (115s)
+[22:37:25]   budget of 2: F 7.4549e-03 -> 7.4549e-03 (0.0 percent) (99s)
+[22:37:45]   tangent sketch: tau 0.189 (19s)
+[22:50:54]   candidate sketches (789s), eta p1/p3/p12/sketch: v@3 0.002/0.016/0.145/0.145, o@3 0.001/0.005/0.119/0.119, fc@3 0.000/0.009/0.093/0.093, proj@3 0.004/0.035/0.138/0.138, v@7 0.000/0.041/0.076/0.076, o@7 0.002/0.048/0.141/0.141, fc@7 0.002/0.014/0.121/0.121, proj@7 0.006/0.020/0.152/0.152, v@11 0.002/0.071/0.149/0.149, o@11 0.057/0.067/0.120/0.120, fc@11 0.014/0.062/0.172/0.172, proj@11 0.002/0.107/0.196/0.196
+[22:50:54]   pair v@7|o@7: containment 0.52/0.52 align 0.489 p1 mu 0.75 d 0.66 p3 mu 0.93 d 0.91 p12 mu 0.98 d 1.00
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/user/Spoti-pi/poc/ecsdec/suite2.py", line 213, in <module>
+    pilot() if a == "pilot" else pilot2() if a == "pilot2" else run(a)
+                                 ~~~~~~^^
+  File "/home/user/Spoti-pi/poc/ecsdec/suite2.py", line 181, in pilot2
+    pg = SK.pair_geometry(cg[a], cg[b]); log(f"  pair {a}|{b}: containment {pg['c_ij']:.2f}/{pg['c_ji']:.2f} align {pg['align']:.3f} " + " ".join(f"p{p} mu {v['mu']:.2f} d {v['d']:.2f}" for p, v in pg["p"].items()))
+                          ~~^^^
+KeyError: 'q@7'

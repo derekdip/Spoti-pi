@@ -1,0 +1,16 @@
+{
+ "A_det": true,
+ "B_surfaces_agree": true,
+ "C_formulas_and_bridge": true,
+ "D_rational_form": {
+  "P": {
+   "(1, 1, 1)": "1",
+   "(1, 1, 2)": "-1",
+   "(1, 2, 1)": "-1",
+   "(2, 1, 1)": "-1"
+  },
+  "D": {
+   "(0, 0, 0)": "1"
+  }
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "thresholds": {
+  "eps_g": 0.05,
+  "D_max": 0.05,
+  "gamma_rel": 1e-08,
+  "kappa_max": 1000000.0,
+  "eps_H_rel": 1e-08,
+  "p_set": [
+   1,
+   3,
+   12
+  ],
+  "beam": 3,
+  "contain_min": 0.95,
+  "d_max": 0.2,
+  "mu_min": 0.95,
+  "multistarts": 8,
+  "better_frac": 0.1,
+  "lam_s": 1e-05,
+  "spent": 0.01
+ },
+ "plant_scale": 1.0,
+ "refine_fracs": [
+  0.05,
+  0.1
+ ],
+ "collinear_eps": 1e-06,
+ "noise_case_level": 0.5,
+ "student_restarts": 4,
+ "noise_levels": [
+  0.0,
+  0.01,
+  0.05,
+  0.1
+ ],
+ "misspec_levels": [
+  0.01,
+  0.03,
+  0.1,
+  0.3,
+  1.0
+ ],
+ "scored_seed": 1,
+ "candidate_rank": 4,
+ "steps": 300,
+ "lr": 0.02,
+ "n_probe": 256
+}

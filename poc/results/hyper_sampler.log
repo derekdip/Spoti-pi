@@ -1,0 +1,21 @@
+k=20 samples=60000 (tried 1417216) 5.0s
+   pointed_inv_v   mc=0.06814 +- 0.00003   exact=0.06818   z=-1.24
+   rooted_c3       mc=7.32500 +- 0.00685   exact=7.33333   z=-1.22
+   rooted_c3_sq    mc=56.23899 +- 0.10384   exact=56.34744   z=-1.04
+   rooted_diff_sq  mc=7.85090 +- 0.04862   exact=7.70899   z=+2.92
+k=50 samples=60000 (tried 2260992) 11.8s
+   pointed_inv_v   mc=0.02886 +- 0.00001   exact=0.02885   z=+1.65
+   rooted_c3       mc=17.35045 +- 0.01036   exact=17.33333   z=+1.65
+   rooted_c3_sq    mc=307.33041 +- 0.37694   exact=306.72665   z=+1.60
+   rooted_diff_sq  mc=18.72299 +- 0.11041   exact=18.84660   z=-1.12
+k=100 samples=60000 (tried 3178496) 24.6s
+   pointed_inv_v   mc=0.01470 +- 0.00000   exact=0.01471   z=-0.42
+   rooted_c3       mc=33.99395 +- 0.01525   exact=34.00000   z=-0.40
+   rooted_c3_sq    mc=1167.97817 +- 1.00326   exact=1168.45798   z=-0.48
+   rooted_diff_sq  mc=37.57862 +- 0.21613   exact=37.37393   z=+0.95
+k=200 samples=30000 (tried 2269184) 25.7s
+   pointed_inv_v   mc=0.00743 +- 0.00000   exact=0.00743   z=+1.63
+   rooted_c3       mc=67.37995 +- 0.02882   exact=67.33333   z=+1.62
+   rooted_c3_sq    mc=4564.48110 +- 3.75387   exact=4558.58290   z=+1.57
+   rooted_diff_sq  mc=74.44620 +- 0.60099   exact=74.41536   z=+0.05
+wrote /home/user/Spoti-pi/poc/results/hyper_sampler.json

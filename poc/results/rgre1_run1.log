@@ -1,0 +1,79 @@
+[     0s] computing the water floor field
+[     4s] calibration cases
+[    31s]   old_three_corners        q_perp 0.075  q {coordinate 0.00, tail 0.00, unary 0.00, corner 0.92, stop 0.00, smooth 0.00}
+[    32s]   old_corner_stop_corner   q_perp 0.095  q {coordinate 0.00, tail 0.00, unary 0.00, corner 0.90, stop 0.00, smooth 0.00}
+[    33s]   old_bend_then_corner     q_perp 0.200  q {coordinate 0.00, tail 0.00, unary 0.01, corner 0.42, stop 0.00, smooth 0.50}
+[    33s]   old_reversal             q_perp 0.004  q {coordinate 0.00, tail 0.00, unary 0.00, corner 0.99, stop 0.00, smooth 0.00}
+[    34s]   old_tight_slalom         q_perp 0.483  q {coordinate 0.00, tail 0.00, unary 0.01, stop 0.00, smooth 0.87}
+[    51s]   old_A4                   q_perp 0.071  q {coordinate 0.45, unary 0.48, tail 0.20, floor 0.10}
+[    65s]   old_A6                   q_perp 0.074  q {coordinate 0.42, unary 0.69, tail 0.36, floor 0.00}
+[    79s]   old_A8                   q_perp 0.079  q {coordinate 0.30, unary 0.79, tail 0.49, floor 0.01}
+[    79s] tau_perp = 0.583
+[    79s] building corn cases (seed 20260915)
+[    93s] building water cases
+[    95s]   built coordinate_0 (delay 3 frames)
+[    96s]   built coordinate_1 (delay 4 frames)
+[    98s]   built coordinate_2 (delay 5 frames)
+[   100s]   built coordinate_3 (delay 6 frames)
+[   102s]   built coordinate_4 (delay 7 frames)
+[   103s]   built coordinate_5 (delay 8 frames)
+[   105s]   built unary_0 {'sigma': 0.02}
+[   106s]   built unary_1 {'sigma': 0.025}
+[   108s]   built unary_2 {'sigma': 0.04}
+[   109s]   built unary_3 {'sigma': 0.05}
+[   111s]   built unary_4 {'depth': 0.25}
+[   112s]   built unary_5 {'depth': 0.7}
+[   114s]   built tail_0 {'nu': 0.0007}
+[   115s]   built tail_1 {'nu': 0.001}
+[   117s]   built tail_2 {'gamma0': 0.5}
+[   118s]   built tail_3 {'gamma0': 0.75}
+[   120s]   built tail_4 {'gamma0': 1.0}
+[   121s]   built tail_5 {'gamma0': 1.5}
+[   138s]   built interaction_0 A=5.0 D=0.1875 (single fit gain 3.70 dt -48 ms)
+[   155s]   built interaction_1 A=6.0 D=0.28125 (single fit gain 4.03 dt -60 ms)
+[   172s]   built interaction_2 A=8.0 D=0.1875 (single fit gain 4.41 dt -80 ms)
+[   189s]   built interaction_3 A=8.0 D=0.28125 (single fit gain 4.41 dt -80 ms)
+[   206s]   built interaction_4 A=6.0 D=0.1875 (single fit gain 4.03 dt -60 ms)
+[   222s]   built interaction_5 A=5.0 D=0.28125 (single fit gain 3.70 dt -48 ms)
+[   231s]   built mix_coordinate_unary_0 A=3.5
+[   239s]   built mix_coordinate_unary_1 A=5.0
+[   247s]   built mix_coordinate_unary_2 A=7.0
+[   263s]   built mix_interaction_coordinate_0
+[   280s]   built mix_interaction_coordinate_1
+[   286s]   built unknowns
+[   290s] isolated smooth_0                     E0 0.104 chose smooth      (ok) q_perp 0.37 oracle smooth_uniform   [smooth] V_cap 1.00  dE rgre 0.050 / or 0.050
+[   294s] isolated smooth_1                     E0 0.102 chose smooth      (ok) q_perp 0.48 oracle smooth_uniform   [smooth] V_cap 1.00  dE rgre 0.043 / or 0.043
+[   297s] isolated smooth_2                     E0 0.101 chose smooth      (ok) q_perp 0.37 oracle smooth_uniform   [smooth] V_cap 1.00  dE rgre 0.029 / or 0.029
+[   303s] isolated smooth_3                     E0 0.087 chose smooth      (ok) q_perp 0.42 oracle smooth_adaptive  [smooth] V_cap 1.00  dE rgre 0.038 / or 0.038
+[   308s] isolated smooth_4                     E0 0.111 chose smooth      (ok) q_perp 0.36 oracle smooth_uniform   [smooth] V_cap 1.00  dE rgre 0.056 / or 0.056
+[   313s] isolated smooth_5                     E0 0.086 chose smooth      (ok) q_perp 0.38 oracle smooth_uniform   [smooth] V_cap 1.00  dE rgre 0.021 / or 0.021
+[   315s] isolated corner_0                     E0 0.154 chose corner      (ok) q_perp 0.08 oracle smooth_uniform   [smooth] V_cap 0.74  dE rgre 0.027 / or 0.032
+[   320s] isolated corner_1                     E0 0.069 chose corner      (ok) q_perp 0.07 oracle corner_tighten   [corner] V_cap 1.00  dE rgre 0.009 / or 0.009
+[   324s] isolated corner_2                     E0 0.143 chose corner      (ok) q_perp 0.04 oracle smooth_uniform   [smooth] V_cap 0.93  dE rgre 0.053 / or 0.057
+[   328s] isolated corner_3                     E0 0.157 chose corner      (ok) q_perp 0.03 oracle corner_tighten   [corner] V_cap 1.00  dE rgre 0.070 / or 0.070
+[   332s] isolated corner_4                     E0 0.138 chose corner      (ok) q_perp 0.08 oracle smooth_uniform   [smooth] V_cap 0.98  dE rgre 0.041 / or 0.049
+[   335s] isolated corner_5                     E0 0.158 chose corner      (ok) q_perp 0.07 oracle smooth_uniform   [smooth] V_cap 0.85  dE rgre 0.071 / or 0.083
+[   338s] isolated stop_0                       E0 0.161 chose stop        (ok) q_perp 0.01 oracle events           [stop] V_cap 1.00  dE rgre 0.127 / or 0.127
+[   341s] isolated stop_1                       E0 0.231 chose stop        (ok) q_perp 0.02 oracle events           [stop] V_cap 1.00  dE rgre 0.183 / or 0.183
+[   344s] isolated stop_2                       E0 0.195 chose stop        (ok) q_perp 0.04 oracle events           [stop] V_cap 1.00  dE rgre 0.112 / or 0.112
+[   346s] isolated stop_3                       E0 0.235 chose stop        (ok) q_perp 0.02 oracle events           [stop] V_cap 1.00  dE rgre 0.185 / or 0.185
+[   349s] isolated stop_4                       E0 0.115 chose stop        (ok) q_perp 0.02 oracle events           [stop] V_cap 1.00  dE rgre 0.061 / or 0.061
+[   352s] isolated stop_5                       E0 0.161 chose stop        (ok) q_perp 0.05 oracle events           [stop] V_cap 1.00  dE rgre 0.100 / or 0.100
+[   357s] isolated coordinate_0                 E0 0.242 chose coordinate  (ok) q_perp 0.07 oracle shift            [coordinate] V_cap 1.00  dE rgre 0.165 / or 0.165
+[   361s] isolated coordinate_1                 E0 0.187 chose coordinate  (ok) q_perp 0.05 oracle shift            [coordinate] V_cap 1.00  dE rgre 0.145 / or 0.145
+[   366s] isolated coordinate_2                 E0 0.176 chose coordinate  (ok) q_perp 0.05 oracle shift            [coordinate] V_cap 1.00  dE rgre 0.122 / or 0.122
+[   371s] isolated coordinate_3                 E0 0.235 chose coordinate  (ok) q_perp 0.07 oracle shift            [coordinate] V_cap 1.00  dE rgre 0.184 / or 0.184
+[   376s] isolated coordinate_4                 E0 0.195 chose coordinate  (ok) q_perp 0.08 oracle shift            [coordinate] V_cap 1.00  dE rgre 0.134 / or 0.134
+[   380s] isolated coordinate_5                 E0 0.216 chose coordinate  (ok) q_perp 0.09 oracle shift            [coordinate] V_cap 1.00  dE rgre 0.159 / or 0.159
+[   384s] isolated tail_0                       E0 0.146 chose smooth      (ok) q_perp 0.09 oracle decay            [tail] V_cap 0.02  dE rgre 0.022 / or 0.050
+[   389s] isolated tail_1                       E0 0.279 chose tail        (ok) q_perp 0.01 oracle decay            [tail] V_cap 1.00  dE rgre 0.215 / or 0.215
+[   394s] isolated tail_2                       E0 0.264 chose smooth      (ok) q_perp 0.02 oracle decay            [tail] V_cap 0.00  dE rgre 0.005 / or 0.207
+[   398s] isolated tail_3                       E0 0.274 chose tail        (ok) q_perp 0.03 oracle decay            [tail] V_cap 1.00  dE rgre 0.194 / or 0.194
+[   402s] isolated tail_4                       E0 0.296 chose smooth      (ok) q_perp 0.02 oracle decay            [tail] V_cap 0.00  dE rgre 0.005 / or 0.229
+[   407s] isolated tail_5                       E0 0.320 chose tail        (ok) q_perp 0.02 oracle decay            [tail] V_cap 1.00  dE rgre 0.261 / or 0.261
+[   412s] isolated unary_0                      E0 0.284 chose unary       (ok) q_perp 0.05 oracle width            [unary] V_cap 1.00  dE rgre 0.196 / or 0.196
+[   417s] isolated unary_1                      E0 0.333 chose unary       (ok) q_perp 0.03 oracle width            [unary] V_cap 1.00  dE rgre 0.262 / or 0.262
+[   422s] isolated unary_2                      E0 0.301 chose unary       (ok) q_perp 0.07 oracle width            [unary] V_cap 1.00  dE rgre 0.208 / or 0.208
+[   427s] isolated unary_3                      E0 0.234 chose unary       (ok) q_perp 0.02 oracle width            [unary] V_cap 1.00  dE rgre 0.173 / or 0.173
+[   432s] isolated unary_4                      E0 0.401 chose unary       (ok) q_perp 0.11 oracle width            [unary] V_cap 1.00  dE rgre 0.324 / or 0.324
+[   436s] isolated unary_5                      E0 0.460 chose unary       (ok) q_perp 0.03 oracle width            [unary] V_cap 1.00  dE rgre 0.385 / or 0.385

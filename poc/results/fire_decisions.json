@@ -1,0 +1,159 @@
+{
+ "obstacle": {
+  "heat": {
+   "disagree": 0.014344262295081968,
+   "missed_burn": 0.1484375,
+   "false_burn": 0.0014970059880239522,
+   "teacher_burn_rate": 0.08743169398907104
+  },
+  "ai": {
+   "disagree": 0.013934426229508197,
+   "missed_hazard": 0.15517241379310345,
+   "false_hazard": 0.0068846815834767644,
+   "teacher_hazard_rate": 0.047540983606557376
+  },
+  "visual": {
+   "rel_rms": 0.717288566780013,
+   "late_correlation": 0.6209601376379422
+  },
+  "floor_error": 0.45990013611135916
+ },
+ "ignition": {
+  "heat": {
+   "disagree": 0.18237704918032788,
+   "missed_burn": 0.2914438502673797,
+   "false_burn": 0.14495412844036698,
+   "teacher_burn_rate": 0.25546448087431695
+  },
+  "ignition": {
+   "disagree": 0.2459016393442623,
+   "missed_alight": 0.6666666666666666,
+   "false_alight": 0.06976744186046512,
+   "teacher_alight_rate": 0.29508196721311475
+  },
+  "ai": {
+   "disagree": 0.1469945355191257,
+   "missed_hazard": 0.4414976599063963,
+   "false_hazard": 0.0844650546538589,
+   "teacher_hazard_rate": 0.17513661202185793
+  },
+  "visual": {
+   "rel_rms": 0.6750782907455611,
+   "late_correlation": 0.7561190573366017
+  },
+  "floor_error": 0.6613378239211488
+ },
+ "delayed_ignition": {
+  "heat": {
+   "disagree": 0.18920765027322403,
+   "missed_burn": 0.2898876404494382,
+   "false_burn": 0.1452404317958783,
+   "teacher_burn_rate": 0.30396174863387976
+  },
+  "ignition": {
+   "disagree": 0.08196721311475409,
+   "missed_alight": 0.5555555555555556,
+   "false_alight": 0.0,
+   "teacher_alight_rate": 0.14754098360655737
+  },
+  "ai": {
+   "disagree": 0.1407103825136612,
+   "missed_hazard": 0.403485254691689,
+   "false_hazard": 0.07343857240905971,
+   "teacher_hazard_rate": 0.20382513661202187
+  },
+  "visual": {
+   "rel_rms": 0.6839398694346265,
+   "late_correlation": 0.7079418243383747
+  },
+  "floor_error": 0.6344570141866903
+ },
+ "full": {
+  "heat": {
+   "disagree": 0.17144808743169399,
+   "missed_burn": 0.4025974025974026,
+   "false_burn": 0.10986159169550173,
+   "teacher_burn_rate": 0.2103825136612022
+  },
+  "ignition": {
+   "disagree": 0.06557377049180328,
+   "missed_alight": 0.2777777777777778,
+   "false_alight": 0.028846153846153848,
+   "teacher_alight_rate": 0.14754098360655737
+  },
+  "ai": {
+   "disagree": 0.10710382513661203,
+   "missed_hazard": 0.49796747967479676,
+   "false_hazard": 0.04640151515151515,
+   "teacher_hazard_rate": 0.13442622950819672
+  },
+  "visual": {
+   "rel_rms": 0.6989670335191532,
+   "late_correlation": 0.7661213260086325
+  },
+  "floor_error": 0.5952556369695312
+ },
+ "windy": {
+  "heat": {
+   "disagree": 0.036202185792349725,
+   "missed_burn": 0.05202312138728324,
+   "false_burn": 0.03408210689388071,
+   "teacher_burn_rate": 0.11816939890710383
+  },
+  "ai": {
+   "disagree": 0.010382513661202186,
+   "missed_hazard": 0.04405286343612335,
+   "false_hazard": 0.00815613166326828,
+   "teacher_hazard_rate": 0.062021857923497264
+  },
+  "visual": {
+   "rel_rms": 0.515936144909888,
+   "late_correlation": 0.8600852627843879
+  },
+  "floor_error": 0.38515391896709067
+ },
+ "twin": {
+  "heat": {
+   "disagree": 0.0976775956284153,
+   "missed_burn": 0.20303030303030303,
+   "false_burn": 0.06701940035273368,
+   "teacher_burn_rate": 0.22540983606557377
+  },
+  "ai": {
+   "disagree": 0.11284153005464481,
+   "missed_hazard": 0.3527272727272727,
+   "false_hazard": 0.07041800643086817,
+   "teacher_hazard_rate": 0.15027322404371585
+  },
+  "visual": {
+   "rel_rms": 0.4935778753546004,
+   "late_correlation": 0.8576364822397996
+  },
+  "floor_error": 0.5032730869076983
+ },
+ "shelf_bed": {
+  "heat": {
+   "disagree": 0.1564207650273224,
+   "missed_burn": 0.3613707165109034,
+   "false_burn": 0.09886264216972879,
+   "teacher_burn_rate": 0.2192622950819672
+  },
+  "ignition": {
+   "disagree": 0.0,
+   "missed_alight": 0.0,
+   "false_alight": 0.0,
+   "teacher_alight_rate": 0.0
+  },
+  "ai": {
+   "disagree": 0.10273224043715846,
+   "missed_hazard": 0.4681274900398406,
+   "false_hazard": 0.044648511716276124,
+   "teacher_hazard_rate": 0.1371584699453552
+  },
+  "visual": {
+   "rel_rms": 0.6742718783905474,
+   "late_correlation": 0.7220711045608774
+  },
+  "floor_error": 0.7185963527412098
+ }
+}

@@ -1,0 +1,5 @@
+   [nolegs_s1] t0 pick vault  side +0 (oracle vault, value 1.00) fit 0.7238->0.3990 held-out 0.7284->0.4020 rejected [] [8s]
+   [nolegs_s1] t1 pick torso  side +0 (oracle torso, value 1.00) fit 0.3990->0.3563 held-out 0.4020->0.3794 rejected [] [15s]
+   [nolegs_s1] t2 pick rhythm side +0 (oracle rhythm, value 1.00) fit 0.3563->0.3069 held-out 0.3794->0.3592 rejected [] [21s]
+nolegs_s1              [transfer] designed vault+0 v0 0.724/0.728 -> 0.307/0.359 added ['vault', 'torso', 'rhythm'] [21s]
+done: 1 cases in 21s -> poc/results/g3_pilot.json

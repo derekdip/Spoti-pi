@@ -1,0 +1,15 @@
+state                                 |state - twin|   |state - V0|   (max over consumers, in scale units)
+intact hop on-state                         0.00e+00          3.941
+weak_hip_left hop on-state                  0.00e+00          4.158
+locked_knee_left hop on-state               0.00e+00          7.547
+short_shank_left hop on-state               0.00e+00          3.584
+stump_left hop on-state                     0.00e+00          2.332
+noleg_left hop on-state                     0.00e+00          1.209
+weak_hip_right hop on-state                 0.00e+00          3.858
+locked_knee_right hop on-state              0.00e+00          7.795
+short_shank_right hop on-state              0.00e+00          3.835
+stump_right hop on-state                    0.00e+00          1.828
+noleg_right hop on-state                    0.00e+00          1.238
+g3 terminal noleg_left_s0                   0.00e+00          1.329
+g3 terminal stump_right_s0                  1.95e-03          2.459
+g4 terminal noleg_left_s0                   0.00e+00          2.111

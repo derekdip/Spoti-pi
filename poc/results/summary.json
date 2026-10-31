@@ -1,0 +1,238 @@
+{
+  "teacher": {
+    "stalks": 1600,
+    "frames": 601,
+    "wall_s": 1.0148831059996155,
+    "ops_per_stalk_frame": 320.0
+  },
+  "tokens": {
+    "events": 18,
+    "path_points": 201,
+    "floats": 693,
+    "per_stalk_state_floats": 6400
+  },
+  "model": {
+    "terms": [
+      "wake",
+      "presence",
+      "radial_impulse",
+      "crush",
+      "ring_wave",
+      "saturate"
+    ],
+    "description": "  wake(B=0.417, w=0.138, t_lead=0.133, lam=0.1, k=82.6, zeta=0.158, mix=0.831, q=1.25)\n  presence(A=0.162, sigma=0.149, mix=0.634, q=1.4)\n  radial_impulse(A=0.0863, sigma=0.369, lam=9.53, k=162, zeta=0.733, mix=0.548, q=3.56)\n  crush(C=0.0228, w=0.05, t_rise=0.193, t_rec=11.8, mix=5.14e-21, q=2.17)\n  ring_wave(A=0.0465, lam=19.9, v=0.69, w=0.467, kappa=6.87)\n  saturate(b_max=1.4)",
+    "ops_per_stalk_frame": 124.25623960066557,
+    "eval_wall_s": 3.7248618789999455
+  },
+  "errors": {
+    "E_all": 0.39029802197100566,
+    "E_walk": 0.4125055781973516,
+    "E_late": 0.3456368777118722,
+    "E_all_smoothed_150ms": 0.37506713900156896,
+    "E_coarse16_all": 0.22371769627315602,
+    "E_coarse16_late": 0.22387765540442048,
+    "coarse16_late_corr": 0.976453296224722,
+    "trail_iou_16": 0.9545454545454546
+  },
+  "history": [
+    {
+      "terms": [],
+      "J": 1.5,
+      "E_all": 1.0,
+      "E_late": 1.0,
+      "cost": 0.0
+    },
+    {
+      "terms": [
+        "wake"
+      ],
+      "J": 0.6271232530437555,
+      "E_all": 0.42376764509273934,
+      "E_late": 0.4015112159020323,
+      "cost": 26.0
+    },
+    {
+      "terms": [
+        "wake",
+        "presence"
+      ],
+      "J": 0.5840567895865084,
+      "E_all": 0.4044221681673012,
+      "E_late": 0.34966924283841444,
+      "cost": 48.0
+    },
+    {
+      "terms": [
+        "wake",
+        "presence",
+        "radial_impulse"
+      ],
+      "J": 0.5768113391814235,
+      "E_all": 0.3933070311195245,
+      "E_late": 0.3513328686154924,
+      "cost": 78.37873754152824
+    },
+    {
+      "terms": [
+        "wake",
+        "presence",
+        "radial_impulse",
+        "crush"
+      ],
+      "J": 0.5757869993542352,
+      "E_all": 0.39118513354516443,
+      "E_late": 0.34895123992378935,
+      "cost": 101.2624584717608
+    },
+    {
+      "terms": [
+        "wake",
+        "presence",
+        "radial_impulse",
+        "crush",
+        "saturate"
+      ],
+      "J": 0.5753018830949905,
+      "E_all": 0.39084228435087026,
+      "E_late": 0.347369695827111,
+      "cost": 107.74750830564784
+    },
+    {
+      "terms": [
+        "wake",
+        "presence",
+        "radial_impulse",
+        "crush",
+        "ring_wave",
+        "saturate"
+      ],
+      "J": 0.5750921520001258,
+      "E_all": 0.3899525138208771,
+      "E_late": 0.3455510371558395,
+      "cost": 123.64119601328903
+    }
+  ],
+  "pareto": [
+    {
+      "terms": [],
+      "E_all_fit": 1.0,
+      "E_late_fit": 1.0,
+      "cost": 0.0
+    },
+    {
+      "terms": [
+        "wake"
+      ],
+      "E_all_fit": 0.42376764509273934,
+      "E_late_fit": 0.4015112159020323,
+      "cost": 26.0
+    },
+    {
+      "terms": [
+        "wake",
+        "presence"
+      ],
+      "E_all_fit": 0.4044221681673012,
+      "E_late_fit": 0.34966924283841444,
+      "cost": 48.0
+    },
+    {
+      "terms": [
+        "wake",
+        "presence",
+        "radial_impulse"
+      ],
+      "E_all_fit": 0.3933070311195245,
+      "E_late_fit": 0.3513328686154924,
+      "cost": 78.37873754152824
+    },
+    {
+      "terms": [
+        "wake",
+        "presence",
+        "radial_impulse",
+        "crush"
+      ],
+      "E_all_fit": 0.39118513354516443,
+      "E_late_fit": 0.34895123992378935,
+      "cost": 101.2624584717608
+    },
+    {
+      "terms": [
+        "wake",
+        "presence",
+        "radial_impulse",
+        "crush",
+        "saturate"
+      ],
+      "E_all_fit": 0.39084228435087026,
+      "E_late_fit": 0.347369695827111,
+      "cost": 107.74750830564784
+    },
+    {
+      "terms": [
+        "wake",
+        "presence",
+        "radial_impulse",
+        "crush",
+        "ring_wave",
+        "saturate"
+      ],
+      "E_all_fit": 0.3899525138208771,
+      "E_late_fit": 0.3455510371558395,
+      "cost": 123.64119601328903
+    }
+  ],
+  "field_bake": {
+    "16": {
+      "E_all": 0.6087630249474616,
+      "E_late": 0.5768818738305821,
+      "E_coarse16_late": 0.36936357974866807,
+      "ops_per_stalk_frame": 31.88099833610649
+    },
+    "32": {
+      "E_all": 0.44439206555785027,
+      "E_late": 0.43626294197938464,
+      "E_coarse16_late": 0.24541256062935282,
+      "ops_per_stalk_frame": 91.52399334442596
+    },
+    "64": {
+      "E_all": 0.4148841941289155,
+      "E_late": 0.40543447602236954,
+      "E_coarse16_late": 0.22915747656057217,
+      "ops_per_stalk_frame": 330.09597337770384
+    }
+  },
+  "solo": {
+    "presence": {
+      "E_all": 0.9550842598352741,
+      "E_late": 0.9896406190705609,
+      "cost": 22.0,
+      "params": "presence(A=0.142, sigma=0.317, mix=0.703, q=3.97)"
+    },
+    "radial_impulse": {
+      "E_all": 0.5285644465792307,
+      "E_late": 0.43425446360624437,
+      "cost": 310.2828618968386,
+      "params": "radial_impulse(A=0.275, sigma=0.264, lam=0.102, k=145, zeta=0.112, mix=0.743, q=2.3)"
+    },
+    "ring_wave": {
+      "E_all": 0.9836943421122889,
+      "E_late": 1.0000030348555495,
+      "cost": 92.75207986688852,
+      "params": "ring_wave(A=0.225, lam=3.47, v=1.09, w=0.368, kappa=4.82)"
+    },
+    "wake": {
+      "E_all": 0.42784980704626263,
+      "E_late": 0.40401219018958345,
+      "cost": 26.0,
+      "params": "wake(B=0.394, w=0.166, t_lead=0.219, lam=0.104, k=63, zeta=0.175, mix=0.789, q=1.45)"
+    },
+    "crush": {
+      "E_all": 0.5071717864537926,
+      "E_late": 0.3998805076616095,
+      "cost": 24.0,
+      "params": "crush(C=0.269, w=0.144, t_rise=0.05, t_rec=10.4, mix=0.795, q=1.26)"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+mpg         seed 0  n=274   cand=66   lin 0.391 -> dead@8 0.312 final 0.312 best 0.312@8 knn 0.327 | value med 0.57 anchored 0.26 | q_perp step0 0.803 perm 0.993 (joint 0.22/0.45) | defer topS 0.257 og 0.265 mag 0.265 rand 0.333 | perm best drop 0.698% [5s]
+diabetes    seed 0  n=309   cand=150  lin 0.750 -> dead@0 0.750 final 0.742 best 0.728@5 knn 0.790 | value med 0.26 anchored 0.14 | q_perp step0 0.974 perm 0.985 (joint 0.03/0.02) | defer topS 0.709 og 0.709 mag 0.709 rand 0.719 | perm best drop 1.076% [9s]
+done: 2 cases in 9s -> poc/results/rgre_ml2_pilot.json
+# RGRE-ML-2 scored: 2 cases, 2 datasets, seeds [0]
+
+## B1 selection value over 16 steps
+median 0.461 mean 0.467 | random 0.058/0.217 | gradient-norm 0.696/0.628 | oracle in top-3 12%
+declared variant, anchored tangents (reported, not the bar): median 0.179 mean 0.349; pick = oracle 6% vs 6% single-anchor
+  diabetes    median 0.26 mean 0.36 | anchored 0.14/0.30
+  mpg         median 0.57 mean 0.58 | anchored 0.26/0.39
+-> B1 FAIL (bar: median >= 0.90 and above both baselines on median and mean)
+
+## B2 stopping signal: 10 wasted of 16 steps (held-out gain < 1%)
+AUC q_perp (single-class) 0.883 | step index 0.767 | in-sample drop of the pick (needs the fit) 0.867 | joint q_perp 0.250
+  diabetes    wasted 7/8 AUC q_perp 0.86 step 1.00
+  mpg         wasted 3/8 AUC q_perp 0.80 step 0.80
+-> B2 pass (bar: AUC >= 0.75 and above the step-index baseline)
+
+## B3 deferral at step zero, 3 of 12 regions, held-out error outside the deferred regions
+[dead_stop] top-S orthogonal beats magnitude on 50% (ties 50%) | medians top-S 0.483 single-class 0.487 magnitude 0.487 random 0.526 none 0.531 hindsight 0.479
+    single-class beats magnitude on 0% (ties 100%)
+[final] top-S orthogonal beats magnitude on 50% (ties 50%) | medians top-S 0.478 single-class 0.482 magnitude 0.482 random 0.523 none 0.527 hindsight 0.478
+    single-class beats magnitude on 0% (ties 100%)
+-> B3 FAIL (bar, on the dead-stop student: top-S wins >= 60% with ties against, median below magnitude and random)
+
+## B4 noise detection at step zero: q_perp permuted vs real, 2 pairs
+paired (permuted > real on the same split) 100% | pooled AUC 1.000 | median q_perp real 0.888 permuted 0.989 | joint version real 0.122 permuted 0.237
+  diabetes    real 0.974 permuted 0.985 paired 100%
+  mpg         real 0.803 permuted 0.993 paired 100%
+-> B4 pass (bar: permuted above real on >= 90% of splits)
+
+## Reported
+DEAD rule (1% in-sample) on permuted targets: declined 100%; spurious best drop median 0.89% (max 1.08%)
+search: one repair fitted per step of 108 candidates (median) = 0.009
+held-out RMSE in target-sd units, median over splits:
+  dataset      linear dead-stop  8 steps best step    kNN  dead@  best@
+  diabetes      0.750     0.750    0.742     0.728  0.790    0.0    5.0
+  mpg           0.391     0.312    0.312     0.312  0.327    8.0    8.0
+grown model (8 steps) beats linear on held-out in 100% of cases; beats kNN in 100%
+modules grown by kind: {'pair': 7, 'cubic': 3, 'bump': 3, 'step': 1, 'quad': 1, 'sin': 1}
+oracle's pick by kind: {'bump': 14, 'sin': 2}
+held-out value of the pick (pick's test drop / best candidate's test drop) median 0.20
+
+## Outcome (frozen tree)
+B1 fail, B2 pass, B3 fail, B4 pass -> outcome D

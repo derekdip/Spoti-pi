@@ -1,0 +1,53 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[20:49:16] world: 48 train and 48 held-out probes, state dim 12288 (19s)
+E1030 20:49:38.594141    2841 slow_operation_alarm.cc:74] Constant folding an instruction is taking > 1s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1430), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+E1030 20:49:38.951490    2818 slow_operation_alarm.cc:141] The operation took 1.35764741s
+Constant folding an instruction is taking > 1s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1430), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[20:49:50] teacher rank 2 on v@7, 5 steps at lr 0.001: distance base to target 0.007 (held 0.002), |delta|_F 0.11 (35s)
+[20:50:33] teacher rank 2 on v@7, 10 steps at lr 0.001: distance base to target 0.028 (held 0.006), |delta|_F 0.23 (43s)
+[20:51:18] teacher rank 2 on v@7, 20 steps at lr 0.001: distance base to target 0.142 (held 0.022), |delta|_F 0.64 (45s)
+[20:51:57] teacher rank 2 on v@7, 10 steps at lr 0.003: distance base to target 0.222 (held 0.037), |delta|_F 1.01 (39s)
+[20:52:31] teacher rank 3 on v@7, 5 steps at lr 0.001: distance base to target 0.008 (held 0.002), |delta|_F 0.13 (34s)
+[20:53:12] teacher rank 3 on v@7, 10 steps at lr 0.001: distance base to target 0.034 (held 0.008), |delta|_F 0.28 (40s)
+[20:53:56] teacher rank 3 on v@7, 20 steps at lr 0.001: distance base to target 0.175 (held 0.033), |delta|_F 0.81 (45s)
+[20:54:33] teacher rank 3 on v@7, 10 steps at lr 0.003: distance base to target 0.260 (held 0.055), |delta|_F 1.27 (37s)
+[20:55:05] teacher rank 2 on fc@7, 5 steps at lr 0.001: distance base to target 0.014 (held 0.001), |delta|_F 0.21 (31s)
+[20:55:41] teacher rank 2 on fc@7, 10 steps at lr 0.001: distance base to target 0.067 (held 0.004), |delta|_F 0.44 (36s)
+[20:56:26] teacher rank 2 on fc@7, 20 steps at lr 0.001: distance base to target 0.295 (held 0.021), |delta|_F 1.22 (46s)
+[20:57:04] teacher rank 2 on fc@7, 10 steps at lr 0.003: distance base to target 0.370 (held 0.033), |delta|_F 1.84 (37s)
+E1030 20:57:25.422037    2841 slow_operation_alarm.cc:74] Constant folding an instruction is taking > 2s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1430), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+E1030 20:57:25.453067    2818 slow_operation_alarm.cc:141] The operation took 2.031219218s
+Constant folding an instruction is taking > 2s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1430), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[20:58:45] rank-2 student lr 0.001  15 steps: D 0.0082 D_held 0.0043 s 6.72e-01 (65s)
+[21:00:00] rank-2 student lr 0.001  30 steps: D 0.0041 D_held 0.0035 s 2.51e-01 (76s)
+[21:01:30] rank-2 student lr 0.001  60 steps: D 0.0021 D_held 0.0033 s 5.88e-02 (90s)
+[21:03:49] rank-2 student lr 0.001 120 steps: D 0.0013 D_held 0.0030 s 3.57e-02 (138s)
+[21:04:47] rank-2 student lr 0.003  15 steps: D 0.0049 D_held 0.0048 s 2.25e-01 (58s)
+[21:05:54] rank-2 student lr 0.003  30 steps: D 0.0025 D_held 0.0032 s 4.84e-01 (67s)
+[21:07:26] rank-2 student lr 0.003  60 steps: D 0.0014 D_held 0.0030 s 1.62e-01 (92s)
+[21:09:42] rank-2 student lr 0.003 120 steps: D 0.0009 D_held 0.0026 s 1.26e-02 (136s)
+[21:10:50] theta = 0: s 0.00e+00 lam_min -1.276e-01 |H| 1.276e-01 (68s)

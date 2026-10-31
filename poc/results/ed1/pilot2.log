@@ -1,0 +1,10 @@
+[06:22:08] base step 500 loss 1.874
+[06:22:21] base step 1000 loss 1.848
+[06:22:36] base step 1500 loss 1.797
+[06:23:19] collinear rank-4, A rows equal to 0.0001, B fitted: D 0.334 s 3.16e-01 gamma 1.59e-06 kappa 4.0e+06 rank 233/256 lam_min -4.9e+00
+[06:23:56] collinear rank-4, A rows equal to 1e-06, B fitted: D 0.334 s 2.65e-01 gamma 7.37e-08 kappa 8.5e+07 rank 224/256 lam_min -4.9e+00
+[06:24:31] collinear rank-4, A rows equal to 1e-08, B fitted: D 0.334 s 2.65e-01 gamma 7.44e-07 kappa 8.4e+06 rank 155/256 lam_min -4.9e+00
+[06:25:52] reuse, student = best of 1: D 0.242 s 2.38e-03 lam_min -1.18e-02 |H| 3.33e+01; budget F 1.377e+00 -> 1.356e+00 (1.5 percent)
+[06:27:20] extend, student = best of 1: D 0.222 s 2.51e-03 lam_min -1.04e-02 |H| 1.51e+01; budget F 1.321e+00 -> 1.296e+00 (1.9 percent)
+[06:28:56] reuse, student = best of 4: D 0.242 s 2.36e-03 lam_min -7.64e-03 |H| 3.22e+01; budget F 1.373e+00 -> 1.356e+00 (1.2 percent)
+[06:30:44] extend, student = best of 4: D 0.219 s 1.77e-03 lam_min -4.58e-03 |H| 1.11e+01; budget F 1.287e+00 -> 1.287e+00 (0.0 percent)

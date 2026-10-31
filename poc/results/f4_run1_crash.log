@@ -1,0 +1,58 @@
+[     8s] ignition: V0 0.8152
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/scipy/optimize/_differentialevolution.py", line 1395, in _calculate_population_energies
+    calc_energies = list(
+                    ^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/scipy/_lib/_util.py", line 588, in __call__
+    return self.f(x, *self.args)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/fire/rgre_puffs.py", line 237, in <lambda>
+    obj = lambda x: case.error(_vec_to_state(x, names, base))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/fire/rgre_fire.py", line 171, in error
+    r = self.residual(st)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/fire/rgre_fire.py", line 162, in residual
+    pred = self._consumers(st)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/fire/rgre_puffs.py", line 90, in _consumers
+    rec = as_record(st, self.p, self.times, self.burners, self.patches, self.obstacles)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/fire/puffs.py", line 235, in as_record
+    Tf, soot = evaluate(st, p, times, burners, patches, obstacles)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/fire/puffs.py", line 206, in evaluate
+    _splat(exc[f], xs, ys, x, y, sig, sy, st.amp * _envelope(st, a), q)
+  File "/home/user/Spoti-pi/poc/fire/puffs.py", line 174, in _splat
+    gx = np.exp(-0.5 * np.abs((xs[i0:i1] - xi) / sxi) ** q)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^~~
+TypeError: unsupported operand type(s) for ** or pow(): 'float' and 'FuelPatch'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/user/Spoti-pi/poc/f4_experiment.py", line 115, in <module>
+    main()
+  File "/home/user/Spoti-pi/poc/f4_experiment.py", line 105, in main
+    out["unseen"].append(run_scene(nm, log))
+                         ^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/f4_experiment.py", line 78, in run_scene
+    st, e, names, spread = RP.floor_fit(c, v0, maxfev_per_dim=40, verbose=False)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/fire/rgre_puffs.py", line 261, in floor_fit
+    x_de, e_de, n_de = de_fit(case, base, names, maxfev_per_dim=maxfev_per_dim)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Spoti-pi/poc/fire/rgre_puffs.py", line 238, in de_fit
+    r = differential_evolution(obj, list(zip(lo, hi)), maxiter=maxiter, popsize=popsize, seed=seed,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/scipy/_lib/_util.py", line 365, in wrapper
+    return fun(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/scipy/optimize/_differentialevolution.py", line 533, in differential_evolution
+    ret = solver.solve()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/scipy/optimize/_differentialevolution.py", line 1219, in solve
+    self._calculate_population_energies(
+  File "/usr/local/lib/python3.11/dist-packages/scipy/optimize/_differentialevolution.py", line 1402, in _calculate_population_energies
+    raise RuntimeError(
+RuntimeError: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'

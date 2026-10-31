@@ -1,0 +1,7 @@
+1. two-state equations P1, P2, P3 vanish identically under the dictionary: True
+2. (d/dX + d/dY) Htilde = q (p + r), i.e. grad.adj(J)(e_X + e_Y) = q(p+r) det J: True
+   (d/dX + d/dU + d/dY) Htilde = pq + qr + rp: True
+3. every component of grad Htilde . adj(J) is divisible by det J (no square-root term on the fold): True
+   sanity: grad Htilde itself is not divisible by det J: True
+4. U = M - M^2 in eps = sqrt(1-8z): ['1/4', '0', '-1', '2', '-3']  -> no eps^1 term, eps^3 coefficient 2
+ALL: True

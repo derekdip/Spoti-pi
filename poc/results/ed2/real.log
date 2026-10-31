@@ -1,0 +1,22 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[01:18:40] case real: truth ?
+[01:19:21]   D 0.9615 D_held 0.9903 s 2.12e-02
+[01:20:22]   lam_min -2.33e+01 |H| 7.41e+01 (12 Lanczos steps)
+[01:24:08]   budget: F 7.1003e+02 -> 7.0759e+02 (0.3 percent)
+[02:42:50]   eta p12 / linearised gain train / held: v@3 0.001/0.019/-0.009, o@3 0.001/0.024/-0.004, fc@3 0.000/0.044/-0.008, proj@3 0.001/0.036/-0.021, v@7 0.000/0.012/-0.004, o@7 0.000/0.032/-0.022, fc@7 0.000/0.061/-0.017, proj@7 0.000/0.034/-0.016, v@11 0.001/0.012/-0.000, o@11 0.001/0.013/-0.002, fc@11 0.001/0.033/-0.004, proj@11 0.001/0.016/-0.005
+[02:42:52]   beam ['v@11', 'o@11', 'fc@11'] (the matched-p score would give ['o@11', 'v@3', 'proj@11'])
+[02:45:03]   fit v@11: D_train 0.9146 D_held 1.0147 J 1.0153
+[02:47:17]   fit o@11: D_train 0.9170 D_held 1.0179 J 1.0185
+[02:49:23]   fit fc@11: D_train 0.8803 D_held 1.0263 J 1.0273
+[02:54:17]   fit all_modules: D_train 0.7682 D_held 1.0276 J 1.0343
+[02:56:58]   fit v@3: D_train 0.9090 D_held 1.0213 J 1.0219
+[03:00:11]   fit o@3: D_train 0.8892 D_held 1.0009 J 1.0015
+[03:03:03]   fit fc@3: D_train 0.8683 D_held 1.0304 J 1.0315
+[03:06:14]   fit proj@3: D_train 0.8740 D_held 1.0086 J 1.0097
+[03:08:11]   fit v@7: D_train 0.9191 D_held 1.0177 J 1.0183
+[03:10:24]   fit o@7: D_train 0.9069 D_held 1.0245 J 1.0251
+[03:12:31]   fit fc@7: D_train 0.8699 D_held 1.0359 J 1.0370
+[03:14:36]   fit proj@7: D_train 0.8799 D_held 1.0185 J 1.0196
+[03:16:34]   fit proj@11: D_train 0.9124 D_held 1.0207 J 1.0218
+[03:16:41]   -> FALLBACK (reported) fits 15
+[03:16:41] done -> real.json in 7217s
