@@ -128,6 +128,12 @@ def linearised_gain(jvp_tr, vjp_tr, jvp_ho, module, shape, rank, r_perp, r_held,
     return dict(gain_train=float(1 - L / den), gain_held=float(1 - float(eh @ eh) / (float(rh @ rh) + 1e-30)), delta_norm=float(jnp.linalg.norm(D)))
 
 
+def rgn_score(vjp_ho, module, W_module, r_held):
+    """Auto-RGN (Lee et al. 2023) on a module: the norm of the held-out loss's gradient with respect to the
+    module's weights (one VJP of the held-out state against the held-out residual) over the weights' norm."""
+    g = vjp_ho(module, -jnp.asarray(r_held, jnp.float32)); return float(jnp.linalg.norm(g) / (jnp.linalg.norm(W_module) + 1e-30))
+
+
 def pair_geometry(ci, cj):
     res = {"p": {}}
     for p in TH["p_set"]:
@@ -164,12 +170,13 @@ def decide(world, fam, theta, x, x_held, cands, key, steps, lr, log=print, sweep
     rec["glob_improvement"] = float(1 - best[0] / max(F0, 1e-30)); log(f"  budget: F {F0:.4e} -> {best[0]:.4e} ({100 * rec['glob_improvement']:.1f} percent)")
     if best[0] < (1 - TH["better_frac"]) * F0: rec["action"] = "GLOBALIZE"; return rec
     Q_T = tangent_sketch(G, theta, ks[3], C); r_perp = r.astype(np.float64) - Q_T @ (Q_T.T @ r); rec["tau_sketch"] = float(1 - (r_perp @ r_perp) / max(float(r @ r), 1e-30))
-    extra = deltas_of(fam, theta, world.shape_of); cg = {}; jvp_d, vjp_d = world.delta_products(extra, cands); jvp_h, _ = world.delta_products(extra, cands, "ho")
+    extra = deltas_of(fam, theta, world.shape_of); cg = {}; jvp_d, vjp_d = world.delta_products(extra, cands); jvp_h, vjp_h = world.delta_products(extra, cands, "ho")
     r_held = np.asarray(x_held) - np.asarray(world.Gh(fam)(theta, C))
     for i, m in enumerate(cands):
         cg[m] = candidate_sketch(jvp_d, vjp_d, m, world.shape_of(m), jax.random.fold_in(ks[4], i), Q_T, r_perp)
         cg[m].update(linearised_gain(jvp_d, vjp_d, jvp_h, m, world.shape_of(m), TH["cand_rank"], r_perp, r_held, jax.random.fold_in(ks[4], 100 + i)))
-    rec["cands"] = {m: dict(eta=c["eta"], eta_sketch=c["eta_sketch"], dim=c["dim"], gain_train=c["gain_train"], gain_held=c["gain_held"], delta_norm=c["delta_norm"]) for m, c in cg.items()}
+        cg[m]["rgn"] = rgn_score(vjp_h, m, world.P[m], r_held)
+    rec["cands"] = {m: dict(eta=c["eta"], eta_sketch=c["eta_sketch"], dim=c["dim"], gain_train=c["gain_train"], gain_held=c["gain_held"], delta_norm=c["delta_norm"], rgn=c["rgn"]) for m, c in cg.items()}
     log("  eta p12 / linearised gain train / held: " + ", ".join(f"{m} {c['eta'][12]:.3f}/{c['gain_train']:.3f}/{c['gain_held']:.3f}" for m, c in cg.items()))
     pairs = {}; dropped = set()
     for i in range(len(cands)):
@@ -180,7 +187,8 @@ def decide(world, fam, theta, x, x_held, cands, key, steps, lr, log=print, sweep
     score = (lambda m: cg[m]["gain_held"]) if TH["rank_by"] == "held_gain" else (lambda m: cg[m]["eta"][max(TH["p_set"])])
     beam = [m for m in sorted(cands, key=lambda m: -score(m)) if m not in dropped][:TH["beam"]]; rec["beam"] = beam
     rec["beam_matched_p"] = [m for m in sorted(cands, key=lambda m: -cg[m]["eta"][max(TH["p_set"])]) if m not in dropped][:TH["beam"]]
-    log(f"  beam {beam} (the matched-p score would give {rec['beam_matched_p']})")
+    rec["beam_rgn"] = [m for m in sorted(cands, key=lambda m: -cg[m]["rgn"]) if m not in dropped][:TH["beam"]]
+    log(f"  beam {beam} (matched-p would give {rec['beam_matched_p']}, Auto-RGN {rec['beam_rgn']})")
     n_cur = int(theta.shape[0]); J_cur = deployment(rec["D_held"], n_cur); fits = {}
     def joint(name, cfam, k):
         jf = list(fam) + list(cfam); th0 = jnp.concatenate([theta, init_theta(cfam, k, world.shape_of)])
@@ -201,4 +209,16 @@ def decide(world, fam, theta, x, x_held, cands, key, steps, lr, log=print, sweep
             if m in fits: rec["sweep"][m] = fits[m]; continue
             joint(m, [(m, rk)], jax.random.fold_in(ks[7], i)); rec["sweep"][m] = fits.pop(m)
         rec["sweep_best"] = min(rec["sweep"], key=lambda m: rec["sweep"][m]["J"])
+        # every selector's outcome, read off the sweep: the best J among the modules it would have fitted
+        sw = rec["sweep"]; rng = np.random.default_rng(int(jax.random.randint(ks[7], (), 0, 2 ** 31 - 1)))
+        rec["selectors"] = {"held_gain": beam, "matched_p": rec["beam_matched_p"], "rgn": rec["beam_rgn"],
+                            "random": [str(m) for m in rng.choice(cands, size=min(TH["beam"], len(cands)), replace=False)]}
+        rec["selector_J"] = {k: min(sw[m]["J"] for m in v) for k, v in rec["selectors"].items()}; rec["selector_J"]["sweep"] = sw[rec["sweep_best"]]["J"]
+        rec["selector_J"]["expected_random"] = float(np.mean([min(sw[m]["J"] for m in rng.choice(cands, size=min(TH["beam"], len(cands)), replace=False)) for _ in range(2000)]))
+        # the predictor's accuracy: first-order held-out gain against the fitted held-out gain, per module
+        fitted = {m: 1 - sw[m]["D_held"] / rec["D_held"] for m in cands}; pred = {m: cg[m]["gain_held"] for m in cands}
+        a = np.array([pred[m] for m in cands]); b = np.array([fitted[m] for m in cands])
+        rec["predictor"] = dict(fitted_gain=fitted, pearson=float(np.corrcoef(a, b)[0, 1]) if a.std() > 0 and b.std() > 0 else float("nan"),
+                                spearman=float(np.corrcoef(np.argsort(np.argsort(a)), np.argsort(np.argsort(b)))[0, 1]) if a.std() > 0 and b.std() > 0 else float("nan"))
+        log(f"  selectors' best J: " + ", ".join(f"{k} {v:.4f}" for k, v in rec["selector_J"].items()) + f"; predictor Pearson {rec['predictor']['pearson']:.2f} Spearman {rec['predictor']['spearman']:.2f}")
     return rec

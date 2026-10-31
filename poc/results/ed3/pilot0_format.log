@@ -1,0 +1,9 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[04:00:41] upper-cased world: base D 0.9634 held 0.9652 nll_held 5.022
+[04:03:12] rank-2 on v@7, 60 steps at 0.003: D 0.9315 D_held 0.9615 s 2.10e-02 nll_held 5.087 (151s)
+[04:08:50] rank-2 on v@7, 120 steps at 0.001: D 0.9359 D_held 0.9586 s 3.37e-02 nll_held 5.014 (338s)
+[04:12:38] rank-2 on fc@7, 60 steps at 0.003: D 0.8597 D_held 0.9686 s 2.61e-02 nll_held 5.313 (228s)
+[04:17:05] rank-2 on fc@7, 120 steps at 0.001: D 0.8738 D_held 0.9736 s 5.12e-02 nll_held 5.284 (267s)
+[04:18:55] rank-2 on fc@11, 60 steps at 0.003: D 0.8825 D_held 0.9703 s 1.91e-02 nll_held 5.296 (110s)
+[04:21:52] rank-2 on fc@11, 120 steps at 0.001: D 0.8889 D_held 0.9686 s 1.59e-02 nll_held 5.230 (178s)
+[04:25:42] rank-2 on v@3, 60 steps at 0.003: D 0.9195 D_held 0.9523 s 2.98e-02 nll_held 4.854 (230s)
