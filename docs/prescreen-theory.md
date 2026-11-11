@@ -264,7 +264,74 @@ slope and (4) is what the pilot's sweep shows.
 | (2), the lower bound | elementary (Ky Fan norm duality), checked: 238 of 240 |
 | the spiked-matrix threshold, singular-value map and optimal shrinkage | known results (Baik, Ben Arous and Peche; Benaych-Georges and Nadakuditi; Gavish and Donoho), reproduced numerically here, not re-derived and not fetched |
 | reading the shrunk training slope as the generalising part of an adapter's first-order direction, with the edge set by a split-half null | an application; whether it is in the literature was not checkable from this sandbox |
-| (4), the half rule and `2 rho - 1` | elementary (a quadratic along one direction); its predictions for the pilot are written above before the data |
+| (4), the half rule and `2 rho - 1` | elementary (a quadratic along one direction); its predictions were written before the data and checked in section 8: it orders the modules (correlation 0.96 over 64) and is biased cautious, by 0.19 at 8 contexts and 0.05 at 96 |
 | the hard threshold as "worth fitting to convergence" | a reading of a known threshold (Gavish and Donoho's 4 / sqrt(3)), in the isotropic model |
 | early stopping as a spectral filter with optimum `rho` per mode | known for least squares; used, not claimed |
 | the edge-level formula calibrating under low-rank noise | an empirical regularity on one model, three text conditions, rank 2; no proof, and the model it comes from is false for this noise |
+
+## 8. The half rule checked
+
+Added 01:05 UTC 2026-11-11, after section 6 was committed (72314e6)
+and before the pilot reached its plain-text conditions.
+`poc/ecsdec/halfrule_check.py` computes the pilot's own quantities
+(`slope`, `trainslope`, `line`, `trainline`) for the 16 modules on
+separately drawn contexts (seed 5), at 8 and at 96 training contexts,
+plain text and alternating capitals; log in
+`poc/results/ed4/halfrule_check.log`, every row in
+`halfrule_check.json`. It is a check on a second sample, not the
+pilot: the pilot's own numbers are set against the same four
+predictions in the ED4 preregistration.
+
+| condition | n | `rho` median | `2 rho - 1` median | measured `line / trainline` median | negative: measured, predicted | correlation | mean abs. error |
+|---|---|---|---|---|---|---|---|
+| plain | 8 | 0.525 | +0.051 | +0.378 | 4, 7 of 16 | 0.96 | 0.221 |
+| alternating caps | 8 | 0.737 | +0.474 | +0.645 | 0, 0 of 16 | 0.61 | 0.176 |
+| plain | 96 | 0.931 | +0.862 | +0.884 | 0, 0 of 16 | 0.90 | 0.066 |
+| alternating caps | 96 | 1.004 | +1.008 | +1.091 | 0, 0 of 16 | 0.64 | 0.075 |
+
+Over the 64 module-condition pairs: correlation 0.96, mean absolute
+error 0.134, mean of measured minus predicted +0.116, the sign of the
+look-ahead gain right on 61. By size: at 8 contexts the measured
+ratio exceeds `2 rho - 1` by 0.185 on average, at 96 by 0.046. The
+two alternating-capitals rows have low correlations because `rho`
+barely varies across modules there; their errors are no larger.
+
+**The four predictions of section 6, on this sample.**
+
+1. `line / trainline` close to `2 rho - 1`: holds as an ordering and
+   at 96 contexts (error 0.07); at 8 contexts it is biased low by
+   about 0.2. Partly holds.
+2. Alternating capitals at 96: every `line` positive and close to its
+   `trainline`. Holds (16 of 16 positive, median ratio 1.09).
+3. Plain text at 96: `line` about 0.8 of `trainline`, all positive.
+   Holds (median 0.88, 16 of 16 positive).
+4. Plain text at 8: `line` negative for about half the modules or
+   more and near zero in the median. Fails: 4 of 16 negative, median
+   +0.38. Two things went against it. This sample's `rho` has median
+   0.525, not the 0.44 to 0.45 of section 4's sample (eight contexts
+   is a small sample and the split moves with it); and three modules
+   with `rho` between 0.35 and 0.46 came out positive where (4) says
+   negative.
+
+**Why the rule reads cautious.** (4) took one curvature `h` for the
+training loss and the population loss along the direction. With two,
+`h_tr` and `h_pop`, the same algebra gives
+
+    gain_pop / gain_tr at the training optimum = 2 rho - kappa,   kappa = h_pop / h_tr,
+
+so the break-even is `rho > kappa / 2` and the half rule is the case
+`kappa = 1`. The measured ratios imply a median `kappa` of 0.85 at 8
+contexts and 0.95 at 96. A `kappa` below one is what a direction
+fitted to the training contexts would give: it moves the logits most
+where the training tokens are, so the second-order cost falls more on
+the training loss than on fresh text, and less so as the sample grows.
+That reading is not established here: the two curvatures were not
+measured separately, and the line search takes steps up to 15 on a
+loss that is not quadratic at that range, which is the other
+candidate for the gap.
+
+**What stands.** `rho > 1/2` is a sufficient condition for fitting to
+the training optimum to help, not a necessary one: on these 64 pairs
+no module with `rho` above one half had a negative look-ahead gain,
+and three with `rho` between 0.35 and 0.46 had a positive one. As a
+screen it errs toward reading no-go.
