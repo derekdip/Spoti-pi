@@ -38,3 +38,24 @@
 [19:56:24]   none-32 half A to B r32-all: the other half's loss is lowest at step 95 (+0.750) at training gain 1.87; ran 140 steps, turned (83s)
 [19:57:58]   none-32 half B to A r32-all: the other half's loss is lowest at step 105 (+0.747) at training gain 1.98; ran 150 steps, turned (94s)
 [19:57:58] [2514s]
+[20:01:07]   leet-32 full r2-one (1 matrices, rank 2): test gain peaks at step 105 (+1.193) at training gain 1.65; ran 185 steps, turned; at the end +0.281 (188s)
+[20:01:43]   leet-32 half A to B r2-one: the other half's loss is lowest at step 70 (+0.435) at training gain 1.46; ran 95 steps, turned (37s)
+[20:02:30]   leet-32 half B to A r2-one: the other half's loss is lowest at step 85 (+0.743) at training gain 1.56; ran 120 steps, turned (47s)
+[20:07:10]   leet-32 full r8-one (1 matrices, rank 8): test gain peaks at step 140 (+1.155) at training gain 1.52; ran 270 steps, turned; at the end +0.264 (280s)
+[20:08:02]   leet-32 half A to B r8-one: the other half's loss is lowest at step 110 (+0.346) at training gain 1.58; ran 135 steps, turned (52s)
+[20:09:06]   leet-32 half B to A r8-one: the other half's loss is lowest at step 120 (+0.757) at training gain 1.46; ran 165 steps, turned (64s)
+[20:14:47]   leet-32 full r32-one (1 matrices, rank 32): test gain peaks at step 205 (+1.106) at training gain 1.54; ran 345 steps, turned; at the end +0.269 (340s)
+[20:15:58]   leet-32 half A to B r32-one: the other half's loss is lowest at step 150 (+0.366) at training gain 1.52; ran 185 steps, turned (72s)
+[20:17:31]   leet-32 half B to A r32-one: the other half's loss is lowest at step 165 (+0.721) at training gain 1.43; ran 235 steps, turned (92s)
+[20:19:27]   leet-32 full r2-all (48 matrices, rank 2): test gain peaks at step 60 (+1.394) at training gain 1.92; ran 90 steps, turned; at the end +0.179 (116s)
+[20:20:09]   leet-32 half A to B r2-all: the other half's loss is lowest at step 45 (+0.724) at training gain 1.67; ran 70 steps, turned (42s)
+[20:20:56]   leet-32 half B to A r2-all: the other half's loss is lowest at step 55 (+1.074) at training gain 1.99; ran 80 steps, turned (48s)
+[20:23:23]   leet-32 full r8-all (48 matrices, rank 8): test gain peaks at step 80 (+1.350) at training gain 1.86; ran 115 steps, turned; at the end +0.324 (146s)
+[20:24:16]   leet-32 half A to B r8-all: the other half's loss is lowest at step 60 (+0.678) at training gain 1.62; ran 85 steps, turned (53s)
+[20:25:13]   leet-32 half B to A r8-all: the other half's loss is lowest at step 70 (+1.014) at training gain 1.87; ran 95 steps, turned (57s)
+[20:28:41]   leet-32 full r32-all (48 matrices, rank 32): test gain peaks at step 120 (+1.259) at training gain 1.94; ran 170 steps, turned; at the end +0.085 (208s)
+[20:29:51]   leet-32 half A to B r32-all: the other half's loss is lowest at step 80 (+0.595) at training gain 1.46; ran 115 steps, turned (69s)
+[20:31:15]   leet-32 half B to A r32-all: the other half's loss is lowest at step 105 (+0.940) at training gain 1.98; ran 135 steps, turned (85s)
+[20:31:15] [4511s]
+[20:31:15] done in 4511s
+RUN EXIT 0
