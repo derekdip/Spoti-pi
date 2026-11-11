@@ -1,0 +1,106 @@
+{
+ "corpus_commit": "73b70e427570835c249b7948bf8cd6b4baf7f986",
+ "seed": 11,
+ "rank": 2,
+ "steps": 60,
+ "lr": 0.001,
+ "eta": 1.0,
+ "beam": 3,
+ "library": [
+  "v@2",
+  "o@2",
+  "fc@2",
+  "proj@2",
+  "v@5",
+  "o@5",
+  "fc@5",
+  "proj@5",
+  "v@8",
+  "o@8",
+  "fc@8",
+  "proj@8",
+  "v@11",
+  "o@11",
+  "fc@11",
+  "proj@11"
+ ],
+ "primary": "line",
+ "frac": 0.9,
+ "prior": [
+  "proj@8",
+  "proj@2",
+  "proj@5"
+ ],
+ "prior_tol": 0.01,
+ "kept_max": 0.5,
+ "val_keep": 0.9,
+ "val_min_share": 0.875,
+ "conditions": [
+  {
+   "name": "stop-leet-8",
+   "kind": "stopping",
+   "transform": "leet",
+   "n": 8,
+   "n_val": 96,
+   "n_test": 96,
+   "long_steps": 300,
+   "modules": [
+    "v@2",
+    "o@2",
+    "fc@2",
+    "proj@2",
+    "v@8",
+    "o@8",
+    "fc@8",
+    "proj@8"
+   ]
+  },
+  {
+   "name": "stop-none-8",
+   "kind": "stopping",
+   "transform": "none",
+   "n": 8,
+   "n_val": 96,
+   "n_test": 96,
+   "long_steps": 300,
+   "modules": [
+    "v@2",
+    "o@2",
+    "fc@2",
+    "proj@2",
+    "v@8",
+    "o@8",
+    "fc@8",
+    "proj@8"
+   ]
+  },
+  {
+   "name": "leet-32",
+   "transform": "leet",
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96
+  },
+  {
+   "name": "devowel-32",
+   "transform": "devowel",
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96
+  },
+  {
+   "name": "reverse-32",
+   "transform": "reverse",
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96
+  },
+  {
+   "name": "none-32",
+   "transform": "none",
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96
+  }
+ ]
+}

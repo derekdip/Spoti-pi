@@ -1,0 +1,29 @@
+[02:14:37] corpus: docs/*.md at 73b70e427570835c249b7948bf8cd6b4baf7f986, 105 files
+[02:14:51]   stop-none-8: base loss train 6.399 validation 6.050 test 6.162
+[02:18:45]   stop-none-8 v@2: rho +0.222 cross-fit +0.153; test gain peaks at step 110 (+0.310), at step 60 +0.280, at the end -1.130 (kept -3.64); train gain at the end +3.315; |delta| 26.2 (233s)
+[02:22:27]   stop-none-8 o@2: rho +0.279 cross-fit +0.101; test gain peaks at step 110 (+0.442), at step 60 +0.384, at the end -2.035 (kept -4.61); train gain at the end +4.908; |delta| 25.9 (222s)
+[02:26:03]   stop-none-8 fc@2: rho +0.379 cross-fit +0.188; test gain peaks at step 50 (+0.401), at step 60 +0.383, at the end -2.494 (kept -6.21); train gain at the end +6.295; |delta| 33.2 (216s)
+[02:29:41]   stop-none-8 proj@2: rho +0.368 cross-fit +0.199; test gain peaks at step 50 (+0.469), at step 60 +0.456, at the end -4.093 (kept -8.73); train gain at the end +6.273; |delta| 24.7 (218s)
+[02:33:19]   stop-none-8 v@8: rho +0.464 cross-fit +0.295; test gain peaks at step 110 (+0.468), at step 60 +0.208, at the end -1.589 (kept -3.39); train gain at the end +4.082; |delta| 59.4 (218s)
+[02:36:54]   stop-none-8 o@8: rho +0.371 cross-fit +0.165; test gain peaks at step 110 (+0.492), at step 60 +0.196, at the end -1.683 (kept -3.42); train gain at the end +4.192; |delta| 70.6 (215s)
+[02:40:33]   stop-none-8 fc@8: rho +0.585 cross-fit +0.439; test gain peaks at step 80 (+0.484), at step 60 +0.442, at the end -2.713 (kept -5.61); train gain at the end +6.211; |delta| 50.2 (219s)
+[02:44:05]   stop-none-8 proj@8: rho +0.569 cross-fit +0.378; test gain peaks at step 50 (+0.559), at step 60 +0.558, at the end -2.109 (kept -3.77); train gain at the end +5.106; |delta| 41.8 (212s)
+[02:45:22]   none-32: scores in 67s; base loss train 6.320 held 6.071
+[02:47:10]   none-32 fit v@2: held 5.620 gain +0.444 (train gain +0.545, |delta| 4.23); slope +0.2848 step -0.0437 line +0.0632 rgn 0.0065
+[02:48:48]   none-32 fit o@2: held 5.549 gain +0.514 (train gain +0.669, |delta| 5.80); slope +0.2004 step +0.1344 line +0.1491 rgn 0.0055
+[02:50:25]   none-32 fit fc@2: held 5.484 gain +0.579 (train gain +0.903, |delta| 9.60); slope +0.4273 step +0.1417 line +0.1612 rgn 0.0035
+[02:52:04]   none-32 fit proj@2: held 5.431 gain +0.633 (train gain +0.977, |delta| 6.62); slope +0.5002 step -0.0400 line +0.1095 rgn 0.0056
+[02:53:44]   none-32 fit v@5: held 5.805 gain +0.259 (train gain +0.327, |delta| 6.34); slope +0.3716 step +0.1019 line +0.1284 rgn 0.0066
+[02:55:26]   none-32 fit o@5: held 5.664 gain +0.399 (train gain +0.506, |delta| 6.92); slope +0.2332 step +0.1764 line +0.2252 rgn 0.0047
+[02:57:05]   none-32 fit fc@5: held 5.500 gain +0.563 (train gain +0.786, |delta| 9.64); slope +0.3695 step +0.2557 line +0.2436 rgn 0.0030
+[02:58:42]   none-32 fit proj@5: held 5.454 gain +0.609 (train gain +0.911, |delta| 7.96); slope +0.3081 step +0.2524 line +0.3261 rgn 0.0030
+[03:00:20]   none-32 fit v@8: held 5.791 gain +0.273 (train gain +0.358, |delta| 6.43); slope +0.2839 step +0.2246 line +0.2800 rgn 0.0038
+[03:02:01]   none-32 fit o@8: held 5.757 gain +0.307 (train gain +0.381, |delta| 7.65); slope +0.0804 step +0.0773 line +0.3988 rgn 0.0014
+[03:03:42]   none-32 fit fc@8: held 5.504 gain +0.559 (train gain +0.725, |delta| 9.68); slope +0.3435 step +0.2603 line +0.2588 rgn 0.0024
+[03:05:19]   none-32 fit proj@8: held 5.390 gain +0.674 (train gain +0.901, |delta| 8.60); slope +0.2814 step +0.2627 line +0.4525 rgn 0.0017
+[03:06:55]   none-32 fit v@11: held 5.783 gain +0.281 (train gain +0.392, |delta| 7.58); slope +0.2869 step +0.2407 line +0.3726 rgn 0.0033
+[03:08:32]   none-32 fit o@11: held 5.762 gain +0.301 (train gain +0.482, |delta| 6.38); slope +0.1018 step -0.0107 line -0.0462 rgn 0.0021
+[03:10:10]   none-32 fit fc@11: held 5.593 gain +0.471 (train gain +0.689, |delta| 10.05); slope +0.4109 step +0.3355 line +0.3579 rgn 0.0025
+[03:11:49]   none-32 fit proj@11: held 5.846 gain +0.218 (train gain +0.571, |delta| 11.91); slope +0.2418 step +0.2358 line +0.4031 rgn 0.0010
+[03:11:49]   none-32: sweep best proj@8 gain +0.674; slope 5.431 hit False rho +0.39; step 5.390 hit True rho +0.24; line 5.390 hit True rho -0.03; rgn 5.431 hit False rho +0.01; gradnorm 5.549 hit False rho -0.01; trainline 5.757 hit False rho -0.08; trainslope 5.431 hit False rho +0.29; random 5.488; (1586s of fits)
+[03:11:49] pilot3 done in 3434s
