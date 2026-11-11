@@ -1,0 +1,23 @@
+[18:54:37] corpus: docs/*.md at 73b70e427570835c249b7948bf8cd6b4baf7f986, 105 files
+[18:54:40] model: 124M parameters
+[18:55:44]   pilot2-none-8 full r2-one-lr5e-4 (1 matrices, rank 2): test gain peaks at step 85 (+0.419) at training gain 1.27; ran 130 steps, turned; at the end +0.061 (64s)
+[18:56:02]   pilot2-none-8 half A to B r2-one-lr5e-4: the other half's loss is lowest at step 115 (+0.400) at training gain 2.39; ran 140 steps, turned (18s)
+[18:56:16]   pilot2-none-8 half B to A r2-one-lr5e-4: the other half's loss is lowest at step 85 (+0.380) at training gain 1.79; ran 110 steps, turned (14s)
+[18:57:35]   pilot2-none-8 full r32-one-lr1e-4 (1 matrices, rank 32): test gain peaks at step 105 (+0.427) at training gain 1.38; ran 170 steps, turned; at the end +0.029 (79s)
+[18:57:57]   pilot2-none-8 half A to B r32-one-lr1e-4: the other half's loss is lowest at step 135 (+0.278) at training gain 2.37; ran 160 steps, turned (21s)
+[18:58:16]   pilot2-none-8 half B to A r32-one-lr1e-4: the other half's loss is lowest at step 85 (+0.500) at training gain 1.61; ran 145 steps, turned (20s)
+[18:59:14]   pilot2-none-8 full r8-all-lr1e-4 (48 matrices, rank 8): test gain peaks at step 55 (+0.555) at training gain 1.95; ran 85 steps, turned; at the end +0.083 (58s)
+[18:59:41]   pilot2-none-8 half A to B r8-all-lr1e-4: the other half's loss is lowest at step 65 (+0.756) at training gain 2.95; ran 90 steps, turned (27s)
+[19:00:01]   pilot2-none-8 half B to A r8-all-lr1e-4: the other half's loss is lowest at step 45 (+0.402) at training gain 2.17; ran 70 steps, turned (20s)
+[19:02:24]   pilot2-none-8 full r8-all-lr3e-5 (48 matrices, rank 8): test gain peaks at step 140 (+0.525) at training gain 1.80; ran 215 steps, turned; at the end +0.127 (143s)
+[19:03:37]   pilot2-none-8 half A to B r8-all-lr3e-5: the other half's loss is lowest at step 185 (+0.642) at training gain 3.26; ran 230 steps, turned (73s)
+[19:04:35]   pilot2-none-8 half B to A r8-all-lr3e-5: the other half's loss is lowest at step 125 (+0.398) at training gain 2.18; ran 190 steps, turned (58s)
+[19:06:09]   pilot2-none-8 full r32-all-lr3e-5 (48 matrices, rank 32): test gain peaks at step 75 (+0.523) at training gain 1.85; ran 125 steps, turned; at the end +0.003 (95s)
+[19:06:53]   pilot2-none-8 half A to B r32-all-lr3e-5: the other half's loss is lowest at step 95 (+0.650) at training gain 2.97; ran 135 steps, turned (43s)
+[19:07:29]   pilot2-none-8 half B to A r32-all-lr3e-5: the other half's loss is lowest at step 65 (+0.404) at training gain 2.18; ran 110 steps, turned (36s)
+[19:11:19]   pilot2-none-8 full r32-all-lr1e-5 (48 matrices, rank 32): test gain peaks at step 190 (+0.503) at training gain 1.79; ran 305 steps, turned; at the end +0.121 (230s)
+[19:13:17]   pilot2-none-8 half A to B r32-all-lr1e-5: the other half's loss is lowest at step 280 (+0.577) at training gain 3.58; ran 350 steps, turned (118s)
+[19:14:43]   pilot2-none-8 half B to A r32-all-lr1e-5: the other half's loss is lowest at step 170 (+0.335) at training gain 2.22; ran 260 steps, turned (86s)
+[19:14:43] [1206s]
+[19:14:43] done in 1206s
+PILOT EXIT

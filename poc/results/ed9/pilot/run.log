@@ -1,0 +1,17 @@
+[18:51:10] corpus: docs/*.md at 73b70e427570835c249b7948bf8cd6b4baf7f986, 105 files
+[18:51:13] model: 124M parameters
+[18:51:48]   pilot-none-8 full r2-one (1 matrices, rank 2): test gain peaks at step 50 (+0.419) at training gain 1.26; ran 100 steps, turned; at the end -0.918 (34s)
+[18:52:03]   pilot-none-8 half A to B r2-one: the other half's loss is lowest at step 70 (+0.354) at training gain 2.51; ran 120 steps, turned (15s)
+[18:52:16]   pilot-none-8 half B to A r2-one: the other half's loss is lowest at step 50 (+0.311) at training gain 1.81; ran 100 steps, turned (13s)
+[18:52:40]   pilot-none-8 full r32-one (1 matrices, rank 32): test gain peaks at step 20 (+0.410) at training gain 1.65; ran 70 steps, turned; at the end -3.500 (25s)
+[18:52:49]   pilot-none-8 half A to B r32-one: the other half's loss is lowest at step 20 (+0.284) at training gain 2.09; ran 70 steps, turned (9s)
+[18:52:56]   pilot-none-8 half B to A r32-one: the other half's loss is lowest at step 10 (+0.326) at training gain 0.97; ran 60 steps, turned (7s)
+[18:53:21]   pilot-none-8 full r8-all (48 matrices, rank 8): test gain peaks at step 10 (+0.540) at training gain 2.47; ran 35 steps, turned; at the end -4.054 (24s)
+[18:53:31]   pilot-none-8 half A to B r8-all: the other half's loss is lowest at step 10 (+0.789) at training gain 2.97; ran 35 steps, turned (10s)
+[18:53:40]   pilot-none-8 half B to A r8-all: the other half's loss is lowest at step 5 (+0.292) at training gain 1.51; ran 30 steps, turned (9s)
+[18:54:01]   pilot-none-8 full r32-all (48 matrices, rank 32): test gain peaks at step 5 (+0.520) at training gain 2.54; ran 30 steps, turned; at the end -4.581 (21s)
+[18:54:10]   pilot-none-8 half A to B r32-all: the other half's loss is lowest at step 5 (+0.783) at training gain 3.05; ran 30 steps, turned (9s)
+[18:54:19]   pilot-none-8 half B to A r32-all: the other half's loss is lowest at step 5 (+0.239) at training gain 3.54; ran 30 steps, turned (9s)
+[18:54:19] [190s]
+[18:54:19] done in 190s
+PILOT EXIT
