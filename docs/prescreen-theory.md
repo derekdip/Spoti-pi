@@ -268,7 +268,7 @@ slope and (4) is what the pilot's sweep shows.
 | the hard threshold as "worth fitting to convergence" | a reading of a known threshold (Gavish and Donoho's 4 / sqrt(3)), in the isotropic model; checked per component in section 9: safe from 32 contexts up, a floor on the rank and not an estimate of it, unreliable at 8 contexts of plain text |
 | early stopping as a spectral filter with optimum `rho` per mode | known for least squares; used, not claimed |
 | the edge-level formula calibrating under low-rank noise | an empirical regularity on one model, three text conditions, rank 2; no proof, and the model it comes from is false for this noise |
-| the share as the rate at which test gain accrues at the start of a fit; a knee at a training gain common to the matrices; stopping at the cross-fitted knee | the first is an identity for gradient flow, checked on 16 fits; the other two are empirical: 24 long fits at 8 contexts (section 12) and 12 at 32 and 64 under a preregistration, outcome A (section 13); no derivation of why the knee is where it is |
+| the share as the rate at which test gain accrues at the start of a fit; a knee at a training gain common to the matrices; stopping at the cross-fitted knee | the first is an identity for gradient flow, checked on 16 fits; the other two are empirical: 24 long fits at 8 contexts (section 12) and 12 at 32 and 64 under a preregistration, outcome A (section 13), and 36 on three other models, A on each (section 14); no derivation of why the knee is where it is |
 
 ## 8. The half rule checked
 
@@ -696,3 +696,31 @@ Why the turn should sit at a fixed training gain for a kind of text
 is not explained here; it is the regularity the stopping rule uses,
 and over the 36 long fits of sections 12 and 13 the rule kept a
 positive test gain in every one and two thirds of the peak in 35.
+
+## 14. The knee on other models (ED6)
+
+Added 18:23 UTC 2026-11-11. ED6 preregistered ED5's bars for
+three other models (`docs/math-track-ed6-prereg.md`) and its outcome
+is A on all three (`docs/math-track-ed6-results.md`). Mean training
+gain at the test peak, four matrices per cell:
+
+| model | plain, 8 | plain, 32 | leet, 8 |
+|---|---|---|---|
+| `distilgpt2` (82M, 6 layers) | 1.09 | 1.04 | 1.53 |
+| `openai-gpt` (117M, another design and tokenizer) | 1.02 | 0.96 | 2.16 |
+| GPT-2 base (124M) | 1.15 | 1.07 | 1.82 |
+| `gpt2-medium` (355M, 24 layers) | 1.51 | 1.37 | 1.80 |
+
+Within every one of the nine conditions the knee's c.v. across the
+matrices is 0.04 to 0.20. Across the table it moves with the kind of
+text on every model, hardly with the sample size, and with the model:
+the largest has the highest knee on plain text. Losses are per token
+of each model's own tokenizer, so the rows are not on one scale.
+
+Over sections 12 to 14 the rule (stop where the training gain reaches
+the median knee of eight cross-fitted half-fits) has kept a positive
+test gain in 72 of 72 long fits and two thirds of the peak in 70. Its
+two worst cases are on the largest model at 8 contexts, where the
+half-samples of four contexts turn at a training gain a quarter to a
+third above the full sample's. The knee remains a measured regularity
+with no derivation.
