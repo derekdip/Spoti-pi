@@ -1,0 +1,11 @@
+[20:33:56]   pilot-none-8 transformer.h.2.mlp.c_proj: 100 steps (43s)
+[20:35:01]   pilot-none-8 transformer.h.8.mlp.c_proj: 100 steps (40s)
+[20:36:32]   pilot-none-8 transformer.h.2.attn.c_attn[1536:2304]: 160 steps (71s)
+[20:38:14]   pilot-none-8 transformer.h.8.attn.c_proj: 190 steps (71s)
+[20:38:51] pilot-none-8 done [342s]
+[20:41:28]   pilot-none-32 transformer.h.2.mlp.c_proj: 130 steps (157s)
+[20:46:22]   pilot-none-32 transformer.h.8.mlp.c_proj: 230 steps (208s)
+[20:53:53]   pilot-none-32 transformer.h.2.attn.c_attn[1536:2304]: 310 steps (375s)
+[21:02:11]   pilot-none-32 transformer.h.8.attn.c_proj: 370 steps (349s)
+[21:04:16] pilot-none-32 done [1868s]
+PILOT EXIT
