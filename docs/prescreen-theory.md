@@ -271,7 +271,7 @@ slope and (4) is what the pilot's sweep shows.
 
 ## 8. The half rule checked
 
-Added 01:05 UTC 2026-11-11, after section 6 was committed (72314e6)
+Added 01:01 UTC 2026-11-11, after section 6 was committed (72314e6)
 and before the pilot reached its plain-text conditions.
 `poc/ecsdec/halfrule_check.py` computes the pilot's own quantities
 (`slope`, `trainslope`, `line`, `trainline`) for the 16 modules on
