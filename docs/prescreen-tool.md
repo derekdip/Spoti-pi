@@ -102,8 +102,10 @@ train (`docs/prescreen-theory.md`, section 11).
   `docs/prescreen-theory.md`, sections 12 and 13: it kept a positive
   gain in 36 of 36 long fits at 8, 32 and 64 contexts and 97% of the
   peak at the two larger sizes (ED5, `docs/math-track-ed5-results.md`).
-  The tool does not compute it; `poc/ecsdec/knee.py` does, for the
-  JAX model.
+  The tool does not compute it; `poc/tools/lora_knee.py` does, in
+  PyTorch, for models the transformers library loads, and held on
+  three further models (ED6, `docs/math-track-ed6-results.md`: 36 of
+  36 positive; weakest on the largest model at 8 contexts).
 - **Not established.** A slope is an infinitesimal rate. It is
   positive for every matrix even where a full fine-tune overfits, so
   the tool does not say whether to fine-tune at all, and it does not

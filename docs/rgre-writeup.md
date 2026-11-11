@@ -616,6 +616,27 @@ I got wrong running it, and where it is recorded.
     (`math-track-ed5-results.md`, `prescreen-theory.md` sections 12
     and 13).
 
+35. **The knee is not GPT-2 base's alone.** ED6 ran ED5's four bars
+    on three other models in a PyTorch port, after checking the port
+    against the JAX run on the same contexts: a distilled model half
+    as deep, GPT-1 with its own design, training text and tokenizer,
+    and a model three times the size. A on all three. Every one of
+    36 long fits went bad when run on; within each condition the
+    matrices turned at one training gain though their steps differed
+    up to sixfold; stopped at the cross-fitted knee all 36 kept a
+    positive gain and 35 kept two thirds of their peak, against a
+    step budget that left one fit below the unadapted model. Over
+    ED4's checks, ED5 and ED6 the rule has kept a positive gain in 72
+    of 72 long fits on four models. What moved: the knee's value,
+    about a nat on the smaller models and half as much again on the
+    largest, and higher on a format shift on all four. Where it is
+    weakest: the largest model at 8 contexts, where halves of four
+    contexts turn late and the rule overshoots by up to a third.
+    Limits: four models of one older lineage, one corpus, one
+    learning rate, rank 2; no account yet of why the knee sits where
+    it does (`math-track-ed6-results.md`, `prescreen-theory.md`
+    section 14).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:
