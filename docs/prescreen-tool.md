@@ -42,10 +42,10 @@ fine to a few thousand rows and columns per matrix.
 Rows are sorted by `held` when held-out text is given and by
 `shrunk` otherwise. The closing lines name the leading modules and
 say, from the median `snr`, whether the data is enough for the
-ranking to mean anything, and, from the median `cf`, whether fitting
-to the training optimum is predicted to hold up: under one half it
-is predicted to lose on fresh text (`docs/prescreen-theory.md`,
-sections 6 and 8; the reading errs toward caution).
+ranking to mean anything, and, from the median `cf`, whether the
+leading direction is mostly signal or mostly sampling noise. The last
+line is a standing warning: none of these numbers says how long to
+train (`docs/prescreen-theory.md`, section 11).
 
 ## What is established, and what is not
 
@@ -82,6 +82,14 @@ sections 6 and 8; the reading errs toward caution).
   estimate. Whether the cross-entropy slope this tool prints ranks
   modules by their fitted gain is what ED4 tests; until its results
   are in, read the ranking as "where a small change helps most".
+- **The share is not a stopping rule.** The half rule of the theory
+  note (a direction less than half real loses if fitted to its
+  training optimum) held in a linearised check and did not carry to
+  real training: in a pilot at 8 contexts, eight LoRA fits run to 300
+  Adam steps all ended 1.1 to 4.1 nats below the unadapted model on
+  fresh text, at shares from 0.22 to 0.59, two of them above one
+  half. Stopping at the minimum of a validation loss kept at least
+  95% of each fit's peak gain. Use a validation set to stop.
 - **Not established.** A slope is an infinitesimal rate. It is
   positive for every matrix even where a full fine-tune overfits, so
   the tool does not say whether to fine-tune at all, and it does not

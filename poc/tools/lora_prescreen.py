@@ -23,7 +23,8 @@ law of the sampling noise in G):
   cf_share      the cross-fitted real share of the rank-r direction: take the direction from one half of the
                 contexts, measure its slope on the other half, divide by its slope on its own half, average
                 both ways. No noise model. It describes a direction fitted on half the contexts, so it reads
-                low; under 1/2, fitting to the training optimum is predicted to lose on fresh text
+                low; under 1/2 the direction's first step is mostly sampling noise. It does not say how long
+                to train (see below)
   rank_cf       how many of the leading components have a cross-fitted share above 1/2: a cautious estimate
                 of the rank worth fitting
   held_slope    <G_held, R> / ||R|| with R the rank-r truncation of G: the measured generalising slope
@@ -33,7 +34,10 @@ What is established and what is not (docs/prescreen-theory.md, docs/math-track-e
 the shrunk slope predicted the held-out slope to about ten percent across three text conditions and training
 sets of 8 to 128 contexts. On the same runs rank_cf never exceeded the number of leading components that were
 more than half real and was within 1.4 components of it on average, where rank_above stayed near 2; cf_share
-read low in 13 of 15 conditions; with 8 contexts neither rank is reliable. cf_share cannot see a difference
+read low in 13 of 15 conditions; with 8 contexts neither rank is reliable. None of these numbers says how long
+to train: in a pilot at 8 contexts a LoRA trained past about 100 Adam steps ended below the unadapted model on
+fresh text on all eight matrices tried, at shares from 0.2 to 0.6, while stopping at the validation minimum kept
+the gain (docs/prescreen-theory.md, section 11). cf_share cannot see a difference
 between the training text and the text the model will meet. A slope is an infinitesimal rate: it ranks where a
 small change helps most and it does NOT say whether a full fine-tune will help, nor how far a module can
 usefully move.
@@ -117,7 +121,8 @@ def report(res, top=3):
     L.append(f"largest {res['ranked_by']}: " + ", ".join(x["module"] for x in res["modules"][:top]))
     L.append(f"median signal-to-noise {snr:.2f}: " + ("the leading directions are mostly noise at this data size; add contexts before trusting any ranking" if snr < 1.5 else "the leading directions are partly noise; prefer the shrunk or held-out column to the training one" if snr < 2.5 else "the leading directions are real at this data size"))
     cf = sorted(x["cf_share"] for x in res["modules"])[len(res["modules"]) // 2]
-    L.append(f"median cross-fitted share {cf:.2f}: " + ("under one half, so fitting to the training optimum is predicted to lose on fresh text; stop early or add contexts (a cautious reading)" if cf < 0.5 else "above one half, so the leading direction is predicted to hold on more text like the training text"))
+    L.append(f"median cross-fitted share {cf:.2f}: " + ("under one half: the leading direction is mostly sampling noise at this data size; add contexts before trusting the ranking" if cf < 0.5 else "above one half: the leading direction is predicted to hold on more text like the training text"))
+    L.append("none of these numbers says how long to train: hold text out and stop when its loss turns")
     L.append("a slope ranks where a small change helps most; it does not say whether a full fine-tune will help")
     return "\n".join(L)
 

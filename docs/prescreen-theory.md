@@ -264,7 +264,7 @@ slope and (4) is what the pilot's sweep shows.
 | (2), the lower bound | elementary (Ky Fan norm duality), checked: 238 of 240 |
 | the spiked-matrix threshold, singular-value map and optimal shrinkage | known results (Baik, Ben Arous and Peche; Benaych-Georges and Nadakuditi; Gavish and Donoho), reproduced numerically here, not re-derived and not fetched |
 | reading the shrunk training slope as the generalising part of an adapter's first-order direction, with the edge set by a split-half null | an application; whether it is in the literature was not checkable from this sandbox |
-| (4), the half rule and `2 rho - 1` | elementary (a quadratic along one direction); its predictions were written before the data and checked in section 8: it orders the modules (correlation 0.96 over 64) and is biased cautious, by 0.19 at 8 contexts and 0.05 at 96 |
+| (4), the half rule and `2 rho - 1` | elementary (a quadratic along one direction); its predictions were written before the data and checked in section 8: it orders the modules (correlation 0.96 over 64) and is biased cautious, by 0.19 at 8 contexts and 0.05 at 96; it is a statement about a line search along one direction and did not carry to a real LoRA fit run long (section 11, pilot) |
 | the hard threshold as "worth fitting to convergence" | a reading of a known threshold (Gavish and Donoho's 4 / sqrt(3)), in the isotropic model; checked per component in section 9: safe from 32 contexts up, a floor on the rank and not an estimate of it, unreliable at 8 contexts of plain text |
 | early stopping as a spectral filter with optimum `rho` per mode | known for least squares; used, not claimed |
 | the edge-level formula calibrating under low-rank noise | an empirical regularity on one model, three text conditions, rank 2; no proof, and the model it comes from is false for this noise |
@@ -521,3 +521,59 @@ numbers should not be compared across sections to the second
 decimal. ED2's and ED3's scored runs are not affected: no docs
 commit lies between either freeze and its run. For ED4 the corpus is
 to be pinned to a named commit before the freeze.
+
+## 11. The half rule does not carry to a full fit (pilot)
+
+Added 02:47 UTC 2026-11-11. Pilot data for ED4
+(`poc/results/ed4/pilot3.json`, `pilot3.log`), not a scored result
+and not preceded by a written prediction; ED4's preregistration
+turns it into one.
+
+Sections 6 and 8 concern a step along one fixed direction, with the
+logits linearised. A LoRA fit is not that: it moves far beyond the
+first-order direction. To see what a real fit does, a rank-2 LoRA
+was trained on each of eight modules alone for 300 Adam steps (five
+times the sweep's budget, same start and learning rate) on 8
+contexts of plain text, with its loss on 96 test contexts and on 96
+separate validation contexts recorded every 10 steps. `rho` is the
+slope on the validation contexts over the training slope.
+
+| module | `rho` | cross-fitted share | test gain: peak (step) | step 60 | step 150 | step 300 | training gain, step 300 | stopped at the validation minimum |
+|---|---|---|---|---|---|---|---|---|
+| `v@2` | 0.22 | 0.15 | +0.31 (110) | +0.28 | +0.28 | -1.13 | 3.31 | +0.31 |
+| `o@2` | 0.28 | 0.10 | +0.44 (110) | +0.38 | +0.36 | -2.04 | 4.91 | +0.44 |
+| `proj@2` | 0.37 | 0.20 | +0.47 (50) | +0.46 | -2.40 | -4.09 | 6.27 | +0.47 |
+| `o@8` | 0.37 | 0.16 | +0.49 (110) | +0.20 | +0.38 | -1.68 | 4.19 | +0.49 |
+| `fc@2` | 0.38 | 0.19 | +0.40 (50) | +0.38 | -1.68 | -2.49 | 6.30 | +0.38 |
+| `v@8` | 0.46 | 0.30 | +0.47 (110) | +0.21 | +0.32 | -1.59 | 4.08 | +0.47 |
+| `proj@8` | 0.57 | 0.38 | +0.56 (50) | +0.56 | -1.16 | -2.11 | 5.11 | +0.56 |
+| `fc@8` | 0.59 | 0.44 | +0.48 (80) | +0.44 | -1.63 | -2.71 | 6.21 | +0.48 |
+
+Every fit peaks within 110 steps, crosses zero between steps 100 and
+200 and ends 1.1 to 4.1 nats below the unadapted model, with its
+training loss driven almost to zero on the MLP matrices (the base
+training loss is 6.40). The two modules with `rho` above one half
+fall as far as the rest. Across the eight, `rho` does not order the
+outcome in the direction the rule needs: its rank correlation with
+the test gain at steps 150, 200 and 300 is -0.24, -0.38 and -0.38.
+What orders the time course is the kind of matrix: the MLP matrices
+peak at 50 to 80 steps and are negative by 120, the attention
+matrices peak at 110 and are negative by 200.
+
+**What this takes away.** `rho > 1/2` was read in section 8 as
+sufficient for fitting to the training optimum to help. That is
+true of the line search it was derived for and false of a LoRA fit
+run long, on the only eight cases tried. The share describes the
+first step of a fit. It is evidence about a ranking and about how
+much of an initial rate is real; it is not a stopping rule, and the
+tool's text has been changed to say so.
+
+**What worked.** Stopping each fit at the minimum of its validation
+loss kept 95 to 100% of its peak test gain. The sweep's 60-step
+budget sits near that point for the MLP matrices and before it for
+the attention matrices, which is why the 60-step sweeps of the pilot
+show gains everywhere.
+
+**Limits.** One sample of 8 contexts, one text condition, one
+learning rate, eight modules. At 8 contexts `rho` only reaches 0.59,
+so the pilot says nothing about fits whose share is near one.
