@@ -1,0 +1,134 @@
+{
+ "repo": "/home/user/Spoti-pi",
+ "corpus_commit": "73b70e427570835c249b7948bf8cd6b4baf7f986",
+ "cap_full": 800,
+ "cap_half": 500,
+ "threads": 4,
+ "model": {
+  "dir": "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/gpt2_hf",
+  "kind": "gpt2"
+ },
+ "adapters": {
+  "proj@2": {
+   "targets": [
+    "transformer.h.2.mlp.c_proj"
+   ],
+   "rank": 2,
+   "lr": 0.001,
+   "seg": 10,
+   "group": "one"
+  },
+  "proj@8": {
+   "targets": [
+    "transformer.h.8.mlp.c_proj"
+   ],
+   "rank": 2,
+   "lr": 0.001,
+   "seg": 10,
+   "group": "one"
+  },
+  "v@2": {
+   "targets": [
+    "transformer.h.2.attn.c_attn[1536:2304]"
+   ],
+   "rank": 2,
+   "lr": 0.001,
+   "seg": 10,
+   "group": "one"
+  },
+  "o@8": {
+   "targets": [
+    "transformer.h.8.attn.c_proj"
+   ],
+   "rank": 2,
+   "lr": 0.001,
+   "seg": 10,
+   "group": "one"
+  },
+  "r2-all": {
+   "targets": "all",
+   "rank": 2,
+   "lr": 0.0003,
+   "seg": 5,
+   "group": "all"
+  },
+  "r8-all": {
+   "targets": "all",
+   "rank": 8,
+   "lr": 0.0001,
+   "seg": 5,
+   "group": "all"
+  }
+ },
+ "bars": {
+  "keep": 0.6666666666666666,
+  "keep_share": 0.8333333333333334,
+  "rule_margin": 0.05
+ },
+ "conditions": [
+  {
+   "name": "none-8",
+   "transform": "none",
+   "seed": 81,
+   "n": 8,
+   "n_val": 32,
+   "n_test": 96,
+   "adapters": [
+    "proj@2",
+    "proj@8",
+    "v@2",
+    "o@8",
+    "r2-all",
+    "r8-all"
+   ]
+  },
+  {
+   "name": "none-16",
+   "transform": "none",
+   "seed": 82,
+   "n": 16,
+   "n_val": 32,
+   "n_test": 96,
+   "adapters": [
+    "proj@2",
+    "proj@8",
+    "v@2",
+    "o@8",
+    "r2-all",
+    "r8-all"
+   ]
+  },
+  {
+   "name": "none-32",
+   "transform": "none",
+   "seed": 83,
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96,
+   "adapters": [
+    "proj@2",
+    "proj@8",
+    "v@2",
+    "o@8",
+    "r2-all",
+    "r8-all"
+   ]
+  },
+  {
+   "name": "leet-32",
+   "transform": "leet",
+   "seed": 84,
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96,
+   "adapters": [
+    "proj@2",
+    "proj@8",
+    "v@2",
+    "o@8",
+    "r2-all",
+    "r8-all"
+   ]
+  }
+ ]
+}
