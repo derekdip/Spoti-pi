@@ -24,7 +24,7 @@ The sweep fits a rank-r LoRA on each module alone (Adam, a frozen budget, best i
 one compiled program for every module, and every selector's outcome is read off it.
 """
 from __future__ import annotations
-import json, sys, time, glob, subprocess
+import json, sys, time, glob, subprocess, hashlib
 from pathlib import Path
 import numpy as np, jax, jax.numpy as jnp
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -186,19 +186,29 @@ def read_off(scores, fits, beam=3, seed=0):
     out["sweep"] = dict(best_held=fits[best]["held"], module=best, gain=fits[best]["gain"]); return out
 
 
-def condition(W, name, cfg, key, full=False):
-    """One condition: every score for every module, the sweep, the read-off."""
-    t0 = time.time(); scores = {}
+def condition(W, name, cfg, key, full=False, ckpt=None):
+    """One condition: every score for every module, the sweep, the read-off. With `ckpt`, the scores and each
+    fit are saved as they finish and a restarted process picks up after the last one; the checkpoint carries a
+    hash of the tokens and is refused if the contexts differ."""
+    tokens = hashlib.sha1(b"".join(np.asarray(a).tobytes() for a in (W.x["tr"], W.y["tr"], W.x["ho"], W.y["ho"]))).hexdigest()
+    st = json.load(open(ckpt)) if ckpt and Path(ckpt).exists() else dict(tokens=tokens)
+    assert st["tokens"] == tokens, f"{ckpt} was written for other contexts"
+    save = lambda: json.dump(st, open(ckpt, "w"), indent=1, default=float) if ckpt else None
+    if "scores" not in st:
+        t0 = time.time(); scores = {}
+        for i, m in enumerate(W.lib):
+            s = W.cheap_scores(m); s.update(W.step_scores(m, cfg["eta"]))
+            if full: s.update(W.full_score(m, jax.random.fold_in(key, 500 + i)))
+            scores[m] = s
+        st["scores"] = scores; st["t_scores"] = time.time() - t0; st["fits"] = {}; st["t_fits"] = 0.0; save()
+    else: log(f"  {name}: resumed from {ckpt} with {len(st['fits'])} fits done")
+    scores = st["scores"]; t_scores = st["t_scores"]; fits = st["fits"]
+    log(f"  {name}: scores in {t_scores:.0f}s; base loss train {W.L0['tr']:.3f} held {W.L0['ho']:.3f}")
     for i, m in enumerate(W.lib):
-        s = W.cheap_scores(m); s.update(W.step_scores(m, cfg["eta"]))
-        if full: s.update(W.full_score(m, jax.random.fold_in(key, 500 + i)))
-        scores[m] = s
-    t_scores = time.time() - t0; log(f"  {name}: scores in {t_scores:.0f}s; base loss train {W.L0['tr']:.3f} held {W.L0['ho']:.3f}")
-    fits = {}; t1 = time.time()
-    for i, m in enumerate(W.lib):
-        fits[m] = W.fit(m, jax.random.fold_in(key, i), cfg["lr"])
+        if m in fits: continue
+        t1 = time.time(); fits[m] = W.fit(m, jax.random.fold_in(key, i), cfg["lr"]); st["t_fits"] += time.time() - t1; save()
         log(f"  {name} fit {m}: held {fits[m]['held']:.3f} gain {fits[m]['gain']:+.3f} (train gain {fits[m]['train_gain']:+.3f}, |delta| {fits[m]['norm']:.2f}); slope {scores[m]['slope']:+.4f} step {scores[m]['step']:+.4f} line {scores[m]['line']:+.4f}" + (f" full {scores[m]['full']:+.4f}" if full else "") + f" rgn {scores[m]['rgn']:.4f}")
-    ro = read_off(scores, fits, cfg["beam"]); t_fits = time.time() - t1
+    fits = {m: fits[m] for m in W.lib}; ro = read_off(scores, fits, cfg["beam"]); t_fits = st["t_fits"]
     log(f"  {name}: sweep best {ro['sweep']['module']} gain {ro['sweep']['gain']:+.3f}; " + "; ".join(f"{s} {ro[s]['best_held']:.3f} hit {ro[s]['hit']} rho {ro[s]['spearman']:+.2f}" for s in SELECTORS if s in ro) + f"; random {ro['random']['best_held']:.3f}; ({t_fits:.0f}s of fits)")
     return dict(name=name, base=W.L0, scores=scores, fits=fits, read=ro, seconds=dict(scores=t_scores, fits=t_fits))
 
@@ -216,14 +226,31 @@ def pilot():
     log(f"pilot done in {time.time() - T0:.0f}s")
 
 
-def run():
+def pilot2():
+    """The pilot's remaining conditions, after the first process (altcaps at 96 contexts, pilot.log) was lost to a
+    machine restart at 01:52 UTC 2026-11-11: plain text and a format shift at 8 contexts, then plain text at 96.
+    The corpus is pinned to a commit and every fit is checkpointed, so a restarted process resumes."""
     global CORPUS_COMMIT
-    cfg = json.load(open(OUT / "config.json")); T0 = time.time(); P = GM.load_params(); tok = GM.tokenizer(); out = []
+    T0 = time.time(); P = GM.load_params(); tok = GM.tokenizer(); cfg = dict(eta=1.0, lr=1e-3, beam=3); CORPUS_COMMIT = "73b70e427570835c249b7948bf8cd6b4baf7f986"
+    log(f"corpus: docs/*.md at {CORPUS_COMMIT}, {len(docs_text(CORPUS_COMMIT))} files"); out = []
+    for name, tr, n in (("none-8", "none", 8), ("altcaps-8", "altcaps", 8), ("none", "none", 96)):
+        W = make_world(0, n, tr, P=P, tok=tok); out.append(condition(W, name, cfg, jax.random.PRNGKey(0), ckpt=OUT / f"pilot2_{name}.ckpt.json"))
+        json.dump(out, open(OUT / "pilot2.json", "w"), indent=1, default=float)
+    log(f"pilot2 done in {time.time() - T0:.0f}s")
+
+
+def run():
+    """The scored run. Conditions already in ed4.json are kept and each condition checkpoints its fits, so a
+    process restarted after a machine restart continues where the last one stopped."""
+    global CORPUS_COMMIT
+    cfg = json.load(open(OUT / "config.json")); T0 = time.time(); P = GM.load_params(); tok = GM.tokenizer()
     CORPUS_COMMIT = cfg["corpus_commit"]; log(f"corpus: docs/*.md at {CORPUS_COMMIT}, {len(docs_text(CORPUS_COMMIT))} files")
+    out = json.load(open(OUT / "ed4.json"))["rows"] if (OUT / "ed4.json").exists() else []; done = {r["name"] for r in out}
     for i, c in enumerate(cfg["conditions"]):
+        if c["name"] in done: log(f"  {c['name']}: already in ed4.json"); continue
         W = make_world(cfg["seed"], c["n"], c["transform"], cfg["library"], cfg["rank"], cfg["steps"], P=P, tok=tok)
-        out.append(condition(W, c["name"], cfg, jax.random.PRNGKey(4000 + i), full=c.get("full", False)))
-        json.dump(dict(rows=out, seconds=time.time() - T0), open(OUT / "ed4.json", "w"), indent=1, default=float); log(f"[{time.time() - T0:.0f}s]")
+        out.append(condition(W, c["name"], cfg, jax.random.PRNGKey(4000 + i), full=c.get("full", False), ckpt=OUT / f"ed4_{c['name']}.ckpt.json"))
+        json.dump(dict(rows=out), open(OUT / "ed4.json", "w"), indent=1, default=float); log(f"[{time.time() - T0:.0f}s]")
     log(f"done -> ed4.json in {time.time() - T0:.0f}s")
 
 
@@ -241,4 +268,4 @@ def tool(transform="altcaps", n=96, seed=0):
 
 if __name__ == "__main__":
     a = sys.argv[1] if len(sys.argv) > 1 else "pilot"
-    pilot() if a == "pilot" else run() if a == "run" else tool(*sys.argv[2:3])
+    pilot() if a == "pilot" else pilot2() if a == "pilot2" else run() if a == "run" else tool(*sys.argv[2:3])
