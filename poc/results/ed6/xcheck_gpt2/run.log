@@ -1,0 +1,16 @@
+[14:56:50] corpus: docs/*.md at 73b70e427570835c249b7948bf8cd6b4baf7f986, 105 files
+[14:57:19] model gpt2: 124M parameters
+[14:59:40]   none-32 full transformer.h.2.mlp.c_proj: test gain peaks at step 70 (+0.694) at training gain 1.12; ran 140 steps, turned; base test loss 6.392; at the end +0.084 (140s)
+[15:00:20]   none-32 half A to B transformer.h.2.mlp.c_proj: the other half's loss is lowest at step 50 (+0.420) at training gain 1.12; ran 100 steps, turned (40s)
+[15:01:02]   none-32 half B to A transformer.h.2.mlp.c_proj: the other half's loss is lowest at step 60 (+0.586) at training gain 1.12; ran 110 steps, turned (42s)
+[15:04:22]   none-32 full transformer.h.8.mlp.c_proj: test gain peaks at step 80 (+0.721) at training gain 1.18; ran 260 steps, turned; base test loss 6.392; at the end +0.175 (200s)
+[15:05:01]   none-32 half A to B transformer.h.8.mlp.c_proj: the other half's loss is lowest at step 60 (+0.593) at training gain 1.19; ran 120 steps, turned (39s)
+[15:05:44]   none-32 half B to A transformer.h.8.mlp.c_proj: the other half's loss is lowest at step 70 (+0.767) at training gain 1.18; ran 130 steps, turned (43s)
+[15:10:42]   none-32 full transformer.h.2.attn.c_attn[1536:2304]: test gain peaks at step 120 (+0.597) at training gain 0.87; ran 330 steps, turned; base test loss 6.392; at the end +0.120 (298s)
+[15:11:59]   none-32 half A to B transformer.h.2.attn.c_attn[1536:2304]: the other half's loss is lowest at step 90 (+0.489) at training gain 0.91; ran 190 steps, turned (77s)
+[15:13:15]   none-32 half B to A transformer.h.2.attn.c_attn[1536:2304]: the other half's loss is lowest at step 130 (+0.438) at training gain 1.06; ran 190 steps, turned (76s)
+[15:18:28]   none-32 full transformer.h.8.attn.c_proj: test gain peaks at step 160 (+0.734) at training gain 1.20; ran 400 steps, turned; base test loss 6.392; at the end +0.166 (313s)
+[15:19:34]   none-32 half A to B transformer.h.8.attn.c_proj: the other half's loss is lowest at step 110 (+0.574) at training gain 1.24; ran 200 steps, turned (66s)
+[15:20:48]   none-32 half B to A transformer.h.8.attn.c_proj: the other half's loss is lowest at step 120 (+0.752) at training gain 1.12; ran 220 steps, turned (74s)
+[15:20:48] [1440s]
+[15:20:48] done in 1440s
