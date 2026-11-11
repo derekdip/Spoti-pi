@@ -1,0 +1,61 @@
+{
+ "repo": "/home/user/Spoti-pi",
+ "corpus_commit": "73b70e427570835c249b7948bf8cd6b4baf7f986",
+ "cap_full": 800,
+ "cap_half": 500,
+ "threads": 4,
+ "model": {
+  "dir": "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/gpt2_hf",
+  "kind": "gpt2"
+ },
+ "adapters": {
+  "proj@2": {
+   "targets": [
+    "transformer.h.2.mlp.c_proj"
+   ],
+   "rank": 2,
+   "lr": 0.001,
+   "seg": 10,
+   "group": "one"
+  },
+  "v@2": {
+   "targets": [
+    "transformer.h.2.attn.c_attn[1536:2304]"
+   ],
+   "rank": 2,
+   "lr": 0.001,
+   "seg": 10,
+   "group": "one"
+  },
+  "r2-all": {
+   "targets": "all",
+   "rank": 2,
+   "lr": 0.0003,
+   "seg": 5,
+   "group": "all"
+  },
+  "r8-all": {
+   "targets": "all",
+   "rank": 8,
+   "lr": 0.0001,
+   "seg": 5,
+   "group": "all"
+  }
+ },
+ "conditions": [
+  {
+   "name": "pilot-none-16",
+   "transform": "none",
+   "seed": 90,
+   "n": 16,
+   "n_val": 32,
+   "n_test": 96,
+   "adapters": [
+    "proj@2",
+    "v@2",
+    "r2-all",
+    "r8-all"
+   ]
+  }
+ ]
+}
