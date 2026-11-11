@@ -617,7 +617,7 @@ a few tens of steps. The training gain at the test peak:
 | scored, plain text | 1.15 | 0.10 | 0.25 |
 
 K3 asked for a c.v. below 0.35 in each scored condition. The MLP
-matrices reach the knee in 50 to 80 steps and the attention matrices
+matrices reach the knee in 50 to 90 steps and the attention matrices
 in 90 to 140; in training gain they reach it together.
 
 **A stopping rule from the training contexts alone.** Fit on one
