@@ -268,6 +268,7 @@ slope and (4) is what the pilot's sweep shows.
 | the hard threshold as "worth fitting to convergence" | a reading of a known threshold (Gavish and Donoho's 4 / sqrt(3)), in the isotropic model; checked per component in section 9: safe from 32 contexts up, a floor on the rank and not an estimate of it, unreliable at 8 contexts of plain text |
 | early stopping as a spectral filter with optimum `rho` per mode | known for least squares; used, not claimed |
 | the edge-level formula calibrating under low-rank noise | an empirical regularity on one model, three text conditions, rank 2; no proof, and the model it comes from is false for this noise |
+| the share as the rate at which test gain accrues at the start of a fit; a knee at a training gain common to the matrices; stopping at the cross-fitted knee | the first is an identity for gradient flow, checked on 16 fits; the other two are empirical, on 24 long fits at 8 contexts (section 12) |
 
 ## 8. The half rule checked
 
@@ -577,3 +578,93 @@ show gains everywhere.
 **Limits.** One sample of 8 contexts, one text condition, one
 learning rate, eight modules. At 8 contexts `rho` only reaches 0.59,
 so the pilot says nothing about fits whose share is near one.
+
+## 12. What the share does describe: the rate at the start, and a knee
+
+Added 06:06 UTC 2026-11-11. Exploratory, beside ED4:
+`poc/ecsdec/knee_check.py`, logs `knee_check.log` and
+`knee_check_scored.log` in `poc/results/ed4/`. Its predictions K1 to
+K3 were committed before its first run (1488b8c) and K4 before the
+second (420e643). The long fits it reads are the pilot's eight
+(section 11) and the sixteen of ED4's scored run; ED4's own bars on
+those sixteen are scored separately by its frozen scorer.
+
+**An identity.** Under gradient flow on the training loss,
+
+    d L_pop / d L_tr = <grad L_pop, grad L_tr> / ||grad L_tr||^2,
+
+so at every moment of a fit the test gain accrues, per unit of
+training gain, at the real share of the step then being taken. The
+pre-screen's `rho` is this ratio at the start, for the leading part
+of the gradient. Section 6 assumed the ratio falls linearly along
+one direction; section 11 showed a real fit does not behave so. What
+the long fits show instead:
+
+**The rate at the start is the share.** Over the first 30 steps the
+test gain over the training gain, against `rho` measured before
+training on validation contexts: rank correlation 0.83 over the 16
+scored fits (K3 asked for more than 0.5), mean absolute difference
+0.05, largest 0.15.
+
+**Then a knee, at a training gain that belongs to the sample.** The
+ratio stays near its starting value and then drops below zero within
+a few tens of steps. The training gain at the test peak:
+
+| sample | mean | c.v. over the eight matrices | step of the peak, c.v. |
+|---|---|---|---|
+| pilot, plain text | 1.29 | 0.22 | 0.33 |
+| scored, leet | 1.82 | 0.18 | 0.28 |
+| scored, plain text | 1.15 | 0.10 | 0.25 |
+
+K3 asked for a c.v. below 0.35 in each scored condition. The MLP
+matrices reach the knee in 50 to 80 steps and the attention matrices
+in 90 to 140; in training gain they reach it together.
+
+**A stopping rule from the training contexts alone.** Fit on one
+half of the training contexts and watch the loss on the other half;
+note the training gain at which that loss is lowest; do this for
+four matrices, both ways round, and take the median `g*` of the
+eight values. Then stop any fit on the full sample when its training
+gain reaches `g*`.
+
+| sample | the eight cross-fitted values, c.v. | `g*` | mean training gain at the test peak | test gain positive | at least 2/3 of the peak | median share of the peak, lowest |
+|---|---|---|---|---|---|---|
+| pilot, plain text (K1, K2) | 0.37 | 1.31 | 1.29 | 8 of 8 | 8 of 8 | 0.99, 0.94 |
+| scored, leet (K4) | 0.31 | 1.76 | 1.82 | 8 of 8 | 8 of 8 | 0.96, 0.79 |
+| scored, plain text (K4) | 0.18 | 1.43 | 1.15 | 8 of 8 | 7 of 8 | 0.89, 0.49 |
+
+| prediction | verdict |
+|---|---|
+| K1: the cross-fitted values have a c.v. below 0.35; the step of the turn differs by 2 or more between MLP and attention | fails on the first part (0.37); the second holds (2.2) |
+| K2: on the pilot sample, stopping at `g*` keeps a positive gain in 8 of 8 and two thirds of the peak in at least 6 | holds |
+| K3: the knee's training gain has a c.v. below 0.35 in each scored condition; the early ratio tracks `rho` above 0.5 | holds |
+| K4: the rule found and applied on each scored sample: positive in 8 of 8, two thirds of the peak in at least 6 | holds in both |
+
+A single cross-fitted value is too noisy to use (0.61 to 2.23 on the
+pilot sample); the median of eight is what the rule rests on. My
+expectation that a half sample would turn earlier was wrong: `g*`
+fell within 4% of the full sample's knee twice and 24% above it
+once, and that overshoot is where the one fit below two thirds
+(`v@2`, 0.49 of its peak) comes from.
+
+**Against the alternatives**, share of each fit's peak test gain
+kept, over the 24 long fits:
+
+| rule | needs | median | lowest | at least 2/3 | positive |
+|---|---|---|---|---|---|
+| stop at the validation minimum | 96 held-out contexts | 1.00 | 0.95 | 24 | 24 |
+| stop at the cross-fitted knee | nothing beyond the 8 training contexts | 0.96 | 0.48 | 23 | 24 |
+| stop at step 60 | a budget chosen in advance | 0.90 | 0.39 | 18 | 24 |
+| train to step 300 | | -4.32 | -10.28 | 0 | 0 |
+
+The step-60 budget is the one the pilot happened to use and suits
+the MLP matrices; it leaves the attention matrices of layer 8 at 40
+to 45% of their peak. A budget in steps does not transfer between
+matrices and a budget in training gain does.
+
+**Limits.** Three samples of 8 contexts, two kinds of text, one
+model, one learning rate, rank 2; the cross-fit costs eight half-size
+fits. The rows of the comparison table other than the knee's are
+descriptive, with no prediction behind them. Nothing here has been
+tried at 32 or more contexts, where a 60-step fit does not reach a
+knee at all.
