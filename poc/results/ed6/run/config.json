@@ -1,0 +1,176 @@
+{
+ "repo": "/home/user/Spoti-pi",
+ "corpus_commit": "73b70e427570835c249b7948bf8cd6b4baf7f986",
+ "lr": 0.001,
+ "rank": 2,
+ "cap_full": 800,
+ "cap_half": 500,
+ "threads": 4,
+ "models": {
+  "distilgpt2": {
+   "dir": "/tmp/claude-0/-home-user-Spoti-pi/1b1f644f-a664-570f-99b3-f54d941ef46d/scratchpad/distilgpt2_hf",
+   "kind": "gpt2",
+   "early": 1,
+   "mid": 4,
+   "d": 768
+  },
+  "openai-gpt": {
+   "dir": "/tmp/claude-0/-home-user-Spoti-pi/1b1f644f-a664-570f-99b3-f54d941ef46d/scratchpad/openai_gpt_hf",
+   "kind": "openai-gpt",
+   "early": 2,
+   "mid": 8,
+   "d": 768
+  },
+  "gpt2-medium": {
+   "dir": "/tmp/claude-0/-home-user-Spoti-pi/1b1f644f-a664-570f-99b3-f54d941ef46d/scratchpad/gpt2_medium_hf",
+   "kind": "gpt2",
+   "early": 4,
+   "mid": 16,
+   "d": 1024
+  }
+ },
+ "bars": {
+  "cv_max": 0.35,
+  "keep": 0.6666666666666666,
+  "keep_share": 0.8333333333333334,
+  "keep_per_condition": 3,
+  "turn_share": 0.8333333333333334
+ },
+ "conditions": [
+  {
+   "name": "distilgpt2-none-8",
+   "model": "distilgpt2",
+   "transform": "none",
+   "seed": 31,
+   "n": 8,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.1.mlp.c_proj",
+    "transformer.h.4.mlp.c_proj",
+    "transformer.h.1.attn.c_attn[1536:2304]",
+    "transformer.h.4.attn.c_proj"
+   ]
+  },
+  {
+   "name": "openai-gpt-none-8",
+   "model": "openai-gpt",
+   "transform": "none",
+   "seed": 32,
+   "n": 8,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.2.mlp.c_proj",
+    "transformer.h.8.mlp.c_proj",
+    "transformer.h.2.attn.c_attn[1536:2304]",
+    "transformer.h.8.attn.c_proj"
+   ]
+  },
+  {
+   "name": "gpt2-medium-none-8",
+   "model": "gpt2-medium",
+   "transform": "none",
+   "seed": 33,
+   "n": 8,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.4.mlp.c_proj",
+    "transformer.h.16.mlp.c_proj",
+    "transformer.h.4.attn.c_attn[2048:3072]",
+    "transformer.h.16.attn.c_proj"
+   ]
+  },
+  {
+   "name": "distilgpt2-leet-8",
+   "model": "distilgpt2",
+   "transform": "leet",
+   "seed": 34,
+   "n": 8,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.1.mlp.c_proj",
+    "transformer.h.4.mlp.c_proj",
+    "transformer.h.1.attn.c_attn[1536:2304]",
+    "transformer.h.4.attn.c_proj"
+   ]
+  },
+  {
+   "name": "openai-gpt-leet-8",
+   "model": "openai-gpt",
+   "transform": "leet",
+   "seed": 35,
+   "n": 8,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.2.mlp.c_proj",
+    "transformer.h.8.mlp.c_proj",
+    "transformer.h.2.attn.c_attn[1536:2304]",
+    "transformer.h.8.attn.c_proj"
+   ]
+  },
+  {
+   "name": "gpt2-medium-leet-8",
+   "model": "gpt2-medium",
+   "transform": "leet",
+   "seed": 36,
+   "n": 8,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.4.mlp.c_proj",
+    "transformer.h.16.mlp.c_proj",
+    "transformer.h.4.attn.c_attn[2048:3072]",
+    "transformer.h.16.attn.c_proj"
+   ]
+  },
+  {
+   "name": "distilgpt2-none-32",
+   "model": "distilgpt2",
+   "transform": "none",
+   "seed": 37,
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.1.mlp.c_proj",
+    "transformer.h.4.mlp.c_proj",
+    "transformer.h.1.attn.c_attn[1536:2304]",
+    "transformer.h.4.attn.c_proj"
+   ]
+  },
+  {
+   "name": "openai-gpt-none-32",
+   "model": "openai-gpt",
+   "transform": "none",
+   "seed": 38,
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.2.mlp.c_proj",
+    "transformer.h.8.mlp.c_proj",
+    "transformer.h.2.attn.c_attn[1536:2304]",
+    "transformer.h.8.attn.c_proj"
+   ]
+  },
+  {
+   "name": "gpt2-medium-none-32",
+   "model": "gpt2-medium",
+   "transform": "none",
+   "seed": 39,
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.4.mlp.c_proj",
+    "transformer.h.16.mlp.c_proj",
+    "transformer.h.4.attn.c_attn[2048:3072]",
+    "transformer.h.16.attn.c_proj"
+   ]
+  }
+ ]
+}
