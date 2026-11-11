@@ -22,6 +22,16 @@ Written before the run:
       at in these terms: the training gain at the test peak has a c.v. below 0.35 within each condition; and
       across the 16 the test gain over the training gain in the first 30 steps has a rank correlation above
       0.5 with the pre-screen's real share rho.
+
+Added after the first run (knee_check.log: K1 failed at a c.v. of 0.37 against 0.35, K2 and K3 held), and before
+any cross-fit on the scored samples:
+  K4. Out of sample. On each of the scored run's two stopping samples (leet and plain text at 8 contexts,
+      seeds 11 and 12), g* found the same way (the same four matrices, both halves, the median of the eight)
+      and applied to that sample's eight scored long fits leaves a positive test gain in 8 of 8 and at least
+      two thirds of the peak in at least 6 of 8, in each condition. Reported beside it: the c.v. of the eight
+      cross-fitted values and g* against the mean training gain at the test peak (1.82 and 1.15).
+
+  /usr/bin/python3 -m poc.ecsdec.knee_check scored   -> poc/results/ed4/knee_check_scored.json and a table
 """
 from __future__ import annotations
 import json, sys, time, hashlib
@@ -71,5 +81,40 @@ def main(steps=150):
     log("knee check done")
 
 
+def apply_rule(gstar, base, traj, label):
+    kept = []
+    for m, tj in traj.items():
+        s = peak_stats(base, tj, "te"); i = int(np.argmax(s["gt"] >= gstar)) if (s["gt"] >= gstar).any() else len(s["gt"]) - 1
+        if i > 0 and s["gt"][i] > s["gt"][i - 1]: w = (gstar - s["gt"][i - 1]) / (s["gt"][i] - s["gt"][i - 1]); ge = s["ge"][i - 1] + w * (s["ge"][i] - s["ge"][i - 1]); step = tj["step"][i - 1] + w * (tj["step"][i] - tj["step"][i - 1])
+        else: ge = s["ge"][i]; step = tj["step"][i]
+        kept.append(ge / s["ge_peak"]); log(f"   {label} {m}: stopped at training gain g* = {gstar:.2f} (step {step:.0f}): test gain {ge:+.3f}, {ge / s['ge_peak']:.2f} of its peak {s['ge_peak']:+.3f} (peak at step {s['peak_step']}, training gain {s['gt_peak']:.2f})")
+    return np.array(kept)
+
+
+def scored(steps=150):
+    cfg = json.load(open(OUT / "config.json")); rows_run = {r["name"]: r for r in json.load(open(OUT / "ed4.json"))["rows"] if r.get("kind") == "stopping"}
+    PS.CORPUS_COMMIT = cfg["corpus_commit"]; P = GM.load_params(); tok = GM.tokenizer(); X = lambda a: jnp.asarray(a[:, :PS.CTX]); Y = lambda a: jnp.asarray(a[:, 1:PS.CTX + 1])
+    mods = ["proj@2", "proj@8", "v@2", "o@8"]; W = None; out = []
+    for i, c in enumerate(cfg["conditions"]):
+        if c.get("kind") != "stopping": continue
+        tr, ho, te = PS.corpus3(cfg["seed"] + i, c["n"], c["n_val"], c["n_test"], tok, c["transform"]); ck = json.load(open(OUT / f"ed4_{c['name']}.ckpt.json"))
+        same = hashlib.sha1(b"".join(np.asarray(X(a)).tobytes() + np.asarray(Y(a)).tobytes() for a in (tr, ho, te))).hexdigest() == ck["tokens"]; log(f"{c['name']}: the scored run's contexts reproduced: {same}"); assert same
+        if W is None: W = PS.CEWorld(P, tr[:4], tr[4:], library=mods, te=te)
+        W.x["te"], W.y["te"] = X(te), Y(te); W.L0["te"] = float(PS._ce(W._logits(P, W.x["te"]), W.y["te"])); rows = []
+        for name, A, B in (("A to B", tr[:4], tr[4:]), ("B to A", tr[4:], tr[:4])):
+            W.x["tr"], W.y["tr"], W.x["ho"], W.y["ho"] = X(A), Y(A), X(B), Y(B)
+            for s_ in ("tr", "ho"): W.L0[s_] = float(PS._ce(W._logits(P, W.x[s_]), W.y[s_]))
+            for j, m in enumerate(mods):
+                t = time.time(); tj = W.fit_traj(m, jax.random.fold_in(jax.random.PRNGKey(7), j), 1e-3, steps); k = int(np.argmin(tj["ho"]))
+                rows.append(dict(cond=c["name"], half=name, module=m, base=dict(W.L0), traj=tj, knee_step=tj["step"][k], knee_gain=W.L0["tr"] - tj["tr"][k], other_gain=W.L0["ho"] - tj["ho"][k]))
+                log(f"{c['name']} {name} {m}: the other half's loss is lowest at step {tj['step'][k]}, training gain {rows[-1]['knee_gain']:.2f} (other-half gain {rows[-1]['other_gain']:+.2f}) ({time.time() - t:.0f}s)")
+                out.append(rows[-1]); json.dump(out, open(OUT / "knee_check_scored.json", "w"), indent=1, default=float)
+        g = np.array([r["knee_gain"] for r in rows]); gstar = float(np.median(g)); r = rows_run[c["name"]]; kept = apply_rule(gstar, r["base"], r["traj"], c["name"])
+        gp = np.mean([peak_stats(r["base"], tj, "te")["gt_peak"] for tj in r["traj"].values()])
+        log(f"K4: {c['name']}: cross-fitted values {' '.join(f'{v:.2f}' for v in g)}, c.v. {cv(g):.2f}; g* = {gstar:.2f} against a mean training gain at the test peak of {gp:.2f}; test gain positive in {int((kept > 0).sum())}/8 (needs 8); "
+            f"at least two thirds of the peak in {int((kept >= 2 / 3).sum())}/8 (needs 6); median share of the peak {np.median(kept):.2f}, lowest {kept.min():.2f}")
+    log("knee check on the scored samples done")
+
+
 if __name__ == "__main__":
-    main()
+    scored() if len(sys.argv) > 1 and sys.argv[1] == "scored" else main()

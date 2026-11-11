@@ -1,0 +1,23 @@
+[05:08:30] the pilot's contexts reproduced: True
+[05:11:23] A to B proj@2: the other half's loss is lowest at step 60, training gain 2.23 (other-half gain +0.08); the test loss is lowest at step 60, training gain 2.23 (153s)
+[05:13:42] A to B proj@8: the other half's loss is lowest at step 50, training gain 1.55 (other-half gain +0.43); the test loss is lowest at step 50, training gain 1.55 (139s)
+[05:15:57] A to B v@2: the other half's loss is lowest at step 80, training gain 1.08 (other-half gain +0.34); the test loss is lowest at step 80, training gain 1.08 (135s)
+[05:18:10] A to B o@8: the other half's loss is lowest at step 110, training gain 1.97 (other-half gain +0.26); the test loss is lowest at step 110, training gain 1.97 (133s)
+[05:20:22] B to A proj@2: the other half's loss is lowest at step 30, training gain 0.91 (other-half gain +0.32); the test loss is lowest at step 40, training gain 1.18 (131s)
+[05:22:40] B to A proj@8: the other half's loss is lowest at step 40, training gain 1.18 (other-half gain +0.32); the test loss is lowest at step 50, training gain 1.56 (138s)
+[05:24:52] B to A v@2: the other half's loss is lowest at step 40, training gain 0.61 (other-half gain +0.31); the test loss is lowest at step 40, training gain 0.61 (132s)
+[05:27:02] B to A o@8: the other half's loss is lowest at step 90, training gain 1.45 (other-half gain +0.18); the test loss is lowest at step 110, training gain 1.90 (131s)
+[05:27:02] K1: cross-fitted training gain at the turn: 2.23 1.55 1.08 1.97 0.91 1.18 0.61 1.45; c.v. 0.37 (needs below 0.35); mean step of the turn: proj@2 45, proj@8 45, v@2 60, o@8 100; slowest over fastest 2.2 (needs 2 or more, MLP against attention)
+[05:27:02]    pilot full fit v@2: stopped at training gain g* = 1.31 (step 147): test gain +0.290, 0.94 of its peak +0.310 (peak at step 110, training gain 1.00)
+[05:27:02]    pilot full fit o@2: stopped at training gain g* = 1.31 (step 114): test gain +0.440, 1.00 of its peak +0.442 (peak at step 110, training gain 1.28)
+[05:27:02]    pilot full fit fc@2: stopped at training gain g* = 1.31 (step 56): test gain +0.390, 0.97 of its peak +0.401 (peak at step 50, training gain 1.14)
+[05:27:02]    pilot full fit proj@2: stopped at training gain g* = 1.31 (step 52): test gain +0.466, 1.00 of its peak +0.469 (peak at step 50, training gain 1.27)
+[05:27:02]    pilot full fit v@8: stopped at training gain g* = 1.31 (step 114): test gain +0.458, 0.98 of its peak +0.468 (peak at step 110, training gain 1.27)
+[05:27:02]    pilot full fit o@8: stopped at training gain g* = 1.31 (step 105): test gain +0.492, 1.00 of its peak +0.492 (peak at step 110, training gain 1.38)
+[05:27:02]    pilot full fit fc@8: stopped at training gain g* = 1.31 (step 64): test gain +0.457, 0.95 of its peak +0.484 (peak at step 80, training gain 1.96)
+[05:27:02]    pilot full fit proj@8: stopped at training gain g* = 1.31 (step 61): test gain +0.554, 0.99 of its peak +0.559 (peak at step 50, training gain 1.05)
+[05:27:02] K2: g* = 1.31; test gain positive in 8/8 (needs 8); at least two thirds of the peak in 8/8 (needs 6); median share of the peak 0.99
+[05:27:02] K3: stop-leet-8: training gain at the test peak 1.20 1.65 1.80 1.56 1.89 2.08 2.16 2.26; mean 1.82, c.v. 0.18 (needs below 0.35); peak steps 100 100 70 60 140 130 70 90, c.v. 0.28
+[05:27:02] K3: stop-none-8: training gain at the test peak 0.95 1.17 1.37 1.22 1.17 1.14 1.20 1.01; mean 1.15, c.v. 0.10 (needs below 0.35); peak steps 90 90 70 50 100 100 70 50, c.v. 0.25
+[05:27:02] K3: over the 16 scored long fits, rank correlation of the early test-over-training gain with rho: +0.83 (needs above 0.5); pairs (rho, early): (0.57, 0.61) (0.57, 0.56) (0.57, 0.54) (0.57, 0.59) (0.53, 0.48) (0.43, 0.41) (0.44, 0.43) (0.58, 0.59) (0.31, 0.34) (0.29, 0.26) (0.31, 0.25) (0.29, 0.26) (0.44, 0.29) (0.34, 0.37) (0.35, 0.49) (0.44, 0.58)
+[05:27:02] knee check done
