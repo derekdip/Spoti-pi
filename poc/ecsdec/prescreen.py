@@ -24,7 +24,7 @@ The sweep fits a rank-r LoRA on each module alone (Adam, a frozen budget, best i
 one compiled program for every module, and every selector's outcome is read off it.
 """
 from __future__ import annotations
-import json, sys, time, glob
+import json, sys, time, glob, subprocess
 from pathlib import Path
 import numpy as np, jax, jax.numpy as jnp
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -61,16 +61,33 @@ TRANSFORMS = {"none": lambda t: t, "upper": lambda t: t.upper(), "altcaps": _alt
               "reverse": lambda t: _words(t, lambda w: w[::-1])}
 
 
+CORPUS_COMMIT = None        # None: docs/*.md of the working tree (the pilot ran so); `run` sets it from config.json
+_DOCS = {}
+
+
+def docs_text(commit=None):
+    """The corpus: the texts of docs/*.md in name order, from the working tree or from a named commit (git show),
+    read once per process, so a run cannot see the files change under it and a scored run can be repeated after
+    the docs have grown."""
+    if commit not in _DOCS:
+        root = Path(__file__).resolve().parents[2]
+        if commit is None: _DOCS[commit] = [open(p).read() for p in sorted(glob.glob(str(root / "docs/*.md")))]
+        else:
+            git = lambda *a: subprocess.run(["git", "-C", str(root), *a], check=True, capture_output=True, text=True).stdout
+            _DOCS[commit] = [git("show", f"{commit}:{p}") for p in sorted(x for x in git("ls-tree", "--name-only", commit, "docs/").split("\n") if x.endswith(".md"))]
+    return _DOCS[commit]
+
+
 def corpus(seed, n, tok, transform):
-    files = sorted(glob.glob(str(Path(__file__).resolve().parents[2] / "docs/*.md"))); rng = np.random.default_rng(seed); f = TRANSFORMS[transform]
-    def draw(fs):
-        toks = [np.array(tok.encode(f(open(p).read()))) for p in fs]; out = []
+    texts = docs_text(CORPUS_COMMIT); rng = np.random.default_rng(seed); f = TRANSFORMS[transform]
+    def draw(ts):
+        toks = [np.array(tok.encode(f(t))) for t in ts]; out = []
         while len(out) < n:
             t = toks[rng.integers(len(toks))]
             if len(t) < CTX + 2: continue
             i = rng.integers(0, len(t) - CTX - 1); out.append(t[i:i + CTX + 1])
         return np.stack(out)
-    return draw(files[::2]), draw(files[1::2])
+    return draw(texts[::2]), draw(texts[1::2])
 
 
 def _ce(z, y):
@@ -200,7 +217,9 @@ def pilot():
 
 
 def run():
+    global CORPUS_COMMIT
     cfg = json.load(open(OUT / "config.json")); T0 = time.time(); P = GM.load_params(); tok = GM.tokenizer(); out = []
+    CORPUS_COMMIT = cfg["corpus_commit"]; log(f"corpus: docs/*.md at {CORPUS_COMMIT}, {len(docs_text(CORPUS_COMMIT))} files")
     for i, c in enumerate(cfg["conditions"]):
         W = make_world(cfg["seed"], c["n"], c["transform"], cfg["library"], cfg["rank"], cfg["steps"], P=P, tok=tok)
         out.append(condition(W, c["name"], cfg, jax.random.PRNGKey(4000 + i), full=c.get("full", False)))
