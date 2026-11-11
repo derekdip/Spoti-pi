@@ -265,7 +265,7 @@ slope and (4) is what the pilot's sweep shows.
 | the spiked-matrix threshold, singular-value map and optimal shrinkage | known results (Baik, Ben Arous and Peche; Benaych-Georges and Nadakuditi; Gavish and Donoho), reproduced numerically here, not re-derived and not fetched |
 | reading the shrunk training slope as the generalising part of an adapter's first-order direction, with the edge set by a split-half null | an application; whether it is in the literature was not checkable from this sandbox |
 | (4), the half rule and `2 rho - 1` | elementary (a quadratic along one direction); its predictions were written before the data and checked in section 8: it orders the modules (correlation 0.96 over 64) and is biased cautious, by 0.19 at 8 contexts and 0.05 at 96 |
-| the hard threshold as "worth fitting to convergence" | a reading of a known threshold (Gavish and Donoho's 4 / sqrt(3)), in the isotropic model |
+| the hard threshold as "worth fitting to convergence" | a reading of a known threshold (Gavish and Donoho's 4 / sqrt(3)), in the isotropic model; checked per component in section 9: safe from 32 contexts up, a floor on the rank and not an estimate of it, unreliable at 8 contexts of plain text |
 | early stopping as a spectral filter with optimum `rho` per mode | known for least squares; used, not claimed |
 | the edge-level formula calibrating under low-rank noise | an empirical regularity on one model, three text conditions, rank 2; no proof, and the model it comes from is false for this noise |
 
@@ -335,3 +335,80 @@ the training optimum to help, not a necessary one: on these 64 pairs
 no module with `rho` above one half had a negative look-ahead gain,
 and three with `rho` between 0.35 and 0.46 had a positive one. As a
 screen it errs toward reading no-go.
+
+## 9. The rank question, one component at a time
+
+Added 01:19 UTC 2026-11-11. `poc/ecsdec/rank_check.py`, with
+three predictions in its docstring, was committed (f897ce7) before
+it ran. For each of the first eight singular components of each
+module's training gradient it records `s_k / edge` and the
+component's real share `rho_k = u_k^T G_pop v_k / s_k`, `G_pop`
+taken on 192 held-out contexts: 1920 components over three text
+conditions, five training sizes and 16 modules
+(`poc/results/ed4/rank_check.json`). By the half rule a component is
+worth fitting to the training optimum when `rho_k > 1/2`; the
+isotropic model puts that boundary at `2 / sqrt(3) = 1.155` times
+the noise edge.
+
+**A defect in the run.** The script's constant was `4 / sqrt(3) =
+2.309` times the edge: the threshold in noise units, used as if it
+were in units of the edge. The `P1` and `P2` lines of
+`rank_check.log` are therefore at 2.31, not at the 1.155 the
+predictions name. The log is kept as it ran. The constant is
+corrected and `rank_check rescore` recomputes the predictions at
+1.155 from the saved rows, with no new data
+(`rank_check_rescored.log`). Both sets of figures are below.
+
+| prediction | at 1.155 x edge | as run, at 2.31 x edge | verdict |
+|---|---|---|---|
+| P1: above the threshold, `rho_k > 1/2` in at least 90% | 355 of 368, 96.5% | 168 of 168 | holds |
+| P2: below it, more than a quarter have `rho_k > 1/2` | 662 of 1552, 42.7% | 849 of 1752, 48.5% | holds |
+| P3: above the edge, the shrinker's share correlates with `rho_k` above 0.5 | 0.508 over 400 | the same | holds, by 0.008 |
+
+**Where P1 fails.** All 13 failures at 1.155 are plain text at 8
+contexts (11) and 16 contexts (2), and 11 of them are a module's
+leading component. At 8 contexts of plain text the leading component
+clears the threshold in all 16 modules and is more than half real in
+5. From 32 contexts up no component above the threshold failed (257
+of 257). The split-half null at 8 contexts is two halves of four,
+and its edge is itself a noisy number.
+
+**The threshold is a floor on the rank, not the rank.** Per module,
+of the first eight components:
+
+| condition | n | worth fitting (`rho_k > 1/2`) | above 1.155 x edge |
+|---|---|---|---|
+| plain | 8 | 0.6 | 1.0 |
+| plain | 16 | 1.5 | 1.1 |
+| plain | 32 | 2.4 | 1.5 |
+| plain | 64 | 3.6 | 1.8 |
+| plain | 128 | 5.9 | 1.9 |
+| alternating caps | 8 | 1.8 | 1.0 |
+| alternating caps | 16 | 2.4 | 1.3 |
+| alternating caps | 32 | 4.1 | 1.5 |
+| alternating caps | 64 | 6.1 | 1.8 |
+| alternating caps | 128 | 7.2 | 2.0 |
+| leet | 8 | 1.9 | 1.2 |
+| leet | 16 | 3.9 | 1.3 |
+| leet | 32 | 6.4 | 1.8 |
+| leet | 64 | 7.6 | 1.9 |
+| leet | 128 | 8.0 | 2.0 |
+
+At 128 contexts six to eight of the first eight components are more
+than half real and two clear the threshold. Components between 0.5
+and 1.0 times the edge, inside the noise by the isotropic reading,
+have a median `rho_k` of 0.74 to 0.78 and are above one half in 82
+to 89% of cases; only below 0.5 times the edge does the median fall
+under one half (0.35).
+
+**Reading.** The edge is the noise's largest singular value, and the
+noise is close to low rank (section 4), so the edge overstates the
+noise a component in a generic direction meets. That is the same
+fact that made the model false in section 4, seen from the other
+side: it left the rank-2 slope well calibrated and it makes the
+edge useless as a rank selector beyond "at least this many". A rank
+estimate needs a `rho_k` that does not go through a noise model.
+The direct candidate is cross-fitting: take the directions from one
+half of the training contexts and measure their slope on the other
+half. `rho_k` here is also measured against a finite held-out set,
+so for the smallest components it carries noise of its own.

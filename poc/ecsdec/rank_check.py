@@ -5,8 +5,16 @@
 
 For each module the training gradient has singular components s_k u_k v_k^T. Component k's real share is
 rho_k = u_k^T G_pop v_k / s_k, G_pop estimated on 192 held-out contexts; by the half rule it is worth fitting
-to the training optimum when rho_k > 1/2. The isotropic model puts that boundary at s_k = 4 / sqrt(3) = 1.155
-times the noise edge, the edge being the top singular value of the split-half null (G_A - G_B) / 2.
+to the training optimum when rho_k > 1/2. The isotropic model puts that boundary at s_k = 4 / sqrt(3) noise
+units, which is 2 / sqrt(3) = 1.155 times the noise edge, the edge being the top singular value of the
+split-half null (G_A - G_B) / 2.
+
+Defect, kept on record: the run of 01:10 UTC 2026-11-11 had THR = 4 / sqrt(3) = 2.309 times the edge (the
+threshold in noise units used as if it were in units of the edge), so the P1 and P2 lines of rank_check.log are
+at 2.31 x edge, not at the 1.155 x the predictions name. Every component's ratio and rho are in
+rank_check.json; `rescore` recomputes the three predictions at 1.155 from those rows, with no new data.
+
+  /usr/bin/python3 -m poc.ecsdec.rank_check rescore   -> the predictions at 1.155 x edge, from rank_check.json
 
 Written before the run (the noise here is known not to be isotropic, effective rank 1.2 to 4.6):
   P1. Components above 1.155 x edge have rho_k > 1/2 in at least 90% of cases.
@@ -24,7 +32,7 @@ from poc.ecsdec import gpt2 as GM
 from poc.ecsdec import prescreen as PS
 from poc.ecsdec.rmt_check import shrink
 
-OUT = PS.OUT; log = PS.log; K = 8; THR = 4 / np.sqrt(3)
+OUT = PS.OUT; log = PS.log; K = 8; THR = 2 / np.sqrt(3)
 
 
 def main(n_held=192):
@@ -54,5 +62,23 @@ def main(n_held=192):
     log("rank check done")
 
 
+def rescore():
+    rows = json.load(open(OUT / "rank_check.json")); lib = sorted({x["module"] for x in rows}); half = lambda v: f"{sum(x['rho'] > 0.5 for x in v)}/{len(v)} = {np.mean([x['rho'] > 0.5 for x in v]):.3f}"
+    for tr in ("none", "altcaps", "leet"):
+        for n in (8, 16, 32, 64, 128):
+            sub = [x for x in rows if x["transform"] == tr and x["n"] == n]; per = lambda f: np.mean([sum(f(x) for x in sub if x["module"] == m) for m in lib])
+            log(f"{tr} n={n:3d}: per module (of {K}), components worth fitting {per(lambda x: x['rho'] > 0.5):.1f}, above 1.155 x edge {per(lambda x: x['ratio'] > THR):.1f}, above the edge {per(lambda x: x['ratio'] > 1):.1f}")
+    ab = [x for x in rows if x["ratio"] > THR]; be = [x for x in rows if x["ratio"] <= THR]; ed = [x for x in rows if x["ratio"] > 1]
+    log(f"P1: above 1.155 x edge, rho > 1/2 in {half(ab)}")
+    log(f"P2: below it, rho > 1/2 in {half(be)}")
+    log(f"P3: above the edge ({len(ed)} components), corr(shrunk share, rho) {np.corrcoef([x['shrunk'] for x in ed], [x['rho'] for x in ed])[0, 1]:+.3f}")
+    for lo, hi in ((0, 0.5), (0.5, 0.8), (0.8, 1.0), (1.0, THR), (THR, 1.5), (1.5, 2.0), (2.0, 3.0), (3.0, 1e9)):
+        v = [x["rho"] for x in rows if lo < x["ratio"] <= hi]
+        if v: log(f"   s_k / edge in ({lo:.2f}, {hi:.2f}]: {len(v):4d} components, rho median {np.median(v):+.3f}, quartiles {np.percentile(v, 25):+.3f} to {np.percentile(v, 75):+.3f}, share above 1/2 {np.mean(np.array(v) > 0.5):.2f}")
+    for k in range(1, K + 1):
+        v = [x for x in rows if x["k"] == k]; log(f"   component {k}: rho median {np.median([x['rho'] for x in v]):+.3f}, share above 1/2 {np.mean([x['rho'] > 0.5 for x in v]):.2f}, s_k / edge median {np.median([x['ratio'] for x in v]):.2f}")
+    log("rank check rescored")
+
+
 if __name__ == "__main__":
-    main()
+    rescore() if len(sys.argv) > 1 and sys.argv[1] == "rescore" else main()
