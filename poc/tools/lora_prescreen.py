@@ -123,7 +123,7 @@ def report(res, top=3):
     cf = sorted(x["cf_share"] for x in res["modules"])[len(res["modules"]) // 2]
     L.append(f"median cross-fitted share {cf:.2f}: " + ("under one half: the leading direction is mostly sampling noise at this data size; add contexts before trusting the ranking" if cf < 0.5 else "above one half: the leading direction is predicted to hold on more text like the training text"))
     L.append("none of these numbers says how long to train: hold text out and stop when its loss turns")
-    L.append("a slope ranks where a small change helps most; it does not say whether a full fine-tune will help")
+    L.append("a slope ranks where a small change helps most; it did not predict which matrix gains most over a whole fit (ED4), and it does not say whether a full fine-tune will help")
     return "\n".join(L)
 
 

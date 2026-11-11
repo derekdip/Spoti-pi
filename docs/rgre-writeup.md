@@ -567,6 +567,35 @@ I got wrong running it, and where it is recorded.
     now has a pre-screen and a go/no-go sign, each measured once
     (`math-track-ed3-results.md`).
 
+33. **Cheap first-order scores do not place an adapter, and the real
+    share does not say when to stop.** ED4 asked ED3's question in its
+    plainest form: before any adapter exists, from scores on the
+    unadapted GPT-2, which of 16 matrices should a rank-2 LoRA go on.
+    The pilot removed half the experiment before it was scored: every
+    matrix gained in every condition, so there was nothing for a go
+    or no-go gate to reject, and one matrix won every sweep. Scored
+    on four text conditions with selectors and fits kept on separate
+    contexts, the preregistered look-ahead held the sweep's best in
+    one of four and did worse than three matrices drawn at random,
+    and no first-order score ranked the sixteen; a fixed choice of
+    MLP output matrices, named from the pilot, held the best in four
+    of four. Placement outcome C. The second half held: all 16 fits
+    run to five times the sweep's budget on 8 contexts ended below
+    the unadapted model, at shares on both sides of one half, and
+    stopping on validation kept the peak. The half rule of the theory
+    note had passed a linearised check the same day and been written
+    into a page as advice; it had to be taken back. What a real fit
+    did show, in a check beside the experiment with its predictions
+    written first: the share is the rate at which test gain accrues at
+    the start, and the turn comes at a training gain common to the
+    matrices of a sample, which cross-fitting on the training contexts
+    finds. Qualifications: one model, one corpus, 8 and 32 contexts;
+    the selector was picked from pilot sweeps that judged scores and
+    fits on the same contexts; side checks slowed the scored run and
+    read finished rows before the scorer did. ED3's result, for a
+    costlier linearised fit on another loss, is untouched
+    (`math-track-ed4-results.md`, `prescreen-theory.md`).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:

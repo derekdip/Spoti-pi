@@ -79,9 +79,17 @@ train (`docs/prescreen-theory.md`, section 11).
 - **A first-order held-out estimate chose the right module** on a
   planted case and on one real format shift (ED3,
   `docs/math-track-ed3-results.md`), in a squared-error form of the
-  estimate. Whether the cross-entropy slope this tool prints ranks
-  modules by their fitted gain is what ED4 tests; until its results
-  are in, read the ranking as "where a small change helps most".
+  estimate.
+- **The ranking does not say which matrix gains most over a whole
+  fit.** ED4 (`docs/math-track-ed4-results.md`) fitted a rank-2 LoRA
+  on each of 16 matrices of GPT-2 base in four text conditions. The
+  slope's best three never held the best matrix and beat three drawn
+  at random by 0.03 nats; the preregistered look-ahead selector did
+  worse than random; no first-order score had a rank correlation
+  above 0.46 with the fitted gain. A fixed choice of the MLP output
+  matrices, named before the run, held the best in four of four. Read
+  the ranking as "where a small change helps most" and nothing more;
+  for placement on a model, run one sweep once.
 - **The share is not a stopping rule.** The half rule of the theory
   note (a direction less than half real loses if fitted to its
   training optimum) held in a linearised check and did not carry to
