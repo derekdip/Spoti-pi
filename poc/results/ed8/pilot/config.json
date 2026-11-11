@@ -1,0 +1,47 @@
+{
+ "repo": "/home/user/Spoti-pi",
+ "corpus_commit": "73b70e427570835c249b7948bf8cd6b4baf7f986",
+ "lr": 0.001,
+ "rank": 2,
+ "cap_full": 1500,
+ "cap_half": 1000,
+ "threads": 4,
+ "models": {
+  "smollm2-135m": {
+   "dir": "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/smollm2_135m",
+   "kind": "auto"
+  },
+  "qwen2.5-0.5b": {
+   "dir": "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/qwen25_05b",
+   "kind": "auto"
+  }
+ },
+ "conditions": [
+  {
+   "name": "pilot-smollm2-135m-none-8",
+   "model": "smollm2-135m",
+   "transform": "none",
+   "seed": 50,
+   "n": 8,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "model.layers.5.mlp.down_proj",
+    "model.layers.20.self_attn.o_proj"
+   ]
+  },
+  {
+   "name": "pilot-qwen2.5-0.5b-none-8",
+   "model": "qwen2.5-0.5b",
+   "transform": "none",
+   "seed": 50,
+   "n": 8,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "model.layers.4.mlp.down_proj",
+    "model.layers.16.self_attn.o_proj"
+   ]
+  }
+ ]
+}
