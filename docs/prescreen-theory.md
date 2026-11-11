@@ -827,5 +827,16 @@ the worst way to hold out; 6+2 and 7+1 have not been tried.
 **ED6.** An earlier version of this section said the ED6 run had
 been lost. It was not: it finished in the session that ran it, with
 outcome A on all three models (section 14). The re-analysis above
-uses only the ED6 pilot and does not include ED6's scored fits; the
-collapse and the cheaper cross-fit have not been checked on them.
+uses only the ED6 pilot. Read afterwards on ED6's nine scored
+conditions (exploratory, same measures):
+
+- **The collapse holds on all three models.** The cross-matrix spread
+  of test gain is 1.6 to 3.9 times smaller at matched training gain
+  than at matched step in every condition (0.06 to 0.22 against 0.17
+  to 0.61).
+- **The one-matrix cross-fit is cheaper but less safe at 8 contexts.**
+  Two half-fits of the early MLP matrix instead of eight cost a sixth
+  as much and keep 0.933 of the peak on average against 0.941, but
+  on GPT-1's plain-text sample at 8 contexts they keep 0.65 against
+  0.90. At 32 contexts the two agree within 0.01 on every model. The
+  median of eight is the safer rule at small samples.
