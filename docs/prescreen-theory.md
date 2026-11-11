@@ -412,3 +412,112 @@ The direct candidate is cross-fitting: take the directions from one
 half of the training contexts and measure their slope on the other
 half. `rho_k` here is also measured against a finite held-out set,
 so for the smallest components it carries noise of its own.
+
+## 10. Cross-fitting: the real share without a noise model
+
+Added 01:35 UTC 2026-11-11. `poc/ecsdec/crossfit_check.py`,
+with three predictions in its docstring, was committed (f063540)
+before it ran; log in `poc/results/ed4/crossfit_check.log`, rows in
+`crossfit_check.json`.
+
+Split the `n` training contexts into halves A and B. A direction
+taken from A is independent of B, so `<G_B, R_A> / ||R_A||^2` is an
+unbiased estimate of the real share of a direction fitted on `n / 2`
+contexts; average it with the same from B to A. It uses no held-out
+text and no model of the noise. It estimates a smaller sample than
+the one in hand, so it should read low. To first order in the noise
+the optimism `<E, R> / ||R||` is quadratic in `E`, so `1 - rho` is
+proportional to `1 / n` and the corrected estimate is
+`(1 + rho_cf) / 2`.
+
+| condition | n | share, measured | cross-fitted | corrected | error: raw slope | shrunk | cross-fit | corrected |
+|---|---|---|---|---|---|---|---|---|
+| plain | 8 | 0.434 | 0.329 | 0.664 | 0.840 | 0.293 | 0.278 | 0.447 |
+| plain | 16 | 0.615 | 0.374 | 0.687 | 0.542 | 0.151 | 0.362 | 0.195 |
+| plain | 32 | 0.733 | 0.654 | 0.827 | 0.337 | 0.169 | 0.178 | 0.137 |
+| plain | 64 | 0.850 | 0.790 | 0.895 | 0.187 | 0.069 | 0.088 | 0.068 |
+| plain | 128 | 0.883 | 0.870 | 0.935 | 0.128 | 0.065 | 0.059 | 0.054 |
+| alternating caps | 8 | 0.665 | 0.409 | 0.705 | 0.421 | 0.168 | 0.517 | 0.077 |
+| alternating caps | 16 | 0.831 | 0.604 | 0.802 | 0.225 | 0.073 | 0.282 | 0.056 |
+| alternating caps | 32 | 0.896 | 0.780 | 0.890 | 0.124 | 0.043 | 0.139 | 0.027 |
+| alternating caps | 64 | 0.941 | 0.882 | 0.941 | 0.061 | 0.029 | 0.070 | 0.025 |
+| alternating caps | 128 | 0.893 | 0.947 | 0.973 | 0.113 | 0.070 | 0.055 | 0.084 |
+| leet | 8 | 0.755 | 0.534 | 0.767 | 0.261 | 0.087 | 0.375 | 0.082 |
+| leet | 16 | 0.891 | 0.673 | 0.837 | 0.138 | 0.085 | 0.299 | 0.064 |
+| leet | 32 | 0.948 | 0.827 | 0.913 | 0.060 | 0.051 | 0.165 | 0.060 |
+| leet | 64 | 0.975 | 0.905 | 0.952 | 0.029 | 0.044 | 0.101 | 0.041 |
+| leet | 128 | 0.895 | 0.945 | 0.973 | 0.111 | 0.056 | 0.062 | 0.084 |
+
+Shares are medians over the 16 modules for the rank-2 direction;
+errors are mean absolute log errors of each predictor of the
+held-out slope.
+
+| prediction | result | verdict |
+|---|---|---|
+| C1: uncorrected, the cross-fitted share reads low in at least 12 of 15 rows | 13 of 15 | holds |
+| C2: corrected, its error is below the raw training slope's | 0.100 against 0.238 | holds |
+| C3: as a rank estimate it beats the count above 1.155 x edge in at least 12 of 15 rows | 12 of 15; mean absolute error per module 1.41 against 2.76 | holds, at the bar |
+
+**Against the shrunk slope.** Not predicted either way: the corrected
+cross-fit and the shrunk slope tie, 0.100 against 0.097. They fail in
+different places. The correction overshoots where the share is low
+(plain text at 8 contexts: 0.664 against a measured 0.434, error
+0.447 against the shrunk slope's 0.293), which is where a first-order
+expansion in the noise has no standing. On a format shift at 8 to 32
+contexts it is the better of the two (0.027 to 0.077 against 0.043 to
+0.168).
+
+**As a rank estimate.** The number of the first eight components
+whose uncorrected cross-fitted share exceeds one half, per module,
+against the number worth fitting and the count above the threshold of
+section 9:
+
+| condition | n | worth fitting | cross-fit | above 1.155 x edge |
+|---|---|---|---|---|
+| plain | 8 | 0.6 | 0.6 | 1.0 |
+| plain | 16 | 1.5 | 0.5 | 1.1 |
+| plain | 32 | 2.4 | 1.7 | 1.5 |
+| plain | 64 | 3.5 | 2.2 | 1.8 |
+| plain | 128 | 5.6 | 3.4 | 1.9 |
+| alternating caps | 8 | 1.8 | 0.5 | 1.0 |
+| alternating caps | 16 | 2.4 | 1.4 | 1.3 |
+| alternating caps | 32 | 4.1 | 2.5 | 1.5 |
+| alternating caps | 64 | 6.2 | 3.9 | 1.8 |
+| alternating caps | 128 | 7.2 | 5.8 | 2.0 |
+| leet | 8 | 1.9 | 1.0 | 1.2 |
+| leet | 16 | 4.0 | 1.5 | 1.3 |
+| leet | 32 | 6.4 | 3.5 | 1.8 |
+| leet | 64 | 7.6 | 6.2 | 1.9 |
+| leet | 128 | 8.0 | 7.8 | 2.0 |
+
+The cross-fitted count is at or below the number worth fitting in all
+15 rows, so it stays a cautious estimate, and from 32 contexts up it
+follows the true number where the edge count stays near 2. The three
+rows where the edge count is closer are at 8 and 16 contexts; there
+neither is good.
+
+**What cross-fitting cannot see.** At 128 contexts on the two format
+shifts the measured share falls back to 0.89 while the cross-fitted
+share reads 0.95. The training and held-out contexts come from
+different files; once the sampling noise is small, what is left is
+the difference between the two sets of files, and a split inside the
+training set carries no information about that. Cross-fitting
+estimates how a direction holds on more text like the training text.
+
+**A defect in how these runs draw text.** The contexts are drawn
+from this repository's `docs/*.md` as they stand when a process
+reads them, alternate files to training and to held-out. This note
+is one of those files, and every section added to it changes the
+pool; a new file in `docs/` also shifts which files fall on which
+side. No docs commit fell inside any run's window (rmt 00:02 to
+00:06 and 00:09 to 00:17, half rule 00:46 to 01:00, rank 01:10 to
+01:17, cross-fit 01:22 to 01:32), so each run is internally
+consistent, but sections 4, 8, 9 and 10 are on slightly different
+pools although their seeds agree: section 9 has 3.6 components
+worth fitting on plain text at 64 contexts and this section 3.5,
+section 4 has a share of 0.69 on plain text at 32 contexts and this
+section 0.733. The comparisons inside each table are unaffected;
+numbers should not be compared across sections to the second
+decimal. ED2's and ED3's scored runs are not affected: no docs
+commit lies between either freeze and its run. For ED4 the corpus is
+to be pinned to a named commit before the freeze.
