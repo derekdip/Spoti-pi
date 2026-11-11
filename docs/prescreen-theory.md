@@ -696,3 +696,110 @@ Why the turn should sit at a fixed training gain for a kind of text
 is not explained here; it is the regularity the stopping rule uses,
 and over the 36 long fits of sections 12 and 13 the rule kept a
 positive test gain in every one and two thirds of the peak in 35.
+
+## 14. Re-reading the long fits: a collapse, a reason for it, and what the rule has not yet been tested against
+
+Added 2026-11-11, in a new session, after the scored ED6 run was lost
+with the machine it ran on (its results were never committed; only
+its frozen config is in `poc/results/ed6/run/`). Everything below is
+exploratory and after the fact: it reads curves already recorded
+(ED4, ED4's pilot, ED5, ED5's pilot, ED6's pilot, the PyTorch
+cross-check), trains nothing, and was not predicted before it was
+computed. Script `poc/ecsdec/knee_reanalysis.py`, output
+`poc/results/ed6/knee_reanalysis.log`.
+
+**A collapse, stronger than a shared knee.** Plot each fit's test gain
+against its training gain instead of against the step. Across the
+matrices of one condition the curves nearly coincide: the spread of
+test gain between matrices, averaged along the curve and divided by
+the mean peak, is 2 to 5 times smaller at matched training gain than
+at matched step (0.08 against 0.16 to 0.18 at 32 and 64 contexts;
+0.26 to 0.35 against 0.85 to 1.67 at 8). The shared knee of
+sections 12 and 13 is a consequence: if the curves are one curve,
+their maxima are at one training gain. Two corollaries the logs show:
+
+- the mean real share up to the knee, peak test gain over the
+  training gain there, is even more nearly common than the knee
+  itself at 32 and 64 contexts (c.v. 0.02 to 0.05 across matrices,
+  against 0.10 to 0.12 for the knee): 0.65 plain at 32, 0.77 leet at
+  32, 0.60 plain at 64; at 8 contexts 0.36 to 0.37 with c.v. 0.10 to
+  0.21;
+- the gap between training and test gain at the knee is 0.37 to 0.41
+  nats in all four 32- and 64-context conditions, plain or leet, and
+  0.73 to 1.15 at 8 contexts.
+
+**A sufficient condition for the collapse (argument, not proof).**
+Write `f` for the model's outputs on all contexts. Gradient flow on
+the training loss through matrix `m` moves them, to first order, as
+
+    df/dt = -K_m(f) grad_f L_tr(f),
+
+`K_m` the tangent kernel of that matrix (for a weight matrix, the
+product of the Gram matrix of its inputs and that of the gradients
+arriving at its outputs). If the kernels of two matrices are
+proportional, `K_m = c_m K`, the two flows trace one path in output
+space at speeds `c_m`: `f_m(t) = f(c_m t)`. Training loss and test
+loss are both functions of `f`, so test gain as a function of
+training gain is the same curve for every such matrix, and its
+maximum sits at the same training gain however many steps each
+matrix needs to get there. A step budget cannot have this property
+and a training-gain budget does. Departures from proportionality
+predict departures from the common curve. This is an idealisation
+three ways (LoRA starts at `B = 0` and is not lazy, the optimiser is
+Adam, rank 2 truncates), so it is a candidate mechanism, not an
+explanation, and it says nothing yet about why the curve turns where
+it does.
+
+**Testable from here, given weights:** (K5) the centred alignment
+between `K_m` and the mean kernel over the four matrices, computed
+on the training contexts before training, ranks the matrices by how
+far each one's own knee sits from the condition's mean knee. `v@2`,
+whose knee is the lowest in every condition, should be the least
+aligned. (K6) For a matrix with fast speed `c_m`, the curve against
+training gain should not change if the learning rate is halved
+(steps double, the curve stays).
+
+**A cheaper cross-fit (after the fact, not a rule).** The rule's
+cost is eight half-fits. Taking `g*` from the two half-fits of a
+single MLP matrix, `proj@2` (the fastest to turn), keeps on average
+0.958, 0.978 and 0.958 of the peak at 32 and 64 contexts against
+0.964, 0.986 and 0.967 for the median of eight, for about a fifth of
+the half-fit steps, and 0.935 and 0.886 at 8 contexts against 0.937
+and 0.856. A single attention matrix is worse (`v@2` alone, whose own
+knee is low, stops the others early: 0.72 to 0.77 on leet). The best
+single training gain for all matrices of a condition, chosen with
+the test curves in hand, keeps 0.94 to 0.99; the median of eight is
+within 0.02 of it at 32 and 64 contexts and 0.12 below it on ED4's
+plain-text sample at 8, the loss coming from the overshoot named in
+section 12.
+
+**A guess at that overshoot.** The half-fits measure the knee of a
+sample of `n/2` contexts, not `n`. On plain text the knee is 1.15 to
+1.29 at 8, 1.07 at 32 and 1.03 at 64, close to `k(n) = 1.0 + 1.7/n`;
+that law puts the knee at 4 contexts at 1.43, which is exactly the
+`g*` of ED4's plain-text sample, and its bias, `k(n/2) - k(n) =
+1.7/n`, is 0.22 at 8 and 0.05 at 32, matching where the rule lost
+and where it did not. Leet at 8 shows no such overshoot (`g*` 1.76,
+knee 1.82), so this is three points of one kind of text, not a law.
+If it holds, a cross-fit on folds of `3n/4` cuts the bias to a third
+at the cost of noisier held-out quarters.
+
+**What the rule has not been tested against.** The use case is that
+the rule spends all `n` contexts on training while early stopping on
+held-out data spends some on validation. Every comparison so far
+holds the training set fixed and gives validation its own 32 to 96
+extra contexts, which is not that trade. ED4's half-fits allow one
+look at the real trade at 8 contexts: train on all 8 and stop at
+`g*`, against train on 4 and stop at the minimum on the other 4, in
+nats on the same test contexts. On leet the rule is ahead on all
+four matrices with half-fits (0.38 to 0.85 against 0.29 to 0.74). On
+plain text the two are level (means 0.35 and 0.34). A 4+4 split is
+the worst way to hold out; 6+2 and 7+1 have not been tried.
+
+**ED6.** Its interim readings (three of nine conditions) were
+reported in the session that ran it and are not a verdict. The
+preregistration lets a lost process be relaunched with the same
+command; the config names model directories in that session's
+scratch space, so a relaunch also needs the three models at those
+paths (or a config edit, which would be a departure to name), and
+the models cannot be downloaded from this session's network.

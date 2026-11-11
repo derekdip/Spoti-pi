@@ -1,0 +1,92 @@
+## (1) knee, share and gap per condition
+source/cond                      n  knee T* (cv)    P/T* (cv)     norm@peak(cv)  step range
+ed4/ed4 stop-leet-8              8  1.82 (0.18)   0.37 (0.102)    12.9 (0.43)  60-140  
+ed4/ed4 stop-none-8              8  1.15 (0.10)   0.37 (0.152)    10.1 (0.44)  50-100  
+ed4/pilot3 stop-none-8           8  1.29 (0.22)   0.36 (0.209)    11.9 (0.54)  50-110  
+ed5 none-32                      4  1.07 (0.12)   0.65 (0.052)    15.4 (0.61)  70-160  
+ed5 leet-32                      4  1.67 (0.10)   0.77 (0.018)    25.6 (0.38)  110-200  
+ed5 none-64                      4  1.03 (0.10)   0.60 (0.021)    17.9 (0.58)  80-200  
+ed5pilot none-32                 2  1.01 (0.12)   0.60 (0.040)    11.8 (0.07)  80-140  
+ed6pilot pilot-distilgpt2-none-8 2  0.92 (0.17)   0.38 (0.053)     7.3 (0.05)  50-70  
+ed6pilot pilot-openai-gpt-none-8 2  0.98 (0.10)   0.17 (0.136)     3.8 (0.33)  30-80  
+ed6pilot pilot-gpt2-medium-none-8 2  1.71 (0.09)   0.32 (0.131)    18.7 (0.01)  80-130  
+xcheck none-32                   4  1.09 (0.12)   0.63 (0.049)    15.3 (0.62)  70-160  
+
+## (2) collapse
+Collapse: spread of test gain across matrices, at matched training gain vs at matched step
+cond                         gap@knee mean(cv)    sd@tau  sd@step
+ed4 stop-leet-8              1.15 (0.20)           0.255    0.853
+ed4 stop-none-8              0.73 (0.17)           0.347    1.671
+ed4p3 stop-none-8            0.84 (0.32)           0.336    1.564
+ed5 none-32                  0.38 (0.21)           0.082    0.159
+ed5 leet-32                  0.37 (0.05)           0.083    0.175
+ed5 none-64                  0.41 (0.10)           0.087    0.181
+xcheck none-32               0.41 (0.19)           0.083    0.170
+
+## (3) cheaper cross-fits
+
+ed5 none-32: 8 half-fits; median-of-all g*=1.16 kept mean 0.964 min 0.86  cost 1260 half-steps
+   only o@8                                        g*=1.18 kept mean 0.960 min 0.85  cost 420
+   only proj@2                                     g*=1.19 kept mean 0.958 min 0.84  cost 220
+   only proj@8                                     g*=1.21 kept mean 0.953 min 0.83  cost 240
+   only v@2                                        g*=0.99 kept mean 0.961 min 0.95  cost 380
+   oracle common g=1.08 kept mean 0.969 min 0.91
+
+ed5 leet-32: 8 half-fits; median-of-all g*=1.64 kept mean 0.986 min 0.98  cost 1570 half-steps
+   only o@8                                        g*=1.82 kept mean 0.982 min 0.94  cost 560
+   only proj@2                                     g*=1.58 kept mean 0.978 min 0.96  cost 260
+   only proj@8                                     g*=1.66 kept mean 0.988 min 0.98  cost 370
+   only v@2                                        g*=1.04 kept mean 0.768 min 0.68  cost 380
+   oracle common g=1.72 kept mean 0.991 min 0.98
+
+ed5 none-64: 8 half-fits; median-of-all g*=1.13 kept mean 0.967 min 0.89  cost 1980 half-steps
+   only o@8                                        g*=1.14 kept mean 0.966 min 0.89  cost 700
+   only proj@2                                     g*=1.17 kept mean 0.958 min 0.87  cost 310
+   only proj@8                                     g*=1.14 kept mean 0.964 min 0.88  cost 400
+   only v@2                                        g*=0.83 kept mean 0.928 min 0.88  cost 570
+   oracle common g=1.01 kept mean 0.984 min 0.97
+
+xcheck none-32: 8 half-fits; median-of-all g*=1.12 kept mean 0.965 min 0.87  cost 1260 half-steps
+   only transformer.h.2.attn.c_attn[1536:2304]     g*=0.98 kept mean 0.958 min 0.95  cost 380
+   only transformer.h.2.mlp.c_proj                 g*=1.12 kept mean 0.965 min 0.87  cost 210
+   only transformer.h.8.attn.c_proj                g*=1.18 kept mean 0.956 min 0.84  cost 420
+   only transformer.h.8.mlp.c_proj                 g*=1.19 kept mean 0.954 min 0.83  cost 250
+   oracle common g=1.09 kept mean 0.965 min 0.89
+
+ed4 stop-leet-8: 8 half-fits; median-of-all g*=1.76 kept mean 0.937 min 0.79  cost 1200 half-steps
+   only o@8                                        g*=2.23 kept mean 0.815 min 0.32  cost 300
+   only proj@2                                     g*=1.80 kept mean 0.935 min 0.76  cost 300
+   only proj@8                                     g*=1.89 kept mean 0.924 min 0.68  cost 300
+   only v@2                                        g*=1.01 kept mean 0.716 min 0.60  cost 300
+   oracle common g=1.69 kept mean 0.938 min 0.85
+
+ed4 stop-none-8: 8 half-fits; median-of-all g*=1.43 kept mean 0.856 min 0.49  cost 1200 half-steps
+   only o@8                                        g*=1.52 kept mean 0.773 min 0.29  cost 300
+   only proj@2                                     g*=1.38 kept mean 0.886 min 0.57  cost 300
+   only proj@8                                     g*=1.57 kept mean 0.729 min 0.19  cost 300
+   only v@2                                        g*=1.16 kept mean 0.973 min 0.88  cost 300
+   oracle common g=1.14 kept mean 0.974 min 0.90
+
+## (4) rule against a 4+4 split, ED4 at 8 contexts
+
+stop-leet-8  g*=1.76   test gain in nats (same 96 test contexts)
+  matrix    rule, n=8   holdout 4+4 (A->B, B->A)  full-8 peak
+  v@2           0.378             0.322    0.287         0.479
+  o@2           0.584                                    0.614
+  fc@2          0.588                                    0.591
+  proj@2        0.575             0.512    0.320         0.592
+  v@8           0.782                                    0.799
+  o@8           0.629             0.676    0.348         0.640
+  fc@8          0.690                                    0.750
+  proj@8        0.846             0.736    0.663         0.931
+
+stop-none-8  g*=1.43   test gain in nats (same 96 test contexts)
+  matrix    rule, n=8   holdout 4+4 (A->B, B->A)  full-8 peak
+  v@2           0.162             0.193    0.320         0.332
+  o@2           0.385                                    0.441
+  fc@2          0.427                                    0.429
+  proj@2        0.382             0.307    0.322         0.422
+  v@8           0.380                                    0.436
+  o@8           0.442             0.384    0.315         0.477
+  fc@8          0.369                                    0.374
+  proj@8        0.402             0.454    0.432         0.502
