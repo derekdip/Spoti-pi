@@ -1,0 +1,36 @@
+[
+ {
+  "cond": "pilot-none-8",
+  "n": 8,
+  "transform": "none",
+  "m": "transformer.h.2.mlp.c_proj",
+  "gstar": 1.5269215106964111,
+  "peak": 0.32196569442749023,
+  "rule": 0.2335355870061478,
+  "reached": true,
+  "extra_val": 0.32196569442749023,
+  "hold25": 0.30913639068603516,
+  "hold25+refit@step": 0.30880749225616455,
+  "hold25+refit@gain": 0.27552862084699475,
+  "hold12": 0.27797818183898926,
+  "hold12+refit@step": 0.2588057518005371,
+  "hold12+refit@gain": 0.20740806387457958
+ },
+ {
+  "cond": "pilot-none-8",
+  "n": 8,
+  "transform": "none",
+  "m": "transformer.h.8.attn.c_proj",
+  "gstar": 1.5269215106964111,
+  "peak": 0.490384578704834,
+  "rule": 0.45474230818746836,
+  "reached": true,
+  "extra_val": 0.490384578704834,
+  "hold25": 0.4059460163116455,
+  "hold25+refit@step": 0.4553828239440918,
+  "hold25+refit@gain": 0.47555129142845526,
+  "hold12": 0.45405125617980957,
+  "hold12+refit@step": 0.4717979431152344,
+  "hold12+refit@gain": 0.4786382940794669
+ }
+]

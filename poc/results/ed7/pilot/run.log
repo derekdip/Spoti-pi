@@ -1,0 +1,22 @@
+[17:37:52] corpus: docs/*.md at 73b70e427570835c249b7948bf8cd6b4baf7f986, 105 files
+[17:37:56] model gpt2: 124M parameters
+[17:38:35]   pilot-none-8 full transformer.h.2.mlp.c_proj: test gain peaks at step 50 (+0.322) at training gain 1.31; ran 100 steps, turned; base test loss 6.036; at the end -1.038 (38s)
+[17:38:49]   pilot-none-8 half A to B transformer.h.2.mlp.c_proj: the other half's loss is lowest at step 50 (+0.374) at training gain 1.68; ran 100 steps, turned (14s)
+[17:39:02]   pilot-none-8 half B to A transformer.h.2.mlp.c_proj: the other half's loss is lowest at step 50 (+0.343) at training gain 1.46; ran 100 steps, turned (13s)
+[17:39:57]   pilot-none-8 full transformer.h.8.attn.c_proj: test gain peaks at step 110 (+0.490) at training gain 1.28; ran 170 steps, turned; base test loss 6.036; at the end -0.034 (55s)
+[17:40:12]   pilot-none-8 half A to B transformer.h.8.attn.c_proj: the other half's loss is lowest at step 90 (+0.224) at training gain 1.59; ran 140 steps, turned (15s)
+[17:40:27]   pilot-none-8 half B to A transformer.h.8.attn.c_proj: the other half's loss is lowest at step 90 (+0.299) at training gain 1.21; ran 140 steps, turned (15s)
+[17:40:54]   pilot-none-8 hold25 fold 0 transformer.h.2.mlp.c_proj: held-out loss lowest at step 40, test gain there +0.351; ran 90 steps, turned (27s)
+[17:41:26]   pilot-none-8 hold25 fold 1 transformer.h.2.mlp.c_proj: held-out loss lowest at step 50, test gain there +0.264; ran 100 steps, turned (32s)
+[17:41:56]   pilot-none-8 hold25 fold 2 transformer.h.2.mlp.c_proj: held-out loss lowest at step 50, test gain there +0.301; ran 100 steps, turned (30s)
+[17:42:26]   pilot-none-8 hold25 fold 3 transformer.h.2.mlp.c_proj: held-out loss lowest at step 50, test gain there +0.320; ran 100 steps, turned (30s)
+[17:43:02]   pilot-none-8 hold12 fold 0 transformer.h.2.mlp.c_proj: held-out loss lowest at step 60, test gain there +0.159; ran 110 steps, turned (37s)
+[17:43:36]   pilot-none-8 hold12 fold 1 transformer.h.2.mlp.c_proj: held-out loss lowest at step 50, test gain there +0.397; ran 100 steps, turned (34s)
+[17:44:14]   pilot-none-8 hold25 fold 0 transformer.h.8.attn.c_proj: held-out loss lowest at step 90, test gain there +0.424; ran 140 steps, turned (38s)
+[17:44:54]   pilot-none-8 hold25 fold 1 transformer.h.8.attn.c_proj: held-out loss lowest at step 100, test gain there +0.445; ran 150 steps, turned (40s)
+[17:45:28]   pilot-none-8 hold25 fold 2 transformer.h.8.attn.c_proj: held-out loss lowest at step 80, test gain there +0.412; ran 130 steps, turned (33s)
+[17:46:01]   pilot-none-8 hold25 fold 3 transformer.h.8.attn.c_proj: held-out loss lowest at step 80, test gain there +0.343; ran 140 steps, turned (33s)
+[17:46:34]   pilot-none-8 hold12 fold 0 transformer.h.8.attn.c_proj: held-out loss lowest at step 90, test gain there +0.468; ran 140 steps, turned (34s)
+[17:47:11]   pilot-none-8 hold12 fold 1 transformer.h.8.attn.c_proj: held-out loss lowest at step 90, test gain there +0.440; ran 140 steps, turned (36s)
+[17:47:11] [559s]
+[17:47:11] done in 559s

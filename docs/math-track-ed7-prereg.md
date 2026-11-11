@@ -1,9 +1,14 @@
-# ED7 preregistration (DRAFT, not frozen): the rule against holding data out
+# ED7 preregistration: the rule against holding data out
 
-Draft written 2026-11-11, before any run on a real model. It becomes
-the preregistration only when a commit says "ED7 freeze" and adds the
-scored config; until then the bars below may change after the pilot,
-and every change will be listed here.
+Drafted 2026-11-11 before any run on a real model; frozen at about
+17:50 UTC the same day by the commit "ED7 freeze", after the port
+check and the pilot (section 5) and before any scored fit. The bars
+are the draft's, unchanged by the pilot. After that commit neither
+`poc/tools/lora_trade.py`, `poc/tools/lora_knee.py`,
+`poc/results/ed7/run/config.json` nor this text changes; a defect
+found later is named in the results, not repaired. The run is
+`poc/tools/lora_trade.py run poc/results/ed7/run/config.json poc/results/ed7/run`
+and the report `poc/tools/lora_trade.py score poc/results/ed7/run`.
 
 ## 1. The question
 
@@ -43,14 +48,14 @@ All fits as in ED5 and `poc/tools/lora_knee.py`: rank 2, Adam at
 
 The test contexts (96) are never used to stop anything.
 
-## 3. Conditions (proposed)
+## 3. Conditions
 
 GPT-2 base, the matrices of ED5 (`proj@2`, `proj@8`, `v@2`, `o@8`),
 plain text and leet at `n` = 8, 16 and 32: six conditions, 24
 (condition, matrix) pairs. Seeds 41 to 46, none used before. Caps
 800 and 500 steps as in ED5.
 
-## 4. Bars (proposed, to be fixed after the pilot)
+## 4. Bars
 
 Over the 24 pairs, against **hold25** and against **hold12** each:
 
@@ -85,13 +90,35 @@ Steps once the weights can be fetched:
     python3 poc/tools/lora_trade.py run poc/results/ed7/pilot/config.json poc/results/ed7/pilot
     python3 poc/tools/lora_trade.py score poc/results/ed7/pilot
 
-Cost, from ED5's timings scaled: about 4 to 5 hours on this
-machine's 4 CPU threads for the six scored conditions, most of it at
-32 contexts.
+**Port check: passes.** transformers 5.22 and torch 2.15 give
+ED5's seed-21 plain-text contexts the same hash
+(`3725cc7b...`) and the same base test loss, 6.392.
+
+**Pilot: done** (`poc/results/ed7/pilot/`, 559 s). All 18 fits
+turned within the caps. Test gain in nats, rule against the arms:
+
+| matrix | rule | hold25 | hold25+refit@step | hold25+refit@gain | hold12 | extra_val |
+|---|---|---|---|---|---|---|
+| `proj@2` | +0.234 | +0.309 | +0.309 | +0.276 | +0.278 | +0.322 |
+| `o@8` | +0.455 | +0.406 | +0.455 | +0.476 | +0.454 | +0.490 |
+
+The rule is behind hold25 by 0.013 nats on average and behind the
+refits by 0.03 to 0.04. Its `g*` (1.53, from four half-fits) is above
+both full fits' knees (1.31, 1.28): the overshoot at 8 contexts that
+section 14 of `docs/prescreen-theory.md` named. The pilot has two
+matrices and one sample, so it is not a reading of the bars, which
+are left as drafted.
+
+Cost: at 8 contexts a matrix's arms take about 4.7 minutes. Scaling
+by contexts per step and ED5's longer fits at 32, the six scored
+conditions should take 4.5 to 6 hours. Each condition's rows and
+checkpoints are committed and pushed as it finishes, so a lost
+machine loses at most one condition.
 
 ## 6. What is not in reach from this session
 
-The model weights: huggingface.co is not allowed by this session's
-network. The pipeline is checked on a tiny random GPT-2 with a
-byte-level vocabulary (`smoke/` in the session's scratch space), which
-tests the code and nothing else.
+Fixed during drafting: the network now allows Hugging Face, and
+GPT-2 base was fetched with `poc/tools/fetch_gpt2.sh`
+(`pytorch_model.bin`, 548,118,077 bytes, sha256 `7c5d3f4b...1421`).
+Before that the pipeline was checked on a tiny random GPT-2, which
+tested the code and nothing else.
