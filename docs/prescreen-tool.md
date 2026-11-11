@@ -109,4 +109,5 @@ train (`docs/prescreen-theory.md`, section 11).
 
     largest held_slope: transformer.h.2.mlp.c_proj.weight, transformer.h.2.mlp.c_fc.weight, transformer.h.5.attn.c_attn.weight
     median signal-to-noise 2.57: the leading directions are real at this data size
-    median cross-fitted share 0.78: above one half, so the leading direction is predicted to hold on more text like the training text
+    median cross-fitted share 0.78: above one half: the leading direction is predicted to hold on more text like the training text
+    none of these numbers says how long to train: hold text out and stop when its loss turns

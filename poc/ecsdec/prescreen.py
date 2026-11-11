@@ -268,7 +268,7 @@ def condition(W, name, cfg, key, full=False, ckpt=None):
     if "scores" not in st:
         t0 = time.time(); scores = {}
         for i, m in enumerate(W.lib):
-            s = W.cheap_scores(m); s.update(W.step_scores(m, cfg["eta"]))
+            s = W.cheap_scores(m); s.update(W.step_scores(m, cfg["eta"])); s.update(W.crossfit(m)); s["cfslope"] = s["trainslope"] * s["cf"]      # cfslope: a training-only estimate of the slope
             if full: s.update(W.full_score(m, jax.random.fold_in(key, 500 + i)))
             scores[m] = s
         st["scores"] = scores; st["t_scores"] = time.time() - t0; st["fits"] = {}; st["t_fits"] = 0.0; save()
@@ -332,8 +332,9 @@ def run():
     out = json.load(open(OUT / "ed4.json"))["rows"] if (OUT / "ed4.json").exists() else []; done = {r["name"] for r in out}
     for i, c in enumerate(cfg["conditions"]):
         if c["name"] in done: log(f"  {c['name']}: already in ed4.json"); continue
-        W = make_world(cfg["seed"], c["n"], c["transform"], cfg["library"], cfg["rank"], cfg["steps"], P=P, tok=tok)
-        out.append(condition(W, c["name"], cfg, jax.random.PRNGKey(4000 + i), full=c.get("full", False), ckpt=OUT / f"ed4_{c['name']}.ckpt.json"))
+        W = make_world(cfg["seed"] + i, c["n"], c["transform"], cfg["library"], cfg["rank"], cfg["steps"], P=P, tok=tok, n_val=c["n_val"], n_test=c["n_test"])
+        key = jax.random.PRNGKey(4000 + i); ck = OUT / f"ed4_{c['name']}.ckpt.json"
+        out.append(stopping(W, c["name"], cfg, key, c["modules"], c["long_steps"], ckpt=ck) if c.get("kind") == "stopping" else condition(W, c["name"], cfg, key, ckpt=ck))
         json.dump(dict(rows=out), open(OUT / "ed4.json", "w"), indent=1, default=float); log(f"[{time.time() - T0:.0f}s]")
     log(f"done -> ed4.json in {time.time() - T0:.0f}s")
 
