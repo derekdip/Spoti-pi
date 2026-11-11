@@ -90,6 +90,20 @@ def corpus(seed, n, tok, transform):
     return draw(texts[::2]), draw(texts[1::2])
 
 
+def corpus3(seed, n, n_val, n_test, tok, transform):
+    """Training, validation and test contexts from three disjoint sets of files: scores may look at the
+    validation contexts, fitted adapters are judged on the test contexts."""
+    texts = docs_text(CORPUS_COMMIT); rng = np.random.default_rng(seed); f = TRANSFORMS[transform]
+    def draw(ts, k):
+        toks = [np.array(tok.encode(f(t))) for t in ts]; out = []
+        while len(out) < k:
+            t = toks[rng.integers(len(toks))]
+            if len(t) < CTX + 2: continue
+            i = rng.integers(0, len(t) - CTX - 1); out.append(t[i:i + CTX + 1])
+        return np.stack(out)
+    return draw(texts[::2], n), draw(texts[1::4], n_val), draw(texts[3::4], n_test)
+
+
 def _ce(z, y):
     return -jnp.take_along_axis(jax.nn.log_softmax(z, -1), y[..., None], -1).mean()
 
@@ -98,9 +112,10 @@ class CEWorld:
     """Tokens, the base logits and losses, and one compiled program each for the gradients, the logit JVP and
     VJP over dense deltas on every library module, the loss along a logit direction, and the masked LoRA fit.
     The weights P are a runtime argument of every program."""
-    def __init__(self, P, tr, ho, library=LIBRARY, rank=2, steps=60):
-        self.P = P; self.lib = list(library); self.rank = rank; self.steps = steps
+    def __init__(self, P, tr, ho, library=LIBRARY, rank=2, steps=60, te=None, seg=10):
+        self.P = P; self.lib = list(library); self.rank = rank; self.steps = steps; self.seg = seg; self.ev = "ho" if te is None else "te"
         self.x = dict(tr=jnp.asarray(tr[:, :CTX]), ho=jnp.asarray(ho[:, :CTX])); self.y = dict(tr=jnp.asarray(tr[:, 1:CTX + 1]), ho=jnp.asarray(ho[:, 1:CTX + 1]))
+        if te is not None: self.x["te"] = jnp.asarray(te[:, :CTX]); self.y["te"] = jnp.asarray(te[:, 1:CTX + 1])
         zeros = {m: jnp.zeros(GM.shape_of(m), jnp.float32) for m in self.lib}; self.zeros = zeros; lib = self.lib
         logits = lambda P, x, D: GM.forward(P, x, D); loss = lambda P, x, y, D: _ce(logits(P, x, D), y)
         self._logits = jax.jit(lambda P, x: logits(P, x, {})); self._grad = jax.jit(lambda P, x, y: jax.grad(lambda D: loss(P, x, y, D))(zeros))
@@ -117,9 +132,16 @@ class CEWorld:
             z = tm(jnp.zeros_like, params0)
             (p, m, v, bF, bp), _ = jax.lax.scan(body, (params0, z, z, jnp.inf, params0), jnp.arange(1, steps + 1).astype(jnp.float32))
             Lf = F(p); best = tm(lambda a, b: jnp.where(Lf <= bF, a, b), p, bp); return best, jnp.minimum(Lf, bF)
-        self._fit = jax.jit(fit_run); self._lora = lora; self._loss_lora = jax.jit(lambda P, x, y, p, mask: loss(P, x, y, lora(p, mask)))
+        def seg_run(P, x, y, p, m, v, i0, mask, lr):                                  # `seg` Adam steps, continuing from step i0
+            F = lambda q: loss(P, x, y, lora(q, mask)); vg = jax.value_and_grad(F); tm = jax.tree_util.tree_map
+            def body(c, i):
+                p, m, v = c; L, g = vg(p); m = tm(lambda a, b: 0.9 * a + 0.1 * b, m, g); v = tm(lambda a, b: 0.999 * a + 0.001 * b ** 2, v, g)
+                p = tm(lambda a, mm, vv: a - lr * (mm / (1 - 0.9 ** i)) / (jnp.sqrt(vv / (1 - 0.999 ** i)) + 1e-8), p, m, v); return (p, m, v), L
+            (p, m, v), Ls = jax.lax.scan(body, (p, m, v), i0 + jnp.arange(1, seg + 1).astype(jnp.float32)); return p, m, v, Ls
+        self._fit = jax.jit(fit_run); self._seg = jax.jit(seg_run); self._lora = lora; self._loss_lora = jax.jit(lambda P, x, y, p, mask: loss(P, x, y, lora(p, mask)))
         self.z0 = {s: self._logits(P, self.x[s]) for s in ("tr", "ho")}; self.L0 = {s: float(_ce(self.z0[s], self.y[s])) for s in ("tr", "ho")}
-        self.G = {s: self._grad(P, self.x[s], self.y[s]) for s in ("tr", "ho")}
+        if te is not None: self.L0["te"] = float(_ce(self._logits(P, self.x["te"]), self.y["te"]))
+        self.G = {s: self._grad(P, self.x[s], self.y[s]) for s in ("tr", "ho")}; self._halves = None
 
     def direction(self, m):
         """The unit rank-r truncation of minus the training gradient on the module."""
@@ -130,6 +152,15 @@ class CEWorld:
         """Scores that need no model call beyond the two gradient passes."""
         R = self.direction(m); Gh = self.G["ho"][m]; Gt = self.G["tr"][m]; W = self.P[m]
         return dict(slope=float(-jnp.vdot(Gh, R)), trainslope=float(-jnp.vdot(Gt, R)), rgn=float(jnp.linalg.norm(Gh) / jnp.linalg.norm(W)), gradnorm=float(jnp.linalg.norm(Gt) / jnp.linalg.norm(W)))
+
+    def crossfit(self, m):
+        """Training-only: the cross-fitted share of the rank-r direction (docs/prescreen-theory.md, section 10)."""
+        if self._halves is None:
+            h = self.x["tr"].shape[0] // 2; self._halves = [self._grad(self.P, self.x["tr"][a:b], self.y["tr"][a:b]) for a, b in ((0, h), (h, 2 * h))]
+        GA, GB = (np.asarray(g[m], np.float64) for g in self._halves); r = self.rank; cf = 0.0
+        for Gf, Gv in ((GA, GB), (GB, GA)):
+            U, S, Vt = np.linalg.svd(Gf, full_matrices=False); R = (U[:, :r] * S[:r]) @ Vt[:r]; cf += 0.5 * float(np.vdot(Gv, R) / np.sum(R * R))
+        return dict(cf=cf)
 
     def step_scores(self, m, eta_fixed):
         """The held-out gain along the direction at a fixed step and at the training line-search step."""
@@ -161,12 +192,29 @@ class CEWorld:
         """The real thing: a rank-r LoRA on the module alone, fitted on the training loss."""
         ks = jax.random.split(key, len(self.lib)); params = {k: (jax.random.normal(ks[i], (self.rank, GM.shape_of(k)[1])) * 0.02, jnp.zeros((GM.shape_of(k)[0], self.rank))) for i, k in enumerate(self.lib)}
         mask = jnp.asarray([1.0 if k == m else 0.0 for k in self.lib]); p, Ltr = self._fit(self.P, self.x["tr"], self.y["tr"], params, mask, lr)
-        Lho = float(self._loss_lora(self.P, self.x["ho"], self.y["ho"], p, mask))
-        return dict(train=float(Ltr), held=Lho, gain=self.L0["ho"] - Lho, train_gain=self.L0["tr"] - float(Ltr), norm=float(jnp.linalg.norm(p[m][1] @ p[m][0])))
+        Lho = float(self._loss_lora(self.P, self.x[self.ev], self.y[self.ev], p, mask))               # judged on the test contexts when the world has them
+        out = dict(train=float(Ltr), held=Lho, gain=self.L0[self.ev] - Lho, train_gain=self.L0["tr"] - float(Ltr), norm=float(jnp.linalg.norm(p[m][1] @ p[m][0])))
+        if self.ev == "te": out["val_gain"] = self.L0["ho"] - float(self._loss_lora(self.P, self.x["ho"], self.y["ho"], p, mask))
+        return out
+
+    def fit_traj(self, m, key, lr, steps):
+        """The same LoRA from the same start, trained for `steps` Adam steps with no early stopping; the loss on
+        every set of contexts and the adapter's norm every `seg` steps."""
+        ks = jax.random.split(key, len(self.lib)); p = {k: (jax.random.normal(ks[i], (self.rank, GM.shape_of(k)[1])) * 0.02, jnp.zeros((GM.shape_of(k)[0], self.rank))) for i, k in enumerate(self.lib)}
+        mask = jnp.asarray([1.0 if k == m else 0.0 for k in self.lib]); z = jax.tree_util.tree_map(jnp.zeros_like, p); mo, vo = z, z; sets = [s_ for s_ in ("tr", "ho", "te") if s_ in self.x]
+        out = dict(step=[0], norm=[0.0], **{s_: [self.L0[s_]] for s_ in sets})
+        for k in range(steps // self.seg):
+            p, mo, vo, _ = self._seg(self.P, self.x["tr"], self.y["tr"], p, mo, vo, jnp.float32(k * self.seg), mask, lr)
+            out["step"].append((k + 1) * self.seg); out["norm"].append(float(jnp.linalg.norm(p[m][1] @ p[m][0])))
+            for s_ in sets: out[s_].append(float(self._loss_lora(self.P, self.x[s_], self.y[s_], p, mask)))
+        return out
 
 
-def make_world(seed, n, transform, library=LIBRARY, rank=2, steps=60, P=None, tok=None):
-    P = P if P is not None else GM.load_params(); tok = tok or GM.tokenizer(); tr, ho = corpus(seed, n, tok, transform); return CEWorld(P, tr, ho, library, rank, steps)
+def make_world(seed, n, transform, library=LIBRARY, rank=2, steps=60, P=None, tok=None, n_val=None, n_test=0):
+    """With n_test, three disjoint sets of contexts (corpus3); otherwise the two of the first pilot."""
+    P = P if P is not None else GM.load_params(); tok = tok or GM.tokenizer()
+    if n_test: tr, ho, te = corpus3(seed, n, n_val or n, n_test, tok, transform); return CEWorld(P, tr, ho, library, rank, steps, te=te)
+    tr, ho = corpus(seed, n, tok, transform); return CEWorld(P, tr, ho, library, rank, steps)
 
 
 SELECTORS = ("slope", "step", "line", "full", "rgn", "gradnorm", "trainline", "trainslope")
@@ -186,11 +234,34 @@ def read_off(scores, fits, beam=3, seed=0):
     out["sweep"] = dict(best_held=fits[best]["held"], module=best, gain=fits[best]["gain"]); return out
 
 
+def fingerprint(W):
+    return hashlib.sha1(b"".join(np.asarray(W.x[s_]).tobytes() + np.asarray(W.y[s_]).tobytes() for s_ in ("tr", "ho", "te") if s_ in W.x)).hexdigest()
+
+
+def stopping(W, name, cfg, key, modules, steps, ckpt=None):
+    """A stopping condition: for each module the scores a pre-screen would have before training (the slope on the
+    validation contexts over the training slope, the cross-fitted share, the linearised look-ahead), then a LoRA
+    trained for `steps` steps with its loss on the test contexts recorded along the way. Checkpointed per module."""
+    tokens = fingerprint(W); st = json.load(open(ckpt)) if ckpt and Path(ckpt).exists() else dict(tokens=tokens, scores={}, traj={}, seconds=0.0)
+    assert st["tokens"] == tokens, f"{ckpt} was written for other contexts"
+    if st["traj"]: log(f"  {name}: resumed from {ckpt} with {len(st['traj'])} modules done")
+    log(f"  {name}: base loss train {W.L0['tr']:.3f} validation {W.L0['ho']:.3f} test {W.L0[W.ev]:.3f}")
+    for m in modules:
+        if m in st["traj"]: continue
+        t0 = time.time(); sc = W.cheap_scores(m); sc.update(W.step_scores(m, cfg["eta"])); sc.update(W.crossfit(m)); sc["rho"] = sc["slope"] / sc["trainslope"]
+        tj = W.fit_traj(m, jax.random.fold_in(key, W.lib.index(m)), cfg["lr"], steps); g = W.L0[W.ev] - np.array(tj[W.ev]); k = int(np.argmax(g))
+        st["scores"][m] = sc; st["traj"][m] = tj; st["seconds"] += time.time() - t0
+        if ckpt: json.dump(st, open(ckpt, "w"), indent=1, default=float)
+        log(f"  {name} {m}: rho {sc['rho']:+.3f} cross-fit {sc['cf']:+.3f}; test gain peaks at step {tj['step'][k]} ({g[k]:+.3f}), at step 60 {g[tj['step'].index(60)] if 60 in tj['step'] else float('nan'):+.3f}, "
+            f"at the end {g[-1]:+.3f} (kept {g[-1] / g[k] if g[k] > 0 else float('nan'):+.2f}); train gain at the end {W.L0['tr'] - tj['tr'][-1]:+.3f}; |delta| {tj['norm'][-1]:.1f} ({time.time() - t0:.0f}s)")
+    return dict(name=name, kind="stopping", base=W.L0, steps=steps, scores={m: st["scores"][m] for m in modules}, traj={m: st["traj"][m] for m in modules}, seconds=st["seconds"])
+
+
 def condition(W, name, cfg, key, full=False, ckpt=None):
     """One condition: every score for every module, the sweep, the read-off. With `ckpt`, the scores and each
     fit are saved as they finish and a restarted process picks up after the last one; the checkpoint carries a
     hash of the tokens and is refused if the contexts differ."""
-    tokens = hashlib.sha1(b"".join(np.asarray(a).tobytes() for a in (W.x["tr"], W.y["tr"], W.x["ho"], W.y["ho"]))).hexdigest()
+    tokens = fingerprint(W)
     st = json.load(open(ckpt)) if ckpt and Path(ckpt).exists() else dict(tokens=tokens)
     assert st["tokens"] == tokens, f"{ckpt} was written for other contexts"
     save = lambda: json.dump(st, open(ckpt, "w"), indent=1, default=float) if ckpt else None
@@ -239,6 +310,19 @@ def pilot2():
     log(f"pilot2 done in {time.time() - T0:.0f}s")
 
 
+def pilot3():
+    """Pilot for the redesign (docs/math-track-ed4-prereg.md): does a long LoRA fit at 8 contexts turn on fresh text,
+    and for which modules; then the standard sweep at 32 contexts with separate validation and test contexts."""
+    global CORPUS_COMMIT
+    T0 = time.time(); P = GM.load_params(); tok = GM.tokenizer(); cfg = dict(eta=1.0, lr=1e-3, beam=3); CORPUS_COMMIT = "73b70e427570835c249b7948bf8cd6b4baf7f986"
+    log(f"corpus: docs/*.md at {CORPUS_COMMIT}, {len(docs_text(CORPUS_COMMIT))} files"); out = []
+    W = make_world(0, 8, "none", P=P, tok=tok, n_val=96, n_test=96); mods = [f"{k}@{l}" for l in (2, 8) for k in ("v", "o", "fc", "proj")]
+    out.append(stopping(W, "stop-none-8", cfg, jax.random.PRNGKey(0), mods, 300, ckpt=OUT / "pilot3_stop-none-8.ckpt.json")); json.dump(out, open(OUT / "pilot3.json", "w"), indent=1, default=float)
+    W = make_world(0, 32, "none", P=P, tok=tok, n_val=32, n_test=96)
+    out.append(condition(W, "none-32", cfg, jax.random.PRNGKey(0), ckpt=OUT / "pilot3_none-32.ckpt.json")); json.dump(out, open(OUT / "pilot3.json", "w"), indent=1, default=float)
+    log(f"pilot3 done in {time.time() - T0:.0f}s")
+
+
 def run():
     """The scored run. Conditions already in ed4.json are kept and each condition checkpoints its fits, so a
     process restarted after a machine restart continues where the last one stopped."""
@@ -268,4 +352,4 @@ def tool(transform="altcaps", n=96, seed=0):
 
 if __name__ == "__main__":
     a = sys.argv[1] if len(sys.argv) > 1 else "pilot"
-    pilot() if a == "pilot" else pilot2() if a == "pilot2" else run() if a == "run" else tool(*sys.argv[2:3])
+    pilot() if a == "pilot" else pilot2() if a == "pilot2" else pilot3() if a == "pilot3" else run() if a == "run" else tool(*sys.argv[2:3])
