@@ -5,3 +5,10 @@
 [21:36:10]   none-8 r2-all: 70 steps, turned (77s)
 [21:38:32]   none-8 r8-all: 90 steps, turned (104s)
 [21:39:22] none-8 done [627s]
+[21:40:44]   none-16 proj@2: 120 steps, turned (81s)
+[21:42:34]   none-16 proj@8: 140 steps, turned (73s)
+[21:45:45]   none-16 v@2: 240 steps, turned (155s)
+[21:49:05]   none-16 o@8: 240 steps, turned (123s)
+[21:52:11]   none-16 r2-all: 75 steps, turned (129s)
+[21:55:54]   none-16 r8-all: 100 steps, turned (166s)
+[21:57:04] none-16 done [1688s]
