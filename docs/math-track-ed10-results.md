@@ -71,3 +71,23 @@ contexts alone (0.94 on average, never below two thirds). An online
 estimate of the real share is the right quantity by the identity, but
 measured on raw gradients it is wrong for Adam on many matrices and
 too noisy to stop on a single reading at 8 contexts.
+
+## Afterwards: the ED11 pilot, and why the one-run stopper is shelved
+
+Declared pilot of `poc/tools/lora_online2.py` (plain text, 16
+contexts, seed 90; `poc/results/ed11/pilot/`), run after ED10 and
+before any ED11 freeze. Share of the peak kept, mean (lowest) over
+four adapters: the share in Adam's metric with two readings to stop
+0.17 (0.05); the raw share with two readings 0.51 (0.03), with one
+0.57 (0.05); the cross-fitted rule 0.83 (0.48); validation 0.99.
+
+The share in Adam's metric is negative from the first evaluation on
+every adapter. The preconditioner `1 / sqrt(v)` is computed from the
+same training gradients whose agreement it weights: coordinates where
+the halves disagree have a small full-sample gradient, so a small `v`
+and a large weight, which biases `<g_A, g_B>_P` negative. An unbiased
+version needs the preconditioner to be independent of the halves it
+compares (another split, or Adam's state from other data), which is a
+new estimator, not a fix. ED11 was not frozen or run. The one-run
+stopper is shelved; the cross-fitted rule remains the method that
+works from the training contexts alone.
