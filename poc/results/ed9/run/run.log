@@ -1,0 +1,21 @@
+[19:16:04] corpus: docs/*.md at 73b70e427570835c249b7948bf8cd6b4baf7f986, 105 files
+[19:16:08] model: 124M parameters
+[19:16:48]   none-8 full r2-one (1 matrices, rank 2): test gain peaks at step 45 (+0.398) at training gain 1.25; ran 75 steps, turned; at the end +0.061 (39s)
+[19:16:58]   none-8 half A to B r2-one: the other half's loss is lowest at step 40 (+0.430) at training gain 1.44; ran 70 steps, turned (10s)
+[19:17:08]   none-8 half B to A r2-one: the other half's loss is lowest at step 40 (+0.503) at training gain 1.44; ran 75 steps, turned (11s)
+[19:18:03]   none-8 full r8-one (1 matrices, rank 8): test gain peaks at step 65 (+0.406) at training gain 1.15; ran 110 steps, turned; at the end +0.068 (55s)
+[19:18:18]   none-8 half A to B r8-one: the other half's loss is lowest at step 65 (+0.444) at training gain 1.58; ran 100 steps, turned (14s)
+[19:18:33]   none-8 half B to A r8-one: the other half's loss is lowest at step 75 (+0.534) at training gain 1.85; ran 105 steps, turned (15s)
+[19:19:49]   none-8 full r32-one (1 matrices, rank 32): test gain peaks at step 75 (+0.396) at training gain 1.04; ran 155 steps, turned; at the end +0.055 (76s)
+[19:20:06]   none-8 half A to B r32-one: the other half's loss is lowest at step 95 (+0.403) at training gain 1.72; ran 130 steps, turned (17s)
+[19:20:24]   none-8 half B to A r32-one: the other half's loss is lowest at step 95 (+0.576) at training gain 1.68; ran 135 steps, turned (18s)
+[19:21:04]   none-8 full r2-all (48 matrices, rank 2): test gain peaks at step 35 (+0.514) at training gain 1.51; ran 60 steps, turned; at the end +0.049 (40s)
+[19:21:21]   none-8 half A to B r2-all: the other half's loss is lowest at step 35 (+0.435) at training gain 1.95; ran 60 steps, turned (17s)
+[19:21:40]   none-8 half B to A r2-all: the other half's loss is lowest at step 40 (+0.605) at training gain 2.39; ran 65 steps, turned (19s)
+[19:22:36]   none-8 full r8-all (48 matrices, rank 8): test gain peaks at step 55 (+0.487) at training gain 1.79; ran 85 steps, turned; at the end -0.034 (56s)
+[19:22:58]   none-8 half A to B r8-all: the other half's loss is lowest at step 45 (+0.395) at training gain 1.82; ran 75 steps, turned (22s)
+[19:23:20]   none-8 half B to A r8-all: the other half's loss is lowest at step 50 (+0.612) at training gain 2.07; ran 75 steps, turned (22s)
+[19:24:44]   none-8 full r32-all (48 matrices, rank 32): test gain peaks at step 75 (+0.440) at training gain 1.71; ran 115 steps, turned; at the end +0.106 (84s)
+[19:25:16]   none-8 half A to B r32-all: the other half's loss is lowest at step 65 (+0.396) at training gain 1.86; ran 110 steps, turned (32s)
+[19:25:49]   none-8 half B to A r32-all: the other half's loss is lowest at step 75 (+0.549) at training gain 2.23; ran 110 steps, turned (33s)
+[19:25:49] [585s]
