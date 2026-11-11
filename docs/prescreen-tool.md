@@ -35,12 +35,17 @@ fine to a few thousand rows and columns per matrix.
 | `floor` | a guaranteed lower bound on the fresh-data rate: `train` minus the measured noise |
 | `held` | the rate measured on the held-out windows (only with `--held`) |
 | `snr` | the leading singular value of the gradient over that of the noise; near 1 the direction is noise |
-| `rank` | how many leading directions clear the noise: the rank the data supports |
+| `above` | how many leading directions clear the noise edge: a floor on the rank the data supports, usually far below it |
+| `cf` | the cross-fitted real share: the rank-r direction is taken from one half of the training windows and its rate is measured on the other half, as a fraction of its rate on its own half, averaged both ways. No noise model. It describes a direction fitted on half the data, so it reads low |
+| `rank` | how many leading directions have a cross-fitted share above one half: a cautious estimate of the rank worth fitting |
 
 Rows are sorted by `held` when held-out text is given and by
 `shrunk` otherwise. The closing lines name the leading modules and
 say, from the median `snr`, whether the data is enough for the
-ranking to mean anything.
+ranking to mean anything, and, from the median `cf`, whether fitting
+to the training optimum is predicted to hold up: under one half it
+is predicted to lose on fresh text (`docs/prescreen-theory.md`,
+sections 6 and 8; the reading errs toward caution).
 
 ## What is established, and what is not
 
@@ -50,12 +55,27 @@ ranking to mean anything.
   six digits and every slope, shrunk slope and noise edge to 7e-5
   relative (`poc/tools/crosscheck_gpt2.py`,
   `poc/tools/crosscheck_jax_ref.py`). Two frameworks, two weight
-  files, one answer.
+  files, one answer. The cross-fitted share agrees to 3.4e-6 and the
+  cross-fitted rank on 12 of 12 matrices.
 - **`shrunk` predicts `held`.** On GPT-2 base, three text conditions,
   training sets of 8 to 128 contexts, 16 matrices: mean absolute log
   error 0.105, against 0.247 for `train`, and three to four times
   better at 8 contexts. `floor` held in 238 of 240 cases.
   (`docs/prescreen-theory.md`.)
+- **`rank` is cautious and `above` is only a floor.** Same model and
+  conditions, first eight directions of each matrix, a direction
+  counted as worth fitting when more than half of its rate is real
+  against 192 held-out contexts. `rank` never exceeded the number
+  worth fitting (15 of 15 conditions) and was off by 1.4 directions
+  on average; `above` stayed near 2 while the true number rose to 6
+  to 8 at 128 contexts, off by 2.8 on average. With 8 or 16 contexts
+  neither is reliable. `cf` read low in 13 of 15 conditions; halving
+  its distance to one corrects for the halved sample and then
+  predicts `held` as well as `shrunk` does (error 0.100 against
+  0.097), except at 8 contexts of plain text, where it overshoots.
+  `cf` cannot see a difference between the training text and the
+  text the model will meet. (`docs/prescreen-theory.md`, sections 9
+  and 10.)
 - **A first-order held-out estimate chose the right module** on a
   planted case and on one real format shift (ED3,
   `docs/math-track-ed3-results.md`), in a squared-error form of the
@@ -72,12 +92,13 @@ ranking to mean anything.
 
     training loss 6.639, held-out loss 6.738; 32 contexts; rank 2; ranked by held_slope
 
-    module                                         shape    train   shrunk    floor     held    snr  rank
-    transformer.h.2.mlp.c_proj.weight         3072x768     1.3323   1.1753   0.8372   1.0877   2.75     2
-    transformer.h.2.mlp.c_fc.weight            768x3072    1.1229   1.0060   0.6890   0.9638   2.61     2
-    transformer.h.5.attn.c_attn.weight         768x2304    0.9995   0.8952   0.6157   0.9059   2.62     2
+    module                                         shape    train   shrunk    floor     held    snr above     cf  rank
+    transformer.h.2.mlp.c_proj.weight         3072x768     1.3323   1.1753   0.8372   1.0877   2.75     2   0.77     2
+    transformer.h.2.mlp.c_fc.weight            768x3072    1.1229   1.0060   0.6890   0.9638   2.61     2   0.75     2
+    transformer.h.5.attn.c_attn.weight         768x2304    0.9995   0.8952   0.6157   0.9059   2.62     2   0.84     2
     ...
-    transformer.h.8.attn.c_proj.weight         768x768     0.1938   0.1616   0.1094   0.1675   2.35     1
+    transformer.h.8.attn.c_proj.weight         768x768     0.1938   0.1616   0.1094   0.1675   2.35     1   0.78     2
 
     largest held_slope: transformer.h.2.mlp.c_proj.weight, transformer.h.2.mlp.c_fc.weight, transformer.h.5.attn.c_attn.weight
     median signal-to-noise 2.57: the leading directions are real at this data size
+    median cross-fitted share 0.78: above one half, so the leading direction is predicted to hold on more text like the training text

@@ -4,7 +4,8 @@ weights) on the same token windows.
   /usr/bin/python3 poc/tools/crosscheck_jax_ref.py OUT_DIR                 writes the tokens and the JAX numbers
   /usr/bin/python3 -I poc/tools/crosscheck_gpt2.py OUT_DIR GPT2_HF_DIR      compares (GPT2_HF_DIR holds config.json
                                                                            and pytorch_model.bin)
-Result on 2026-11-11: losses agree to six digits, every slope to 7e-5 relative."""
+Result on 2026-11-11: losses agree to six digits, every slope to 7e-5 relative. The cross-fitted share and
+rank (added later the same day) are compared for the three module kinds the tool sees whole."""
 import sys, json, math, time
 sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__)))
 import numpy as np, torch
@@ -17,7 +18,7 @@ res = model.transformer.load_state_dict(sd, strict=False); model.tie_weights(); 
 tr = torch.tensor(np.load(S + '/train_tokens.npy'), dtype=torch.long); ho = torch.tensor(np.load(S + '/held_tokens.npy'), dtype=torch.long); ref = json.load(open(S + '/jax_ref.json'))
 out = LP.prescreen(model, tr, ho, rank=2, targets=r"h\.(2|5|8|11)\.(attn\.c_proj|mlp\.c_fc|mlp\.c_proj|attn\.c_attn)", batch=16)
 print(f"loss train: torch {out['loss_train']:.6f} jax {ref['loss_train']:.6f}; held: torch {out['loss_held']:.6f} jax {ref['loss_held']:.6f}", flush=True)
-name = {"attn.c_proj": "o", "mlp.c_fc": "fc", "mlp.c_proj": "proj"}; worst = 0.0
+name = {"attn.c_proj": "o", "mlp.c_fc": "fc", "mlp.c_proj": "proj"}; worst = 0.0; cf_worst = 0.0; rank_same = 0; rank_n = 0
 print(f"{'module':<9} {'train slope torch/jax':>26} {'held slope torch/jax':>26} {'shrunk torch/jax':>26} {'edge torch/jax':>24}")
 for x in out["modules"]:
     parts = x["module"].split("."); L = parts[2]; kind = ".".join(parts[3:5])
@@ -25,6 +26,9 @@ for x in out["modules"]:
     m = f"{name[kind]}@{L}"; r = ref["modules"][m]
     rel = max(abs(x["train_slope"] / r["train_slope"] - 1), abs(x["held_slope"] / r["held_slope"] - 1), abs(x["shrunk_slope"] / r["shrunk"] - 1)); worst = max(worst, rel)
     print(f"{m:<9} {x['train_slope']:12.6f} {r['train_slope']:12.6f}  {x['held_slope']:12.6f} {r['held_slope']:12.6f}  {x['shrunk_slope']:12.6f} {r['shrunk']:12.6f}")
+    if "cf_share" in r:
+        cf_worst = max(cf_worst, abs(x["cf_share"] - r["cf_share"])); rank_same += x["rank_cf"] == r["rank_cf"]; rank_n += 1
+        print(f"{'':<9} cross-fitted share torch {x['cf_share']:.6f} jax {r['cf_share']:.6f}; rank torch {x['rank_cf']} jax {r['rank_cf']}")
 # the value block of c_attn, by hand with the tool's own gradient routine
 params = {n: p for n, p in model.named_parameters() if n.endswith("attn.c_attn.weight") and n.split(".")[2] in ("2", "5", "8", "11")}
 for p in model.parameters(): p.requires_grad_(False)
@@ -36,4 +40,5 @@ for n in params:
     rel = max(abs(nR / r["train_slope"] - 1), abs(hs / r["held_slope"] - 1), abs(sh / r["shrunk"] - 1), abs(e / r["edge"] - 1)); worst = max(worst, rel)
     print(f"{'v@' + L:<9} {nR:12.6f} {r['train_slope']:12.6f}  {hs:12.6f} {r['held_slope']:12.6f}  {sh:12.6f} {r['shrunk']:12.6f}  {e:10.6f} {r['edge']:10.6f}")
 print(f"largest relative difference over all compared numbers: {worst:.2e} ({time.time() - t:.0f}s)")
+if rank_n: print(f"cross-fitted share: largest absolute difference {cf_worst:.2e}; cross-fitted rank equal on {rank_same}/{rank_n} modules")
 print(); print(LP.report(out, 3))
