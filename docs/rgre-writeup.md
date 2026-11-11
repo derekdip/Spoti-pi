@@ -596,6 +596,26 @@ I got wrong running it, and where it is recorded.
     costlier linearised fit on another loss, is untouched
     (`math-track-ed4-results.md`, `prescreen-theory.md`).
 
+34. **A fit on small data turns at a training gain that belongs to
+    the data, and that gives a stopping rule with no held-out text.**
+    ED4's long fits, read for what they did show, turned at nearly
+    one training gain whatever the matrix, at steps that differed
+    twofold. ED5 preregistered the consequence at larger samples:
+    twelve long fits at 32 and 64 contexts all went bad when run on,
+    each condition's four matrices turned at one training gain
+    (c.v. 0.10 to 0.12), and stopping at the median training gain
+    where eight fits on half the contexts turned on the other half
+    kept 97% of the peak test gain on average, never less than 86%,
+    against 68% for the step budget the earlier sweeps used and 99%
+    for a validation set. Outcome A. With the 24 fits at 8 contexts
+    the rule has kept a positive gain in 36 of 36. The knee moves
+    with the kind of text and hardly with the sample size. Costs and
+    limits: five to seven fits' worth of steps for the cross-fit; one
+    model, one corpus, one learning rate, rank 2, four matrices; the
+    pilot was two matrices in one condition
+    (`math-track-ed5-results.md`, `prescreen-theory.md` sections 12
+    and 13).
+
 ## 5. What the whole arc says
 
 Reduced to the claims that have survived every test:

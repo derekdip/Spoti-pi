@@ -97,7 +97,13 @@ train (`docs/prescreen-theory.md`, section 11).
   Adam steps all ended 1.1 to 4.1 nats below the unadapted model on
   fresh text, at shares from 0.22 to 0.59, two of them above one
   half. Stopping at the minimum of a validation loss kept at least
-  95% of each fit's peak gain. Use a validation set to stop.
+  95% of each fit's peak gain. Use a validation set to stop, or,
+  with no text to spare, the cross-fitted knee of
+  `docs/prescreen-theory.md`, sections 12 and 13: it kept a positive
+  gain in 36 of 36 long fits at 8, 32 and 64 contexts and 97% of the
+  peak at the two larger sizes (ED5, `docs/math-track-ed5-results.md`).
+  The tool does not compute it; `poc/ecsdec/knee.py` does, for the
+  JAX model.
 - **Not established.** A slope is an infinitesimal rate. It is
   positive for every matrix even where a full fine-tune overfits, so
   the tool does not say whether to fine-tune at all, and it does not

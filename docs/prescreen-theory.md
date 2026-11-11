@@ -268,7 +268,7 @@ slope and (4) is what the pilot's sweep shows.
 | the hard threshold as "worth fitting to convergence" | a reading of a known threshold (Gavish and Donoho's 4 / sqrt(3)), in the isotropic model; checked per component in section 9: safe from 32 contexts up, a floor on the rank and not an estimate of it, unreliable at 8 contexts of plain text |
 | early stopping as a spectral filter with optimum `rho` per mode | known for least squares; used, not claimed |
 | the edge-level formula calibrating under low-rank noise | an empirical regularity on one model, three text conditions, rank 2; no proof, and the model it comes from is false for this noise |
-| the share as the rate at which test gain accrues at the start of a fit; a knee at a training gain common to the matrices; stopping at the cross-fitted knee | the first is an identity for gradient flow, checked on 16 fits; the other two are empirical, on 24 long fits at 8 contexts (section 12) |
+| the share as the rate at which test gain accrues at the start of a fit; a knee at a training gain common to the matrices; stopping at the cross-fitted knee | the first is an identity for gradient flow, checked on 16 fits; the other two are empirical: 24 long fits at 8 contexts (section 12) and 12 at 32 and 64 under a preregistration, outcome A (section 13); no derivation of why the knee is where it is |
 
 ## 8. The half rule checked
 
@@ -668,3 +668,31 @@ fits. The rows of the comparison table other than the knee's are
 descriptive, with no prediction behind them. Nothing here has been
 tried at 32 or more contexts, where a 60-step fit does not reach a
 knee at all.
+
+## 13. The knee at 32 and 64 contexts (ED5)
+
+Added 11:07 UTC 2026-11-11. Section 12's limits said nothing
+had been tried above 8 contexts. ED5 preregistered the test
+(`docs/math-track-ed5-prereg.md`) and its outcome is A
+(`docs/math-track-ed5-results.md`): twelve long fits, plain and leet
+text at 32 contexts and plain text at 64, four matrices each.
+
+| kind of text | contexts | training gain at the test peak, mean over the matrices | c.v. | step of the peak |
+|---|---|---|---|---|
+| plain | 8 (ED4 pilot) | 1.29 | 0.22 | 50 to 110 |
+| plain | 8 (ED4) | 1.15 | 0.10 | 50 to 100 |
+| plain | 32 | 1.07 | 0.12 | 70 to 160 |
+| plain | 64 | 1.03 | 0.10 | 80 to 200 |
+| leet | 8 (ED4) | 1.82 | 0.18 | 60 to 140 |
+| leet | 32 | 1.67 | 0.10 | 110 to 200 |
+
+The knee's training gain falls by a tenth to a fifth from 8 to 64
+contexts and differs by half as much again between the two kinds of
+text. More contexts make more of the early training gain real (the
+test gain over the training gain in the first 30 steps is 0.25 to
+0.61 at 8 contexts and 0.72 to 0.84 at 64 on plain text) and push
+the knee later in steps, and do not move it much in training gain.
+Why the turn should sit at a fixed training gain for a kind of text
+is not explained here; it is the regularity the stopping rule uses,
+and over the 36 long fits of sections 12 and 13 the rule kept a
+positive test gain in every one and two thirds of the peak in 35.
