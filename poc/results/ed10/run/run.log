@@ -19,3 +19,12 @@
 [22:25:44]   none-32 r2-all: 85 steps, turned (240s)
 [22:32:41]   none-32 r8-all: 115 steps, turned (323s)
 [22:34:46] none-32 done [3950s]
+[22:38:45]   leet-32 proj@2: 210 steps, turned (239s)
+[22:47:13]   leet-32 proj@8: 470 steps, turned (411s)
+[22:57:58]   leet-32 v@2: 480 steps, turned (527s)
+[23:11:18]   leet-32 o@8: 750 steps, turned (639s)
+[23:18:23]   leet-32 r2-all: 100 steps, turned (265s)
+[23:25:32]   leet-32 r8-all: 125 steps, turned (341s)
+[23:27:30] leet-32 done [7115s]
+[23:27:30] done in 7115s
+RUN EXIT 0
