@@ -190,7 +190,7 @@ above, two.
 
 ## 6. From the rate to the gain: the half rule
 
-Added 2026-11-11, 00:45 UTC, before the ED4 pilot printed any number.
+Added 2026-11-11, 00:41 UTC, before the ED4 pilot printed any number.
 
 The slope is a rate at step zero. To second order along the unit
 direction `d = -R/||R||`, with step `eta`,
