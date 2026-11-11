@@ -188,7 +188,75 @@ above, two.
   real. Both are questions about the fit's length, and ED4's pilot
   compares the slope against estimates that take a finite step.
 
-## 6. Status of each statement
+## 6. From the rate to the gain: the half rule
+
+Added 2026-11-11, 00:45 UTC, before the ED4 pilot printed any number.
+
+The slope is a rate at step zero. To second order along the unit
+direction `d = -R/||R||`, with step `eta`,
+
+    L_tr(eta)  = L_tr(0)  - eta S_tr  + kappa eta^2 / 2,
+    L_pop(eta) = L_pop(0) - eta S_pop + kappa eta^2 / 2,
+
+`kappa` the curvature of the loss along `d` (its sampling noise is
+of higher order than the slope's, so one `kappa` serves both). The
+training loss is lowest at `eta_tr = S_tr / kappa`, where it has
+fallen by `S_tr^2 / (2 kappa)`. With `rho = S_pop / S_tr`, the
+fraction of the training slope that is real, the population loss at
+that step has fallen by
+
+    eta_tr S_pop - kappa eta_tr^2 / 2 = (S_tr^2 / (2 kappa)) (2 rho - 1).      (4)
+
+Three consequences.
+
+- **Fitting a direction to its training optimum helps if and only
+  if more than half of its slope is real.** Below `rho = 1/2` the
+  fit makes the population loss worse than not fitting at all.
+- **The share of the training gain that survives is `2 rho - 1`.**
+- **Stopping at the fraction `rho` of the way is optimal** and
+  always helps: the population gain there is `rho^2` times the
+  training-optimal gain, `S_pop^2 / (2 kappa)`.
+
+For a rank-`r` adapter the components differ: component `k` has
+`rho_k = eta(s_k) / s_k`, which falls toward zero as `s_k` nears the
+noise edge. In the isotropic model `rho_k > 1/2` is the condition
+`s_k > (4 / sqrt(3)) tau sqrt(n)` for a square matrix, that is 1.155
+times the noise edge (1.172 times for a 1-to-4 rectangle): the
+classical optimal hard threshold for singular values, recovered here
+as the statement that a component is worth fitting to convergence.
+The rank the data supports is the number of components with
+`rho_k > 1/2`, a little stricter than the count above the edge.
+
+Gradient flow on a quadratic makes the same point mode by mode: at
+time `t` a mode of curvature `lambda` has been fitted to the
+fraction `1 - exp(-lambda t)`, and the population gain of that mode
+is greatest when the fraction equals its `rho`. Early stopping is a
+spectral filter, which is known for least squares; what is used here
+is only that the filter's optimum is the quantity the pre-screen
+already estimates.
+
+**What (4) predicts for the ED4 pilot, stated before its data.** The
+pilot computes, per module, `slope` and `trainslope` (so `rho`), and
+`line` and `trainline`, the held-out and training gains at the
+training line-search step with logits linearised.
+
+1. Per module, `line / trainline` is close to `2 rho - 1`.
+2. Alternating capitals at 96 contexts: `rho` was measured at about
+   1.0 for every module (section 4), so every `line` is positive and
+   close to its `trainline`.
+3. Plain text at 96 contexts: `rho` about 0.9, so `line` about 0.8
+   of `trainline`, positive for every module.
+4. Plain text at 8 contexts: `rho` has median 0.44 to 0.45, below
+   one half, so `line` is negative for about half the modules or
+   more and near zero in the median: the look-ahead estimate reads
+   no-go where the slope reads go.
+
+The real fit is 60 Adam steps of a LoRA pair, not a line search to
+convergence; a short fit is an early-stopped one, so its gain can be
+positive where (4) is negative. How the fitted gain sits between the
+slope and (4) is what the pilot's sweep shows.
+
+## 7. Status of each statement
 
 | statement | status |
 |---|---|
@@ -196,4 +264,7 @@ above, two.
 | (2), the lower bound | elementary (Ky Fan norm duality), checked: 238 of 240 |
 | the spiked-matrix threshold, singular-value map and optimal shrinkage | known results (Baik, Ben Arous and Peche; Benaych-Georges and Nadakuditi; Gavish and Donoho), reproduced numerically here, not re-derived and not fetched |
 | reading the shrunk training slope as the generalising part of an adapter's first-order direction, with the edge set by a split-half null | an application; whether it is in the literature was not checkable from this sandbox |
+| (4), the half rule and `2 rho - 1` | elementary (a quadratic along one direction); its predictions for the pilot are written above before the data |
+| the hard threshold as "worth fitting to convergence" | a reading of a known threshold (Gavish and Donoho's 4 / sqrt(3)), in the isotropic model |
+| early stopping as a spectral filter with optimum `rho` per mode | known for least squares; used, not claimed |
 | the edge-level formula calibrating under low-rank noise | an empirical regularity on one model, three text conditions, rank 2; no proof, and the model it comes from is false for this noise |
