@@ -1,0 +1,112 @@
+[
+ {
+  "samples": 160,
+  "horizon": 1.0,
+  "every": 1,
+  "survived": 10.0,
+  "fell": false,
+  "speed": 0.42400312241292337,
+  "drift": 0.167745249009142,
+  "plan_ms_per_tick": 378.89554325398785,
+  "realtime_factor": 18.944777162699392
+ },
+ {
+  "samples": 64,
+  "horizon": 1.0,
+  "every": 1,
+  "survived": 10.0,
+  "fell": false,
+  "speed": 0.30059174027682156,
+  "drift": -0.38478528944420504,
+  "plan_ms_per_tick": 153.57726580001327,
+  "realtime_factor": 7.678863290000663
+ },
+ {
+  "samples": 32,
+  "horizon": 1.0,
+  "every": 1,
+  "survived": 10.0,
+  "fell": false,
+  "speed": 0.3431399865765159,
+  "drift": 0.8687564997800488,
+  "plan_ms_per_tick": 76.029392844026,
+  "realtime_factor": 3.8014696422013
+ },
+ {
+  "samples": 64,
+  "horizon": 0.6,
+  "every": 1,
+  "survived": 8.18,
+  "fell": true,
+  "speed": 0.772580101706481,
+  "drift": -2.648326733995217,
+  "plan_ms_per_tick": 88.10470962098651,
+  "realtime_factor": 4.405235481049326
+ },
+ {
+  "samples": 32,
+  "horizon": 0.6,
+  "every": 1,
+  "survived": 6.46,
+  "fell": true,
+  "speed": 0.3644695788985944,
+  "drift": 0.7365490097727175,
+  "plan_ms_per_tick": 47.57335161609569,
+  "realtime_factor": 2.378667580804785
+ },
+ {
+  "samples": 16,
+  "horizon": 0.6,
+  "every": 1,
+  "survived": 5.32,
+  "fell": true,
+  "speed": 0.52273185375336,
+  "drift": 2.2074521956293727,
+  "plan_ms_per_tick": 26.616837180423538,
+  "realtime_factor": 1.3308418590211768
+ },
+ {
+  "samples": 64,
+  "horizon": 1.0,
+  "every": 2,
+  "survived": 10.0,
+  "fell": false,
+  "speed": 0.20967463677234116,
+  "drift": 0.7943212193679478,
+  "plan_ms_per_tick": 76.6217685859956,
+  "realtime_factor": 3.83108842929978
+ },
+ {
+  "samples": 32,
+  "horizon": 0.6,
+  "every": 2,
+  "survived": 3.96,
+  "fell": true,
+  "speed": 0.6444466427152902,
+  "drift": -1.1515238163618966,
+  "plan_ms_per_tick": 22.664194555573253,
+  "realtime_factor": 1.1332097277786626
+ },
+ {
+  "samples": 64,
+  "horizon": 1.0,
+  "every": 3,
+  "survived": 10.0,
+  "fell": false,
+  "speed": 0.3459685954821922,
+  "drift": 2.0710641757569954,
+  "plan_ms_per_tick": 50.43431863600199,
+  "realtime_factor": 2.5217159318000997
+ },
+ {
+  "samples": 32,
+  "horizon": 0.6,
+  "every": 3,
+  "survived": 4.12,
+  "fell": true,
+  "speed": 0.49185871298574374,
+  "drift": 2.017829604939137,
+  "plan_ms_per_tick": 16.478817626167142,
+  "realtime_factor": 0.8239408813083571
+ }
+]

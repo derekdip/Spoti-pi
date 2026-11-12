@@ -1,0 +1,182 @@
+[
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.05,
+  "seed": 10,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 1.2929003683960685,
+  "speed": 0.2585800736792137,
+  "drift": -0.2504247193861542,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.05,
+  "seed": 11,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 1.6283750621904813,
+  "speed": 0.32567501243809627,
+  "drift": -0.1927569251088291,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.05,
+  "seed": 12,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 1.771970956793742,
+  "speed": 0.3543941913587484,
+  "drift": -0.2973644530388097,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.05,
+  "seed": 13,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 1.2283231558927414,
+  "speed": 0.24566463117854828,
+  "drift": -0.18897753743137194,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.1,
+  "seed": 10,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 1.7775033660182233,
+  "speed": 0.35550067320364465,
+  "drift": 0.46835996278241987,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.1,
+  "seed": 11,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 1.271154753329562,
+  "speed": 0.2542309506659124,
+  "drift": -0.330697509096064,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.1,
+  "seed": 12,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 0.9173785078598905,
+  "speed": 0.1834757015719781,
+  "drift": -0.23873260144353772,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.1,
+  "seed": 13,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 0.9496697313622645,
+  "speed": 0.1899339462724529,
+  "drift": 0.015936607803005317,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.15,
+  "seed": 10,
+  "survived": 4.42,
+  "fell": true,
+  "distance": 1.592416882763201,
+  "speed": 0.3602753128423532,
+  "drift": -0.5100623023608455,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.15,
+  "seed": 11,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 1.3296955711069751,
+  "speed": 0.26593911422139505,
+  "drift": 1.0605572052319483,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.15,
+  "seed": 12,
+  "survived": 5.0,
+  "fell": false,
+  "distance": 0.963161736524505,
+  "speed": 0.192632347304901,
+  "drift": -0.9989324573030246,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "noisy_teacher",
+  "sigma": 0.15,
+  "seed": 13,
+  "survived": 2.36,
+  "fell": true,
+  "distance": 0.6308826147657123,
+  "speed": 0.2673231418498781,
+  "drift": 1.2777801554595987,
+  "policy_ms": 0.0
+ },
+ {
+  "kind": "student",
+  "round": 0,
+  "n": 3589,
+  "mse": 0.002621919149532914,
+  "survived": 2.82,
+  "fell": true,
+  "distance": -0.711857592658562,
+  "speed": -0.2524317704462986,
+  "drift": 0.17037845991499914,
+  "policy_ms": 0.09780900706334786
+ },
+ {
+  "kind": "student",
+  "round": 1,
+  "n": 3962,
+  "mse": 0.0006492353859357536,
+  "survived": 0.92,
+  "fell": true,
+  "distance": -0.11052675158030341,
+  "speed": -0.12013777345685153,
+  "drift": 0.08079691855428638,
+  "policy_ms": 0.07659286972699667
+ },
+ {
+  "kind": "student",
+  "round": 2,
+  "n": 4261,
+  "mse": 0.00040976193849928677,
+  "survived": 0.8200000000000001,
+  "fell": true,
+  "distance": 0.12868167078041526,
+  "speed": 0.15692886680538445,
+  "drift": -0.5009738881040013,
+  "policy_ms": 0.08738285365192186
+ },
+ {
+  "kind": "student",
+  "round": 3,
+  "n": 4571,
+  "mse": 0.00036484739393927157,
+  "survived": 1.4000000000000001,
+  "fell": true,
+  "distance": 0.5780209494424906,
+  "speed": 0.4128721067446361,
+  "drift": 0.9205397980925505,
+  "policy_ms": 0.08048852861455609
+ }
+]

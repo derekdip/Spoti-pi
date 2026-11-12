@@ -1,0 +1,11 @@
+samples 160 horizon 1.0s every 1: survived 10.0s, speed 0.42 m/s, drift +0.17, 378.9 ms planning per 20 ms (18.94x real time)
+samples  64 horizon 1.0s every 1: survived 10.0s, speed 0.30 m/s, drift -0.38, 153.6 ms planning per 20 ms (7.68x real time)
+samples  32 horizon 1.0s every 1: survived 10.0s, speed 0.34 m/s, drift +0.87, 76.0 ms planning per 20 ms (3.80x real time)
+samples  64 horizon 0.6s every 1: survived 8.2s, speed 0.77 m/s, drift -2.65, 88.1 ms planning per 20 ms (4.41x real time)
+samples  32 horizon 0.6s every 1: survived 6.5s, speed 0.36 m/s, drift +0.74, 47.6 ms planning per 20 ms (2.38x real time)
+samples  16 horizon 0.6s every 1: survived 5.3s, speed 0.52 m/s, drift +2.21, 26.6 ms planning per 20 ms (1.33x real time)
+samples  64 horizon 1.0s every 2: survived 10.0s, speed 0.21 m/s, drift +0.79, 76.6 ms planning per 20 ms (3.83x real time)
+samples  32 horizon 0.6s every 2: survived 4.0s, speed 0.64 m/s, drift -1.15, 22.7 ms planning per 20 ms (1.13x real time)
+samples  64 horizon 1.0s every 3: survived 10.0s, speed 0.35 m/s, drift +2.07, 50.4 ms planning per 20 ms (2.52x real time)
+samples  32 horizon 0.6s every 3: survived 4.1s, speed 0.49 m/s, drift +2.02, 16.5 ms planning per 20 ms (0.82x real time)
+RUN EXIT 0
