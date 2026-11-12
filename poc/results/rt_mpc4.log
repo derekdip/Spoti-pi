@@ -1,0 +1,11 @@
+seed 20 samples  48 horizon 1.0s every 2 plan step 4 ms: survived 18.7s, speed 0.31 m/s, drift -2.23, 31.3 ms planning per 20 ms (1.57x real time)
+seed 21 samples  48 horizon 1.0s every 2 plan step 4 ms: survived 19.3s, speed 0.31 m/s, drift +3.82, 31.2 ms planning per 20 ms (1.56x real time)
+seed 22 samples  48 horizon 1.0s every 2 plan step 4 ms: survived 20.5s, speed 0.29 m/s, drift +0.94, 31.4 ms planning per 20 ms (1.57x real time)
+seed 23 samples  48 horizon 1.0s every 2 plan step 4 ms: survived 20.2s, speed 0.25 m/s, drift -1.61, 30.7 ms planning per 20 ms (1.53x real time)
+seed 24 samples  48 horizon 1.0s every 2 plan step 4 ms: survived 18.8s, speed 0.30 m/s, drift +1.86, 31.1 ms planning per 20 ms (1.55x real time)
+seed 20 samples  32 horizon 1.0s every 1 plan step 4 ms: survived 8.3s, speed 0.38 m/s, drift +0.74, 43.5 ms planning per 20 ms (2.18x real time)
+seed 21 samples  32 horizon 1.0s every 1 plan step 4 ms: survived 30.0s, speed 0.33 m/s, drift +0.40, 42.7 ms planning per 20 ms (2.14x real time)
+seed 22 samples  32 horizon 1.0s every 1 plan step 4 ms: survived 30.0s, speed 0.32 m/s, drift +0.60, 41.7 ms planning per 20 ms (2.08x real time)
+seed 23 samples  32 horizon 1.0s every 1 plan step 4 ms: survived 30.0s, speed 0.33 m/s, drift -2.47, 42.1 ms planning per 20 ms (2.11x real time)
+seed 24 samples  32 horizon 1.0s every 1 plan step 4 ms: survived 30.0s, speed 0.25 m/s, drift -0.05, 41.8 ms planning per 20 ms (2.09x real time)
+RUN EXIT 0

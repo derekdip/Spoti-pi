@@ -50,12 +50,21 @@ def main(out, seconds=10.0, settings=None, seeds=(0,)):
     res = []
     for s in settings or SETTINGS:
       for seed in seeds:
-        r = walk(*s, seconds, seed=seed); r["seed"] = seed; res.append(r); json.dump(res, open(out, "w"), indent=1)
+        r = walk(*s[:3], seconds, seed=seed, plan_dt=s[3] if len(s) > 3 else None); r["seed"] = seed; res.append(r); json.dump(res, open(out, "w"), indent=1)
         print(f"seed {seed} samples {r['samples']:3d} horizon {r['horizon']:.1f}s every {r['every']} plan step {1000 * r['plan_dt']:.0f} ms: survived {r['survived']:.1f}s, speed {r['speed']:.2f} m/s, drift {r['drift']:+.2f}, "
               f"{r['plan_ms_per_tick']:.1f} ms planning per 20 ms ({r['realtime_factor']:.2f}x real time)", flush=True)
 
 
 if __name__ == "__main__":
+    if sys.argv[1:2] == ["heading"]:   # the 48-sample walks all turned round and fell near 19 s; W_HEADING was 1.0
+        res = []
+        for w in (5.0, 10.0):
+            mpc3d.W_HEADING = w
+            for seed in (20, 21, 22):
+                r = walk(48, 1.0, 2, 30.0, seed=seed, plan_dt=0.004); r.update(seed=seed, w_heading=w); res.append(r); json.dump(res, open(sys.argv[2], "w"), indent=1)
+                print(f"heading weight {w}: seed {seed}: survived {r['survived']:.1f}s, speed {r['speed']:.2f}, drift {r['drift']:+.2f}, {r['realtime_factor']:.2f}x real time", flush=True)
+        sys.exit()
+    if sys.argv[1:2] == ["long"]: main(sys.argv[2], 30.0, [(48, 1.0, 2, 0.004), (32, 1.0, 1, 0.004)], (20, 21, 22, 23, 24)); sys.exit()
     if sys.argv[1:2] == ["coarse"]: main(sys.argv[2], 10.0, COARSE, (0, 1)); sys.exit()
     if sys.argv[1:2] == ["followup"]: main(sys.argv[2], 10.0, FOLLOW_UP, (0, 1))
     else: main(sys.argv[1] if len(sys.argv) > 1 else "poc/results/rt_mpc.json", float(sys.argv[2]) if len(sys.argv) > 2 else 10.0)

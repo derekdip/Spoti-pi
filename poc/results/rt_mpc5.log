@@ -1,0 +1,7 @@
+heading weight 5.0: seed 20: survived 9.1s, speed 0.39, drift -0.45, 1.46x real time
+heading weight 5.0: seed 21: survived 30.0s, speed 0.26, drift +4.32, 1.54x real time
+heading weight 5.0: seed 22: survived 13.2s, speed 0.32, drift +0.18, 1.51x real time
+heading weight 10.0: seed 20: survived 30.0s, speed 0.31, drift -0.57, 1.54x real time
+heading weight 10.0: seed 21: survived 12.5s, speed 0.30, drift -0.78, 1.56x real time
+heading weight 10.0: seed 22: survived 13.6s, speed 0.22, drift -3.10, 1.55x real time
+RUN EXIT 0
