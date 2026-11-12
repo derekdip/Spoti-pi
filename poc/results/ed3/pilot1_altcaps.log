@@ -1,0 +1,21 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[04:25:12] altcaps world: state dim 393216, base D 1.0082 held 1.0038 nll_held 6.682 (38s)
+[04:29:36]   rank-2 on v@3: D 1.0016 D_held 1.0002 nll_held 6.364 (264s)
+[04:34:27]   rank-2 on o@3: D 1.0017 D_held 0.9989 nll_held 6.289 (291s)
+[04:37:45]   rank-2 on fc@3: D 0.9956 D_held 0.9974 nll_held 6.220 (198s)
+[04:41:46]   rank-2 on proj@3: D 0.9956 D_held 0.9966 nll_held 6.189 (241s)
+[04:43:41]   rank-2 on v@7: D 1.0040 D_held 1.0011 nll_held 6.615 (115s)
+[04:45:50]   rank-2 on o@7: D 1.0037 D_held 1.0003 nll_held 6.514 (128s)
+[04:47:47]   rank-2 on fc@7: D 0.9947 D_held 0.9981 nll_held 6.450 (117s)
+[04:49:47]   rank-2 on proj@7: D 0.9973 D_held 0.9978 nll_held 6.313 (120s)
+[04:51:04]   rank-2 on v@11: D 1.0044 D_held 1.0011 nll_held 6.596 (77s)
+[04:52:20]   rank-2 on o@11: D 1.0034 D_held 1.0005 nll_held 6.497 (76s)
+[04:53:40]   rank-2 on fc@11: D 0.9960 D_held 0.9961 nll_held 6.319 (80s)
+[04:54:52]   rank-2 on proj@11: D 1.0030 D_held 1.0013 nll_held 6.598 (71s)
+[05:02:24] extend teacher on fc@7: {'restarts_better': 0, 'restart_F': [16.693769454956055, 17.123313903808594, 16.606243133544922], 'base_to_target': 0.7229107921670556, 'base_to_target_held': 0.7056426059586515}
+[05:03:05]   student on v@7: D 0.5815 D_held 0.5801 s 3.19e-01
+[05:05:04]   joint fit with fc@7: D_train 0.2429 D_held 0.2830 (119s)
+[05:07:09]   joint fit with proj@7: D_train 0.3119 D_held 0.3499 (124s)
+[05:09:19]   joint fit with o@7: D_train 0.3475 D_held 0.3773 (130s)
+[05:11:20]   joint fit with v@11: D_train 0.4064 D_held 0.4297 (121s)
+[05:11:20] pilot done in 2806s

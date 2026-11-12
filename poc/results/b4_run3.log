@@ -1,0 +1,74 @@
+straight       N_sup=[14, 14, 10, 10] N_rms=[10, 8, 8, 8] N_event=4 K=0.00 turning=0.00
+s_curve        N_sup=[228, 107, 63, 51] N_rms=[92, 51, 31, 19] N_event=4 K=0.00 turning=3.60
+stop_start     N_sup=[54, 54, 34, 34] N_rms=[38, 34, 26, 26] N_event=16 K=0.00 turning=0.00
+slalom         N_sup=[None, None, 286, 74] N_rms=[286, 143, 67, 37] N_event=4 K=0.00 turning=11.99
+zigzag         N_sup=[223, 135, 135, 58] N_rms=[127, 58, 28, 24] N_event=4 K=6.92 turning=7.69
+wandering      N_sup=[None, 230, 92, 60] N_rms=[147, 66, 53, 32] N_event=12 K=1.90 turning=4.23
+circle         N_sup=[259, 135, 69, 69] N_rms=[135, 69, 37, 29] N_event=4 K=0.00 turning=4.80
+tangential_probe N_sup=[34, 34, 24, 17] N_rms=[24, 16, 12, 10] N_event=4 K=0.00 turning=0.00
+corner_L4      N_sup=[72, 59, 31, 31] N_rms=[31, 31, 13, 9] N_event=4 K=1.38 turning=1.57
+straight_L4    N_sup=[14, 14, 10, 10] N_rms=[10, 9, 8, 8] N_event=4 K=0.00 turning=0.00
+corner_L8      N_sup=[76, 59, 31, 31] N_rms=[31, 31, 13, 9] N_event=4 K=1.38 turning=1.57
+straight_L8    N_sup=[14, 14, 10, 10] N_rms=[10, 8, 8, 8] N_event=4 K=0.00 turning=0.00
+corner_L16     N_sup=[78, 55, 31, 31] N_rms=[31, 13, 11, 9] N_event=4 K=1.38 turning=1.57
+straight_L16   N_sup=[14, 14, 10, 10] N_rms=[10, 8, 8, 8] N_event=4 K=0.00 turning=0.00
+corner_L32     N_sup=[80, 80, 19, 19] N_rms=[13, 13, 9, 9] N_event=4 K=1.38 turning=1.57
+straight_L32   N_sup=[14, 14, 10, 10] N_rms=[8, 8, 8, 6] N_event=4 K=0.00 turning=0.00
+H0 sup eps 4.84 mm: N_corner by L {4: 58, 8: 62, 16: 64, 32: 66} ratio 1.1379310344827587
+H0 sup eps 9.68 mm: N_corner by L {4: 45, 8: 45, 16: 41, 32: 66} ratio 1.6097560975609757
+H0 sup eps 19.35 mm: N_corner by L {4: 21, 8: 21, 16: 21, 32: 9} ratio 2.3333333333333335
+H0 sup eps 38.70 mm: N_corner by L {4: 21, 8: 21, 16: 21, 32: 9} ratio 2.3333333333333335
+H0 rms control eps 0.65 mm: N_corner by L {4: 21, 8: 21, 16: 21, 32: 5} ratio 32/4 0.23809523809523808
+H0 rms control eps 1.30 mm: N_corner by L {4: 22, 8: 23, 16: 5, 32: 5} ratio 32/4 0.22727272727272727
+H0 rms control eps 2.61 mm: N_corner by L {4: 5, 8: 5, 16: 3, 32: 1} ratio 32/4 0.2
+H0 rms control eps 5.21 mm: N_corner by L {4: 1, 8: 1, 16: 1, 32: 3} ratio 32/4 3.0
+  m_par at 4.84 mm: 0.002362945719078735
+  m_par at 9.68 mm: 0.03888264552730827
+  m_par at 19.35 mm: 0.14349709537669794
+  m_par at 38.70 mm: 0.021714269282161098
+frozen m_par = 0.0231
+  eps 4.84 mm: A=32.29 B=38.87
+  eps 9.68 mm: A=16.59 B=32.98
+  eps 19.35 mm: A=8.23 B=16.15
+  eps 38.70 mm: A=8.23 B=16.15
+eps 19.35 mm: rho model 0.829 turning 0.986 R2 0.131; straight N=10 N_hat=9; s_curve N=63 N_hat=46; stop_start N=34 N_hat=44; slalom N=286 N_hat=80; zigzag N=135 N_hat=121; wandering N=92 N_hat=89
+eps 38.70 mm: rho model 0.771 turning 0.928 R2 -0.938; straight N=10 N_hat=9; s_curve N=51 N_hat=46; stop_start N=34 N_hat=44; slalom N=74 N_hat=80; zigzag N=58 N_hat=121; wandering N=60 N_hat=89
+/home/user/Spoti-pi/poc/b4_experiment.py:271: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  rho = float(spearmanr(dens[clean], bp[clean]).correlation) if clean.sum() >= 6 and np.std(bp[clean]) > 1e-9 else None
+{
+  "H0": {
+    "pass": false,
+    "control": false
+  },
+  "H1": {
+    "0.01935": {
+      "rho_model": 0.8285714285714287,
+      "p_model": 0.04156268221574335,
+      "rho_turning": 0.9856107606091624,
+      "R2": 0.13065170673624715,
+      "pass": false
+    },
+    "0.0387": {
+      "rho_model": 0.7714285714285715,
+      "p_model": 0.07239650145772594,
+      "rho_turning": 0.9276336570439174,
+      "R2": -0.9380713268196297,
+      "pass": false
+    }
+  },
+  "H2": {
+    "0.01935": {
+      "zigzag": 0.10222879411863567,
+      "stop_start": 0.28384909058395846,
+      "pass": true
+    },
+    "0.0387": {
+      "zigzag": 1.089639875758348,
+      "stop_start": 0.28384909058395846,
+      "pass": false
+    }
+  },
+  "H4": 1.0
+}
+wrote /home/user/Spoti-pi/poc/results
+EXIT 0

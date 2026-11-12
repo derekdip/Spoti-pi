@@ -1,0 +1,4964 @@
+{
+ "STEPS": 6,
+ "DEAD": 0.01,
+ "SEEDS": [
+  0,
+  1,
+  2
+ ],
+ "cases": [
+  {
+   "case": "intact_s0",
+   "morph": "intact",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "design",
+   "designed": null,
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.2902861822835593,
+    "coupling": 0.13883000648835192,
+    "travel": 0.4013831432204615,
+    "stance": 0.29611222617427807,
+    "joint_stats": 0.3446945547557166,
+    "asym_joints": 0.37380079672181443,
+    "asym_stance": 0.0858033304628815,
+    "speed": 0.30585050571335465,
+    "height": 0.010051207868956169,
+    "orient": 0.20095039759599972,
+    "lateral": 0.7029002004795538,
+    "rhythm": 0.3004449371915004,
+    "reach": 0.07605883016188006,
+    "pose_phase": 0.6824059147936475
+   },
+   "e_v0": 0.3400345717802307,
+   "e_v0_heldout": 0.7275133932492484,
+   "e_v0_heldout_runs": [
+    0.8794824576010115,
+    0.5755443288974853
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.33311683844485834,
+    "coupling": 0.5199183647836041,
+    "travel": 0.23727546686267528,
+    "stance": 0.21058500877770084,
+    "joint_stats": 0.5260785676827593,
+    "asym_joints": 0.18229805794057358,
+    "asym_stance": 0.022607412319731814,
+    "speed": 0.13006635384696955,
+    "height": 0.011764492913737235,
+    "orient": 0.1800540426526138,
+    "lateral": 0.14367295007635542,
+    "rhythm": 0.11612773634578397,
+    "reach": 0.16905622283113408,
+    "pose_phase": 0.8450541309944738
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.3400345717802307,
+     "e_before_heldout": 0.7275133932492484,
+     "e_before_heldout_runs": [
+      0.8794824576010115,
+      0.5755443288974853
+     ],
+     "drops": {
+      "rhythm": -0.06022155581879257,
+      "legs": 0.01742780211994011,
+      "lateral": 0.02015303766619558,
+      "torso": -0.11843688898167434,
+      "arms": 0.10683064735725077,
+      "stiff": 0.008221557457911978,
+      "limp": 0.007870244402312307,
+      "hold": 0.013723326104944058,
+      "vault": 0.0,
+      "weak": 0.012245163635209921
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.8692278032695555,
+      0.5609882306031327
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.10683064735725077,
+     "e_after": 0.3037084583531031,
+     "e_after_heldout": 0.7151080169363442,
+     "oracle": "arms",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.3037084583531031,
+     "e_before_heldout": 0.7151080169363442,
+     "e_before_heldout_runs": [
+      0.8692278032695555,
+      0.5609882306031327
+     ],
+     "drops": {
+      "rhythm": -0.007922546169089039,
+      "legs": 0.021609987456848893,
+      "lateral": 0.02519916941655651,
+      "torso": -0.13154774425473972,
+      "arms": 0.0,
+      "stiff": 0.007621150504934658,
+      "limp": 0.009960152369662622,
+      "hold": 0.016332216979997025,
+      "vault": 0.0,
+      "weak": 0.01362950336329369
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "lateral": "held-out 0.8330 >= 0.7151 (0 of 2 runs lower)"
+     },
+     "pick": "legs",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.870628616756116,
+      0.5584085087656373
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.021609987456848893,
+     "e_after": 0.29714532237755364,
+     "e_after_heldout": 0.7145185627608767,
+     "oracle": "lateral",
+     "value": 0.8575674499275586
+    },
+    {
+     "t": 2,
+     "e_before": 0.29714532237755364,
+     "e_before_heldout": 0.7145185627608767,
+     "e_before_heldout_runs": [
+      0.870628616756116,
+      0.5584085087656373
+     ],
+     "drops": {
+      "rhythm": -0.046657028336525484,
+      "legs": 0.0,
+      "lateral": 0.01394922430972766,
+      "torso": -0.2463553196449033,
+      "arms": 0.0,
+      "stiff": 0.002563057981342824,
+      "limp": 0.00386285804831546,
+      "hold": 0.004867369868664573,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {
+      "lateral": "held-out 0.8376 >= 0.7145 (0 of 2 runs lower)",
+      "hold": "spent",
+      "limp": "spent",
+      "stiff": "spent",
+      "legs": "spent",
+      "arms": "spent",
+      "vault": "spent",
+      "weak": "spent",
+      "rhythm": "spent",
+      "torso": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.29714532237755364,
+     "e_after_heldout": 0.7145185627608767
+    }
+   ],
+   "added": [
+    [
+     "arms",
+     0
+    ],
+    [
+     "legs",
+     0
+    ]
+   ],
+   "active": [],
+   "e_final": 0.29714532237755364,
+   "e_final_heldout": 0.7145185627608767,
+   "e_final_heldout_runs": [
+    0.870628616756116,
+    0.5584085087656373
+   ],
+   "per_consumer": {
+    "contact_t": 0.32016378946910345,
+    "coupling": 0.5311823990569794,
+    "travel": 0.15083511589609605,
+    "stance": 0.18788600519542206,
+    "joint_stats": 0.5174806277261552,
+    "asym_joints": 0.17945516576242018,
+    "asym_stance": 0.10414504184358986,
+    "speed": 0.11068950230110869,
+    "height": 0.009429516310512389,
+    "orient": 0.1800540426526138,
+    "lateral": 0.14367295007635542,
+    "rhythm": 0.09174435599959868,
+    "reach": 0.05059600987117242,
+    "pose_phase": 0.6373435763389838
+   },
+   "state": {
+    "freq": 0.8387344761113622,
+    "duty": 0.5533289892736029,
+    "phase0": 0.7206256333523747,
+    "phase_r": 3.050594009937897,
+    "hip_off": -0.1333333333333333,
+    "hip_amp": 0.2777777777777778,
+    "knee_off": 0.16666666666666666,
+    "knee_amp": 0.5999999999999999,
+    "knee_lag": 0.7111111111111112,
+    "ankle_amp": 0.19444444444444442,
+    "ankle_lag": -1.0666666666666669,
+    "sway_amp": 0.08587483886181307,
+    "sway_lag": -1.7432767999311587,
+    "abd_off": -0.011618892678792292,
+    "abd_amp": 0.249163476745574,
+    "abd_lag": -1.020845553652837,
+    "ankle_x_amp": 0.08135591208854201,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.3333333333333333,
+    "arm_lag": 3.2,
+    "arm_off": -0.11666666666666692,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.0,
+    "weak_scale": 1.0,
+    "weak_lag": 0.0,
+    "weak_roll": 0.0
+   },
+   "seconds": 129.72103643417358
+  },
+  {
+   "case": "locked_knee_left_s0",
+   "morph": "locked_knee_left",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "design",
+   "designed": "stiff",
+   "designed_sign": -1,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.3242569936951904,
+    "coupling": 0.10191744537609279,
+    "travel": 0.6376256632430032,
+    "stance": 0.18805266834919993,
+    "joint_stats": 0.28402857768892265,
+    "asym_joints": 0.35055075883182535,
+    "asym_stance": 0.24800470925691462,
+    "speed": 0.16457443456293266,
+    "height": 0.014108785082406431,
+    "orient": 0.3330292277080805,
+    "lateral": 0.9672135169383514,
+    "rhythm": 0.36739337681067646,
+    "reach": 0.08060467052431913,
+    "pose_phase": 0.9852849152597671
+   },
+   "e_v0": 0.665510449281032,
+   "e_v0_heldout": 0.5845160084299931,
+   "e_v0_heldout_runs": [
+    0.5746037169095701,
+    0.594428299950416
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.36380016260699277,
+    "coupling": 0.6947198738700967,
+    "travel": 0.25737007763181785,
+    "stance": 0.37263234579187166,
+    "joint_stats": 0.5883752450866754,
+    "asym_joints": 0.8384721332179668,
+    "asym_stance": 0.14923653467579986,
+    "speed": 0.07059966082570593,
+    "height": 0.008406175594726036,
+    "orient": 0.424739803676778,
+    "lateral": 1.6038034225135969,
+    "rhythm": 0.6845987341965951,
+    "reach": 0.1135160827018397,
+    "pose_phase": 1.034349852224006
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.665510449281032,
+     "e_before_heldout": 0.5845160084299931,
+     "e_before_heldout_runs": [
+      0.5746037169095701,
+      0.594428299950416
+     ],
+     "drops": {
+      "rhythm": 0.08701655268269869,
+      "legs": 0.012333581750251787,
+      "lateral": 0.24101019565877801,
+      "torso": -0.07585138750743926,
+      "arms": 0.03905476849908183,
+      "stiff": 0.026583110665286437,
+      "limp": 0.0022345164444816283,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {
+      "lateral": "held-out 0.5889 >= 0.5845 (0 of 2 runs lower)"
+     },
+     "pick": "rhythm",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.5072036700521271,
+      0.4922301837432721
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.08701655268269869,
+     "e_after": 0.6076000242102826,
+     "e_after_heldout": 0.4997169268976996,
+     "oracle": "lateral",
+     "value": 0.36104925953380257
+    },
+    {
+     "t": 1,
+     "e_before": 0.6076000242102826,
+     "e_before_heldout": 0.4997169268976996,
+     "e_before_heldout_runs": [
+      0.5072036700521271,
+      0.4922301837432721
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.010986519612643643,
+      "lateral": 0.22162428213366697,
+      "torso": -0.04622118228666786,
+      "arms": 0.022023257302078655,
+      "stiff": 0.04935906266033787,
+      "limp": 0.033015272847058456,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {
+      "lateral": "held-out 0.5144 >= 0.4997 (0 of 2 runs lower)",
+      "stiff": "guard: speed",
+      "limp": "held-out 0.5223 >= 0.4997 (1 of 2 runs lower)"
+     },
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.49047844284848613,
+      0.47716067119856964
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.022023257302078655,
+     "e_after": 0.5942186925403503,
+     "e_after_heldout": 0.48381955702352786,
+     "oracle": "lateral",
+     "value": 0.09937204123145628
+    },
+    {
+     "t": 2,
+     "e_before": 0.5942186925403503,
+     "e_before_heldout": 0.48381955702352786,
+     "e_before_heldout_runs": [
+      0.49047844284848613,
+      0.47716067119856964
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.011894498220338817,
+      "lateral": 0.2332349610602481,
+      "torso": -0.052221259596858846,
+      "arms": 0.0,
+      "stiff": 0.05189082394609346,
+      "limp": 0.03438428897126632,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {
+      "lateral": "held-out 0.4990 >= 0.4838 (0 of 2 runs lower)",
+      "stiff": "guard: speed",
+      "limp": "held-out 0.5073 >= 0.4838 (1 of 2 runs lower)",
+      "legs": "held-out 0.5111 >= 0.4838 (0 of 2 runs lower)",
+      "rhythm": "spent",
+      "arms": "spent",
+      "hold": "spent",
+      "vault": "spent",
+      "weak": "spent",
+      "torso": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.5942186925403503,
+     "e_after_heldout": 0.48381955702352786
+    }
+   ],
+   "added": [
+    [
+     "rhythm",
+     0
+    ],
+    [
+     "arms",
+     0
+    ]
+   ],
+   "active": [],
+   "e_final": 0.5942186925403503,
+   "e_final_heldout": 0.48381955702352786,
+   "e_final_heldout_runs": [
+    0.49047844284848613,
+    0.47716067119856964
+   ],
+   "per_consumer": {
+    "contact_t": 0.4916336306323356,
+    "coupling": 0.6890677716054582,
+    "travel": 0.35147450957388304,
+    "stance": 0.2731903566662466,
+    "joint_stats": 0.553613523283706,
+    "asym_joints": 0.8448231587304009,
+    "asym_stance": 0.18066105452226813,
+    "speed": 0.03512837146191575,
+    "height": 0.007837969027733108,
+    "orient": 0.5332499102633491,
+    "lateral": 1.4143468049509424,
+    "rhythm": 0.3279583849954516,
+    "reach": 0.08387220077371739,
+    "pose_phase": 0.7584095767052218
+   },
+   "state": {
+    "freq": 0.5444444444444445,
+    "duty": 0.5138888888888888,
+    "phase0": 1.0666666666666662,
+    "phase_r": 2.8000000000000003,
+    "hip_off": -0.1281882973560362,
+    "hip_amp": 0.28922012741875114,
+    "knee_off": 0.16187488251080995,
+    "knee_amp": 0.5547988353840296,
+    "knee_lag": 0.4241153850188944,
+    "ankle_amp": 0.2655972230536822,
+    "ankle_lag": -0.9571733831831253,
+    "sway_amp": 0.08587483886181307,
+    "sway_lag": -1.7432767999311587,
+    "abd_off": -0.011618892678792292,
+    "abd_amp": 0.249163476745574,
+    "abd_lag": -1.020845553652837,
+    "ankle_x_amp": 0.08135591208854201,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.5,
+    "arm_lag": -2.1333333333333337,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.0,
+    "weak_scale": 1.0,
+    "weak_lag": 0.0,
+    "weak_roll": 0.0
+   },
+   "seconds": 132.21883988380432
+  },
+  {
+   "case": "weak_hip_left_s0",
+   "morph": "weak_hip_left",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "design",
+   "designed": null,
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.3093606838997547,
+    "coupling": 0.23054123754175543,
+    "travel": 0.20286950804932763,
+    "stance": 0.29196896710105813,
+    "joint_stats": 0.32711785978501906,
+    "asym_joints": 0.39434588327964076,
+    "asym_stance": 0.5682216567870202,
+    "speed": 0.14177865389986605,
+    "height": 0.017385047066486872,
+    "orient": 0.6111819695198356,
+    "lateral": 0.3581271907794572,
+    "rhythm": 0.14642012072527383,
+    "reach": 0.1164473556364892,
+    "pose_phase": 0.6805640076448022
+   },
+   "e_v0": 0.39755036375614505,
+   "e_v0_heldout": 0.4854250786575042,
+   "e_v0_heldout_runs": [
+    0.48530627153121786,
+    0.4855438857837906
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.3018224235449696,
+    "coupling": 0.49280034204050543,
+    "travel": 0.25258658328235395,
+    "stance": 0.33591571508103507,
+    "joint_stats": 0.5639927826627696,
+    "asym_joints": 0.24865836729524374,
+    "asym_stance": 0.30309351532480466,
+    "speed": 0.11887984865954142,
+    "height": 0.013964339525580056,
+    "orient": 0.6363504395614928,
+    "lateral": 0.1897844622699212,
+    "rhythm": 0.1951453480271252,
+    "reach": 0.07906506882012898,
+    "pose_phase": 0.8547834949224994
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.39755036375614505,
+     "e_before_heldout": 0.4854250786575042,
+     "e_before_heldout_runs": [
+      0.48530627153121786,
+      0.4855438857837906
+     ],
+     "drops": {
+      "rhythm": 0.06291006374435619,
+      "legs": 0.01270644065550146,
+      "lateral": 0.05268156538615435,
+      "torso": 0.052709609813160294,
+      "arms": 0.0745583968130369,
+      "stiff": 0.0,
+      "limp": 0.05344006312757879,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.04861690233240984
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.4754159644273375,
+      0.4548795937107831
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.0745583968130369,
+     "e_after": 0.36790964598204723,
+     "e_after_heldout": 0.46514777906906035,
+     "oracle": "arms",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.36790964598204723,
+     "e_before_heldout": 0.46514777906906035,
+     "e_before_heldout_runs": [
+      0.4754159644273375,
+      0.4548795937107831
+     ],
+     "drops": {
+      "rhythm": -0.015787695709880263,
+      "legs": 0.059565317390649006,
+      "lateral": 0.06197229637427445,
+      "torso": -0.055175674043324144,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.06162243401952827,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.05927035216916557
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "lateral",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.4160770729067818,
+      0.46571578124113433
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.06197229637427445,
+     "e_after": 0.3451094403622934,
+     "e_after_heldout": 0.44089642707395804,
+     "oracle": "lateral",
+     "value": 1.0
+    },
+    {
+     "t": 2,
+     "e_before": 0.3451094403622934,
+     "e_before_heldout": 0.44089642707395804,
+     "e_before_heldout_runs": [
+      0.4160770729067818,
+      0.46571578124113433
+     ],
+     "drops": {
+      "rhythm": -0.06145080449221,
+      "legs": 0.01418215622386978,
+      "lateral": 0.0,
+      "torso": -0.08528919278097417,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 8.674228258292034e-05,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.018538175192740383
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "weak": "held-out 0.4411 >= 0.4409 (1 of 2 runs lower)"
+     },
+     "pick": "legs",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.41544159267743974,
+      0.4586245762791475
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.01418215622386978,
+     "e_after": 0.3402150443647431,
+     "e_after_heldout": 0.4370330844782936,
+     "oracle": "weak",
+     "value": 0.7650243929846755
+    },
+    {
+     "t": 3,
+     "e_before": 0.3402150443647431,
+     "e_before_heldout": 0.4370330844782936,
+     "e_before_heldout_runs": [
+      0.41544159267743974,
+      0.4586245762791475
+     ],
+     "drops": {
+      "rhythm": 0.004217273941841508,
+      "legs": 0.004767644899386467,
+      "lateral": 0.0008426033361954517,
+      "torso": 0.02141449685031114,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.004321547524159039,
+      "hold": 0.01792036523435432,
+      "vault": 0.0,
+      "weak": 0.04259153924913959
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "weak": "held-out 0.4485 >= 0.4370 (0 of 2 runs lower)"
+     },
+     "pick": "torso",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.40795671484712576,
+      0.46349882209302984
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.02141449685031114,
+     "e_after": 0.33292951036876584,
+     "e_after_heldout": 0.43572776847007777,
+     "oracle": "weak",
+     "value": 0.5027875777169463
+    },
+    {
+     "t": 4,
+     "e_before": 0.33292951036876584,
+     "e_before_heldout": 0.43572776847007777,
+     "e_before_heldout_runs": [
+      0.40795671484712576,
+      0.46349882209302984
+     ],
+     "drops": {
+      "rhythm": -0.03243909001193101,
+      "legs": 0.0049043292242962385,
+      "lateral": -0.03167669403703488,
+      "torso": 0.003803032574359973,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.01316354124989039,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.007726094621452066
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "limp",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.4050460812873625,
+      0.46628364158777547
+     ],
+     "side": 1,
+     "dead": false,
+     "drop_rel": 0.01316354124989039,
+     "e_after": 0.3285469790257208,
+     "e_after_heldout": 0.435664861437569,
+     "oracle": "limp",
+     "value": 1.0
+    },
+    {
+     "t": 5,
+     "e_before": 0.3285469790257208,
+     "e_before_heldout": 0.435664861437569,
+     "e_before_heldout_runs": [
+      0.4050460812873625,
+      0.46628364158777547
+     ],
+     "drops": {
+      "rhythm": 0.00042933100470772317,
+      "legs": -1.6895955456924795e-16,
+      "lateral": 0.0038207172033218706,
+      "torso": 0.0,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.002872133582887087
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {
+      "lateral": "spent",
+      "weak": "spent",
+      "rhythm": "spent",
+      "torso": "spent",
+      "arms": "spent",
+      "stiff": "spent",
+      "limp": "spent",
+      "hold": "spent",
+      "vault": "spent",
+      "legs": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.3285469790257208,
+     "e_after_heldout": 0.435664861437569
+    }
+   ],
+   "added": [
+    [
+     "arms",
+     0
+    ],
+    [
+     "lateral",
+     0
+    ],
+    [
+     "legs",
+     0
+    ],
+    [
+     "torso",
+     0
+    ],
+    [
+     "limp",
+     1
+    ]
+   ],
+   "active": [
+    "limp"
+   ],
+   "e_final": 0.3285469790257208,
+   "e_final_heldout": 0.435664861437569,
+   "e_final_heldout_runs": [
+    0.4050460812873625,
+    0.46628364158777547
+   ],
+   "per_consumer": {
+    "contact_t": 0.2767263466317064,
+    "coupling": 0.48546538706017994,
+    "travel": 0.2008694873894016,
+    "stance": 0.17570002958983721,
+    "joint_stats": 0.5933790612854086,
+    "asym_joints": 0.22514069520351015,
+    "asym_stance": 0.0216814135666559,
+    "speed": 0.04094265754812157,
+    "height": 0.013747183659160767,
+    "orient": 0.603876148779313,
+    "lateral": 0.04721470908117347,
+    "rhythm": 0.18499348701316154,
+    "reach": 0.07007693559344522,
+    "pose_phase": 0.5626535947945395
+   },
+   "state": {
+    "freq": 0.8387344761113622,
+    "duty": 0.5533289892736029,
+    "phase0": 0.7206256333523747,
+    "phase_r": 3.050594009937897,
+    "hip_off": -0.1333333333333333,
+    "hip_amp": 0.2222222222222222,
+    "knee_off": 0.16666666666666666,
+    "knee_amp": 0.5999999999999999,
+    "knee_lag": 0.3555555555555556,
+    "ankle_amp": 0.15555555555555556,
+    "ankle_lag": -0.711111111111111,
+    "sway_amp": 0.1,
+    "sway_lag": -2.4888888888888894,
+    "abd_off": 0.03333333333333331,
+    "abd_amp": 0.16666666666666666,
+    "abd_lag": -1.0666666666666669,
+    "ankle_x_amp": 0.08333333333333333,
+    "lean": 0.05555555555555555,
+    "pitch_amp": 0.2777777777777778,
+    "pitch_lag": 1.0666666666666662,
+    "bob_amp": 0.011111111111111112,
+    "roll_amp": 0.08888888888888889,
+    "roll_lag": 2.133333333333333,
+    "arm_amp": 0.25,
+    "arm_lag": -3.2,
+    "arm_off": -0.11666666666666692,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.1111111111111111,
+    "limp_lift": 0.3888888888888889,
+    "limp_sink": 0.2666666666666667,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.0,
+    "weak_scale": 1.0,
+    "weak_lag": 0.0,
+    "weak_roll": 0.0
+   },
+   "seconds": 252.35006976127625
+  },
+  {
+   "case": "short_shank_left_s0",
+   "morph": "short_shank_left",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "design",
+   "designed": null,
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.5629767912341607,
+    "coupling": 0.1688577766444646,
+    "travel": 0.6667571345718729,
+    "stance": 0.29123946857495525,
+    "joint_stats": 0.22719602989612672,
+    "asym_joints": 0.34785256080030197,
+    "asym_stance": 0.18997401458133129,
+    "speed": 0.27475933695091376,
+    "height": 0.062113334445091595,
+    "orient": 0.3315997454810065,
+    "lateral": 0.6208872946996421,
+    "rhythm": 0.3295725626205104,
+    "reach": 0.0607976516892059,
+    "pose_phase": 0.7494195771071188
+   },
+   "e_v0": 0.987379920672249,
+   "e_v0_heldout": 1.16012644420243,
+   "e_v0_heldout_runs": [
+    1.2077091322416182,
+    1.1125437561632414
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.6933534312932824,
+    "coupling": 0.4427198023943914,
+    "travel": 1.073038076841925,
+    "stance": 1.5520391212308409,
+    "joint_stats": 0.5677082670685198,
+    "asym_joints": 0.32562995977373244,
+    "asym_stance": 2.413771916054128,
+    "speed": 1.3044536441147836,
+    "height": 0.09239453084191802,
+    "orient": 0.3565667547242557,
+    "lateral": 0.10338156420708844,
+    "rhythm": 0.4029573008393478,
+    "reach": 0.18976638350152075,
+    "pose_phase": 1.0540017183322279
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.987379920672249,
+     "e_before_heldout": 1.16012644420243,
+     "e_before_heldout_runs": [
+      1.2077091322416182,
+      1.1125437561632414
+     ],
+     "drops": {
+      "rhythm": 0.48545766739778345,
+      "legs": 0.5544585792728015,
+      "lateral": 0.504396087777578,
+      "torso": 0.5027447980583151,
+      "arms": 0.015113415195102703,
+      "stiff": 0.0029579388624552754,
+      "limp": 0.5860756745872587,
+      "hold": 0.4418008244728494,
+      "vault": 0.5056573363313067,
+      "weak": 0.02611867280160212
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "limp",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.7015403152507759,
+      0.5689053709201457
+     ],
+     "side": -1,
+     "dead": false,
+     "drop_rel": 0.5860756745872587,
+     "e_after": 0.4087005675903466,
+     "e_after_heldout": 0.6352228430854607,
+     "oracle": "limp",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.4087005675903466,
+     "e_before_heldout": 0.6352228430854607,
+     "e_before_heldout_runs": [
+      0.7015403152507759,
+      0.5689053709201457
+     ],
+     "drops": {
+      "rhythm": -0.01725043439382664,
+      "legs": 0.014732601744810872,
+      "lateral": 0.0056337569313724654,
+      "torso": 0.012119403371217377,
+      "arms": 0.05956469393324391,
+      "stiff": 0.0,
+      "limp": 0.0,
+      "hold": 0.004720362023545767,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {},
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.7012913176512118,
+      0.5541910402639604
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.05956469393324391,
+     "e_after": 0.38435644337148456,
+     "e_after_heldout": 0.6277411789575861,
+     "oracle": "arms",
+     "value": 1.0
+    },
+    {
+     "t": 2,
+     "e_before": 0.38435644337148456,
+     "e_before_heldout": 0.6277411789575861,
+     "e_before_heldout_runs": [
+      0.7012913176512118,
+      0.5541910402639604
+     ],
+     "drops": {
+      "rhythm": 0.03249840382745914,
+      "legs": 0.018956024886068037,
+      "lateral": 0.0064070047882551755,
+      "torso": 0.009209005590135712,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.0,
+      "hold": 0.0015376889127113932,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {
+      "rhythm": "held-out 0.6497 >= 0.6277 (0 of 2 runs lower)",
+      "legs": "held-out 0.6459 >= 0.6277 (0 of 2 runs lower)",
+      "torso": "spent",
+      "lateral": "spent",
+      "hold": "spent",
+      "arms": "spent",
+      "stiff": "spent",
+      "limp": "spent",
+      "vault": "spent",
+      "weak": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.38435644337148456,
+     "e_after_heldout": 0.6277411789575861
+    }
+   ],
+   "added": [
+    [
+     "limp",
+     -1
+    ],
+    [
+     "arms",
+     0
+    ]
+   ],
+   "active": [
+    "limp"
+   ],
+   "e_final": 0.38435644337148456,
+   "e_final_heldout": 0.6277411789575861,
+   "e_final_heldout_runs": [
+    0.7012913176512118,
+    0.5541910402639604
+   ],
+   "per_consumer": {
+    "contact_t": 0.4242674827183238,
+    "coupling": 0.5006632338167291,
+    "travel": 0.2605854970270033,
+    "stance": 0.40949395245207293,
+    "joint_stats": 0.5107497271166661,
+    "asym_joints": 0.3136952044954479,
+    "asym_stance": 0.4581470260523971,
+    "speed": 0.02437215224765128,
+    "height": 0.06355387511366656,
+    "orient": 0.3565667547242557,
+    "lateral": 0.10338156420708844,
+    "rhythm": 0.4029573008393478,
+    "reach": 0.12351088875572794,
+    "pose_phase": 0.7160326146052534
+   },
+   "state": {
+    "freq": 0.8387344761113622,
+    "duty": 0.5533289892736029,
+    "phase0": 0.7206256333523747,
+    "phase_r": 3.050594009937897,
+    "hip_off": -0.1281882973560362,
+    "hip_amp": 0.28922012741875114,
+    "knee_off": 0.16187488251080995,
+    "knee_amp": 0.5547988353840296,
+    "knee_lag": 0.4241153850188944,
+    "ankle_amp": 0.2655972230536822,
+    "ankle_lag": -0.9571733831831253,
+    "sway_amp": 0.08587483886181307,
+    "sway_lag": -1.7432767999311587,
+    "abd_off": -0.011618892678792292,
+    "abd_amp": 0.249163476745574,
+    "abd_lag": -1.020845553652837,
+    "ankle_x_amp": 0.08135591208854201,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.3333333333333333,
+    "arm_lag": -3.2,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": -1.0,
+    "limp_lift": 0.5,
+    "limp_sink": 0.3111111111111111,
+    "limp_duty": 0.11666666666666667,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.0,
+    "weak_scale": 1.0,
+    "weak_lag": 0.0,
+    "weak_roll": 0.0
+   },
+   "seconds": 134.38060808181763
+  },
+  {
+   "case": "nolegs_s0",
+   "morph": "nolegs",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "design",
+   "designed": "vault",
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "torso",
+    "arms",
+    "vault"
+   ],
+   "tolerance": {
+    "contact_t": 0.6629441723789224,
+    "coupling": 0.8749559408361681,
+    "travel": 0.3840760530860928,
+    "stance": 0.7189846321807298,
+    "joint_stats": 0.34724559543308153,
+    "asym_joints": 0.45788814521960636,
+    "asym_stance": 0.28500296961796195,
+    "speed": 0.07776615046702835,
+    "height": 0.4944155345574201,
+    "orient": 0.913229623386568,
+    "lateral": 0.3767081348029764,
+    "rhythm": 0.761416225522452,
+    "reach": 0.3630124366878816,
+    "pose_phase": 0.5248264950961669
+   },
+   "e_v0": 0.885038469491413,
+   "e_v0_heldout": 0.7174583363688465,
+   "e_v0_heldout_runs": [
+    0.7259900561653511,
+    0.708926616572342
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.5451274801453546,
+    "coupling": 1.1026698738478353,
+    "travel": 0.7198814184568615,
+    "stance": 2.298313704571992,
+    "joint_stats": 0.8560665538529755,
+    "asym_joints": 0.4014156236709697,
+    "asym_stance": 0.13922153053230524,
+    "speed": 0.5619620314559107,
+    "height": 0.47087041887120024,
+    "orient": 0.7537865217629155,
+    "lateral": 0.1530684276871596,
+    "rhythm": 0.419722934909943,
+    "reach": 0.7825495323100892,
+    "pose_phase": 0.9063778452250982
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.885038469491413,
+     "e_before_heldout": 0.7174583363688465,
+     "e_before_heldout_runs": [
+      0.7259900561653511,
+      0.708926616572342
+     ],
+     "drops": {
+      "rhythm": 0.31254546926843435,
+      "torso": 0.3266158915221111,
+      "arms": 0.32814773775937317,
+      "vault": 0.18630099324329696
+     },
+     "sides": {
+      "rhythm": 0,
+      "torso": 0,
+      "arms": 0,
+      "vault": 0
+     },
+     "rejected": {},
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.5746599146252076,
+      0.5474633989727133
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.32814773775937317,
+     "e_after": 0.5946150978977878,
+     "e_after_heldout": 0.5610616567989605,
+     "oracle": "arms",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.5946150978977878,
+     "e_before_heldout": 0.5610616567989605,
+     "e_before_heldout_runs": [
+      0.5746599146252076,
+      0.5474633989727133
+     ],
+     "drops": {
+      "rhythm": 0.06458131067084025,
+      "torso": 0.07478362470274218,
+      "arms": 0.0,
+      "vault": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "torso": 0,
+      "arms": 0,
+      "vault": 0
+     },
+     "rejected": {
+      "torso": "held-out 0.5646 >= 0.5611 (1 of 2 runs lower)",
+      "rhythm": "held-out 0.5982 >= 0.5611 (0 of 2 runs lower)",
+      "arms": "spent",
+      "vault": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.5946150978977878,
+     "e_after_heldout": 0.5610616567989605
+    }
+   ],
+   "added": [
+    [
+     "arms",
+     0
+    ]
+   ],
+   "active": [],
+   "e_final": 0.5946150978977878,
+   "e_final_heldout": 0.5610616567989605,
+   "e_final_heldout_runs": [
+    0.5746599146252076,
+    0.5474633989727133
+   ],
+   "per_consumer": {
+    "contact_t": 0.7411565152810995,
+    "coupling": 0.9983615018390545,
+    "travel": 0.5381540109459115,
+    "stance": 0.8279530483044739,
+    "joint_stats": 0.6913671441630551,
+    "asym_joints": 0.40144044374499754,
+    "asym_stance": 0.30451321057584896,
+    "speed": 0.07755075888508103,
+    "height": 0.47136022960041124,
+    "orient": 0.7537865217629155,
+    "lateral": 0.1530684276871596,
+    "rhythm": 0.419722934909943,
+    "reach": 0.382664810316259,
+    "pose_phase": 0.7446444414753385
+   },
+   "state": {
+    "freq": 0.8387344761113622,
+    "duty": 0.5533289892736029,
+    "phase0": 0.7206256333523747,
+    "phase_r": 3.050594009937897,
+    "hip_off": -0.1281882973560362,
+    "hip_amp": 0.28922012741875114,
+    "knee_off": 0.16187488251080995,
+    "knee_amp": 0.5547988353840296,
+    "knee_lag": 0.4241153850188944,
+    "ankle_amp": 0.2655972230536822,
+    "ankle_lag": -0.9571733831831253,
+    "sway_amp": 0.08587483886181307,
+    "sway_lag": -1.7432767999311587,
+    "abd_off": -0.011618892678792292,
+    "abd_amp": 0.249163476745574,
+    "abd_lag": -1.020845553652837,
+    "ankle_x_amp": 0.08135591208854201,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.5833333333333333,
+    "arm_lag": 3.2,
+    "arm_off": -0.48333333333333356,
+    "elbow_off": -0.40000000000000013,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.0,
+    "weak_scale": 1.0,
+    "weak_lag": 0.0,
+    "weak_roll": 0.0
+   },
+   "seconds": 20.19137692451477
+  },
+  {
+   "case": "stump_left_s0",
+   "morph": "stump_left",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "design",
+   "designed": "limp",
+   "designed_sign": -1,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.8197420677812906,
+    "coupling": 0.14307290345823181,
+    "travel": 0.731698363993497,
+    "stance": 0.9071956262197478,
+    "joint_stats": 0.33504744610136944,
+    "asym_joints": 0.6508008175546441,
+    "asym_stance": 0.920907994141689,
+    "speed": 0.7704742013578562,
+    "height": 0.35213258618475046,
+    "orient": 0.36794662040092835,
+    "lateral": 0.5404245867214077,
+    "rhythm": 0.5462242562929062,
+    "reach": 0.11614923270406201,
+    "pose_phase": 1.087225869663147
+   },
+   "e_v0": 0.8417957057930104,
+   "e_v0_heldout": 0.7109029961019766,
+   "e_v0_heldout_runs": [
+    0.7248230541796147,
+    0.6969829380243385
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.8260257083070004,
+    "coupling": 0.37865815505192524,
+    "travel": 1.089472079986593,
+    "stance": 1.501452968560567,
+    "joint_stats": 0.6473260500001727,
+    "asym_joints": 0.5462824805943967,
+    "asym_stance": 0.920907994141689,
+    "speed": 1.6221039416536938,
+    "height": 0.3549622284761345,
+    "orient": 0.44113542148581836,
+    "lateral": 0.34740324292331354,
+    "rhythm": 0.04031460809501152,
+    "reach": 0.1395821236472599,
+    "pose_phase": 0.9972586707717211
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.8417957057930104,
+     "e_before_heldout": 0.7109029961019766,
+     "e_before_heldout_runs": [
+      0.7248230541796147,
+      0.6969829380243385
+     ],
+     "drops": {
+      "rhythm": 0.17890259005096779,
+      "legs": 0.22764861933621922,
+      "lateral": 0.005359281829219309,
+      "torso": 0.2963840397793255,
+      "arms": 0.019821407400515318,
+      "stiff": 3.97337458000202e-05,
+      "limp": 0.3128170196739367,
+      "hold": 0.1491073282776009,
+      "vault": 0.3274705644256453,
+      "weak": 0.06937132810088513
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "vault",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.47336225851517133,
+      0.5356680319428155
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.3274705644256453,
+     "e_after": 0.5661323908858888,
+     "e_after_heldout": 0.5045151452289934,
+     "oracle": "vault",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.5661323908858888,
+     "e_before_heldout": 0.5045151452289934,
+     "e_before_heldout_runs": [
+      0.47336225851517133,
+      0.5356680319428155
+     ],
+     "drops": {
+      "rhythm": 0.0024782824940292954,
+      "legs": 0.011580459853339175,
+      "lateral": 0.0150699752834971,
+      "torso": 0.011794064634134785,
+      "arms": 0.01931318719441245,
+      "stiff": 0.0,
+      "limp": 0.034390862660663185,
+      "hold": 0.012344478667081505,
+      "vault": 0.0,
+      "weak": 0.04952863212736559
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {},
+     "pick": "weak",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.463974208659677,
+      0.5185878004702411
+     ],
+     "side": -1,
+     "dead": false,
+     "drop_rel": 0.04952863212736559,
+     "e_after": 0.5380926279623157,
+     "e_after_heldout": 0.49128100456495905,
+     "oracle": "weak",
+     "value": 1.0
+    },
+    {
+     "t": 2,
+     "e_before": 0.5380926279623157,
+     "e_before_heldout": 0.49128100456495905,
+     "e_before_heldout_runs": [
+      0.463974208659677,
+      0.5185878004702411
+     ],
+     "drops": {
+      "rhythm": -0.0034230739506588424,
+      "legs": 0.013600924924193009,
+      "lateral": 0.01246301188179981,
+      "torso": -0.00032784020053735097,
+      "arms": 0.02137053429870946,
+      "stiff": 0.0,
+      "limp": 0.006353729045323949,
+      "hold": 0.014299896959319412,
+      "vault": 0.0,
+      "weak": 0.0057670175136288505
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {},
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.4527683419179092,
+      0.5031874963913973
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.02137053429870946,
+     "e_after": 0.5265933010005643,
+     "e_after_heldout": 0.47797791915465326,
+     "oracle": "arms",
+     "value": 1.0
+    },
+    {
+     "t": 3,
+     "e_before": 0.5265933010005643,
+     "e_before_heldout": 0.47797791915465326,
+     "e_before_heldout_runs": [
+      0.4527683419179092,
+      0.5031874963913973
+     ],
+     "drops": {
+      "rhythm": -0.001976965171927428,
+      "legs": 0.014128908051793511,
+      "lateral": 0.0129456118846538,
+      "torso": -0.0008677670670878717,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.006611635425796445,
+      "hold": 0.014930943125475573,
+      "vault": 0.0,
+      "weak": 0.006022305979412829
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {
+      "hold": "held-out 0.4818 >= 0.4780 (0 of 2 runs lower)"
+     },
+     "pick": "legs",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.44178068838955753,
+      0.49671598967600794
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.014128908051793511,
+     "e_after": 0.5191531126700369,
+     "e_after_heldout": 0.46924833903278274,
+     "oracle": "hold",
+     "value": 0.9462836964187742
+    },
+    {
+     "t": 4,
+     "e_before": 0.5191531126700369,
+     "e_before_heldout": 0.46924833903278274,
+     "e_before_heldout_runs": [
+      0.44178068838955753,
+      0.49671598967600794
+     ],
+     "drops": {
+      "rhythm": -0.005754629190396951,
+      "legs": 0.0,
+      "lateral": 0.014782422374049458,
+      "torso": 0.0009359622253341532,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.004917037710724302,
+      "hold": 0.008721953900379862,
+      "vault": 0.0,
+      "weak": 0.00659715644817414
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {
+      "lateral": "held-out 0.4953 >= 0.4692 (0 of 2 runs lower)",
+      "hold": "spent",
+      "weak": "spent",
+      "limp": "spent",
+      "torso": "spent",
+      "legs": "spent",
+      "arms": "spent",
+      "stiff": "spent",
+      "vault": "spent",
+      "rhythm": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.5191531126700369,
+     "e_after_heldout": 0.46924833903278274
+    }
+   ],
+   "added": [
+    [
+     "vault",
+     0
+    ],
+    [
+     "weak",
+     -1
+    ],
+    [
+     "arms",
+     0
+    ],
+    [
+     "legs",
+     0
+    ]
+   ],
+   "active": [
+    "vault",
+    "weak"
+   ],
+   "e_final": 0.5191531126700369,
+   "e_final_heldout": 0.46924833903278274,
+   "e_final_heldout_runs": [
+    0.44178068838955753,
+    0.49671598967600794
+   ],
+   "per_consumer": {
+    "contact_t": 0.7898561813416809,
+    "coupling": 0.12375355422608167,
+    "travel": 0.34279258006417757,
+    "stance": 0.7174703925423888,
+    "joint_stats": 0.6076634981744294,
+    "asym_joints": 0.5259758616604476,
+    "asym_stance": 0.920907994141689,
+    "speed": 0.09342035736595809,
+    "height": 0.36187441003297005,
+    "orient": 0.2004970620190658,
+    "lateral": 0.34740324292331354,
+    "rhythm": 0.09397841381592154,
+    "reach": 0.1362480254424794,
+    "pose_phase": 0.8245483877275833
+   },
+   "state": {
+    "freq": 0.8387344761113622,
+    "duty": 0.5533289892736029,
+    "phase0": 0.7206256333523747,
+    "phase_r": 3.050594009937897,
+    "hip_off": -0.22222222222222218,
+    "hip_amp": 0.2777777777777778,
+    "knee_off": 0.25,
+    "knee_amp": 0.5999999999999999,
+    "knee_lag": 0.3555555555555556,
+    "ankle_amp": 0.2722222222222222,
+    "ankle_lag": -3.2,
+    "sway_amp": 0.08587483886181307,
+    "sway_lag": -1.7432767999311587,
+    "abd_off": -0.011618892678792292,
+    "abd_amp": 0.249163476745574,
+    "abd_lag": -1.020845553652837,
+    "ankle_x_amp": 0.08135591208854201,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.3333333333333333,
+    "arm_lag": -1.4222222222222225,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.08333333333333333,
+    "vault_lag": -2.4888888888888894,
+    "weak_side": -0.6666666666666667,
+    "weak_scale": 0.7777777777777777,
+    "weak_lag": -1.5,
+    "weak_roll": -0.3777777777777778
+   },
+   "seconds": 195.31870412826538
+  },
+  {
+   "case": "noleg_left_s0",
+   "morph": "noleg_left",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "design",
+   "designed": null,
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.5891073961499417,
+    "coupling": 0.08982139280494211,
+    "travel": 0.5359862905170275,
+    "stance": 0.6536949789415074,
+    "joint_stats": 0.7350779486293677,
+    "asym_joints": 0.25837944761736564,
+    "asym_stance": 0.35399121110268467,
+    "speed": 0.2708553916439513,
+    "height": 0.31894260043108386,
+    "orient": 0.4295338013570779,
+    "lateral": 3.400738744515138,
+    "rhythm": 0.4150040633065226,
+    "reach": 0.10179493207451772,
+    "pose_phase": 1.4384138284599992
+   },
+   "e_v0": 0.7669001179449101,
+   "e_v0_heldout": 0.813412040162343,
+   "e_v0_heldout_runs": [
+    0.886829185858015,
+    0.7399948944666711
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.077038018888662,
+    "coupling": 0.06134334867362532,
+    "travel": 1.0338762551652925,
+    "stance": 1.714543560885025,
+    "joint_stats": 0.5246753650955784,
+    "asym_joints": 0.14954303716358894,
+    "asym_stance": 0.0,
+    "speed": 1.2913719121298364,
+    "height": 0.024649224927949225,
+    "orient": 0.565014570713267,
+    "lateral": 0.6919241210456044,
+    "rhythm": 0.42443732294712433,
+    "reach": 0.2032829438614877,
+    "pose_phase": 1.1091779241847948
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.7669001179449101,
+     "e_before_heldout": 0.813412040162343,
+     "e_before_heldout_runs": [
+      0.886829185858015,
+      0.7399948944666711
+     ],
+     "drops": {
+      "rhythm": 0.09409277734750832,
+      "legs": 0.060002539048246116,
+      "lateral": 0.036650400087331676,
+      "torso": 0.44360936304081955,
+      "arms": 0.029859249332137024,
+      "stiff": 0.0,
+      "limp": 0.012912346288488462,
+      "hold": 0.02852984078530091,
+      "vault": 0.41897153611868065,
+      "weak": 0.02998174175249595
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "torso",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.8343201650101011,
+      0.45090667305264914
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.44360936304081955,
+     "e_after": 0.42669604510743914,
+     "e_after_heldout": 0.6426134190313751,
+     "oracle": "torso",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.42669604510743914,
+     "e_before_heldout": 0.6426134190313751,
+     "e_before_heldout_runs": [
+      0.8343201650101011,
+      0.45090667305264914
+     ],
+     "drops": {
+      "rhythm": 0.0690971241879181,
+      "legs": 0.08666796575846683,
+      "lateral": 0.12371769272820586,
+      "torso": 0.0,
+      "arms": 0.057282436547203136,
+      "stiff": 0.0,
+      "limp": 0.01673297907077775,
+      "hold": 0.030671876237388526,
+      "vault": 0.0206572311084217,
+      "weak": 0.02710593047215503
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "lateral": "held-out 0.6582 >= 0.6426 (0 of 2 runs lower)",
+      "legs": "held-out 0.6598 >= 0.6426 (1 of 2 runs lower)",
+      "rhythm": "held-out 0.6667 >= 0.6426 (1 of 2 runs lower)"
+     },
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.8328453952250094,
+      0.44290496371035337
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.057282436547203136,
+     "e_after": 0.4022538559786297,
+     "e_after_heldout": 0.6378751794676814,
+     "oracle": "lateral",
+     "value": 0.463009253438361
+    },
+    {
+     "t": 2,
+     "e_before": 0.4022538559786297,
+     "e_before_heldout": 0.6378751794676814,
+     "e_before_heldout_runs": [
+      0.8328453952250094,
+      0.44290496371035337
+     ],
+     "drops": {
+      "rhythm": 0.07749737698850481,
+      "legs": 0.09684602318367688,
+      "lateral": 0.14064547360818985,
+      "torso": 0.0,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.01882826754002733,
+      "hold": 0.035053022511867586,
+      "vault": 0.023608972893346673,
+      "weak": 0.029632596530273617
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "lateral": "held-out 0.6536 >= 0.6379 (0 of 2 runs lower)",
+      "legs": "held-out 0.6550 >= 0.6379 (1 of 2 runs lower)",
+      "rhythm": "held-out 0.6614 >= 0.6379 (1 of 2 runs lower)"
+     },
+     "pick": "hold",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.8403413604964342,
+      0.43074044408309137
+     ],
+     "side": 1,
+     "dead": false,
+     "drop_rel": 0.035053022511867586,
+     "e_after": 0.3881536425095253,
+     "e_after_heldout": 0.6355409022897628,
+     "oracle": "lateral",
+     "value": 0.2492296524914715
+    },
+    {
+     "t": 3,
+     "e_before": 0.3881536425095253,
+     "e_before_heldout": 0.6355409022897628,
+     "e_before_heldout_runs": [
+      0.8403413604964342,
+      0.43074044408309137
+     ],
+     "drops": {
+      "rhythm": 0.09728239036755801,
+      "legs": 0.06521204531697661,
+      "lateral": 0.14494960059740966,
+      "torso": 0.008886224389108658,
+      "arms": 0.002156133923951488,
+      "stiff": 0.0,
+      "limp": 0.010162387227055666,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.02295522878352245
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "lateral": "held-out 0.6535 >= 0.6355 (0 of 2 runs lower)",
+      "rhythm": "held-out 0.6416 >= 0.6355 (1 of 2 runs lower)",
+      "legs": "held-out 0.6520 >= 0.6355 (1 of 2 runs lower)",
+      "weak": "held-out 0.6483 >= 0.6355 (1 of 2 runs lower)",
+      "limp": "held-out 0.6375 >= 0.6355 (1 of 2 runs lower)",
+      "torso": "spent",
+      "arms": "spent",
+      "stiff": "spent",
+      "hold": "spent",
+      "vault": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.3881536425095253,
+     "e_after_heldout": 0.6355409022897628
+    }
+   ],
+   "added": [
+    [
+     "torso",
+     0
+    ],
+    [
+     "arms",
+     0
+    ],
+    [
+     "hold",
+     1
+    ]
+   ],
+   "active": [
+    "hold"
+   ],
+   "e_final": 0.3881536425095253,
+   "e_final_heldout": 0.6355409022897628,
+   "e_final_heldout_runs": [
+    0.8403413604964342,
+    0.43074044408309137
+   ],
+   "per_consumer": {
+    "contact_t": 0.24703022278219644,
+    "coupling": 0.061293242680876804,
+    "travel": 0.3404104875213921,
+    "stance": 0.4688942322148525,
+    "joint_stats": 0.4099247363158198,
+    "asym_joints": 0.1534070329126931,
+    "asym_stance": 0.0,
+    "speed": 0.11816053469358934,
+    "height": 0.06627032675930926,
+    "orient": 0.7524473005546678,
+    "lateral": 0.6919241210456044,
+    "rhythm": 0.27639987266073385,
+    "reach": 0.23082467090521885,
+    "pose_phase": 0.5694076624546458
+   },
+   "state": {
+    "freq": 0.8387344761113622,
+    "duty": 0.5533289892736029,
+    "phase0": 0.7206256333523747,
+    "phase_r": 3.050594009937897,
+    "hip_off": -0.1281882973560362,
+    "hip_amp": 0.28922012741875114,
+    "knee_off": 0.16187488251080995,
+    "knee_amp": 0.5547988353840296,
+    "knee_lag": 0.4241153850188944,
+    "ankle_amp": 0.2655972230536822,
+    "ankle_lag": -0.9571733831831253,
+    "sway_amp": 0.08587483886181307,
+    "sway_lag": -1.7432767999311587,
+    "abd_off": -0.011618892678792292,
+    "abd_amp": 0.249163476745574,
+    "abd_lag": -1.020845553652837,
+    "ankle_x_amp": 0.08135591208854201,
+    "lean": 0.3333333333333333,
+    "pitch_amp": 0.0,
+    "pitch_lag": -3.2,
+    "bob_amp": 0.022222222222222223,
+    "roll_amp": 0.4,
+    "roll_lag": -0.3555555555555555,
+    "arm_amp": 0.5,
+    "arm_lag": -1.7777777777777783,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.4444444444444443,
+    "hold_hip": -0.5,
+    "hold_amp": 0.8,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.0,
+    "weak_scale": 1.0,
+    "weak_lag": 0.0,
+    "weak_roll": 0.0
+   },
+   "seconds": 138.09886026382446
+  },
+  {
+   "case": "weak_hip_right_s0",
+   "morph": "weak_hip_right",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "transfer",
+   "designed": null,
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.2935141895560606,
+    "coupling": 0.10668683402550866,
+    "travel": 0.20270211066220578,
+    "stance": 0.1605009210957199,
+    "joint_stats": 0.22209897923035876,
+    "asym_joints": 0.33311904743470466,
+    "asym_stance": 0.18099428620849828,
+    "speed": 0.05331070279029628,
+    "height": 0.015421666774248784,
+    "orient": 0.3451439815775378,
+    "lateral": 0.23959224801094514,
+    "rhythm": 0.7258425784671038,
+    "reach": 0.09453017210903955,
+    "pose_phase": 0.878297018182432
+   },
+   "e_v0": 0.47945175301752324,
+   "e_v0_heldout": 0.48547683120121754,
+   "e_v0_heldout_runs": [
+    0.43497886005390934,
+    0.5359748023485257
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.3719805577131095,
+    "coupling": 0.6590516818981329,
+    "travel": 0.10076305788655358,
+    "stance": 0.34372883399732795,
+    "joint_stats": 0.5569538965151485,
+    "asym_joints": 0.21994982906789068,
+    "asym_stance": 0.13336389155869624,
+    "speed": 0.018791385867080592,
+    "height": 0.023126902978010146,
+    "orient": 0.4062187326802539,
+    "lateral": 0.4942869140939191,
+    "rhythm": 0.7071661185234893,
+    "reach": 0.163056067692065,
+    "pose_phase": 1.0972513515813418
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.47945175301752324,
+     "e_before_heldout": 0.48547683120121754,
+     "e_before_heldout_runs": [
+      0.43497886005390934,
+      0.5359748023485257
+     ],
+     "drops": {
+      "rhythm": 0.13954085756038045,
+      "legs": 0.11488778418425484,
+      "lateral": 0.04011433727440297,
+      "torso": -0.00111706237243551,
+      "arms": 0.08551455102212902,
+      "stiff": 0.0,
+      "limp": 0.001823975148133134,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.007214174453429954
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "rhythm": "guard: speed",
+      "legs": "held-out 0.5025 >= 0.4855 (0 of 2 runs lower)"
+     },
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.4206219377165028,
+      0.5204423498014944
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.08551455102212902,
+     "e_after": 0.43845165162145705,
+     "e_after_heldout": 0.4705321437589986,
+     "oracle": "rhythm",
+     "value": 0.6128280456147132
+    },
+    {
+     "t": 1,
+     "e_before": 0.43845165162145705,
+     "e_before_heldout": 0.4705321437589986,
+     "e_before_heldout_runs": [
+      0.4206219377165028,
+      0.5204423498014944
+     ],
+     "drops": {
+      "rhythm": -0.17533320959141224,
+      "legs": 0.06391687203277022,
+      "lateral": 0.048224822181667085,
+      "torso": -0.051497651436258805,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.0020246525027496107,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {
+      "legs": "guard: asym_stance, speed"
+     },
+     "pick": "lateral",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.37434505554720376,
+      0.40431173550746136
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.048224822181667085,
+     "e_after": 0.41730739868675404,
+     "e_after_heldout": 0.38932839552733256,
+     "oracle": "legs",
+     "value": 0.7544928380872923
+    },
+    {
+     "t": 2,
+     "e_before": 0.41730739868675404,
+     "e_before_heldout": 0.38932839552733256,
+     "e_before_heldout_runs": [
+      0.37434505554720376,
+      0.40431173550746136
+     ],
+     "drops": {
+      "rhythm": 0.041737186813649685,
+      "legs": 0.002193998973878369,
+      "lateral": 0.0,
+      "torso": -0.0789182748399755,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.004388415750397886,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {
+      "rhythm": "held-out 0.4100 >= 0.3893 (0 of 2 runs lower)",
+      "limp": "spent",
+      "legs": "spent",
+      "lateral": "spent",
+      "arms": "spent",
+      "stiff": "spent",
+      "hold": "spent",
+      "vault": "spent",
+      "weak": "spent",
+      "torso": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.41730739868675404,
+     "e_after_heldout": 0.38932839552733256
+    }
+   ],
+   "added": [
+    [
+     "arms",
+     0
+    ],
+    [
+     "lateral",
+     0
+    ]
+   ],
+   "active": [],
+   "e_final": 0.41730739868675404,
+   "e_final_heldout": 0.38932839552733256,
+   "e_final_heldout_runs": [
+    0.37434505554720376,
+    0.40431173550746136
+   ],
+   "per_consumer": {
+    "contact_t": 0.37024765120449743,
+    "coupling": 0.6580887333914799,
+    "travel": 0.11994036906725748,
+    "stance": 0.3416790830619446,
+    "joint_stats": 0.547226316810863,
+    "asym_joints": 0.22757455831039167,
+    "asym_stance": 0.1304956157639857,
+    "speed": 0.003011867182043076,
+    "height": 0.024105427563961845,
+    "orient": 0.4062187326802539,
+    "lateral": 0.023761424610856296,
+    "rhythm": 0.7071661185234893,
+    "reach": 0.17000205451233175,
+    "pose_phase": 0.820556619549539
+   },
+   "state": {
+    "freq": 0.8387344761113622,
+    "duty": 0.5533289892736029,
+    "phase0": 0.7206256333523747,
+    "phase_r": 3.050594009937897,
+    "hip_off": -0.1281882973560362,
+    "hip_amp": 0.28922012741875114,
+    "knee_off": 0.16187488251080995,
+    "knee_amp": 0.5547988353840296,
+    "knee_lag": 0.4241153850188944,
+    "ankle_amp": 0.2655972230536822,
+    "ankle_lag": -0.9571733831831253,
+    "sway_amp": 0.05555555555555555,
+    "sway_lag": -2.4888888888888894,
+    "abd_off": 1.3877787807814457e-17,
+    "abd_amp": 0.15,
+    "abd_lag": -1.0666666666666669,
+    "ankle_x_amp": 0.08333333333333333,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.25,
+    "arm_lag": 2.133333333333333,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.0,
+    "weak_scale": 1.0,
+    "weak_lag": 0.0,
+    "weak_roll": 0.0
+   },
+   "seconds": 133.9716899394989
+  },
+  {
+   "case": "locked_knee_right_s0",
+   "morph": "locked_knee_right",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "transfer",
+   "designed": "stiff",
+   "designed_sign": 1,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.24414452259018035,
+    "coupling": 0.1357525050791892,
+    "travel": 0.6731666070011064,
+    "stance": 0.23483358954020886,
+    "joint_stats": 0.3048504975247226,
+    "asym_joints": 0.4836593667485323,
+    "asym_stance": 0.4490405577396788,
+    "speed": 0.24871313714277907,
+    "height": 0.011460533738183247,
+    "orient": 0.2726908941489597,
+    "lateral": 0.6245666270045276,
+    "rhythm": 0.4813800809527311,
+    "reach": 0.10701996483606425,
+    "pose_phase": 0.7763608192922371
+   },
+   "e_v0": 0.629010470854432,
+   "e_v0_heldout": 0.7892649711355098,
+   "e_v0_heldout_runs": [
+    0.7210899935016413,
+    0.8574399487693781
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.4137687104815231,
+    "coupling": 0.7101966851609983,
+    "travel": 0.5520361728653359,
+    "stance": 0.7922467258468222,
+    "joint_stats": 0.6123541567886351,
+    "asym_joints": 0.8390856154665788,
+    "asym_stance": 1.1878950726415338,
+    "speed": 0.07184863738779286,
+    "height": 0.018795676290835336,
+    "orient": 0.3093362317695102,
+    "lateral": 0.012517602027444629,
+    "rhythm": 0.17391118582693843,
+    "reach": 0.12344837029964491,
+    "pose_phase": 1.137626054365373
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.629010470854432,
+     "e_before_heldout": 0.7892649711355098,
+     "e_before_heldout_runs": [
+      0.7210899935016413,
+      0.8574399487693781
+     ],
+     "drops": {
+      "rhythm": 0.2321090652663968,
+      "legs": 0.15221633015325658,
+      "lateral": 0.08072121102027069,
+      "torso": 0.09619173524345331,
+      "arms": 0.05251846437411118,
+      "stiff": 0.06879946744146148,
+      "limp": 0.06444810121950617,
+      "hold": 0.19921940058264503,
+      "vault": 0.0,
+      "weak": 0.24291451470172645
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "weak",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.6877342003880337,
+      0.8073484185979065
+     ],
+     "side": 1,
+     "dead": false,
+     "drop_rel": 0.24291451470172645,
+     "e_after": 0.47621469758452317,
+     "e_after_heldout": 0.7475413094929702,
+     "oracle": "weak",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.47621469758452317,
+     "e_before_heldout": 0.7475413094929702,
+     "e_before_heldout_runs": [
+      0.6877342003880337,
+      0.8073484185979065
+     ],
+     "drops": {
+      "rhythm": 0.03353825557070235,
+      "legs": 0.03183625764393379,
+      "lateral": 0.0027368707326171685,
+      "torso": 0.006544121194020162,
+      "arms": 0.03490750444228704,
+      "stiff": 0.04427500911997276,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "stiff",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.6495544943704656,
+      0.7296544390340937
+     ],
+     "side": 1,
+     "dead": false,
+     "drop_rel": 0.04427500911997276,
+     "e_after": 0.45513028750590334,
+     "e_after_heldout": 0.6896044667022796,
+     "oracle": "stiff",
+     "value": 1.0
+    },
+    {
+     "t": 2,
+     "e_before": 0.45513028750590334,
+     "e_before_heldout": 0.6896044667022796,
+     "e_before_heldout_runs": [
+      0.6495544943704656,
+      0.7296544390340937
+     ],
+     "drops": {
+      "rhythm": 0.020602858261796565,
+      "legs": -0.07937680814170309,
+      "lateral": 0.00507675511975833,
+      "torso": 0.006688321047846121,
+      "arms": 0.038422835888729495,
+      "stiff": 0.002074649548285609,
+      "limp": 0.011893049679399203,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.6348509991068962,
+      0.7122253105971932
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.038422835888729495,
+     "e_after": 0.43764289116107374,
+     "e_after_heldout": 0.6735381548520447,
+     "oracle": "arms",
+     "value": 1.0
+    },
+    {
+     "t": 3,
+     "e_before": 0.43764289116107374,
+     "e_before_heldout": 0.6735381548520447,
+     "e_before_heldout_runs": [
+      0.6348509991068962,
+      0.7122253105971932
+     ],
+     "drops": {
+      "rhythm": 0.021864822510590926,
+      "legs": -0.01696254306620091,
+      "lateral": 0.005489814476919285,
+      "torso": 0.007331849398348246,
+      "arms": 0.0,
+      "stiff": 0.002130633894066281,
+      "limp": 0.011817895957894274,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "rhythm",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.6216487761529613,
+      0.6923193048560485
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.021864822510590926,
+     "e_after": 0.428073907022815,
+     "e_after_heldout": 0.6569840405045049,
+     "oracle": "rhythm",
+     "value": 1.0
+    },
+    {
+     "t": 4,
+     "e_before": 0.428073907022815,
+     "e_before_heldout": 0.6569840405045049,
+     "e_before_heldout_runs": [
+      0.6216487761529613,
+      0.6923193048560485
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.029542070781980567,
+      "lateral": 0.0062006354930307355,
+      "torso": 0.0022242018627985504,
+      "arms": 3.3195908570093493e-06,
+      "stiff": 0.028585060439886126,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.007874242419197522
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "legs": "held-out 0.7417 >= 0.6570 (0 of 2 runs lower)"
+     },
+     "pick": "stiff",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.6017201635111873,
+      0.6683347244105922
+     ],
+     "side": 1,
+     "dead": false,
+     "drop_rel": 0.028585060439886126,
+     "e_after": 0.41583738851782964,
+     "e_after_heldout": 0.6350274439608897,
+     "oracle": "legs",
+     "value": 0.967605170634207
+    },
+    {
+     "t": 5,
+     "e_before": 0.41583738851782964,
+     "e_before_heldout": 0.6350274439608897,
+     "e_before_heldout_runs": [
+      0.6017201635111873,
+      0.6683347244105922
+     ],
+     "drops": {
+      "rhythm": 0.035560553252256044,
+      "legs": 0.04109678856602276,
+      "lateral": -0.011145736346469249,
+      "torso": 0.013568441772611815,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.017738030288271738,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "legs": "held-out 0.6605 >= 0.6350 (0 of 2 runs lower)",
+      "rhythm": "held-out 0.6708 >= 0.6350 (0 of 2 runs lower)",
+      "limp": "held-out 0.6478 >= 0.6350 (0 of 2 runs lower)",
+      "torso": "held-out 0.6404 >= 0.6350 (0 of 2 runs lower)",
+      "arms": "spent",
+      "stiff": "spent",
+      "hold": "spent",
+      "vault": "spent",
+      "weak": "spent",
+      "lateral": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.41583738851782964,
+     "e_after_heldout": 0.6350274439608897
+    }
+   ],
+   "added": [
+    [
+     "weak",
+     1
+    ],
+    [
+     "stiff",
+     1
+    ],
+    [
+     "arms",
+     0
+    ],
+    [
+     "rhythm",
+     0
+    ],
+    [
+     "stiff",
+     1
+    ]
+   ],
+   "active": [
+    "stiff",
+    "weak"
+   ],
+   "e_final": 0.41583738851782964,
+   "e_final_heldout": 0.6350274439608897,
+   "e_final_heldout_runs": [
+    0.6017201635111873,
+    0.6683347244105922
+   ],
+   "per_consumer": {
+    "contact_t": 0.38860890479427246,
+    "coupling": 0.6522986916624165,
+    "travel": 0.47035437187539375,
+    "stance": 0.3570957431827793,
+    "joint_stats": 0.5446212240557106,
+    "asym_joints": 0.5291219805638244,
+    "asym_stance": 0.2734250359245922,
+    "speed": 0.25472268401886083,
+    "height": 0.022766619647546078,
+    "orient": 0.3791138958070614,
+    "lateral": 0.014228940386516363,
+    "rhythm": 0.4580289968999247,
+    "reach": 0.07157704351184489,
+    "pose_phase": 0.6481049265200193
+   },
+   "state": {
+    "freq": 0.8333333333333333,
+    "duty": 0.5444444444444444,
+    "phase0": -1.4222222222222225,
+    "phase_r": 3.1500000000000004,
+    "hip_off": -0.1281882973560362,
+    "hip_amp": 0.28922012741875114,
+    "knee_off": 0.16187488251080995,
+    "knee_amp": 0.5547988353840296,
+    "knee_lag": 0.4241153850188944,
+    "ankle_amp": 0.2655972230536822,
+    "ankle_lag": -0.9571733831831253,
+    "sway_amp": 0.08587483886181307,
+    "sway_lag": -1.7432767999311587,
+    "abd_off": -0.011618892678792292,
+    "abd_amp": 0.249163476745574,
+    "abd_lag": -1.020845553652837,
+    "ankle_x_amp": 0.08135591208854201,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.41666666666666663,
+    "arm_lag": -0.7111111111111112,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 1.0,
+    "stiff_knee": 0.0,
+    "stiff_lift": 0.08333333333333333,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.888888888888889,
+    "weak_scale": 0.2777777777777778,
+    "weak_lag": 0.3333333333333333,
+    "weak_roll": 0.04444444444444445
+   },
+   "seconds": 260.60665702819824
+  },
+  {
+   "case": "short_shank_right_s0",
+   "morph": "short_shank_right",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "transfer",
+   "designed": null,
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.5140696880428235,
+    "coupling": 0.11776977541205401,
+    "travel": 1.2048403726632426,
+    "stance": 0.47704794532721334,
+    "joint_stats": 0.33405244207278545,
+    "asym_joints": 0.6414438949550526,
+    "asym_stance": 0.7029556800454286,
+    "speed": 0.03893275440977355,
+    "height": 0.04909836058922377,
+    "orient": 0.5605344512630801,
+    "lateral": 0.21207247570559518,
+    "rhythm": 0.32970607571883104,
+    "reach": 0.05023987391669355,
+    "pose_phase": 0.8681465534915098
+   },
+   "e_v0": 0.933583205289794,
+   "e_v0_heldout": 1.0202518177625355,
+   "e_v0_heldout_runs": [
+    1.0070431786578644,
+    1.0334604568672063
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.8822758322152096,
+    "coupling": 0.4904729550240112,
+    "travel": 0.9565180277986981,
+    "stance": 1.3871120985444203,
+    "joint_stats": 0.603450054206174,
+    "asym_joints": 0.5260691797804604,
+    "asym_stance": 2.124251191817464,
+    "speed": 1.1150336229062703,
+    "height": 0.10659305044362392,
+    "orient": 0.6920765459430243,
+    "lateral": 0.13623145784492724,
+    "rhythm": 0.45212931103095455,
+    "reach": 0.12554126779299593,
+    "pose_phase": 1.1038065627106504
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.933583205289794,
+     "e_before_heldout": 1.0202518177625355,
+     "e_before_heldout_runs": [
+      1.0070431786578644,
+      1.0334604568672063
+     ],
+     "drops": {
+      "rhythm": 0.08445246926341349,
+      "legs": 0.39431060735159584,
+      "lateral": 0.28406502102403913,
+      "torso": 0.3445771433921239,
+      "arms": 0.015174281903563434,
+      "stiff": 0.004806144466810541,
+      "limp": 0.4223841877885742,
+      "hold": 0.40970904233759736,
+      "vault": 0.3568829857531071,
+      "weak": 0.33049328523737787
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": 1,
+      "hold": -1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "limp",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.49315970586696867,
+      0.462468559924841
+     ],
+     "side": 1,
+     "dead": false,
+     "drop_rel": 0.4223841877885742,
+     "e_after": 0.5392524213904106,
+     "e_after_heldout": 0.4778141328959048,
+     "oracle": "limp",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.5392524213904106,
+     "e_before_heldout": 0.4778141328959048,
+     "e_before_heldout_runs": [
+      0.49315970586696867,
+      0.462468559924841
+     ],
+     "drops": {
+      "rhythm": 0.022427627308245032,
+      "legs": 0.0005114466015280125,
+      "lateral": 0.01739111812121068,
+      "torso": 0.02605807712861525,
+      "arms": 0.01817312321845243,
+      "stiff": 0.0,
+      "limp": 2.0588188028206773e-16,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.04816302918606431
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "weak": "guard: speed",
+      "torso": "guard: speed",
+      "rhythm": "held-out 0.4824 >= 0.4778 (1 of 2 runs lower)"
+     },
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.4755477418698919,
+      0.4540740004819323
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.01817312321845243,
+     "e_after": 0.5294525206906339,
+     "e_after_heldout": 0.46481087117591213,
+     "oracle": "weak",
+     "value": 0.3773251708949966
+    },
+    {
+     "t": 2,
+     "e_before": 0.5294525206906339,
+     "e_before_heldout": 0.46481087117591213,
+     "e_before_heldout_runs": [
+      0.4755477418698919,
+      0.4540740004819323
+     ],
+     "drops": {
+      "rhythm": 0.02805780953434124,
+      "legs": -0.00025880657000531697,
+      "lateral": 0.01806051486880731,
+      "torso": 0.026827471777570725,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.05529764381517953
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "weak": "guard: speed",
+      "rhythm": "held-out 0.4689 >= 0.4648 (1 of 2 runs lower)",
+      "torso": "guard: speed"
+     },
+     "pick": "lateral",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.4548995218643,
+      0.4678023169601953
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.01806051486880731,
+     "e_after": 0.5198903355683732,
+     "e_after_heldout": 0.46135091941224765,
+     "oracle": "weak",
+     "value": 0.3266055047330894
+    },
+    {
+     "t": 3,
+     "e_before": 0.5198903355683732,
+     "e_before_heldout": 0.46135091941224765,
+     "e_before_heldout_runs": [
+      0.4548995218643,
+      0.4678023169601953
+     ],
+     "drops": {
+      "rhythm": -0.011214970226945415,
+      "legs": -0.034747703395690256,
+      "lateral": 0.0,
+      "torso": 0.017808349991083473,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.03907627795944127
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {},
+     "pick": "weak",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.4493161158157823,
+      0.47313262397678363
+     ],
+     "side": -1,
+     "dead": false,
+     "drop_rel": 0.03907627795944127,
+     "e_after": 0.4995749563072762,
+     "e_after_heldout": 0.46122436989628296,
+     "oracle": "weak",
+     "value": 1.0
+    },
+    {
+     "t": 4,
+     "e_before": 0.4995749563072762,
+     "e_before_heldout": 0.46122436989628296,
+     "e_before_heldout_runs": [
+      0.4493161158157823,
+      0.47313262397678363
+     ],
+     "drops": {
+      "rhythm": -0.01221836236412627,
+      "legs": -0.03667046400075333,
+      "lateral": 0.0005745964934575165,
+      "torso": 0.015457407337372834,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 2.222335228394207e-16,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.007941456181600668
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {
+      "torso": "guard: speed",
+      "weak": "spent",
+      "lateral": "spent",
+      "limp": "spent",
+      "arms": "spent",
+      "stiff": "spent",
+      "hold": "spent",
+      "vault": "spent",
+      "rhythm": "spent",
+      "legs": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.4995749563072762,
+     "e_after_heldout": 0.46122436989628296
+    }
+   ],
+   "added": [
+    [
+     "limp",
+     1
+    ],
+    [
+     "arms",
+     0
+    ],
+    [
+     "lateral",
+     0
+    ],
+    [
+     "weak",
+     -1
+    ]
+   ],
+   "active": [
+    "limp",
+    "weak"
+   ],
+   "e_final": 0.4995749563072762,
+   "e_final_heldout": 0.46122436989628296,
+   "e_final_heldout_runs": [
+    0.4493161158157823,
+    0.47313262397678363
+   ],
+   "per_consumer": {
+    "contact_t": 0.5251868098752865,
+    "coupling": 0.5689009398006412,
+    "travel": 0.5038726438935401,
+    "stance": 0.6628559729097776,
+    "joint_stats": 0.5279697902189736,
+    "asym_joints": 0.5090365961068947,
+    "asym_stance": 0.8537502516153468,
+    "speed": 0.16213909967389586,
+    "height": 0.06483281064163164,
+    "orient": 0.4426966850554816,
+    "lateral": 0.005625235345510584,
+    "rhythm": 0.40904251446226975,
+    "reach": 0.09732668182607278,
+    "pose_phase": 0.728878784418706
+   },
+   "state": {
+    "freq": 0.8387344761113622,
+    "duty": 0.5533289892736029,
+    "phase0": 0.7206256333523747,
+    "phase_r": 3.050594009937897,
+    "hip_off": -0.1281882973560362,
+    "hip_amp": 0.28922012741875114,
+    "knee_off": 0.16187488251080995,
+    "knee_amp": 0.5547988353840296,
+    "knee_lag": 0.4241153850188944,
+    "ankle_amp": 0.2655972230536822,
+    "ankle_lag": -0.9571733831831253,
+    "sway_amp": 0.07777777777777778,
+    "sway_lag": 2.488888888888888,
+    "abd_off": -0.1,
+    "abd_amp": 0.25,
+    "abd_lag": -1.0666666666666669,
+    "ankle_x_amp": 0.1,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.3333333333333333,
+    "arm_lag": 3.2,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 1.0,
+    "limp_lift": 0.5555555555555556,
+    "limp_sink": 0.3555555555555556,
+    "limp_duty": 0.09722222222222221,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": -0.6666666666666667,
+    "weak_scale": 0.9722222222222222,
+    "weak_lag": 0.0,
+    "weak_roll": 0.4
+   },
+   "seconds": 219.8779661655426
+  },
+  {
+   "case": "stump_right_s0",
+   "morph": "stump_right",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "transfer",
+   "designed": "limp",
+   "designed_sign": 1,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.4772358448893513,
+    "coupling": 0.05780422709196545,
+    "travel": 0.5384536236575841,
+    "stance": 0.6595346316443742,
+    "joint_stats": 0.3651990074416962,
+    "asym_joints": 0.6237970309039423,
+    "asym_stance": 0.6368486595927821,
+    "speed": 0.398133207612136,
+    "height": 0.12442586488527942,
+    "orient": 0.4764874139489553,
+    "lateral": 1.3582642836808767,
+    "rhythm": 0.5482687056876356,
+    "reach": 0.11097935417632344,
+    "pose_phase": 1.1098203560496764
+   },
+   "e_v0": 0.7458015848978284,
+   "e_v0_heldout": 0.8160832079193329,
+   "e_v0_heldout_runs": [
+    0.8223071413029098,
+    0.8098592745357559
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.11855447212284342,
+    "coupling": 0.3213248955327724,
+    "travel": 1.0010793233418513,
+    "stance": 1.657932022788077,
+    "joint_stats": 0.5981587061002847,
+    "asym_joints": 0.26283034223634244,
+    "asym_stance": 0.0,
+    "speed": 1.1417608265856962,
+    "height": 0.02050823495472457,
+    "orient": 0.4552210733299757,
+    "lateral": 0.3355967890192408,
+    "rhythm": 0.2770586565539402,
+    "reach": 0.17981141381819524,
+    "pose_phase": 1.326280410743754
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.7458015848978284,
+     "e_before_heldout": 0.8160832079193329,
+     "e_before_heldout_runs": [
+      0.8223071413029098,
+      0.8098592745357559
+     ],
+     "drops": {
+      "rhythm": 0.08992272322614539,
+      "legs": 0.34900275409470316,
+      "lateral": 0.013974519323141863,
+      "torso": 0.12962983492083868,
+      "arms": 0.03854499095514482,
+      "stiff": 0.011767787511664596,
+      "limp": 0.06479990058036021,
+      "hold": 0.002034644636194751,
+      "vault": 0.46030400482807265,
+      "weak": 0.018045011288120662
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "vault",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.47815862806957965,
+      0.9671652241700327
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.46030400482807265,
+     "e_after": 0.40250612856223417,
+     "e_after_heldout": 0.7226619261198062,
+     "oracle": "vault",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.40250612856223417,
+     "e_before_heldout": 0.7226619261198062,
+     "e_before_heldout_runs": [
+      0.47815862806957965,
+      0.9671652241700327
+     ],
+     "drops": {
+      "rhythm": 0.12999940987846548,
+      "legs": 0.06006129854893807,
+      "lateral": 0.04671980839732512,
+      "torso": -0.4752362615695776,
+      "arms": 0.0809847785675594,
+      "stiff": 0.002652870255899823,
+      "limp": 0.040748464828025494,
+      "hold": 0.04763950061917114,
+      "vault": 0.0,
+      "weak": 0.08746017522094304
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": 1,
+      "hold": -1,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {},
+     "pick": "rhythm",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.5070647384155635,
+      0.8832120601721385
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.12999940987846548,
+     "e_after": 0.35018056937667796,
+     "e_after_heldout": 0.695138399293851,
+     "oracle": "rhythm",
+     "value": 1.0
+    },
+    {
+     "t": 2,
+     "e_before": 0.35018056937667796,
+     "e_before_heldout": 0.695138399293851,
+     "e_before_heldout_runs": [
+      0.5070647384155635,
+      0.8832120601721385
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.02356674693409571,
+      "lateral": 0.029184813064026236,
+      "torso": -0.09044982179355936,
+      "arms": 0.09368977384767169,
+      "stiff": 0.018608236264680708,
+      "limp": 0.004093468882149696,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0030131465723413488
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {},
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.48958311500902124,
+      0.88137649997858
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.09368977384767169,
+     "e_after": 0.3173722310259281,
+     "e_after_heldout": 0.6854798074938007,
+     "oracle": "arms",
+     "value": 1.0
+    },
+    {
+     "t": 3,
+     "e_before": 0.3173722310259281,
+     "e_before_heldout": 0.6854798074938007,
+     "e_before_heldout_runs": [
+      0.48958311500902124,
+      0.88137649997858
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.0306880461373848,
+      "lateral": 0.03568126185967794,
+      "torso": -0.08768425148463868,
+      "arms": 0.0,
+      "stiff": 0.022701236311300308,
+      "limp": 0.004985766480527997,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.004172595830038564
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {},
+     "pick": "lateral",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.4330503411414832,
+      0.889743050452718
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.03568126185967794,
+     "e_after": 0.30604798934370175,
+     "e_after_heldout": 0.6613966957971006,
+     "oracle": "lateral",
+     "value": 1.0
+    },
+    {
+     "t": 4,
+     "e_before": 0.30604798934370175,
+     "e_before_heldout": 0.6613966957971006,
+     "e_before_heldout_runs": [
+      0.4330503411414832,
+      0.889743050452718
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.03345319175879557,
+      "lateral": 0.0,
+      "torso": -0.08069207112020972,
+      "arms": 0.0,
+      "stiff": 0.02443405270967827,
+      "limp": 0.0053553377832515426,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.004534433061180906
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {},
+     "pick": "legs",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.43490692615765675,
+      0.859530412505988
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.03345319175879557,
+     "e_after": 0.2958097072687931,
+     "e_after_heldout": 0.6472186693318224,
+     "oracle": "legs",
+     "value": 1.0
+    },
+    {
+     "t": 5,
+     "e_before": 0.2958097072687931,
+     "e_before_heldout": 0.6472186693318224,
+     "e_before_heldout_runs": [
+      0.43490692615765675,
+      0.859530412505988
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.0,
+      "lateral": 0.0004564629628018136,
+      "torso": -0.0682323723623116,
+      "arms": 0.0,
+      "stiff": 0.005550362469606241,
+      "limp": 0.004204761624113231,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.018571072756879258
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 1,
+      "limp": 1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {},
+     "pick": "weak",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.42047641191395324,
+      0.8540518388068958
+     ],
+     "side": -1,
+     "dead": false,
+     "drop_rel": 0.018571072756879258,
+     "e_after": 0.29031620367291316,
+     "e_after_heldout": 0.6372641253604245,
+     "oracle": "weak",
+     "value": 1.0
+    }
+   ],
+   "added": [
+    [
+     "vault",
+     0
+    ],
+    [
+     "rhythm",
+     0
+    ],
+    [
+     "arms",
+     0
+    ],
+    [
+     "lateral",
+     0
+    ],
+    [
+     "legs",
+     0
+    ],
+    [
+     "weak",
+     -1
+    ]
+   ],
+   "active": [
+    "vault",
+    "weak"
+   ],
+   "e_final": 0.29031620367291316,
+   "e_final_heldout": 0.6372641253604245,
+   "e_final_heldout_runs": [
+    0.42047641191395324,
+    0.8540518388068958
+   ],
+   "per_consumer": {
+    "contact_t": 0.09218747177761137,
+    "coupling": 0.14882214059242616,
+    "travel": 0.27901423441308026,
+    "stance": 0.22487018382923724,
+    "joint_stats": 0.5066220768097701,
+    "asym_joints": 0.22933854004036,
+    "asym_stance": 0.0,
+    "speed": 0.014381257512668458,
+    "height": 0.0387512777254919,
+    "orient": 0.4284909284346996,
+    "lateral": 0.0023716661697781335,
+    "rhythm": 0.25014725520575853,
+    "reach": 0.18021617320510427,
+    "pose_phase": 0.6567150644473985
+   },
+   "state": {
+    "freq": 0.47222222222222227,
+    "duty": 0.3,
+    "phase0": -3.0222222222222226,
+    "phase_r": 3.85,
+    "hip_off": -0.1333333333333333,
+    "hip_amp": 0.5,
+    "knee_off": 0.16666666666666666,
+    "knee_amp": 0.39999999999999997,
+    "knee_lag": 1.777777777777777,
+    "ankle_amp": 0.38888888888888884,
+    "ankle_lag": -0.3555555555555555,
+    "sway_amp": 0.06666666666666667,
+    "sway_lag": 2.488888888888888,
+    "abd_off": -0.033333333333333326,
+    "abd_amp": 0.18333333333333332,
+    "abd_lag": -0.3555555555555555,
+    "ankle_x_amp": 0.08333333333333333,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.25,
+    "arm_lag": 3.2,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.016666666666666666,
+    "vault_lag": -1.0666666666666669,
+    "weak_side": -0.33333333333333337,
+    "weak_scale": 0.33333333333333337,
+    "weak_lag": 0.3333333333333333,
+    "weak_roll": -0.4
+   },
+   "seconds": 216.26912593841553
+  },
+  {
+   "case": "nolegs_s1",
+   "morph": "nolegs",
+   "seed": 1,
+   "heldout_seeds": [
+    0,
+    2
+   ],
+   "group": "transfer",
+   "designed": "vault",
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "torso",
+    "arms",
+    "vault"
+   ],
+   "tolerance": {
+    "contact_t": 0.44423258409421784,
+    "coupling": 0.47411256394597384,
+    "travel": 0.40298424526078475,
+    "stance": 0.33209435554559213,
+    "joint_stats": 0.30015197646713976,
+    "asym_joints": 0.3862077133056107,
+    "asym_stance": 0.1058833080628356,
+    "speed": 0.14144044125935867,
+    "height": 0.417986068051165,
+    "orient": 0.4762302632320952,
+    "lateral": 0.7482072600106947,
+    "rhythm": 0.2736987357561261,
+    "reach": 0.3834786425466621,
+    "pose_phase": 0.5248776190022955
+   },
+   "e_v0": 0.7259900561653511,
+   "e_v0_heldout": 0.7969825430318775,
+   "e_v0_heldout_runs": [
+    0.885038469491413,
+    0.708926616572342
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.40159087008679856,
+    "coupling": 0.8700643111300571,
+    "travel": 0.5750135876328711,
+    "stance": 1.41579817376806,
+    "joint_stats": 0.7944225441514645,
+    "asym_joints": 0.5454746793441009,
+    "asym_stance": 0.15250097676094307,
+    "speed": 0.5136868651717452,
+    "height": 0.4464615854755459,
+    "orient": 0.9579714765375363,
+    "lateral": 0.6950872418826145,
+    "rhythm": 0.47447086355201185,
+    "reach": 0.6931879156404518,
+    "pose_phase": 0.7770800668526102
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.7259900561653511,
+     "e_before_heldout": 0.7969825430318775,
+     "e_before_heldout_runs": [
+      0.885038469491413,
+      0.708926616572342
+     ],
+     "drops": {
+      "rhythm": 0.15191185060597964,
+      "torso": 0.24086161321868224,
+      "arms": 0.2588049226382828,
+      "vault": 0.14853265189260362
+     },
+     "sides": {
+      "rhythm": 0,
+      "torso": 0,
+      "arms": 0,
+      "vault": 0
+     },
+     "rejected": {
+      "arms": "guard: asym_stance"
+     },
+     "pick": "torso",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.6511302122964688,
+      0.5317421377538887
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.24086161321868224,
+     "e_after": 0.5511269200566429,
+     "e_after_heldout": 0.5914361750251788,
+     "oracle": "arms",
+     "value": 0.9306685930210109
+    },
+    {
+     "t": 1,
+     "e_before": 0.5511269200566429,
+     "e_before_heldout": 0.5914361750251788,
+     "e_before_heldout_runs": [
+      0.6511302122964688,
+      0.5317421377538887
+     ],
+     "drops": {
+      "rhythm": 0.05233112874228623,
+      "torso": -0.018899456568679848,
+      "arms": 0.060561271796156266,
+      "vault": 0.01440925532254735
+     },
+     "sides": {
+      "rhythm": 0,
+      "torso": 0,
+      "arms": 0,
+      "vault": 0
+     },
+     "rejected": {
+      "arms": "held-out 0.6064 >= 0.5914 (1 of 2 runs lower)"
+     },
+     "pick": "rhythm",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.5960842840256051,
+      0.5064359930821373
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.05233112874228623,
+     "e_after": 0.522285826249819,
+     "e_after_heldout": 0.5512601385538711,
+     "oracle": "arms",
+     "value": 0.8641022090557816
+    },
+    {
+     "t": 2,
+     "e_before": 0.522285826249819,
+     "e_before_heldout": 0.5512601385538711,
+     "e_before_heldout_runs": [
+      0.5960842840256051,
+      0.5064359930821373
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "torso": 0.04422651405985046,
+      "arms": 0.1217053764309962,
+      "vault": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "torso": 0,
+      "arms": 0,
+      "vault": 0
+     },
+     "rejected": {},
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.5559119317809621,
+      0.4353918075015757
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.1217053764309962,
+     "e_after": 0.4587208331615109,
+     "e_after_heldout": 0.4956518696412689,
+     "oracle": "arms",
+     "value": 1.0
+    },
+    {
+     "t": 3,
+     "e_before": 0.4587208331615109,
+     "e_before_heldout": 0.4956518696412689,
+     "e_before_heldout_runs": [
+      0.5559119317809621,
+      0.4353918075015757
+     ],
+     "drops": {
+      "rhythm": 0.04388670817147652,
+      "torso": 0.06839333494159916,
+      "arms": 0.026743666287151347,
+      "vault": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "torso": 0,
+      "arms": 0,
+      "vault": 0
+     },
+     "rejected": {
+      "torso": "guard: asym_stance, speed",
+      "rhythm": "held-out 0.5190 >= 0.4957 (1 of 2 runs lower)",
+      "arms": "guard: speed",
+      "vault": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.4587208331615109,
+     "e_after_heldout": 0.4956518696412689
+    }
+   ],
+   "added": [
+    [
+     "torso",
+     0
+    ],
+    [
+     "rhythm",
+     0
+    ],
+    [
+     "arms",
+     0
+    ]
+   ],
+   "active": [],
+   "e_final": 0.4587208331615109,
+   "e_final_heldout": 0.4956518696412689,
+   "e_final_heldout_runs": [
+    0.5559119317809621,
+    0.4353918075015757
+   ],
+   "per_consumer": {
+    "contact_t": 0.6995786035311902,
+    "coupling": 0.26519604468854274,
+    "travel": 0.5846590446496169,
+    "stance": 0.6002675931750349,
+    "joint_stats": 0.5762320844985395,
+    "asym_joints": 0.560604051010732,
+    "asym_stance": 0.060510824383582504,
+    "speed": 0.004990680698645677,
+    "height": 0.4364010561272796,
+    "orient": 0.4152187701238894,
+    "lateral": 0.6486655783731445,
+    "rhythm": 0.14046567697305148,
+    "reach": 0.2682075031057458,
+    "pose_phase": 0.39845764618205837
+   },
+   "state": {
+    "freq": 0.6888888888888889,
+    "duty": 0.3,
+    "phase0": -0.711111111111111,
+    "phase_r": 3.85,
+    "hip_off": -0.1281882973560362,
+    "hip_amp": 0.28922012741875114,
+    "knee_off": 0.16187488251080995,
+    "knee_amp": 0.5547988353840296,
+    "knee_lag": 0.4241153850188944,
+    "ankle_amp": 0.2655972230536822,
+    "ankle_lag": -0.9571733831831253,
+    "sway_amp": 0.08587483886181307,
+    "sway_lag": -1.7432767999311587,
+    "abd_off": -0.011618892678792292,
+    "abd_amp": 0.249163476745574,
+    "abd_lag": -1.020845553652837,
+    "ankle_x_amp": 0.08135591208854201,
+    "lean": 0.6111111111111112,
+    "pitch_amp": 0.3333333333333333,
+    "pitch_lag": 1.0666666666666662,
+    "bob_amp": 0.03333333333333334,
+    "roll_amp": 0.11111111111111112,
+    "roll_lag": 2.133333333333333,
+    "arm_amp": 0.8333333333333334,
+    "arm_lag": 3.2,
+    "arm_off": -0.48333333333333356,
+    "elbow_off": -0.8,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.0,
+    "weak_scale": 1.0,
+    "weak_lag": 0.0,
+    "weak_roll": 0.0
+   },
+   "seconds": 37.22086238861084
+  },
+  {
+   "case": "noleg_right_s0",
+   "morph": "noleg_right",
+   "seed": 0,
+   "heldout_seeds": [
+    1,
+    2
+   ],
+   "group": "transfer",
+   "designed": null,
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.1369369509047028,
+    "coupling": 0.017780738821105434,
+    "travel": 1.9474636630970508,
+    "stance": 0.14997449181914,
+    "joint_stats": 0.5121515837153843,
+    "asym_joints": 0.1771702123193297,
+    "asym_stance": 0.0,
+    "speed": 0.25861001962590663,
+    "height": 0.06681489498328466,
+    "orient": 0.35075815772124047,
+    "lateral": 0.41311668410090246,
+    "rhythm": 0.4959297210072511,
+    "reach": 0.1571004823354228,
+    "pose_phase": 1.5466141701693816
+   },
+   "e_v0": 0.7316685566152831,
+   "e_v0_heldout": 0.73211162400876,
+   "e_v0_heldout_runs": [
+    0.7177745137520479,
+    0.7464487342654719
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.18531226031580372,
+    "coupling": 0.14604053689894328,
+    "travel": 1.0124706504720742,
+    "stance": 1.7301933798950906,
+    "joint_stats": 0.5653561650618071,
+    "asym_joints": 0.11094115548568981,
+    "asym_stance": 0.0,
+    "speed": 1.1172186201085503,
+    "height": 0.016639760924694064,
+    "orient": 0.6589064341408474,
+    "lateral": 0.15190382503885502,
+    "rhythm": 0.302920722377468,
+    "reach": 0.174994776557737,
+    "pose_phase": 1.1226768881628668
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.7316685566152831,
+     "e_before_heldout": 0.73211162400876,
+     "e_before_heldout_runs": [
+      0.7177745137520479,
+      0.7464487342654719
+     ],
+     "drops": {
+      "rhythm": 0.11328722373195606,
+      "legs": 0.31734497016631413,
+      "lateral": 0.007926438460838644,
+      "torso": 0.4574784336794262,
+      "arms": 0.05461003263941889,
+      "stiff": 0.04198252106888892,
+      "limp": 0.07763683729095035,
+      "hold": 0.0,
+      "vault": 0.11158102054205979,
+      "weak": 0.03628061032120595
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {
+      "torso": "guard: contact_t",
+      "legs": "guard: height"
+     },
+     "pick": "rhythm",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.7146376326495009,
+      0.6749326193674535
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.11328722373195606,
+     "e_after": 0.6487798571443701,
+     "e_after_heldout": 0.6947851260084772,
+     "oracle": "torso",
+     "value": 0.24763402029862908
+    },
+    {
+     "t": 1,
+     "e_before": 0.6487798571443701,
+     "e_before_heldout": 0.6947851260084772,
+     "e_before_heldout_runs": [
+      0.7146376326495009,
+      0.6749326193674535
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.09876776763542143,
+      "lateral": 0.0133358145406419,
+      "torso": 0.03780473423102769,
+      "arms": 0.03768550025267274,
+      "stiff": 0.0034378615363693838,
+      "limp": 0.006196199173798689,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.007408794447118919
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "legs": "guard: height"
+     },
+     "pick": "torso",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.7012993179102601,
+      0.6708357023398585
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.03780473423102769,
+     "e_after": 0.6242529070705831,
+     "e_after_heldout": 0.6860675101250593,
+     "oracle": "legs",
+     "value": 0.3827638827534829
+    },
+    {
+     "t": 2,
+     "e_before": 0.6242529070705831,
+     "e_before_heldout": 0.6860675101250593,
+     "e_before_heldout_runs": [
+      0.7012993179102601,
+      0.6708357023398585
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.06970476084346305,
+      "lateral": 0.012846021601248167,
+      "torso": 0.0,
+      "arms": 0.04082348377804263,
+      "stiff": 0.0017993305983602151,
+      "limp": 0.008618253684767272,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.00999182126081864
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {
+      "legs": "guard: height"
+     },
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.6950842479371752,
+      0.6610958571433838
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.04082348377804263,
+     "e_after": 0.5987687286453912,
+     "e_after_heldout": 0.6780900525402795,
+     "oracle": "legs",
+     "value": 0.585662776603172
+    },
+    {
+     "t": 3,
+     "e_before": 0.5987687286453912,
+     "e_before_heldout": 0.6780900525402795,
+     "e_before_heldout_runs": [
+      0.6950842479371752,
+      0.6610958571433838
+     ],
+     "drops": {
+      "rhythm": 0.0016710006885518969,
+      "legs": 0.09130153241801121,
+      "lateral": 0.01385428115887456,
+      "torso": 0.0,
+      "arms": 0.0,
+      "stiff": 0.0020075998528412773,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0015073322832901649
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "legs": "guard: height"
+     },
+     "pick": "lateral",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.6954388070283527,
+      0.6584304302380698
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.01385428115887456,
+     "e_after": 0.5904732183295961,
+     "e_after_heldout": 0.6769346186332112,
+     "oracle": "legs",
+     "value": 0.15174204410332004
+    },
+    {
+     "t": 4,
+     "e_before": 0.5904732183295961,
+     "e_before_heldout": 0.6769346186332112,
+     "e_before_heldout_runs": [
+      0.6954388070283527,
+      0.6584304302380698
+     ],
+     "drops": {
+      "rhythm": 0.0005378729739445443,
+      "legs": 0.017839568910512273,
+      "lateral": 0.0,
+      "torso": 0.003136596877750857,
+      "arms": 0.0,
+      "stiff": 0.0026650347283826777,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.00207329031106437
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": -1,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "legs": "guard: speed, height",
+      "torso": "spent",
+      "stiff": "spent",
+      "weak": "spent",
+      "rhythm": "spent",
+      "lateral": "spent",
+      "arms": "spent",
+      "limp": "spent",
+      "hold": "spent",
+      "vault": "spent"
+     },
+     "pick": null,
+     "dead": true,
+     "e_after": 0.5904732183295961,
+     "e_after_heldout": 0.6769346186332112
+    }
+   ],
+   "added": [
+    [
+     "rhythm",
+     0
+    ],
+    [
+     "torso",
+     0
+    ],
+    [
+     "arms",
+     0
+    ],
+    [
+     "lateral",
+     0
+    ]
+   ],
+   "active": [],
+   "e_final": 0.5904732183295961,
+   "e_final_heldout": 0.6769346186332112,
+   "e_final_heldout_runs": [
+    0.6954388070283527,
+    0.6584304302380698
+   ],
+   "per_consumer": {
+    "contact_t": 0.18531226031580372,
+    "coupling": 0.015701691938726194,
+    "travel": 0.8439332846694033,
+    "stance": 1.7301933798950906,
+    "joint_stats": 0.5421854315371968,
+    "asym_joints": 0.08157438973657417,
+    "asym_stance": 0.0,
+    "speed": 0.0742268658221341,
+    "height": 0.06605334402697478,
+    "orient": 0.17571187390898257,
+    "lateral": 0.007257379965053805,
+    "rhythm": 0.5807533364924715,
+    "reach": 0.1824937695113603,
+    "pose_phase": 0.6548611784883998
+   },
+   "state": {
+    "freq": 1.7000000000000002,
+    "duty": 0.3,
+    "phase0": 0.7111111111111107,
+    "phase_r": 2.45,
+    "hip_off": -0.1281882973560362,
+    "hip_amp": 0.28922012741875114,
+    "knee_off": 0.16187488251080995,
+    "knee_amp": 0.5547988353840296,
+    "knee_lag": 0.4241153850188944,
+    "ankle_amp": 0.2655972230536822,
+    "ankle_lag": -0.9571733831831253,
+    "sway_amp": 0.1,
+    "sway_lag": -1.0666666666666669,
+    "abd_off": 1.3877787807814457e-17,
+    "abd_amp": 0.25,
+    "abd_lag": 1.4222222222222216,
+    "ankle_x_amp": 0.03333333333333333,
+    "lean": -0.08333333333333331,
+    "pitch_amp": 0.3611111111111111,
+    "pitch_lag": 0.7111111111111107,
+    "bob_amp": 0.008333333333333333,
+    "roll_amp": 0.4,
+    "roll_lag": 2.133333333333333,
+    "arm_amp": 0.25,
+    "arm_lag": 3.2,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.0,
+    "weak_scale": 1.0,
+    "weak_lag": 0.0,
+    "weak_roll": 0.0
+   },
+   "seconds": 171.16826272010803
+  },
+  {
+   "case": "intact_s1",
+   "morph": "intact",
+   "seed": 1,
+   "heldout_seeds": [
+    0,
+    2
+   ],
+   "group": "transfer",
+   "designed": null,
+   "designed_sign": 0,
+   "candidates": [
+    "rhythm",
+    "legs",
+    "lateral",
+    "torso",
+    "arms",
+    "stiff",
+    "limp",
+    "hold",
+    "vault",
+    "weak"
+   ],
+   "tolerance": {
+    "contact_t": 0.3152924817499344,
+    "coupling": 0.10601308668240765,
+    "travel": 0.399789783735332,
+    "stance": 0.2379254140478221,
+    "joint_stats": 0.30870621007788357,
+    "asym_joints": 0.41943115682389664,
+    "asym_stance": 0.13798245022993222,
+    "speed": 0.24890319593280835,
+    "height": 0.010950726484914493,
+    "orient": 0.18802568474680234,
+    "lateral": 2.1508882550247654,
+    "rhythm": 0.25803313206203277,
+    "reach": 0.09780899831774759,
+    "pose_phase": 0.6757364732075738
+   },
+   "e_v0": 0.8794824576010115,
+   "e_v0_heldout": 0.457789450338858,
+   "e_v0_heldout_runs": [
+    0.3400345717802307,
+    0.5755443288974853
+   ],
+   "per_consumer_v0": {
+    "contact_t": 0.3634488541509744,
+    "coupling": 0.6346315637620471,
+    "travel": 0.5264622661867622,
+    "stance": 0.16637598428125883,
+    "joint_stats": 0.5678183718881674,
+    "asym_joints": 0.17233150967608293,
+    "asym_stance": 0.12981955324395333,
+    "speed": 0.1250998057045694,
+    "height": 0.013284071163010423,
+    "orient": 0.30882293572238406,
+    "lateral": 2.9221617806291347,
+    "rhythm": 0.4712985860588552,
+    "reach": 0.13845579951481493,
+    "pose_phase": 0.853619872989396
+   },
+   "steps": [
+    {
+     "t": 0,
+     "e_before": 0.8794824576010115,
+     "e_before_heldout": 0.457789450338858,
+     "e_before_heldout_runs": [
+      0.3400345717802307,
+      0.5755443288974853
+     ],
+     "drops": {
+      "rhythm": 0.08923682031528637,
+      "legs": -0.015470222729804407,
+      "lateral": 0.5468093070849644,
+      "torso": -0.010059611785140489,
+      "arms": 0.0129493229135627,
+      "stiff": 0.0,
+      "limp": 0.0,
+      "hold": 0.005714144161875071,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 1,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {},
+     "pick": "lateral",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.4064769111548838,
+      0.4616939053037794
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.5468093070849644,
+     "e_after": 0.3985732643668208,
+     "e_after_heldout": 0.4340854082293316,
+     "oracle": "lateral",
+     "value": 1.0
+    },
+    {
+     "t": 1,
+     "e_before": 0.3985732643668208,
+     "e_before_heldout": 0.4340854082293316,
+     "e_before_heldout_runs": [
+      0.4064769111548838,
+      0.4616939053037794
+     ],
+     "drops": {
+      "rhythm": 0.10854953850151221,
+      "legs": 0.030925457660279907,
+      "lateral": 1.3927464833709718e-16,
+      "torso": -0.047578700970427226,
+      "arms": 0.06322663952363299,
+      "stiff": 0.0,
+      "limp": 0.0019321840487792647,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.01155358438954414
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": -1
+     },
+     "rejected": {},
+     "pick": "rhythm",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.41940442788067744,
+      0.400032993290053
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.10854953850151221,
+     "e_after": 0.35530832046076116,
+     "e_after_heldout": 0.40971871058536524,
+     "oracle": "rhythm",
+     "value": 1.0
+    },
+    {
+     "t": 2,
+     "e_before": 0.35530832046076116,
+     "e_before_heldout": 0.40971871058536524,
+     "e_before_heldout_runs": [
+      0.41940442788067744,
+      0.400032993290053
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.02100751889442312,
+      "lateral": 0.017892411052964467,
+      "torso": 0.008376757454542989,
+      "arms": 0.044795536142245226,
+      "stiff": 0.0,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {},
+     "pick": "arms",
+     "agree": 2,
+     "e_after_heldout_runs": [
+      0.40864689184965686,
+      0.387387215944463
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.044795536142245226,
+     "e_after": 0.3393920937499207,
+     "e_after_heldout": 0.39801705389705994,
+     "oracle": "arms",
+     "value": 1.0
+    },
+    {
+     "t": 3,
+     "e_before": 0.3393920937499207,
+     "e_before_heldout": 0.39801705389705994,
+     "e_before_heldout_runs": [
+      0.40864689184965686,
+      0.387387215944463
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": 0.02334470380848396,
+      "lateral": 0.019641127110708947,
+      "torso": -0.07882002479402196,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 0
+     },
+     "rejected": {},
+     "pick": "legs",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.3952740474696802,
+      0.3950344800456779
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.02334470380848396,
+     "e_after": 0.33146908584638757,
+     "e_after_heldout": 0.39515426375767904,
+     "oracle": "legs",
+     "value": 1.0
+    },
+    {
+     "t": 4,
+     "e_before": 0.33146908584638757,
+     "e_before_heldout": 0.39515426375767904,
+     "e_before_heldout_runs": [
+      0.3952740474696802,
+      0.3950344800456779
+     ],
+     "drops": {
+      "rhythm": -0.033961813243935775,
+      "legs": 0.0,
+      "lateral": 0.018184352015760304,
+      "torso": -0.07703107816499596,
+      "arms": 0.000494027808196199,
+      "stiff": 0.0,
+      "limp": 0.0,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.015904060799169745
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {
+      "lateral": "held-out 0.3960 >= 0.3952 (1 of 2 runs lower)"
+     },
+     "pick": "weak",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.3956369784612606,
+      0.39124285561600264
+     ],
+     "side": 1,
+     "dead": false,
+     "drop_rel": 0.015904060799169745,
+     "e_after": 0.3261973813520414,
+     "e_after_heldout": 0.3934399170386316,
+     "oracle": "lateral",
+     "value": 0.8746014587369272
+    },
+    {
+     "t": 5,
+     "e_before": 0.3261973813520414,
+     "e_before_heldout": 0.3934399170386316,
+     "e_before_heldout_runs": [
+      0.3956369784612606,
+      0.39124285561600264
+     ],
+     "drops": {
+      "rhythm": 0.0,
+      "legs": -0.02476739693143947,
+      "lateral": 0.014500993916213354,
+      "torso": -0.08063343474585911,
+      "arms": 0.0,
+      "stiff": 0.0,
+      "limp": 0.004195135242647584,
+      "hold": 0.0,
+      "vault": 0.0,
+      "weak": 0.0
+     },
+     "sides": {
+      "rhythm": 0,
+      "legs": 0,
+      "lateral": 0,
+      "torso": 0,
+      "arms": 0,
+      "stiff": 0,
+      "limp": -1,
+      "hold": 0,
+      "vault": 0,
+      "weak": 1
+     },
+     "rejected": {},
+     "pick": "lateral",
+     "agree": 1,
+     "e_after_heldout_runs": [
+      0.38973791879512243,
+      0.3921155518235386
+     ],
+     "side": 0,
+     "dead": false,
+     "drop_rel": 0.014500993916213354,
+     "e_after": 0.3214671951095707,
+     "e_after_heldout": 0.39092673530933053,
+     "oracle": "lateral",
+     "value": 1.0
+    }
+   ],
+   "added": [
+    [
+     "lateral",
+     0
+    ],
+    [
+     "rhythm",
+     0
+    ],
+    [
+     "arms",
+     0
+    ],
+    [
+     "legs",
+     0
+    ],
+    [
+     "weak",
+     1
+    ],
+    [
+     "lateral",
+     0
+    ]
+   ],
+   "active": [
+    "weak"
+   ],
+   "e_final": 0.3214671951095707,
+   "e_final_heldout": 0.39092673530933053,
+   "e_final_heldout_runs": [
+    0.38973791879512243,
+    0.3921155518235386
+   ],
+   "per_consumer": {
+    "contact_t": 0.3671058180485731,
+    "coupling": 0.617379993988686,
+    "travel": 0.28755973571702853,
+    "stance": 0.2738701030277295,
+    "joint_stats": 0.48348069187280757,
+    "asym_joints": 0.17044858625422746,
+    "asym_stance": 0.04646574733212135,
+    "speed": 0.005419455460446265,
+    "height": 0.009969143682877477,
+    "orient": 0.2811376733710298,
+    "lateral": 0.006675515328813962,
+    "rhythm": 0.19874494089525718,
+    "reach": 0.1138005634640224,
+    "pose_phase": 0.6136194571916098
+   },
+   "state": {
+    "freq": 0.5444444444444445,
+    "duty": 0.5138888888888888,
+    "phase0": -3.2,
+    "phase_r": 2.8000000000000003,
+    "hip_off": -0.1333333333333333,
+    "hip_amp": 0.3888888888888889,
+    "knee_off": 0.16666666666666666,
+    "knee_amp": 0.5999999999999999,
+    "knee_lag": 0.0,
+    "ankle_amp": 0.2722222222222222,
+    "ankle_lag": -0.711111111111111,
+    "sway_amp": 0.022222222222222223,
+    "sway_lag": 3.2,
+    "abd_off": 1.3877787807814457e-17,
+    "abd_amp": 0.2583333333333333,
+    "abd_lag": 1.0666666666666662,
+    "ankle_x_amp": 0.19999999999999998,
+    "lean": 0.03187426353929379,
+    "pitch_amp": 0.28605407788123943,
+    "pitch_lag": 0.8845606920697137,
+    "bob_amp": 0.00626106651243824,
+    "roll_amp": 0.11097365070875012,
+    "roll_lag": 2.3926045328525243,
+    "arm_amp": 0.5,
+    "arm_lag": -1.7777777777777783,
+    "arm_off": 0.06666666666666626,
+    "elbow_off": -0.26666666666666683,
+    "stiff_side": 0.0,
+    "stiff_knee": 1.0,
+    "stiff_lift": 0.0,
+    "limp_side": 0.0,
+    "limp_lift": 0.0,
+    "limp_sink": 0.0,
+    "limp_duty": 0.0,
+    "hold_side": 0.0,
+    "hold_hip": 0.0,
+    "hold_amp": 0.0,
+    "vault_lift": 0.0,
+    "vault_lag": 0.0,
+    "weak_side": 0.22222222222222227,
+    "weak_scale": 0.6666666666666666,
+    "weak_lag": 0.33333333333333326,
+    "weak_roll": 0.0888888888888889
+   },
+   "seconds": 253.776118516922
+  }
+ ]
+}

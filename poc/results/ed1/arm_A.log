@@ -1,0 +1,14 @@
+[08:15:07] base step 500 loss 1.665
+[08:15:22] base step 1000 loss 1.630
+[08:15:38] base step 1500 loss 1.623
+[08:18:55] A      refine_early  truth REFINE         got EXPAND:wv@0      MISS  D 0.236 s 1.4e-01 tau 0.39 kappa 1.2e+05 lam -1.3e+00/1.3e+01 stage EXHAUSTED fits 4 [197s]
+[08:21:59] A      refine_mid    truth REFINE         got EXPAND:wv@1      MISS  D 0.300 s 1.3e-01 tau 0.38 kappa 2.2e+04 lam -1.3e+00/5.1e+01 stage EXHAUSTED fits 4 [381s]
+[08:24:53] A      saddle        truth GLOBALIZE      got EXPAND:wv@0      MISS  D 0.439 s 0.0e+00 tau 0.00 kappa inf lam -8.0e+00/8.0e+00 stage EXHAUSTED fits 4 [554s]
+[08:28:32] A      reuse         truth EXPAND:wv@0    got EXPAND:wv@0      ok  D 0.164 s 2.5e-03 tau 0.08 kappa 5.1e+04 lam -3.9e-03/3.2e+01 stage EXHAUSTED fits 4 [773s]
+[08:31:58] A      collinear     truth REPARAMETERIZE got EXPAND:wv@1      MISS  D 0.305 s 9.7e-02 tau 0.57 kappa 9.6e+07 lam -1.2e+01/2.5e+02 stage EXHAUSTED fits 4 [979s]
+[08:35:29] A      extend        truth EXPAND:w2@1    got EXPAND:w2@1      ok  D 0.197 s 4.9e-03 tau 0.04 kappa 1.5e+05 lam -4.0e-03/7.9e+01 stage EXHAUSTED fits 4 [1191s]
+[08:39:10] A      noise         truth FALLBACK       got FALLBACK         ok  D 0.441 s 1.4e-03 tau 0.00 kappa 1.4e+05 lam -1.1e-03/2.1e+01 stage EXHAUSTED fits 4 [1411s]
+[08:40:02] A      adequate      truth STOP           got STOP             ok  D 0.006 s 1.6e-02 tau 0.99 kappa 6.0e+04 lam -7.8e-04/2.4e+01 stage STOP fits 0 [1463s]
+[08:41:24] A      pair wv@1|wo@1: COLLAPSE (matched-p rule KEEP DISTINCT) align 1.000 [1546s]
+[08:43:04] A      pair wv@0|w2@1: KEEP DISTINCT (matched-p rule KEEP DISTINCT) align 0.933 [1645s]
+[08:43:04] done arm A in 1645s

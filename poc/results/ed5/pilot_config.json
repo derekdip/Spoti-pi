@@ -1,0 +1,27 @@
+{
+ "corpus_commit": "73b70e427570835c249b7948bf8cd6b4baf7f986",
+ "library": [
+  "proj@2",
+  "proj@8",
+  "v@2",
+  "o@8"
+ ],
+ "lr": 0.001,
+ "cap_full": 800,
+ "cap_half": 500,
+ "key": 0,
+ "conditions": [
+  {
+   "name": "none-32",
+   "transform": "none",
+   "seed": 0,
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96,
+   "modules": [
+    "proj@8",
+    "v@2"
+   ]
+  }
+ ]
+}

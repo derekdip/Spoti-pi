@@ -1,0 +1,12 @@
+locked_knee_left+weak_hip_right  raw clip                                                   errors 0.686 0.672 0.691  speed 0.40/0.23
+locked_knee_left+weak_hip_right  locked knee edit alone (G13 locked_knee_left_s0)           errors 0.529 0.509 0.515  speed 0.41/0.23
+locked_knee_left+weak_hip_right  weak hip edit alone (G13 weak_hip_right_s0)                errors 0.502 0.539 0.525  speed 0.41/0.23
+locked_knee_left+weak_hip_right  composed                                                   errors 0.497 0.528 0.519  speed 0.42/0.23
+locked_knee_left+noarm_right     raw clip (arm dropped)                                     errors 0.518 0.756 0.558  speed 0.40/0.41
+locked_knee_left+noarm_right     locked knee edit (G13 locked_knee_left_s0), arm dropped    errors 0.453 0.638 0.475  speed 0.41/0.41
+noarm_left                       raw clip (arm dropped)                                     errors 0.548 0.549 0.489  speed 0.40/0.41
+nolegs+noarm_left                raw crawl loop (arm dropped)                               errors 2.667 1.852 2.080  speed 0.42/0.09
+   [noarm_left_s2] t0 pick limp   side -1 (oracle lateral, value 0.76) fit 0.4886->0.4225 held-out 0.5487->0.4986 (2 of 2) rejected ['lateral', 'torso'] [58s]
+   [noarm_left_s2] t1 declined: arms spent; stiff spent; limp spent; hold spent [108s]
+noarm_left_s2                        [pilot] base intact v0 0.489/0.549 -> 0.422/0.499 added ['limp-1'] [108s]
+done: 1 cases in 111s -> poc/results/g14_pilot.json

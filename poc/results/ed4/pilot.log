@@ -1,0 +1,25 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[23:48:48] transform none: sample "consumer's threshold on amplitude, and that threshold prunes far fewer\ntok"
+[23:48:49] transform upper: sample ' FIELD FALLS FROM\n0.40 AT THE LOOSEST TH'
+[23:48:50] transform altcaps: sample ' tHrEsHoLd,\nCeRtIfIc'
+[23:48:52] transform leet: sample '7ur3 3nv3l0p3, 7hr35h0'
+[23:48:53] transform devowel: sample '0.40 at th lsst thrshld t blw 0.001'
+[23:48:54] transform reverse: sample '\nsutatS: eht ssenevil *yrenihcam'
+[00:45:34]   altcaps: scores in 3390s; base loss train 6.681 held 6.781
+[00:50:09]   altcaps fit v@2: held 6.202 gain +0.579 (train gain +0.553, |delta| 5.21); slope +0.9275 step -0.1721 line +0.1917 full +0.3245 rgn 0.0128
+[00:54:35]   altcaps fit o@2: held 6.105 gain +0.676 (train gain +0.676, |delta| 5.47); slope +0.6114 step +0.2463 line +0.2536 full +0.4437 rgn 0.0108
+[00:58:57]   altcaps fit fc@2: held 5.831 gain +0.950 (train gain +0.993, |delta| 8.91); slope +1.2077 step +0.2312 line +0.3211 full +0.5577 rgn 0.0064
+[01:03:08]   altcaps fit proj@2: held 5.720 gain +1.060 (train gain +1.056, |delta| 6.99); slope +1.3814 step +0.1871 line +0.2848 full +0.5476 rgn 0.0103
+[01:07:10]   altcaps fit v@5: held 6.184 gain +0.597 (train gain +0.577, |delta| 6.24); slope +0.8863 step +0.2062 line +0.2806 full +0.3968 rgn 0.0117
+[01:11:19]   altcaps fit o@5: held 6.012 gain +0.769 (train gain +0.738, |delta| 6.41); slope +0.5970 step +0.3626 line +0.3787 full +0.6082 rgn 0.0087
+[01:15:44]   altcaps fit fc@5: held 5.856 gain +0.925 (train gain +0.936, |delta| 9.90); slope +0.7276 step +0.3483 line +0.3480 full +0.7178 rgn 0.0041
+[01:19:41]   altcaps fit proj@5: held 5.744 gain +1.037 (train gain +1.045, |delta| 7.58); slope +0.6551 step +0.3553 line +0.3556 full +0.7856 rgn 0.0047
+[01:23:52]   altcaps fit v@8: held 6.241 gain +0.540 (train gain +0.545, |delta| 6.86); slope +0.4831 step +0.3664 line +0.5011 full +0.5825 rgn 0.0053
+[01:28:07]   altcaps fit o@8: held 6.244 gain +0.537 (train gain +0.539, |delta| 7.39); slope +0.1795 step +0.1620 line +0.4749 full +0.6085 rgn 0.0021
+[01:32:29]   altcaps fit fc@8: held 5.845 gain +0.936 (train gain +1.042, |delta| 12.21); slope +0.4138 step +0.1248 line +0.1427 full +0.9158 rgn 0.0025
+[01:36:23]   altcaps fit proj@8: held 5.696 gain +1.085 (train gain +1.118, |delta| 10.36); slope +0.4211 step +0.3449 line +0.5646 full +1.0991 rgn 0.0022
+[01:40:25]   altcaps fit v@11: held 6.289 gain +0.492 (train gain +0.524, |delta| 6.15); slope +0.6783 step +0.5388 line +0.7485 full +0.4855 rgn 0.0057
+[01:44:03]   altcaps fit o@11: held 6.160 gain +0.621 (train gain +0.619, |delta| 6.17); slope +0.6010 step +0.0256 line +0.1110 full +0.8359 rgn 0.0046
+[01:47:37]   altcaps fit fc@11: held 5.933 gain +0.848 (train gain +0.930, |delta| 10.68); slope +0.6197 step +0.2936 line +0.2934 full +1.0512 rgn 0.0033
+[01:51:17]   altcaps fit proj@11: held 5.996 gain +0.785 (train gain +0.826, |delta| 10.91); slope +0.3624 step +0.2952 line +0.4887 full +0.8409 rgn 0.0013
+[01:51:17]   altcaps: sweep best proj@8 gain +1.085; slope 5.720 hit False rho +0.16; step 6.012 hit False rho -0.00; line 5.696 hit True rho -0.09; full 5.696 hit True rho +0.49; rgn 6.105 hit False rho -0.20; gradnorm 6.105 hit False rho -0.23; trainline 5.696 hit True rho -0.16; trainslope 5.720 hit False rho +0.13; random 5.824; (3943s of fits)

@@ -1,0 +1,15 @@
+obstacle          heat wrong  1.4%  ai wrong  1.4%  no beds            glow corr 0.62
+ignition          heat wrong 18.2%  ai wrong 14.7%  ignition wrong 24.6%  glow corr 0.76
+delayed_ignition  heat wrong 18.9%  ai wrong 14.1%  ignition wrong  8.2%  glow corr 0.71
+full              heat wrong 17.1%  ai wrong 10.7%  ignition wrong  6.6%  glow corr 0.77
+windy             heat wrong  3.6%  ai wrong  1.0%  no beds            glow corr 0.86
+twin              heat wrong  9.8%  ai wrong 11.3%  no beds            glow corr 0.86
+shelf_bed         heat wrong 15.6%  ai wrong 10.3%  ignition wrong  0.0%  glow corr 0.72
+
+MEDIANS over the seven scenes, at the best-known fire state
+  heat     : decision wrong 15.6%   missed burns 29.0%   false burns 9.9%   (teacher burns 22% of probe-frames)
+  ignition : decision wrong 7.4%   missed 41.7%   false 1.4%
+  ai grid  : decision wrong 10.7%   missed hazards 40.3%   false hazards 4.6%   (teacher hazard 14% of cells)
+  visual   : rel rms 0.675   late correlation 0.76
+
+  corn shipped with: coarse-field error 0.22, late-field correlation 0.98, trail overlap 0.95

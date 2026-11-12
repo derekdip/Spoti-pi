@@ -1,0 +1,6 @@
+straight       N_sup=[14, 14, 10, 10] N_rms=[10, 8, 8, 8] N_event=4 K=0.00 turning=0.00
+s_curve        N_sup=[228, 107, 63, 51] N_rms=[92, 51, 31, 19] N_event=4 K=0.00 turning=3.60
+stop_start     N_sup=[54, 54, 34, 34] N_rms=[38, 34, 26, 26] N_event=16 K=0.00 turning=0.00
+slalom         N_sup=[None, None, 286, 74] N_rms=[286, 143, 67, 34] N_event=4 K=0.00 turning=11.99
+zigzag         N_sup=[223, 135, 135, 58] N_rms=[127, 58, 28, 24] N_event=4 K=6.92 turning=7.69
+wandering      N_sup=[None, 230, 92, 60] N_rms=[147, 66, 53, 32] N_event=12 K=1.90 turning=4.23

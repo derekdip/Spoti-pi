@@ -1,0 +1,17 @@
+1. M = t(1+2M)^2 has coefficients 2^(k-1) Cat_k: True
+2a. R_1 = 1/(1 - Phi(R_1)) equals 1 + M: True
+2b. d/ds R_s at s=1 equals 1/((1-2M)(1+M)): True
+3. D = M + R' - 1 equals sum (c1+c2)^2 / 2(k-1)! from the character data, k <= 24: True
+4a. t M' = M(1+2M)/(1-2M): True
+4b. Q = 3D - 2(tM' + 2M) equals M^2/(1+M) as series to order 96 : True
+4c. ... and equals the data's Q_k for k <= 24: True    4d. N_k = 3 L_k/(k+2): True
+5. Q = w(M+Q): True   recurrence (20) for k <= 96 : True   E = 4w(M+E): True
+6. Var(c1-c2) = 2 Q_k / N_k against (10/27)(k+2), 10/27 = 0.370370; Var(c1) = (D_k+Q_k)/(2N_k) - ((k+2)/3)^2
+   k=  2  Var(c1-c2) =     0.666667   /(k+2) = 0.166667   Var(c1) =     0.222222   /(k+2) = 0.055556
+   k=  4  Var(c1-c2) =     1.607143   /(k+2) = 0.267857   Var(c1) =     0.535714   /(k+2) = 0.089286
+   k=  8  Var(c1-c2) =     3.198026   /(k+2) = 0.319803   Var(c1) =     1.066009   /(k+2) = 0.106601
+   k= 16  Var(c1-c2) =     6.216431   /(k+2) = 0.345357   Var(c1) =     2.072144   /(k+2) = 0.115119
+   k= 32  Var(c1-c2) =    12.170010   /(k+2) = 0.357941   Var(c1) =     4.056670   /(k+2) = 0.119314
+   k= 64  Var(c1-c2) =    24.035643   /(k+2) = 0.364176   Var(c1) =     8.011881   /(k+2) = 0.121392
+   k= 96  Var(c1-c2) =    35.892079   /(k+2) = 0.366246   Var(c1) =    11.964026   /(k+2) = 0.122082
+ALL CHECKS PASS: True

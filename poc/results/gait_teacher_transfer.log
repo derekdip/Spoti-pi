@@ -1,0 +1,7 @@
+weak_hip_right s0: speed 0.76 torso z 1.09 stance foot_l 0.61, foot_r 0.55, shank_l 0.01, shank_r 0.01 airborne 0.14 [135s]
+locked_knee_right s0: speed 0.79 torso z 1.13 stance foot_l 0.60, foot_r 0.61, shank_l 0.01 airborne 0.04 [126s]
+short_shank_right s0: speed 0.75 torso z 1.06 stance foot_l 0.59, foot_r 0.28, shank_l 0.03, shank_r 0.04 airborne 0.26 [139s]
+stump_right s0: speed 0.65 torso z 0.71 stance foot_l 0.15, thigh_l 0.40, thigh_r 0.28 airborne 0.30 [127s]
+noleg_right s0: speed 0.72 torso z 0.70 stance foot_l 0.58, thigh_l 0.35, shank_l 0.04 airborne 0.29 [111s]
+intact s1: speed 0.71 torso z 1.11 stance foot_l 0.53, foot_r 0.46, shank_l 0.02 airborne 0.27 [146s]
+nolegs s1: speed 0.59 torso z 0.35 stance hand_l 0.15, hand_r 0.23, torso 0.19, pelvis 0.37 airborne 0.17 [66s]

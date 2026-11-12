@@ -1,0 +1,80 @@
+[  0.0s] built 38 cases from seed 101: 18 isolated, 8 two-missing, 8 oov, 4 control
+[  0.1s] iso_cubic_0            E0 0.279  q_perp 0.32  rgre sin2     oracle cubic    value 0.23  identity n  defer og 0.200 mag 0.185
+[  0.2s] iso_abs2_1             E0 0.414  q_perp 0.19  rgre abs2     oracle abs2     value 1.00  identity Y  defer og 0.020 mag 0.020
+[  0.4s] iso_sin1_2             E0 0.545  q_perp 0.85  rgre None     oracle sin1     value 0.00  identity n  defer og 0.445 mag 0.445
+[  0.5s] iso_abs2_3             E0 0.753  q_perp 0.48  rgre bump     oracle sin2     value 0.81  identity n  defer og 0.229 mag 0.173
+[  0.6s] iso_exp3_4             E0 0.793  q_perp 0.39  rgre exp3     oracle exp3     value 1.00  identity Y  defer og 0.041 mag 0.042
+[  0.7s] iso_abs2_5             E0 0.516  q_perp 0.30  rgre abs2     oracle abs2     value 1.00  identity Y  defer og 0.021 mag 0.021
+[  0.9s] iso_step1_6            E0 0.709  q_perp 0.13  rgre step1    oracle step1    value 1.00  identity Y  defer og 0.020 mag 0.021
+[  1.0s] iso_cubic_7            E0 0.557  q_perp 0.67  rgre None     oracle cubic    value 0.00  identity n  defer og 0.509 mag 0.428
+[  1.1s] iso_cubic_8            E0 0.393  q_perp 0.52  rgre sin1     oracle cubic    value 0.09  identity n  defer og 0.311 mag 0.280
+[  1.3s] iso_exp3_9             E0 0.638  q_perp 0.80  rgre None     oracle exp3     value 0.00  identity n  defer og 0.664 mag 0.634
+[  1.4s] iso_quad_10            E0 0.540  q_perp 0.43  rgre sin2     oracle quad     value 0.43  identity n  defer og 0.319 mag 0.314
+[  1.6s] iso_cubic_11           E0 0.442  q_perp 0.52  rgre sin2     oracle cubic    value 0.40  identity n  defer og 0.222 mag 0.215
+[  1.7s] iso_sin2_12            E0 0.496  q_perp 0.32  rgre sin2     oracle sin2     value 1.00  identity Y  defer og 0.020 mag 0.020
+[  1.8s] iso_exp3_13            E0 0.462  q_perp 0.23  rgre exp3     oracle exp3     value 1.00  identity Y  defer og 0.019 mag 0.020
+[  1.9s] iso_sin1_14            E0 0.747  q_perp 0.25  rgre step1    oracle sin1     value 0.94  identity n  defer og 0.026 mag 0.036
+[  2.2s] iso_step1_15           E0 0.721  q_perp 0.40  rgre step1    oracle step1    value 1.00  identity Y  defer og 0.020 mag 0.020
+[  2.3s] iso_exp3_16            E0 0.476  q_perp 0.62  rgre None     oracle exp3     value 0.00  identity n  defer og 0.469 mag 0.449
+[  2.5s] iso_bump_17            E0 0.298  q_perp 0.31  rgre abs2     oracle bump     value 0.26  identity n  defer og 0.148 mag 0.148
+[  2.8s] two_quad_sin2_0        E0 0.632  q_perp 0.46  rgre abs2     oracle abs2     value 1.00  2-step field 0.85 consumer 0.85  defer og 0.088 mag 0.085
+[  3.0s] two_abs2_exp3_1        E0 0.777  q_perp 0.29  rgre abs2     oracle abs2     value 1.00  2-step field 1.00 consumer 1.00  defer og 0.150 mag 0.150
+[  3.3s] two_cubic_quad_2       E0 0.539  q_perp 0.48  rgre cubic    oracle cubic    value 1.00  2-step field 1.00 consumer 0.98  defer og 0.274 mag 0.291
+[  3.5s] two_pair_exp3_3        E0 0.766  q_perp 0.73  rgre None     oracle bump     value 0.00  2-step field 2.42 consumer 0.66  defer og 0.850 mag 0.809
+[  3.8s] two_abs2_cubic_4       E0 1.056  q_perp 0.48  rgre abs2     oracle bump     value 0.81  2-step field 0.83 consumer 0.66  defer og 0.624 mag 0.655
+[  4.0s] two_abs2_sin1_5        E0 0.671  q_perp 0.35  rgre step1    oracle sin1     value 0.18  2-step field 0.81 consumer 0.32  defer og 0.337 mag 0.332
+[  4.2s] two_cubic_quad_6       E0 0.545  q_perp 0.46  rgre sin1     oracle quad     value 0.60  2-step field 0.97 consumer 0.58  defer og 0.432 mag 0.434
+[  4.5s] two_sin2_cubic_7       E0 0.968  q_perp 0.75  rgre None     oracle cubic    value 0.00  2-step field 0.98 consumer 0.53  defer og 0.929 mag 0.858
+[  4.7s] oov_prodfreq_0         E0 0.455  q_perp 0.48  rgre pair     oracle pair     value 1.00  defer og 0.092 mag 0.092
+[  4.8s] oov_xor_1              E0 0.482  q_perp 0.87  rgre None     oracle bump     value 0.00  defer og 0.289 mag 0.289
+[  4.9s] oov_spiral_2           E0 0.629  q_perp 0.93  rgre None     oracle pair     value 0.00  defer og 0.621 mag 0.624
+[  5.1s] oov_ridge_3            E0 0.329  q_perp 0.40  rgre abs2     oracle bump     value 0.51  defer og 0.208 mag 0.208
+[  5.2s] oov_prodfreq_4         E0 0.579  q_perp 0.75  rgre None     oracle pair     value 0.00  defer og 0.432 mag 0.432
+[  5.3s] oov_xor_5              E0 0.569  q_perp 0.89  rgre None     oracle bump     value 0.00  defer og 0.413 mag 0.413
+[  5.5s] oov_spiral_6           E0 0.567  q_perp 0.81  rgre None     oracle pair     value 0.00  defer og 0.494 mag 0.494
+[  5.6s] oov_ridge_7            E0 0.474  q_perp 0.54  rgre step1    oracle sin1     value 0.93  defer og 0.352 mag 0.352
+[  5.7s] ctrl_0                 E0 0.064  q_perp 0.53  rgre cubic    oracle exp3     value 0.44  defer og 0.019 mag 0.019
+[  5.8s] ctrl_1                 E0 0.073  q_perp 0.62  rgre None     oracle bump     value 0.00  defer og 0.019 mag 0.019
+[  5.9s] ctrl_2                 E0 0.052  q_perp 0.55  rgre pair     oracle sin2     value 0.54  defer og 0.018 mag 0.018  DECLINED
+[  6.0s] ctrl_3                 E0 0.064  q_perp 0.58  rgre pair     oracle pair     value 1.00  defer og 0.020 mag 0.020
+
+summary:
+  value_rgre               0.701
+  value_mean_rgre          0.567
+  value_random             0.347
+  value_cheapest           0.110
+  value_gradnorm           0.764
+  value_mp_value           1.000
+  value_rgre_nogate        0.877
+  value_rgre_value         1.000
+  value_rgre_notabstained  0.971
+  identity_nogate          0.500
+  identity_value           0.833
+  identity_mp              0.833
+  ctrl_declined_or_abstained 0.500
+  q_perp_auc               0.837
+  q_perp_value_auc         0.990
+  search_fraction          0.100
+  identity                 0.389
+  oracle_identity          0.944
+  two_step_recovery_consumer 0.657
+  two_step_recovery_field  0.977
+  two_step_found_field     1.250
+  oov_abstain              0.625
+  known_false_abstain      0.231
+  ctrl_abstain             0.250
+  q_perp_known             0.442
+  q_perp_oov               0.780
+  defer_oov_orth           0.405
+  defer_oov_mag            0.382
+  defer_oov_random         0.429
+  defer_oov_orth_global    0.382
+  defer_oov_orth_wins      0.250
+  defer_oov_orthg_wins     0.250
+  defer_iso_orth           0.178
+  defer_iso_mag            0.160
+  defer_iso_random         0.184
+  defer_iso_orth_global    0.174
+  defer_iso_orth_wins      0.389
+  defer_iso_orthg_wins     0.389
+[  6.0s] wrote poc/results/rgre_ml1_seed101.json

@@ -1,0 +1,10 @@
+[06:56:32] base step 500 loss 1.665
+[06:57:02] base step 1000 loss 1.630
+[06:57:28] base step 1500 loss 1.623
+[06:58:39] noise 0.0   full   refine_early  truth REFINE         got REFINE           ok  D 0.238 s 1.8e-01 tau 0.40 kappa 1.0e+05 lam -1.3e+00/1.5e+01 stage REFINE fits 0 [70s]
+[07:20:32] noise 0.0   full   reuse         truth EXPAND:wv@0    got EXPAND:wv@0      ok  D 0.151 s 1.4e-03 tau 0.03 kappa 3.0e+04 lam -1.8e-03/2.4e+01 stage GLOBALIZE fits 12 [1383s]
+[07:42:54] noise 0.0   full   extend        truth EXPAND:w2@1    got EXPAND:w2@1      ok  D 0.119 s 2.2e-03 tau 0.06 kappa 1.6e+05 lam -4.1e-03/3.5e+01 stage GLOBALIZE fits 12 [2725s]
+[07:44:15] noise 0.0   full   adequate      truth STOP           got STOP             ok  D 0.007 s 1.2e-02 tau 0.98 kappa 6.6e+04 lam -5.6e-04/5.5e+01 stage STOP fits 0 [2806s]
+[07:44:44] noise 0.01  full   refine_early  truth REFINE         got REFINE           ok  D 0.239 s 1.8e-01 tau 0.40 kappa 1.0e+05 lam -1.3e+00/1.5e+01 stage REFINE fits 0 [2835s]
+[07:59:23] noise 0.01  full   reuse         truth EXPAND:wv@0    got EXPAND:wv@0      ok  D 0.152 s 1.4e-03 tau 0.03 kappa 3.0e+04 lam -1.8e-03/2.4e+01 stage GLOBALIZE fits 12 [3714s]
+[08:14:19] noise 0.01  full   extend        truth EXPAND:w2@1    got EXPAND:w2@1      ok  D 0.119 s 2.2e-03 tau 0.06 kappa 1.6e+05 lam -4.1e-03/3.5e+01 stage GLOBALIZE fits 12 [4610s]

@@ -1,0 +1,226 @@
+<title>Damaged Gait Player</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600&display=swap">
+<style>
+  /* layout: one viewport-width stage (the 3D canvas) with a control strip under it, the notes below in a single measure */
+  :root {
+    --bg: #eef0f3; --fg: #1c2230; --muted: #5b6474; --line: #cfd4dc; --panel: #f8f9fb;
+    --canvas: #dfe3e9; --floor: #c9ced6; --grid: #b3bac5;
+    --student: #0f766e; --teacher: #8a6d4a; --accent: #0f766e;
+    --display: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+    --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #14171c; --fg: #e6e9ef; --muted: #98a1b1; --line: #2b313b; --panel: #1b1f26;
+    --canvas: #1d2129; --floor: #262b34; --grid: #3a414d;
+    --student: #3dd6c4; --teacher: #d2a978; --accent: #3dd6c4; color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --bg: #14171c; --fg: #e6e9ef; --muted: #98a1b1; --line: #2b313b; --panel: #1b1f26;
+    --canvas: #1d2129; --floor: #262b34; --grid: #3a414d;
+    --student: #3dd6c4; --teacher: #d2a978; --accent: #3dd6c4; color-scheme: dark }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); margin: 0; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding-block: 20px 40px; padding-inline: 16px; display: grid; gap: 14px; }
+  h1 { font-family: var(--display); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2.1rem); margin: 0; letter-spacing: 0.01em; text-wrap: balance; }
+  .lede { margin: 0; color: var(--muted); max-width: 65ch; line-height: 1.45; }
+  .stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: var(--canvas); border: 1px solid var(--line); overflow: hidden; touch-action: none; }
+  .stage canvas { display: block; width: 100%; height: 100%; }
+  .hud { position: absolute; left: 12px; top: 10px; font-family: var(--mono); font-size: 0.8rem; color: var(--fg); background: color-mix(in srgb, var(--panel) 80%, transparent); padding: 4px 8px; border-radius: 3px; font-variant-numeric: tabular-nums; pointer-events: none; }
+  .hint { position: absolute; right: 12px; bottom: 10px; font-size: 0.75rem; color: var(--muted); pointer-events: none; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; background: var(--panel); border: 1px solid var(--line); padding: 10px 12px; }
+  .controls label { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; min-width: 0; }
+  .controls select { font: inherit; font-size: 0.9rem; max-width: 100%; }
+  .controls input[type=range] { width: 120px; }
+  button { font: inherit; font-size: 0.9rem; padding: 6px 14px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; border-radius: 3px; }
+  button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+  .caption { font-size: 0.95rem; line-height: 1.4; min-height: 1.4em; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 0.85rem; color: var(--muted); }
+  .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 6px; }
+  .notes { max-width: 65ch; line-height: 1.5; font-size: 0.95rem; }
+  .notes h2 { font-family: var(--display); font-weight: 600; font-size: 1.15rem; margin: 18px 0 6px; }
+  .notes p { margin: 0 0 10px; }
+  .notes code { font-family: var(--mono); font-size: 0.85em; }
+  @media (max-width: 520px) { .controls input[type=range] { width: 90px; } .stage { aspect-ratio: 4 / 3; } }
+</style>
+<div class="wrap">
+  <h1>Damaged Gait Player</h1>
+  <p class="lede">Every motion here is played by a runtime with no physics: a phase clock, root motion, a blend across clips and bodies, and a style layer. The clips at the top play the physics teacher's own motion, a mean cycle for the bodies that walk and a crossfaded loop for the stump, the hop and the crawl. Beneath them, for comparison, the fitted grammar states from the last growth round (G11), which a viewer faulted. The physics teacher can be shown beside either.</p>
+  <div class="stage" id="stage">
+    <canvas id="view"></canvas>
+    <div class="hud" id="hud">0.00 s</div>
+    <div class="hint">drag to orbit · wheel to zoom</div>
+  </div>
+  <div class="controls">
+    <label for="clip">Motion <select id="clip"></select></label>
+    <button id="play" class="primary" type="button">Pause</button>
+    <label for="speed">Speed <input id="speed" type="range" min="0.1" max="2" step="0.1" value="1"> <span id="speedv" style="font-family:var(--mono)">1.0×</span></label>
+    <label for="compare"><input id="compare" type="checkbox"> Show the physics teacher beside it</label>
+    <label for="follow"><input id="follow" type="checkbox" checked> Camera follows</label>
+  </div>
+  <div class="caption" id="caption"></div>
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--student)"></i>runtime</span>
+    <span><i class="swatch" style="background:var(--teacher)"></i>physics teacher (MuJoCo, predictive sampling)</span>
+  </div>
+  <div class="notes">
+    <h2>What you are looking at</h2>
+    <p>The transition clip is the runtime doing the thing the case was built for: an intact body walks, its left leg is removed at 2.0 s, and the player blends over one second to the one-leg body's clip. The root is kept on the floor by construction and moved by the clip's own displacement, so each body travels at its teacher's speed. The blend is a crossfade in phase between a 0.93 s walking cycle and a 3.7 s hopping loop, not a path through a state space.</p>
+    <p>The body clips show, for each of the seven design bodies, the teacher's own motion played by the cycle runtime (the mean of its stride cycles, 32 phase bins, or its four-second window as a loop with a 0.3 s crossfaded seam), the teacher itself over the same four seconds, and the G11 fitted grammar state played by the parametric runtime, and, where the G13 round has run, the intact teacher's cycle with the edits fitted to that body. The fitted state is scored in consumer space (contact timing, stance, joint statistics, foot travel, orientation, rhythm, reach, phase-binned pose) and satisfies those numbers; on this teacher it did not satisfy the eye, after four rounds of adding what the eye had used, which is why the runtime now plays the clip. The mean cycle is periodic where the teacher is irregular from second to second; the loops carry the irregularity.</p>
+    <p>The style layer is a posture on top of either description: arms forward and stiff, elbows bent, the torso pitched forward (and on the fitted state, the head down). It is not fitted to anything; it shows that character and gait are separate layers. The legless body keeps its arms, which are its legs.</p>
+    <p>Bodies: intact; weak left hip; locked left knee; short left shank; left stump (leg ends at the knee); left leg removed; both legs removed. Frames are 25 a second; the runtime can produce any rate.</p>
+  </div>
+</div>
+<script id="data" type="application/json">__DATA__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  const DATA = JSON.parse(document.getElementById('data').textContent);
+  const clips = DATA.clips;
+  const byId = Object.fromEntries(clips.map(c => [c.id, c]));
+  const stage = document.getElementById('stage'), canvas = document.getElementById('view');
+  const hud = document.getElementById('hud'), caption = document.getElementById('caption');
+  const sel = document.getElementById('clip'), playBtn = document.getElementById('play');
+  const speed = document.getElementById('speed'), speedv = document.getElementById('speedv');
+  const compare = document.getElementById('compare'), follow = document.getElementById('follow');
+  const css = () => getComputedStyle(document.documentElement);
+  const color = name => new THREE.Color(css().getPropertyValue(name).trim());
+
+  // ---- the clip list
+  const bodies = ['intact', 'weak_hip_left', 'locked_knee_left', 'short_shank_left', 'stump_left', 'noleg_left', 'nolegs'];
+  const nice = { intact: 'intact', weak_hip_left: 'weak left hip', locked_knee_left: 'locked left knee', short_shank_left: 'short left shank', stump_left: 'left stump', noleg_left: 'left leg removed', nolegs: 'both legs removed' };
+  const group = (label, items) => { const g = document.createElement('optgroup'); g.label = label; items.forEach(([text, id]) => g.appendChild(new Option(text, id))); sel.appendChild(g); };
+  group('Runtime transition', [
+    ["Intact walk, left leg removed at 2 s (the teacher's cycle, then the one-leg loop)", 'transition_cycle'],
+    ['The same, with the style layer (arms forward, torso pitched)', 'transition_cycle_zombie'],
+    ['The same from the G11 fitted grammar states (parametric runtime)', 'transition'],
+    ['The G11 states with the style layer', 'transition_zombie']]);
+  group("The teacher's own motion, played by the cycle runtime", bodies.map(b => [nice[b], b + '_cycle']));
+  group('The same with the style layer (arms forward, torso pitched)', bodies.map(b => [nice[b], b + '_cycle_zombie']));
+  if (byId['intact_edit']) group("The intact teacher's cycle with the edits fitted to each body (G13)", bodies.map(b => [nice[b], b + '_edit']));
+  // G14: combined damages and removed arms, when the round has run
+  const g14 = ['noarm_left', 'locked_knee_left+weak_hip_right', 'locked_knee_left+noarm_right', 'nolegs+noarm_left'];
+  const nice14 = { 'noarm_left': 'left arm removed', 'locked_knee_left+weak_hip_right': 'locked left knee and weak right hip', 'locked_knee_left+noarm_right': 'locked left knee and right arm removed', 'nolegs+noarm_left': 'both legs and the left arm removed' };
+  const g14items = [];
+  g14.forEach(b => { [['_teacher', 'physics teacher'], ['_raw', 'base clip, parts dropped, no edit'], ['_composed', 'two edits composed, no fitting'], ['_edit', 'one edit carried over, no fitting'], ['_grown', 'edits fitted to this body']].forEach(([suf, what]) => { if (byId[b + suf]) g14items.push([nice14[b] + ': ' + what, b + suf]); }); });
+  if (g14items.length) group('Combined damages and removed arms (G14)', g14items);
+  group('Physics teacher', bodies.map(b => [nice[b], b + '_teacher']));
+  group('G11 fitted grammar state, played by the parametric runtime', bodies.map(b => [nice[b], b + '_student']));
+  group('G11 fitted state with the style layer (arms forward, head down)', bodies.map(b => [nice[b], b + '_zombie']));
+  // a clip that has a teacher to compare with: its id minus the runtime suffix, plus _teacher
+  const SUFFIXES = ['_cycle_zombie', '_cycle', '_student', '_zombie', '_edit', '_raw', '_composed', '_grown'];
+  const teacherOf = id => { for (const s of SUFFIXES) if (id.endsWith(s)) return byId[id.slice(0, -s.length) + '_teacher']; return null; };
+
+  // ---- three.js scene, z up as in the simulator
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38, 16 / 9, 0.05, 100); camera.up.set(0, 0, 1);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x666666, 0.9));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.7); sun.position.set(2, -3, 5); scene.add(sun);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 1 }));
+  scene.add(floor);
+  const grid = new THREE.GridHelper(60, 60, 0x888888, 0x888888); grid.rotation.x = Math.PI / 2; grid.position.z = 0.002; scene.add(grid);
+  function applyTheme() {
+    scene.background = color('--canvas'); floor.material.color = color('--floor');
+    const g = color('--grid'); grid.material.color = g; grid.material.vertexColors = false;
+    if (figA) figA.setColor(color(figA.role === 'teacher' ? '--teacher' : '--student'));
+    if (figB) figB.setColor(color('--teacher'));
+  }
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  mq.addEventListener ? mq.addEventListener('change', applyTheme) : mq.addListener(applyTheme);
+  new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  // ---- a figure: one group per geom, posed from a flat frame row [x y z qx qy qz qw] * n
+  function Figure(role) { this.role = role; this.root = new THREE.Group(); this.parts = []; this.mat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.6, metalness: 0.05 }); scene.add(this.root); this.torso = -1; }
+  Figure.prototype.build = function (geoms) {
+    this.clear(); this.torso = geoms.findIndex(g => g.name === 'torso');
+    geoms.forEach(g => {
+      const grp = new THREE.Group();
+      if (g.kind === 'capsule') {
+        const r = g.size[0], h = g.size[1];
+        const cyl = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 2 * h, 18, 1, true), this.mat); cyl.rotation.x = Math.PI / 2; grp.add(cyl);
+        const s1 = new THREE.Mesh(new THREE.SphereGeometry(r, 18, 12), this.mat); s1.position.z = h; grp.add(s1);
+        const s2 = new THREE.Mesh(new THREE.SphereGeometry(r, 18, 12), this.mat); s2.position.z = -h; grp.add(s2);
+      } else if (g.kind === 'sphere') {
+        grp.add(new THREE.Mesh(new THREE.SphereGeometry(g.size[0], 24, 16), this.mat));
+      } else {
+        grp.add(new THREE.Mesh(new THREE.BoxGeometry(2 * g.size[0], 2 * g.size[1], 2 * g.size[2]), this.mat));
+      }
+      this.root.add(grp); this.parts.push(grp);
+    });
+  };
+  Figure.prototype.pose = function (row, dy) {
+    for (let i = 0; i < this.parts.length; i++) {
+      const o = 7 * i, p = this.parts[i];
+      p.position.set(row[o], row[o + 1] + dy, row[o + 2]); p.quaternion.set(row[o + 3], row[o + 4], row[o + 5], row[o + 6]);
+    }
+  };
+  Figure.prototype.torsoPos = function () { return this.torso >= 0 ? this.parts[this.torso].position : new THREE.Vector3(); };
+  Figure.prototype.setColor = function (c) { this.mat.color = c; };
+  Figure.prototype.clear = function () { this.parts.forEach(p => { this.root.remove(p); p.traverse(o => { if (o.geometry) o.geometry.dispose(); }); }); this.parts = []; };
+
+  // ---- playback state
+  let figA = new Figure('student'), figB = null;
+  let clip = null, segIndex = -1, t = 0, playing = true, last = null;
+  let az = -Math.PI / 2 + 0.35, el = 0.32, dist = 3.4;
+  let lookX = 0, lookY = 0;
+  function totalFrames(c) { return c.segments.reduce((n, s) => n + s.frames.length, 0); }
+  function locate(c, k) { let i = 0; while (k >= c.segments[i].frames.length) { k -= c.segments[i].frames.length; i++; } return [i, k]; }
+  function setClip(id) {
+    clip = byId[id]; t = 0; segIndex = -1;
+    figA.role = id.endsWith('_teacher') ? 'teacher' : 'student';
+    figA.setColor(color(figA.role === 'teacher' ? '--teacher' : '--student'));
+    caption.textContent = clip.title;
+    const canCompare = !!teacherOf(id); compare.disabled = !canCompare;
+    if (!canCompare) compare.checked = false;
+    updateCompare();
+  }
+  function updateCompare() {
+    if (compare.checked && clip && teacherOf(clip.id)) {
+      if (!figB) figB = new Figure('teacher');
+      const tc = teacherOf(clip.id);
+      figB.build(tc.segments[0].geoms); figB.setColor(color('--teacher')); figB.clipRef = tc;
+    } else if (figB) { figB.clear(); scene.remove(figB.root); figB = null; }
+  }
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    if (canvas.width !== Math.floor(w * renderer.getPixelRatio()) || canvas.height !== Math.floor(h * renderer.getPixelRatio())) {
+      renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+    }
+  }
+  function frame(now) {
+    requestAnimationFrame(frame);
+    if (last === null) last = now;
+    const dt = Math.min(0.1, (now - last) / 1000); last = now;
+    if (!clip) return;
+    if (playing) t += dt * parseFloat(speed.value);
+    const N = totalFrames(clip), k = Math.floor(t * clip.fps) % N;
+    const [si, ki] = locate(clip, k);
+    if (si !== segIndex) { figA.build(clip.segments[si].geoms); segIndex = si; }
+    figA.pose(clip.segments[si].frames[ki], 0);
+    if (figB) { const tc = figB.clipRef, kk = Math.floor(t * tc.fps) % totalFrames(tc); figB.pose(tc.segments[0].frames[kk], 1.1); }
+    const tp = figA.torsoPos();
+    if (follow.checked) { lookX += (tp.x - lookX) * Math.min(1, dt * 6); lookY += (tp.y - lookY) * Math.min(1, dt * 6); }
+    const lookZ = 0.75;
+    camera.position.set(lookX + dist * Math.cos(el) * Math.cos(az), lookY + dist * Math.cos(el) * Math.sin(az), lookZ + dist * Math.sin(el));
+    camera.lookAt(lookX, lookY, lookZ);
+    hud.textContent = (k / clip.fps).toFixed(2) + ' s' + (clip.id.startsWith('transition') ? (si === 0 ? ' · intact' : ' · one leg') : '');
+    resize(); renderer.render(scene, camera);
+  }
+
+  // ---- input
+  let drag = null;
+  stage.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY }; stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointermove', e => { if (!drag) return; az -= (e.clientX - drag.x) * 0.008; el = Math.max(-0.1, Math.min(1.3, el + (e.clientY - drag.y) * 0.006)); drag = { x: e.clientX, y: e.clientY }; });
+  stage.addEventListener('pointerup', () => { drag = null; }); stage.addEventListener('pointercancel', () => { drag = null; });
+  stage.addEventListener('wheel', e => { e.preventDefault(); dist = Math.max(1.2, Math.min(10, dist * (1 + Math.sign(e.deltaY) * 0.08))); }, { passive: false });
+  sel.addEventListener('change', () => setClip(sel.value));
+  playBtn.addEventListener('click', () => { playing = !playing; playBtn.textContent = playing ? 'Pause' : 'Play'; });
+  speed.addEventListener('input', () => { speedv.textContent = parseFloat(speed.value).toFixed(1) + '×'; });
+  compare.addEventListener('change', updateCompare);
+  window.addEventListener('resize', resize);
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { playing = false; playBtn.textContent = 'Play'; }
+
+  applyTheme(); setClip('transition_cycle'); resize(); requestAnimationFrame(frame);
+})();
+</script>

@@ -1,0 +1,14 @@
+A. det J = (1-p-q-r)^2 - 4pqr: True
+B. transverse (1,-1): Arques fold z(t) == two-state mobile z(t) to order 12: True
+B. marginal (1,0): Arques fold z(t) == two-state mobile z(t) to order 12: True
+B. diagonal (1,1): Arques fold z(t) == two-state mobile z(t) to order 12: True
+   [4.4s]
+C. transverse: (13040) x+y formula True; (13038) (x-y)^2 formula True; Delta = 1-p-r True; q = z/Delta True
+C. marginal  : (13040) x+y formula True; (13038) (x-y)^2 formula True; Delta = 1-p-r True; q = z/Delta True
+D. inversion of the parametrisation to degree 14 : True
+   Pade system: 656 equations, 104 unknowns (P deg <= 6, D deg <= 3) [4.1s]
+   rank 94, null space dimension 10 [9.9s]
+   numerator   P = (1) p^1 q^1 r^1 + (-1) p^1 q^1 r^2 + (-1) p^1 q^2 r^1 + (-1) p^2 q^1 r^1
+   denominator D = (1) p^0 q^0 r^0
+   P = Htilde * D as series to total degree 14: True
+ALL: True

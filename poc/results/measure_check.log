@@ -1,0 +1,24 @@
+
+gusty (gust 1.6 m/s at 0.7 Hz)
+  teacher's own time-average, no motion at all : corr 0.852
+  the teacher itself, delayed 0.07 s ( 17 deg of gust) : corr 0.965
+  the teacher itself, delayed 0.13 s ( 34 deg of gust) : corr 0.899
+  the teacher itself, delayed 0.20 s ( 50 deg of gust) : corr 0.836
+  the teacher itself, delayed 0.27 s ( 67 deg of gust) : corr 0.783
+  the teacher itself, delayed half a gust period : corr 0.651
+
+ignition (gust 1.6 m/s at 0.7 Hz)
+  teacher's own time-average, no motion at all : corr 0.852
+  the teacher itself, delayed 0.07 s ( 17 deg of gust) : corr 0.965
+  the teacher itself, delayed 0.13 s ( 34 deg of gust) : corr 0.899
+  the teacher itself, delayed 0.20 s ( 50 deg of gust) : corr 0.836
+  the teacher itself, delayed 0.27 s ( 67 deg of gust) : corr 0.783
+  the teacher itself, delayed half a gust period : corr 0.651
+
+full (gust 1.6 m/s at 0.7 Hz)
+  teacher's own time-average, no motion at all : corr 0.860
+  the teacher itself, delayed 0.07 s ( 17 deg of gust) : corr 0.968
+  the teacher itself, delayed 0.13 s ( 34 deg of gust) : corr 0.907
+  the teacher itself, delayed 0.20 s ( 50 deg of gust) : corr 0.846
+  the teacher itself, delayed 0.27 s ( 67 deg of gust) : corr 0.794
+  the teacher itself, delayed half a gust period : corr 0.660

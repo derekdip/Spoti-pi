@@ -1,0 +1,285 @@
+{
+  "note": "post-hoc, exploratory, not part of the frozen W3 scoring",
+  "amps": [
+    1.0,
+    4.0,
+    8.0
+  ],
+  "models": [
+    "M0",
+    "M2",
+    "M4"
+  ],
+  "cells": {
+    "M0_A1": {
+      "rel_rmse": 0.3441108743646892,
+      "axisym_share": 0.9498467825481681,
+      "gain_phase_global": 0.00895746560263666,
+      "gain_phase_per_frame": 0.10796564162920275,
+      "gain_phase_per_radius": 0.10306334497147107,
+      "gain_only_per_frame": 0.059663814461864084,
+      "floor_share": 1.0,
+      "near_early_share_residual": 0.4118357173259786,
+      "near_early_share_teacher": 0.4153420985729013,
+      "crest_trough_teacher": 1.0750648480123894,
+      "crest_trough_token": 0.9991982435868279,
+      "zero_crossings": {
+        "0.5": {
+          "teacher": 1,
+          "token": 0,
+          "residual": 2
+        },
+        "1.0": {
+          "teacher": 3,
+          "token": 3,
+          "residual": 4
+        },
+        "2.0": {
+          "teacher": 8,
+          "token": 12,
+          "residual": 7
+        }
+      }
+    },
+    "M2_A1": {
+      "rel_rmse": 0.3441108743646892,
+      "axisym_share": 0.9498467825481681,
+      "gain_phase_global": 0.00895746560263666,
+      "gain_phase_per_frame": 0.10796564162920275,
+      "gain_phase_per_radius": 0.10306334497147107,
+      "gain_only_per_frame": 0.059663814461864084,
+      "floor_share": 1.0,
+      "near_early_share_residual": 0.4118357173259786,
+      "near_early_share_teacher": 0.4153420985729013,
+      "crest_trough_teacher": 1.0750648480123894,
+      "crest_trough_token": 0.9991982435868279,
+      "zero_crossings": {
+        "0.5": {
+          "teacher": 1,
+          "token": 0,
+          "residual": 2
+        },
+        "1.0": {
+          "teacher": 3,
+          "token": 3,
+          "residual": 4
+        },
+        "2.0": {
+          "teacher": 8,
+          "token": 12,
+          "residual": 7
+        }
+      }
+    },
+    "M4_A1": {
+      "rel_rmse": 0.3441108743646892,
+      "axisym_share": 0.9498467825481681,
+      "gain_phase_global": 0.00895746560263666,
+      "gain_phase_per_frame": 0.10796564162920275,
+      "gain_phase_per_radius": 0.10306334497147107,
+      "gain_only_per_frame": 0.059663814461864084,
+      "floor_share": 1.0,
+      "near_early_share_residual": 0.4118357173259786,
+      "near_early_share_teacher": 0.4153420985729013,
+      "crest_trough_teacher": 1.0750648480123894,
+      "crest_trough_token": 0.9991982435868279,
+      "zero_crossings": {
+        "0.5": {
+          "teacher": 1,
+          "token": 0,
+          "residual": 2
+        },
+        "1.0": {
+          "teacher": 3,
+          "token": 3,
+          "residual": 4
+        },
+        "2.0": {
+          "teacher": 8,
+          "token": 12,
+          "residual": 7
+        }
+      }
+    },
+    "M0_A4": {
+      "rel_rmse": 0.6877337054740984,
+      "axisym_share": 0.9674578165284166,
+      "gain_phase_global": 0.6766680340544946,
+      "gain_phase_per_frame": 0.7063692516837552,
+      "gain_phase_per_radius": 0.7010172607054792,
+      "gain_only_per_frame": 0.2555179286732343,
+      "floor_share": 0.23780036616849676,
+      "near_early_share_residual": 0.5088624801447187,
+      "near_early_share_teacher": 0.44305455716667086,
+      "crest_trough_teacher": 1.0519584170032463,
+      "crest_trough_token": 0.9991982435868279,
+      "zero_crossings": {
+        "0.5": {
+          "teacher": 2,
+          "token": 0,
+          "residual": 2
+        },
+        "1.0": {
+          "teacher": 3,
+          "token": 3,
+          "residual": 5
+        },
+        "2.0": {
+          "teacher": 8,
+          "token": 12,
+          "residual": 9
+        }
+      }
+    },
+    "M2_A4": {
+      "rel_rmse": 0.49985997076094335,
+      "axisym_share": 0.9628422052784563,
+      "gain_phase_global": 0.09185104797341548,
+      "gain_phase_per_frame": 0.39294779316120687,
+      "gain_phase_per_radius": 0.3672477235171552,
+      "gain_only_per_frame": 0.037480617177987896,
+      "floor_share": 0.48956323159272286,
+      "near_early_share_residual": 0.6051198583226217,
+      "near_early_share_teacher": 0.44305455716667086,
+      "crest_trough_teacher": 1.0519584170032463,
+      "crest_trough_token": 0.9981386508671147,
+      "zero_crossings": {
+        "0.5": {
+          "teacher": 2,
+          "token": 0,
+          "residual": 2
+        },
+        "1.0": {
+          "teacher": 3,
+          "token": 3,
+          "residual": 2
+        },
+        "2.0": {
+          "teacher": 8,
+          "token": 11,
+          "residual": 7
+        }
+      }
+    },
+    "M4_A4": {
+      "rel_rmse": 0.49747775256151383,
+      "axisym_share": 0.9598613100055077,
+      "gain_phase_global": 0.0991253235330034,
+      "gain_phase_per_frame": 0.4108873662561676,
+      "gain_phase_per_radius": 0.35187677696643216,
+      "gain_only_per_frame": 0.03873240294219116,
+      "floor_share": 0.4847648324546867,
+      "near_early_share_residual": 0.5971981822176375,
+      "near_early_share_teacher": 0.44305455716667086,
+      "crest_trough_teacher": 1.0519584170032463,
+      "crest_trough_token": 0.9973680528877411,
+      "zero_crossings": {
+        "0.5": {
+          "teacher": 2,
+          "token": 0,
+          "residual": 2
+        },
+        "1.0": {
+          "teacher": 3,
+          "token": 3,
+          "residual": 1
+        },
+        "2.0": {
+          "teacher": 8,
+          "token": 13,
+          "residual": 7
+        }
+      }
+    },
+    "M0_A8": {
+      "rel_rmse": 1.5463722664456716,
+      "axisym_share": 0.9643231700392595,
+      "gain_phase_global": 0.9069322139394431,
+      "gain_phase_per_frame": 0.9148618163646262,
+      "gain_phase_per_radius": 0.9218934726094354,
+      "gain_only_per_frame": 0.6220092632317129,
+      "floor_share": 0.004045095345733496,
+      "near_early_share_residual": 0.44729791759006043,
+      "near_early_share_teacher": 0.4935536136092415,
+      "crest_trough_teacher": 0.9890936029027554,
+      "crest_trough_token": 0.9991982435868279,
+      "zero_crossings": {
+        "0.5": {
+          "teacher": 2,
+          "token": 0,
+          "residual": 2
+        },
+        "1.0": {
+          "teacher": 4,
+          "token": 3,
+          "residual": 3
+        },
+        "2.0": {
+          "teacher": 8,
+          "token": 12,
+          "residual": 9
+        }
+      }
+    },
+    "M2_A8": {
+      "rel_rmse": 0.930073560572496,
+      "axisym_share": 0.9635334146298458,
+      "gain_phase_global": 0.5643293279132646,
+      "gain_phase_per_frame": 0.7340361063059675,
+      "gain_phase_per_radius": 0.7560491491061891,
+      "gain_only_per_frame": 0.24386868621094315,
+      "floor_share": 0.016954307798934365,
+      "near_early_share_residual": 0.6017928450898112,
+      "near_early_share_teacher": 0.4935536136092415,
+      "crest_trough_teacher": 0.9890936029027554,
+      "crest_trough_token": 0.9986342597079705,
+      "zero_crossings": {
+        "0.5": {
+          "teacher": 2,
+          "token": 0,
+          "residual": 2
+        },
+        "1.0": {
+          "teacher": 4,
+          "token": 3,
+          "residual": 5
+        },
+        "2.0": {
+          "teacher": 8,
+          "token": 13,
+          "residual": 11
+        }
+      }
+    },
+    "M4_A8": {
+      "rel_rmse": 0.9305919645735663,
+      "axisym_share": 0.9603767607235993,
+      "gain_phase_global": 0.5746192001406827,
+      "gain_phase_per_frame": 0.744805917009135,
+      "gain_phase_per_radius": 0.7427997733201777,
+      "gain_only_per_frame": 0.24290527696610342,
+      "floor_share": 0.013977218659435908,
+      "near_early_share_residual": 0.6189644050820393,
+      "near_early_share_teacher": 0.4935536136092415,
+      "crest_trough_teacher": 0.9890936029027554,
+      "crest_trough_token": 0.9993689689535066,
+      "zero_crossings": {
+        "0.5": {
+          "teacher": 2,
+          "token": 0,
+          "residual": 2
+        },
+        "1.0": {
+          "teacher": 4,
+          "token": 3,
+          "residual": 2
+        },
+        "2.0": {
+          "teacher": 8,
+          "token": 13,
+          "residual": 11
+        }
+      }
+    }
+  }
+}

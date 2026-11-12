@@ -1,0 +1,91 @@
+straight_L8          R2  f/c=None  N_sup={'0.00484': 14, '0.00968': 14, '0.01935': 10, '0.0387': 10}  loc19={'S': 1.0, 'C': None, 'T': None, 'Q': 1.0}  [5s]
+corner_L8            R2  f/c=None  N_sup={'0.00484': 76, '0.00968': 59, '0.01935': 31, '0.0387': 31}  loc19={'S': 0.041, 'C': 0.959, 'T': None, 'Q': 1.0}  [10s]
+corner_L8            R3  f/c=0.5  N_sup={'0.00484': 67, '0.00968': 46, '0.01935': 23, '0.0387': 23}  loc19={'S': 0.078, 'C': 0.922, 'T': None, 'Q': 1.0}  [14s]
+corner_L8            R3  f/c=0.3  N_sup={'0.00484': 61, '0.00968': 39, '0.01935': 23, '0.0387': 23}  loc19={'S': 0.078, 'C': 0.922, 'T': None, 'Q': 1.0}  [19s]
+corner_L8            R3  f/c=0.2  N_sup={'0.00484': 45, '0.00968': 37, '0.01935': 23, '0.0387': 23}  loc19={'S': 0.078, 'C': 0.922, 'T': None, 'Q': 1.0}  [23s]
+corner_L8            R3  f/c=0.1  N_sup={'0.00484': 47, '0.00968': 31, '0.01935': 31, '0.0387': 23}  loc19={'S': 0.114, 'C': 0.886, 'T': None, 'Q': 1.0}  [28s]
+corner_L8            R3  f/c=0.05  N_sup={'0.00484': 51, '0.00968': 29, '0.01935': 29, '0.0387': 21}  loc19={'S': 0.111, 'C': 0.889, 'T': None, 'Q': 1.0}  [31s]
+corner_L8            R4  f/c=0.5  N_sup={'0.00968': 40, '0.01935': 37}  loc19=None  [39s]
+corner_L8            R4  f/c=0.71  N_sup={'0.00968': 40, '0.01935': 35}  loc19=None  [47s]
+corner_L8            R4  f/c=1.0  N_sup={'0.00968': 40, '0.01935': 35}  loc19=None  [54s]
+corner_L8            R4  f/c=1.41  N_sup={'0.00968': 38, '0.01935': 33}  loc19=None  [61s]
+corner_L8            R4  f/c=2.0  N_sup={'0.00968': 38, '0.01935': 31}  loc19=None  [68s]
+calibrated f* = (0.5, 23), c* = (2.0, 31)
+three_corners        R1  f/c=None  N_sup={'0.00484': 159, '0.00968': 146, '0.01935': 146, '0.0387': 146}  loc19={'S': 0.001, 'C': 0.999, 'T': None, 'Q': 1.0}  [71s]
+three_corners        R2  f/c=None  N_sup={'0.00484': 167, '0.00968': 146, '0.01935': 84, '0.0387': 63}  loc19={'S': 0.002, 'C': 0.998, 'T': None, 'Q': 1.0}  [74s]
+three_corners        R3  f/c=0.5  N_sup={'0.00484': 130, '0.00968': 121, '0.01935': 72, '0.0387': 63}  loc19={'S': 0.002, 'C': 0.998, 'T': None, 'Q': 1.0}  [77s]
+three_corners        R4  f/c=2.0  N_sup={'0.00968': 113, '0.01935': 84}  loc19=None  [86s]
+corner_stop_corner   R1  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [88s]
+corner_stop_corner   R2  f/c=None  N_sup={'0.00484': 150, '0.00968': 133, '0.01935': 62, '0.0387': 62}  loc19={'S': 0.001, 'C': 0.999, 'T': 0.001, 'Q': 1.0}  [91s]
+corner_stop_corner   R3  f/c=0.5  N_sup={'0.00484': 135, '0.00968': 105, '0.01935': 47, '0.0387': 47}  loc19={'S': 0.007, 'C': 0.979, 'T': 0.015, 'Q': 1.0}  [93s]
+corner_stop_corner   R4  f/c=2.0  N_sup={'0.00968': 76, '0.01935': 69}  loc19=None  [100s]
+bend_then_corner     R1  f/c=None  N_sup={'0.00484': 184, '0.00968': 184, '0.01935': 142, '0.0387': 142}  loc19={'S': 0.351, 'C': 0.649, 'T': None, 'Q': 0.754}  [104s]
+bend_then_corner     R2  f/c=None  N_sup={'0.00484': 185, '0.00968': 51, '0.01935': 51, '0.0387': 51}  loc19={'S': 0.877, 'C': 0.123, 'T': None, 'Q': 0.559}  [109s]
+bend_then_corner     R3  f/c=0.5  N_sup={'0.00484': 134, '0.00968': 48, '0.01935': 40, '0.0387': 40}  loc19={'S': 0.92, 'C': 0.08, 'T': None, 'Q': 0.372}  [113s]
+bend_then_corner     R4  f/c=2.0  N_sup={'0.00968': 72, '0.01935': 58}  loc19=None  [126s]
+reversal             R1  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [128s]
+reversal             R2  f/c=None  N_sup={'0.00484': 86, '0.00968': 86, '0.01935': 72, '0.0387': 20}  loc19={'S': 0.001, 'C': 0.999, 'T': None, 'Q': 1.0}  [130s]
+reversal             R3  f/c=0.5  N_sup={'0.00484': 86, '0.00968': 86, '0.01935': 51, '0.0387': 18}  loc19={'S': 0.003, 'C': 0.997, 'T': None, 'Q': 1.0}  [132s]
+reversal             R4  f/c=2.0  N_sup={'0.00968': 67, '0.01935': 50}  loc19=None  [137s]
+tight_slalom         R1  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [141s]
+tight_slalom         R2  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': 252, '0.0387': 95}  loc19={'S': 1.0, 'C': None, 'T': None, 'Q': 0.32}  [145s]
+tight_slalom         R3  f/c=0.5  N_sup={'0.00484': None, '0.00968': None, '0.01935': 252, '0.0387': 95}  loc19={'S': 1.0, 'C': None, 'T': None, 'Q': 0.32}  [148s]
+tight_slalom         R4  f/c=2.0  N_sup={'0.00968': None, '0.01935': 252}  loc19=None  [164s]
+corner_tau0.8        R2  f/c=None  N_sup={'0.00484': 80, '0.00968': 36, '0.01935': 33, '0.0387': 20}  loc19={'S': 1.0, 'C': None, 'T': None, 'Q': 1.0}  [167s]
+corner_tau0.8        R3  f/c=0.5  N_sup={'0.00484': 80, '0.00968': 36, '0.01935': 33, '0.0387': 20}  loc19={'S': 1.0, 'C': None, 'T': None, 'Q': 1.0}  [171s]
+corner_tau0.8        R4  f/c=2.0  N_sup={'0.00968': 46, '0.01935': 36}  loc19=None  [179s]
+corner_tau0.4        R2  f/c=None  N_sup={'0.00484': None, '0.00968': 70, '0.01935': 38, '0.0387': 22}  loc19={'S': 0.003, 'C': 0.997, 'T': None, 'Q': 1.0}  [183s]
+corner_tau0.4        R3  f/c=0.5  N_sup={'0.00484': 116, '0.00968': 64, '0.01935': 35, '0.0387': 21}  loc19={'S': 0.02, 'C': 0.98, 'T': None, 'Q': 1.0}  [187s]
+corner_tau0.4        R4  f/c=2.0  N_sup={'0.00968': 59, '0.01935': 38}  loc19=None  [194s]
+corner_tau0.2        R2  f/c=None  N_sup={'0.00484': 108, '0.00968': 55, '0.01935': 53, '0.0387': 31}  loc19={'S': 0.001, 'C': 0.999, 'T': None, 'Q': 1.0}  [198s]
+corner_tau0.2        R3  f/c=0.5  N_sup={'0.00484': 71, '0.00968': 39, '0.01935': 34, '0.0387': 23}  loc19={'S': 0.014, 'C': 0.986, 'T': None, 'Q': 1.0}  [202s]
+corner_tau0.2        R4  f/c=2.0  N_sup={'0.00968': 49, '0.01935': 41}  loc19=None  [209s]
+corner_tau0.1        R2  f/c=None  N_sup={'0.00484': 59, '0.00968': 59, '0.01935': 19, '0.0387': 19}  loc19={'S': 0.07, 'C': 0.93, 'T': None, 'Q': 1.0}  [213s]
+corner_tau0.1        R3  f/c=0.5  N_sup={'0.00484': 55, '0.00968': 55, '0.01935': 19, '0.0387': 19}  loc19={'S': 0.07, 'C': 0.93, 'T': None, 'Q': 1.0}  [217s]
+corner_tau0.1        R4  f/c=2.0  N_sup={'0.00968': 30, '0.01935': 28}  loc19=None  [224s]
+corner_tau0.05       R2  f/c=None  N_sup={'0.00484': 49, '0.00968': 49, '0.01935': 49, '0.0387': 27}  loc19={'S': 0.102, 'C': 0.898, 'T': None, 'Q': 1.0}  [228s]
+corner_tau0.05       R3  f/c=0.5  N_sup={'0.00484': 33, '0.00968': 33, '0.01935': 33, '0.0387': 19}  loc19={'S': 0.582, 'C': 0.418, 'T': None, 'Q': 1.0}  [231s]
+corner_tau0.05       R4  f/c=2.0  N_sup={'0.00968': 22, '0.01935': 20}  loc19=None  [238s]
+dwell0               R0  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [241s]
+dwell0               R1  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [243s]
+dwell0               R2  f/c=None  N_sup={'0.00484': 28, '0.00968': 26, '0.01935': 18, '0.0387': 18}  loc19={'S': 1.0, 'C': None, 'T': None, 'Q': 1.0}  [245s]
+dwell0.5             R0  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [248s]
+dwell0.5             R1  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [251s]
+dwell0.5             R2  f/c=None  N_sup={'0.00484': 28, '0.00968': 26, '0.01935': 18, '0.0387': 18}  loc19={'S': 0.591, 'C': None, 'T': 0.409, 'Q': 1.0}  [253s]
+dwell1               R0  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [256s]
+dwell1               R1  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [258s]
+dwell1               R2  f/c=None  N_sup={'0.00484': 28, '0.00968': 26, '0.01935': 18, '0.0387': 18}  loc19={'S': 0.591, 'C': None, 'T': 0.409, 'Q': 1.0}  [261s]
+dwell2               R0  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [264s]
+dwell2               R1  f/c=None  N_sup={'0.00484': None, '0.00968': None, '0.01935': None, '0.0387': None}  loc19=None  [267s]
+dwell2               R2  f/c=None  N_sup={'0.00484': 28, '0.00968': 26, '0.01935': 18, '0.0387': 18}  loc19={'S': 0.591, 'C': None, 'T': 0.409, 'Q': 1.0}  [270s]
+{
+ "M1": {
+  "pass": false
+ },
+ "M2": {
+  "pass": true
+ },
+ "R_stop": {
+  "pass": false
+ },
+ "R_corner": {
+  "pass": false
+ },
+ "R_tangent": {
+  "pass": false
+ },
+ "H4": {
+  "ratio_0.8_0.4_0.2": 1.8695652173913044,
+  "pass": false
+ },
+ "H5": {
+  "R2_flat": true,
+  "R0_grows": false,
+  "pass": false
+ },
+ "L": {
+  "pass": true
+ }
+}
+verdict: mixed: M1, R_stop, R_corner, H4, H5 fail
+wrote /home/user/Spoti-pi/poc/results/b5.md  [271s]

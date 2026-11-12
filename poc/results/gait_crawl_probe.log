@@ -1,0 +1,4 @@
+sit_base               speed 0.23 torso z 0.18 head z 0.25 pitch 1.35 hands 0.11 pelvis 0.83 head-down 0.70 [49s]
+prone_armsfwd          speed 0.75 torso z 0.35 head z 0.72 pitch 0.21 hands 0.12 pelvis 0.30 head-down 0.00 [34s]
+sit_nopose             speed 0.20 torso z 0.18 head z 0.23 pitch 1.40 hands 0.09 pelvis 0.87 head-down 0.72 [50s]
+sit_sigma06            speed 0.20 torso z 0.32 head z 0.61 pitch 0.58 hands 0.26 pelvis 0.70 head-down 0.09 [49s]

@@ -1,0 +1,11 @@
+[   48s] obstacle          joint 0.5928  (F3 0.6436)  V0 0.7316
+[  129s] ignition          joint 0.6326  (F3 0.6264)  V0 0.8163
+[  208s] delayed_ignition  joint 0.6833  (F3 0.6817)  V0 0.8397
+[  309s] full              joint 0.5904  (F3 0.6083)  V0 0.8176
+[  347s] windy             joint 0.4958  (F3 0.4958)  V0 0.8340
+[  434s] twin              joint 0.5528  (F3 0.5528)  V0 0.7245
+[  517s] shelf_bed         joint 0.6152  (F3 0.7144)  V0 0.8304
+[  559s] split             joint 0.5469  (F3 None)  V0 0.8938
+[  608s] shutoff           joint 0.6569  (F3 None)  V0 0.7559
+
+median joint over scored scenes: 0.5928   (F3 was 0.6264)

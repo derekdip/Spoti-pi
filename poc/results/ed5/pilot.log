@@ -1,0 +1,9 @@
+[06:45:59] corpus: docs/*.md at 73b70e427570835c249b7948bf8cd6b4baf7f986, 105 files
+[06:51:26]   none-32 full proj@8: test gain peaks at step 80 (+0.702) at training gain 1.12; ran 220 steps, turned; at step 60 +0.669, at the end +0.172 (310s)
+[06:53:00]   none-32 half A to B proj@8: the other half's loss is lowest at step 80 (+0.670) at training gain 1.42; ran 130 steps, turned (93s)
+[06:54:26]   none-32 half B to A proj@8: the other half's loss is lowest at step 70 (+0.621) at training gain 1.22; ran 130 steps, turned (85s)
+[07:01:55]   none-32 full v@2: test gain peaks at step 140 (+0.514) at training gain 0.89; ran 330 steps, turned; at step 60 +0.449, at the end +0.112 (447s)
+[07:03:54]   none-32 half A to B v@2: the other half's loss is lowest at step 90 (+0.472) at training gain 0.85; ran 190 steps, turned (118s)
+[07:06:09]   none-32 half B to A v@2: the other half's loss is lowest at step 100 (+0.387) at training gain 0.78; ran 210 steps, turned (134s)
+[07:06:09] [1216s]
+[07:06:09] pilot done in 1216s

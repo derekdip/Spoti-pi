@@ -1,0 +1,170 @@
+{
+ "device": {
+  "ua": "iPhone; CPU iPhone OS 18_7; Claude app web view",
+  "gpu": "Apple GPU",
+  "vendor": "Apple Inc.",
+  "dpr": 3,
+  "render": "1024x640",
+  "timerQuantumMs": 1,
+  "reps": 13,
+  "resolutionMs": 0.0769,
+  "stalkPool": 1100000
+ },
+ "results": [
+  {
+   "mode": "off",
+   "N": 575079,
+   "median": 12.846153846153847,
+   "p90": 13.538461538461538,
+   "preset": "balanced",
+   "drift": false
+  },
+  {
+   "mode": "wake",
+   "N": 575079,
+   "median": 13.153846153846294,
+   "p90": 13.76923076923077,
+   "preset": "balanced",
+   "drift": false
+  },
+  {
+   "mode": "wp",
+   "N": 575079,
+   "median": 13.76923076923063,
+   "p90": 14.00000000000014,
+   "preset": "balanced",
+   "drift": false
+  },
+  {
+   "mode": "six",
+   "N": 575079,
+   "median": 17.846153846153847,
+   "p90": 18.384615384615383,
+   "preset": "balanced",
+   "drift": false
+  },
+  {
+   "mode": "tex",
+   "N": 575079,
+   "median": 13.307692307692308,
+   "p90": 13.615384615384896,
+   "preset": "balanced",
+   "drift": false
+  },
+  {
+   "mode": "off",
+   "N": 575079,
+   "median": 13.23076923076923,
+   "p90": 14,
+   "preset": "balanced",
+   "drift": true
+  },
+  {
+   "mode": "off",
+   "N": 563804,
+   "median": 12.692307692307692,
+   "p90": 13.00000000000028,
+   "preset": "fill",
+   "drift": false
+  },
+  {
+   "mode": "wake",
+   "N": 563804,
+   "median": 13.076923076923357,
+   "p90": 13.230769230768951,
+   "preset": "fill",
+   "drift": false
+  },
+  {
+   "mode": "wp",
+   "N": 563804,
+   "median": 13.461538461538462,
+   "p90": 13.76923076923077,
+   "preset": "fill",
+   "drift": false
+  },
+  {
+   "mode": "six",
+   "N": 563804,
+   "median": 16.846153846153847,
+   "p90": 18.53846153846154,
+   "preset": "fill",
+   "drift": false
+  },
+  {
+   "mode": "tex",
+   "N": 563804,
+   "median": 11.307692307692308,
+   "p90": 11.615384615384615,
+   "preset": "fill",
+   "drift": false
+  },
+  {
+   "mode": "off",
+   "N": 563804,
+   "median": 12,
+   "p90": 12.23076923076923,
+   "preset": "fill",
+   "drift": true
+  },
+  {
+   "mode": "off",
+   "N": 399362,
+   "median": 13.23076923076923,
+   "p90": 13.461538461538462,
+   "preset": "vertex",
+   "drift": false
+  },
+  {
+   "mode": "wake",
+   "N": 399362,
+   "median": 13.384615384615385,
+   "p90": 14.153846153846153,
+   "preset": "vertex",
+   "drift": false
+  },
+  {
+   "mode": "wp",
+   "N": 399362,
+   "median": 13.538461538461538,
+   "p90": 13.923076923077483,
+   "preset": "vertex",
+   "drift": false
+  },
+  {
+   "mode": "six",
+   "N": 399362,
+   "median": 14.384615384614825,
+   "p90": 14.923076923077483,
+   "preset": "vertex",
+   "drift": false
+  },
+  {
+   "mode": "tex",
+   "N": 399362,
+   "median": 13.307692307691749,
+   "p90": 14.076923076923077,
+   "preset": "vertex",
+   "drift": false
+  },
+  {
+   "mode": "off",
+   "N": 399362,
+   "median": 13.692307692307692,
+   "p90": 13.846153846153847,
+   "preset": "vertex",
+   "drift": true
+  }
+ ],
+ "earlier_run": {
+  "note": "before the timer fix, resolution 0.33 ms",
+  "preset": "balanced",
+  "N": 420000,
+  "off": 10.0,
+  "wake": 10.0,
+  "wp": 10.333333,
+  "six": 12.666667,
+  "tex": 9.666667,
+  "off_repeat": 10.0
+ }
+}

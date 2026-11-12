@@ -1,0 +1,29 @@
+gust amplitude 1.6 m/s, 0.7 Hz; burner at x=0.45
+
+height   mean x   sway A   phase (rad)  phase lag vs forcing   explained   peak excess
+ 0.15    0.448    0.126    +1.896     +108.6 deg      0.99       907 K
+ 0.30    0.452    0.152    +1.875     +107.4 deg      0.90       899 K
+ 0.45    0.471    0.182    +2.066     +118.4 deg      0.66       871 K
+ 0.60    0.493    0.190    +2.251     +129.0 deg      0.54       833 K
+ 0.80    0.519    0.181    +2.399     +137.5 deg      0.45       766 K
+ 1.00    0.544    0.182    +2.454     +140.6 deg      0.39       691 K
+ 1.25    0.521    0.166    +1.917     +109.9 deg      0.49       598 K
+ 1.50    0.538    0.233    +1.957     +112.1 deg      0.71       514 K
+
+If parcels rise at v and the law is x = x0 + (g/w)(cos(w t_k) - cos(w t)), then at height h
+the parcel's age is h/v, its birth phase is w(t - h/v), and the sway seen at that height is
+A(h) = g/w (constant in h), with phase advancing by w*h/v. Measured against that:
+  measured A grows 0.126 -> 0.233 m over 0.15 -> 1.50 m: ratio 1.8x, NOT constant
+  measured phase slope +0.07 rad/m -> implied travel speed 58.65 m/s
+  g/w for the teacher's own gust amplitude = 0.364 m
+Traceback (most recent call last):
+  File "/home/user/Spoti-pi/poc/fire_gust_probe.py", line 76, in <module>
+    main()
+  File "/home/user/Spoti-pi/poc/fire_gust_probe.py", line 67, in main
+    print(f"\nbase (y=0.12) sway: {xc0[late].std()*100:.1f} cm rms, range {xc0[late].ptp()*100:.1f} cm -- the root is {'pinned' if xc0[late].ptp() < 0.05 else 'moving'}")
+                                                                           ^^^^^^^^^^^^^
+AttributeError: 'numpy.ndarray' object has no attribute 'ptp'
+  g/w for the teacher's own gust amplitude = 0.364 m
+
+base (y=0.12) sway: 8.6 cm rms, range 24.3 cm -- the root is moving
+tip height: mean 1.14 m, 0.7 Hz amplitude 0.267 m (0.13 explained) -- the plume breathes with the gust

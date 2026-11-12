@@ -1,0 +1,118 @@
+{
+  "rows": [
+    {
+      "K": 4,
+      "fourier_wind": 0.850818845847287,
+      "gust_wind": 0.843244339347246,
+      "fourier_bend": 0.9095324835692566,
+      "gust_bend": 0.9047361057834289,
+      "fourier_bendspace": 0.90953107988298,
+      "gust_bendspace": 0.9044706817218647,
+      "wave_bendspace": 0.9044706817218647,
+      "fourier_per_vertex": 4.0,
+      "gust_per_vertex": 0.909454345703125,
+      "gust_bendspace_per_vertex": 0.909454345703125,
+      "wave_bendspace_per_vertex": 0.909454345703125,
+      "wave_fraction": 0.0
+    },
+    {
+      "K": 8,
+      "fourier_wind": 0.7974560081439162,
+      "gust_wind": 0.7864668749041283,
+      "fourier_bend": 0.8742870770937989,
+      "gust_bend": 0.854396631812935,
+      "fourier_bendspace": 0.8742922087119835,
+      "gust_bendspace": 0.8539467555985817,
+      "wave_bendspace": 0.8539467555985817,
+      "fourier_per_vertex": 8.0,
+      "gust_per_vertex": 1.266754150390625,
+      "gust_bendspace_per_vertex": 1.266754150390625,
+      "wave_bendspace_per_vertex": 1.266754150390625,
+      "wave_fraction": 0.0
+    },
+    {
+      "K": 16,
+      "fourier_wind": 0.7288706838569107,
+      "gust_wind": 0.7231788083608656,
+      "fourier_bend": 0.8201677167207124,
+      "gust_bend": 0.821714728303832,
+      "fourier_bendspace": 0.8201734857047964,
+      "gust_bendspace": 0.8205899241275464,
+      "wave_bendspace": 0.8205899241275464,
+      "fourier_per_vertex": 16.0,
+      "gust_per_vertex": 1.898651123046875,
+      "gust_bendspace_per_vertex": 1.898651123046875,
+      "wave_bendspace_per_vertex": 1.898651123046875,
+      "wave_fraction": 0.0
+    },
+    {
+      "K": 32,
+      "fourier_wind": 0.6536921111548484,
+      "gust_wind": 0.662134961477622,
+      "fourier_bend": 0.7702051134442764,
+      "gust_bend": 0.7684335888080746,
+      "fourier_bendspace": 0.7642169940805683,
+      "gust_bendspace": 0.7642564187001814,
+      "wave_bendspace": 0.766787150278722,
+      "fourier_per_vertex": 32.0,
+      "gust_per_vertex": 2.418121337890625,
+      "gust_bendspace_per_vertex": 2.335601806640625,
+      "wave_bendspace_per_vertex": 2.425201416015625,
+      "wave_fraction": 0.125
+    },
+    {
+      "K": 64,
+      "fourier_wind": 0.5778743496801316,
+      "gust_wind": 0.5998419597251928,
+      "fourier_bend": 0.7098695529089879,
+      "gust_bend": 0.7134476351283923,
+      "fourier_bendspace": 0.6927306761376847,
+      "gust_bendspace": 0.7005813308164553,
+      "wave_bendspace": 0.7031980801043503,
+      "fourier_per_vertex": 64.0,
+      "gust_per_vertex": 3.168060302734375,
+      "gust_bendspace_per_vertex": 2.879241943359375,
+      "wave_bendspace_per_vertex": 3.086151123046875,
+      "wave_fraction": 0.234375
+    },
+    {
+      "K": 128,
+      "fourier_wind": 0.5030516221790146,
+      "gust_wind": 0.5300666397735163,
+      "fourier_bend": 0.6426299092800662,
+      "gust_bend": 0.6622631505611768,
+      "fourier_bendspace": 0.6059222767790586,
+      "gust_bendspace": 0.649349020660401,
+      "wave_bendspace": 0.6313633923513337,
+      "fourier_per_vertex": 128.0,
+      "gust_per_vertex": 3.966339111328125,
+      "gust_bendspace_per_vertex": 3.677703857421875,
+      "wave_bendspace_per_vertex": 4.1912384033203125,
+      "wave_fraction": 0.2890625
+    }
+  ],
+  "gust_scale_histogram_128": {
+    "1.0": 60,
+    "2.0": 53,
+    "4.0": 13,
+    "8.0": 2
+  },
+  "gust_bendspace_scale_histogram_128": {
+    "1.0": 78,
+    "2.0": 34,
+    "4.0": 14,
+    "8.0": 2
+  },
+  "steady_state_check": 0.011697525809797856,
+  "setup": {
+    "LX": 128.0,
+    "LY": 32.0,
+    "DX": 0.25,
+    "L_outer": 8.0,
+    "U": 4.0,
+    "sigma_u": 1.2,
+    "stalks": 4096,
+    "f0": 1.0,
+    "zeta": 0.15
+  }
+}

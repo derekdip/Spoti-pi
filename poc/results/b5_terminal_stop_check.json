@@ -1,0 +1,32 @@
+{
+ "dwell1": {
+  "N": 6,
+  "sup_mm": 218.0,
+  "share_terminal_stop": 0.7361389610373223,
+  "enrich_terminal_stop": 73.61389610373223,
+  "n_terminal": 4,
+  "share_start": 0.04302600410203096,
+  "enrich_interior_stop": 0.04876892065199461,
+  "share_interior_stop": 0.0029261352391196766
+ },
+ "dwell0.5": {
+  "N": 6,
+  "sup_mm": 218.0,
+  "share_terminal_stop": 0.7308899954216809,
+  "enrich_terminal_stop": 73.08899954216808,
+  "n_terminal": 4,
+  "share_start": 0.04280402030994139,
+  "enrich_interior_stop": 0.4481313345114069,
+  "share_interior_stop": 0.026887880070684413
+ },
+ "corner_stop_corner": {
+  "N": 14,
+  "sup_mm": 249.3,
+  "share_terminal_stop": 0.34327985345658746,
+  "enrich_terminal_stop": 24.235557654035073,
+  "n_terminal": 5,
+  "share_start": 5.590054679571185e-06,
+  "enrich_interior_stop": 0.0464598721367018,
+  "share_interior_stop": 0.0025006730045250263
+ }
+}

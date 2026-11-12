@@ -1,0 +1,10 @@
+ok   gusty         peak 907 K; sway 79 cm at 0.7 Hz
+ok   gust_shelf    peak 907 K; sway 86 cm at 0.7 Hz; shelf: above 549 K vs beside 824 K
+ok   fast_gust     peak 907 K; sway 22 cm at 1.4 Hz
+ok   strong_gust   peak 907 K; sway 111 cm at 0.7 Hz
+ok   gust_twin     peak 907 K; sway 66 cm at 0.7 Hz
+FAIL bed_chain     peak 907 K; sway 86 cm at 0.7 Hz; bed 0: lights 0.4s, burns out; bed 1: lights 0.6s, burns out; bed 2 NEVER LIGHTS
+
+SOME SCENES UNUSABLE
+FAIL peak 907 K; sway 93 cm at 0.7 Hz; bed 0: lights 0.3s, burns out; bed 1: lights 0.5s, burns out; bed 2 NEVER LIGHTS
+ok   bed_chain peak 907 K; sway 93 cm at 0.7 Hz; bed 0: lights 0.3s, burns out; bed 1: lights 0.5s, burns out; bed 2: lights 0.6s, burns out

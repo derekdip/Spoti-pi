@@ -1,0 +1,7 @@
+median redundancy over bodies (1.0 = the base has this direction; parameters over 0.9 add range, not direction):
+  stiff  stiff_side   0.84 (min 0.19)  stiff_knee   0.81 (min 0.48)  stiff_lift   0.85 (min 0.19)  class step   0.71 (min 0.19)  n=6
+  limp   limp_side    0.67 (min 0.55)  limp_lift    0.47 (min 0.29)  limp_sink    0.99 (min 0.59)  limp_duty    0.80 (min 0.67)  class step   0.51 (min 0.40)  n=6
+  hold   hold_side    0.76 (min 0.24)  hold_hip     0.86 (min 0.24)  hold_amp     0.57 (min 0.35)  class step   0.63 (min 0.24)  n=6
+  vault  vault_lift   0.83 (min 0.79)  vault_lag    0.95 (min 0.31)  class step   0.64 (min 0.47)  n=7
+  weak   weak_side    0.67 (min 0.58)  weak_scale   0.00 (min 0.00)  weak_lag     0.99 (min 0.81)  weak_roll    0.36 (min 0.27)  class step   0.81 (min 0.55)  n=6
+[29s]

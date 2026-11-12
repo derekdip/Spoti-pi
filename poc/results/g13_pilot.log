@@ -1,0 +1,4 @@
+   [nolegs_s1] t0 pick torso  side +0 (oracle torso, value 1.00) fit 1.0279->0.9990 held-out 0.9199->0.9053 (1 of 2) rejected [] [12s]
+   [nolegs_s1] t1 pick arms   side +0 (oracle arms, value 1.00) fit 0.9990->0.9531 held-out 0.9053->0.8606 (2 of 2) rejected [] [19s]
+nolegs_s1              [transfer] designed vault+0 v0 1.028/0.920 -> 0.953/0.861 added ['torso', 'arms'] [19s]
+done: 1 cases in 20s -> poc/results/g13_pilot.json

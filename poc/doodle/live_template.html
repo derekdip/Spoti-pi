@@ -1,0 +1,142 @@
+<title>Doodle Bots Studio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;600;700&display=swap">
+<style>
+  /* layout: a paper canvas with a player rail, a bank tab of thumbnails to star, a setup row; one column at phone width */
+  :root { --bg: #f3efe6; --paper: #fffdf7; --fg: #2b2622; --muted: #7a6f63; --rule: #d9d0c2; --accent: #c0552b; --chip: #e9e2d4; --star: #d9a62a; --hand: "Patrick Hand", "Comic Sans MS", cursive; --sans: "Nunito", system-ui, sans-serif; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #1d1a16; --paper: #26221d; --fg: #ece6da; --muted: #a79b8b; --rule: #3b352d; --accent: #e8825a; --chip: #332d26; --star: #e8c04a; color-scheme: dark } }
+  :root[data-theme="dark"] { --bg: #1d1a16; --paper: #26221d; --fg: #ece6da; --muted: #a79b8b; --rule: #3b352d; --accent: #e8825a; --chip: #332d26; --star: #e8c04a; color-scheme: dark }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); margin: 0; padding-block: 18px 48px; padding-inline: 16px; }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-family: var(--hand); font-weight: 400; font-size: 2.1rem; margin: 0 0 2px; }
+  .lede { color: var(--muted); margin: 0 0 12px; max-width: 72ch; line-height: 1.5; font-size: 0.95rem; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+  .tabs button { font: inherit; padding: 6px 14px; border-radius: 6px 6px 0 0; border: 1px solid var(--rule); border-bottom: none; background: var(--chip); color: var(--fg); cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: var(--paper); font-weight: 700; }
+  .panel { border: 1px solid var(--rule); border-radius: 0 8px 8px 8px; background: var(--paper); padding: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-bottom: 10px; }
+  .row label { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; }
+  select, button, input[type=number], input[type=text] { font: inherit; padding: 5px 8px; border-radius: 6px; border: 1px solid var(--rule); background: var(--bg); color: var(--fg); }
+  input[type=number] { width: 5.5em; } input[type=text] { width: 7em; }
+  button { cursor: pointer; } button.primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
+  button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 14px; }
+  .paper { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; position: relative; overflow: hidden; }
+  canvas.main { display: block; width: 100%; height: auto; }
+  .word { position: absolute; top: 8px; left: 12px; font-family: var(--hand); font-size: 1.5rem; }
+  .clock { position: absolute; top: 10px; right: 12px; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.9rem; }
+  .over { position: absolute; bottom: 10px; left: 12px; font-family: var(--hand); font-size: 1.2rem; color: var(--accent); }
+  .rail { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .seats { font-size: 0.85rem; color: var(--muted); display: flex; justify-content: space-between; align-items: baseline; }
+  .seats b { color: var(--fg); font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+  .player { display: grid; grid-template-columns: 14px 1fr; gap: 10px; align-items: start; padding: 7px 10px; border-radius: 8px; background: var(--chip); }
+  .player.gone { opacity: 0.4; } .player.human { background: transparent; border: 1px dashed var(--rule); }
+  .dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 3px; }
+  .who { font-weight: 700; font-size: 0.95rem; } .meta { font-size: 0.75rem; color: var(--muted); }
+  .bubble { font-family: var(--hand); font-size: 1.05rem; margin-top: 1px; min-height: 1.2em; }
+  .botcfg { display: grid; grid-template-columns: 4em 1fr 1fr; gap: 6px 8px; align-items: center; font-size: 0.85rem; max-width: 420px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 8px; }
+  .thumb { position: relative; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); padding: 4px; cursor: pointer; }
+  .thumb canvas { display: block; width: 100%; height: auto; } .thumb.starred { border-color: var(--star); box-shadow: 0 0 0 2px var(--star) inset; }
+  .thumb .s { position: absolute; top: 2px; right: 5px; color: var(--star); font-size: 1rem; }
+  .note { color: var(--muted); font-size: 0.85rem; line-height: 1.5; max-width: 72ch; }
+  textarea { width: 100%; min-height: 80px; font: 0.8rem ui-monospace, monospace; background: var(--bg); color: var(--fg); border: 1px solid var(--rule); border-radius: 6px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } .botcfg { max-width: none; } }
+</style>
+<div class="wrap">
+  <h1>Doodle Bots Studio</h1>
+  <p class="lede">Bots draw one word together on a shared canvas, live. Every stroke comes from a real human doodle in the bank, edited and drawn by a bot's hand; no bot knows where the figure goes, each believes and corrects from the canvas. Star the doodles you like in the Bank tab and the bots draw only from those. A seed reproduces a round. The same simulation runs the bot service that joins a game room.</p>
+  <div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="stage">Stage</button><button role="tab" aria-selected="false" data-tab="bank">Bank</button></div>
+  <div class="panel" id="tab-stage">
+    <div class="row">
+      <label for="word">Word <select id="word"></select></label>
+      <label for="nbots">Bots <input id="nbots" type="number" min="1" max="7" value="4"></label>
+      <label for="chaos">Chaos <input id="chaos" type="range" min="0" max="1" step="0.05" value="0.3"> <span id="chaosv">0.30</span></label>
+      <label for="seed">Seed <input id="seed" type="text" value="7"></label>
+      <label for="rlen">Round <input id="rlen" type="number" min="15" max="120" value="45"> s</label>
+      <label for="speed">Speed <input id="speed" type="range" min="0.5" max="4" step="0.5" value="1"> <span id="speedv">1.0×</span></label>
+      <label for="starred"><input id="starred" type="checkbox" checked> starred only (when any)</label>
+    </div>
+    <div class="row">
+      <button class="primary" id="start">Start round</button>
+      <button id="pause">Pause</button>
+      <button id="next">Next word</button>
+      <button id="addp">+ person joins</button>
+      <button id="remp">− person leaves</button>
+      <button id="reseed">New seed</button>
+    </div>
+    <div class="stage">
+      <div class="paper"><canvas class="main" id="c" width="640" height="420"></canvas><div class="word" id="wordlbl"></div><div class="clock" id="clock">0.0 s</div><div class="over" id="over"></div></div>
+      <div class="rail">
+        <div class="seats"><span>web seats</span><b id="seats">0 / 7</b></div>
+        <div id="players"></div>
+        <details><summary class="meta">bot setup (applied at Start round)</summary><div class="botcfg" id="botcfg"></div></details>
+      </div>
+    </div>
+  </div>
+  <div class="panel" id="tab-bank" hidden>
+    <div class="row">
+      <label for="bword">Word <select id="bword"></select></label>
+      <label for="bfilter"><input id="bfilter" type="checkbox"> show starred only</label>
+      <button id="copystars">Copy stars as JSON</button>
+      <button id="clearstars">Clear this word's stars</button>
+      <span class="note" id="bcount"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+    <textarea id="starsout" hidden aria-label="stars as JSON"></textarea>
+    <p class="note">Stars are kept in this browser only. Copy the JSON into <code>poc/results/doodle_curated.json</code> and pass it to the bot service with <code>--stars</code>. The bank: Quick, Draw! (Google), CC BY 4.0.</p>
+  </div>
+</div>
+<script>__SIM__</script>
+<script>
+const BANK = __BANK__;
+const { W, H, SEATS, BOX, PERSONAS, NAMES, rngOf, makeBot, startRound, advance, roomTarget, joinRound } = DoodleSim;
+const WORDS = Object.keys(BANK);
+const $ = id => document.getElementById(id); const canvas = $('c'), ctx = canvas.getContext('2d');
+let STARS = {}; try { STARS = JSON.parse(localStorage.getItem('doodle-stars') || '{}'); } catch (e) { STARS = {}; }
+function saveStars() { try { localStorage.setItem('doodle-stars', JSON.stringify(STARS)); } catch (e) {} }
+// the bank the bots draw from: a word's stars when it has any and the box is ticked, else all of it
+const srcOf = word => { const stars = STARS[word] || []; const all = BANK[word] || []; if ($('starred').checked && stars.length) { const set = new Set(stars); const s = all.filter(d => set.has(d.id)); if (s.length) return s; } return all; };
+srcOf.words = () => WORDS;
+WORDS.forEach(w => { $('word').appendChild(new Option(w, w)); $('bword').appendChild(new Option(w, w)); });
+let S = null, t = 0, playing = true, last = null, speed = 1, humans = 0;
+function botCfgRows() { const n = parseInt($('nbots').value) || 4; const el = $('botcfg'); const prev = {}; el.querySelectorAll('[data-i]').forEach(x => { prev[x.dataset.i + x.dataset.k] = x.value; }); el.innerHTML = '';
+  for (let i = 0; i < n; i++) { const name = NAMES[i]; el.insertAdjacentHTML('beforeend', `<span>${name}</span><select data-i="${i}" data-k="p" aria-label="${name} persona"><option value="random">random hand</option>${Object.keys(PERSONAS).map(p => `<option value="${p}">${p}</option>`).join('')}</select><select data-i="${i}" data-k="b" aria-label="${name} behaviour"><option value="auto">auto</option><option value="team">team</option><option value="solo">solo (corner)</option><option value="misheard">misheard</option></select>`); }
+  el.querySelectorAll('[data-i]').forEach(x => { if (prev[x.dataset.i + x.dataset.k]) x.value = prev[x.dataset.i + x.dataset.k]; }); }
+function begin(word) { const seed = $('seed').value, chaos = parseFloat($('chaos').value), n = parseInt($('nbots').value) || 4, dur = parseFloat($('rlen').value) || 45; const rng = rngOf(seed + '|' + word + '|' + chaos + '|' + n);
+  const cfg = {}; $('botcfg').querySelectorAll('[data-i]').forEach(x => { cfg[x.dataset.i] = cfg[x.dataset.i] || {}; cfg[x.dataset.i][x.dataset.k === 'p' ? 'persona' : 'behaviour'] = x.value; });
+  const bots = []; for (let i = 0; i < Math.min(n, Math.max(roomTarget(humans), 1)); i++) bots.push(makeBot(i, NAMES[i], chaos, rng, cfg[i] || {}));
+  S = startRound(word, bots, chaos, rng, 0, dur, srcOf); t = 0; $('over').textContent = ''; }
+function applyRoom() { if (!S) return; const target = roomTarget(humans);
+  while (S.bots.filter(b => b.here && !b.leaving).length > target) { const leaver = S.bots.filter(b => b.here && !b.leaving).reduce((a, c) => c.strokes > a.strokes ? c : a); leaver.leaving = true; leaver.freeAt = Math.max(leaver.freeAt === Infinity ? t : leaver.freeAt, t); }
+  while (S.bots.filter(b => b.here && !b.leaving).length < target && S.bots.filter(b => b.here).length < parseInt($('nbots').value)) { const used = new Set(S.bots.filter(b => b.here).map(b => b.name)); const name = NAMES.find(n => !used.has(n)); if (!name) break; joinRound(S, name, S.chaos, {}, t); } }
+function render() { const paper = getComputedStyle(document.documentElement).getPropertyValue('--paper').trim(); ctx.fillStyle = paper; ctx.fillRect(0, 0, W, H); if (!S) return; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  S.canvas.forEach(s => { if (s.t[0] > t) return; ctx.strokeStyle = s.kind === 'scribble' ? '#444' : s.color; ctx.lineWidth = s.kind === 'copy' || s.kind === 'scribble' ? 2 : 3; ctx.globalAlpha = s.kind === 'scribble' ? 0.7 : 0.85; ctx.beginPath(); let started = false;
+    for (let i = 0; i < s.xy.length; i++) { if (s.t[i] > t) break; const [x, y] = s.xy[i]; if (!started) { ctx.moveTo(x, y); started = true; } else ctx.lineTo(x, y); } ctx.stroke(); ctx.globalAlpha = 1; });
+  $('wordlbl').textContent = 'draw: ' + S.word; $('clock').textContent = t.toFixed(1) + ' s'; const present = S.bots.filter(b => b.here).length; $('seats').textContent = (present + humans) + ' / ' + SEATS;
+  $('players').innerHTML = S.bots.map(b => `<div class="player ${b.here ? '' : 'gone'}"><div class="dot" style="background:${b.color}"></div><div><div class="who">${b.name}</div><div class="meta">${b.persona} · ${b.behaviour}${b.inCorner ? ' (corner)' : ''}</div><div class="bubble">${b.bubble && b.bubble.t <= t && b.bubble.t > t - 4 ? b.bubble.text : ''}</div></div></div>`).join('') +
+    Array.from({ length: humans }, (_, i) => `<div class="player human"><div class="dot" style="background:var(--muted)"></div><div><div class="who">Person ${i + 1}</div><div class="meta">joined the room</div></div></div>`).join('');
+  $('over').textContent = S.over ? 'round over' : (S.known ? '' : 'the bots do not know this word'); }
+function frame(now) { if (last === null) last = now; const dt = (now - last) / 1000; last = now; if (S && playing) { t += dt * speed; advance(S, t); if (S.over && t > S.tEnd + 4) { const i = WORDS.indexOf(S.word); begin(WORDS[(i + 1) % WORDS.length]); $('word').value = S.word; } } render(); requestAnimationFrame(frame); }
+$('start').addEventListener('click', () => { begin($('word').value); playing = true; $('pause').textContent = 'Pause'; });
+$('next').addEventListener('click', () => { const i = WORDS.indexOf($('word').value); $('word').value = WORDS[(i + 1) % WORDS.length]; begin($('word').value); });
+$('pause').addEventListener('click', () => { playing = !playing; $('pause').textContent = playing ? 'Pause' : 'Play'; });
+$('reseed').addEventListener('click', () => { $('seed').value = String(Math.floor(Math.random() * 100000)); });
+$('addp').addEventListener('click', () => { if (humans + (S ? S.bots.filter(b => b.here).length : 0) >= SEATS) return; humans++; applyRoom(); });
+$('remp').addEventListener('click', () => { if (humans > 0) { humans--; applyRoom(); } });
+$('chaos').addEventListener('input', () => { $('chaosv').textContent = parseFloat($('chaos').value).toFixed(2); });
+$('speed').addEventListener('input', () => { speed = parseFloat($('speed').value); $('speedv').textContent = speed.toFixed(1) + '×'; });
+$('nbots').addEventListener('change', botCfgRows);
+document.querySelectorAll('.tabs button').forEach(bt => bt.addEventListener('click', () => { document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x === bt)); $('tab-stage').hidden = bt.dataset.tab !== 'stage'; $('tab-bank').hidden = bt.dataset.tab !== 'bank'; if (bt.dataset.tab === 'bank') drawGrid(); }));
+// ---- the bank tab
+function thumb(d, cv) { const g = cv.getContext('2d'); g.clearRect(0, 0, 64, 64); g.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--fg').trim(); g.lineWidth = 1.5; g.lineCap = 'round'; d.s.forEach(st => { g.beginPath(); st.forEach(([x, y], i) => { const px = 2 + x / BOX * 60, py = 2 + y / BOX * 60; if (i) g.lineTo(px, py); else g.moveTo(px, py); }); if (st.length === 1) g.lineTo(2 + st[0][0] / BOX * 60 + 0.5, 2 + st[0][1] / BOX * 60); g.stroke(); }); }
+function drawGrid() { const w = $('bword').value, stars = new Set(STARS[w] || []), only = $('bfilter').checked; const grid = $('grid'); grid.innerHTML = '';
+  BANK[w].forEach(d => { if (only && !stars.has(d.id)) return; const el = document.createElement('div'); el.className = 'thumb' + (stars.has(d.id) ? ' starred' : ''); el.setAttribute('role', 'button'); el.tabIndex = 0; el.title = 'star / unstar'; const cv = document.createElement('canvas'); cv.width = 64; cv.height = 64; el.appendChild(cv); const s = document.createElement('span'); s.className = 's'; s.textContent = stars.has(d.id) ? '★' : ''; el.appendChild(s); thumb(d, cv);
+    const toggle = () => { const set = new Set(STARS[w] || []); const on = !set.has(d.id); if (on) set.add(d.id); else set.delete(d.id); STARS[w] = Array.from(set); saveStars(); el.classList.toggle('starred', on); s.textContent = on ? '★' : ''; if (only && !on) el.remove(); countLine(w); }; el.addEventListener('click', toggle); el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } }); grid.appendChild(el); });
+  countLine(w); }
+function countLine(w) { $('bcount').textContent = `${$('grid').children.length} shown · ${(STARS[w] || []).length} starred of ${BANK[w].length}`; }
+$('bword').addEventListener('change', drawGrid); $('bfilter').addEventListener('change', drawGrid);
+$('clearstars').addEventListener('click', () => { STARS[$('bword').value] = []; saveStars(); drawGrid(); });
+$('copystars').addEventListener('click', () => { const text = JSON.stringify(STARS); const ta = $('starsout'); ta.value = text; const show = () => { ta.hidden = false; ta.focus(); ta.select(); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { $('copystars').textContent = 'Copied'; setTimeout(() => { $('copystars').textContent = 'Copy stars as JSON'; }, 1500); }).catch(show); else show(); });
+botCfgRows(); begin(WORDS[0]); requestAnimationFrame(frame);
+</script>

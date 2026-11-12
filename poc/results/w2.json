@@ -1,0 +1,2035 @@
+{
+  "alpha": {
+    "bilinear/height": 1.0,
+    "bilinear/slope": 0.5,
+    "bicubic/height": 2.0,
+    "bicubic/slope": 1.5
+  },
+  "a": {
+    "bilinear/height": 1766.6637017452972,
+    "bilinear/slope": 47.15583822962836,
+    "bicubic/height": 7353635.958724973,
+    "bicubic/slope": 199117.0909717064
+  },
+  "two_point": {
+    "a": {
+      "bilinear/height": 243.9058854686949,
+      "bilinear/slope": 26.72582757400904,
+      "bicubic/height": 30540.420444981606,
+      "bicubic/slope": 2728.142608462634
+    },
+    "alpha": {
+      "bilinear/height": 0.7730123580772792,
+      "bilinear/slope": 0.43490629982401396,
+      "bicubic/height": 1.3713454431440197,
+      "bicubic/slope": 1.0081785752412908
+    }
+  },
+  "model": {
+    "name": "frozen-exponent model",
+    "H1": {
+      "bilinear/height@0.3": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bilinear/height@0.2": {
+        "n_star": 128,
+        "n_hat": 96,
+        "D": 1
+      },
+      "bilinear/height@0.14": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bilinear/height@0.1": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bilinear/height@0.07": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bilinear/height@0.05": {
+        "n_star": 256,
+        "n_hat": 192,
+        "D": 1
+      },
+      "bilinear/height@0.035": {
+        "n_star": 256,
+        "n_hat": 256,
+        "D": 0
+      },
+      "bilinear/slope@0.3": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/height@0.3": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bicubic/height@0.2": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bicubic/height@0.14": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bicubic/height@0.1": {
+        "n_star": 128,
+        "n_hat": 96,
+        "D": 1
+      },
+      "bicubic/height@0.07": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bicubic/height@0.05": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bicubic/height@0.035": {
+        "n_star": 192,
+        "n_hat": 128,
+        "D": 1
+      },
+      "bicubic/height@0.025": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/height@0.018": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/height@0.0125": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/height@0.009": {
+        "n_star": 256,
+        "n_hat": 192,
+        "D": 1
+      },
+      "bicubic/height@0.006": {
+        "n_star": 256,
+        "n_hat": 192,
+        "D": 1
+      },
+      "bicubic/height@0.004": {
+        "n_star": 256,
+        "n_hat": 256,
+        "D": 0
+      },
+      "bicubic/height@0.003": {
+        "n_star": 256,
+        "n_hat": 256,
+        "D": 0
+      },
+      "bicubic/height@0.002": {
+        "n_star": 256,
+        "n_hat": 256,
+        "D": 0
+      },
+      "bicubic/slope@0.3": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bicubic/slope@0.2": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bicubic/slope@0.14": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bicubic/slope@0.1": {
+        "n_star": 192,
+        "n_hat": 128,
+        "D": 1
+      },
+      "bicubic/slope@0.07": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/slope@0.05": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/slope@0.035": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      }
+    },
+    "H2": {
+      "height@0.2": {
+        "actual": "bicubic",
+        "predicted": "tie"
+      },
+      "height@0.14": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "height@0.1": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "height@0.07": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "height@0.05": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "height@0.035": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "slope@0.3": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      }
+    },
+    "logerr": {},
+    "meanD": 0.23333333333333334,
+    "H1_frac_within_1": 1.0,
+    "held_out_log_error": 0.31475801747961213,
+    "H2_accuracy": 0.8571428571428571,
+    "H2_n": 7
+  },
+  "baseline_D": {
+    "name": "two-point power law (baseline D)",
+    "H1": {
+      "bilinear/height@0.3": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bilinear/height@0.2": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bilinear/height@0.14": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bilinear/height@0.1": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bilinear/height@0.07": {
+        "n_star": 192,
+        "n_hat": 256,
+        "D": 1
+      },
+      "bilinear/height@0.05": {
+        "n_star": 256,
+        "n_hat": 256,
+        "D": 0
+      },
+      "bilinear/height@0.035": {
+        "n_star": 256,
+        "n_hat": null,
+        "D": null
+      },
+      "bilinear/slope@0.3": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/height@0.3": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bicubic/height@0.2": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bicubic/height@0.14": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bicubic/height@0.1": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bicubic/height@0.07": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bicubic/height@0.05": {
+        "n_star": 128,
+        "n_hat": 192,
+        "D": 1
+      },
+      "bicubic/height@0.035": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/height@0.025": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/height@0.018": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/height@0.0125": {
+        "n_star": 192,
+        "n_hat": 256,
+        "D": 1
+      },
+      "bicubic/height@0.009": {
+        "n_star": 256,
+        "n_hat": 256,
+        "D": 0
+      },
+      "bicubic/height@0.006": {
+        "n_star": 256,
+        "n_hat": null,
+        "D": null
+      },
+      "bicubic/height@0.004": {
+        "n_star": 256,
+        "n_hat": null,
+        "D": null
+      },
+      "bicubic/height@0.003": {
+        "n_star": 256,
+        "n_hat": null,
+        "D": null
+      },
+      "bicubic/height@0.002": {
+        "n_star": 256,
+        "n_hat": null,
+        "D": null
+      },
+      "bicubic/slope@0.3": {
+        "n_star": 96,
+        "n_hat": 96,
+        "D": 0
+      },
+      "bicubic/slope@0.2": {
+        "n_star": 128,
+        "n_hat": 128,
+        "D": 0
+      },
+      "bicubic/slope@0.14": {
+        "n_star": 128,
+        "n_hat": 192,
+        "D": 1
+      },
+      "bicubic/slope@0.1": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/slope@0.07": {
+        "n_star": 192,
+        "n_hat": 192,
+        "D": 0
+      },
+      "bicubic/slope@0.05": {
+        "n_star": 192,
+        "n_hat": 256,
+        "D": 1
+      },
+      "bicubic/slope@0.035": {
+        "n_star": 192,
+        "n_hat": null,
+        "D": null
+      }
+    },
+    "H2": {
+      "height@0.2": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "height@0.14": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "height@0.1": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "height@0.07": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "height@0.05": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      },
+      "height@0.035": {
+        "actual": "bicubic",
+        "predicted": null
+      },
+      "slope@0.3": {
+        "actual": "bicubic",
+        "predicted": "bicubic"
+      }
+    },
+    "logerr": {},
+    "meanD": 2.1666666666666665,
+    "H1_frac_within_1": 0.8,
+    "held_out_log_error": 0.3695534895830801,
+    "H2_accuracy": 0.8571428571428571,
+    "H2_n": 7
+  },
+  "baselines_winner": {
+    "A_always_bilinear": 0.0,
+    "B_always_bicubic": 1.0,
+    "C_lower_at_64": 1.0
+  },
+  "crossover": {
+    "height": {
+      "eps_pred": 0.42442958185348567,
+      "empirical_interval": null,
+      "winner_sequence": [
+        "tie",
+        "bicubic",
+        "bicubic",
+        "bicubic",
+        "bicubic",
+        "bicubic",
+        "bicubic",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "H3_pass": true
+    },
+    "slope": {
+      "eps_pred": 0.7256863168912139,
+      "empirical_interval": null,
+      "winner_sequence": [
+        "bicubic",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "H3_pass": true
+    }
+  },
+  "H4": true,
+  "H6": {
+    "accuracy": 1.0,
+    "n": 69,
+    "map_accuracy": 1.0
+  },
+  "map": [
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.3,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.2,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.14,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.1,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.07,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "slope",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.05,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "slope"
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.035,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.025,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.018,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "tie",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.0125,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.009,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "tie"
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.006,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.004,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.003,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.3,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.2,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.14,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.1,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.07,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.05,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.035,
+      "actual": "bicubic",
+      "predicted": "bicubic",
+      "actual_binding": "height",
+      "predicted_binding": "height"
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.025,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.018,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.0125,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.009,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.006,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.004,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.003,
+      "actual": null,
+      "predicted": null
+    },
+    {
+      "eps_h": 0.002,
+      "eps_n": 0.002,
+      "actual": null,
+      "predicted": null
+    }
+  ],
+  "verdict": {
+    "H1": true,
+    "H2": true,
+    "H5": true,
+    "H6": true
+  }
+}

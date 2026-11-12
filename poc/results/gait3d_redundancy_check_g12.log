@@ -1,0 +1,6 @@
+  stiff  stiff_side   0.42 (min 0.37)  stiff_knee   0.43 (min 0.40)  stiff_lift   1.00 (min 0.46)  class step   0.63 (min 0.45)  n=6
+  limp   limp_side    0.97 (min 0.65)  limp_lift    0.29 (min 0.24)  limp_sink    0.57 (min 0.38)  limp_duty    0.76 (min 0.13)  class step   0.74 (min 0.41)  n=6
+  hold   hold_side    0.97 (min 0.38)  hold_hip     0.98 (min 0.33)  hold_amp     0.98 (min 0.36)  class step   0.82 (min 0.38)  n=6
+  vault  vault_lift   0.98 (min 0.96)  vault_lag    1.00 (min 0.96)  class step   0.94 (min 0.70)  n=7
+  weak   weak_side    0.59 (min 0.52)  weak_scale   0.51 (min 0.42)  weak_lag     0.74 (min 0.65)  weak_roll    0.62 (min 0.41)  class step   0.69 (min 0.47)  n=6
+[68s]

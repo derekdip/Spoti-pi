@@ -1,0 +1,51 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+E1030 21:50:44.170016    4041 slow_operation_alarm.cc:74] Constant folding an instruction is taking > 1s:
+
+  %transpose.695 = f32[50257,768]{1,0} transpose(%constant.1426), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+E1030 21:50:44.677267    4011 slow_operation_alarm.cc:141] The operation took 1.507466709s
+Constant folding an instruction is taking > 1s:
+
+  %transpose.695 = f32[50257,768]{1,0} transpose(%constant.1426), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[21:51:01] n 48 amp 1.0 extend teacher fc@7: base to target 0.2956 (held 0.0243)
+[21:52:37]    student ('v@7', 2): D 0.0291 D_held 0.0402 s 3.66e-01 (135s)
+[21:54:08]    student ('fc@7', 2): D 0.0194 D_held 0.0202 s 1.81e-01 (226s)
+[21:54:44] n 48 amp 1.0 reuse teacher v@7 rank 3: base to target 0.1720 (held 0.0411)
+[21:56:14]    student ('v@7', 1): D 0.0143 D_held 0.0203 s 1.50e-01 (125s)
+E1030 21:56:44.401446    4041 slow_operation_alarm.cc:74] Constant folding an instruction is taking > 2s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1432), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+E1030 21:56:44.691267    4011 slow_operation_alarm.cc:141] The operation took 2.290098807s
+Constant folding an instruction is taking > 2s:
+
+  %transpose.705 = f32[50257,768]{1,0} transpose(%constant.1432), dimensions={1,0}
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime. XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[21:57:57]    student ('v@7', 3): D 0.0108 D_held 0.0168 s 2.31e-01 (229s)
+[21:58:42] n 48 amp 2.0 extend teacher fc@7: base to target 0.4945 (held 0.0490)
+[22:00:17]    student ('v@7', 2): D 0.0601 D_held 0.0869 s 1.53e-01 (139s)
+[22:01:49]    student ('fc@7', 2): D 0.0406 D_held 0.0359 s 1.52e-01 (232s)
+[22:02:31] n 48 amp 2.0 reuse teacher v@7 rank 3: base to target 0.2939 (held 0.0835)
+[22:04:09]    student ('v@7', 1): D 0.0213 D_held 0.0262 s 2.67e-01 (139s)
+[22:05:41]    student ('v@7', 3): D 0.0184 D_held 0.0235 s 3.73e-01 (231s)
+[22:06:56] n 96 amp 1.0 extend teacher fc@7: base to target 0.1856 (held 0.0286)
+[22:09:45]    student ('v@7', 2): D 0.0192 D_held 0.0307 s 1.44e-01 (221s)
+[22:12:23]    student ('fc@7', 2): D 0.0280 D_held 0.0174 s 1.58e-01 (380s)
+[22:13:18] n 96 amp 1.0 reuse teacher v@7 rank 3: base to target 0.1032 (held 0.0471)
+[22:15:52]    student ('v@7', 1): D 0.0076 D_held 0.0129 s 2.61e-01 (209s)
+[22:18:22]    student ('v@7', 3): D 0.0058 D_held 0.0122 s 2.10e-01 (359s)
+[22:19:15] n 96 amp 2.0 extend teacher fc@7: base to target 0.2764 (held 0.0566)
+[22:21:59]    student ('v@7', 2): D 0.0379 D_held 0.0627 s 1.11e-01 (217s)

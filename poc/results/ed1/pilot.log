@@ -1,0 +1,45 @@
+[06:18:09] base step 500 loss 1.874
+[06:18:22] base step 1000 loss 1.848
+[06:18:34] base step 1500 loss 1.797
+[06:18:34] base final loss 1.797
+[06:18:37] planted scale 0.5: normalised distance base to target 0.234
+[06:18:37] planted scale 1.0: normalised distance base to target 0.443
+[06:18:37] planted scale 2.0: normalised distance base to target 0.706
+[06:18:48] rank-2 student,   6 of 300 steps: D 0.345 s 3.95e-01 tau 0.609 gamma 1.37e-05 kappa 2.6e+05 lam_min -4.39e+00 |H| 7.49e+00 rank 122/128
+[06:18:56] rank-2 student,  15 of 300 steps: D 0.262 s 1.66e-01 tau 0.619 gamma 1.76e-05 kappa 2.7e+05 lam_min -1.22e+00 |H| 1.93e+01 rank 122/128
+[06:19:05] rank-2 student,  30 of 300 steps: D 0.172 s 1.46e-01 tau 0.764 gamma 2.82e-05 kappa 1.9e+05 lam_min -4.39e-01 |H| 2.52e+01 rank 122/128
+[06:19:14] rank-2 student,  60 of 300 steps: D 0.065 s 1.04e-01 tau 0.931 gamma 3.67e-05 kappa 1.5e+05 lam_min -4.22e-02 |H| 3.06e+01 rank 122/128
+[06:19:24] rank-2 student, 120 of 300 steps: D 0.031 s 3.65e-02 tau 0.956 gamma 3.98e-05 kappa 1.4e+05 lam_min -9.51e-03 |H| 3.02e+01 rank 122/128
+[06:19:36] rank-2 student, 300 of 300 steps: D 0.012 s 1.73e-02 tau 0.956 gamma 4.32e-05 kappa 1.3e+05 lam_min -1.74e-03 |H| 3.11e+01 rank 122/128
+[06:19:43] theta = 0: D 0.443 s 0.0e+00 lam_min -7.83e+00 |H| 7.83e+00 rank 0
+[06:19:57] collinear rank-4 at 10%: D 0.198 s 8.23e-02 gamma 7.63e-08 kappa 5.8e+07 rank 232/256
+[06:20:11] collinear rank-4 at 20%: D 0.183 s 2.34e-02 gamma 2.91e-07 kappa 1.5e+07 rank 234/256
+[06:20:28] collinear rank-4 at 40%: D 0.029 s 1.05e-01 gamma 6.32e-07 kappa 7.7e+06 rank 236/256
+[06:20:38] reuse fitted to the budget: D 0.242 s 2.38e-03 tau 0.02 kappa 4.6e+04 lam_min -7.99e-03 |H| 3.28e+01 D_held 0.270
+[06:21:13]   budget of 8 multistarts: F 1.374e+00 -> 1.356e+00 (1.3 percent)
+[06:22:20]   candidates eta p1/p3/p12/full (dim): wv@0 0.00/0.00/0.11/0.91 (930), wo@0 0.00/0.00/0.04/0.92 (990), wv@1 0.00/0.01/0.03/0.71 (992), wo@1 0.00/0.01/0.03/0.72 (992), w1@1 0.00/0.00/0.02/0.96 (1984), w2@1 0.00/0.00/0.04/0.86 (1216), out_bias 0.00/0.00/0.03/0.04 (15)
+[06:23:59]   pair wv@1|wo@1: p1 mu 0.61 d 0.79 p3 mu 0.74 d 1.00 p12 mu 0.89 d 1.00 | full containment 0.74/0.74 align 0.884
+[06:25:27]   pair wv@0|w2@1: p1 mu 0.02 d 1.00 p3 mu 0.43 d 1.00 p12 mu 0.73 d 1.00 | full containment 0.69/0.53 align 0.915
+[06:26:52]   pair wv@0|wo@0: p1 mu 0.92 d 0.39 p3 mu 0.94 d 0.96 p12 mu 0.98 d 0.99 | full containment 0.77/0.73 align 0.977
+[06:28:15]   pair w1@1|w2@1: p1 mu 0.86 d 0.51 p3 mu 0.92 d 1.00 p12 mu 0.96 d 0.99 | full containment 0.55/0.90 align 0.931
+[06:28:22]   full fit of wv@0 (1024 params): D_train 0.008 D_held 0.018
+[06:28:24]   full fit of w2@1 (2048 params): D_train 0.109 D_held 0.264
+[06:28:26]   full fit of w1@1 (2048 params): D_train 0.053 D_held 0.219
+[06:28:34]   full fit of fallback (8208 params): D_train 0.018 D_held 0.135
+[06:28:52] extend fitted to the budget: D 0.219 s 1.98e-03 tau 0.02 kappa 7.5e+04 lam_min -2.47e-03 |H| 1.18e+01 D_held 0.269
+[06:29:49]   budget of 8 multistarts: F 1.289e+00 -> 1.289e+00 (0.0 percent)
+[06:31:00]   candidates eta p1/p3/p12/full (dim): wv@0 0.00/0.01/0.04/0.80 (870), wo@0 0.00/0.01/0.05/0.87 (986), wv@1 0.00/0.03/0.05/0.85 (992), wo@1 0.00/0.01/0.05/0.86 (992), w1@1 0.06/0.09/0.19/0.99 (1984), w2@1 0.03/0.09/0.16/0.98 (1216), out_bias 0.03/0.05/0.11/0.13 (15)
+[06:31:26]   pair wv@1|wo@1: p1 mu 0.53 d 0.85 p3 mu 0.81 d 0.99 p12 mu 0.88 d 1.00 | full containment 0.78/0.78 align 0.922
+[06:31:55]   pair wv@0|w2@1: p1 mu 0.35 d 0.94 p3 mu 0.54 d 1.00 p12 mu 0.77 d 1.00 | full containment 0.77/0.55 align 0.891
+[06:32:20]   pair wv@0|wo@0: p1 mu 0.10 d 1.00 p3 mu 0.36 d 1.00 p12 mu 0.92 d 1.00 | full containment 0.81/0.72 align 0.910
+[06:32:45]   pair w1@1|w2@1: p1 mu 0.54 d 0.84 p3 mu 0.89 d 1.00 p12 mu 0.96 d 1.00 | full containment 0.58/0.94 align 0.992
+[06:32:50]   full fit of wv@0 (1024 params): D_train 0.118 D_held 0.254
+[06:32:51]   full fit of w2@1 (2048 params): D_train 0.058 D_held 0.199
+[06:32:55]   full fit of w1@1 (2048 params): D_train 0.036 D_held 0.228
+[06:33:00]   full fit of fallback (8208 params): D_train 0.023 D_held 0.187
+[06:33:12] noise fitted to the budget: D 0.443 s 8.17e-04 tau 0.00 kappa 6.0e+04 lam_min -1.02e-03 |H| 1.80e+01 D_held 0.467
+[06:33:24] adequate fitted to the budget: D 0.006 s 1.02e-02 tau 0.98 kappa 1.1e+05 lam_min -2.12e-04 |H| 2.68e+01 D_held 0.007
+[06:33:35] extend at 0.01 of the scale, fitted: D 0.002 (base to target 0.004)
+[06:33:47] extend at 0.03 of the scale, fitted: D 0.007 (base to target 0.011)
+[06:33:58] extend at 0.1 of the scale, fitted: D 0.024 (base to target 0.035)
+[06:34:10] extend at 0.3 of the scale, fitted: D 0.071 (base to target 0.105)

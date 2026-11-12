@@ -1,0 +1,11 @@
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[23:56:14] real world (all positions): state dim 393216, base D 0.9817 held 0.9900 nll_held 6.041 (31s)
+[23:59:50] real student rank-2 v@7 lr 0.001: D 0.9721 D_held 0.9838 s 6.64e-02 nll_held 5.936 (216s)
+[00:02:27] real student rank-2 v@7 lr 0.003: D 0.9547 D_held 0.9860 s 1.60e-02 nll_held 6.016 (157s)
+[00:05:25]   lam_min -2.61e+00 |H| 2.07e+02 (66s)
+[00:11:33]   real fc@11: gain train 0.027 held 0.001 (277s)
+[00:16:03]   real v@3: gain train 0.019 held -0.019 (270s)
+[00:20:32]   real proj@7: gain train 0.030 held -0.018 (269s)
+[00:22:46]   real joint fit with fc@11: D_train 0.8723 D_held 1.0265 nll_held 8.183 (134s)
+[00:25:36]   real joint fit with v@3: D_train 0.8963 D_held 0.9985 nll_held 6.795 (171s)
+[00:25:36] pilot4 done in 1793s

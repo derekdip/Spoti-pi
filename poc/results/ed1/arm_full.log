@@ -1,0 +1,14 @@
+[06:56:36] base step 500 loss 1.665
+[06:57:04] base step 1000 loss 1.630
+[06:57:31] base step 1500 loss 1.623
+[06:58:38] full   refine_early  truth REFINE         got REFINE           ok  D 0.236 s 1.4e-01 tau 0.39 kappa 1.2e+05 lam -1.3e+00/1.3e+01 stage REFINE fits 0 [66s]
+[06:59:22] full   refine_mid    truth REFINE         got REFINE           ok  D 0.300 s 1.3e-01 tau 0.38 kappa 2.2e+04 lam -1.3e+00/5.1e+01 stage REFINE fits 0 [110s]
+[07:01:43] full   saddle        truth GLOBALIZE      got GLOBALIZE        ok  D 0.439 s 0.0e+00 tau 0.00 kappa inf lam -8.0e+00/8.0e+00 stage GLOBALIZE fits 8 [251s]
+[07:23:29] full   reuse         truth EXPAND:wv@0    got EXPAND:wv@0      ok  D 0.164 s 2.5e-03 tau 0.08 kappa 5.1e+04 lam -3.9e-03/3.2e+01 stage GLOBALIZE fits 12 [1557s]
+[07:25:00] full   collinear     truth REPARAMETERIZE got REPARAMETERIZE   ok  D 0.305 s 9.7e-02 tau 0.57 kappa 9.6e+07 lam -1.2e+01/2.5e+02 stage REPARAMETERIZE fits 0 [1648s]
+[07:48:06] full   extend        truth EXPAND:w2@1    got EXPAND:w2@1      ok  D 0.197 s 4.9e-03 tau 0.04 kappa 1.5e+05 lam -4.0e-03/7.9e+01 stage GLOBALIZE fits 12 [3034s]
+[08:18:29] full   noise         truth FALLBACK       got FALLBACK         ok  D 0.441 s 1.4e-03 tau 0.00 kappa 1.4e+05 lam -1.1e-03/2.1e+01 stage GLOBALIZE fits 12 [4857s]
+[08:21:00] full   adequate      truth STOP           got STOP             ok  D 0.006 s 1.6e-02 tau 0.99 kappa 6.0e+04 lam -7.8e-04/2.4e+01 stage STOP fits 0 [5008s]
+[08:28:32] full   pair wv@1|wo@1: COLLAPSE (matched-p rule KEEP DISTINCT) align 1.000 [5460s]
+[08:39:38] full   pair wv@0|w2@1: KEEP DISTINCT (matched-p rule KEEP DISTINCT) align 0.933 [6126s]
+[08:39:38] done arm full in 6126s

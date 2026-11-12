@@ -1,0 +1,32 @@
+{
+ "repo": "/home/user/Spoti-pi",
+ "corpus_commit": "73b70e427570835c249b7948bf8cd6b4baf7f986",
+ "lr": 0.001,
+ "rank": 2,
+ "cap_full": 800,
+ "cap_half": 500,
+ "threads": 4,
+ "models": {
+  "gpt2": {
+   "dir": "/tmp/claude-0/-home-user-Spoti-pi/1b1f644f-a664-570f-99b3-f54d941ef46d/scratchpad/gpt2_hf",
+   "kind": "gpt2"
+  }
+ },
+ "conditions": [
+  {
+   "name": "none-32",
+   "model": "gpt2",
+   "transform": "none",
+   "seed": 21,
+   "n": 32,
+   "n_val": 32,
+   "n_test": 96,
+   "targets": [
+    "transformer.h.2.mlp.c_proj",
+    "transformer.h.8.mlp.c_proj",
+    "transformer.h.2.attn.c_attn[1536:2304]",
+    "transformer.h.8.attn.c_proj"
+   ]
+  }
+ ]
+}
