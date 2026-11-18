@@ -1,0 +1,10 @@
+[22:26:16] generic model: 60 players x 3 min = 161700 windows, train mse 0.987 cm^2
+[22:26:18] player 0, 1 min: base 0.76, const-vel 3.86, best 0.72 at step 20, end 0.82 (turned at 100); rule 0.72, holdout 0.71, 300 steps 0.82; knee 0.110 (rel 0.13), half knees [0.094 0.169] [41s]
+[22:26:45] player 0, 5 min: base 0.76, const-vel 3.86, best 0.70 at step 20, end 0.75 (turned at 240); rule 0.71, holdout 0.71, 300 steps 0.75; knee 0.077 (rel 0.09), half knees [0.142 0.135] [68s]
+[22:26:48] player 1, 1 min: base 1.19, const-vel 8.13, best 1.10 at step 60, end 1.17 (turned at 140); rule 1.11, holdout 1.12, 300 steps 1.17; knee 0.324 (rel 0.28), half knees [0.065 0.191] [72s]
+[22:31:28] player 1, 5 min: base 1.19, const-vel 8.13, best 0.81 at step 730, end 0.83 (cap at 3000); rule 0.86, holdout 0.84, 300 steps 0.83; knee 0.474 (rel 0.45), half knees [0.423 0.326] [352s]
+[22:31:31] player 2, 1 min: base 0.72, const-vel 3.02, best 0.70 at step 20, end 0.81 (turned at 100); rule 0.70, holdout 0.70, 300 steps 0.81; knee 0.095 (rel 0.10), half knees [0.054 0.   ] [354s]
+[22:32:37] player 2, 5 min: base 0.72, const-vel 3.02, best 0.63 at step 120, end 0.70 (turned at 990); rule 0.63, holdout 0.64, 300 steps 0.65; knee 0.203 (rel 0.25), half knees [0.175 0.232] [420s]
+[22:32:39] player 3, 1 min: base 0.22, const-vel 1.29, best 0.21 at step 10, end 0.24 (turned at 90); rule 0.22, holdout 0.21, 300 steps 0.24; knee 0.015 (rel 0.07), half knees [0.047 0.03 ] [423s]
+[22:34:13] player 3, 5 min: base 0.22, const-vel 1.29, best 0.18 at step 310, end 0.21 (turned at 1550); rule 0.19, holdout 0.20, 300 steps 0.18; knee 0.088 (rel 0.39), half knees [0.054 0.078] [516s]
+RUN EXIT 0
