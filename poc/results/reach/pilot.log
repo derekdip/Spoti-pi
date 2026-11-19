@@ -1,0 +1,30 @@
+[23:48:12] population model, hand 0: 37361 samples
+[23:51:53] population model, hand 1: 44158 samples
+[23:52:13] player 0 (standing, reach 0.71, right share 0.37), 1 min: in the true 50% zone, of 6 buttons: fixed 1.0, generic 1.0, rule 4.0, holdout 4.0, best 5.0, 300 steps 4.0, last 1.0 [435s]
+[23:52:41] player 0 (standing, reach 0.71, right share 0.37), 2 min: in the true 50% zone, of 6 buttons: fixed 1.0, generic 1.0, rule 3.0, holdout 4.0, best 5.0, 300 steps 3.0, last 3.0 [463s]
+[23:53:33] player 0 (standing, reach 0.71, right share 0.37), 5 min: in the true 50% zone, of 6 buttons: fixed 1.0, generic 1.0, rule 5.0, holdout 5.0, best 5.0, 300 steps 5.0, last 5.0 [515s]
+[23:53:52] player 1 (standing, reach 0.76, right share 0.26), 1 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 1.0, rule 4.0, holdout 3.0, best 3.0, 300 steps 3.0, last 2.0 [534s]
+[23:54:18] player 1 (standing, reach 0.76, right share 0.26), 2 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 1.0, rule 3.0, holdout 3.0, best 3.0, 300 steps 4.0, last 3.0 [560s]
+[23:55:08] player 1 (standing, reach 0.76, right share 0.26), 5 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 1.0, rule 4.0, holdout 3.0, best 4.0, 300 steps 4.0, last 4.0 [611s]
+[23:55:30] player 2 (standing, reach 0.76, right share 0.45), 1 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 4.0, holdout 2.0, best 4.0, 300 steps 1.0, last 2.0 [632s]
+[23:56:02] player 2 (standing, reach 0.76, right share 0.45), 2 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 4.0, holdout 4.0, best 4.0, 300 steps 3.0, last 3.0 [665s]
+[23:56:55] player 2 (standing, reach 0.76, right share 0.45), 5 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 4.0, holdout 4.0, best 4.0, 300 steps 3.0, last 3.0 [718s]
+[23:57:12] player 3 (standing, reach 0.88, right share 0.73), 1 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 2.0, holdout 2.0, best 2.0, 300 steps 2.0, last 3.0 [734s]
+[23:57:33] player 3 (standing, reach 0.88, right share 0.73), 2 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 3.0, holdout 3.0, best 3.0, 300 steps 2.0, last 3.0 [755s]
+[23:58:04] player 3 (standing, reach 0.88, right share 0.73), 5 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 4.0, holdout 4.0, best 4.0, 300 steps 2.0, last 4.0 [787s]
+[23:58:21] player 4 (standing, reach 0.90, right share 0.64), 1 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 2.0, holdout 2.0, best 3.0, 300 steps 3.0, last 3.0 [803s]
+[23:58:41] player 4 (standing, reach 0.90, right share 0.64), 2 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 3.0, holdout 3.0, best 3.0, 300 steps 2.0, last 2.0 [823s]
+[23:59:20] player 4 (standing, reach 0.90, right share 0.64), 5 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 3.0, holdout 3.0, best 3.0, 300 steps 2.0, last 2.0 [863s]
+[23:59:36] player 5 (seated, reach 0.93, right share 0.74), 1 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 1.0, rule 4.0, holdout 4.0, best 4.0, 300 steps 3.0, last 4.0 [878s]
+[23:59:57] player 5 (seated, reach 0.93, right share 0.74), 2 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 1.0, rule 4.0, holdout 4.0, best 4.0, 300 steps 3.0, last 3.0 [900s]
+[00:00:33] player 5 (seated, reach 0.93, right share 0.74), 5 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 1.0, rule 5.0, holdout 4.0, best 4.0, 300 steps 3.0, last 3.0 [936s]
+[00:00:55] player 6 (standing, reach 0.74, right share 0.66), 1 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 2.0, holdout 3.0, best 4.0, 300 steps 1.0, last 4.0 [957s]
+[00:01:22] player 6 (standing, reach 0.74, right share 0.66), 2 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 4.0, holdout 4.0, best 3.0, 300 steps 2.0, last 3.0 [984s]
+[00:02:12] player 6 (standing, reach 0.74, right share 0.66), 5 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 0.0, rule 5.0, holdout 4.0, best 6.0, 300 steps 4.0, last 2.0 [1034s]
+[00:02:32] player 7 (seated, reach 0.90, right share 0.64), 1 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 1.0, rule 3.0, holdout 4.0, best 4.0, 300 steps 4.0, last 4.0 [1054s]
+[00:02:59] player 7 (seated, reach 0.90, right share 0.64), 2 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 1.0, rule 3.0, holdout 5.0, best 5.0, 300 steps 4.0, last 4.0 [1081s]
+[00:03:51] player 7 (seated, reach 0.90, right share 0.64), 5 min: in the true 50% zone, of 6 buttons: fixed 0.0, generic 1.0, rule 5.0, holdout 5.0, best 5.0, 300 steps 4.0, last 4.0 [1133s]
+[00:03:51] 1 min, buttons of 6 inside the true 50% / 80% zone: fixed 0.1/0.4, generic 0.5/0.9, rule 3.1/4.2, holdout 3.0/4.1, steps100 3.4/4.5, steps300 2.6/4.6, steps1000 2.8/4.6, oracle 3.6/4.5, last 2.9/4.6
+[00:03:51] 2 min, buttons of 6 inside the true 50% / 80% zone: fixed 0.1/0.4, generic 0.5/0.9, rule 3.4/4.9, holdout 3.8/4.6, steps100 3.6/4.8, steps300 2.9/4.6, steps1000 2.5/3.9, oracle 3.8/4.6, last 3.0/3.9
+[00:03:51] 5 min, buttons of 6 inside the true 50% / 80% zone: fixed 0.1/0.4, generic 0.5/0.9, rule 4.4/5.0, holdout 4.0/5.1, steps100 4.1/5.0, steps300 3.4/4.6, steps1000 3.6/4.9, oracle 4.4/5.1, last 3.4/5.2
+RUN EXIT 0
