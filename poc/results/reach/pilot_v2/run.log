@@ -1,0 +1,23 @@
+[00:18:04] population model, hand 0: 38877 samples
+[00:23:03] population model, hand 1: 54748 samples
+[00:23:23] player 0 (calib), 1 min: generic 1.0, rule 3.0, best 2.0, last 2.0 [1 of 18, 536s]
+[00:23:24] player 1 (calib), 1 min: generic 3.0, rule 4.0, best 3.0, last 1.0 [2 of 18, 537s]
+[00:23:35] player 0 (calib), 2 min: generic 1.0, rule 3.0, best 2.0, last 2.0 [3 of 18, 548s]
+[00:23:51] player 1 (calib), 2 min: generic 3.0, rule 4.0, best 3.0, last 3.0 [4 of 18, 564s]
+[00:24:03] player 0 (calib), 5 min: generic 1.0, rule 3.0, best 3.0, last 3.0 [5 of 18, 576s]
+[00:24:16] player 1 (calib), 5 min: generic 3.0, rule 4.0, best 5.0, last 4.0 [6 of 18, 589s]
+[00:24:16] calibrated relative drops: {1: 0.8276004509400519, 2: 0.7585414914347297, 5: 0.7515766729221443}
+[00:24:37] player 3 (eval), 1 min: generic 2.0, rule 3.0, best 2.0, last 3.0, reuse 3.0 [7 of 18, 610s]
+[00:24:42] player 2 (eval), 1 min: generic 1.0, rule 5.0, best 4.0, last 2.0, reuse 2.0 [8 of 18, 614s]
+[00:24:55] player 2 (eval), 2 min: generic 1.0, rule 4.0, best 5.0, last 2.0, reuse 4.0 [9 of 18, 628s]
+[00:25:08] player 3 (eval), 2 min: generic 2.0, rule 4.0, best 3.0, last 2.0, reuse 3.0 [10 of 18, 640s]
+[00:25:15] player 4 (eval), 1 min: generic 0.0, rule 3.0, best 4.0, last 3.0, reuse 2.0 [11 of 18, 647s]
+[00:25:30] player 2 (eval), 5 min: generic 1.0, rule 6.0, best 5.0, last 3.0, reuse 5.0 [12 of 18, 663s]
+[00:25:35] player 3 (eval), 5 min: generic 2.0, rule 4.0, best 4.0, last 3.0, reuse 5.0 [13 of 18, 667s]
+[00:25:35] player 4 (eval), 2 min: generic 0.0, rule 4.0, best 3.0, last 4.0, reuse 2.0 [14 of 18, 668s]
+[00:25:52] player 5 (eval), 1 min: generic 0.0, rule 3.0, best 3.0, last 3.0, reuse 3.0 [15 of 18, 684s]
+[00:26:02] player 4 (eval), 5 min: generic 0.0, rule 5.0, best 5.0, last 3.0, reuse 3.0 [16 of 18, 694s]
+[00:26:06] player 5 (eval), 2 min: generic 0.0, rule 3.0, best 4.0, last 3.0, reuse 4.0 [17 of 18, 699s]
+[00:26:37] player 5 (eval), 5 min: generic 0.0, rule 5.0, best 5.0, last 4.0, reuse 4.0 [18 of 18, 730s]
+[00:26:37] done
+RUN EXIT 0

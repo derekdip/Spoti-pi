@@ -42,6 +42,30 @@ def sample_style(rng):
     return dict(height=h, eye=eye, seated=bool(seated), arm=arm, right_share=rs, zones=zones, rate=rng.uniform(15, 50), hold=(0.3, 1.5))
 
 
+# v2 (docs/reach-menus-prereg.md): zones every player shares, each shifted and reweighted per player, plus at
+# most one personal zone; the v1 generator above gave every player narrow zones in random directions, which
+# made one-size placement fail by construction.
+CANON = [  # azimuth outward (deg), elevation (deg), distance as a fraction of arm length, weight
+    (5, 0, 0.60, 0.35),      # in front of the chest
+    (10, -35, 0.75, 0.30),   # down and forward, desk height
+    (45, -10, 0.80, 0.25),   # out to the side
+    (15, 30, 0.85, 0.10)]    # up and forward
+
+
+def sample_style_v2(rng):
+    seated = rng.random() < 0.3; h = rng.uniform(1.5, 1.92); eye = h - 0.12 - (0.45 if seated else 0.0)
+    arm = 0.44 * h * rng.uniform(0.6, 1.05); rs = rng.uniform(0.25, 0.9); zones = []
+    for hand in (0, 1):
+        side = 1 if hand == 0 else -1; sh = np.array([-0.05, side * 0.18, -0.25 * h / REF_H])
+        w = rng.dirichlet(8 * np.array([c[3] for c in CANON])); spec = [(c[0] + rng.normal(0, 12), c[1] + rng.normal(0, 10), np.clip(c[2] * (1 + rng.normal(0, 0.08)), 0.4, 1.0), w[j]) for j, c in enumerate(CANON)]
+        if rng.random() < 0.35:
+            wp = rng.uniform(0.1, 0.3); spec = [(a, e, d, q * (1 - wp)) for a, e, d, q in spec] + [(rng.uniform(-30, 70), rng.uniform(-45, 35), rng.uniform(0.5, 0.95), wp)]
+        for az, el, dist, wt in spec:
+            az, el = np.radians(az), np.radians(el); d = np.array([np.cos(el) * np.cos(az), side * np.cos(el) * np.sin(az), np.sin(el)])
+            zones.append(dict(hand=hand, w=float(wt), c=(sh + dist * arm * d).tolist(), sd=float(rng.uniform(0.03, 0.07))))
+    return dict(height=h, eye=eye, seated=bool(seated), arm=arm, right_share=rs, zones=zones, rate=rng.uniform(15, 50), hold=(0.3, 1.5))
+
+
 def session(style, minutes, seed):
     """Hold samples per hand: list of two arrays (n, 3), body frame, metres, head at the origin."""
     rng = np.random.default_rng(seed); out = [[], []]; n_ev = rng.poisson(style["rate"] * minutes)
@@ -142,10 +166,10 @@ def gmm_from(sd):
     g = GMM(); g.load_state_dict(sd); return g
 
 
-def population(n, minutes, seed):
+def population(n, minutes, seed, styler=None):
     rng = np.random.default_rng(seed); X = [[], []]
     for p in range(n):
-        st = sample_style(rng); hs = session(st, minutes, seed * 1000 + p)
+        st = (styler or sample_style)(rng); hs = session(st, minutes, seed * 1000 + p)
         for h in (0, 1): X[h].append(hs[h] * REF_H / st["height"])
     gens = []
     for h in (0, 1):
@@ -203,5 +227,60 @@ def pilot(out_dir):
         say(f"{m} min, buttons of 6 inside the true 50% / 80% zone: " + ", ".join(f"{a} {6 * v[0]:.1f}/{6 * v[1]:.1f}" for a, v in S.items()))
 
 
+def _job(a):
+    gen_paths, style, minutes, seed, fit, r_star = a; torch.set_num_threads(1)
+    gens = [gmm_from(torch.load(p)) for p in gen_paths]; return seed, minutes, player(gens, style, minutes, seed, fit, r_star)
+
+
+def run(cfg_path, out_dir):
+    """Calibration players first (their best-step relative drops give r* per data size), then the evaluation
+    players with r* reused; rows saved as they finish."""
+    cfg = json.load(open(cfg_path)); out = Path(out_dir); out.mkdir(parents=True, exist_ok=True); T0 = time.time()
+    if (out / "config.json").resolve() != Path(cfg_path).resolve(): json.dump(cfg, open(out / "config.json", "w"), indent=1)
+    styler = sample_style_v2 if cfg["generator"] == "v2" else sample_style; gp = [str(out / f"population_hand{h}.pt") for h in (0, 1)]
+    if not all(Path(p).exists() for p in gp):
+        torch.set_num_threads(4); gens = population(cfg["population_players"], cfg["population_minutes"], cfg["population_seed"], styler)
+        for g, p in zip(gens, gp): torch.save(g.state_dict(), p)
+    rng = np.random.default_rng(cfg["players_seed"]); n = cfg["calib"] + cfg["eval"]; styles = [styler(rng) for _ in range(n)]
+    rp = out / "rows.json"; rows = json.load(open(rp)) if rp.exists() else []; done = {(r["player"], r["minutes"]) for r in rows}
+    from multiprocessing import Pool
+    def go(players, r_star):
+        jobs = [(gp, styles[p], m, cfg["players_seed"] * 1000 + 10 * p, cfg["fit"], (r_star or {}).get(m)) for p in players for m in cfg["minutes"] if (p, m) not in done]
+        with Pool(cfg.get("workers", 4)) as pool:
+            for seed, m, r in pool.imap_unordered(_job, jobs):
+                p = (seed - cfg["players_seed"] * 1000) // 10; r.update(player=p, role="calib" if p < cfg["calib"] else "eval", style=styles[p]); rows.append(r); json.dump(rows, open(rp, "w"))
+                f = lambda a: 6 * np.mean([hh[a]["in50"] for hh in r["hands"]])
+                say(f"player {p} ({r['role']}), {m} min: generic {f('generic'):.1f}, rule {f('rule'):.1f}, best {f('oracle'):.1f}, last {f('last'):.1f}" + (f", reuse {f('reuse'):.1f}" if "reuse" in r["hands"][0] else "") + f" [{len(rows)} of {n * len(cfg['minutes'])}, {time.time() - T0:.0f}s]")
+    go(range(cfg["calib"]), None)
+    r_star = {m: float(np.median([hh["knee_rel"] for r in rows if r["role"] == "calib" and r["minutes"] == m for hh in r["hands"] if not hh.get("skipped")])) for m in cfg["minutes"]}
+    json.dump(r_star, open(out / "r_star.json", "w")); say(f"calibrated relative drops: {r_star}")
+    go(range(cfg["calib"], n), r_star); say("done")
+
+
+def score(out_dir):
+    out = Path(out_dir); cfg = json.load(open(out / "config.json")); B = cfg["bars"]; rows = [r for r in json.load(open(out / "rows.json")) if r["role"] == "eval"]
+    arms = ["fixed", "generic", "rule", "reuse", "holdout", "steps100", "steps300", "steps1000", "oracle", "last"]
+    L = ["# Reach-aware menus (frozen scorer)\n", "Buttons of 6 (3 per hand) inside the player's true 50% comfort region, mean over the evaluation players; the 80% region in brackets.\n",
+         "| arm | " + " | ".join(f"{m} min" for m in cfg["minutes"]) + " |", "|---|" + "---|" * len(cfg["minutes"])]
+    btn = lambda r, a, k="in50": 6 * np.mean([hh[a][k] for hh in r["hands"]])
+    for a in arms: L.append(f"| {a} | " + " | ".join(f"{np.mean([btn(r, a) for r in rows if r['minutes'] == m]):.2f} ({np.mean([btn(r, a, 'in80') for r in rows if r['minutes'] == m]):.2f})" for m in cfg["minutes"]) + " |")
+    ok = {k: True for k in ("R1", "R2", "R3")}; L.append("")
+    for m in cfg["minutes"]:
+        R = [r for r in rows if r["minutes"] == m]; mean = lambda a: float(np.mean([btn(r, a) for r in R]))
+        r1 = mean("rule") - mean("generic") >= B["gain_min"]; nw = float(np.mean([btn(r, "rule") >= btn(r, "generic") for r in R]))
+        r2 = mean("rule") >= mean("last") and nw >= B["not_worse_share"]; r3 = mean("reuse") >= mean("rule") - B["reuse_margin"]
+        ok["R1"] &= r1; ok["R2"] &= r2; ok["R3"] &= r3
+        L += [f"- {m} min, **R1** (the rule places at least {B['gain_min']} more buttons than the height-scaled default): {mean('rule'):.2f} against {mean('generic'):.2f}: **{'holds' if r1 else 'fails'}**",
+              f"- {m} min, **R2** (the rule at least matches training without stopping, {mean('last'):.2f}, and is no worse than the default for at least {B['not_worse_share']:.0%} of players: {nw:.0%}): **{'holds' if r2 else 'fails'}**",
+              f"- {m} min, **R3** (one calibrated value reused within {B['reuse_margin']} buttons of the rule): {mean('reuse'):.2f} against {mean('rule'):.2f}: **{'holds' if r3 else 'fails'}**"]
+    L.append(f"\n**Outcome: {'A' if all(ok.values()) else 'B' if ok['R1'] else 'C'}** (A: R1 to R3 at every size; B: R1 everywhere, R2 or R3 fails somewhere; C: R1 fails somewhere).")
+    sub = lambda f: [r for r in rows if f(r["style"])]
+    for name, f in (("limited reach (below 0.8)", lambda s: s["arm"] / (0.44 * s["height"]) < 0.8), ("seated", lambda s: s["seated"]), ("left-leaning (right share below 0.5)", lambda s: s["right_share"] < 0.5)):
+        R = sub(f); L.append(f"- Reported, {name}, {len(R) // len(cfg['minutes'])} players: generic " + ", ".join(f"{np.mean([btn(r, 'generic') for r in R if r['minutes'] == m]):.2f}" for m in cfg["minutes"]) + "; rule " + ", ".join(f"{np.mean([btn(r, 'rule') for r in R if r['minutes'] == m]):.2f}" for m in cfg["minutes"]))
+    (out / "report.md").write_text("\n".join(L) + "\n"); print("\n".join(L))
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "pilot": pilot(sys.argv[2])
+    elif sys.argv[1] == "run": run(sys.argv[2], sys.argv[3])
+    elif sys.argv[1] == "score": score(sys.argv[2])

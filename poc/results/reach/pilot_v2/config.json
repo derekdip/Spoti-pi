@@ -1,0 +1,3 @@
+{"generator": "v2", "population_players": 60, "population_minutes": 5, "population_seed": 31, "players_seed": 32, "calib": 2, "eval": 4, "minutes": [1, 2, 5], "workers": 4,
+ "fit": {"lr": 0.01, "cap": 1500},
+ "bars": {"gain_min": 0.5, "not_worse_share": 0.9, "reuse_margin": 0.3}}
