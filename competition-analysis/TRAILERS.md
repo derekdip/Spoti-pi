@@ -113,3 +113,73 @@
 5. **60–90 s:** 3–4 rapid rounds, each showing the sculpture next to its answer. Funny misses sell a party game better than successes.
 6. **90–110 s:** the headset handed to the next person with the room still running; the keepsake landing on everyone's phone with real reactions.
 7. **End card:** doodlefigure.com, "no app · bots for solo · hands only".
+
+---
+
+# Batch 2: 16 more contenders (2026-11-20)
+
+Same method and scale as batch 1. Trailer lengths are estimated from the number of frame grids, because the info JSON was missing.
+
+| Trailer | ~Length | Hook | Premise | Real gameplay | Social shown | Pacing | **Overall** |
+|---|---|---|---|---|---|---|---|
+| Hand Riders | 2:22 | 8 | 7 | 9 | 5 | 8 | **8** |
+| PullFit | 1:55 | 7 | 8 | 9 | 8 | 8 | **8** |
+| Desk Session | 2:55 | 8 | 8 | 9 | 4 | 7 | **8** |
+| Boplo | 2:58 | 6 | 8 | 9 | 6 | 8 | **7.5** |
+| Donkey | 2:50 | 7 | 8 | 8 | 7 | 6 | **7** |
+| Lumenoir | 1:10 | 6 | 7 | 7 | 6 | 8 | **7** |
+| Snappy Planet | 1:24 | 8 | 7 | 8 | 5 | 8 | **7** |
+| In Your Hands | 1:33 | 7 | 8 | 8 | 4 | 7 | **7** |
+| Bite or Betray | 1:10 | 5 | 8 | 7 | 5 | 7 | **6.5** |
+| Gesture Royale | 2:20 | 7 | 8 | 8 | 5 | 6 | **6.5** |
+| Project Arena | 1:43 | 6 | 7 | 8 | 3 | 7 | **6.5** |
+| Table Hub: Under Six | 2:16 | 5 | 6 | 7 | 5 | 4 | **5.5** |
+| Moonrise Mini Golf | 1:16 | 6 | 6 | 7 | 1 | 6 | **5** |
+| Mothlight | 1:14 | 4 | 7 | 6 | 4 | 6 | **5** |
+| Watch Together | 2:57 | 2 | 5 | 6 | 2 | 3 | **3.5** |
+| Toy Takeover | ~7:16 | 2 | 4 | 5 | 2 | 2 | **3** |
+
+## Notes
+
+- **Hand Riders:** close to commercial quality. Many distinct worlds (desert, rapids, neon city, mines), a diorama lobby with characters to pick, and fast cutting. Social presence is mostly AI racers.
+- **PullFit:** a real person training with bands outdoors in mixed reality. Its multiplayer section shows three real people doing pass-and-play and co-location, ending in confetti. Strong social proof.
+- **Desk Session:** a mixed-reality desk turned skatepark, physics fingerboarding and a park builder. Same-room multiplayer appears only briefly.
+- **Boplo:** clean captions ("Mess with your friend", "Sabotage encouraged") over an online duel against an avatar opponent.
+- **Donkey:** mixed reality on a real table with robot avatars, and a real person shown playing. Clear rules captions. Bots fill empty seats.
+- **Lumenoir:** a sleek co-watching pitch ("Two homes. One film. Same second."). Other viewers appear as glowing orbs. Co-watching is named in the award text.
+- **Snappy Planet:** short and punchy with "8 players online", but other players are seen only briefly.
+- **In Your Hands:** a polished game show with varied gesture rounds. The duel appears briefly.
+- **Bite or Betray, Gesture Royale:** clear, but other players are mostly bots.
+- **Project Arena:** a real person outdoors playing against a bot. Clean, but no social footage.
+- **Table Hub:** heavy on setup (measuring hand size, fitting the table). Looks like Liar's Bar.
+- **Moonrise:** a solo tabletop golf and pinball showcase. Multiplayer is not shown.
+- **Mothlight:** dark and abstract. The social-deduction rules are explained, but no people appear.
+- **Watch Together:** a raw walkthrough ("no one's here right now").
+- **Toy Takeover:** about 7 minutes long, so judges stop at 3:00, and the first 4 minutes are top-down grey test footage.
+
+## Doodle Figure across all 26 trailers
+
+Doodle Figure's 5.5 puts it at about **19th of 26** for trailer quality. On gameplay design for the Social award, it remains in the upper group.
+
+## Updated Social & Multiplayer ranking (all evidence)
+
+1. Game Night
+2. 23:17
+3. Bots & Pans
+4. PullFit
+5. Campy
+6. Hand Riders
+7. RULE MAKER
+8. Kaiju Corp
+9. Donkey
+10. Lumenoir
+11. **Doodle Figure**
+12. Sneak-A-Snack
+13. Boplo
+14. Let's Flock
+
+Positions 7–14 are close together and could easily reorder.
+
+- **Top-10 chance (judges' view):** about **40–50%**.
+- **Best Social & Multiplayer:** about **4–8%**.
+- **Any award:** about **6–13%**.
