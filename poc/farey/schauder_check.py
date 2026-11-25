@@ -30,14 +30,17 @@ for a, b, d, x, y in allc[:200]:
     worst = max(worst, abs(gap - mp.log(c**2 / (c**2 - 4))))
 ok("gap law g_m = log(c^2/(c^2-4)) = 2 log coth F(m)", worst < mp.mpf(10)**-20, f"(max error {mp.nstr(worst, 3)})")
 c = mp.mpf(39); ok("g = -2 log(1-2h), h = 1/(1+e^{2F})", abs(mp.log(c**2/(c**2-4)) + 2*mp.log(1-2*h(c))) < 1e-40 and abs(h(c) - 1/(1+mp.e**(2*F(c)))) < 1e-40 and abs(2*mp.log(mp.coth(F(c))) - mp.log(c**2/(c**2-4))) < 1e-40)
-# 5. D/Phi expansion
-worst = 0
-for a, b, d, *_ in allc:
-    if d < 3 or a > mp.mpf(10)**25 or b > mp.mpf(10)**25: continue
-    D = F(a) + F(b) - F(child(a, b)); X, Y = 1 / a**2, 1 / b**2
-    pred = 4 + 4*X*Y + 8*X*Y*(X + Y) + 4*X*Y/3*(15*X**2 + 37*X*Y + 15*Y**2)
-    worst = max(worst, abs(D / Phi(a, b) - pred) / (X*Y*(X + Y)**3))
-ok("D/Phi = 4 + 4xy + 8xy(x+y) + (4xy/3)(15x^2+37xy+15y^2) + ...", worst < 50, f"(remainder / xy(x+y)^3 at most {mp.nstr(worst, 3)}, bounded: next order)")
+# 5. D/Phi expansion: with x, y scaled by e the remainder after the claimed terms must shrink like e^5
+Fu = lambda u: mp.log((1 + mp.sqrt(1 - 4*u)) / (2*mp.sqrt(u)))
+def ratio(x, y):
+    w = 4*x*y/(1 + mp.sqrt(1 - 4*x - 4*y))**2
+    return (Fu(x) + Fu(y) - Fu(w)) / ((mp.sqrt(1 - 4*x) + mp.sqrt(1 - 4*y) - 1 - mp.sqrt(1 - 4*x - 4*y)) / 4)
+claimed = lambda x, y: 4 + 4*x*y + 8*x*y*(x + y) + mp.mpf(4)/3*x*y*(15*x**2 + 37*x*y + 15*y**2)
+slopes = []
+for X, Y in [(1, 1), (1, 0.3), (0.2, 1.7)]:
+    rem = [ratio(mp.mpf(10)**-k*X, mp.mpf(10)**-k*Y) - claimed(mp.mpf(10)**-k*X, mp.mpf(10)**-k*Y) for k in (5, 6, 7)]
+    slopes += [mp.log10(abs(rem[i]/rem[i+1])) for i in range(2)]
+ok("D/Phi = 4 + 4xy + 8xy(x+y) + (4xy/3)(15x^2+37xy+15y^2) + O(e^5)", all(abs(v - 5) < 0.01 for v in slopes), f"(remainder decay per decade {[mp.nstr(v, 4) for v in slopes]})")
 ok("D/h > 4 on every cell", all((F(a) + F(b) - F(child(a, b))) / h(child(a, b)) > 4 for a, b, *_ in allc if a < 1e25 and b < 1e25))
 # 6. Green transform D(x,y) = sum over subtree mediants of min(alpha,beta) g
 def green(a, b, depth=26):
