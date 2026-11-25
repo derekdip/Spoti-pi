@@ -1,0 +1,21 @@
+modular torus: 46440 curves summed (terms down to 1e-125)
+four-punctured sphere: A* = 10.7883595217169312453420659121152110028;  A*/A*(torus) = 4.0
+  A* = sum g N               = 2.6970898804292328113355164780288   no relation (|coeff| <= 1e4)
+  sum g                      = 2.246191551392231784801458396162   no relation (|coeff| <= 1e4)
+  sum g N^2                  = 3.8632141474568570900731873815078   no relation (|coeff| <= 1e4)
+  sum N h (h McShane atom)   = 0.61277877350081257298398156906207   no relation (|coeff| <= 1e4)
+  sum N / c^2                = 0.56131578307101120651004591673917   no relation (|coeff| <= 1e4)
+  sum Li2(4/c^2)             = 1.9931753644943796309896286896659   no relation (|coeff| <= 1e4)
+  control F(3) = +1/1*logl
+  control F(3) = +1/1*logl
+control, McShane over the same curves: sum h = 0.5 (should be 1/2; error -2.18e-128)
+Area(B) = 3.56721266403154336675263074793896677798362737  (tolerance 1e-125 vs 1e-95: difference 1.09e-101)
+Area(B) x A* = 9.62109317749848033566356543503826004051;  A*/Area(B) = 0.7560776814974279805748537699891727351572;  Area(B) x A* / pi^2 = 0.974820548677366558799956429692
+  Area(B)      = 3.56721266403154336675263074794   no relation (|coeff| <= 1e4)
+  Area(B) A*   = 9.62109317749848033566356543504   no relation (|coeff| <= 1e4)
+  A*/Area(B)   = 0.756077681497427980574853769989   -3450/-4572*1 +4480/-4572*pi^2 -6012/-4572*zeta3 +9796/-4572*logl -6990/-4572*logl^2 -8135/-4572*s5 -2647/-4572*s5 logl +3641/-4572*log2 -7683/-4572*log3 +4872/-4572*log5 -47/-4572*1/logl -2942/-4572*1/logl^2 +1903/-4572*s5/logl -6267/-4572*pi +3334/-4572*Li2(1/l^2)
+  1/Area(B)    = 0.280330917773159548036573032049   no relation (|coeff| <= 1e4)
+  control McShane sum found as: +1/2*1
+residual at 140 digits: -6913.6
+PSLQ at 100 digits: 
+None

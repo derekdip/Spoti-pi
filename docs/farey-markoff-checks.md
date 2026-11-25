@@ -1071,3 +1071,56 @@ genuinely new predictions, confirmed numerically.
 **Note.** The fitted log N coefficient varies between −1.9 and +1.0 across
 windows and cases. It is not stable enough to identify, and the proof gives
 only O(log N).
+
+## Closed-form search for the dual area (2026-11-25)
+
+Script `poc/farey/dual_closed.py`, output `poc/farey/dual_closed.log`
+(140 digits).
+
+**Setup.** On the modular torus, sum over all simple closed geodesics mod
+sign. That is e₀, e₁ and the interiors of the cones (e₀, e₁) and (e₀, −e₁):
+46 440 curves, best-first, until terms fall below 10⁻¹²⁵.
+
+**Controls.**
+
+- McShane's identity over the same set gives Σh = 1/2 to 2·10⁻¹²⁸, and PSLQ
+  returns it as 1/2.
+- F(3) is recovered as log λ, with λ = (3 + √5)/2.
+
+**Constants:**
+
+    A* = Area(B*) = Σ_γ g_γ·N_γ = 2.69708988042923281133551647802882...
+    Area(B)                     = 3.56721266403154336675263074793896677798...
+
+Area(B) is the area of the polygon through the corners ±v/N(v). Moving the
+tolerance from 10⁻¹²⁵ to 10⁻⁹⁵ changes it by 10⁻¹⁰¹. For the norm ℓ, as
+Doan–Li–Nguyen use, multiply A* by 4.
+
+**PSLQ basis.** 19 elements: 1, π², ζ(3), log λ, log²λ, log³λ, √5, √5·log λ,
+√5·log²λ, π²·log λ, log 2, log 3, log 5, Li₂(λ⁻²), Li₃(λ⁻²), Li₂(λ⁻¹),
+Catalan's constant, π and π²·√5. Coefficients up to 10⁴, at 115 digits.
+
+- **No relation** for any of these sums: A*, Σg, Σg·N², Σh·N, ΣN/c², or
+  ΣLi₂(4/c²).
+- **Area(B), Area(B)·A*, A*/Area(B) and 1/Area(B)**, against a 15-element
+  basis including 1/log λ and √5/log λ: no relation. At 85 digits one
+  15-term relation with coefficients near 4000 appeared for A*/Area(B). At
+  100 digits it disappears, so it was spurious.
+
+**By-products.**
+
+- **Sphere and torus.** A*(four-punctured sphere at (7, 7, 7)) = 4·A*(modular
+  torus), to 40 digits. This is a scaling, not an identity: the sphere traces
+  are t² − 2 of the torus traces, so N_sphere = 2·N_torus and B*_sphere =
+  2·B*_torus.
+- **Mahler volume.** Area(B)·Area(B*) = 9.62109317749848... For centrally
+  symmetric planar convex bodies the Mahler bound gives 8 and Blaschke–Santaló
+  gives π² = 9.8696 (ellipses). The modular norm ball reaches 0.97482 of the
+  Santaló maximum, so it is close to an ellipse in this sense.
+
+**Reading.** McShane's and Hines' identities have closed forms because each is
+a telescoping or boundary sum. The dual area weights each corner by N(γ),
+which is not linear, so no telescoping applies. The negative PSLQ result fits
+that: A* behaves like a genuinely new constant of the modular torus. It is not
+proved to be new, only shown not to be a small combination of these
+constants.
