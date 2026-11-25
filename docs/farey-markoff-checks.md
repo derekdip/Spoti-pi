@@ -305,3 +305,69 @@ u(A, B, C) were tested for Kirchhoff balance with the note's conductances
 g = 4/(A^2 + B^2) at 400 random Markoff triples. The only balanced one,
 A/(BC) + B/(AC) + C/(AB), is identically 1 on the Markoff surface. No
 conservation law from a simple harmonic function.
+
+## The four-holed sphere: gap law and a Hines-type identity (2026-11-25)
+
+Script `poc/farey/sphere.py`, output `poc/farey/sphere.log` (120 digits).
+
+**Setting.** On a four-holed sphere with boundary traces (α, β, γ, δ), simple
+closed curves are again indexed by Farey slopes. Their traces satisfy the
+Fricke relation, which has linear terms:
+
+    X² + Y² + Z² − XYZ + pX + qY + rZ + s = 0,
+    p = αβ + γδ,  q = βγ + αδ,  r = αγ + βδ,
+    s = α² + β² + γ² + δ² + αβγδ − 4.
+
+A slope (P, Q) picks up the coefficient of its parity class: (1,0) takes p,
+(0,1) takes q, and (1,1) takes r. The mediant rule becomes
+c = ab − κ(class of c) − (trace of the opposite vertex).
+
+**Gap law.** It was derived symbolically first, using the fan recurrence
+t_{k+1} + t_{k−1} = c t_k − κ with its period-2 particular solution. At a
+curve of trace c with coefficient κ_m, where κ_x and κ_y are the coefficients
+of the other two classes:
+
+    g = log[ (c² + κ_m c + s)/(c² − 4) + (κ_x² + κ_y² + κ_x κ_y c)/(c² − 4)² ].
+
+When all κ = 0 this reduces to the generalised torus law
+log((c² − μ)/(c² − 4)), with μ = −s. The second term exists only because the
+coefficient alternates along each fan.
+
+**Hines-type identity.** Over the rationals of (0, 1), with M the height
+p + q:
+
+    Σ M g = F(e₀) + F(e₁) − log K₀ − log K₁,
+
+where F = arccosh(t/2), and K₀, K₁ are the leading coefficients of the two
+end fans (each with its alternating particular solution).
+
+**Checks.** The gap law was compared with brute force along fans of length 70,
+on the first 30 cells. The identity was summed over 4000 cells.
+
+| Boundary traces | Gap-law error | Σ M g | Identity error | Non-positive defects |
+|---|---|---|---|---|
+| (2, 2, 2, 2), four cusps | 3e−106 | 0.74927397043 | 2e−87 | 0 |
+| (2.5, 2.2, 3.0, 2.1) | 5e−118 | 0.40388368512 | 2e−107 | 0 |
+| (3, 2, 2, 4) | 4e−118 | 0.37518525822 | 2e−112 | 0 |
+
+For the four-cusped sphere, the sum is twice the modular torus's Hines
+constant. This is consistent with the two-fold cover relating the two
+surfaces.
+
+**Literature status.** I read Maloni–Palesi–Tan (arXiv 1304.5770) and
+Hu–Tan (arXiv 1402.1573) directly:
+
+- Maloni–Palesi–Tan studies the domain of discontinuity and BQ-conditions for
+  this Fricke relation. It contains no slope-gap or stable-norm formula. It
+  defers McShane generalisations to future work, following Hu–Tan–Zhang's
+  Coxeter-group view.
+- Hu–Tan gives Luo–Tan dilogarithm identities. It uses the sphere to torus
+  link, but has no gap law.
+- A web search turned up no stable-norm or derivative results for the
+  Fricke cubic.
+
+So: **not found in the literature checked; not an exhaustive search.** The
+torus case is known (Hines; Gaster; O'Sullivan eq. 4.10, Thm 9.14), so the
+sphere version is the natural generalisation. Its most likely home is
+Hu–Tan–Zhang or later work on Coxeter actions on quartic varieties; check
+that before calling it new.

@@ -1,0 +1,9 @@
+boundary traces (2, 2, 2, 2): p, q, r = 8.0, 8.0, 8.0, s = 28.0; base triple X = 7.0, Y = 7.0, Z(e0 - e1) = 7.0, Z(e0 + e1) = 34.0
+   cells 4000; non-positive defects 0; gap law vs brute-force fans, worst error 3.01e-106
+   Hines-type: sum M g = 0.7492739704341757736115734; F(e0) + F(e1) - log K0 - log K1 = 0.7492739704341757736115734; difference -1.72e-87
+boundary traces (2.5, 2.2, 3.0, 2.1): p, q, r = 11.8, 11.85, 12.12, s = 55.15; base triple X = 9.0, Y = 11.0, Z(e0 - e1) = 6.112616, Z(e0 + e1) = 80.767384
+   cells 4000; non-positive defects 0; gap law vs brute-force fans, worst error 5.48e-118
+   Hines-type: sum M g = 0.4038836851180288917562064; F(e0) + F(e1) - log K0 - log K1 = 0.4038836851180288917562064; difference -2.23e-107
+boundary traces (3.0, 2.0, 2.0, 4.0): p, q, r = 14.0, 16.0, 14.0, s = 77.0; base triple X = 12.0, Y = 10.0, Z(e0 - e1) = 6.5241998, Z(e0 + e1) = 99.4758
+   cells 4000; non-positive defects 0; gap law vs brute-force fans, worst error 3.59e-118
+   Hines-type: sum M g = 0.3751852582217094416781083; F(e0) + F(e1) - log K0 - log K1 = 0.3751852582217094416781083; difference -2.32e-112
