@@ -1,0 +1,29 @@
+ray 90 deg: true boundary at distance 2.000000 (b = 3.00000+2.00000j); curve (1, -1) reaches [-2, 2] with trace +2.00000-0.00000i
+   0.9 of the way:    1168 curves; A* = +2.12367-0.38708i;  M = +9.31465-0.17835i;  N of (1, -1) = 0.2929-0.1293j
+   0.99 of the way:    2160 curves; A* = +1.07681-0.31807i;  M = +8.20946+0.38739i;  N of (1, -1) = 0.0917-0.0427j
+  k = np.round((prevN - sg * n0).imag / (2 * np.pi)); cand = sg * n0 + 2j * np.pi * k
+  AB = 0.5 * sum((p[1] * q[2] - q[1] * p[2]) / (p[3] * q[3]) for p, q in zip(pts, pts[1:] + pts[:1]))
+   0.999 of the way:    4280 curves; A* = +nan+nani;  M = +nan+nani;  N of (1, -1) = 0.0290-0.0136j
+ray 120 deg: true boundary at distance 3.256747 (b = 1.37163+2.82043j); curve (1, -1) reaches [-2, 2] with trace +0.91442-0.00000i
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/qf_boundary.py", line 48, in <module>
+    AB, As, M, n, gs, Ns = CL.continued_invariants(path, steps=80)
+                           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/complex_limits.py", line 108, in continued_invariants
+    pts = sorted(((math.atan2(s * v[1], s * v[0]), s * v[0], s * v[1], n) for v, n in zip(vecs, Ns) for s in (1, -1)))
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/complex_limits.py", line 108, in <genexpr>
+    pts = sorted(((math.atan2(s * v[1], s * v[0]), s * v[0], s * v[1], n) for v, n in zip(vecs, Ns) for s in (1, -1)))
+                   ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+OverflowError: int too large to convert to float
+approach to b* = 3 + 2i (e0 - e1 parabolic):
+   0.9:    1168 curves; N((1, -1)) = 0.2929-0.1293j;  A* = +2.12367-0.38708i;  M = +9.31465-0.17835i;  (M - 8) log(1/|N|) = 1.511
+   0.97:    1600 curves; N((1, -1)) = 0.1593-0.0733j;  A* = +1.53378-0.38730i;  M = +9.06023-0.17060i;  (M - 8) log(1/|N|) = 1.870
+   0.99:    2160 curves; N((1, -1)) = 0.0917-0.0427j;  A* = +1.07681-0.31807i;  M = +8.20946+0.38739i;  (M - 8) log(1/|N|) = 1.009
+   0.995:    2628 curves; N((1, -1)) = 0.0648-0.0303j;  A* = +nan+nani;  M = +nan+nani;  (M - 8) log(1/|N|) = nan
+   0.998:    3452 curves; N((1, -1)) = 0.0410-0.0192j;  A* = +nan+nani;  M = +nan+nani;  (M - 8) log(1/|N|) = nan
+approach to b* = 2 (e1 parabolic; real pinching):
+   0.9:    1088 curves; N((0, 1)) = 0.3149+0.0000j;  A* = +2.09044+0.00000i;  M = +9.30714+0.00000i;  (M - 8) log(1/|N|) = 1.510
+   0.97:    1508 curves; N((0, 1)) = 0.1730+0.0000j;  A* = +1.54281-0.00000i;  M = +9.06101-0.00000i;  (M - 8) log(1/|N|) = 1.862
+   0.99:    2024 curves; N((0, 1)) = 0.1000+0.0000j;  A* = +1.09959+0.00000i;  M = +8.85201+0.00000i;  (M - 8) log(1/|N|) = 1.962
+   0.995:    2460 curves; N((0, 1)) = 0.0707+0.0000j;  A* = +0.86878+0.00000i;  M = +8.72394+0.00000i;  (M - 8) log(1/|N|) = 1.918
+   0.998:    3228 curves; N((0, 1)) = 0.0447+0.0000j;  A* = +nan+nani;  M = +nan+nani;  (M - 8) log(1/|N|) = nan

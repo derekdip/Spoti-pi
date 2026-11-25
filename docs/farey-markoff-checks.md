@@ -1374,3 +1374,68 @@ line is a numerical failure, not a result.
 - **Not done yet:** mapping where the continuation stops converging in a
   one-parameter complex slice. That is the boundary of quasi-Fuchsian space
   (fractal), together with how A* and M behave there.
+
+## The edge of quasi-Fuchsian space (2026-11-25)
+
+Scripts `poc/farey/qf_slice.py` (figure `docs/figures/qf_slice.png`) and
+`poc/farey/qf_boundary.py`, with logs.
+
+**Slice.** Cusped characters (μ = 0) with tr e₀ = 3 and b = tr e₁ complex.
+The modular torus is the point b = 3, and the Fuchsian locus is the real ray
+b ≥ 6/√5. The figure shades the points that pass a depth-11 Bowditch test and
+colours them by Re A* (principal branches, accurate near the real locus). The
+half-plane Re b < 0 is a mirror copy (b ↦ −b, a sign change of the lift); it
+is omitted because principal branches give N(−t) = iπ − N(t) there.
+
+- The region has the expected scalloped, self-similar boundary.
+- A* is smooth inside. It is lighter (smaller) at the inward cusps of the
+  boundary and darker along its convex parts.
+- The depth-limited test is conservative: its boundary moves inward with
+  depth and growth threshold (1.835 at depth 11, 1.668 at depth 14 on the
+  vertical ray). The figure says so.
+
+**True boundary along rays.** Locate it where some simple curve's trace
+actually reaches [−2, 2].
+
+- **Vertical ray.** The exit is exactly b = 3 + 2i, where c = tr(e₀ − e₁) = 2,
+  since b² − 6b + 13 = 0. The curve e₀ − e₁ becomes an accidental parabolic,
+  so this is a cusp point of the boundary. The real-axis cusp is b = 2, where
+  e₁ is parabolic.
+- **Generic rays** leave the region where no single trace hits [−2, 2], as
+  expected: generic boundary points are degenerate, not cusps. On the 120°
+  ray the first exact crossing found, at distance 3.26, lies well beyond the
+  growth-test boundary at about 1.65.
+
+**Approach to a cusp is complex pinching.** Holomorphic continuation along
+the straight path from b = 3:
+
+| Fraction of the way | 3 + 2i: N(e₀ − e₁) | A* | M | b = 2 (real): N(e₁) | A* | M |
+|---|---|---|---|---|---|---|
+| 0.90 | 0.293 − 0.129i | 2.1237 − 0.3871i | 9.3147 − 0.1784i | 0.315 | 2.0904 | 9.3071 |
+| 0.97 | 0.159 − 0.073i | 1.5338 − 0.3873i | 9.0602 − 0.1706i | 0.173 | 1.5428 | 9.0610 |
+| 0.99 | 0.092 − 0.043i | 1.0768 − 0.3181i | 8.21 + 0.39i (unreliable) | 0.100 | 1.0996 | 8.8520 |
+| 0.995 | — | — | — | 0.071 | 0.8688 | 8.7239 |
+
+At equal pinched length the complex approach tracks the real one closely:
+A* to within 2% in modulus, and M to 0.001 at 0.97.
+
+- **The dual area goes to zero.** A* ≈ 4.7·N·log(1/N) on the real side: the
+  ratio is 4.78 at N = 0.1, 4.65 at N = 0.071, and 4.69 from the earlier
+  pinching run. The pinched curve's own corner contributes g·N ≈ 2N·log(1/N);
+  curves crossing it supply the rest.
+- **The Mahler function tends to 8,** the parallelogram value, as in real
+  pinching.
+- Beyond 0.99 of the way, double precision fails: traces overflow, and the
+  fans around a nearly parabolic curve grow too slowly for the curve cap. The
+  complex M at 0.99 jumps in its imaginary part and is marked unreliable.
+
+**Picture of the continuation.**
+
+- Inside quasi-Fuchsian space, the dual area and the Mahler function are
+  holomorphic.
+- At the flat point they are pinned to πδ/4 and π².
+- At the tropical end they become rational functions of complex theta lengths.
+- At cusp points of the boundary they degenerate exactly as in real pinching:
+  A* → 0 like N·log(1/N), and M → 8.
+- At generic (degenerate) boundary points, behaviour was not resolved here:
+  infinitely many curves shorten and double precision is not enough.

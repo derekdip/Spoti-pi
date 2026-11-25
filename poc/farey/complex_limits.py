@@ -105,7 +105,8 @@ def continued_invariants(path, steps=400):
             Ns = best; gs = g0 + 2j * np.pi * np.round((prevg - g0).imag / (2 * np.pi))
         prevN, prevg = Ns, gs
     As = complex(np.sum(gs * Ns)); Ns, gs = list(Ns), list(gs)
-    pts = sorted(((math.atan2(s * v[1], s * v[0]), s * v[0], s * v[1], n) for v, n in zip(vecs, Ns) for s in (1, -1)))
+    # vectors beyond float range carry no area (their corners are below every tolerance); skip them
+    pts = sorted(((math.atan2(s * v[1], s * v[0]), s * v[0], s * v[1], n) for v, n in zip(vecs, Ns) for s in (1, -1) if max(abs(v[0]), abs(v[1])) < 10**15))
     AB = 0.5 * sum((p[1] * q[2] - q[1] * p[2]) / (p[3] * q[3]) for p, q in zip(pts, pts[1:] + pts[:1]))
     return AB, As, AB * As, len(vecs), dict(zip(vecs, gs)), dict(zip(vecs, Ns))
 

@@ -1,0 +1,19 @@
+grid (601, 481), inside fraction 0.673
+A* at b = 3: 2.697090+0.000000j (exact 2.697090)
+saved docs/figures/qf_slice.png
+ray at 90 deg from b = 3: leaves the Bowditch set at distance 1.8350 (b = 3.0000+1.8350j)
+   0.00 of the way:     636 curves;  A* = +2.69709+0.00000i;  M = +9.62109+0.00000i;  shortest Re N = 0.9624
+   0.50 of the way:     742 curves;  A* = +2.71215-0.08110i;  M = +9.62848-0.04971i;  shortest Re N = 0.7149
+   0.80 of the way:     892 curves;  A* = +2.55519-0.25247i;  M = +9.52990-0.13681i;  shortest Re N = 0.4864
+   0.90 of the way:    1008 curves;  A* = +2.38668-0.32921i;  M = +9.43986-0.16458i;  shortest Re N = 0.3898
+   0.95 of the way:    1088 curves;  A* = +2.24559-0.36686i;  M = +9.37100-0.17462i;  shortest Re N = 0.3329
+   0.98 of the way:    1160 curves;  A* = +2.12786-0.38654i;  M = +9.31655-0.17827i;  shortest Re N = 0.2942
+   0.99 of the way:    1196 curves;  A* = +2.08047-0.39208i;  M = +9.29521-0.17893i;  shortest Re N = 0.2802
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/qf_slice.py", line 58, in <module>
+    rays(); sys.exit()
+    ~~~~^^
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/qf_slice.py", line 49, in rays
+    print(f"ray at {th} deg from b = 3: leaves the Bowditch set at distance {tb:.4f} (b = {3 + tb * u:.4f})")
+                                                                            ^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
