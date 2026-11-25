@@ -447,3 +447,50 @@ as double-precision floats. With exact inputs the residual is gone.
 earlier, and the energy formulation was not seen in any of these sources. The
 extension to the general cubic, including complex coefficients, was not found
 either. Same caveat as above: Hu–Tan–Zhang still needs checking.
+
+## Literature check: Hu–Tan–Zhang (2026-11-25)
+
+Maloni–Palesi–Tan cite a 2012 preprint, "Coxeter group actions on quartic
+varieties". Its published form is Hu–Tan–Zhang, *Polynomial automorphisms of
+Cⁿ preserving the Markoff–Hurwitz polynomial* (arXiv 1501.06955). I also read
+Hu–Tan–Zhang, *A new identity for SL(2, C)-characters of the once punctured
+torus group* (arXiv 1402.3904).
+
+**What is already known.**
+
+- **The torus energy principle is in 1402.3904, eq. (24).** Along the
+  neighbours of a curve X, the traces are y_n = Aλⁿ + Bλ⁻ⁿ, and "by the vertex
+  relation" AB = (x² − μ)/(x² − 4). This holds for complex characters that
+  satisfy Bowditch's conditions. Our gap g = log(AB) is exactly this. They use
+  it as a lemma towards McShane-type sums, not for the stable norm, but the
+  fact itself is theirs.
+- **1402.3904, Thm 1.3, splits McShane's identity by parity class.** Using the
+  three Z₂-homology classes, Σ_i Σ_{X ∈ Ω_i} h_{μ,p_i}(x) = 1/2 holds for any
+  weights p₁ + p₂ + p₃ = 1. This is a decomposition with the same flavour as
+  our vector Hines identity, but for a different sum, and the split is by
+  parity class rather than by gradient component.
+- **1501.06955** proves McShane-type identities for the n-variable
+  Markoff–Hurwitz equation, using the "Fibonacci growth" of log⁺|φ|. It has
+  no slope gaps or stable-norm identities.
+
+**What is still not found.**
+
+1. The sphere gap law, with its second term from the alternating parity
+   forcing. Neither Hu–Tan–Zhang paper treats Fricke cubics with linear terms
+   in this way, and Maloni–Palesi–Tan has no such formula.
+2. The vector Hines identity, Σ p·g = F(e₁) − log K₀ and
+   Σ q·g = F(e₀) − log K₁, for the torus or the general cubic.
+3. The Hines-type identity for the four-holed sphere and for the general
+   (complex) cubic.
+
+**Revised status.**
+
+| Result | Status |
+|---|---|
+| Energy principle, torus | Known (Hu–Tan–Zhang 2014, eq. 24) |
+| Energy principle with periodic forcing (sphere, general cubic) | A direct extension of it |
+| Items 1–3 above | Not found in Hines, Gaster, O'Sullivan, Maloni–Palesi–Tan, Hu–Tan, or either Hu–Tan–Zhang paper |
+
+The search is still not exhaustive: Mirzakhani-style length identities for
+the four-holed sphere and the Painlevé VI literature on the Cantat–Loray cubic
+have not been checked.
