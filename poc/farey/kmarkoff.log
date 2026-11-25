@@ -1,0 +1,42 @@
+k = (0,0,0), S = 3: smallest solution (1, 1, 1); tau = (3, 3, 3); Fricke residual 0.0; (p, q, r, s) = (0.0, 0.0, 0.0, 0.0)
+   gap at the x-node (tau = 3): brute-force integer fan 0.587786664902119, sphere law 0.587786664902119, conic invariant 0.587786664902119; diff 1.02e-67
+   vector Hines on the cone (x-node, y-node): : gap law vs energy principle, worst 0
+   sum p g = 0.187318492608543943   F(e1) - log K0 = 0.187318492608543943   signed diff -2.79e-69
+   sum q g = 0.187318492608543943   F(e0) - log K1 = 0.187318492608543943   signed diff -2.92e-69
+   dual-area identity: 5002 curves; sum g N = 2.69708988043; direct Area(B*) = 2.697089880428; rel. diff 6.4e-13
+k = (1,1,1), S = 6: smallest solution (1, 1, 1); tau = (5, 5, 5); Fricke residual 0.0; (p, q, r, s) = (3.0, 3.0, 3.0, 5.0)
+   gap at the x-node (tau = 5): brute-force integer fan 0.826678573184468, sphere law 0.826678573184468, conic invariant 0.826678573184468; diff 2.21e-55
+   vector Hines on the cone (x-node, y-node): : gap law vs energy principle, worst 1.02e-69
+   sum p g = 0.370060331893971573   F(e1) - log K0 = 0.370060331893971573   signed diff -2.53e-55
+   sum q g = 0.370060331893971573   F(e0) - log K1 = 0.370060331893971573   signed diff -2.62e-55
+   dual-area identity: 5002 curves; sum g N = 7.07005733484; direct Area(B*) = 7.070057334849; rel. diff 5.5e-13
+k = (2,2,2), S = 9: smallest solution (1, 1, 1); tau = (7, 7, 7); Fricke residual 0.0; (p, q, r, s) = (8.0, 8.0, 8.0, 28.0)
+   gap at the x-node (tau = 7): brute-force integer fan 1.17557332980424, sphere law 1.17557332980424, conic invariant 1.17557332980424; diff 9.03e-68
+   vector Hines on the cone (x-node, y-node): : gap law vs energy principle, worst 1.08e-67
+   sum p g = 0.374636985217087887   F(e1) - log K0 = 0.374636985217087887   signed diff -5.59e-69
+   sum q g = 0.374636985217087887   F(e0) - log K1 = 0.374636985217087887   signed diff -5.85e-69
+   dual-area identity: 5002 curves; sum g N = 10.7883595217; direct Area(B*) = 10.788359521710; rel. diff 6.4e-13
+k = (1,2,3), S = 9: smallest solution (1, 1, 1); tau = (8, 7, 6); Fricke residual 0.0; (p, q, r, s) = (8.0, 7.0, 8.0, 26.0)
+   gap at the x-node (tau = 8): brute-force integer fan 1.00155057582498, sphere law 1.00155057582498, conic invariant 1.00155057582498; diff 1.1e-72
+   vector Hines on the cone (x-node, y-node): : gap law vs energy principle, worst 5.91e-66
+   sum p g = 0.281241803358427337   F(e1) - log K0 = 0.281241803358427337   signed diff -1.56e-72
+   sum q g = 0.291322372013476416   F(e0) - log K1 = 0.291322372013476416   signed diff -1.7e-72
+   dual-area identity: 5002 curves; sum g N = 10.5814078776; direct Area(B*) = 10.581407877644; rel. diff 5.0e-13
+k = (0,0,5), S = 8: smallest solution (1, 1, 1); tau = (8, 8, 3); Fricke residual 0.0; (p, q, r, s) = (0.0, 0.0, 10.0, 25.0)
+   gap at the x-node (tau = 8): brute-force integer fan 0.412845215405787, sphere law 0.412845215405787, conic invariant 0.412845215405787; diff 7.89e-73
+   vector Hines on the cone (x-node, y-node): : gap law vs energy principle, worst 1.97e-66
+   sum p g = 0.202195068703439616   F(e1) - log K0 = 0.202195068703439616   signed diff -1.89e-76
+   sum q g = 0.202195068703439616   F(e0) - log K1 = 0.202195068703439616   signed diff -1.98e-76
+   dual-area identity: 5002 curves; sum g N = 6.82729546116; direct Area(B*) = 6.827295461184; rel. diff 3.9e-12
+k = (3,3,3), S = 12: smallest solution (1, 1, 1); tau = (9, 9, 9); Fricke residual 0.0; (p, q, r, s) = (15.0, 15.0, 15.0, 81.0)
+   gap at the x-node (tau = 9): brute-force integer fan 1.45268645090678, sphere law 1.45268645090678, conic invariant 1.45268645090678; diff 8.69e-77
+   vector Hines on the cone (x-node, y-node): : gap law vs energy principle, worst 4.2e-65
+   sum p g = 0.365978670349162011   F(e1) - log K0 = 0.365978670349162011   signed diff -4.89e-79
+   sum q g = 0.365978670349162011   F(e0) - log K1 = 0.365978670349162011   signed diff -4.89e-79
+   dual-area identity: 5002 curves; sum g N = 13.9906552186; direct Area(B*) = 13.990655218609; rel. diff 2.5e-13
+k = (0,1,4), S = 8: smallest solution (1, 1, 1); tau = (8, 7, 4); Fricke residual 0.0; (p, q, r, s) = (4.0, 2.0, 8.0, 17.0)
+   gap at the x-node (tau = 8): brute-force integer fan 0.661541841144614, sphere law 0.661541841144614, conic invariant 0.661541841144614; diff 8.11e-73
+   vector Hines on the cone (x-node, y-node): : gap law vs energy principle, worst 9.12e-65
+   sum p g = 0.217317221170001619   F(e1) - log K0 = 0.217317221170001619   signed diff -2.27e-73
+   sum q g = 0.227610817746203162   F(e0) - log K1 = 0.227610817746203162   signed diff -2.57e-73
+   dual-area identity: 5002 curves; sum g N = 8.4019246655; direct Area(B*) = 8.401924665494; rel. diff 8.3e-13

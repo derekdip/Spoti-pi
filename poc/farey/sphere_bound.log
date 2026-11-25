@@ -1,0 +1,21 @@
+four-holed sphere (2.5, 2.2, 3.0, 2.1), (9, 11): closed form of beta with forcing, worst error 8.97e-1299
+   depth  2: sup |beta| a b = 15.57;  sum |w| |beta| = 0.01672 <= 13.7 x sum_(m at depth n+1) |m|/c_m = 0.001223;  beta a b / kappa(L+R) in [1.01517, 1.28464]
+   depth  4: sup |beta| a b = 15.52;  sum |w| |beta| = 0.0002425 <= 13.8 x sum_(m at depth n+1) |m|/c_m = 1.759e-5;  beta a b / kappa(L+R) in [1.00001, 1.28056]
+   depth  6: sup |beta| a b = 15.52;  sum |w| |beta| = 3.649e-6 <= 13.8 x sum_(m at depth n+1) |m|/c_m = 2.652e-7;  beta a b / kappa(L+R) in [1.0, 1.28051]
+   depth  8: sup |beta| a b = 15.52;  sum |w| |beta| = 5.329e-8 <= 13.7 x sum_(m at depth n+1) |m|/c_m = 3.879e-9;  beta a b / kappa(L+R) in [1.0, 1.28051]
+   depth 10: sup |beta| a b = 15.52;  sum |w| |beta| = 7.65e-10 <= 13.7 x sum_(m at depth n+1) |m|/c_m = 5.572e-11;  beta a b / kappa(L+R) in [1.0, 1.28051]
+   depth 12: sup |beta| a b = 15.52;  sum |w| |beta| = 1.086e-11 <= 13.7 x sum_(m at depth n+1) |m|/c_m = 7.916e-13;  beta a b / kappa(L+R) in [1.0, 1.28051]
+four-punctured sphere (2, 2, 2, 2), (7, 7): closed form of beta with forcing, worst error 7.88e-1299
+   depth  2: sup |beta| a b = 11.312;  sum |w| |beta| = 0.06289 <= 9.55 x sum_(m at depth n+1) |m|/c_m = 0.006588;  beta a b / kappa(L+R) in [1.04143, 1.41402]
+   depth  4: sup |beta| a b = 11.202;  sum |w| |beta| = 0.001651 <= 9.6 x sum_(m at depth n+1) |m|/c_m = 0.0001719;  beta a b / kappa(L+R) in [1.00013, 1.4003]
+   depth  6: sup |beta| a b = 11.2;  sum |w| |beta| = 4.573e-5 <= 9.57 x sum_(m at depth n+1) |m|/c_m = 4.781e-6;  beta a b / kappa(L+R) in [1.0, 1.40001]
+   depth  8: sup |beta| a b = 11.2;  sum |w| |beta| = 1.211e-6 <= 9.53 x sum_(m at depth n+1) |m|/c_m = 1.271e-7;  beta a b / kappa(L+R) in [1.0, 1.4]
+   depth 10: sup |beta| a b = 11.2;  sum |w| |beta| = 3.085e-8 <= 9.5 x sum_(m at depth n+1) |m|/c_m = 3.247e-9;  beta a b / kappa(L+R) in [1.0, 1.4]
+   depth 12: sup |beta| a b = 11.2;  sum |w| |beta| = 7.645e-10 <= 9.48 x sum_(m at depth n+1) |m|/c_m = 8.064e-11;  beta a b / kappa(L+R) in [1.0, 1.4]
+sphere with large boundaries (3, 5, 4, 6), (40, 50): closed form of beta with forcing, worst error 1.72e-1298
+   depth  2: sup |beta| a b = 44.011;  sum |w| |beta| = 9.294e-5 <= 43.0 x sum_(m at depth n+1) |m|/c_m = 2.161e-6;  beta a b / kappa(L+R) in [1.00053, 1.04788]
+   depth  4: sup |beta| a b = 44.01;  sum |w| |beta| = 7.305e-8 <= 43.1 x sum_(m at depth n+1) |m|/c_m = 1.696e-9;  beta a b / kappa(L+R) in [1.0, 1.04786]
+   depth  6: sup |beta| a b = 44.01;  sum |w| |beta| = 5.454e-11 <= 43.1 x sum_(m at depth n+1) |m|/c_m = 1.267e-12;  beta a b / kappa(L+R) in [1.0, 1.04786]
+   depth  8: sup |beta| a b = 44.01;  sum |w| |beta| = 3.947e-14 <= 43.0 x sum_(m at depth n+1) |m|/c_m = 9.168e-16;  beta a b / kappa(L+R) in [1.0, 1.04786]
+   depth 10: sup |beta| a b = 44.01;  sum |w| |beta| = 2.81e-17 <= 43.0 x sum_(m at depth n+1) |m|/c_m = 6.529e-19;  beta a b / kappa(L+R) in [1.0, 1.04786]
+   depth 12: sup |beta| a b = 44.01;  sum |w| |beta| = 1.98e-20 <= 43.0 x sum_(m at depth n+1) |m|/c_m = 4.6e-22;  beta a b / kappa(L+R) in [1.0, 1.04786]

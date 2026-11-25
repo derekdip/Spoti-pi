@@ -848,3 +848,126 @@ Corollary 2 above covers the first two, for the dual-area identity. The
 Gyoda–Matsushita equations have conic slices with a different quadratic
 part, so they are a natural next test of the conic form, using the rescaled
 version e^g = −bc·det M₃ / (4(det M₂)²).
+
+## Sphere remainder bound: the proof is complete for four-holed spheres (2026-11-25)
+
+Script `poc/farey/sphere_bound.py`, output `poc/farey/sphere_bound.log`
+(1300 digits).
+
+**What changes with forcing.** The fan around L through R is
+
+    t_j = K·λ^j + K′·λ^{−j} + u_j,
+
+where u is the period-2 particular solution. Its value at the R slot is
+
+    u_e = (a·κ(L+R) + 2κ(R)) / (a² − 4),   a = tr L.
+
+**The exact remainder term.** The energy identity gives K·K′ = G = e^{g_L},
+and t₀ = b = tr R gives K + K′ = b̃ = b − u_e. K is the larger root, because
+c_m > tr(R − L). Hence, exactly,
+
+    β(L, R) = log[ (b + √(b² − 4)) / (b̃ + √(b̃² − 4G)) ].
+
+**The bound.**
+
+- Here u_e = O(1/a) and G − 1 = O(1/a), because the sphere gap law has a
+  κ_m/c term. So |β| ≤ C/(a·b), which is one power weaker than the torus.
+  The leading term is β ≈ κ(L+R)/(a·b).
+- Since a·b = c_m + κ(m) + tr(opposite) ≥ c_m, the depth-n remainder is at
+  most C′·Σ_{m at depth n+1} |m|/c_m.
+- That is a tail of Σ_m |m|/c_m. The series converges, because traces grow
+  exponentially in |m|: ℓ(m) ≥ α·|m| for a hyperbolic structure, and
+  c_m ≈ e^{ℓ/2}.
+- So the remainder tends to 0, and the vector Hines identity is proved for
+  four-holed spheres. That includes cone points of trace in (−2, 2) whenever
+  the tree is rising with traces > 2.
+
+**Corollaries 1 and 2 for spheres.**
+
+- These also need the length function N to be convex on the cone. That holds
+  for hyperbolic four-holed spheres by Mirzakhani's convexity of length in
+  train-track coordinates (as used by Doan–Li–Nguyen, [Mir04, Thm A.1]).
+  Every defect computed here is positive.
+- With convexity, the pure-jump gradient and the dual-area identity
+  Area(B*) = Σ_γ g_γ·N(γ) follow for spheres exactly as for tori.
+
+**Numerical check** (1300 digits; at 120 digits the deepest intervals were
+unresolved, since β ≈ 10⁻¹⁰⁰⁰ there):
+
+- The closed form for β is exact to about 10⁻¹²⁹⁸ on every interval to
+  depth 12.
+- The table shows sup |β|·a·b over all intervals and the ratio of the
+  remainder to Σ_{m at depth n+1} |m|/c_m, at depths 2 to 12:
+
+  | Sphere | sup \|β\|·a·b | Remainder ratio |
+  |---|---|---|
+  | (2.5, 2.2, 3.0, 2.1) | 15.52 | 13.7–13.8 |
+  | (2, 2, 2, 2) | 11.2 | 9.5–9.6 |
+  | (3, 5, 4, 6) | 44.01 | 43.0–43.1 |
+
+- β·a·b/κ(L+R) lies in [1, 1.28], [1, 1.40] and [1, 1.048] respectively.
+  Its infimum is exactly 1, the leading-term prediction, attained deep in
+  the tree.
+
+## Gyoda–Matsushita k-Markoff equations are four-holed spheres (2026-11-25)
+
+Script `poc/farey/kmarkoff.py`, output `poc/farey/kmarkoff.log`.
+
+**The substitution.** The equation is
+
+    x² + y² + z² + k₁yz + k₂zx + k₃xy = S·xyz,   S = 3 + k₁ + k₂ + k₃.
+
+Substitute τ_x = Sx − k₁, τ_y = Sy − k₂, τ_z = Sz − k₃. Then:
+
+- The integer Vieta move z ↦ S·xy − k₁y − k₂x − z becomes the mediant rule
+  τ_z′ = τ_x·τ_y − (2k₃ + k₁k₂) − τ_z.
+- The equation becomes the Fricke cubic of a four-holed sphere with boundary
+  traces (α, β, γ, δ) = (k₂, k₃, k₁, 2):
+  - p = 2k₁ + k₂k₃ = αβ + γδ, and likewise for q and r;
+  - s = Σk_i² + 2k₁k₂k₃ = α² + β² + γ² + δ² + αβγδ − 4.
+
+**What each k_i means.** There is always one cusp. A "boundary" of trace k is:
+
+- k = 0: a cone point of order 2 (k = (0, 0, 0) is the Markoff equation,
+  i.e. the modular torus divided by its elliptic involution);
+- k = 1: a cone point of order 3;
+- k = 2: a cusp (k = (2, 2, 2) is the four-punctured sphere);
+- k ≥ 3: a geodesic boundary.
+
+The variable of an integer node is the parity class of its slope.
+
+**Checks**, on seven equations at the smallest solution (1, 1, 1) (gap law
+against brute-force integer fans of 80 steps each way):
+
+| k | τ root | Gap-law error | Vector Hines (p, q) errors | Dual-area rel. diff |
+|---|---|---|---|---|
+| (0, 0, 0) | (3, 3, 3) | 1e−67 | 3e−69 | 6e−13 |
+| (1, 1, 1) | (5, 5, 5) | 2e−55 | 3e−55 | 6e−13 |
+| (2, 2, 2) | (7, 7, 7) | 9e−68 | 6e−69 | 6e−13 |
+| (1, 2, 3) | (8, 7, 6) | 1e−72 | 2e−72 | 5e−13 |
+| (0, 0, 5) | (8, 8, 3) | 8e−73 | 2e−76 | 4e−12 |
+| (3, 3, 3) | (9, 9, 9) | 9e−77 | 5e−79 | 3e−13 |
+| (0, 1, 4) | (8, 7, 4) | 8e−73 | 3e−73 | 8e−13 |
+
+The conic-invariant form agrees with the sphere law in every case. The two
+components of the vector identity differ for the asymmetric (1, 2, 3) and
+(0, 1, 4).
+
+**Literature.**
+
+- **The sphere identification is known.** Banaian–Gyoda (arXiv 2507.06900,
+  eq. at their line 138) write exactly this Fricke form, coefficients
+  included. Gyoda (arXiv 2611.23868, November 2026) realises the equations
+  on a hyperbolic orbifold on a sphere with four marked points. He applies
+  the Tan–Wong–Zhang McShane identity there to Lagrange-spectrum gaps,
+  extending Gaster–Loustau. Banaian–Sen (2210.07366) and Gyoda–Matsushita
+  (2201.10919) give the cluster-algebra and orbifold picture.
+- **The rest is not found there.** None of these has slope gaps of the
+  length function, Hines-type or vector identities, the dual-area identity,
+  or the conic form. Gyoda's "gaps" are Lagrange-spectrum gaps, which are a
+  different object.
+- So on these orbifolds the following are new, as far as checked: the gap
+  law, the vector Hines identity, and the dual-area identity
+  Area(B*) = Σ g_γ·N(γ).
+- This also answers the Gyoda–Matsushita direction named in
+  Doan–Li–Nguyen §6.
