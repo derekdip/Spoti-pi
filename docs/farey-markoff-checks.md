@@ -1743,3 +1743,55 @@ It holds for both families; whether it reflects a general principle is open.
    in Y's boundary length. Higher-genus orthogeodesic sums with log cosh
    kernels likewise need decaying weights to converge. That distinguishes them
    from Basmajian's log coth kernel, which converges.
+
+## Is the product law structural? Other moments, the covariance, mixtures (2026-11-25)
+
+Script `poc/farey/wp_moments.py`, output `poc/farey/wp_moments.log`. Cusped
+tori, the same fundamental-domain integration as before, with every
+quantity computed at each point.
+
+**Moment family.** With g = 2 log coth(x/2) and N = x/2, unfolding gives
+∫ Σ_γ g·N^s = ∫₀^∞ x·(x/2)^s·g dx, and
+
+    ∫₀^∞ x^m·log coth(x/2) dx = 2·m!·(1 − 2^{−(m+2)})·ζ(m+2).
+
+| Moment | Prediction | Measured | Rel. diff |
+|---|---|---|---|
+| s = 0: ⟨Σ g⟩ | 21ζ(3)/π² = 2.557670 | 2.557443 | 9·10⁻⁵ |
+| s = 1: ⟨A*⟩ | π²/4 = 2.467401 | 2.467568 | 7·10⁻⁵ |
+| s = 2: ⟨Σ g·N²⟩ | (93/16)ζ(5)·6/π² = 3.664063 | 3.664209 | 4·10⁻⁵ |
+| ⟨Area(B)⟩ | 4 | 3.999679 | 8·10⁻⁵ |
+
+**Where the π² comes from.** The product law is
+
+    ⟨Area(B)⟩·⟨A*⟩ = 4·(15/4)ζ(4)/ζ(2) = 15ζ(4)/ζ(2) = π²,
+
+which is Euler's relation ζ(4) = (2/5)ζ(2)². The dual area is the s = 1 moment,
+whose Mellin transform lands on the even value ζ(4). That pairs with the
+primitive-lattice density 1/ζ(2) in ∫Area(B) = 4ζ(2). Other moments land on
+odd zeta values: ⟨Area(B)⟩·⟨Σ g⟩ = 84ζ(3)/π² = 10.229, which is not a power
+of π. So the π² is specific to the dual pair (B, B*). It is the natural pair,
+because Area(B*) = Σ g·N is exactly the moment whose weight is the norm
+itself.
+
+**Covariance.** Measured ⟨M⟩ = ⟨Area(B)·Area(B*)⟩ = 9.515454 = 0.96412π². So
+
+    Cov(Area(B), Area(B*)) = ⟨M⟩ − π² = −0.3540.
+
+Every individual surface satisfies M ≤ π² (Blaschke–Santaló), but the product
+of the averages equals π² exactly. The two areas are anticorrelated across
+moduli space, and the average Santaló deficit, π² − ⟨M⟩, equals minus their
+covariance.
+
+**Mixtures of boundary lengths.** At fixed L, ∫Area(B) does not depend on L
+and ∫A* = c·Vol². Averaging over a mixture of boundary lengths therefore
+gives ⟨Area(B)⟩·⟨A*⟩ = π²·∫w∫wV² / (∫wV)², which is at least π² by
+Cauchy–Schwarz, with equality iff only one boundary length is present. For an
+equal-weight mixture of L = 0, 2 and 5 the product is 10.3609. So π² is the
+minimum over mixtures, reached exactly at fixed boundary data.
+
+**Summary.** The π² is structural in a precise sense. It comes from
+(i) primitive-lattice density 1/ζ(2) for the ball, (ii) the ζ(4) moment for
+the dual, and (iii) Euler's evaluation of even zeta values. Altering the
+weight breaks it into odd zeta values. Mixing boundary data lifts it above π²
+by Cauchy–Schwarz.

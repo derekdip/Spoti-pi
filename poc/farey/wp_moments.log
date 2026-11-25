@@ -1,0 +1,8 @@
+cusped tori: Vol = 1.646192 (pi^2/6 = 1.644934)
+  <area> = 3.999679   predicted 4.000000   (rel. diff 8.0e-05)
+  <Astar> = 2.467568   predicted 2.467401   (rel. diff 6.7e-05)
+  <sum_g> = 2.557443   predicted 2.557670   (rel. diff 8.9e-05)
+  <sum_gN2> = 3.664209   predicted 3.664063   (rel. diff 4.0e-05)
+  <Area(B)> <A*> = 9.869479 (pi^2 = 9.869604);  <M> = <Area(B) A*> = 9.515454 = 0.96412 pi^2;  Cov(Area(B), A*) = -0.354025;  correlation coefficient needs variances (not computed)
+  pairing the s = 0 and s = 2 moments with <Area(B)>: <Area(B)> <sum g> = 10.228950 = 84 zeta(3)/pi^2 (not a power of pi);  <Area(B)> <sum g N^2> = 14.655659
+  mixture of boundaries L = 0, 2, 5 (equal weight per boundary, WP within each): <Area(B)> <A*> = 10.360879 >= pi^2 (Cauchy-Schwarz)
