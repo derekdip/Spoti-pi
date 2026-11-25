@@ -1,0 +1,31 @@
+FLAT LIMIT: symmetric cone tori (a, a, a), mu = 3a^2 - a^3 -> 4 as a -> 2
+  a = 2.6: mu = 2.70400, area delta = 2.42218; 996 curves; Mahler = 9.713399 = 0.984173 pi^2;  A* / (pi delta/4) = 0.86392;  Area(B) / (4 pi/delta) = 1.13919
+  a = 2.3: mu = 3.70300, area delta = 1.10391; 1800 curves; Mahler = 9.795115 = 0.992453 pi^2;  A* / (pi delta/4) = 0.95295;  Area(B) / (4 pi/delta) = 1.04145
+  a = 2.1: mu = 3.96900, area delta = 0.35259; 4632 curves; Mahler = 9.850506 = 0.998065 pi^2;  A* / (pi delta/4) = 0.99066;  Area(B) / (4 pi/delta) = 1.00747
+  a = 2.05: mu = 3.99238, area delta = 0.17470; 8376 curves; Mahler = 9.862099 = 0.999240 pi^2;  A* / (pi delta/4) = 0.99664;  Area(B) / (4 pi/delta) = 1.00261
+  a = 2.02: mu = 3.99879, area delta = 0.06952; 18240 curves; Mahler = 9.867531 = 0.999790 pi^2;  A* / (pi delta/4) = 0.99913;  Area(B) / (4 pi/delta) = 1.00066
+  a = 2.01: mu = 3.99970, area delta = 0.03470; 32616 curves; Mahler = 9.868840 = 0.999923 pi^2;  A* / (pi delta/4) = 0.99969;  Area(B) / (4 pi/delta) = 1.00023
+FLAT LIMIT, non-symmetric shape: (a, b) with c from mu; fixed ratio of log-traces, mu -> 4
+  eps = 0.3: mu = 3.94664; 3692 curves; Mahler = 9.841467 = 0.997149 pi^2;  A* / (pi delta/4) = 0.98571
+  eps = 0.15: mu = 3.99683; 12166 curves; Mahler = 9.865345 = 0.999568 pi^2;  A* / (pi delta/4) = 0.99817
+  eps = 0.08: mu = 3.99975; 34972 curves; Mahler = 9.868903 = 0.999929 pi^2;  A* / (pi delta/4) = 0.99972
+  eps = 0.04: mu = 3.99998; 108504 curves; Mahler = 9.869513 = 0.999991 pi^2;  A* / (pi delta/4) = 0.99996
+TROPICAL LIMIT: long boundary, mu -> -infinity
+  symmetric (a, a, a), a = 6: mu = -108; 204 curves; Mahler = 9.291596 (regular hexagon 9.000000);  Area(B) x l^2 = 0.80407 (hexagon 0.75000); A*/l^2 = 11.55564 (zonotope 12.00000);  g(e0)/(2 l) = 0.83944
+  symmetric (a, a, a), a = 20: mu = -6.8e+03; 96 curves; Mahler = 9.068074 (regular hexagon 9.000000);  Area(B) x l^2 = 0.75712 (hexagon 0.75000); A*/l^2 = 11.97704 (zonotope 12.00000);  g(e0)/(2 l) = 0.96818
+  symmetric (a, a, a), a = 100: mu = -9.7e+05; 60 curves; Mahler = 9.009595 (regular hexagon 9.000000);  Area(B) x l^2 = 0.75084 (hexagon 0.75000); A*/l^2 = 11.99942 (zonotope 12.00000);  g(e0)/(2 l) = 0.99570
+  symmetric (a, a, a), a = 1000: mu = -9.97e+08; 24 curves; Mahler = 9.000650 (regular hexagon 9.000000);  Area(B) x l^2 = 0.75005 (hexagon 0.75000); A*/l^2 = 12.00000 (zonotope 12.00000);  g(e0)/(2 l) = 0.99971
+  symmetric (a, a, a), a = 100000: mu = -1e+15; 12 curves; Mahler = 9.000004 (regular hexagon 9.000000);  Area(B) x l^2 = 0.75000 (hexagon 0.75000); A*/l^2 = 12.00000 (zonotope 12.00000);  g(e0)/(2 l) = 1.00000
+  log-trace ratios (1.0, 1.5, 2.2) x 5: theta lengths (4.25, 6.75, 0.75); Mahler = 8.494834, hexagon 8.417273;  g(e0)/(2 l2) = 0.98129, g(e1)/(2 l1) = 0.97030
+  log-trace ratios (1.0, 1.5, 2.2) x 20: theta lengths (17, 27, 3); Mahler = 8.417468, hexagon 8.417273;  g(e0)/(2 l2) = 0.99995, g(e1)/(2 l1) = 0.99993
+  log-trace ratios (1.0, 1.5, 2.2) x 60: theta lengths (51, 81, 9); Mahler = 8.417273, hexagon 8.417273;  g(e0)/(2 l2) = 1.00000, g(e1)/(2 l1) = 1.00000
+  log-trace ratios (1.0, 3.0, 3.5) x 5: theta lengths (3.75, 13.8, 1.25); Mahler = 8.409555, hexagon 8.392857;  g(e0)/(2 l2) = 0.99687, g(e1)/(2 l1) = 0.98858
+  log-trace ratios (1.0, 3.0, 3.5) x 20: theta lengths (15, 55, 5); Mahler = 8.392859, hexagon 8.392857;  g(e0)/(2 l2) = 1.00000, g(e1)/(2 l1) = 1.00000
+  log-trace ratios (1.0, 3.0, 3.5) x 60: theta lengths (45, 165, 15); Mahler = 8.392869, hexagon 8.392857;  g(e0)/(2 l2) = 1.00000, g(e1)/(2 l1) = 1.00000
+hexagon Mahler volume over theta-graph shapes (l1, l2, l3) with l1 + l2 + l3 = 1:
+  max 8.999777 at (np.float64(0.33), np.float64(0.34)), min 8.039996 at (0.01, 0.01)
+PINCHING: a -> 2 at fixed mu = 0 (cusped), b mid-range
+  a = 2.01: l(alpha) = 0.1999; 1426 curves; Mahler = 9.00359; (M - 8) x log(1/l) = 1.6156
+  a = 2.003: l(alpha) = 0.1095; 2044 curves; Mahler = 8.87530; (M - 8) x log(1/l) = 1.9358
+  a = 2.001: l(alpha) = 0.0632; 3060 curves; Mahler = 8.78260; (M - 8) x log(1/l) = 2.1606
+  a = 2.0003: l(alpha) = 0.0346; 4782 curves; Mahler = 8.70074; (M - 8) x log(1/l) = 2.3564

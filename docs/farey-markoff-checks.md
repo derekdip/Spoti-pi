@@ -1194,3 +1194,101 @@ systole. Statement 2 says the McShane-type sum Σ ℓ log coth(ℓ/2) is largest
 where the spectrum is "most spread out". Literature status: not checked. A
 search on stable-norm extremal problems (Massart and others) is the next step
 before calling these new.
+
+## Limits: flat, tropical, pinching (2026-11-25)
+
+Script `poc/farey/limits.py`, output `poc/farey/limits.log` (double precision;
+curves best-first until g·N < 10⁻¹³, up to 108 504 curves).
+
+### Flat limit, μ → 4
+
+This is the cone-point limit: cone angle 2π − δ, where δ is the hyperbolic
+area and μ − 2 = 2 cos(δ/2).
+
+**Predictions.** 4 − μ ≈ δ²/4, and lengths are √δ times flat lengths. Then:
+
+- the dual-area sum Σ g·N becomes a Riemann sum of r/(4 sinh²r) over primitive
+  vectors. With density 6/π² and ∫₀^∞ r²/sinh²r dr = π²/6, this gives
+  A* → π·δ/4;
+- Area(B) → 4π/δ (a Euclidean disk);
+- the Mahler volume → π², the ellipse value.
+
+**Measured.**
+
+| Case | Mahler/π² | A*/(πδ/4) | Area(B)/(4π/δ) |
+|---|---|---|---|
+| (a, a, a), a = 2.6 | 0.98417 | 0.864 | 1.139 |
+| (a, a, a), a = 2.1 | 0.99807 | 0.991 | 1.007 |
+| (a, a, a), a = 2.01 (32 616 curves) | 0.999923 | 0.99969 | 1.00023 |
+| Asymmetric lattice, ε = 0.04 (108 504 curves) | 0.999991 | 0.99996 | — |
+
+In this limit the dual-area identity reduces to ∫ r²/sinh²r = ζ(2). The same
+ζ(2) appears in the rate law.
+
+### Tropical limit, μ → −∞
+
+This is the long-boundary limit. The surface collapses onto a theta ribbon
+graph with edge lengths l₁, l₂, l₃, where log a = l₁ + l₃, log b = l₂ + l₃ and
+log c = l₁ + l₂ (c the trace of e₀ − e₁).
+
+**Predictions.**
+
+- N(p, q) → l₁|p| + l₂|q| + l₃|p − q|, a piecewise-linear norm.
+- B tends to a hexagon, and B* to the zonotope Σ l_i·[−u_i, u_i], of area
+  4(l₁l₂ + l₁l₃ + l₂l₃).
+- **The gap law tropicalises:** g(e₀) = log((a² − μ)/(a² − 4)) → 2l₂, and
+  similarly g(e₁) → 2l₁ and g(e₀ − e₁) → 2l₃. Only these three corners
+  survive. The dual-area identity becomes
+  Σ g·N = 2l₂(l₁ + l₃) + 2l₁(l₂ + l₃) + 2l₃(l₁ + l₂) = 4Σ_{i<j} l_i l_j,
+  which is exactly the zonotope area.
+
+**Measured, symmetric case** (a, a, a), with l = log(a)/2:
+
+| a | Mahler | Area(B)·l² | A*/l² | g(e₀)/(2l) |
+|---|---|---|---|---|
+| 6 | 9.2916 | 0.80407 | 11.5556 | 0.83944 |
+| 100 | 9.0096 | 0.75084 | 11.99942 | 0.99570 |
+| 10⁵ | 9.000004 | 0.75000 | 12.00000 | 1.00000 |
+| Regular-hexagon prediction | 9 | 0.75 | 12 | 1 |
+
+**Measured, asymmetric shapes** (log-trace ratios scaled by a growing factor):
+
+| Shape | Theta lengths at the largest scale | Mahler | Hexagon prediction |
+|---|---|---|---|
+| (1, 1.5, 2.2) | (51, 81, 9) | 8.417273 | 8.417273 |
+| (1, 3, 3.5) | (45, 165, 15) | 8.392869 | 8.392857 |
+
+In both shapes g(e₀)/(2l₂) and g(e₁)/(2l₁) reach 1.00000.
+
+**Hexagon Mahler volume over theta shapes.** It ranges over (8, 9]: the
+maximum 9 at l₁ = l₂ = l₃ (the regular hexagon), and the infimum 8 as two
+lengths go to 0 (the parallelogram).
+
+### Pinching, a → 2 at μ = 0
+
+| ℓ(α) | 0.20 | 0.11 | 0.063 | 0.035 |
+|---|---|---|---|---|
+| Mahler | 9.0036 | 8.8753 | 8.7826 | 8.7007 |
+
+The Mahler volume decreases towards 8, but slowly. (M − 8)·log(1/ℓ) grows from
+1.62 to 2.36, so the decay is slower than 1/log(1/ℓ). The exact rate was not
+identified.
+
+### Picture
+
+Along the symmetric family (a, a, a), the Mahler volume of the stable-norm
+ball rises monotonically with μ:
+
+| μ | −10¹⁵ | −108 | 0 (modular) | 2.70 | → 4 |
+|---|---|---|---|---|---|
+| Mahler | 9 | 9.29 | 9.621 = 0.9748π² | 9.71 | π² |
+
+So it interpolates between three geometries:
+
+- **tropical:** a hexagon, values in [8, 9];
+- **hyperbolic:** the modular torus, which maximises among cusped tori;
+- **Euclidean:** the flat torus, an ellipse at π².
+
+Pinching sends it to 8. Each limit matches its predicted body exactly: the
+gap law tropicalises to the theta-graph edge lengths, and the dual-area
+identity becomes the zonotope area in one limit and ζ(2) in the other.
