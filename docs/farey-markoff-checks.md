@@ -116,3 +116,26 @@ identity over all of it is known (Huang and Norbury, "Simple geodesics and
 Markoff quads", arXiv 1312.7089) but not yet expressed here as a sum of
 the per-region certificates. The structure suggests a two-level hierarchy:
 regions indexed by one coordinate's values, each a one-holed-torus tree.
+
+## Literature check, with arXiv reachable (2026-11-25)
+
+Papers read: Huang-Norbury (arXiv 1312.7089), Sorrentino-Veselov (1707.03901),
+McShane-Rivin (math/0005220), Tan-Wong-Zhang (math/0411184), Gaster
+(2107.13499), O'Sullivan (2609.14149, September 2026).
+
+| result here | status |
+|---|---|
+| gap law g = log(c^2/(c^2-4)) and the one-sided derivatives of Fock's function | **known**. Sorrentino-Veselov asked for them (section 5); Hines (2020) and Gaster (2021, Proposition 1.8) computed them. `poc/farey/fock_derivatives.py` re-derives them in another form (psi'(1/2 +-) = +-log(9/8)) and checks them to 12 digits. |
+| gap law with a boundary, log((c^2-mu)/(c^2-4)) | **known**: O'Sullivan, S' - S = n log((u^2 - D)/(u^2 - 4)), equation (4.10), by the same factorisation. Checked here on Sorrentino-Veselov's a-family (mu = 4 - 4a^6), a = 2, 3. |
+| cell recursion with the boundary atom h(c) - mu/(2abc) | **known in another normalisation**: Hu-Tan-Zhang (2015); O'Sullivan Theorem 9.9, whose Upsilon(b, b') = 1 - m_q/(m_b m_b') splits with -D/(m_b m_q m_b') per vertex. |
+| McShane cell recursion at mu = 0 | **known**: Bowditch (1996). |
+| one exact certificate for a quad tree | **known**: Huang-Norbury's splitting 1 = a/S + b/S + c/S + d/S, S = a + b + c + d, for their quads (a + b + c + d)^2 = abcd. Note their quads differ from the Markoff-Hurwitz a^2 + b^2 + c^2 + d^2 = abcd used here; they relate at n = 4 by a change of coordinates (their Remark 2, via Hu-Tan-Zhang). |
+| Markoff-Hurwitz region = one-holed torus with mu = -a^4 | not found in these papers; elementary, and plausibly in Hu-Tan-Zhang, not read. |
+| electrical series law and its boundary resistor -mu/4 | not found; algebraically shallow (the Vieta product rewritten). |
+| D/Phi -> 2(4 - mu)/(2 - mu), with the note's Phi and the Farey-Schauder defect D | not found in these papers. |
+| Farey-Schauder expansion as certified anytime compression, deformation coding | not found; the algorithmic reading appears to be the new part. |
+
+Bottom line: the exact identities of both notes are largely known, several
+very recently (O'Sullivan, September 2026, studies these trees for all D
+in a self-contained way). What stands as possibly new is the algorithmic and
+coding use of them, the electrical reading, and the D/Phi limit.
