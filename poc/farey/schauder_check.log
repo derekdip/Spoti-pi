@@ -1,0 +1,10 @@
+PASS forward child solves a^2+b^2+c^2=abc
+PASS Phi(a,b) = Phi(a,c) + Phi(c,b) + h(c)
+PASS h decreases down the tree (max-heap)
+PASS gap law g_m = log(c^2/(c^2-4)) = 2 log coth F(m)  (max error 9.07e-93)
+PASS g = -2 log(1-2h), h = 1/(1+e^{2F})
+FAIL D/Phi = 4 + 4xy + 8xy(x+y) + (4xy/3)(15x^2+37xy+15y^2) + ...  (remainder / xy(x+y)^3 at most 1.93e+10, bounded: next order)
+PASS D/h > 4 on every cell
+PASS Green transform at traces (3,3): D = 0.162100126199, sum = 0.162100126199
+PASS Green transform at traces (3,6): D = 0.0215949932269, sum = 0.0215949932269
+PASS Green transform at traces (6,15): D = 0.000547030355405, sum = 0.000547030355405

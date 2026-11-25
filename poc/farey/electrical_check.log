@@ -1,0 +1,15 @@
+PASS triples on surface
+PASS series law 1/(cc')=1/a^2+1/b^2
+PASS 3.7 DtN form
+PASS 4.3 Lambda_0 = 2/27 P_A2
+PASS 6.2 metric 2/9 [[2,1],[1,2]]
+PASS 7.3-7.7 parametrisation, V_B: u->-u, V_C: u->2l-u
+PASS 8.2 dx^dy = du^dl
+PASS 9.5 |x+y|+|x-y|=2max
+PASS 13.3 kinks at -(p-r)/(q-s), -(p+r)/(q+s)
+PASS 14.3 closed form
+PASS 16.1 |tr AP^n| = 3(2n+1)
+PASS 18.2, 18.3 cusp conductance
+PASS 19.1, 19.2 Mobius recurrence and g(r)
+PASS 22.2 r_{T_m n} = r_n/m
+PASS 21.5 slope 6|s|^2 = 25.500 (measured 25.500)
