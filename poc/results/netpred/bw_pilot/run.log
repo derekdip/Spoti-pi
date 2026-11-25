@@ -1,0 +1,23 @@
+[18:33:45] generic multi-horizon model: 161340 windows, train mse 29.964 cm^2
+[18:33:51] player 0, tolerance 0.5 cm: bytes/s hold 911, dead reckoning 1511, generic 661, personal 661 (stream 1980); max error 0.50 cm [66s]
+[18:33:54] player 0, tolerance 1.0 cm: bytes/s hold 501, dead reckoning 1113, generic 322, personal 321 (stream 1980); max error 1.00 cm [68s]
+[18:33:55] player 0, tolerance 2.0 cm: bytes/s hold 314, dead reckoning 870, generic 247, personal 244 (stream 1980); max error 2.00 cm [70s]
+[18:34:03] player 1, tolerance 0.5 cm: bytes/s hold 1383, dead reckoning 1378, generic 1007, personal 1021 (stream 1980); max error 0.50 cm [78s]
+[18:34:06] player 1, tolerance 1.0 cm: bytes/s hold 948, dead reckoning 1048, generic 589, personal 592 (stream 1980); max error 1.00 cm [81s]
+[18:34:09] player 1, tolerance 2.0 cm: bytes/s hold 577, dead reckoning 901, generic 394, personal 391 (stream 1980); max error 2.00 cm [84s]
+[18:34:16] player 2, tolerance 0.5 cm: bytes/s hold 1163, dead reckoning 1360, generic 663, personal 676 (stream 1980); max error 0.50 cm [91s]
+[18:34:19] player 2, tolerance 1.0 cm: bytes/s hold 786, dead reckoning 1025, generic 389, personal 392 (stream 1980); max error 1.00 cm [93s]
+[18:34:20] player 2, tolerance 2.0 cm: bytes/s hold 447, dead reckoning 833, generic 309, personal 302 (stream 1980); max error 2.00 cm [95s]
+[18:34:27] player 3, tolerance 0.5 cm: bytes/s hold 873, dead reckoning 1301, generic 509, personal 514 (stream 1980); max error 0.50 cm [102s]
+[18:34:29] player 3, tolerance 1.0 cm: bytes/s hold 587, dead reckoning 978, generic 328, personal 325 (stream 1980); max error 1.00 cm [104s]
+[18:34:31] player 3, tolerance 2.0 cm: bytes/s hold 324, dead reckoning 808, generic 267, personal 273 (stream 1980); max error 2.00 cm [106s]
+[18:34:37] player 4, tolerance 0.5 cm: bytes/s hold 956, dead reckoning 1158, generic 573, personal 577 (stream 1980); max error 0.50 cm [112s]
+[18:34:39] player 4, tolerance 1.0 cm: bytes/s hold 635, dead reckoning 946, generic 345, personal 347 (stream 1980); max error 1.00 cm [114s]
+[18:34:42] player 4, tolerance 2.0 cm: bytes/s hold 364, dead reckoning 848, generic 269, personal 268 (stream 1980); max error 2.00 cm [116s]
+[18:34:49] player 5, tolerance 0.5 cm: bytes/s hold 1368, dead reckoning 1587, generic 933, personal 938 (stream 1980); max error 0.50 cm [124s]
+[18:34:52] player 5, tolerance 1.0 cm: bytes/s hold 841, dead reckoning 1166, generic 434, personal 436 (stream 1980); max error 1.00 cm [126s]
+[18:34:54] player 5, tolerance 2.0 cm: bytes/s hold 484, dead reckoning 903, generic 311, personal 315 (stream 1980); max error 2.00 cm [128s]
+[18:34:54] tolerance 0.5 cm, mean bytes/s: hold 1109, deadreck 1383, generic 724, personal 731; generic vs dead reckoning 48% fewer, personal vs generic -1% fewer
+[18:34:54] tolerance 1.0 cm, mean bytes/s: hold 716, deadreck 1046, generic 401, personal 402; generic vs dead reckoning 62% fewer, personal vs generic -0% fewer
+[18:34:54] tolerance 2.0 cm, mean bytes/s: hold 418, deadreck 861, generic 299, personal 299; generic vs dead reckoning 65% fewer, personal vs generic 0% fewer
+RUN EXIT 0

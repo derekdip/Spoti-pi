@@ -1,0 +1,2 @@
+{"generic_players": 60, "generic_minutes": 3, "generic_seed": 21, "small_width": 64, "players_seed": 22, "players": 24, "fit_minutes": 2, "test_minutes": 3,
+ "tols": [0.005, 0.01, 0.02], "bars": {"generic_saving": 0.3, "personal_saving": 0.05}}
