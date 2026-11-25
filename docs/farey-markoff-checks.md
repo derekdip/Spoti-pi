@@ -92,3 +92,27 @@ math/0411184); the atoms here are attached to cells and may regroup into
 their per-geodesic form. Not found in the searches so far, and to be
 checked when arXiv is reachable: the gap law in either form, the series
 law with its boundary resistor, and the D/Phi limit.
+
+## Markoff-Hurwitz quads reduce to one-holed tori (2026-11-25)
+
+`poc/farey/quads.py`, log beside it. For quads a^2 + b^2 + c^2 + d^2 = abcd,
+hold one coordinate fixed and rescale the others, X = ab, Y = ac, Z = ad:
+
+    X^2 + Y^2 + Z^2 - XYZ = a^2 (b^2 + c^2 + d^2 - a bcd) = -a^4,
+
+and the quad move d -> abc - d is the Markoff move Z -> XY - Z. So every
+region of the quad tree (the quads sharing one coordinate value) is the
+one-holed-torus tree with mu = -a^4, a boundary of length L with
+2 cosh(L/2) = 2 + a^4. Checked on the integer quads from (2, 2, 2, 6): the
+regions of 2, 6 and 22 (94 vertices each) lie exactly on their rescaled
+equations; the region of 2 is the mu = -16 tree from (4, 4) (first child
+12 = 2 x 6), with the exact cell recursion, heap, certificate, gap law and
+D/Phi -> 2(4 - mu)/(2 - mu) = 20/9 all holding.
+
+So inside each region the whole Farey machinery holds, with the region's
+coordinate setting the boundary. What is not obtained: one certificate for
+the whole quad tree. Every quad lies in four regions, and a McShane-type
+identity over all of it is known (Huang and Norbury, "Simple geodesics and
+Markoff quads", arXiv 1312.7089) but not yet expressed here as a sum of
+the per-region certificates. The structure suggests a two-level hierarchy:
+regions indexed by one coordinate's values, each a one-holed-torus tree.

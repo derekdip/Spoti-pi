@@ -1,0 +1,6 @@
+root quad [2, 2, 2, 6] on the surface: True
+region of slot 0 = 2 from [2, 2, 2, 6]: 94 vertices, all on X^2+Y^2+Z^2-XYZ = -16: PASS
+region of slot 3 = 6 from [2, 2, 2, 6]: 94 vertices, all on X^2+Y^2+Z^2-XYZ = -1296: PASS
+region of slot 0 = 22 from [22, 2, 2, 6]: 94 vertices, all on X^2+Y^2+Z^2-XYZ = -234256: PASS
+forward child of (4, 4) at mu = -16: 12.0 (2 x 6 = 12)
+mu = -16 (region a = 2): P1 PASS, P2 PASS, P3 PASS, gap error 7.47e-118, D/Phi deep 2.222222222 (2(4-mu)/(2-mu) = 2.222222222)
