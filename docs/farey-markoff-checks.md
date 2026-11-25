@@ -1862,3 +1862,68 @@ Weil–Petersson volume alone: ∫A* = 3V₁,₁² (orbifold normalisation) and
 ⟨Area(B)⟩·⟨Area(B*)⟩ = π² hold for every boundary. So the dual body is
 distinguished, not only by convex-geometric duality but by this volume
 structure.
+
+## Why s = 1: locality, degree, and an n = 4 coincidence (2026-11-25)
+
+Script `poc/farey/s1_uniqueness.py`, output `poc/farey/s1_uniqueness.log`.
+
+**Claim.** Among the odd moments of the corner measure, only the dual area
+satisfies ∫ over moduli = c·V², and that is the input of the product law.
+
+**Argument.**
+
+1. **Locality.** Mirzakhani's unfolding writes ∫Σ_γ g·N^s as a sum over
+   mapping-class orbits of ∫ x^{s+1}·g(x) dx. By the orthogeodesic (pants)
+   factorisation of the gap, each term is a sum over the pants adjacent to
+   the curve. Each pants contributes K_s((A+B)/2) + K_s((A−B)/2), a
+   polynomial in its other two boundary lengths A, B of degree s + 3.
+2. **Degree.** c·V² has degree 4 in the lengths, so s = 1.
+3. **Matching at s = 1.**
+   - *Torus:* I₁ has degree 4 and a double root at the flat point L = 2πi
+     (forced by the flat-limit scaling), so I₁ = c·(y² + π²)² ∝ V₁,₁².
+   - *Sphere:* the pants sums must assemble into (ΣL²)². The degree-4 part
+     needs
+
+         Σ_{i<j} [(L_i + L_j)⁴ + (L_i − L_j)⁴] = 2(n−1)·ΣL⁴ + 12·Σ_{i<j} L_i²L_j²
+
+     to be a multiple of (ΣL²)² = ΣL⁴ + 2Σ_{i<j}L_i²L_j². That requires
+     2(n−1) : 12 = 1 : 2, so **n = 4**. Checked with sympy for n = 3, 4, 5, 6:
+     the remainder is 4e₂, 0, −4e₂ and −8e₂ in the elementary symmetric
+     function e₂ of the L_i². The lower-order terms also match:
+     (ΣL²)²/32 + π²ΣL²/4 + π⁴/2 = (ΣL² + 4π²)²/32.
+   - *Sphere, s ≥ 3:* a function of ΣL² of degree 2k ≥ 6 contains the triple
+     products L_i²L_j²L_k². A pants only sees two other boundary lengths, so
+     pants sums can never produce them. Checked: the coefficient of
+     L₁²L₂²L₃² in I₃ is 0, while in (ΣL²)³ it is 6.
+4. **Ball area.** ∫Area(B) does not depend on the boundary (Mirzakhani's
+   count, V₀,₃ = 1). Together with c·V² this gives ⟨Area(B)⟩·⟨A*⟩ = constant,
+   and the constant is π² by Euler's evaluation of ζ(2) and ζ(4).
+
+**Link to Mirzakhani's recursion.** The L-derivative of the gap is the
+complement of her recursion kernel:
+
+    ∂_L g(x; L) = ½·sinh(L/2)/(cosh x + cosh(L/2)) = ½·(1 − H(L, 2x)),
+    H(x, y) = 1/(1 + e^{(x+y)/2}) + 1/(1 + e^{(x−y)/2})
+
+(worst error 2·10⁻¹⁷). With ∫₀^∞ x²/(cosh x + cosh a) dx = a(a² + π²)/(3 sinh a),
+checked to 18 digits at a = 0.5, 2 and 5, this gives
+
+    d/dL ∫A* = L(L² + 4π²)/96 = (L/2)·V₁,₁(L),
+
+checked at L = 0, 2 and 5 to 15 digits. Since V₁,₁′ = L/24, this is
+d/dL(6V₁,₁²), so ∫A* = 6V₁,₁² in the fundamental-domain normalisation. The
+recursion's kernel computes V₁,₁; the same kernel, weighted by one extra
+power of x, computes ∫A*. That extra x is the norm N = x/2 in A* = Σ g·N. So
+the dual area is the moment for which the kernel integral reproduces the
+volume's own derivative, d(V²)/dL = 2V·V′.
+
+**Summary.** The product law is a consequence of:
+
+- pants-locality of the gap (the orthogeodesic form);
+- the degree count, which allows only s = 1;
+- at s = 1, an algebraic coincidence: the flat-point double root for tori,
+  and the binomial identity that holds exactly for n = 4 boundaries on the
+  sphere.
+
+This suggests looking for higher-complexity analogues where the
+corresponding pants combinatorics again close up into powers of the volume.
