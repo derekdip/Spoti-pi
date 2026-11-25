@@ -1,0 +1,16 @@
+K = 0.5: 76 tongues with q <= 22 in [0, 1/2], locked measure found 0.185392 (x2 for [0,1]); heap violations 0
+   best-first remainder: fit exp(-c sqrt N) c = 1.473, predicted pi/sqrt(6A) = 2.193; power-law fit N^-3.02
+   tongues of width >= 0.0001: 7; Farey best-first cost (all 76 tongues computed) 1.12e+08 map evaluations; uniform sweep needs 2.00e+07
+   tongues of width >= 1e-06: 29; Farey best-first cost (all 76 tongues computed) 1.12e+08 map evaluations; uniform sweep needs 2.00e+09
+K = 0.8: 91 tongues with q <= 24 in [0, 1/2], locked measure found 0.346500 (x2 for [0,1]); heap violations 0
+   best-first remainder: fit exp(-c sqrt N) c = 0.691, predicted pi/sqrt(6A) = 1.368; power-law fit N^-1.59
+   tongues of width >= 0.0001: 29; Farey best-first cost (all 91 tongues computed) 1.60e+08 map evaluations; uniform sweep needs 2.00e+07
+   tongues of width >= 1e-06: 91; Farey best-first cost (all 91 tongues computed) 1.60e+08 map evaluations; uniform sweep needs 2.00e+09
+K = 0.95: 107 tongues with q <= 26 in [0, 1/2], locked measure found 0.477508 (x2 for [0,1]); heap violations 0
+   best-first remainder: fit exp(-c sqrt N) c = 0.429, predicted pi/sqrt(6A) = 1.056; power-law fit N^-1.19
+   tongues of width >= 0.0001: 90; Farey best-first cost (all 107 tongues computed) 2.22e+08 map evaluations; uniform sweep needs 2.00e+07
+   tongues of width >= 1e-06: 107; Farey best-first cost (all 107 tongues computed) 2.22e+08 map evaluations; uniform sweep needs 2.00e+09
+K = 1.0: 107 tongues with q <= 26 in [0, 1/2], locked measure found 0.544590 (x2 for [0,1]); heap violations 0
+   best-first remainder: fit exp(-c sqrt N) c = 0.357, predicted pi/sqrt(6A) = 0.979; power-law fit N^-0.95
+   tongues of width >= 0.0001: 107; Farey best-first cost (all 107 tongues computed) 2.22e+08 map evaluations; uniform sweep needs 2.00e+07
+   tongues of width >= 1e-06: 107; Farey best-first cost (all 107 tongues computed) 2.22e+08 map evaluations; uniform sweep needs 2.00e+09

@@ -219,3 +219,43 @@ A is Mirzakhani's B(X) up to normalisation (for the punctured torus, B(X) is
 the measure of the unit ball of the length function), so the rate is
 c(X) = kappa pi / sqrt(6 A(X)). Whether B is minimised at the modular torus
 on all of moduli space, and whether that is known, is not checked here.
+
+## Mode-locking in the sine circle map: the Farey structure carries over, the rate law does not (2026-11-25)
+
+`poc/farey/circle_map.py`, log beside it. The driven-oscillator model
+theta -> theta + Omega - (K/2 pi) sin(2 pi theta); for each p/q the rotation
+number locks on an Omega-interval (an Arnold tongue), computed here exactly
+as the Omega where the extremum over theta of f^q(theta) - theta - p crosses
+zero, each tongue searched between its Farey parents' tongues. Tongues with
+q <= 22 to 26 on [0, 1/2]; the 0/1 tongue comes out at the exact +-K/2 pi.
+
+| K | tongues | heap violations down the Farey tree | fitted exp(-c sqrt N) c | predicted pi/sqrt(6A) | power-law fit of the remainder |
+|---|---|---|---|---|---|
+| 0.5 | 76 | 0 | 1.47 | 2.19 | N^-3.0 |
+| 0.8 | 91 | 0 | 0.69 | 1.37 | N^-1.6 |
+| 0.95 | 107 | 0 | 0.43 | 1.06 | N^-1.2 |
+| 1.0 | 107 | 0 | 0.36 | 0.98 | N^-0.95 |
+
+- **What carries over:** tongue widths decrease down the Farey tree with no
+  exception, so best-first refinement and pruning (stop a subtree once its
+  tongue is narrower than the target) are exact.
+- **What does not:** the root-exponential rate law. The prediction assumed
+  widths fall like exp(-q lambda(p/q)) everywhere. Next to a wide tongue they
+  fall like a power instead (the 1/q tongues beside 0/1 at K = 0.8 fall like
+  q^-3.2): at a tongue edge the dynamics is a saddle-node, a parabolic point,
+  and the fans of fractions accumulating on it have widths decaying
+  polynomially. The remainder then decays like a power of N, steeper for
+  weaker coupling. This is the dichotomy of the electrical note's sections
+  14-15: exponential (hyperbolic) fans give root-exponential compression, as
+  on the Markoff tree, where every fan is hyperbolic; parabolic fans give
+  power laws. The rate law c^2 A = kappa^2 zeta(2) belongs to the hyperbolic
+  case.
+- **Cost, as implemented** (an unoptimised edge solver, about 1.5e6 map
+  evaluations per tongue), against a uniform Omega sweep with two points per
+  target width and 2000 iterations per point: for all tongues of width at
+  least 1e-4, Farey costs 5e7 to 2e8 and the sweep 2e7; for 1e-6, Farey 1.1e8
+  to 2.2e8 against 2e9 for the sweep, about 10 times fewer, with edges to
+  machine precision rather than to the grid spacing. The Farey cost grows with
+  the number of tongues above the target, the sweep's with 1/(target width);
+  a Newton solve for the saddle-node edges, not tried, would cut the
+  per-tongue cost by a large factor.
