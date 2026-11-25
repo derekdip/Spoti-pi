@@ -1,0 +1,26 @@
+modular torus (3, 3): conic-invariant form vs gap law, worst 2.45e-91; vector Hines check: -7.81e-88, -7.82e-88
+   class (1, 0), sum p g = 0.020026454288326915399: no relation (coefficients <= 200)
+   class (1, 0), sum q g = 0.038609748051235240144: no relation (coefficients <= 200)
+   class (0, 1), sum p g = 0.038609748051235240144: no relation (coefficients <= 200)
+   class (0, 1), sum q g = 0.020026454288326915399: no relation (coefficients <= 200)
+   class (1, 1), sum p g = 0.12868229026898178786: no relation (coefficients <= 200)
+   class (1, 1), sum q g = 0.12868229026898178786: no relation (coefficients <= 200)
+   joint relation: +1 log(X^2-4) -1 log(Y^2-4)
+punctured torus (2.6, 4.1): conic-invariant form vs gap law, worst 4.91e-91; vector Hines check: 8.08e-89, -7.92e-89
+   class (1, 0), sum p g = 0.006054797280171162731: no relation (coefficients <= 200)
+   class (1, 0), sum q g = 0.010783503139058444679: no relation (coefficients <= 200)
+   class (0, 1), sum p g = 0.037449717780320729238: no relation (coefficients <= 200)
+   class (0, 1), sum q g = 0.018002574436396667454: no relation (coefficients <= 200)
+   class (1, 1), sum p g = 0.085724630740735756726: no relation (coefficients <= 200)
+   class (1, 1), sum q g = 0.078133524973377329516: no relation (coefficients <= 200)
+   joint relation: +1 S(1, 0)q +1 S(0, 1)q +1 S(1, 1)q -1 F(e0) +1 log K1
+four-holed sphere (2.5, 2.2, 3.0, 2.1), (9, 11): conic-invariant form vs gap law, worst 4.91e-91; vector Hines check: 2.52e-88, -9.57e-90
+   class (1, 0), sum p g = 0.014344518158678478586: no relation (coefficients <= 200)
+   class (1, 0), sum q g = 0.028065283993860114859: no relation (coefficients <= 200)
+   class (0, 1), sum p g = 0.034840255158593950524: no relation (coefficients <= 200)
+   class (0, 1), sum q g = 0.01754783433207253461: no relation (coefficients <= 200)
+   class (1, 1), sum p g = 0.15522988055699131222: no relation (coefficients <= 200)
+   class (1, 1), sum q g = 0.1538559129178324763: no relation (coefficients <= 200)
+   joint relation: +1 S(1, 0)q +1 S(0, 1)q +1 S(1, 1)q -1 F(e0) +1 log K1
+residual search, punctured torus (2.6, 4.1): no relation (coefficients <= 100)
+residual search, four-holed sphere: no relation (coefficients <= 100)

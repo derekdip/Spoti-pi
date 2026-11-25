@@ -494,3 +494,59 @@ torus group* (arXiv 1402.3904).
 The search is still not exhaustive: Mirzakhani-style length identities for
 the four-holed sphere and the Painlevé VI literature on the Cantat–Loray cubic
 have not been checked.
+
+## The gap law as a conic invariant, and no parity split of Hines (2026-11-25)
+
+Script `poc/farey/parity_split.py`, output `poc/farey/parity_split.log`.
+
+**Most general form of the gap law.**
+
+- Fix the trace c of a curve m. The cubic then becomes a conic in the other
+  two traces:
+
+      Y² + Z² − cYZ + κ_x·Y + κ_y·Z + (c² + κ_m·c + s) = 0.
+
+- Let M₃ be this conic's 3×3 symmetric matrix. Expanding the determinant
+  gives −4·det M₃ = (c² + κ_m·c + s)(c² − 4) + κ_x² + κ_y² + κ_x·κ_y·c.
+  So the four-holed-sphere law is exactly
+
+      e^g = −4·det M₃ / (c² − 4)².
+
+  Here (c² − 4)/4 = −det M₂, the determinant of the conic's quadratic part.
+- The gap at a curve is therefore the ratio of the two determinant invariants
+  of the conic cut out at that curve's trace. Nothing else about the surface
+  enters.
+- The statement holds for any cubic surface with Vieta flips whose slices are
+  conics. If the leading coefficients b, c on Y² and Z² are not 1, rescale to
+  get e^g = −bc·det M₃ / (4·(det M₂)²).
+- Numerically the conic form agrees with the gap law to 5e−91 on the modular
+  torus, a punctured torus and a four-holed sphere. The check uses the first
+  200 cells. Further down the tree mpmath's generic determinant underflows
+  (traces of 10¹⁰⁰ and more), and that is the cause of an "inf" in a first run.
+
+**Parity-class split of the Hines sum: none found.**
+
+- Hu–Tan–Zhang split McShane's identity across the three Z₂ classes with free
+  weights (1402.3904, Thm 1.3). I tested whether the Hines-type sums do the
+  same.
+- I formed the six sums S(class)·{p·g, q·g} and ran PSLQ against 13 constants
+  of the root cell: F and log(x² − 4) of the four root traces, the end-fan
+  coefficients K₀ and K₁, both fans around e₀ + e₁, and 1 and log 2.
+- **Each sum alone:** no relation with coefficients up to 200, on all three
+  surfaces.
+- **Jointly:** the only relation found is the vector Hines identity
+  (Σ over classes of q·g = F(e₀) − log K₁), which is the control.
+- **With that removed:** drop the (1, 1)-class sums and K₀, K₁, and there is
+  no relation with coefficients up to 100, on the punctured torus or the
+  sphere.
+
+**Reading.** McShane's identity splits because it is built from a per-vertex
+identity: a sum over the neighbours of each region with a closed form (their
+eq. 26). Hines' identity is a global telescoping: the gradient jumps add up to
+the change in the gradient between the two edges of the cone. Only the two
+end fans enter, and a parity class sees no boundary of its own. So the
+parity-split route does not carry over, and the vector identity looks like
+the complete set of linear identities of this kind.
+
+This is a negative result for this basis only; it does not exclude closed
+forms in other constants.
