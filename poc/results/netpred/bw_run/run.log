@@ -1,0 +1,28 @@
+[18:37:29] generic multi-horizon model: 161340 windows, train mse 29.474 cm^2
+[18:37:56] generic multi-horizon model: 161340 windows, train mse 33.551 cm^2
+[18:38:09] player 0: at 1 cm, bytes/s hold 754, deadreck 891, deadreck_smooth 490, generic_small 494, generic 434, personal 439 [87s]
+[18:38:26] player 1: at 1 cm, bytes/s hold 870, deadreck 1267, deadreck_smooth 732, generic_small 651, generic 588, personal 587 [104s]
+[18:38:41] player 2: at 1 cm, bytes/s hold 856, deadreck 1059, deadreck_smooth 532, generic_small 515, generic 464, personal 462 [119s]
+[18:38:56] player 3: at 1 cm, bytes/s hold 820, deadreck 959, deadreck_smooth 400, generic_small 470, generic 408, personal 412 [134s]
+[18:39:12] player 4: at 1 cm, bytes/s hold 886, deadreck 987, deadreck_smooth 668, generic_small 547, generic 493, personal 494 [149s]
+[18:39:25] player 5: at 1 cm, bytes/s hold 758, deadreck 904, deadreck_smooth 370, generic_small 429, generic 369, personal 364 [163s]
+[18:39:41] player 6: at 1 cm, bytes/s hold 713, deadreck 1211, deadreck_smooth 519, generic_small 571, generic 483, personal 489 [178s]
+[18:39:53] player 7: at 1 cm, bytes/s hold 693, deadreck 966, deadreck_smooth 327, generic_small 406, generic 327, personal 326 [190s]
+[18:40:09] player 8: at 1 cm, bytes/s hold 944, deadreck 995, deadreck_smooth 524, generic_small 537, generic 478, personal 483 [207s]
+[18:40:23] player 9: at 1 cm, bytes/s hold 570, deadreck 1120, deadreck_smooth 362, generic_small 438, generic 337, personal 334 [220s]
+[18:40:39] player 10: at 1 cm, bytes/s hold 720, deadreck 869, deadreck_smooth 415, generic_small 432, generic 387, personal 404 [236s]
+[18:40:53] player 11: at 1 cm, bytes/s hold 859, deadreck 925, deadreck_smooth 552, generic_small 488, generic 427, personal 432 [250s]
+[18:41:05] player 12: at 1 cm, bytes/s hold 638, deadreck 911, deadreck_smooth 358, generic_small 427, generic 349, personal 352 [262s]
+[18:41:19] player 13: at 1 cm, bytes/s hold 950, deadreck 919, deadreck_smooth 380, generic_small 468, generic 419, personal 425 [277s]
+[18:41:33] player 14: at 1 cm, bytes/s hold 707, deadreck 1122, deadreck_smooth 445, generic_small 475, generic 405, personal 404 [290s]
+[18:41:49] player 15: at 1 cm, bytes/s hold 571, deadreck 1034, deadreck_smooth 408, generic_small 459, generic 388, personal 381 [307s]
+[18:42:01] player 16: at 1 cm, bytes/s hold 459, deadreck 829, deadreck_smooth 309, generic_small 395, generic 323, personal 318 [319s]
+[18:42:14] player 17: at 1 cm, bytes/s hold 672, deadreck 889, deadreck_smooth 395, generic_small 443, generic 389, personal 387 [332s]
+[18:42:30] player 18: at 1 cm, bytes/s hold 614, deadreck 977, deadreck_smooth 595, generic_small 514, generic 431, personal 434 [347s]
+[18:42:42] player 19: at 1 cm, bytes/s hold 617, deadreck 868, deadreck_smooth 371, generic_small 418, generic 350, personal 351 [359s]
+[18:42:56] player 20: at 1 cm, bytes/s hold 800, deadreck 1001, deadreck_smooth 517, generic_small 509, generic 457, personal 465 [373s]
+[18:43:10] player 21: at 1 cm, bytes/s hold 847, deadreck 1117, deadreck_smooth 399, generic_small 492, generic 432, personal 435 [387s]
+[18:43:22] player 22: at 1 cm, bytes/s hold 477, deadreck 929, deadreck_smooth 334, generic_small 395, generic 308, personal 306 [399s]
+[18:43:36] player 23: at 1 cm, bytes/s hold 777, deadreck 1096, deadreck_smooth 438, generic_small 494, generic 442, personal 437 [413s]
+[18:43:36] done
+RUN EXIT 0
