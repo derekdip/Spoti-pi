@@ -2075,3 +2075,60 @@ they are in the log.
   depends on genus. Compare (1, 3) at 0.2043 with (2, 3) at 0.2040, and (1, 2)
   at 0.2444 with (2, 2) at 0.2380. So the per-pair corner average is mostly a
   function of the number of boundary components.
+
+## A Mirzakhani-type recursion for F_{g,n} (2026-11-25)
+
+Script `poc/farey/F_recursion.py` (sympy), output `poc/farey/F_recursion.log`.
+
+**Notation.**
+
+- Pair transform: T_ij[V](L) = ∫₀^∞ x²·f(x; L_i, L_j)·V(x, L_rest) dx, with
+  f = ½·log P = log cosh(d/2) the pants return-orthogeodesic factor.
+- F^S_g(L) = Σ over pairs {i, j} ⊂ S of T_ij[V_g(x, L_rest)]. S is a set of
+  "active" boundary labels: only curves that cut off a pair of active
+  boundaries count. F of a pair of pants is 0, and F_{g,n} = F^{all}.
+
+**Recursion.** Take the distinguished boundary L₁ and set S′ = S ∖ {1}:
+
+    ∂_{L₁}(L₁·F^S_g)
+      = 𝓜_{L₁}[F^{S′}]
+      + Σ_{i<j ∈ S′} T_ij[𝓘₁]
+      + [1 ∈ S]·Σ_{j ∈ S′} ∂_{L₁}(L₁·T_{1j}[V_g(x, L_rest)]).
+
+The three terms:
+
+- **𝓜_{L₁}** is Mirzakhani's operator with F in place of V. The new
+  boundaries created by surgery are inactive.
+  - Connected term: ½∫∫ xy·H(x+y, L₁)·F^{S′}_{g−1}(x, y, …).
+  - Disconnected term: ½∫∫ xy·H(x+y, L₁)·[F₁V₂ + V₁F₂] (Leibniz rule).
+  - B-terms: ½∫ x·[H(x, L₁+L_k) + H(x, L₁−L_k)]·F^{S′∖{k}}_g(x, L without 1, k).
+- **Interaction.** 𝓘₁(x) = ½∫ y·[H(y, L₁+x) + H(y, L₁−x)]·V_g(y, L_rest ∖ L₁) dy.
+  This is the pants containing β₁ whose other cuff is the {i, j}-curve. When
+  V_g(x, L_rest) is a pair of pants, 𝓘₁ = 1.
+- **Pairs containing 1:** explicit, ∂_{L₁}(L₁·T_{1j}V).
+
+**Derivation.** T_ij commutes with ∂_{L₁}(L₁·) whenever 1 ∉ {i, j}, so
+Mirzakhani's recursion for V_{g,n−1}(x, L_rest) can be applied underneath it.
+Each of her terms becomes the corresponding term for a smaller F, with one
+exception: the B-term pairing L₁ with the integration curve x gives the
+interaction.
+
+**Verification.** Both sides are computed independently. The left uses the
+definition of F; the right uses only smaller F's, volumes and kernel moments.
+The difference is exactly 0, as a polynomial identity in all L_i and π, for
+(g, n) = (0, 4), (0, 5), (0, 6), (0, 7), (1, 2), (1, 3) and (2, 2).
+
+**Reading.**
+
+- Together with Mirzakhani's recursion for V, this determines F_{g,n} from
+  smaller (g, n): F = L₁⁻¹·∫₀^{L₁} (right-hand side). The base case is
+  F_{0,3} = 0.
+- The system (V, F) is a coupled linear recursion. F enters the right-hand
+  side linearly, with the disconnected terms obeying the Leibniz rule
+  F₁V₂ + V₁F₂. So F behaves like a first-order deformation (a tangent
+  vector) of Mirzakhani's recursion, sourced by two explicit terms: the
+  pants factor on pairs containing β₁, and the interaction pants.
+- In complexity one the recursion closes up into F = V²/2 (S₀,₄) and
+  F = 6V₁,₁² (one-holed torus, seam version), giving the π² product law.
+  Beyond, the interaction and pair sources do not factor through V, which is
+  why F_{g,n} is a new polynomial there.
