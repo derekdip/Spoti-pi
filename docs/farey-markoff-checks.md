@@ -259,3 +259,49 @@ q <= 22 to 26 on [0, 1/2]; the 0/1 tongue comes out at the exact +-K/2 pi.
   the number of tongues above the target, the sweep's with 1/(target width);
   a Newton solve for the saddle-node edges, not tried, would cut the
   per-tongue cost by a large factor.
+
+## Identity search (2026-11-25)
+
+`poc/farey/identity_search.py`, log beside it. Twelve natural sums over the
+cells of the modular torus's tree, to about 60 digits, tested by PSLQ against
+{1, log 2, log 3, log 5, log lam3, log(3 + 2 sqrt 2), pi^2, sqrt 5, sqrt 5 log lam3},
+lam3 = (3 + sqrt 5)/2, coefficients up to 2000.
+
+- The two known ones are recovered exactly: sum h = (sqrt 5 - 2)/6
+  (McShane, via the cell certificate) and sum M g = log(5 lam3/9) (Hines;
+  O'Sullivan Theorem 9.14). The search is sensitive enough to find
+  identities of this kind.
+- No relation in this basis for: sum D, sum D/M, sum D/(XYM), sum M h, sum g,
+  sum 1/c^2, sum M/c^2, sum D M, sum h/M, sum XY g.
+
+**The Green principle.** The curvature of the stable norm on the slice is
+purely atomic (O'Sullivan: infinitely flat at irrationals), with mass
+M_w g_w at each rational t_w. So
+
+    f(t) = L_0(t) - sum_w M_w g_w G(t, t_w),   G(t, s) = min(t, s)(1 - max(t, s)),
+
+G the Green function of -d^2/dt^2 on [0, 1], and every linear functional of
+f is an identity. The note's Green transform is f evaluated at one mediant.
+
+**A lemma and a corollary.** For a node w, the sum of min(alpha, beta) over
+the cells containing it (w = alpha L + beta R in the cell (L, R)) is M_w - 1:
+descending into the child cell containing w is one subtractive Euclid step,
+which lowers alpha + beta by min(alpha, beta), down to (1, 1) at w's own cell.
+Checked for every p/q with q <= 13. With the note's Green transform this gives
+
+    sum over cells of D_v = sum over nodes of (M_w - 1) g_w,
+
+so with Hines, **sum_v D_v + sum_w g_w = log(5 lam3/9)** on the modular torus
+(0.21369313299 + 0.16094385223 = 0.37463698522), and for any discriminator D
+with O'Sullivan's right side of (9.16). Similarly the weight of g_w in
+sum_v D_v/(X_v Y_v M_v) is alpha_w beta_w / M_w (checked: 2/5 -> 6/5,
+3/7 -> 12/7, 3/8 -> 15/8), which is the integral
+int_0^1 f = (F(e0) + F(e1))/2 - (1/2) sum_w g_w alpha_w beta_w / M_w.
+These are consequences of known facts plus Green-function and Euclid
+algebra: correct and, as far as the papers read go, not stated, but not deep.
+
+**Electrical harmonic functions: none simple.** Ten symmetric candidates
+u(A, B, C) were tested for Kirchhoff balance with the note's conductances
+g = 4/(A^2 + B^2) at 400 random Markoff triples. The only balanced one,
+A/(BC) + B/(AC) + C/(AB), is identically 1 on the Markoff surface. No
+conservation law from a simple harmonic function.
