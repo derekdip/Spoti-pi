@@ -1927,3 +1927,78 @@ volume's own derivative, d(V²)/dL = 2V·V′.
 
 This suggests looking for higher-complexity analogues where the
 corresponding pants combinatorics again close up into powers of the volume.
+
+## Searching for other surfaces where the product-law structure holds (2026-11-25)
+
+Scripts `poc/farey/higher_volumes.py` and `poc/farey/orbifold_product.py`,
+with logs.
+
+### Higher complexity: no
+
+**The candidate.** On S_{g,n} with n ≥ 2, the canonical analogue of the
+dual area is the *pants-corner sum*. For each pair of boundaries {i, j},
+sum over the curves γ cutting off a pair of pants containing boundaries i
+and j, of (ℓ_γ/2)·log P(ℓ_γ; L_i, L_j). For S₀,₄ this is exactly A*. It
+converges because the other side of γ is the fixed surface S_{g,n−1}.
+
+**Its average.** Mirzakhani's formula, with the cut surface
+S₀,₃ ⊔ S_{g,n−1}, gives
+
+    F_{g,n}(L) = Σ_{i<j} ∫ (x²/2)·log P(x; L_i, L_j)·V_{g,n−1}(x, L_rest) dx,
+
+and every piece is one of the K_s polynomials.
+
+**Volumes.** These come from Mirzakhani's recursion, implemented
+symbolically with the kernel moments
+F_{2k+1}(t) = (2k+1)!·Σ_i ζ(2i)(2^{2i+1} − 4)·t^{2k+2−2i}/(2k+2−2i)!. The
+recursion reproduces the known V₀,₄, V₁,₂ and V₀,₅ exactly.
+
+**Result.** deg F = deg V + 2 always, while deg V² = 2·deg V. These agree
+only when deg V = 2, that is, in complexity one. Beyond that, F is not even
+divisible by V once:
+
+| (g, n) | deg V | deg F | F divisible by V |
+|---|---|---|---|
+| (0, 4) | 2 | 4 | yes: F/V = (ΣL² + 4π²)/4 |
+| (0, 5) | 4 | 6 | no |
+| (1, 2) | 4 | 6 | no |
+| (0, 6) | 6 | 8 | no |
+| (1, 3) | 6 | 8 | no |
+| (2, 2) | 10 | 12 | no |
+
+So the volume structure behind the product law is a complexity-one
+phenomenon. Beyond complexity one the average of the pants-corner sum is a
+genuinely new polynomial, not a function of the volume.
+
+### Complexity-one orbifolds: yes, every one
+
+Spheres with cone points and cusps have the same volume polynomials at
+L_i = iθ_i (Do–Norbury, for cone angles ≤ π). So the product law predicts,
+for every choice of cone data:
+
+    Vol = (4π² − Σθ_i²)/2,   ⟨A*⟩ = (4π² − Σθ_i²)/4,   ⟨Area(B)⟩ = 4π²/(4π² − Σθ_i²),   product π².
+
+**Direct integration** over the fundamental domain. The Fenchel–Nielsen
+charts are built from the traces 2cos(θ/2) directly.
+
+| Orbifold | Vol (predicted) | ⟨A*⟩ (predicted) | ⟨Area(B)⟩ (predicted) | Product (π² = 9.86960) |
+|---|---|---|---|---|
+| k-Markoff (1, 1, 1): three order-3 points + cusp | 13.12695 (13.15947) | 6.57856 (2π²/3 = 6.57974) | 1.50030 (1.5) | 9.86983 |
+| (2, 2, 2, ∞): three order-2 points + cusp | 4.93283 (4.93480) | 2.46731 (π²/4 = 2.46740) | 4.00017 (4) | 9.86966 |
+
+The volume shows the usual edge-of-domain quadrature excess (0.25% and
+0.04%), which cancels in the averages.
+
+**Consistency check.** The (2, 2, 2, ∞) orbifold is the cusped torus divided
+by its elliptic involution. The double cover maps simple curves to simple
+curves of the same length, so the norm, and both averages, must equal the
+cusped torus's 4 and π²/4. They do.
+
+### Conclusion of the search
+
+The product law ⟨Area(B)⟩·⟨Area(B*)⟩ = π² holds on exactly the complexity-one
+family: one-holed tori, four-holed spheres, and all their cusp and cone-point
+(orbifold) versions with cone angles ≤ π. It fails beyond, for a degree
+reason: the average of the natural corner sum has degree deg V + 2, which
+equals 2·deg V only when deg V = 2. The n = 4 binomial coincidence and the
+flat-point double root are what make the complexity-one cases close up.

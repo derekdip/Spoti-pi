@@ -1,0 +1,4 @@
+k-Markoff (1,1,1): cone angles 2pi/3 x3 + cusp: traces [1.0, 1.0, 1.0, 2.0]
+   Vol = 13.12695 (predicted 13.15947);  <A*> = 6.57856 (predicted 6.57974);  <Area(B)> = 1.50030 (predicted 1.50000);  product = 9.86983 (pi^2 = 9.86960)
+(2,2,2,inf): cone angles pi x3 + cusp: traces [0.0, 0.0, 0.0, 2.0]
+   Vol = 4.93283 (predicted 4.93480);  <A*> = 2.46731 (predicted 2.46740);  <Area(B)> = 4.00017 (predicted 4.00000);  product = 9.86966 (pi^2 = 9.86960)
