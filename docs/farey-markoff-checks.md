@@ -1795,3 +1795,70 @@ minimum over mixtures, reached exactly at fixed boundary data.
 the dual, and (iii) Euler's evaluation of even zeta values. Altering the
 weight breaks it into odd zeta values. Mixing boundary data lifts it above π²
 by Cauchy–Schwarz.
+
+## Moment polynomials: the dual area is singled out (2026-11-25)
+
+Script `poc/farey/moment_polys.py` (sympy), output `poc/farey/moment_polys.log`.
+
+**The moments.** For the corner measure μ_X = Σ_γ g_γ·δ_{N_γ}, unfolding
+gives
+
+    I_s = ∫ over moduli of Σ_γ g·N^s = ∫₀^∞ (ℓ^{s+1}/2^s)·g(ℓ) dℓ.
+
+**Parity.** For s odd the weight ℓ^{s+1} is even. Then the two
+log(1 + e^{−u}) pieces of the log-cosh decomposition combine into a single
+integral over the whole line, and everything reduces to even zeta values:
+I_s is a polynomial in L and π². For s even, polylogarithms of e^{−L}
+survive, and the odd values ζ(3), ζ(5), … appear (as in ⟨Σg⟩ = 21ζ(3)/π²).
+
+**One-holed tori** (y = L/2; each formula checked against direct quadrature
+at y = 0.7, to 10–14 digits):
+
+| s | I_s(y) |
+|---|---|
+| 1 | (y² + π²)²/24 (the dual area) |
+| 3 | (y² + π²)²·(y² + 3π²)/240 |
+| 5 | (y² + π²)²·(3y⁴ + 22π²y² + 51π⁴)/5376 |
+| 7 | (y² + π²)²·(y² + 5π²)·(y⁴ + 8π²y² + 31π⁴)/11520 |
+| 9 | (y² + π²)²·(y⁸ + 20π²y⁶ + 190π⁴y⁴ + 964π⁶y² + 2073π⁸)/67584 |
+
+Every odd moment is divisible by (y² + π²)² ∝ V₁,₁(L)².
+
+**The reason** is the flat point. The double root is at L = 2πi, a cone angle
+of 2π, where the surface becomes flat. Near it, with hyperbolic area δ:
+
+- g ≈ (4 − μ)/(4N²) with 4 − μ ~ δ², and the curve count grows like δ⁻¹, so
+  each moment goes like δ;
+- V₁,₁ ∝ 4π² − θ² ~ δ.
+
+So the integral, average times volume, vanishes like δ². For tori,
+V₁,₁ = 0 is exactly the flat locus, so this divisibility is forced for every
+odd s.
+
+**Four-holed spheres** (exact symbolic division; each checked against direct
+quadrature at L = (0.3, 0.8, 0.5, 1.1), to 14 digits):
+
+| s | Divisible by V₀,₄²? | Divisible by V₀,₄? | Vanishing order at the pillowcase L_i = iπ |
+|---|---|---|---|
+| 1 | yes: I₁ = V₀,₄²/2 | yes | 2 |
+| 3 | no | no | 2 |
+| 5 | no | no | 2 |
+| 7 | no | no | 2 |
+
+The quotients for s = 3 and s = 5 are recorded in the log. The volume
+V₀,₄ = (ΣL_i² + 4π²)/2 vanishes on the hypersurface Σθ_i² = 4π² (with
+L_i = iθ_i). Flatness is Σθ_i = 4π (Gauss–Bonnet). These meet only at the
+pillowcase, four cone points of angle π.
+
+- **At the pillowcase,** every odd moment vanishes to order 2. That is the
+  flat-point scaling, the same as for tori.
+- **On the rest of V₀,₄ = 0,** only the dual area vanishes. The higher moments
+  are not even divisible by V₀,₄ once.
+
+**Conclusion.** Among the polynomial (odd) moments of the corner measure, the
+dual area s = 1 is the unique one whose moduli integral is a function of the
+Weil–Petersson volume alone: ∫A* = 3V₁,₁² (orbifold normalisation) and
+∫A* = V₀,₄²/2. This is what makes the product law
+⟨Area(B)⟩·⟨Area(B*)⟩ = π² hold for every boundary. So the dual body is
+distinguished, not only by convex-geometric duality but by this volume
+structure.
