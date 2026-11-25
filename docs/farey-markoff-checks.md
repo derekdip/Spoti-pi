@@ -1572,3 +1572,91 @@ independently by direct integration over a fundamental domain.
 cusped torus and do not average it. Mirzakhani's method is standard. I have
 not seen these averages, or the pants factorisation of the gap, stated
 anywhere; not searched beyond the papers already read.
+
+## Higher genus: twist gaps are sums of orthogeodesic terms (2026-11-25)
+
+Script `poc/farey/twist_gap.py`, output `poc/farey/twist_gap.log` (80 digits).
+
+**The gap laws are orthogeodesic formulas.**
+
+- **Torus.** In a one-holed torus with boundary L, the orthogeodesic d from α
+  back to itself satisfies sinh(ℓ_α/2)·sinh(d/2) = cosh(L/4). Hence
+  cosh²(d/2) = (cosh ℓ + cosh(L/2))/(cosh ℓ − 1) = e^g, exactly the torus gap
+  law. This also gives the Fenchel–Nielsen formula used earlier:
+  cosh(ℓ_β/2) = cosh(d/2)·cosh(τ/2), with C/2 = cosh(d/2).
+- **Pants.** P(x; A, B) = cosh²(d/2), where d is the return orthogeodesic of
+  the cuff x around the pants. This was checked to 20 digits on two surfaces:
+
+  | Surface | P(x; L₁, L₂) | cosh²(d/2) |
+  |---|---|---|
+  | S1 | 8.2895832197961887879 | 8.2895832197961887879 |
+  | S2 | 2.7290892316588561289 | 2.7290892316588561289 |
+
+  So the four-holed-sphere factorisation e^g = P·P says the gap is a product
+  of cosh²(d/2) over the two arcs of the transverse curve, one in each pair of
+  pants.
+
+**General statement (any surface, any closed geodesic β).** Let γ be a simple
+closed geodesic, and cut β at γ into arcs a₁, …, a_m (m = i(γ, β)), with
+orthogeodesic lengths d_j in each arc's class. Then
+
+    lim_{k→∞} [ℓ(T_γ^k β) + ℓ(T_γ^{−k} β) − 2k·m·ℓ_γ] = 4·Σ_j log cosh(d_j/2).
+
+**Proof sketch.** In trace terms, T^kβ is a product of factors γ^k·z_j·γ^{−k}.
+As k → ∞ each γ^{±k} is e^{kℓ/2} times a rank-one projector onto γ's fixed
+points. The matrix coefficient of the piece z_j between γ's attracting and
+repelling eigenvectors equals cosh(d_j/2), since z_j moves the axis of γ to
+an axis at distance d_j along a common perpendicular. The trace is therefore
+e^{kmℓ/2}·Π_j cosh(d_j/2)·(1 + o(1)), and the same holds for −k. The
+single-arc case is the classical quadrilateral formula, so the statement may
+well be folklore. Literature not checked: an arXiv search returned nothing
+for these phrasings.
+
+**Test surface.** A five-holed sphere: the orientation-preserving subgroup
+of the reflection group in five disjoint geodesics of the disc (the double of
+a right-angled decagon). Boundary loops are a_i = r_i·r_{i+1}, with
+a₁a₂a₃a₄a₅ = ±I to 5·10⁻⁷⁸. The twisting curve is γ = a₁a₂, separating holes
+{1, 2} from {3, 4, 5}, and the Dehn twist conjugates the {1, 2}-side pieces by
+γ^k. The test curves include:
+
+- a simple curve around holes 2 and 3;
+- curves crossing γ four times;
+- non-simple curves whose arcs wander through the three-holed side, which is
+  not a pair of pants adjacent to γ.
+
+**Results**, two surfaces (S1 with ℓ_γ = 6.431, S2 with ℓ_γ = 9.675). The
+twist gap at k = 2, 5, 10, 20 against the orthogeodesic sum:
+
+| β | Arcs | S1 at k = 10 | S1 orthogeodesic sum | S2 at k = 10 | S2 orthogeodesic sum |
+|---|---|---|---|---|---|
+| a₂·a₃ (simple) | 2 | 9.7174015755284 | 9.7174015755284 | 4.6227099954141 | 4.6227099954141 |
+| a₁·a₄ | 2 | 15.065123184742 | 15.065123184742 | 11.396788789995 | 11.396788789995 |
+| a₂a₃a₁a₄ | 4 | 24.782524760271 | 24.782524760271 | 16.019498785409 | 16.019498785409 |
+| (a₁a₂²)(a₃a₄⁻¹)(a₂)(a₄a₃) | 4 | 46.478549231999 | 46.478549231999 | 36.492512272076 | 36.492512272076 |
+| (a₂a₁⁻¹a₂)(a₃a₄²a₃) | 2 | 51.966617505641 | 51.966617505641 | 50.175160531281 | 50.175160531281 |
+
+Agreement is to all 14 printed digits from k = 10 on. At k = 2 the error is
+about e^{−2kℓ_γ}-small, as expected.
+
+### What this gives in higher genus
+
+- The length function ℓ_X on measured laminations has, at each simple closed
+  curve γ, a corner in every transverse direction β. Its size, the two-sided
+  twist gap, is the local, explicit quantity 4·Σ log cosh(d_j/2) over the
+  orthogeodesic arcs of β relative to γ.
+- In complexity one there is essentially one transverse direction, and this
+  is the gap g_γ.
+- In higher genus the corner is a function of the transverse class, additive
+  over arcs, so it is determined by the orthogeodesics from γ to itself.
+- This replaces the Farey-tree machinery, which does not exist beyond
+  complexity one. Every complexity-one result then holds on each one-holed-
+  torus or four-holed-sphere subsurface of a higher-genus surface, with that
+  subsurface's boundary lengths.
+
+**Open next steps.**
+
+1. The higher-genus analogue of the dual-area identity: the volume of the
+   dual length ball in ML* as a sum over faces, built from these corners.
+2. Mirzakhani-type averages of orthogeodesic sums Σ_γ Σ_η ℓ_γ·log cosh(d_η/2),
+   which should connect to the Basmajian and Bridgeman orthogeodesic
+   identities.
