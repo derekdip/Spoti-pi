@@ -1292,3 +1292,85 @@ So it interpolates between three geometries:
 Pinching sends it to 8. Each limit matches its predicted body exactly: the
 gap law tropicalises to the theta-graph edge lengths, and the dual-area
 identity becomes the zonotope area in one limit and ζ(2) in the other.
+
+## Going complex: holomorphic continuation and its limits (2026-11-25)
+
+Script `poc/farey/complex_limits.py`, output `poc/farey/complex_limits.log`
+(double precision complex).
+
+**Setup.** With complex traces (quasi-Fuchsian characters), use the complex
+length N = arccosh(t/2) = (length + i·twist)/2 in place of N. Three quantities
+then become holomorphic in the traces wherever the tree sums converge:
+
+- the dual area A* = Σ g·N;
+- the polygon formula Area(B) = ½ Σ cross(v_i, v_{i+1}) / (N_i·N_{i+1}), with
+  the v_i in angular order;
+- the Mahler product M = Area(B)·A*.
+
+**The branch matters.** Complex length is only defined modulo 2πi, and
+g = log(·) is defined modulo 2πi as well.
+
+- With principal branches, long curves have their twist wrapped back into
+  (−π, π].
+- The dual area barely notices, because long curves carry tiny g. Area(B)
+  weights every curve's 1/N² equally, so it does notice.
+- The first run, with principal branches, gave M/π² stuck at
+  0.85 + 0.63i (φ = 0.8) and 0.63 + 1.00i (φ = 1.2) in the complex flat limit.
+  It gave A*/zonotope stuck at 0.93 − 0.17i in an asymmetric complex tropical
+  case, where the true gap 2l₂ = 108 − 16i had its imaginary part wrapped.
+
+**The fix.** Quasi-Fuchsian space is contractible, so each N_γ and g_γ has a
+unique holomorphic continuation from the Fuchsian locus. The script tracks it
+along a path from a real point, choosing the nearest of ±N + 2πik and
+g + 2πik at each step.
+
+### Results with the continuation
+
+**Complex flat limit.** a = 2 + r·e^{iφ} for symmetric (a, a, a), with
+μ − 2 = 2 cos(δ/2) and δ complex.
+
+| φ | r | M/π² | A*/(πδ/4) | Area(B)·δ/(4π) |
+|---|---|---|---|---|
+| 0.4 | 0.01 | 0.999935 − 0.000043i | 0.999744 − 0.000173i | 1.000191 + 0.000131i |
+| 0.8 | 0.01 | 0.999969 − 0.000072i | 0.999885 − 0.000287i | 1.000084 + 0.000216i |
+| 1.2 | 0.01 | 1.000014 − 0.000078i | 1.000067 − 0.000303i | 0.999947 + 0.000225i |
+
+The holomorphic Mahler function tends to π² at the flat point μ = 4 from
+every complex direction tested. A* ≈ πδ/4 and Area(B) ≈ 4π/δ hold with δ the
+complex "area".
+
+**Complex tropical limit.** The log-traces carry imaginary parts (twists),
+switched on along the path. The theta lengths l_i are complex.
+
+| Shape | Scale | g(e₀)/(2l₂) | A*/zonotope | M | Hexagon formula |
+|---|---|---|---|---|---|
+| (1 + 0.3i, 1.5 − 0.2i, 2.2 + 0.1i) | 15 | 0.99973 | 1.000000 | 8.425409 − 0.005184i | 8.424236 − 0.005140i |
+| (1 + 0.3i, 1.5 − 0.2i, 2.2 + 0.1i) | 40 | 1.000000 | 1.000000 | 8.424236 − 0.005140i | 8.424236 − 0.005140i |
+| (1 + 0.8i) all equal | 15 | 1.000000 | 1.000000 | 9.000000 | 9 |
+
+In this limit the gap law becomes g → 2l_i with complex l_i, the length plus
+twist of each theta-graph edge. The dual area becomes the complex zonotope
+area 4Σ l_i l_j, and the Mahler function becomes the hexagon formula, a
+degree-0 rational function of complex edge lengths. So complex Mahler values
+such as 8.424 − 0.005i are genuine values of the continuation.
+
+The symmetric shape (1 + 0.8i) at scale 40 overflowed double precision
+(traces near e⁴⁰ with large twists; the curve set hit its 400 000 cap). That
+line is a numerical failure, not a result.
+
+### Reading
+
+- The real picture survives complexification intact, as holomorphic
+  functions on quasi-Fuchsian space:
+  - at the flat point μ = 4 the Mahler function is pinned to π², the
+    Blaschke–Santaló constant;
+  - at the tropical end it becomes a rational function of complex edge
+    lengths;
+  - the dual-area identity still reduces to ζ(2) in the flat limit and to the
+    zonotope area in the tropical one.
+- The only subtlety is the branch. The identities hold for the continuation
+  from the Fuchsian locus, not for principal values. That is the same
+  phenomenon as the complex-length ambiguity in quasi-Fuchsian geometry.
+- **Not done yet:** mapping where the continuation stops converging in a
+  one-parameter complex slice. That is the boundary of quasi-Fuchsian space
+  (fractal), together with how A* and M behave there.
