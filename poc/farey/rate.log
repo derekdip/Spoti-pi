@@ -1,0 +1,5 @@
+mu =    0: fitted rate 3.3281; from the node count 2/sqrt(C) = 3.2933; from the ball area 2 pi/sqrt(6A) = 3.3267 (A = 0.59453544)
+mu =   -2: fitted rate 4.7415; from the node count 2/sqrt(C) = 4.7220; from the ball area 2 pi/sqrt(6A) = 4.7407 (A = 0.29276311)
+mu =   -8: fitted rate 4.7004; from the node count 2/sqrt(C) = 4.6905; from the ball area 2 pi/sqrt(6A) = 4.6981 (A = 0.29810719)
+mu =  -20: fitted rate 4.5842; from the node count 2/sqrt(C) = 4.5544; from the ball area 2 pi/sqrt(6A) = 4.5808 (A = 0.3135691)
+cusp, Zagier: sqrt(2/C), C = 0.180717047: 3.3267

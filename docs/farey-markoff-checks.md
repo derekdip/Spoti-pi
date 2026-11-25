@@ -139,3 +139,51 @@ Bottom line: the exact identities of both notes are largely known, several
 very recently (O'Sullivan, September 2026, studies these trees for all D
 in a self-contained way). What stands as possibly new is the algorithmic and
 coding use of them, the electrical reading, and the D/Phi limit.
+
+## The convergence rate of best-first Farey-Schauder refinement (2026-11-25)
+
+`poc/farey/rate.py`, log beside it. The Farey note fitted
+log E_N ~ 0.478 - 3.312 sqrt(N) - 0.538 log N (section 10). Derived before the
+run, then checked:
+
+**Rate law.** For best-first Farey-Schauder refinement of the stable norm of a
+hyperbolic punctured or one-holed torus, on the cone spanned by a unimodular
+root pair,
+
+    log E_N = -c sqrt(N) + O(log N),   c = 2 pi / sqrt(6 A),   i.e.  c^2 A = 2 pi^2 / 3,
+
+where A = (1/2) int_0^1 f(t)^-2 dt is the area of the stable-norm unit ball in
+that cone (f the stable norm on the projective slice). The product c^2 A is
+the same for every surface.
+
+**Why (heuristic, three steps).** (i) The normalised detail a_v = D_v/M_v decays
+like e^{-2F} in the half-length F of the cell's mediant, up to factors
+polynomial in F (deep in the tree D = (4 - mu) xy at leading order, and the
+heights M grow polynomially); (ii) best-first by a_v therefore refines nodes
+in order of F up to those factors; (iii) the primitive lattice points of the
+cone with stable norm at most L number (6/pi^2) A L^2 (the classical count in
+a dilated convex region), so after N refinements L = sqrt(N pi^2/(6A)) and
+E_N = e^{-2L} up to polynomial factors.
+
+**Checks** (best-first by a_v at 400 digits, fits of log E_N on 1, sqrt N,
+log N over N in [1000, 6000)):
+
+| surface | fitted c | 2 pi / sqrt(6A) | A | complete node count, 2/sqrt(C) |
+|---|---|---|---|---|
+| modular torus (traces 3, 3) | 3.3281 | 3.3267 | 0.59453544 | 3.29 |
+| one-holed, mu = -2 (traces 4, 4) | 4.7415 | 4.7407 | 0.29276311 | 4.72 |
+| one-holed, mu = -8 | 4.7004 | 4.6981 | 0.29810719 | 4.69 |
+| one-holed, mu = -20 | 4.5842 | 4.5808 | 0.31356910 | 4.55 |
+
+For the modular torus 2 pi/sqrt(6A) = 3.3267 equals sqrt(2/C) for Zagier's
+constant C = 0.180717 in the count of Markov numbers, C (log 3x)^2; that is
+A = pi^2 C / 3. So the note's 3.312 is this constant, fitted on a shorter
+range. An earlier run at 150 digits gave wrong rates for mu < 0: the errors
+there fall below 1e-150 by N = 6000 and the fits measured rounding.
+
+**Status.** The count in step (iii), and its link to the unit ball, is
+classical (McShane-Rivin count simple geodesics by length through the stable
+norm ball; Zagier counts Markov numbers). Not found in the papers read: the
+rate law for the refinement algorithm, c^2 A = 2 pi^2/3. Steps (i) and (ii)
+are heuristic here; making them rigorous would also fix the log N term
+(fitted -0.44 here, -0.54 in the note).
