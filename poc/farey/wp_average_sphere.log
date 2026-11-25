@@ -1,0 +1,6 @@
+L = (0, 0, 0, 0): Fricke residual of the chart 2.1e-16
+   Vol = 19.733814 (predicted V04 = 19.739209);  int A* = 194.760017 (predicted 194.818182);  average = 9.869355 (predicted 9.869604)
+L = (1.0, 2.0, 0.5, 1.5): Fricke residual of the chart 2.5e-16
+   Vol = 23.519627 (predicted V04 = 23.489209);  int A* = 276.263000 (predicted 275.871465);  average = 11.746062 (predicted 11.744604)
+L = (3.0, 0.0, 2.0, 4.0): Fricke residual of the chart 2.8e-16
+   Vol = 34.272215 (predicted V04 = 34.239209);  int A* = 586.788750 (predicted 586.161710);  average = 17.121413 (predicted 17.119604)

@@ -1439,3 +1439,136 @@ A* to within 2% in modulus, and M to 0.001 at 0.97.
   A* → 0 like N·log(1/N), and M → 8.
 - At generic (degenerate) boundary points, behaviour was not resolved here:
   infinitely many curves shorten and double precision is not enough.
+
+## Weil–Petersson averages of the dual area (2026-11-25)
+
+Scripts `poc/farey/wp_average.py` (tori) and `poc/farey/wp_average_sphere.py`
+(spheres), with logs.
+
+**Principle.** The dual area is a sum over simple closed curves,
+A* = Σ_γ g_γ·N_γ with N = ℓ/2 (the extended Doan–Li–Nguyen identity), so
+Mirzakhani's integration formula applies.
+
+### One-holed tori (boundary L; L = 0 is cusped)
+
+**The gap law in length form.** With μ = 2 − 2cosh(L/2),
+
+    e^g = (cosh ℓ + cosh(L/2))/(cosh ℓ − 1) = cosh((ℓ+y)/2)·cosh((ℓ−y)/2)/sinh²(ℓ/2),   y = L/2.
+
+**Unfolding.** There is one mapping-class orbit of simple curves, the
+stabiliser is the Dehn twist, and the pants volume V₀,₃ = 1. So
+
+    ∫ A* = ∫₀^∞ (ℓ²/2)·log((cosh ℓ + cosh y)/(cosh ℓ − 1)) dℓ.
+
+**Closed form.** Write log cosh u = |u| − log 2 + log(1 + e^{−2|u|}) and
+log sinh u = u − log 2 + log(1 − e^{−2u}). The integral splits into four
+pieces:
+
+| Piece | Value |
+|---|---|
+| Polynomial part | y⁴/24 |
+| The two log(1 + e^{−u}) terms combined | (7/4)ζ(4) + π²y²/12 |
+| The log(1 − e^{−ℓ}) term | 2ζ(4) |
+
+So
+
+    ∫_{M₁,₁(L)} A* = L⁴/384 + π²L²/48 + π⁴/24 = (L² + 4π²)²/384    (fundamental-domain normalisation),
+
+and with Vol = (L² + 4π²)/24 = 2V₁,₁(L):
+
+    **average A* = (L² + 4π²)/16 = 3·V₁,₁(L)**;  equivalently ∫ A* = 3·V₁,₁(L)² in Mirzakhani's orbifold normalisation.
+
+**Consistency.**
+
+- Cusped tori: the average is π²/4 = 2.4674, below the modular torus's 2.6971,
+  as it should be if the modular torus is the maximum.
+- Cone tori: put L = iθ. The average (4π² − θ²)/16 vanishes at θ = 2π, the
+  flat limit, where A* ≈ πδ/4 → 0.
+
+**Independent check.** Integrate over a fundamental domain in
+Fenchel–Nielsen coordinates (ℓ, τ) of a curve α, with ω = dℓ∧dτ (Wolpert),
+D = {α is the systole, |τ| ≤ ℓ/2}. The traces are a = 2cosh(ℓ/2) and
+b = C·cosh(τ/2), with C = 2√((a² − μ)/(a² − 4)). This satisfies the trace
+relation for every τ, and τ ↦ τ + ℓ is the Dehn twist. For μ = 0 it is the
+classical cosh(ℓ_β/2) = cosh(τ/2)·coth(ℓ_α/2), which reproduces the modular
+torus at ℓ = 2 arccosh(3/2), τ = ℓ/2. Quadrature uses 48 × 20 Gauss nodes,
+and every A* is summed until terms fall below 10⁻¹².
+
+| L | Vol (predicted) | ∫ A* (predicted) | Average (predicted) |
+|---|---|---|---|
+| 0 | 1.646192 (1.644934) | 4.062090 (4.058712) | 2.467568 (2.467401) |
+| 2 | 1.814542 (1.811601) | 4.931583 (4.922846) | 2.717812 (2.717401) |
+| 5 | 2.694784 (2.686601) | 10.863418 (10.826735) | 4.031275 (4.029901) |
+
+The 0.08–0.18% excess in both Vol and ∫A* is the same quadrature error at the
+curved edge of the domain. It cancels in the average, which agrees to
+0.007%, 0.015% and 0.034%. The edge error grows with L, as the domain's
+boundary curve lengthens.
+
+### Four-holed spheres (boundary lengths L₁, …, L₄)
+
+**Factorisation of the gap law.** For a curve of length x separating {1, 2}
+from {3, 4}, the sphere gap law factors with one factor per pair of pants
+bounded by the curve:
+
+    e^g = P(x; L₁, L₂)·P(x; L₃, L₄),
+    P(x; A, B) = (cosh(x/2) + cosh((A+B)/2))·(cosh(x/2) + cosh((A−B)/2)) / sinh²(x/2).
+
+The worst relative error over 2000 random (x, L) is 6·10⁻¹³, so this is an
+identity of the Fricke-cubic gap law.
+
+**Unfolding.** The three mapping-class orbits are the three pairings, which
+are the parity classes. Both pants have volume 1. So
+
+    ∫ A* = Σ over pairings, Σ over the two pairs (A, B), of 4[K((A+B)/2) + K((A−B)/2)],
+    K(y) = ∫₀^∞ u²·log((cosh u + cosh y)/sinh u) du = y⁴/12 + π²y²/6 + π⁴/24.
+
+K(y) is computed by the same series method as the torus. Each pair i < j
+appears exactly once across the pairings, so the cross terms complete a
+square:
+
+    ∫_{M₀,₄(L)} A* = (ΣL_i² + 4π²)²/8 = V₀,₄(L)²/2,
+    **average A* = (ΣL_i² + 4π²)/4 = V₀,₄(L)/2**   (V₀,₄ = (ΣL_i² + 4π²)/2, Mirzakhani).
+
+**Independent check.** Integrate over a fundamental domain, with one
+Fenchel–Nielsen chart per pairing.
+
+- For the class (1, 0) curve α with X = 2cosh(x/2), the transverse traces are
+  Y = u_e + 2√G·cosh τ and tr(α ± β) = u_o + 2√G·cosh(τ ± x/2). Here
+  G = e^{g_α} and u is the period-2 particular solution of the fan.
+- τ ↦ τ + x is the Dehn twist, which is two fan steps.
+- The chart satisfies the Fricke cubic and the Vieta relation to 2·10⁻¹⁶.
+- The domain is |τ| ≤ x/2, with α shorter than its three transverse
+  neighbours. Quadrature uses 40 × 16 nodes per chart.
+
+| Boundary lengths | Vol (predicted) | ∫ A* (predicted) | Average (predicted) |
+|---|---|---|---|
+| (0, 0, 0, 0) | 19.733814 (19.739209) | 194.760017 (194.818182) | 9.869355 (π² = 9.869604) |
+| (1, 2, 0.5, 1.5) | 23.519627 (23.489209) | 276.263000 (275.871465) | 11.746062 (11.744604) |
+| (3, 0, 2, 4) | 34.272215 (34.239209) | 586.788750 (586.161710) | 17.121413 (17.119604) |
+
+The volume agrees within 0.13%, which also confirms the domain and the
+normalisation. The averages agree within 0.013%.
+
+**Consistency.** The four-punctured sphere's average, π², is 4 times the
+cusped torus's π²/4. That matches the factor 4 between the modular torus and
+the (7, 7, 7) sphere, which comes from the double cover (lengths double, so
+the dual ball doubles and its area scales by 4).
+
+### Summary
+
+| Surface | Average dual area over moduli space |
+|---|---|
+| Cusped tori | π²/4 |
+| One-holed tori | (L² + 4π²)/16 = 3·V₁,₁(L) |
+| Four-holed spheres | (ΣL_i² + 4π²)/4 = V₀,₄(L)/2 |
+
+In both families, ∫ A* is a constant times the square of the Weil–Petersson
+volume polynomial. Both formulas are proved, given the dual-area identity
+(Corollary 2) and Mirzakhani's integration formula, and both are checked
+independently by direct integration over a fundamental domain.
+
+**Literature.** Doan–Li–Nguyen prove the dual-area identity at a single
+cusped torus and do not average it. Mirzakhani's method is standard. I have
+not seen these averages, or the pants factorisation of the gap, stated
+anywhere; not searched beyond the papers already read.

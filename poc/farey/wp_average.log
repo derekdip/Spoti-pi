@@ -1,0 +1,5 @@
+L = 0.0: domain l in (0, 1.9248];  Vol = 1.646192 (predicted 1.644934);  int A* = 4.062090 (predicted 4.058712);  average A* = 2.467568 (predicted (L^2 + 4 pi^2)/16 = 2.467401)
+L = 2.0: domain l in (0, 2.0220];  Vol = 1.814542 (predicted 1.811601);  int A* = 4.931583 (predicted 4.922846);  average A* = 2.717812 (predicted (L^2 + 4 pi^2)/16 = 2.717401)
+L = 5.0: domain l in (0, 2.4740];  Vol = 2.694784 (predicted 2.686601);  int A* = 10.863418 (predicted 10.826735);  average A* = 4.031275 (predicted (L^2 + 4 pi^2)/16 = 4.029901)
+
+[exited with code 0]
