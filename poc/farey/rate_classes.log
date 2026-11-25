@@ -1,0 +1,26 @@
+punctured torus (3, 3): classes kappa (p, q, r) = (0.0, 0.0, 0.0) -> effective (2, 2, 2); fit N in [1000, 5000): c = 3.3366, log N coeff -0.234; c^2 A = 6.6189; predicted 3 zeta(2)/sum kappa^-2 = 6.5797; non-positive defects 0
+punctured torus (3, 3): classes kappa (p, q, r) = (0.0, 0.0, 0.0) -> effective (2, 2, 2); fit N in [3000, 9000): c = 3.2961, log N coeff -1.699; c^2 A = 6.4591; predicted 3 zeta(2)/sum kappa^-2 = 6.5797; non-positive defects 0
+four-punctured sphere (7, 7): classes kappa (p, q, r) = (8.0, 8.0, 8.0) -> effective (1, 1, 1); fit N in [1000, 5000): c = 3.3366, log N coeff -0.234; c^2 A = 1.6547; predicted 3 zeta(2)/sum kappa^-2 = 1.6449; non-positive defects 0
+four-punctured sphere (7, 7): classes kappa (p, q, r) = (8.0, 8.0, 8.0) -> effective (1, 1, 1); fit N in [3000, 9000): c = 3.2961, log N coeff -1.699; c^2 A = 1.6148; predicted 3 zeta(2)/sum kappa^-2 = 1.6449; non-positive defects 0
+k-Markoff (1, 2, 3): tau root (8, 7): classes kappa (p, q, r) = (8.0, 7.0, 8.0) -> effective (1, 1, 1); fit N in [1000, 5000): c = 3.4945, log N coeff -0.343; c^2 A = 1.6500; predicted 3 zeta(2)/sum kappa^-2 = 1.6449; non-positive defects 0
+k-Markoff (1, 2, 3): tau root (8, 7): classes kappa (p, q, r) = (8.0, 7.0, 8.0) -> effective (1, 1, 1); fit N in [3000, 9000): c = 3.4642, log N coeff -1.483; c^2 A = 1.6216; predicted 3 zeta(2)/sum kappa^-2 = 1.6449; non-positive defects 0
+k-Markoff (0, 0, 5): classes (0, 0, 10): classes kappa (p, q, r) = (0.0, 0.0, 10.0) -> effective (2, 2, 1); fit N in [1000, 5000): c = 4.4623, log N coeff -0.654; c^2 A = 2.4567; predicted 3 zeta(2)/sum kappa^-2 = 3.2899; non-positive defects 0
+k-Markoff (0, 0, 5): classes (0, 0, 10): classes kappa (p, q, r) = (0.0, 0.0, 10.0) -> effective (2, 2, 1); fit N in [3000, 9000): c = 4.5196, log N coeff 0.956; c^2 A = 2.5201; predicted 3 zeta(2)/sum kappa^-2 = 3.2899; non-positive defects 0
+k-Markoff (0, 0, 1): classes (0, 0, 2): classes kappa (p, q, r) = (0.0, 0.0, 2.0) -> effective (2, 2, 1); fit N in [1000, 5000): c = 3.4061, log N coeff -0.614; c^2 A = 2.4568; predicted 3 zeta(2)/sum kappa^-2 = 3.2899; non-positive defects 0
+k-Markoff (0, 0, 1): classes (0, 0, 2): classes kappa (p, q, r) = (0.0, 0.0, 2.0) -> effective (2, 2, 1); fit N in [3000, 9000): c = 3.4461, log N coeff 0.483; c^2 A = 2.5149; predicted 3 zeta(2)/sum kappa^-2 = 3.2899; non-positive defects 0
+cubic (p, q, r) = (0, 3, 5), s = 80: root (8, 9): classes kappa (p, q, r) = (0.0, 3.0, 5.0) -> effective (2, 1, 1); fit N in [1000, 5000): c = 4.0143, log N coeff -0.931; c^2 A = 1.8343; predicted 3 zeta(2)/sum kappa^-2 = 2.1932; non-positive defects 0
+cubic (p, q, r) = (0, 3, 5), s = 80: root (8, 9): classes kappa (p, q, r) = (0.0, 3.0, 5.0) -> effective (2, 1, 1); fit N in [3000, 9000): c = 3.9941, log N coeff -1.865; c^2 A = 1.8159; predicted 3 zeta(2)/sum kappa^-2 = 2.1932; non-positive defects 0
+refined law: pattern (2,2,1): 3 zeta(2)/2 = 2.4674;  pattern (2,1,1): 9 zeta(2)/8 = 1.8506
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    R.detail_check()
+    ~~~~~~~~~~~~~~^^
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/rate_classes.py", line 80, in detail_check
+    resid.setdefault(key, []).append(float(-mp.log(D) - pred) / float(Nm))
+                                     ~~~~~^^^^^^^^^^^^^^^^^^^
+TypeError: float() argument must be a string or a real number, not 'mpc'
+refined law: pattern (2,2,1): 3 zeta(2)/2 = 2.4674;  pattern (2,1,1): 9 zeta(2)/8 = 1.8506
+k-Markoff (0, 0, 5): (-log D - predicted exponent)/N(m) over cells at depths 8-12: zero class: mean -0.0125, max |.| 0.1262 (2646 cells); nonzero class: mean -0.0124, max |.| 0.1135 (1322 cells)
+cubic (0, 3, 5), s = 80: (-log D - predicted exponent)/N(m) over cells at depths 8-12: nonzero class: mean -0.0070, max |.| 0.0823 (2645 cells); zero class: mean -0.0071, max |.| 0.0835 (1323 cells)
+punctured torus: (-log D - predicted exponent)/N(m) over cells at depths 8-12: torus: mean -0.0166, max |.| 0.1822 (3968 cells)
+four-punctured sphere: (-log D - predicted exponent)/N(m) over cells at depths 8-12: nonzero class: mean -0.0125, max |.| 0.1320 (3968 cells)

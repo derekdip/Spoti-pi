@@ -971,3 +971,103 @@ components of the vector identity differ for the asymmetric (1, 2, 3) and
   Area(B*) = Σ g_γ·N(γ).
 - This also answers the Gyoda–Matsushita direction named in
   Doan–Li–Nguyen §6.
+
+## The rate law explained, and refined for mixed parity classes (2026-11-25)
+
+Script `poc/farey/rate_classes.py`, output `poc/farey/rate_classes.log`
+(400 digits for the refinement runs, 700 for the cell-by-cell check).
+
+**Why ζ(2) appears.** The law c²A = κ²ζ(2) is a primitive-lattice-point count
+in disguise. Primitive vectors have density 6/π² = 1/ζ(2) in Z², and
+best-first refinement refines, up to a logarithmic band, exactly the
+primitive vectors m whose decay exponent κ·N(m) is below a threshold L. The
+error is then E_N = e^{−L}.
+
+**Proof sketch.**
+
+1. **Detail asymptotics.**
+   - *Torus.* The hyperbolic cosine rule for once-crossing geodesics, with
+     crossing angle θ, gives cosh N(L+R) = cosh N(L)·cosh N(R) + sinh N(L)·sinh N(R)·cos θ.
+     Here sin²θ = 4(4 − μ)/((a² − 4)(b² − 4)). This gives
+     D = Θ((4 − μ)·e^{−2N(m)}), so κ = 2.
+   - *Sphere, mediant class coefficient κ_m ≠ 0.* The mediant rule
+     c = ab − κ_m − o gives D ≈ κ_m/(ab) = Θ(e^{−N(m)}), so κ = 1.
+   - *Sphere, κ_m = 0, at least one neighbour class nonzero.* The product
+     relation c·o = a² + b² + κ_a·a + κ_b·b + s gives D ∋ κ_a/(a·b²). So
+     −log D = N(m)·(1 + ρ) + O(1), where:
+     - ρ = N(zero-class endpoint)/N(m), if exactly one endpoint class is
+       nonzero;
+     - ρ = min(N(L), N(R))/N(m), if both are.
+2. **Distribution of ρ.** For primitive m, the Farey parents have
+   denominators q′ ≡ ±p⁻¹ (mod q), and these are equidistributed. The parents
+   also converge in direction to m, so N(parent)/N(m) ≈ q′/q. Hence:
+   - ρ is uniform on (0, 1) for "the parent of a given class", since that
+     parent is equally likely to be the larger or the smaller;
+   - ρ is uniform on (0, 1/2) for the smaller parent.
+3. **Counting.**
+   - The number of primitive m in the cone with N(m) ≤ X is
+     (6/π²)·A·X² + O(X log X), where A is the area of the norm ball in the
+     cone.
+   - These are split equally among the three classes mod 2.
+   - Class i contributes (1/3)(6/π²)·A·L²·w_i, where
+     w_i = E[(κ_i(1 + ρ))⁻²]-type weights:
+
+     | Class | Weight w_i |
+     |---|---|
+     | Coefficient ≠ 0 | 1 |
+     | Coefficient = 0, all coefficients zero (torus) | 1/4 |
+     | Coefficient = 0, one neighbour class nonzero | E[(1 + ρ)⁻²] with ρ ~ U(0, 1), = 1/2 |
+     | Coefficient = 0, both neighbours nonzero | E[(1 + ρ)⁻²] with ρ ~ U(0, 1/2), = 2/3 |
+
+4. **Inverting the count:**
+
+       log E_N = −c·√N + O(log N),   c²·A = 3ζ(2) / Σ_i w_i.
+
+**Predictions against the earlier law.**
+
+| Class pattern | Example | Σw | Refined law | Earlier law (wrong for mixed) |
+|---|---|---|---|---|
+| All zero | torus | 3/4 | 4ζ(2) = 6.580 | 6.580 |
+| All nonzero | four-punctured sphere, k-Markoff (1, 2, 3) | 3 | ζ(2) = 1.645 | 1.645 |
+| (0, 0, ≠0) | k-Markoff (0, 0, 5), (0, 0, 1) | 2 | (3/2)ζ(2) = 2.467 | 3.290 |
+| (0, ≠0, ≠0) | cubic (p, q, r) = (0, 3, 5) | 8/3 | (9/8)ζ(2) = 1.851 | 2.193 |
+
+**Measured** (best-first runs of 9000 cells; fits of log E_N on
+[1, √N, log N] over two windows):
+
+| Case | c²A, N in [1000, 5000) | c²A, N in [3000, 9000) | Refined law |
+|---|---|---|---|
+| Torus | 6.619 | 6.459 | 6.580 |
+| Four-punctured sphere | 1.655 | 1.615 | 1.645 |
+| k-Markoff (1, 2, 3) | 1.650 | 1.622 | 1.645 |
+| k-Markoff (0, 0, 5) | 2.457 | 2.520 | 2.467 |
+| k-Markoff (0, 0, 1) | 2.457 | 2.515 | 2.467 |
+| Cubic (0, 3, 5) | 1.834 | 1.816 | 1.851 |
+
+All agree to within about 2%, which is the same spread as the uniform cases
+and comes from the O(log N) term. The earlier law misses the mixed cases by
+25% and 18%.
+
+**Cell-by-cell check of step 1.** (−log D − predicted exponent)/N(m) over all
+cells at depths 8 to 12:
+
+| Case | Mean | Max \|·\| | Cells |
+|---|---|---|---|
+| k-Markoff (0, 0, 5) | −0.012 | 0.13 | 3968 |
+| Cubic (0, 3, 5) | −0.007 | 0.08 | 3968 |
+| Torus | −0.017 | 0.18 | 3968 |
+| Four-punctured sphere | −0.013 | 0.13 | 3968 |
+
+These are O(1)/N(m), with no class-dependent bias.
+
+**Status.** Step 1 is proved for the torus. For the sphere it is derived from
+the product relation, with the constants not made uniform. Step 2 is the
+classical equidistribution of modular inverses, plus convergence of parent
+directions. Step 3 is standard for convex regions. The band argument for
+best-first order is a sketch. So: a theorem up to routine uniformity
+estimates, with the mixed-class constants (3/2)ζ(2) and (9/8)ζ(2) as
+genuinely new predictions, confirmed numerically.
+
+**Note.** The fitted log N coefficient varies between −1.9 and +1.0 across
+windows and cases. It is not stable enough to identify, and the proof gives
+only O(log N).
