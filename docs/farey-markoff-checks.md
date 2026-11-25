@@ -652,3 +652,186 @@ from memory and was not checked in this session.
 orbits and local–global failures on these surfaces. I have not seen the
 products above, or the k − 4 sign dichotomy of the norm, in what I have read.
 That literature was not searched in this session.
+
+## Literature check (a): Hines, O'Sullivan, Goldman, Doan–Li–Nguyen, Ghosh–Sarnak (2026-11-25)
+
+Papers read this round:
+
+- Hines 2020 (arXiv 2001.05557).
+- O'Sullivan §9.3 (arXiv 2609.14149).
+- Goldman 2003 (math/0305096).
+- Doan–Li–Nguyen 2026 (arXiv 2605.14574).
+- An arXiv search on Markoff surfaces and integral points. It returned
+  Ghosh–Sarnak 1706.06712, Colliot-Thélène–Wei–Xu, Dao, Browning–Wilsch,
+  Chen and Mitankin–Uhlemann. These study integral points, Hasse principles
+  and Brauer–Manin obstructions. None has length-type products.
+
+**Corrections to the previous section.**
+
+- **The integer products are Hines's, for k = 0.** Hines already writes the
+  Markoff-number product, e.g. Π(1 − 4/(9m²))^{−6h} for the modular torus.
+  He also remarks that any Markoff triple gives an infinite product of
+  rationals equal to a product of three quadratic units, and that traces in a
+  number field give relative quadratic units. The Rosenberger products are
+  instances of this, by the rescaling.
+- **The total identity for any k is O'Sullivan's.** His Theorem 9.14 holds for
+  any discriminator D (our k) on rising trees with labels > 2, including
+  D > 4. His proof also telescopes slopes, with exponentially small error
+  terms. So the total Ghosh–Sarnak products are instances of his theorem.
+- **"No geometry behind k > 4" is wrong for k > 20.** Goldman shows that for
+  t = k − 2 > 18 the level set contains wandering domains Γ·Ω₀. These are
+  discrete faithful characters of hyperbolic three-holed spheres, where X, Y
+  and Z are the boundary curves. Vieta-flipping (x, y, −|z|) gives
+  all-positive trees, so some positive trees with k > 20 are pants orbits.
+  Their tree curves are then non-simple primitive curves on the pants. For
+  4 < k ≤ 20 the action is ergodic and there are no discrete faithful points.
+- **What this does to the k = 52 and k = 100 examples.** Those integer roots
+  contain the trace 0, an elliptic element of order 4, so they are not pants.
+  A genuine pants example, boundary traces (−3, −3, −3) giving k = 54, is
+  checked below.
+- **The sign dichotomy has a geometric reading.**
+  - For k < 4 (tori), the axes of the generators cross, and ℓ(ab) < ℓ(a) + ℓ(b).
+  - For pants, the axes are ultraparallel, and ℓ(ab) > ℓ(a) + ℓ(b).
+  - So the norm is convex in the first case and concave in the second. The
+    identities hold in both.
+- **Doan–Li–Nguyen.**
+  - They prove that rational directions are genuine corners with angle
+    ≍ ht(w)·e^{−‖w‖}.
+  - They prove differentiability at irrational directions and an exact
+    flatness formula.
+  - Their Theorem 1.3 is a dual-area identity, Area(B*) = 4 Σ_γ ℓ log coth(ℓ/2),
+    for complete finite-area once-punctured tori only.
+  - They do not treat holes, cone points, spheres, or a vector form.
+
+**Updated status.**
+
+| Result | Status |
+|---|---|
+| Torus gap law, any μ, complex | Known (Hines; Hu–Tan–Zhang eq. 24; O'Sullivan eq. 4.10) |
+| Total Hines identity, real, any D | Known (Hines for D = 0; O'Sullivan Thm 9.14) |
+| Integer products, k = 0 | Known (Hines) |
+| Integer products, other k | Instances of O'Sullivan's theorem |
+| Four-holed-sphere gap law and Hines-type identity | Not found |
+| Conic-determinant form of the gap law | Not found |
+| Vector (one-coordinate) Hines identity | Not found; it is the same telescoping on a non-compact slice, so a modest variant |
+| Complex-trace Hines identities | Not found |
+| The proof below and its corollaries | See next section |
+
+## Proof (b): the vector Hines identity, and two corollaries (2026-11-25)
+
+Scripts `poc/farey/proof_check.py` and `poc/farey/dual_area.py`, with logs.
+
+**Notation.** For a Farey pair (L, R):
+
+- K(L; R) is the leading coefficient of the fan t_k = tr(kL + R), so that
+  t_k ≈ K·λ_L^k, plus the period-2 particular solution in the sphere case.
+- D_L^R = log K(L; R), N = F = arccosh(tr/2), and β(L, R) = N(R) − D_L^R.
+
+**Fact 1.** D_L^{L+R} = D_L^R + N(L). The fan through L + R is the same
+sequence shifted one step.
+
+**Fact 2.** g_m = D_m^L + D_m^R − N(m), for m = L + R. The bi-infinite fan
+through L around m has its two ends at k·m + L and k·m + R, and the second is
+shifted by one step.
+
+Both facts are exact identities about linear recurrences. They hold with
+periodic forcing too, so they cover the sphere and the general cubic.
+
+**Finite identity.** For every depth n, by induction on n:
+
+    Σ_{m of depth < n} p_m·g_m + Σ_{(L, R) at depth n} [L_p·β(L, R) + R_p·β(R, L)] = N(e₁) − D_{e₀}^{e₁},
+
+and the same with q, N(e₀) and D_{e₁}^{e₀}. The induction step splits (L, R)
+at m into (L, m) and (m, R), rewrites coordinates, and uses only Facts 1
+and 2.
+
+**Remainder.** Take the torus (no linear terms) with traces > 2.
+
+- The fan around L through R has coefficients K and K′ with K·K′ = G = e^{g_L}
+  and K + K′ = b = tr R. Since c_m > tr(R − L), K is the larger root. So,
+  exactly,
+
+      β(L, R) = log[(b + √(b² − 4)) / (b + √(b² − 4G))],
+
+  and |β| ≤ C·|G − 1|/b² ≤ C′/(tr L · tr R)².
+- Since tr L · tr R ≥ c_m, the depth-n remainder is at most C″·Σ_{m at depth n+1} |m|/c_m².
+- Depth classes are disjoint, so this is a tail of Σ_m |m|/c_m². That series
+  converges, because traces grow exponentially in |m| on rising trees
+  (Bowditch / Fibonacci growth; O'Sullivan Prop. 3.2) and the number of
+  primitive m with |m| ≤ R is O(R²).
+- So the remainder tends to 0, and the identity holds.
+
+This proves the vector identity, and with it the total identity, for real
+tori with any k on rising trees with labels > 2. That includes k > 4 and the
+pants orbits.
+
+For the sphere and the general cubic, the finite identity is proved, and the
+remainder is seen numerically to decay geometrically. The closed form for β
+with forcing has not been written out. For complex traces, the same argument
+should go through under Bowditch's conditions; that is not done here.
+
+**Numerical check** (`proof_check.log`, 220 digits).
+
+- Fact 1, Fact 2 and the β closed form are exact to about 10⁻²²⁰.
+- The finite identity is exact at every depth from 1 to 12, to about
+  10⁻²¹⁶, on five cases: a punctured torus, a one-holed torus at k = −20, the
+  Ghosh–Sarnak surface at k = 5, the pants at k = 54, and a four-holed sphere.
+- The remainder falls by a factor of 4 to 7 per level. It is positive for
+  k < 4 and negative for k > 4.
+
+**Corollary 1 (pure-jump gradient).**
+
+- The gradient of N, as the direction sweeps the cone, is a monotone curve.
+  Its change is the sum of its jumps plus a possible continuous part ν.
+- The vector identity says the jumps alone add up to the total change, so
+  ∫(−sin θ, cos θ) dν = 0.
+- All these vectors lie in one open half-plane, because the cone is narrower
+  than π. So ν = 0: the gradient changes only by jumps at the rationals.
+
+This is the "purely atomic" property that the earlier sections assumed. It is
+now proved wherever the vector identity is (real tori, any k). For cusped
+tori it also follows from Doan–Li–Nguyen's Theorem 1.3.
+
+**Corollary 2 (dual-area identity, extended).**
+
+- Since the gradient is pure-jump, B* is swept entirely by the jump
+  triangles (0, ∇⁻N(w), ∇⁺N(w)). Each has area g_w·N(w)/2, and corners come in
+  pairs ±w. So
+
+      Area(B*) = Σ over simple closed curves γ of g_γ·N(γ),   N = ℓ/2.
+
+- In the norm ℓ (Doan–Li–Nguyen's convention) this is 4·Σ_γ (g_γ/2)·ℓ_γ.
+- Cusped tori have g = 2 log coth(ℓ/2), which gives their formula exactly.
+- One-holed and cone tori have g = log((c² − μ)/(c² − 4)).
+- Four-holed spheres use the sphere gap law.
+
+**Check of Corollary 2** (`dual_area.log`). The direct side is
+(1/2)∮ N*(u)⁻² dθ, with N* the dual norm, computed from traces of 5002
+primitive vectors only (no fans and no gap law), on a 400 000-point
+quadrature.
+
+| Surface | Σ g·N | Direct Area(B*) | Rel. diff |
+|---|---|---|---|
+| Modular torus | 2.69708988043 | 2.697089880428 | 6e−13 |
+| Punctured torus (2.6, 4.1) | 2.67005821681 | 2.670058216806 | 7e−13 |
+| One-holed torus μ = −20 | 5.29226592029 | 5.292265920294 | 1e−12 |
+| Cone-point torus μ = 1.5 | 2.18640278194 | 2.186402781944 | 2e−12 |
+| Four-holed sphere (2.5, 2.2, 3.0, 2.1) | 12.6806292539 | 12.680629253859 | 3e−12 |
+| Four-punctured sphere | 10.7883595217 | 10.788359521710 | 6e−13 |
+
+The cone-point torus is included as a surface with a cone singularity; the
+proof's convexity input there is assumed from geometry, not proved here.
+
+**Assessment of novelty.**
+
+- The proof idea, telescoping slopes, is O'Sullivan's.
+- What is added:
+  1. an exact finite identity at every depth;
+  2. an exact closed form for the remainder;
+  3. the vector (one-coordinate) form;
+  4. coverage of forced fans (spheres, the general cubic);
+  5. the pure-jump corollary for non-cusped surfaces;
+  6. the extension of Doan–Li–Nguyen's dual-area identity to one-holed tori,
+     cone tori and four-holed spheres.
+- Items 5 and 6 are the most likely to interest specialists. Still to check:
+  Doan–Li–Nguyen's §6 (further directions) and anything citing them.

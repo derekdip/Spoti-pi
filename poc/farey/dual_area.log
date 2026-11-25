@@ -1,0 +1,6 @@
+modular torus (3, 3), cusped: 5002 curves; sum g N = 2.69708988043; direct Area(B*) = 2.697089880428; rel. diff 6.4e-13
+punctured torus (2.6, 4.1), cusped: 5002 curves; sum g N = 2.67005821681; direct Area(B*) = 2.670058216806; rel. diff 7.3e-13
+one-holed torus k = -20, (3, 5): 5002 curves; sum g N = 5.29226592029; direct Area(B*) = 5.292265920294; rel. diff 1.2e-12
+torus with cone point k = 1.5, (2.9, 3.6): 5002 curves; sum g N = 2.18640278194; direct Area(B*) = 2.186402781944; rel. diff 1.8e-12
+four-holed sphere (2.5, 2.2, 3.0, 2.1), (9, 11): 5002 curves; sum g N = 12.6806292539; direct Area(B*) = 12.680629253859; rel. diff 2.8e-12
+four-punctured sphere (7, 7): 5002 curves; sum g N = 10.7883595217; direct Area(B*) = 10.788359521710; rel. diff 6.4e-13
