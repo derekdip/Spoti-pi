@@ -1,0 +1,14 @@
+(1) kernel identity, worst error 3.84e-18
+    B-term of the (1,2) recursion at (L1, L2) = (1.3, 0.6): via H 10.920367925897440059;  via the pants factor 10.920367925897440059
+(0,4): V(0) = 2*pi**2;  <F>(cusped) = F(0)/V(0) = 1 pi^2  (= 1/6 = 0.16667 pi^2 per boundary pair, 6 pairs)
+(0,5): V(0) = 10*pi**4;  <F>(cusped) = F(0)/V(0) = 22/15 pi^2  (= 11/75 = 0.14667 pi^2 per boundary pair, 10 pairs)
+(0,6): V(0) = 244*pi**6/3;  <F>(cusped) = F(0)/V(0) = 3327/1708 pi^2  (= 1109/8540 = 0.12986 pi^2 per boundary pair, 15 pairs)
+(0,7): V(0) = 2758*pi**8/3;  <F>(cusped) = F(0)/V(0) = 50576/20685 pi^2  (= 50576/434385 = 0.11643 pi^2 per boundary pair, 21 pairs)
+(0,8): V(0) = 199784*pi**10/15;  <F>(cusped) = F(0)/V(0) = 7307330/2472327 pi^2  (= 3653665/34612578 = 0.10556 pi^2 per boundary pair, 28 pairs)
+(1,2): V(0) = pi**4/4;  <F>(cusped) = F(0)/V(0) = 11/45 pi^2  (= 11/45 = 0.24444 pi^2 per boundary pair, 1 pairs)
+(1,3): V(0) = 14*pi**6/9;  <F>(cusped) = F(0)/V(0) = 2403/3920 pi^2  (= 801/3920 = 0.20434 pi^2 per boundary pair, 3 pairs)
+(1,4): V(0) = 529*pi**8/36;  <F>(cusped) = F(0)/V(0) = 58456/55545 pi^2  (= 29228/166635 = 0.17540 pi^2 per boundary pair, 6 pairs)
+(2,2): V(0) = 787*pi**10/480;  <F>(cusped) = F(0)/V(0) = 11684383/49085190 pi^2  (= 11684383/49085190 = 0.23804 pi^2 per boundary pair, 1 pairs)
+(2,3): V(0) = 1498069*pi**12/64800;  <F>(cusped) = F(0)/V(0) = 83414025/136324279 pi^2  (= 27804675/136324279 = 0.20396 pi^2 per boundary pair, 3 pairs)
+(3,2): V(0) = 2800144027*pi**16/65318400;  <F>(cusped) = F(0)/V(0) = 498993004341367/2144252290835655 pi^2  (= 498993004341367/2144252290835655 = 0.23271 pi^2 per boundary pair, 1 pairs)
+(4,2): V(0) = 909612310986473*pi**22/362125209600;  <F>(cusped) = F(0)/V(0) = 464592902306134461037/2027252957495552375100 pi^2  (= 464592902306134461037/2027252957495552375100 = 0.22917 pi^2 per boundary pair, 1 pairs)

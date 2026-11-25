@@ -2002,3 +2002,76 @@ family: one-holed tori, four-holed spheres, and all their cusp and cone-point
 reason: the average of the natural corner sum has degree deg V + 2, which
 equals 2·deg V only when deg V = 2. The n = 4 binomial coincidence and the
 flat-point double root are what make the complexity-one cases close up.
+
+## The higher-complexity corner polynomials F_{g,n} (2026-11-25)
+
+Script `poc/farey/corner_moments.py`, output `poc/farey/corner_moments.log`.
+
+### Structure: the volume recursion is the previous moment of the same pants factor
+
+Let f(x; A, B) = ½·log P(x; A, B) = log cosh(d/2), where d is the pants'
+return orthogeodesic. Then, exactly,
+
+    ¼·[H(x, A+B) + H(x, A−B)] = ½ − ½·coth(x/2) − ∂_x f(x; A, B),
+
+where H is Mirzakhani's kernel (worst error 4·10⁻¹⁸). Integrating by parts,
+the B-term of her recursion becomes
+
+    ½∫ x·[H(x, L₁+L_j) + H(x, L₁−L_j)]·V dx = 2∫ f(x; L₁, L_j)·∂_x(x·V) dx + ∫ x(1 − coth(x/2))·V dx.
+
+This was checked on the (1, 2) recursion at (L₁, L₂) = (1.3, 0.6): the two
+sides agree to 20 digits (10.920367925897440059).
+
+So the volume recursion and the corner sum are built from the same
+orthogeodesic pants factor. They differ only in the weight:
+
+- ∂_x(x·) for the volumes, which is (2k+1)·x^{2k} on x^{2k}: the s = −1
+  moment;
+- x² for the corner polynomials F_{g,n} = Σ_{i<j}∫ x²·f(x; L_i, L_j)·V_{g,n−1}(x, L_rest) dx:
+  the s = +1 moment.
+
+In complexity one the s = +1 moment closes up into V². Beyond, it is a new
+polynomial, and its relation to the s = −1 moment, Mirzakhani's recursion,
+is open.
+
+### Cusped averages ⟨F⟩ = F_{g,n}(0)/V_{g,n}(0)
+
+All values are exact rational multiples of π². The volumes come from the
+symbolic recursion, which reproduces the known values 10π⁴, 244π⁶/3,
+2758π⁸/3, π⁴/4, 14π⁶/9 and 529π⁸/36.
+
+| (g, n) | V(0) | ⟨F⟩/π² | Pairs | Per pair /π² |
+|---|---|---|---|---|
+| (0, 4) | 2π² | 1 | 6 | 1/6 = 0.16667 |
+| (0, 5) | 10π⁴ | 22/15 | 10 | 0.14667 |
+| (0, 6) | 244π⁶/3 | 3327/1708 | 15 | 0.12986 |
+| (0, 7) | 2758π⁸/3 | 50576/20685 | 21 | 0.11643 |
+| (0, 8) | 199784π¹⁰/15 | 7307330/2472327 | 28 | 0.10556 |
+| (1, 2) | π⁴/4 | 11/45 | 1 | 0.24444 |
+| (1, 3) | 14π⁶/9 | 2403/3920 | 3 | 0.20434 |
+| (1, 4) | 529π⁸/36 | 58456/55545 | 6 | 0.17540 |
+| (2, 2) | 787π¹⁰/480 | 11684383/49085190 | 1 | 0.23804 |
+| (2, 3) | 1498069π¹²/64800 | 83414025/136324279 | 3 | 0.20396 |
+| (3, 2) | 2800144027π¹⁶/65318400 | 0.232714… | 1 | 0.23271 |
+| (4, 2) | 909612310986473π²²/362125209600 | 0.229174… | 1 | 0.22917 |
+
+The (3, 2) and (4, 2) averages are exact rationals with large numerators;
+they are in the log.
+
+**Observations** (empirical):
+
+- **Genus 0, growing n.** The total ⟨F⟩ grows roughly linearly: 1, 1.467,
+  1.948, 2.445, 2.956 (×π²), with increments 0.47, 0.48, 0.50, 0.51. Each added
+  cusp adds about π²/2, with a slowly rising increment. The per-pair average
+  falls like 1/n.
+- **n = 2, growing genus.** The per-pair average decreases slowly: 0.2444,
+  0.2380, 0.2327, 0.2292. A fit a + b/g to g = 3, 4 gives a ≈ 0.219, so the
+  large-genus limit looks finite, about 0.22π² ≈ 2.2. A naive Mirzakhani–Petri
+  estimate (V_{g,1}(x)/V_{g,1}(0) ≈ sinh(x/2)/(x/2)) makes the integral
+  diverge, so the finite limit has to come from the breakdown of that
+  approximation at x ~ √g. Identifying the constant needs the refined
+  large-genus asymptotics. That is open.
+- **Genus and boundary trade-off.** At fixed n the per-pair value barely
+  depends on genus. Compare (1, 3) at 0.2043 with (2, 3) at 0.2040, and (1, 2)
+  at 0.2444 with (2, 2) at 0.2380. So the per-pair corner average is mostly a
+  function of the number of boundary components.
