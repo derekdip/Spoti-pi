@@ -1,0 +1,35 @@
+mu =     0 (boundary length 0):
+   P1 exact cell recursion with atom h(c) - mu/(2abc): PASS
+   P2 atoms positive and a max-heap: PASS
+   P3 atoms + frontier = Phi(root): PASS; atoms so far 0.006236006596, frontier 1.13e-18, Phi(root) 0.006236006596
+   P4 gap law log((c^2-mu)/(c^2-4)): max error 5.15e-118 PASS
+   P5 series law with extra resistor -mu/4: max relative error 5.41e-72 PASS
+   P6 D/Phi on deep cells: 4.0 to 4.0
+mu =  -0.5 (boundary length 1.386):
+   P1 exact cell recursion with atom h(c) - mu/(2abc): PASS
+   P2 atoms positive and a max-heap: PASS
+   P3 atoms + frontier = Phi(root): PASS; atoms so far 0.007622511887, frontier 1.41e-18, Phi(root) 0.007622511887
+   P4 gap law log((c^2-mu)/(c^2-4)): max error 7.19e-118 PASS
+   P5 series law with extra resistor -mu/4: max relative error 5.87e-72 PASS
+   P6 D/Phi on deep cells: 3.6 to 3.6488858
+mu =    -2 (boundary length 2.634):
+   P1 exact cell recursion with atom h(c) - mu/(2abc): PASS
+   P2 atoms positive and a max-heap: PASS
+   P3 atoms + frontier = Phi(root): PASS; atoms so far 0.01184940267, frontier 2.26e-18, Phi(root) 0.01184940267
+   P4 gap law log((c^2-mu)/(c^2-4)): max error 6.8e-118 PASS
+   P5 series law with extra resistor -mu/4: max relative error 5.97e-72 PASS
+   P6 D/Phi on deep cells: 3.0 to 3.1039631
+mu =    -8 (boundary length 4.585):
+   P1 exact cell recursion with atom h(c) - mu/(2abc): PASS
+   P2 atoms positive and a max-heap: PASS
+   P3 atoms + frontier = Phi(root): PASS; atoms so far 0.02991959297, frontier 6.07e-18, Phi(root) 0.02991959297
+   P4 gap law log((c^2-mu)/(c^2-4)): max error 4.6e-118 PASS
+   P5 series law with extra resistor -mu/4: max relative error 5.85e-72 PASS
+   P6 D/Phi on deep cells: 2.4 to 2.5358984
+mu =   -20 (boundary length 6.178):
+   P1 exact cell recursion with atom h(c) - mu/(2abc): PASS
+   P2 atoms positive and a max-heap: PASS
+   P3 atoms + frontier = Phi(root): PASS; atoms so far 0.07475952642, frontier 1.72e-17, Phi(root) 0.07475952642
+   P4 gap law log((c^2-mu)/(c^2-4)): max error 6.06e-118 PASS
+   P5 series law with extra resistor -mu/4: max relative error 5.13e-72 PASS
+   P6 D/Phi on deep cells: 2.1818182 to 2.3233016

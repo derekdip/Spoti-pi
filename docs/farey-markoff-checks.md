@@ -62,3 +62,33 @@ available, and the certified stop of the Farey decoder (section 9: refine
 until the frontier certificate is below tolerance) has its counterpart in
 stopping when the improvement is no longer real. The Markoff identities
 themselves are not used by the rule.
+
+## Generalisation probe: the one-holed torus (2026-11-25)
+
+`poc/farey/generalise.py`, log beside it. The generalised Markoff
+equation x^2 + y^2 + z^2 - xyz = mu covers the punctured torus (mu = 0)
+and the one-holed torus with a boundary geodesic of length L
+(mu = 2 - 2 cosh(L/2) < 0). The first five results below were derived by
+hand before the run and checked at mu = 0, -0.5, -2, -8, -20 on the Farey
+tree from traces (4, 4); the sixth was found in the run.
+
+| property | at the cusp (mu = 0) | with a boundary (mu < 0) | check |
+|---|---|---|---|
+| cell recursion | atom h(c) | atom h(c) - mu/(2abc): one extra term from the parents | exact to 1e-80 |
+| atoms | positive, max-heap | positive, max-heap | every cell |
+| total | sum of atoms = Phi(root) | the same, with d(a,b) = sqrt(1 - 4/a^2 - 4/b^2 + 4mu/(a^2 b^2)) | frontier below 1e-17 |
+| stable-norm gap at a rational | log(c^2/(c^2 - 4)) | log((c^2 - mu)/(c^2 - 4)) | error below 1e-117 |
+| electrical series law | 1/(cc') = 1/a^2 + 1/b^2 | plus a fixed resistor -mu/4 in series | exact |
+| Farey-Schauder ratio D/Phi deep in the tree | 4 | 2(4 - mu)/(2 - mu) | to 12 digits at mu = -0.1, -1, -5, -30 |
+
+Leading order, with x = 1/a^2, y = 1/b^2: Phi = (2 - mu) xy/2 and
+D = (4 - mu) xy, so D/Phi -> 2(4 - mu)/(2 - mu). The boundary makes the
+deep coefficients smaller relative to the McShane mass, down to the limit
+2 as the boundary grows.
+
+What is likely known: McShane-type identities for one-holed tori
+(Mirzakhani; Tan, Wong and Zhang for generalised Markoff maps, arXiv
+math/0411184); the atoms here are attached to cells and may regroup into
+their per-geodesic form. Not found in the searches so far, and to be
+checked when arXiv is reachable: the gap law in either form, the series
+law with its boundary resistor, and the D/Phi limit.
