@@ -835,3 +835,16 @@ proof's convexity input there is assumed from geometry, not proved here.
      cone tori and four-holed spheres.
 - Items 5 and 6 are the most likely to interest specialists. Still to check:
   Doan–Li–Nguyen's §6 (further directions) and anything citing them.
+
+**Doan–Li–Nguyen §6, read.** They name, as further directions, extending
+their method to
+
+- hyperbolic one-holed tori and cone tori;
+- the four-holed sphere ("forthcoming work");
+- the generalised k-Markoff equations of Gyoda–Matsushita,
+  x² + y² + z² + k₁yz + k₂zx + k₃xy = (3 + k₁ + k₂ + k₃)xyz.
+
+Corollary 2 above covers the first two, for the dual-area identity. The
+Gyoda–Matsushita equations have conic slices with a different quadratic
+part, so they are a natural next test of the conic form, using the rescaled
+version e^g = −bc·det M₃ / (4(det M₂)²).
