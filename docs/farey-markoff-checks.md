@@ -187,3 +187,35 @@ norm ball; Zagier counts Markov numbers). Not found in the papers read: the
 rate law for the refinement algorithm, c^2 A = 2 pi^2/3. Steps (i) and (ii)
 are heuristic here; making them rigorous would also fix the log N term
 (fitted -0.44 here, -0.54 in the note).
+
+## Universality and the moduli dependence of the rate (2026-11-25)
+
+`poc/farey/universal.py`, logs `universal_sphere.log`, `universal_moduli.log`.
+
+**The law needs the detail decay exponent.** On the four-punctured sphere
+(X^2 + Y^2 + Z^2 - XYZ + 8(X + Y + Z) + 28 = 0, mediant rule Z' = XY - 8 - Z,
+symmetric point (7, 7, 7)), best-first refinement fits c = 3.3281 with ball
+area A = 0.14863: c^2 A = 1.6463, a quarter of the torus value. Its curve
+lengths are exactly twice the modular torus's (7 = 3^2 - 2, so the sphere's
+half-length is twice the torus's), so its details decay like e^{-F}, not
+e^{-2F}. With kappa the exponent of that decay,
+
+    c^2 A = kappa^2 pi^2 / 6 = kappa^2 zeta(2),
+
+which both cases meet to 0.1% (torus 6.5852/4 = 1.6463, sphere 1.6463/1;
+pi^2/6 = 1.6449). The zeta(2) is the density 6/pi^2 of primitive lattice
+directions. The earlier statement c^2 A = 2 pi^2/3 is the kappa = 2 case.
+
+**Moduli dependence.** The intrinsic area covers every direction up to sign:
+A = A(cone e0, e1) + A(cone e0, -e1). Over 160 reduced triples a <= b <= o of
+the punctured torus (a in [2.02, 3], b in [2.02, 4.5]), A is smallest at the
+modular torus (3, 3, 3), A = 1.7836, c = 2 pi/sqrt(6A) = 1.921, and grows as
+a curve shortens (A = 1.909, c = 1.857 at a = 2.27). Among the surfaces
+sampled the modular torus compresses fastest. A one-cone area is not
+intrinsic (a short curve outside the cone lowers it), and an earlier scan
+that used one is superseded.
+
+A is Mirzakhani's B(X) up to normalisation (for the punctured torus, B(X) is
+the measure of the unit ball of the length function), so the rate is
+c(X) = kappa pi / sqrt(6 A(X)). Whether B is minimised at the modular torus
+on all of moduli space, and whether that is known, is not checked here.
