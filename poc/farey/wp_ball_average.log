@@ -1,0 +1,4 @@
+torus L = 0.0: int Area(B) = 6.584240 (predicted 2 pi^2/3 = 6.579736);  <Area(B)> = 3.999679 (predicted 4.000000);  <Area(B)> x (L^2 + 4 pi^2)/16 = 9.868813 (predicted pi^2 = 9.869604)
+torus L = 2.0: int Area(B) = 6.589232 (predicted 2 pi^2/3 = 6.579736);  <Area(B)> = 3.631347 (predicted 3.632001);  <Area(B)> x (L^2 + 4 pi^2)/16 = 9.867828 (predicted pi^2 = 9.869604)
+sphere L = (0, 0, 0, 0): int Area(B) = 19.734223 (predicted 2 pi^2 = 19.739209);  <Area(B)> = 1.000021 (predicted 1.000000);  <Area(B)> x <A*> = 9.869809 (predicted pi^2)
+sphere L = (1.0, 2.0, 0.5, 1.5): int Area(B) = 19.761628 (predicted 2 pi^2 = 19.739209);  <Area(B)> = 0.840219 (predicted 0.840352);  <Area(B)> x <A*> = 9.868035 (predicted pi^2)

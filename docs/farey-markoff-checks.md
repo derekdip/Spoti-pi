@@ -1660,3 +1660,86 @@ about e^{−2kℓ_γ}-small, as expected.
 2. Mirzakhani-type averages of orthogeodesic sums Σ_γ Σ_η ℓ_γ·log cosh(d_η/2),
    which should connect to the Basmajian and Bridgeman orthogeodesic
    identities.
+
+## Averages of the ball area, the product law, and what survives in higher genus (2026-11-25)
+
+Script `poc/farey/wp_ball_average.py`, output `poc/farey/wp_ball_average.log`.
+
+### The ball area averages, and ⟨Area(B)⟩·⟨Area(B*)⟩ = π²
+
+**The ball area.**
+
+- In complexity one, the curve count is a lattice count:
+  #{γ : ℓ_γ ≤ R} ≈ (3/(4π²))·Area(B)·R². That is primitive vectors mod sign in
+  the ball of radius R/2, in N = ℓ/2 units.
+- Mirzakhani's unfolding gives ∫ #{ℓ ≤ R} = R²/2 per mapping-class orbit
+  (V₀,₃ = 1), whatever the boundary.
+- Hence ∫ Area(B) = 2π²/3 for one-holed tori, for every L, and 2π² for
+  four-holed spheres (three orbits).
+
+This is the complexity-one case of Mirzakhani's theorem on the average of the
+Thurston volume B(X) of the length ball.
+
+| Surface | ⟨Area(B)⟩ | ⟨A*⟩ (earlier section) |
+|---|---|---|
+| One-holed tori | 16π²/(L² + 4π²), = 4 for cusped | (L² + 4π²)/16 |
+| Four-holed spheres | 4π²/(ΣL_i² + 4π²), = 1 for cusped | (ΣL_i² + 4π²)/4 |
+
+So, in both families and for every choice of boundary lengths,
+
+    **⟨Area(B)⟩ · ⟨Area(B*)⟩ = π²,**
+
+the Blaschke–Santaló constant (the Mahler volume of an ellipse). Equivalently,
+∫Area(B)·∫Area(B*) = π²·Vol². Individual surfaces lie below π², with the
+modular torus at 0.975π² (as far as sampled, and up to π² in the flat limit
+of cone tori). The averages saturate the bound exactly. The mechanism is that
+∫A* is a constant times Vol², while ∫Area(B) does not depend on the boundary.
+It holds for both families; whether it reflects a general principle is open.
+
+**Consistency.**
+
+- The modular torus, at 3.567, lies below the average 4: it is the minimum.
+- The cusped sphere's average, 1, is the torus's 4 divided by 4: the double
+  cover doubles the norm.
+- In the tropical limit L → ∞, ⟨Area(B)⟩ → 0. In the flat limit of cone tori
+  (L = iθ, θ → 2π), ⟨Area(B)⟩ → ∞. Both match the limit sections.
+
+**Check.** Direct integration over the same fundamental domains as before
+(Area(B) from the polygon through the corners ±v/N(v)):
+
+| Case | ∫ Area(B) (predicted) | ⟨Area(B)⟩ (predicted) | ⟨Area(B)⟩·⟨A*⟩ |
+|---|---|---|---|
+| Torus, L = 0 | 6.584240 (6.579736) | 3.999679 (4) | 9.868813 |
+| Torus, L = 2 | 6.589232 (6.579736) | 3.631347 (3.632001) | 9.867828 |
+| Sphere, cusped | 19.734223 (19.739209) | 1.000021 (1) | 9.869809 |
+| Sphere, L = (1, 2, 0.5, 1.5) | 19.761628 (19.739209) | 0.840219 (0.840352) | 9.868035 |
+
+π² = 9.869604, so every product agrees to within 0.02%.
+
+### Higher genus: what carries over and what does not
+
+1. **Corners.** On any hyperbolic surface, at every simple closed geodesic γ,
+   the length function on ML has a corner in each transverse direction β. Its
+   size is 4·Σ log cosh(d_j/2) over the orthogeodesic arcs of β relative to γ.
+   This is proved by the rank-one asymptotics and verified to 14 digits on
+   five-holed spheres (previous section).
+2. **Complexity-one subsurfaces.** For every embedded one-holed torus or
+   four-holed sphere Y with geodesic boundary, lengths of curves in Y are
+   intrinsic to Y. So, for every such Y in any surface:
+   - the stable norm of Y, its gap law in orthogeodesic form, the vector
+     Hines identity and the dual-area identity Area(B*_Y) = Σ_{γ⊂Y} g_γ·N_γ
+     all hold;
+   - with Y's boundary lengths, the moduli averages above hold for Y.
+3. **No canonical dual ball.** Measured laminations ML(S) are piecewise linear,
+   of dimension 6g − 6 + 2n, not a vector space. So the dual of the length
+   ball, and the dual-area identity, have no canonical global meaning beyond
+   complexity one. The canonical ball volume is the Thurston volume B(X)
+   (Mirzakhani), whose average is known. The missing ingredient for a
+   higher-genus "dual volume" is a canonical choice of dual. Candidates are
+   chart-wise duals in maximal train-track coordinates, or a definition
+   through the corners in point 1. That is left open.
+4. **Divergence of the natural totals.** Summing A*(Y) over all complexity-one
+   subsurfaces Y of a closed surface diverges, because ⟨A*(Y)⟩ grows like L²
+   in Y's boundary length. Higher-genus orthogeodesic sums with log cosh
+   kernels likewise need decaying weights to converge. That distinguishes them
+   from Basmajian's log coth kernel, which converges.
