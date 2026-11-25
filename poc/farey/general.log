@@ -1,0 +1,27 @@
+modular torus (3, 3): gap law vs energy principle, worst 0
+   sum p g = 0.187318492608543943   F(e1) - log K0 = 0.187318492608543943   signed diff -4.59e-76
+   sum q g = 0.187318492608543943   F(e0) - log K1 = 0.187318492608543943   signed diff -4.68e-76
+asymmetric punctured torus (2.6, 4.1): gap law vs energy principle, worst 4.87e-74
+   sum p g = 0.129229145801227656   F(e1) - log K0 = 0.129229145801227656   signed diff -1.59e-78
+   sum q g = 0.106919602548832453   F(e0) - log K1 = 0.106919602548832453   signed diff -1.8e-78
+one-holed torus mu = -7, (3.4, 5.2): gap law vs energy principle, worst 4.47e-71
+   sum p g = 0.0672423295199293949   F(e1) - log K0 = 0.0672423295199293949   signed diff 6.49e-79
+   sum q g = 0.0624882291778294426   F(e0) - log K1 = 0.0624882291778294426   signed diff 2.4e-79
+torus with cone point mu = 1.5, (2.9, 3.6): gap law vs energy principle, worst 7.65e-73
+   sum p g = 0.0636120526851139927   F(e1) - log K0 = 0.0636120526851139927   signed diff 8.88e-79
+   sum q g = 0.0587063162442902519   F(e0) - log K1 = 0.0587063162442902519   signed diff -6.64e-80
+four-holed sphere (2.5, 2.2, 3.0, 2.1), (9, 11): gap law vs energy principle, worst 1.16e-63
+   sum p g = 0.204414653874263741   F(e1) - log K0 = 0.204414653874263741   signed diff 1.27e-79
+   sum q g = 0.199469031243765126   F(e0) - log K1 = 0.199469031243765126   signed diff -9.91e-80
+quasi-Fuchsian punctured torus (3 + 0.4i, 3.2 - 0.3i): gap law vs energy principle, worst 4.08e-74
+   sum p g = (0.120389443949119831 - 0.0284396620362857734j)   F(e1) - log K0 = (0.120389443949119831 - 0.0284396620362857734j)   signed diff (2.0e-80 + 7.08e-80j)
+   sum q g = (0.120711361355559618 - 0.0168599165875505971j)   F(e0) - log K1 = (0.120711361355559618 - 0.0168599165875505971j)   signed diff (-2.13e-78 + 7.17e-80j)
+arbitrary real cubic (p, q, r, s) = (1.3, -0.7, 2.9, 5.1), (8, 10): gap law vs energy principle, worst 6.99e-64
+   sum p g = 0.0414168540915747968   F(e1) - log K0 = 0.0414168540915747968   signed diff 2.57e-79
+   sum q g = 0.0439420509221907389   F(e0) - log K1 = 0.0439420509221907389   signed diff 8.35e-79
+arbitrary complex cubic, (8 + 0.6i, 9 - 0.4i): gap law vs energy principle, worst 6.16e-65
+   sum p g = (0.0565420335243885403 + 0.000901593930535998437j)   F(e1) - log K0 = (0.0565420335243885403 + 0.000901593930535998437j)   signed diff (-1.24e-78 + 3.98e-79j)
+   sum q g = (0.0617199274990318432 + 0.00122997494503375485j)   F(e0) - log K1 = (0.0617199274990318432 + 0.00122997494503375485j)   signed diff (7.17e-80 - 5.27e-82j)
+complex four-holed sphere (9 + i, 11 - 0.5i): gap law vs energy principle, worst 2.72e-63
+   sum p g = (0.200277161494907636 - 0.0216194970484274114j)   F(e1) - log K0 = (0.200277161494907636 - 0.0216194970484274114j)   signed diff (1.08e-78 + 3.78e-79j)
+   sum q g = (0.196145541660870593 - 0.0172585117371422031j)   F(e0) - log K1 = (0.196145541660870593 - 0.0172585117371422031j)   signed diff (3.39e-78 - 3.05e-79j)

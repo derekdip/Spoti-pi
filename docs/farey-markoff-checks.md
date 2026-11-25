@@ -371,3 +371,79 @@ torus case is known (Hines; Gaster; O'Sullivan eq. 4.10, Thm 9.14), so the
 sphere version is the natural generalisation. Its most likely home is
 Hu–Tan–Zhang or later work on Coxeter actions on quartic varieties; check
 that before calling it new.
+
+## Generalisation: one principle for every Vieta tree, and a vector Hines identity (2026-11-25)
+
+Script `poc/farey/general.py`, output `poc/farey/general.log` (80 digits).
+
+The setting is any cubic X² + Y² + Z² − XYZ + pX + qY + rZ + s = 0, with real
+or complex coefficients. The one-holed torus is the case p = q = r = 0 with
+s = −μ. The four-holed sphere has the Fricke coefficients. Cantat–Loray show
+that every real or complex (p, q, r, s) arises as a four-holed-sphere
+character variety, so this family is the general one.
+
+**Energy principle (proved; it is a short computation).**
+
+- Fix a curve m with trace c. The traces t_k of the curves L + k·m, for k in
+  ℤ, satisfy a linear recurrence: t_{k+1} + t_{k−1} = c·t_k − κ_{k+1}. The
+  forcing κ alternates between the parity classes of L and R.
+- Subtract the period-2 particular solution, giving w_k. Then the quantity
+  I = w_k² + w_{k+1}² − c·w_k·w_{k+1} is the same at every k.
+- Writing w_k = Kλ^k + K′λ^{−k} gives I = −(c² − 4)·K·K′.
+- The two ends of this bi-infinite fan are the two fans k·m + L and k·m − L.
+  So the gap is
+
+      g_m = log K + log K′ = log( −I / (c² − 4) ).
+
+The cubic, evaluated at the cell, gives I. That is the only place the surface
+enters, and it produces the torus law and the four-holed-sphere law as special
+cases. Numerically the closed-form gap law agrees with the energy computation
+to 10⁻⁶³ or better in every case.
+
+**Vector Hines identity.**
+
+- On the cone between e₀ and e₁, the gradient of the stable norm N jumps by
+  g_m·(−q, p) at each rational m = (p, q).
+- The one-sided gradients at the cone's edges come from the end fans:
+  ∇N(e₀⁺) = (F(e₀), log K₀) and ∇N(e₁⁻) = (log K₁, F(e₁)).
+- Summing the jumps therefore gives two separate identities:
+
+      Σ p·g_m = F(e₁) − log K₀,
+      Σ q·g_m = F(e₀) − log K₁.
+
+Their sum is the Hines-type identity (for the torus, Hines / O'Sullivan
+Thm 9.14). On symmetric surfaces the two halves are equal, so the split
+carries no new information there. On asymmetric surfaces the halves differ
+and each is a separate identity.
+
+The proof is complete, apart from the claim that the second-derivative
+measure of N is purely atomic at the rationals. That claim is what makes
+"sum of jumps = total change" exact. The numbers below are consistent with it
+everywhere.
+
+| Case | Σ p·g error | Σ q·g error |
+|---|---|---|
+| Modular torus (3, 3) | 5e−76 | 5e−76 |
+| Punctured torus (2.6, 4.1) | 2e−78 | 2e−78 |
+| One-holed torus μ = −7 | 6e−79 | 2e−79 |
+| Torus with cone point μ = 1.5 | 9e−79 | 7e−80 |
+| Four-holed sphere (2.5, 2.2, 3.0, 2.1) | 1e−79 | 1e−79 |
+| Quasi-Fuchsian torus (3 + 0.4i, 3.2 − 0.3i) | 7e−80 | 2e−78 |
+| Arbitrary real cubic (1.3, −0.7, 2.9, 5.1) | 3e−79 | 8e−79 |
+| Arbitrary complex cubic | 1e−78 | 7e−80 |
+| Complex four-holed sphere | 1e−78 | 3e−78 |
+
+The complex cases use principal branches near the real locus. The tree sums
+converge because each start point lies in Bowditch's Q-condition region,
+where traces grow along every path of the tree. That convergence condition is
+the natural boundary for these identities.
+
+An earlier run left a constant 2·10⁻²⁰ residual on the generic sphere, with
+equal errors in the two components. It came from passing the boundary traces
+as double-precision floats. With exact inputs the residual is gone.
+
+**Literature status.** The torus Hines identity is known. The vector
+(two-component) split was not seen in O'Sullivan, Hines or Gaster as checked
+earlier, and the energy formulation was not seen in any of these sources. The
+extension to the general cubic, including complex coefficients, was not found
+either. Same caveat as above: Hu–Tan–Zhang still needs checking.
