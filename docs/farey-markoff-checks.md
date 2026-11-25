@@ -1124,3 +1124,73 @@ which is not linear, so no telescoping applies. The negative PSLQ result fits
 that: A* behaves like a genuinely new constant of the modular torus. It is not
 proved to be new, only shown not to be a small combination of these
 constants.
+
+## Extremal properties over the moduli space of cusped tori (2026-11-25)
+
+Script `poc/farey/moduli_mahler.py`, output `poc/farey/moduli_mahler.log`
+(40 digits; tail 10⁻³⁰).
+
+**Quantities.** All three are invariant under change of homology basis (SL₂(Z)):
+
+- Area(B), the area of the stable-norm ball;
+- Area(B*) = Σ g·N, the dual area;
+- the Mahler volume Area(B)·Area(B*).
+
+The Mahler volume is also affine-invariant. For centrally symmetric planar
+bodies it lies between 8 (parallelograms) and π² (ellipses).
+
+**Domain.** The fundamental domain of Markoff triples a² + b² + c² = abc is
+
+    2 < a ≤ 3,   max(a, 2a/√(a² − 4)) ≤ b ≤ a/√(a − 2),
+
+with c the smaller Vieta root. I sampled 466 points, plus both boundary edges.
+
+**Results.**
+
+| Quantity | Extremum at the modular torus (3, 3, 3) | Opposite extreme among the 466 points |
+|---|---|---|
+| Area(B) | minimum, 3.567213 | 6.538 at (2.02, 14.25, 14.39) |
+| Area(B*) | maximum, 2.697090 | 1.391 at (2.02, 14.25, 14.39) |
+| Mahler volume | maximum, 9.621093 = 0.97482π² | 9.093 at (2.02, 14.25, 14.39) |
+
+The opposite extremes all sit at the sample point nearest a → 2.
+
+- **Square torus** (2√2, 2√2, 4): Area(B) = 3.578123, Area(B*) = 2.687102,
+  Mahler volume 9.614781 = 0.97418π². That is below the modular torus.
+- **Along the edge b = a**, from the modular point to the square point: all
+  three quantities are monotone. The Mahler volume falls from 9.621093 to
+  9.614781. Near the modular point the change is quadratic: −7·10⁻⁵ at
+  Δa = 0.02 and −4.5·10⁻⁴ at Δa = 0.05. So this is a smooth extremum at the
+  hexagonal orbifold point, not a corner of the sampling. The other edge,
+  b = a/√(a − 2), behaves the same way.
+- **Degeneration a → 2** (a geodesic pinching):
+
+  | a | Mahler volume |
+  |---|---|
+  | 2.3 | 9.533 |
+  | 2.1 | 9.351 |
+  | 2.03 | 9.152 |
+  | 2.01 | 9.004 |
+  | 2.003 | 8.875 |
+
+  The volume decreases towards 8, the parallelogram value. This is expected:
+  as ℓ(α) → 0, N(p, q) ≈ |i(·, α)|·2 log(1/ℓ_α) + |p|·ℓ_α, which is an
+  ℓ¹-type norm, so the normalised ball tends to a parallelogram.
+
+**Statements, numerical and not proved:**
+
+1. The modular torus minimises the area of the stable-norm ball. This was
+   seen earlier, and is now confirmed on a dense sample.
+2. The modular torus maximises the dual area Σ_γ ℓ_γ log coth(ℓ_γ/2) (times
+   the normalisation). This is Doan–Li–Nguyen's McShane-type sum, so it is a
+   statement about a McShane-type sum over the simple length spectrum.
+3. The modular torus maximises the Mahler volume, at 0.97482π². The infimum
+   over moduli is 8, approached at the boundary and not attained.
+
+The symmetry of the hexagonal point forces it to be a critical point; that it
+is the global extremum is the content of these statements. They sit
+alongside Schmutz Schaller's theorem that the modular torus maximises the
+systole. Statement 2 says the McShane-type sum Σ ℓ log coth(ℓ/2) is largest
+where the spectrum is "most spread out". Literature status: not checked. A
+search on stable-norm extremal problems (Massart and others) is the next step
+before calling these new.

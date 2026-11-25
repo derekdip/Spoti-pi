@@ -13,7 +13,7 @@ F = lambda t: mp.acosh(t / 2)
 
 
 def all_curves(C, s, X, Y, tol=mp.mpf(10)**-125):
-    X, Y = mp.mpf(X), mp.mpf(Y); B = -(X * Y) + C[2]; c0 = X * X + Y * Y + C[0] * X + C[1] * Y + s; d = mp.sqrt(B * B - 4 * c0)
+    X, Y = mp.mpf(X), mp.mpf(Y); B = -(X * Y) + C[2]; c0 = X * X + Y * Y + C[0] * X + C[1] * Y + s; d = mp.sqrt(max(B * B - 4 * c0, 0))   # clamp: a double root (e.g. the square torus) can round slightly negative
     Zs = (-B - d) / 2; W = X * Y - kap((1, 1), C) - Zs
     tr = {(1, 0): X, (0, 1): Y, (0, -1): Y, (1, -1): Zs, (1, 1): W}; out = {(1, 0): X, (0, 1): Y}
     for (e0, e1, opp) in (((1, 0), (0, 1), (1, -1)), ((1, 0), (0, -1), (1, 1))):

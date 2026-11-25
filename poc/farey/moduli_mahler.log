@@ -1,0 +1,26 @@
+466 points of the fundamental domain 2 < a <= 3, max(a, 2a/sqrt(a^2-4)) <= b <= a/sqrt(a-2)
+  Area(B)        min 3.567213 at (a, b, c) = (3.000, 3.000, 3.000);  max 6.538112 at (2.020, 14.248, 14.390)
+  Area(B*)       min 1.390834 at (a, b, c) = (2.020, 14.248, 14.390);  max 2.697090 at (3.000, 3.000, 3.000)
+  Mahler volume  min 9.093429 at (a, b, c) = (2.020, 14.248, 14.390);  max 9.621093 at (3.000, 3.000, 3.000)
+  modular (3, 3, 3): Area(B) = 3.567213, Area(B*) = 2.697090, Mahler = 9.621093 = 0.97482 pi^2
+  square (2.828, 2.828, 4): Area(B) = 3.578123, Area(B*) = 2.687102, Mahler = 9.614781 = 0.97418 pi^2
+  degenerating: a -> 2 (a short geodesic), b at the middle of its range
+    a = 2.3: c = 4.300  Area(B) = 3.7677  Area(B*) = 2.5303  Mahler = 9.53331
+    a = 2.1: c = 6.696  Area(B) = 4.4330  Area(B*) = 2.1093  Mahler = 9.35063
+    a = 2.03: c = 11.750  Area(B) = 5.8515  Area(B*) = 1.5640  Mahler = 9.15209
+    a = 2.01: c = 20.117  Area(B) = 8.0281  Area(B*) = 1.1215  Mahler = 9.00359
+    a = 2.003: c = 36.579  Area(B) = 11.8977  Area(B*) = 0.7460  Mahler = 8.87530
+  along the edge b = a towards the square torus, and along the edge b = a/sqrt(a-2):
+    b = a = 3.0000: c = 3.0000  Area(B) = 3.567213  Area(B*) = 2.697090  Mahler = 9.621093
+    b = a = 2.9800: c = 3.0421  Area(B) = 3.567338  Area(B*) = 2.696975  Mahler = 9.621023
+    b = a = 2.9500: c = 3.1150  Area(B) = 3.568022  Area(B*) = 2.696351  Mahler = 9.620640
+    b = a = 2.9000: c = 3.2765  Area(B) = 3.570627  Area(B*) = 2.693968  Mahler = 9.619154
+    b = a = 2.8500: c = 3.5625  Area(B) = 3.575343  Area(B*) = 2.689649  Mahler = 9.616417
+    b = a = 2.8284: c = 4.0000  Area(B) = 3.578123  Area(B*) = 2.687102  Mahler = 9.614781
+    b = a/sqrt(a-2), a = 3.000: (b, c) = (3.0000, 3.0000)  Area(B) = 3.567213  Area(B*) = 2.697090  Mahler = 9.621093
+    b = a/sqrt(a-2), a = 2.980: (b, c) = (3.0103, 3.0103)  Area(B) = 3.567245  Area(B*) = 2.697061  Mahler = 9.621075
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/moduli_mahler.py", line 47, in <module>
+    r = invariants(a, a / np.sqrt(a - 2)); print(f"    b = a/sqrt(a-2), a = {a:.3f}: (b, c) = ({a / np.sqrt(a - 2):.4f}, {r[0]:.4f})  Area(B) = {r[1]:.6f}  Area(B*) = {r[2]:.6f}  Mahler = {r[3]:.6f}")
+                                                                                                                          ~^^^
+TypeError: 'NoneType' object is not subscriptable
