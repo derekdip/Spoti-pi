@@ -550,3 +550,105 @@ the complete set of linear identities of this kind.
 
 This is a negative result for this basis only; it does not exclude closed
 forms in other constants.
+
+## Number theory: Ghosh–Sarnak surfaces and Rosenberger equations (2026-11-25)
+
+Script `poc/farey/numtheory.py`, output `poc/farey/numtheory.log`. Tree
+recursions run in exact integers; logarithms are taken at 80 digits or more,
+with the precision of the defect test growing with the size of the trace.
+
+### A. Ghosh–Sarnak surfaces x² + y² + z² − xyz = k
+
+- For each k, I took one integer root of the solution tree (traces ≥ 3,
+  growing cone) and followed the integer orbit.
+- The gap at a node of value c is the log of a rational number:
+
+      e^g = (c² − k)/(c² − 4).
+
+- The vector Hines identity becomes an infinite product of rationals over the
+  integer orbit:
+
+      Π_m ((c_m² − k)/(c_m² − 4))^{p_m} = λ(Y)·√(X² − 4) / (W − Y/λ(X)),
+
+  with λ(t) = (t + √(t² − 4))/2. The same holds with p ↔ q and X ↔ Y.
+
+| k | Root (X, Y; opposite) | Gap law vs integer fans | Product rel. error | Defects ≤ 0 (of 3000) | Product^p |
+|---|---|---|---|---|---|
+| −20 | (3, 5; 6) | 2e−78 | 9e−78 | 0 | 1.5110562 |
+| 0 | (3, 3; 3) | 1e−78 | 5e−76 | 0 | 1.2060113 |
+| 4 | (3, 3; 2) | 2e−78 | 5e−78 | 2620 | 1 exactly |
+| 5 | (3, 4; 2) | 3e−78 | 5e−78 | 3000 | 0.9850077 |
+| 8 | (3, 5; 2) | 2e−78 | 1e−77 | 3000 | 0.9660488 |
+| 13 | (3, 6; 2) | 2e−78 | 1e−77 | 3000 | 0.9507270 |
+| 20 | (3, 5; 1) | 3e−78 | 1e−77 | 3000 | 0.8861451 |
+| 52 | (4, 6; 0) | 2e−78 | 1e−77 | 3000 | 0.9016608 |
+| 100 | (6, 8; 0) | 5e−78 | 1e−77 | 3000 | 0.9551530 |
+
+For k = −5, −1, 1, 2 and 3 there is no growing integer root with
+3 ≤ X ≤ Y < 60.
+
+**Reading.**
+
+- **The gap law and both product identities hold for every k.** That
+  includes k > 4, where no hyperbolic torus lies behind the equation (the
+  commutator trace k − 2 is greater than 2). They are statements about the
+  Vieta tree, not about geometry.
+- **Geometry shows up in the sign.**
+  - For k < 4 the gaps are positive and every defect is positive: the
+    "norm" is convex, as for a hyperbolic surface.
+  - At k = 4 every gap is 0 and the norm is linear. This is the reducible
+    (abelian) case, and the product is exactly 1.
+  - For k > 4 every gap is negative and every defect is negative: the norm
+    is concave at every rational, and the product is less than 1.
+- So a single sign, of k − 4, separates "comes from a hyperbolic surface"
+  from "does not", while the identities themselves do not care.
+- An earlier run showed 829 non-positive defects at k = −20. That was
+  precision: D ~ 1/c² falls below 80-digit resolution once traces pass about
+  10⁴⁰. It disappears with adaptive precision.
+
+### B. Rosenberger equations ax² + by² + cz² = dxyz
+
+**Rescaling.** Setting T_i = d·x_i·√(a_i)/√(abc) turns any such equation into
+the Markoff equation T₁² + T₂² + T₃² = T₁T₂T₃. So every one is a
+punctured-torus character, with *rational* squared traces
+T_i² = d²·x_i²·a_i/(abc).
+
+**Search.** I searched a ≤ b ≤ c ≤ 6, d ≤ 12, with solutions below 30, and
+reduced each equation to its minimal triple by descending Vieta moves. This
+gives 97 distinct tori. The modular torus (9, 9, 9) collects 31 equations,
+and (8, 8, 16) collects 24.
+
+**Integer form.** In raw integers, the parity class of a slope is exactly
+which of the three variables the node belongs to. A node of variable i with
+value v has
+
+    e^g = d²v² / (d²v² − 4·a_j·a_k).
+
+**Products over 3000 integer nodes**, identified with mpmath.identify:
+
+| Equation | Root | Π (d²v²/(d²v² − 4a_ja_k))^{p} | Rel. error |
+|---|---|---|---|
+| x² + y² + z² = 3xyz (Markoff) | (1, 1, 1) | (5 + √5)/6 | 5e−76 |
+| x² + y² + 2z² = 4xyz | (1, 1, 1) | 1 + √2/2 | 3e−61 |
+| x² + 2y² + 3z² = 6xyz | (1, 1, 1) | 1 + √6/3 | 1e−60 |
+| x² + y² + 5z² = 5xyz | (1, 2, 1) | 1 + 2√5/5 | 1e−58 |
+
+The last three errors are larger only because of the heap-order truncation;
+the leftover terms are below 10⁻⁵⁸.
+
+**Example.** For Markoff numbers this reads
+
+    Π over the Markoff tree on slopes in (0, 1) of (9m²/(9m² − 4))^{p(m)} = (5 + √5)/6.
+
+Its square, the p + q product, is the known Hines identity in product form.
+The p-half is new information only when the root is asymmetric. Here that is
+x² + 2y² + 3z² = 6xyz, whose root traces are (√6, 2√3, 3√2).
+
+The four equations in the table are, I believe, Rosenberger's distinguished
+list. Their link to the arithmetic once-punctured tori (Takeuchi) is recalled
+from memory and was not checked in this session.
+
+**Literature status.** Ghosh–Sarnak and later work study integer points,
+orbits and local–global failures on these surfaces. I have not seen the
+products above, or the k − 4 sign dichotomy of the norm, in what I have read.
+That literature was not searched in this session.
