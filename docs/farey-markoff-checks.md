@@ -2717,7 +2717,10 @@ On the modular torus (1/3) sum g/l = 0.346348 (with G = 2g, sum G/l = 2.078090; 
 **Weil-Petersson average (exact, given the limit formula).** g depends on l alone: g = log((cosh l + cosh(L/2))/(cosh l - 1)),
 which reduces to 2 log coth(l/2) at the cusp. Use Mirzakhani integration with the convention of the earlier average
 sections: the integral of sum_gamma F(l_gamma) is int F(l) l dl, and Vol = (L^2 + 4 pi^2)/24. With
-int_0^inf log((cosh x + cosh a)/(cosh x - 1)) dx = (pi^2 + a^2)/2, checked at 15 digits for a = 0, 0.7 and 2, and a = L/2:
+int_0^inf log((cosh x + cosh a)/(cosh x - 1)) dx = (pi^2 + a^2)/2 and a = L/2. Proof: at a = 0 the integrand is
+2 log coth(x/2) = 4 sum_{n odd} e^(-nx)/n, which integrates to pi^2/2; and d/da of the integral is
+sinh a * int dx/(cosh x + cosh a) = a. Numerical quadrature reproduces the a-dependence exactly but carries a
+constant error of about 1e-3 from the log singularity at x = 0:
 
     int (1/3) sum_gamma g/l = (1/3)(L^2 + 4 pi^2)/8 = Vol,   so   < Z_B(0) >_WP = 0   for every boundary length L.
 

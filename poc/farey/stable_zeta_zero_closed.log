@@ -2,29 +2,15 @@
   sum G                      = 4.492383103   ratio target/value = 0.077097165
   sum G/l                    = 2.078090278   ratio target/value = 0.16666745
   sum G l                    = 10.78835952   ratio target/value = 0.032104047
-  sum G/l^2                  = 1.016822813   ratio target/value = 0.34061982
-  sum 4/t^2                  = 1.795167502   ratio target/value = 0.19293464
   Area(B*) = sum G l / 2 ?   = 5.394179761   ratio target/value = 0.064208094
   1 - Area*?: Area = 0.891803166, 1-Area/pi*... 
   near hit: sum G/l / 6 = 0.34634838
-Traceback (most recent call last):
-  File "<stdin>", line 5, in <module>
-  File "/usr/local/lib/python3.13/site-packages/mpmath/calculus/quadrature.py", line 746, in quad
-    v, err = rule.summation(f, points[0], prec, epsilon, m, verbose)
-             ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/site-packages/mpmath/calculus/quadrature.py", line 233, in summation
-    result = self.sum_next(f, nodes, degree, prec, results, verbose)
-  File "/usr/local/lib/python3.13/site-packages/mpmath/calculus/quadrature.py", line 308, in sum_next
-    S += self.ctx.fdot((w,f(x)) for (x,w) in nodes)
-         ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/site-packages/mpmath/ctx_mp_python.py", line 938, in fdot
-    for a, b in A:
-                ^
-  File "/usr/local/lib/python3.13/site-packages/mpmath/calculus/quadrature.py", line 308, in <genexpr>
-    S += self.ctx.fdot((w,f(x)) for (x,w) in nodes)
-                          ~^^^
-  File "<stdin>", line 5, in <lambda>
-  File "<string>", line 7, in __div__
-  File "/usr/local/lib/python3.13/site-packages/mpmath/libmp/libmpf.py", line 960, in mpf_div
-    raise ZeroDivisionError
-ZeroDivisionError
+int_0^inf log((cosh x + cosh a)/(cosh x - 1)) dx, a = 0.0: 4.93392702836148   (pi^2 + a^2)/2 = 4.93480220054468
+int_0^inf log((cosh x + cosh a)/(cosh x - 1)) dx, a = 0.7: 5.17892702836148   (pi^2 + a^2)/2 = 5.17980220054468
+int_0^inf log((cosh x + cosh a)/(cosh x - 1)) dx, a = 2.0: 6.93392702836148   (pi^2 + a^2)/2 = 6.93480220054468
+Barnes sum check at s = 3.0: nested 0.0552918020751, Hurwitz form 0.0552918020751
+Barnes sum check at s = 2.5: nested 0.229174407454, Hurwitz form 0.2293983355
+Barnes value at 0 (formula): 0.473253757737; square check -1 + 4/12 = -0.666667 = 8 zeta(-1) = -0.666667
+refined quadrature, a = 0.0: 4.93618315055970897   (pi^2 + a^2)/2 = 4.93480220054467931
+refined quadrature, a = 0.7: 5.18118315055970894   (pi^2 + a^2)/2 = 5.17980220054467928
+refined quadrature, a = 2.0: 6.93618315055970897   (pi^2 + a^2)/2 = 6.93480220054467931
