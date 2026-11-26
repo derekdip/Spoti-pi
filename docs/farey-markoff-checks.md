@@ -3350,3 +3350,42 @@ quadrature error at the cusp.
    - M_X's poles at 1 cancel and the pole at 2 is removed by the factor (s - 2).
    Hadamard's two-constants theorem gives |psi| <= C l^{2 omega(s)} polylog(1/l), so psi = o(1).
 Remaining sketch-level ingredient: the per-cell bound with a single factor 1/min(a, b), as in Theorem 3.
+
+## Is the sharp error the zero sum? Exact explicit formula, variance accounting, and a smoothing test (`smoothed_completeness.log`)
+
+**Explicit formula.** In P(R) = (1/2 pi i) int D(s) R^s ds/s with D = Z_B/(2 zeta), the residues are:
+- s = 2: the main term;
+- each zero rho: c_rho R^rho;
+- s = 0: D(0) = Z_B(0)/(2 zeta(0)) = -Z_B(0) = +0.6537;
+- the trivial zeros: O(R^-2).
+
+So E_P(R) = 0.6537 + sum_rho c_rho R^rho + O(R^-2), with no other source of error, wherever the contour shift is
+justified.
+
+**Variance accounting.** If sum |c_rho|^2 < infinity, then E_P/sqrt R as a function of log R is B^2-almost periodic with
+Fourier series sum c_rho e^{i gamma log R} (Rubinstein-Sarnak, Ng), and its mean square is 2 sum |c_rho|^2. The measured
+mean square is 1.365 and the first 20 zeros carry 0.53, so a complete formula needs about 0.83 from the zeros beyond
+gamma_20. The coefficients decay slowly and 1/|zeta'(rho)|^2 is heavy-tailed, so this is plausible.
+
+**Smoothing test.** A box average of width h in log R multiplies each zero term by sinc(gamma h/2). Applied to the 400
+exact samples and to the 20-zero sum:
+
+| h | none | 0.040 | 0.063 | 0.110 | 0.156 | 0.202 |
+|---|---|---|---|---|---|---|
+| explained by 20 zeros | 30.1% | 76.3% | 80.8% | 83.5% | 83.2% | 80.1% |
+| correlation | 0.55 | 0.875 | 0.900 | 0.914 | 0.912 | 0.896 |
+| rms data / zero sum | 1.168 / 0.678 | 0.693 / 0.636 | 0.618 / 0.583 | 0.493 / 0.468 | 0.402 / 0.379 | 0.321 / 0.303 |
+
+So the 70% the raw 20-zero sum misses is high-frequency content in log R, where the uncomputed zeros sit. The
+remaining 16-20% matches the partially suppressed tail (sinc about -0.2 near gamma = 80-100) and edge effects. There
+is no evidence of a non-zero component.
+
+**Theorem (smoothed explicit formula; given the polynomial vertical growth of Z_B from the cell lemma).** The log-scale
+box smoothing E_{P,h} satisfies
+
+    E_{P,h}(R)/sqrt R = sum_rho c_rho sinc(gamma h/2) R^{i gamma} + O(R^{-1/2}),
+
+with absolute convergence, since |c_rho sinc| << |Z_B(rho)|/(gamma^2 |zeta'(rho)|), plus routine contour shifting with
+polynomial growth; RH is not needed. So the smoothed sharp error is completely the zero sum. The raw sharp count is the
+conditionally convergent limit h -> 0. Its completeness is the analogue of the sharp explicit formula for M(x), known
+only under RH plus simple zeros with chosen truncation heights (Titchmarsh 14.27).
