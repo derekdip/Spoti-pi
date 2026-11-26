@@ -3019,3 +3019,31 @@ In Markov terms, M(x) - C log^2(3x) is not O((log x)^(1/2 - eps)). This is the m
 conjecture (log x)^(1/2 + eps); Risager's upper bound is o(log x). The same holds on every once-punctured torus with
 Z_X(rho) != 0 for some zero rho. That is all of moduli space outside a proper real-analytic subset, since Z_X(rho_1) is
 real-analytic in X and averages to 0 over moduli, so it is not identically zero.
+
+## Making the lower bound airtight, an explicit Omega_+- constant, and the conditional theorem for E_B (2026-11-26)
+
+**Certificate for Z_B(rho_1) != 0** (`poc/farey/certify_rho1.py`).
+- The 261 cells with max N <= 22 are computed with mpmath; the quadrature plus series error totals 3.1e-21.
+- Lambda = |Delta_cell(rho_1)|/delta ranges from 0.018 to 2.69, and Lambda/(a+b)^4 falls from 1.2e-2 to 1.1e-7 across the
+  cells. The envelope K (a+b)^4 with K = 0.0245 (2x margin), together with delta <= 15.24 e^-(N_u+N_w), bounds the tail of
+  cells up to N = 60 by 4.9e-5, and the part beyond 60 by 5e-16.
+- Result: Z_B(rho_1) = 0.645754390276 + 5.96283154319i and |Z_B(rho_1)| >= 5.997696 - 4.9e-5 > 0. The envelope
+  constant is measured; the rotated-ray lemma guarantees a bound of this form.
+
+**Lemma (uniform cell bound, the written form of Step 4).** Write s = sigma + iu, 0 < sigma < 3, and
+Delta_cell = delta Lambda. Subtract d_-2 t^-2 e^{-kappa t}(1 + kappa t), with kappa = 1/(a+b) and using d_-1 = 0; its
+Mellin transform is d_-2 kappa^(2-s) Gamma(s-2)(s-1). Rotate to arg t = pi/2 - eta, eta = 1/(1+|u|). There
+|e^{xt} - 1| >= e^{x q} - 1 with q = r sin eta, |e^{delta t} - 1| <= delta r e^{delta q}, and |t^(s-1)| = r^(sigma-1) e^{-theta u},
+which cancels 1/Gamma's e^{pi |u|/2} growth up to e. Cauchy estimates on |t| = pi/(2c) handle the O(1) remainder near 0.
+Result: |Lambda| <= C(sigma)(1 + |u|)^(sigma+3) P(a, b, 1/min(a, b)).
+
+**Omega_+- with an explicit constant (Ingham).** lim sup E_P(R)/sqrt R >= 2|c_1|(1 - gamma_1/gamma_2) = 0.17516, and
+lim inf <= -0.17516, where c_1 = Z_B(rho_1)/(2 rho_1 zeta'(rho_1)) and |c_1| = 0.26732 (`omega_constant.log`). The
+Landau step uses lambda sqrt R - E_P >= 0, which also excludes zeros off the line, so RH is not assumed; the Fejer kernel
+of width T < gamma_2 isolates rho_1. In Markov terms the error in M(x) is Omega_+-((log x)^(1/2)).
+
+**Theorem (conditional).** If, for all cells with N_u + N_w <= 2 log R + C, the four rotation numbers have
+sum_{q_k <= R} a_{k+1} = O(R^eps), then E_B(R) = O(R^eps log^2 R). The proof combines the cell decomposition,
+Ostrowski's bound for each Hardy-Littlewood sum, the O(log^2 R) relevant cells, and the fact that each lattice point
+crosses level R in at most one cell. Numerically (`ostrowski_bound.py`): the largest partial quotient in range stays
+496 up to R = 2e6, and the bound grows like log^2 R, from 6.1e4 to 2.0e5, against a measured max |E_B| of 99 to 841.

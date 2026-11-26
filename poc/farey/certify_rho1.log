@@ -1,0 +1,11 @@
+cells: 261 computed (max N <= 22), 1704 in the tail up to N = 60
+Lambda = |Delta|/delta over computed cells: min 1.823e-02, max 2.690e+00; envelope Lambda <= K (a+b)^4 with K = 2.450e-02 (2x margin)
+   a+b in ( 0,  8]: max Lambda/(a+b)^4 = 1.225e-02 (15 cells)
+   a+b in ( 8, 14]: max Lambda/(a+b)^4 = 8.962e-05 (36 cells)
+   a+b in (14, 20]: max Lambda/(a+b)^4 = 6.072e-06 (54 cells)
+   a+b in (20, 30]: max Lambda/(a+b)^4 = 1.150e-06 (96 cells)
+   a+b in (30, 50]: max Lambda/(a+b)^4 = 1.054e-07 (60 cells)
+
+Z_B(rho_1) = (0.645754390276 + 5.96283154319j)
+quadrature + series error bound: 3.09e-21;  tail bound (cells with max N in (22, 60]): 4.87e-05;  beyond 60: 5.13e-16
+certified: |Z_B(rho_1)| >= 5.997696 - 4.87e-05 > 0

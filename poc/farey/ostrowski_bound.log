@@ -1,0 +1,7 @@
+window up to R =     2000: measured max|E_B|   99 | Ostrowski-type bound     60594 | relevant cells 156 | largest quotient in range 496
+window up to R =     6000: measured max|E_B|  211 | Ostrowski-type bound     77004 | relevant cells 180 | largest quotient in range 496
+window up to R =    20000: measured max|E_B|  482 | Ostrowski-type bound     95088 | relevant cells 216 | largest quotient in range 496
+window up to R =    60000: measured max|E_B|  841 | Ostrowski-type bound    114126 | relevant cells 258 | largest quotient in range 496
+window up to R =   200000: measured max|E_B|  598 | Ostrowski-type bound    140268 | relevant cells 294 | largest quotient in range 496
+window up to R =   600000: measured max|E_B|  839 | Ostrowski-type bound    179904 | relevant cells 348 | largest quotient in range 496
+window up to R =  2000000: measured max|E_B|  758 | Ostrowski-type bound    204936 | relevant cells 390 | largest quotient in range 496
