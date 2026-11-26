@@ -2218,3 +2218,63 @@ volumes.
 without the integral. No simple relation to V_{g,n}'s own coefficients was
 found; the boundary-divisor bubbling gives no string-equation-type identity
 for general a, b.
+
+## The large-genus limit: exactly 2·φ(L_i)·φ(L_j) (2026-11-26)
+
+Scripts `poc/farey/genus_profile.py` and `poc/farey/genus_limit.py`, with
+logs.
+
+**What sets the limit.** Write V_{g,1}(x) = Σ c_k x^{2k} and
+r_k = c_k·2^{2k}·(2k+1)!/c₀ = [τ_k]_{g,1}/V_{g,1}. These are Mirzakhani–
+Zograf's normalised intersection numbers; r_k = 1 for all k exactly when
+V_{g,1}(x) = V(0)·sinh(x/2)/(x/2). The per-pair cusped average is
+
+    a_g = 16·V_{g,1}(0)·Σ_k (2k+2)·r_k·ζ-factor / V_{g,2}(0).
+
+**The exact profile is not flat.** For g = 4: r₁ = 0.982, r₂ = 0.930,
+r₃ = 0.811, r₄ = 0.643, r₅ = 0.454, r₆ = 0.278, r₇ = 0.142. It collapses
+roughly in x = k²/g. If r_k were ≡ 1, the sum would diverge.
+
+**Profile from Mirzakhani–Zograf** (arXiv 1112.1151, Thm 3.2 and eq. 3.7):
+
+    [τ_{k+1}]_{g,1} / [τ_k]_{g,1} = 1 − (2k − ½)/(π²g) + O(1/g²).
+
+Multiplying up gives r_k → exp(−(k² − 3k/2)/(π²g)), so the limiting profile
+is r(x) = e^{−x/π²}. Higher-order terms contribute k³/g² ~ x^{3/2}/√g → 0.
+
+**The limit.** With V_{g,2}(0) ≈ 4π²(2g−1)·V_{g,1}(0) and
+∫2k·e^{−k²/(π²g)} dk = π²g:
+
+    lim_{g→∞} a_g = 2   (= 2/π² · π² = 0.20264 π²).
+
+The "+2" in the weight and the finite-g profile give corrections of order
+1/√g, so convergence is slow. Exact data for g = 1, …, 5 fitted to
+a + b/√g + c/g gives a = 0.20198π² = 1.9934, within 0.3% of 2. A fit
+a + b/g gave 0.214π², which was the wrong model.
+
+**With boundaries (conjecture).** For large x the pants factor is
+f ≈ 2·cosh(L_i/2)·cosh(L_j/2)·e^{−x/2}, and the volumes carry sinh(L/2)/(L/2).
+So
+
+    lim_{g→∞} ⟨F_ij⟩(L) = 2·φ(L_i)·φ(L_j),   φ(L) = (L/2)·coth(L/2).
+
+**Test.** R_g(L) = [F_{g,2}(L)/V_{g,2}(L)] / [2φ(L₁)φ(L₂)], from exact
+polynomials:
+
+| g | L = (0, 0) | (1, 1) | (2, 0.5) | (3, 3) |
+|---|---|---|---|---|
+| 1 | 1.20628 | 1.19134 | 1.18376 | 1.11600 |
+| 2 | 1.17469 | 1.16913 | 1.16630 | 1.13972 |
+| 3 | 1.14839 | 1.14496 | 1.14318 | 1.12648 |
+| 4 | 1.13093 | 1.12844 | 1.12713 | 1.11486 |
+
+All columns decrease together toward 1. The φφ factor (a 2.75× change at
+(3, 3)) is matched to within 1.5% at g = 4.
+
+**Small check at n = 3.** The per-pair values at (1, 3) and (2, 3) are
+0.2043π² = 2.016 and 0.2040π² = 2.013, already close to 2.
+
+**Status.** The limit 2 follows from Mirzakhani–Zograf's profile, granted
+that their O(1/g²) error is uniform enough in k (k up to about √g) to pass
+to the integral. That uniformity is the step to prove. The boundary formula
+is a conjecture supported by the table above.
