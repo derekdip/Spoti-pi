@@ -2726,3 +2726,46 @@ constant error of about 1e-3 from the log singularity at x = 0:
 
 Individual surfaces sit below the average: Z_B(0) = -0.654 on the modular torus. This is the same pattern as the pi^2
 product law.
+
+## Z_B at the negative integers: Barnes cone sums, trivial zeros at odd -m, and Farey-cell sums (`poc/farey/stable_zeta_negative.py`)
+
+**Exact for polygon norms** with corners on lattice rays, refined to a unimodular fan. With zeta_2 the Barnes double zeta,
+
+    Z_N(-m) = sum_cones T_m(N_i, N_(i+1)),   T_m(a,b) = zeta_2(-m; a+b | a, b) + zeta(-m)(a^m + b^m)/2,
+
+and zeta_2(-m; w1+w2 | w1, w2) = m!/(m+2)! B_{2,m+2}, read off from t^2/((1 - e^(-w1 t))(1 - e^(-w2 t))). Symbolically (sympy):
+
+| m | zeta_2(-m; w1+w2 \| w1, w2) | per-cone T_m |
+|---|---|---|
+| 0 | (w1^2 + 3 w1 w2 + w2^2)/(12 w1 w2) | (w1^2 - 3 w1 w2 + w2^2)/(12 w1 w2) |
+| 1 | (w1 + w2)/24 | 0 |
+| 2 | -(w1^4 - 5 w1^2 w2^2 + w2^4)/(360 w1 w2) | the same |
+| 3 | -(w1 + w2)(w1^2 - w1 w2 + w2^2)/240 | 0 |
+| 4 | (w1^2 + w2^2)(2 w1^4 - 9 w1^2 w2^2 + 2 w2^4)/(2520 w1 w2) | the same |
+| 5 | (w1 + w2)(w1^4 - w1^3 w2 + w1^2 w2^2 - w1 w2^3 + w2^4)/504 | 0 |
+
+- **Trivial zeros at the negative odd integers.** Z_N(-1) = Z_N(-3) = Z_N(-5) = 0 for every polygon norm. Quadratic forms
+  vanish at every negative integer; here the even values are generally nonzero.
+- **Square check.** It has 8 rays of norm 1, so Z(-2) = 8 T_2(1,1) = 1/15 = 8 zeta(-3).
+- **Refinement invariance.** Inserting a ray where N stays linear leaves the cone sum unchanged. Checked by hand for T_2.
+
+**For the stable norm.** Start from the root hexagon (e0, e0+e1, e1 and their negatives, all of length l3). Insert the
+mediant corner of each Farey cell (u, w) with c = N(u + w) <= N(u) + N(w). The polygons B_T increase to B, and
+
+    Z_B(-m) = 6 T_m(l3, l3) + 2 sum_{Farey cells} [T_m(a, c) + T_m(c, b) - T_m(a, b)],   a = N(u), b = N(w), c = N(mediant).
+
+These are cell sums over Markoff triples, like the McShane cell recursion. The atoms are exponentially small in depth;
+cutting at N <= 35 or N <= 45 agrees to 1e-12. Results against the theta expansion
+Theta(eps) - 1 = 2 Area/eps^2 + sum_n Z(-n)(-eps)^n/n!, fitted with degree 5 on eps in [0.025, 0.4]:
+
+| | Farey-cell Barnes sum | theta fit |
+|---|---|---|
+| Z_B(0) | -0.653651620281668 | -0.653652 |
+| Z_B(-1) | 0 | -0.000007 |
+| Z_B(-2) | 0.387555229910911 | 0.387172 (limited by the fit) |
+| Z_B(-3) | 0 | -0.014 (fit noise) |
+| Z_B(-4) | -2.116651789288 | |
+
+The cell sum for Z_B(0) also equals the toric formula -1 + (1/3) sum g/l = -0.653652. The theta function is computed
+directly from B's lattice, so this agreement confirms the polygon-to-B limit numerically at m = 0 and m = 2. A proof is
+still open.
