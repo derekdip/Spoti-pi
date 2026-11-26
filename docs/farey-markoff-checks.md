@@ -3051,3 +3051,36 @@ crosses level R in at most one cell. Numerically (`ostrowski_bound.py`): the lar
 **Moduli average of Z_B(-2)** (`wp_zeta_neg.py`, L = 0, 40 x 16 nodes): the integral is -0.000658 and the average
 -0.00040. For scale, Z_B(-2) is 0.39 on the modular torus and about -1.5e4 near the moduli cusp. This confirms
 <Z_B(s)> = 0 off the strip 1 < Re s < 2, where it is proved. The m = 4 and L = 2 runs continue.
+
+## Certificate without fitted constants, and the cusp lemma for <Z_B(s)> = 0 (2026-11-26)
+
+**Fully explicit certificate** (`poc/farey/certify_rho1_rigorous.py`). Every tail cell gets the explicit rotated-ray
+bound. That bound uses:
+- G = D - d_-2 t^-2 e^{-kappa t}(1 + kappa t), kappa = 1/(a+b), on the ray arg t = pi/2 - eta, eta = 1/(1 + gamma_1);
+- the maximum principle on |t| <= pi/c, with |e^z - 1| >= m0 |z| for |z| <= pi and m0 = 0.304554 (minimum modulus);
+- |e^{xt} - 1| >= e^{xq} - 1 beyond that;
+- the exact Mellin term d_-2 kappa^(2-s) Gamma(s-2)(s-1);
+- delta <= 15.24 e^{-(a+b)} wherever delta underflows; the bound is increasing in delta.
+
+It dominates all 120 checked computed cells, by factors of 150 to 3500 with no violations. The tail is <= 2.54e-7 for
+cells with max N in (22, 60]. Beyond 60, the explicit bounds' envelope 1.49e-8 (a+b)^6 delta times the cell count
+(S+1)^2 per unit of a+b gives 1.3e-18. Hence **|Z_B(rho_1)| >= 5.997696 - 2.6e-7**, with no fitted constant.
+
+**Lemma M (cusp asymptotics; numerical evidence and proof sketch).** As a simple curve alpha shrinks (length l -> 0),
+
+    Z_X(-m) = 2 zeta(-m) l^m + (1/l) P_m(log(1/l)) + o(1/l),   P_m a polynomial of degree about m + 1,
+
+independent of the twist (`cusp_asymptotics.log`). For m = 0 this is exact from the toric formula:
+P_0 = (2/3)(log(1/l) + log 2). At l = 0.00625 the measured l(Z + 1) is 3.8456, against 3.8456 predicted. For m = 2 the
+third differences are constant, giving a cubic with leading coefficient about -0.09; m = 4 is about degree 5.
+
+Proof sketch. Root the cell decomposition at a triangle containing alpha. The chain cells (alpha, k alpha + beta)
+satisfy delta <= l_alpha (measured delta/(2 l) <= 0.5); this cancels the single 1/min(a, b) factor in the rotated-ray
+bound. There are about log(1/l)/l chain cells with non-negligible delta. All other cells satisfy
+delta <= 16.4 e^{-(a+b)}/l_alpha (measured H l_alpha <= 16.4 at l = 0.1 and 0.01), and their lengths are at least
+about 2 log(1/l). Summing gives (1/l) polylog.
+
+Consequence. For Re s < 2 the term 2 zeta(s) l^-s is integrable against the moduli measure (about l dl), and so is
+(1/l) polylog. So Z_X(s) is locally uniformly integrable over moduli on Re s < 2, and the average <Z_B(s)> is analytic
+there. It vanishes on 1 < Re s < 2, so it vanishes on all of Re s < 2: at the negative integers, at s = 0, and at every
+zero rho. The direct checks agree: the average is 0.00014 at s = 0 and -0.0004 at s = -2.

@@ -1,0 +1,5 @@
+m0 = min_{|z|=pi} |(e^z-1)/z| = 0.304554  (minimum modulus principle: also the min over the disk)
+bound / |Delta| over 120 computed cells: min 153.71, median 453.7, max 3490.5; violations 0
+envelope beyond 60: bound/delta_up <= 1.490e-08 (a+b)^6 on cells with a+b > 40
+rigorous tail bound: cells with max N in (22, 60]: 2.538e-07; beyond 60 (envelope from the explicit bounds): 1.311e-18
+certified: |Z_B(rho_1)| >= 5.997696 - 2.54e-07
