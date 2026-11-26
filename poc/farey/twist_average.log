@@ -1,0 +1,4 @@
+traces at tau=0: alpha 3.000000, beta 2.683282, alpha*beta 4.024922
+pairs used: 2290, q up to 92
+q = 7: r-dependence of min length: 11.943248..12.410806; of the Riesz integral at R=100: rel. spread 1.28e-03
+q = 20: r-dependence of min length: 32.956252..35.426312; of the Riesz integral at R=100: rel. spread 2.47e-02

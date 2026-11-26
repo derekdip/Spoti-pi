@@ -2546,3 +2546,46 @@ Z_B(s) = Area s/(s-2) + s int E_B R^(-s-1) dR does not continue past Re s = 1/2.
 zeta, of size R^(1/2), stay entangled with the geometric error for this single surface. Separating them would need
 averaging that kills E_B but not the Moebius tail. The full Weil-Petersson average kills both: Mirzakhani integration
 makes the averaged count exactly quadratic, and the Moebius sum then closes with no tail.
+
+## Partial (twist) average: an exact arithmetic core, but the tips keep a lattice problem (`poc/farey/twist_*.py`)
+
+**Unfolding (exact).** In Fenchel-Nielsen coordinates (a, tau) for a curve alpha, the full Dehn twist maps the class
+(r, q) to (r + q, q). For any weight w, the twist average of sum_gamma w(l_gamma) therefore equals
+
+    w(a) + (1/a) sum_{q>=1} sum_{r in (Z/q)^*} int_R w(l_{r,q}(tau)) dtau,
+
+a one-dimensional sum over q. Here w is the Riesz weight (R - l)_+.
+
+**V-profile (exact asymptotics, 40 digits).** On the cusped torus with alpha = e0 (trace 3), every class satisfies
+
+    l_{r,q}(tau) = q |tau - tau0(r,q)| + q log(9/5) + o(1)   as |tau| -> infinity.
+
+- The slopes are exactly +-q.
+- tau0 is linear in r/q.
+- The height is exactly q times the gap law of alpha, log(t^2/(t^2 - 4)) at t = 3, for every r.
+
+This was checked for all r at q = 1, 2, 3, 5, 7, 8, 13. So the wings contribute the arithmetic core
+
+    (g^2/a) sum_{q<=X} (phi(q)/q)(X - q)^2,   X = R/g,
+
+whose explicit formula is (g^2/a)[2X^3/pi^2 - X/3 + sum_rho 2 zeta(rho-1) X^(rho+1) / ((rho-1) rho (rho+1) zeta'(rho))].
+This was verified against the direct sum with 100 zeros to 1e-3 or better for R from 30 to 400. The first zero's
+coefficient is 1.09e-3.
+
+**What the numerics show (2290 classes, R <= 150).**
+- The twist average cuts the residual against a cubic from 23.5 (single modular torus) to 3.56, a factor of 7.
+- The residual still grows like R^(3/2): 5.2e-3, 5.8e-3 and 3.5e-3 times R^1.5 on three ranges. The core's zero terms are
+  5 to 7 times smaller throughout.
+- Fitting the predicted Z(R) gives a meaningless beta = -3. A free fit at gamma_1 has the wrong amplitude and phase.
+
+The obstruction is at the tips. min over tau of l_{r,q} is about 1.73 q, far above the asymptotic height 0.588 q, and
+it depends on r/q: its spread is 0.04 q at q = 5 and 0.15 q at q = 60, converging to a limit profile mu(r/q). So
+counting tips is again a 2D lattice problem, the points (r, q) with q mu(r/q) <= R, and its error has the same order
+R^(kappa + 1/2) as the zero terms for every Riesz order kappa.
+
+**Verdict.** Averaging over twists alone isolates an exact zeta core, which is the gap law appearing as the V-height,
+but it does not yet expose the zeros: on the modular torus the tip lattice error is several times larger at every
+scale. The next candidate is a local 2D average: uniform in tau, plus a smooth bump in a away from 0. The bump damps the
+tip lattice error by averaging over dilations. The core's zero terms only acquire the factor int bump(a) g(a)^-(rho+1) da,
+which is nonzero for the low zeros. The systole stays bounded, so the Moebius tail survives, unlike the full
+Weil-Petersson average.

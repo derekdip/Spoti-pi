@@ -1,0 +1,17 @@
+first zero coefficient |2 zeta(rho-1)/((rho-1)rho(rho+1)zeta'(rho))| = 1.0868e-03
+
+(1) arithmetic core vs explicit formula (100 zeros):
+   R =     30: core - smooth = -0.076357   zero sum = -0.075673   difference -6.84e-04   (R^1.5 = 164)
+   R =     60: core - smooth =  0.261711   zero sum =  0.262651   difference -9.40e-04   (R^1.5 = 465)
+   R =    100: core - smooth = -0.305868   zero sum = -0.299605   difference -6.26e-03   (R^1.5 = 1000)
+   R =    150: core - smooth =  0.215557   zero sum =  0.198465   difference  1.71e-02   (R^1.5 = 1837)
+   R =    400: core - smooth = -9.044939   zero sum = -9.044686   difference -2.53e-04   (R^1.5 = 8000)
+   R =   1000: core - smooth = -35.967114   zero sum = -35.722498   difference -2.45e-01   (R^1.5 = 31623)
+
+(2) hyperbolic twist average F(R), R in [20, 150]:
+   residual rms: cubic 3.5568 | cubic + beta Z(R) 3.0492 with beta = -3.0105 | cubic + free g1 term 2.0740
+   g1 component, as R^1.5 (A cos(g1 log R) + B sin): fit amplitude 4.627e-03 phase -2.377; predicted 8.657e-04 phase -0.136
+   F = cubic + kappa * core: kappa = -3.011566, residual rms 3.0485
+   residual (cubic fit) rms on [ 20, 50): 0.882   /R^1.5: 5.21e-03   /R: 2.84e-02   core zero-sum rms there: 0.125
+   residual (cubic fit) rms on [ 50, 90): 3.146   /R^1.5: 5.75e-03   /R: 4.64e-02   core zero-sum rms there: 0.401
+   residual (cubic fit) rms on [ 90,150): 4.279   /R^1.5: 3.54e-03   /R: 3.74e-02   core zero-sum rms there: 0.934

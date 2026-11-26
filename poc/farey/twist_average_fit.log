@@ -1,0 +1,16 @@
+
+twist-averaged count <sum (R - l)_+>_tau: rms residual after cubic only: 3.5568;  residual/R^1.5 rms 4.98e-03
+   + zeta zeros g1..g3    rms residual 1.8763 (52.8% of cubic-only); amplitudes 5.56e-03 1.95e-03 3.91e-04
+   + zeta zeros g1..g6    rms residual 0.8208 (23.1% of cubic-only); amplitudes 6.82e-03 3.30e-03 2.29e-03 7.07e-04 9.85e-04 2.07e-03
+   + fake  x0.83          rms residual 1.9684 (55.3% of cubic-only); amplitudes 3.95e-03 4.44e-03 2.63e-03
+   + fake  x1.21          rms residual 2.4712 (69.5% of cubic-only); amplitudes 3.62e-03 1.34e-03 1.27e-03
+   + fake  10,17,23       rms residual 2.1425 (60.2% of cubic-only); amplitudes 3.06e-03 4.37e-03 2.35e-03
+   single-frequency scan: best frequencies 13.80 12.25 15.35 10.70  (zeta zeros 14.13 21.02 25.01 30.42)
+
+single modular torus sum (R - l)_+: rms residual after cubic only: 23.5272;  residual/R^1.5 rms 3.70e-02
+   + zeta zeros g1..g3    rms residual 13.1888 (56.1% of cubic-only); amplitudes 3.60e-02 7.71e-03 7.54e-03
+   + zeta zeros g1..g6    rms residual 5.3882 (22.9% of cubic-only); amplitudes 3.69e-02 1.81e-02 1.83e-02 9.07e-03 1.36e-02 1.05e-02
+   + fake  x0.83          rms residual 14.7263 (62.6% of cubic-only); amplitudes 2.43e-02 2.44e-02 1.20e-02
+   + fake  x1.21          rms residual 13.3803 (56.9% of cubic-only); amplitudes 2.99e-02 8.94e-03 2.27e-02
+   + fake  10,17,23       rms residual 15.6786 (66.6% of cubic-only); amplitudes 1.95e-02 2.56e-02 1.08e-02
+   single-frequency scan: best frequencies 14.15 12.60 15.70 11.05  (zeta zeros 14.13 21.02 25.01 30.42)
