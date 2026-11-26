@@ -3047,3 +3047,7 @@ sum_{q_k <= R} a_{k+1} = O(R^eps), then E_B(R) = O(R^eps log^2 R). The proof com
 Ostrowski's bound for each Hardy-Littlewood sum, the O(log^2 R) relevant cells, and the fact that each lattice point
 crosses level R in at most one cell. Numerically (`ostrowski_bound.py`): the largest partial quotient in range stays
 496 up to R = 2e6, and the bound grows like log^2 R, from 6.1e4 to 2.0e5, against a measured max |E_B| of 99 to 841.
+
+**Moduli average of Z_B(-2)** (`wp_zeta_neg.py`, L = 0, 40 x 16 nodes): the integral is -0.000658 and the average
+-0.00040. For scale, Z_B(-2) is 0.39 on the modular torus and about -1.5e4 near the moduli cusp. This confirms
+<Z_B(s)> = 0 off the strip 1 < Re s < 2, where it is proved. The m = 4 and L = 2 runs continue.
