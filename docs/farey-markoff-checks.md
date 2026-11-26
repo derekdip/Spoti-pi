@@ -3297,3 +3297,41 @@ the mean is 12.5 for k <= 10 and 9.4 for k = 11..20, with fitted exponent -0.44 
 and 20 zeros, explaining 30% of the variance. The 20 zeros carry variance 2 sum |c|^2 = 0.53 against the observed 1.37.
 The remainder would need a long tail of small coefficients (|c| about 0.03 for k = 11..20). This is consistent with an
 all-zero explicit formula but not a demonstration of it.
+
+## Exact cusp asymptotics of Z_X, and the m = 4 average resolved (`poc/farey/cusp_model.py`, `wp_cusp_subtracted.py`)
+
+**Theorem (cusp asymptotics; derivation plus numerics).** As a simple curve alpha shrinks to length l, the fan formula
+t ~ (4/l) cosh(x/2) gives the limiting strip norm N(p alpha + q beta) ~ |q| (W + F(p l/q - tau)), with W = 2 log(4/l)
+and F(y) = 2 log cosh(y/2). Summing over p by Euler-Maclaurin removes the twist tau, which is why the values are
+twist-independent. Hence
+
+    Z_X(s) = 2 zeta(s) l^-s + (2/l) zeta(s-1) I(s, W) + o(1/l),
+    I(s, W) = 2 (W - 2 log 2)^{1-s}/(s-1) + int_R [ (W + F(y))^-s - (W + |y| - 2 log 2)^-s ] dy.
+
+For s = -m, write F = |y| - 2 log 2 + h with h = 2 log(1 + e^-|y|). Then I is a polynomial in L = log(1/l), built from
+the moments int h = pi^2/3, int |y| h = 3 zeta(3), int h^2 = 2 zeta(3), and so on.
+- m = 0: P_0 = (2/3)(L + log 2), exactly the toric-formula result.
+- m = 2: leading coefficient -4/45 = -0.0889 (measured cubic coefficient about -0.09).
+
+Model against cell sums, l (Z(-m) - 2 zeta(-m) l^m), at l = 0.1 ... 0.00625:
+
+| l | 0.1 | 0.05 | 0.025 | 0.0125 | 0.00625 |
+|---|---|---|---|---|---|
+| m = 0 model / cells | 1.9972 / 1.9981 | 2.4593 / 2.4595 | 2.9214 / 2.9214 | 3.3834 / 3.3835 | 3.8455 / 3.8456 |
+| m = 2 | -1.5725 / -1.5707 | -3.4927 / -3.4923 | -6.3581 / -6.3581 | -10.3465 / -10.3465 | -15.6352 / -15.6353 |
+| m = 4 | -20.8127 / -20.8113 | -5.1824 / -5.1740 | 49.6688 / 49.6760 | 175.3713 / 175.3796 | 415.8864 / 415.9086 |
+
+This replaces the proof sketch of Lemma M with an explicit leading term.
+
+**The m = 4 average resolved.** Integrate l >= 0.05 by 2D Gauss (48 x 20; smooth) and l < 0.05 exactly from the model;
+the twist window has width l, checked to 6 digits. Results at L = 0:
+
+| m | smooth part | cusp part | total | average |
+|---|---|---|---|---|
+| 0 | -0.153707 | 0.155046 | 0.00134 | 0.0008 |
+| 2 | 0.469323 | -0.470142 | -0.00082 | -0.0005 |
+| 4 | -12.711576 | 12.715884 | 0.00431 | 0.0026 |
+
+The parts cancel to 3e-4 of their size, the same residual level as the m = 0 and m = 2 controls, whose averages are
+known to be zero; the grid's volume error is 0.13%. So <Z_B(-4)> = 0 within accuracy, and the earlier 0.126 was
+quadrature error at the cusp.

@@ -1,0 +1,4 @@
+twist-window check at small l: width / l = [1.0, 1.0, 1.0]
+m = 0: Vol = 1.642850 (pred 1.644934);  smooth part -0.153707 + cusp part 0.155046 = 0.001339;  average 0.000815
+m = 2: Vol = 1.642850 (pred 1.644934);  smooth part 0.469323 + cusp part -0.470142 = -0.000819;  average -0.000499
+m = 4: Vol = 1.642850 (pred 1.644934);  smooth part -12.711576 + cusp part 12.715884 = 0.004308;  average 0.002622
