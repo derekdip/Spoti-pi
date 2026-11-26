@@ -3639,3 +3639,133 @@ moduli decide their amplitudes.
 
 **Conjecture.** In complexity >= 2 the total simple-geodesic count has no detectable zeta-zero oscillation. The zeros
 are visible exactly through complexity-one subsurfaces.
+
+## The flat/hyperbolic dictionary: Z_B is a hyperbolic Epstein zeta function (2026-11-26)
+
+**Poincare-series form.** Simple closed curves on the once-punctured torus correspond to Gamma_inf\SL2(Z), where
+Gamma_inf is the stabiliser of alpha (Dehn twists). So
+
+    P_s(X) := sum_{gamma simple} l_gamma(X)^-s = sum_{g in Gamma_inf\SL2Z} l_alpha(gX)^-s,
+    Z_B(s; X) = 2 zeta(s) P_s(X).
+
+P_s is a Poincare series on Teichmuller space (= H), invariant under the mapping class group. Its flat counterpart is
+the Eisenstein series. For a unit-area flat torus of modulus z, the length of (m, n) is |mz + n|/sqrt y, and
+
+    Z_flat(s) = sum_{(m,n) != 0} (y/|mz+n|^2)^{s/2} = 2 zeta(s) E(z, s/2)      (Epstein = zeta x Eisenstein).
+
+| Flat torus (classical) | Hyperbolic torus (this project) |
+|---|---|
+| Epstein zeta = 2 zeta(s) E(z, s/2) | Z_B = 2 zeta(s) P_s |
+| E(z, s) has poles at zeros of xi(2s); E* = xi(2s) E is entire except at 0, 1 | P_s has poles at the zeta zeros rho with residue Z_B(rho)/(2 zeta'(rho)); Z_B is entire except at 2 (Theorem 3, Lemma C) |
+| Constant term y^s + phi(s) y^{1-s}, phi = xi(2s-1)/xi(2s) | Theorem 11: 2 zeta(s) l^-s + (2/l) zeta(s-1) I(s, W) + o(1/l); the hyperbolic collar puts W^{1-s} where the flat case has l^{s-1} |
+| Chowla-Selberg: Poisson in one variable, Fourier terms sigma_{1-2s}(n) K_{s-1/2}(2 pi n y) | Hyperbolic Chowla-Selberg (below): Fourier terms sigma_{1-s}(m) h_m(l, tau) |
+| Siegel mean value: the average lattice count is exactly the volume | Averaged lattice count is exactly zeta(2) t^2 (Theorem 7); this is Mirzakhani's integration formula for M_{1,1} (cut along gamma, V_{0,3} = 1) |
+| Zagier: renormalised int_F E(z, s) dmu = 0 | <Z_B(s)> = 0 on Re s < 2: Mirzakhani gives the formal integral prop. to int_0^inf l^{1-s} dl, which converges nowhere and is 0 after regularisation; the cusp lemma is what makes the moduli integral converge |
+| Primitive points in ellipses: Riemann zeros in the error, amplitude prop. to E*(z, rho/2) | Simple geodesics: amplitude Z_B(rho)/(2 rho zeta'(rho)) |
+| Blind flat tori: zeros of E*(., rho/2) | Blind hyperbolic tori: zeros of Z_B(rho; .) |
+
+Honest attribution: the averaging results (Theorem 7) are Mirzakhani's integration formula plus a convergence argument.
+The new parts are the hyperbolic Chowla-Selberg identity, the continuation (Theorem 3 with Lemma C), and the blind
+surfaces.
+
+**Hyperbolic Chowla-Selberg formula (exact).** Use Fenchel-Nielsen coordinates (l, tau) about alpha, and write
+N(x) = N_X(x alpha + beta) for the stable norm on the line q = 1. Homogeneity gives N(p alpha + q beta) = q N(p/q)
+exactly. Then:
+- Poisson summation over p in each class mod q gives sum_{(p,q)=1} N(p/q)^-s = sum_m c_q(m) h(m), with Ramanujan sums
+  c_q(m) and h(m) = int_R N(x)^-s e^{-2 pi i m x} dx.
+- Ramanujan's identity sum_q c_q(m) q^-s = sigma_{1-s}(m)/zeta(s) then gives
+
+      Z_B(s) = 2 zeta(s) l^-s + 2 zeta(s-1) h(0) + 2 sum_{m != 0} sigma_{1-s}(|m|) h(m).
+
+  This holds for Re s > 2, and by continuation wherever both sides converge.
+
+**Evaluation.** N is the piecewise-linear interpolation of the exact fan lengths
+2 acosh(coth(l/2) cosh((tau + kl)/2)), corrected by the deeper Farey deficiencies, which are about e^{-2W}. Keeping only
+the piecewise-linear part (`cusp_whittaker2.py`), the relative error against the true Z_B is:
+
+| l | rho_1 | rho_4 | rho_10 |
+|---|---|---|---|
+| 0.3 | 3e-4 | 4e-4 | 1.3e-3 |
+| 0.6 | 6e-3 | 9e-3 | 1.7e-2 |
+| 1.0 | 6e-2 | 3e-2 to 2e-1 | 1.2e-1 to 1.7e-1 |
+
+The flat version of the same derivation is the classical Chowla-Selberg formula.
+
+**Blind flat tori** (`flat_blind.py`, `flat_degrees.py`). Zeros of E*(z, rho_k/2) on the half fundamental domain, each
+confirmed by Newton:
+
+| k | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|---|---|---|---|---|---|---|---|---|---|
+| flat zeros | 1 | 3 | 4 | 8 | 7 | 10 | 12 | 11 | 18 |
+| flat signed count = boundary winding | +1 | +1 | 0 | +2 | +1 | +2 | +4 | +3 | +2 |
+| hyperbolic zeros (fine census) | 1 | 3 | 4 | 8 | 7 | ? | ? | ? | ? |
+| hyperbolic boundary winding (adaptive, steps < 0.3 rad) | +1 | +1 | 0 | +2 | -1 | +2 | +1 | -2 | +1 |
+
+The flat zeros all lie below the turning point of the first Fourier mode, y = gamma/(4 pi), up to an Airy tail: y = 1.17
+against 1.12 for k = 1. Their number grows like gamma^2, about gamma^2/150.
+
+**Threshold law, hyperbolic.** The m-th twist harmonic h(m) has stationary points iff gamma l M(W) >= 2 pi m, where
+M(W) = max_u tanh u/(W + 2 log cosh u) and W = 2 log(2 coth(l/2)). Below the m = 1 threshold all harmonics are
+exponentially small apart from twist-independent corner terms, so Z_B is twist-independent and nonzero.
+
+| gamma | predicted m = 1 threshold | smallest blind systole |
+|---|---|---|
+| 14.1 | 1.58 | 1.596 |
+| 30.4 | 0.99 | 0.97 |
+| 49.8 | 0.714 | 0.707 |
+
+At larger gamma the smallest blind systole sits just above the m = 2 threshold instead: 0.599 vs 0.577 at gamma = 133.5,
+0.522 vs 0.498 at gamma = 163. The constant term carries zeta(rho - 1), which grows about like gamma/(2 pi), so a single
+harmonic is no longer enough to cancel it.
+
+The zero counts agree for k = 1..5. The signed counts agree for k = 1-4 and 6, and differ for k = 5, 7, 8, 9. A zero can
+leave the mirror triangle through a mirror edge by merging with its reflection, so the signed count in the triangle is
+not invariant under deformation. The k = 5 hyperbolic boundary path passes within 0.006 of a zero.
+
+For k >= 6 the Newton census does not converge from the coarse cells, so those counts are open.
+
+**Shape coordinates.** The flat zeros and the hyperbolic zeros correspond one to one, in order, for k = 1..5:
+(|z|, |z-1|) for the flat torus against (b/a, c/a) for the hyperbolic sink lengths. The hyperbolic points are
+systematically stretched (`shape_compare.py`).
+
+## The cone-angle deformation: blind hyperbolic tori ARE deformed blind flat tori (`cone_track*.py`, `flat_limit.py`)
+
+**The family.** Hyperbolic tori with one cone point of angle theta have Fricke relation x^2 + y^2 + z^2 - xyz = kappa,
+kappa = 2 - 2 cos(theta/2) in [0, 4), and area A = 2 pi - theta.
+- kappa = 0 is the cusp; kappa < 0 gives geodesic boundary.
+- As kappa -> 4, the surfaces rescaled to unit area tend to flat tori.
+- All the machinery works for kappa < 4, since the sandwich constant K = 16 - 4 kappa > 0.
+
+**Why the limit is flat.** Put t = 2 + A n^2/4, with n the unit-area flat length. Then the Fricke relation becomes, at
+order A^2, Heron's formula: -A^2 T^2 = -(4 - kappa), with T = 1/2 the area of the flat triangle (1, |z|, |z-1|). So
+A = 2 sqrt(4 - kappa), which is exactly Gauss-Bonnet. The Markoff recursion t_m + t_d = t_u t_w becomes the
+parallelogram law n_{u+w}^2 + n_{u-w}^2 = 2 n_u^2 + 2 n_w^2. The Markoff tree degenerates into the Euclidean lattice.
+
+**Values.** A^{rho/2} Z_{B,kappa}(rho) -> 2 pi^{rho/2} E*(z, rho/2)/Gamma(rho/2). At the hexagonal and square points,
+for rho_1 and rho_2, the relative error is 8-13% at A = 0.635, 3.6-5.9% at 0.401 and 1.05-1.7% at 0.200, about
+O(A^1.8). Proof strategy: the hyperbolic Chowla-Selberg expansion converges term by term to the classical one.
+
+**Zeros.** Each blind surface was tracked by continuation in kappa (log-length variables, a guard against jumping
+between zeros, |Z| < 1e-9 at every step), and the shape was extrapolated linearly in A to A = 0:
+
+| zero | kappa = 0 (cusped) | last tracked | extrapolated to A = 0 | flat blind torus |
+|---|---|---|---|---|
+| rho_1 (X*) | (1.2663, 1.4430) | (1.2169, 1.3654) at A = 0.283 | (1.2117, 1.3571) | (1.2117, 1.3571), z = 0.3133 + 1.1705 i |
+| rho_2 a | (1.6768, 1.8226) | (1.5548, 1.6798) at A = 0.571 | (1.5280, 1.6479) | (1.5256, 1.6452), z = 0.3104 + 1.4937 i |
+| rho_2 b | (1.2092, 1.5615) | (1.1762, 1.4797) at A = 0.539 | (1.1691, 1.4625) | (1.1686, 1.4607), z = 0.1160 + 1.1628 i |
+| rho_2 c | (1.1569, 1.2615) | (1.1339, 1.2252) at A = 0.548 | (1.1286, 1.2172) | (1.1284, 1.2164), z = 0.3968 + 1.0563 i |
+
+Every path is smooth and monotone, with no births, deaths or collisions, and each ends on its own flat partner.
+
+**Conclusion (numerical, strong).** The blind hyperbolic surfaces are continuous deformations, through blind cone
+tori, of the zeros of the completed Eisenstein series E*(z, rho/2), which are classical objects. For small k the
+deformation is a bijection. For larger k zeros can enter or leave the triangle through the mirror edges, which accounts
+for the mismatches in signed count.
+
+**Conjectures.**
+1. The flat limit A^{s/2} Z_{B,kappa}(s) -> 2 zeta(s) E(z, s/2) holds locally uniformly in s. This looks provable
+   through the Chowla-Selberg expansions.
+2. The zero set of Z_{B,kappa}(rho; .) over (kappa, moduli) is a union of smooth curves, transverse to each kappa-slice
+   away from the mirror edges, so the number of blind cusped tori equals the number of zeros of E*(., rho/2) up to
+   mirror-edge events.
+3. Both counts are about gamma^2/150 in the half fundamental domain.

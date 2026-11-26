@@ -1,0 +1,24 @@
+rho_1 hexagonal: flat value (-3.398652 - 7.8143113j)
+   kappa 3.00 (area 2.094): A^{rho/2} Z = +1.66332-8.42415j   |diff|/|flat| = 5.983e-01
+   kappa 3.60 (area 1.287): A^{rho/2} Z = -1.20630-8.45046j   |diff|/|flat| = 2.679e-01
+   kappa 3.90 (area 0.635): A^{rho/2} Z = -2.75956-8.06125j   |diff|/|flat| = 8.040e-02
+   kappa 3.96 (area 0.401): A^{rho/2} Z = -3.11439-7.93007j   |diff|/|flat| = 3.602e-02
+   kappa 3.99 (area 0.200): A^{rho/2} Z = -3.31598-7.84871j   |diff|/|flat| = 1.051e-02
+rho_1 square: flat value (-0.20077922 + 7.9151508j)
+   kappa 3.00 (area 2.094): A^{rho/2} Z = -4.70497+6.43713j   |diff|/|flat| = 5.987e-01
+   kappa 3.60 (area 1.287): A^{rho/2} Z = -2.29846+7.58858j   |diff|/|flat| = 2.681e-01
+   kappa 3.90 (area 0.635): A^{rho/2} Z = -0.83649+7.87188j   |diff|/|flat| = 8.048e-02
+   kappa 3.96 (area 0.401): A^{rho/2} Z = -0.48586+7.90093j   |diff|/|flat| = 3.605e-02
+   kappa 3.99 (area 0.200): A^{rho/2} Z = -0.28397+7.91164j   |diff|/|flat| = 1.052e-02
+rho_2 hexagonal: flat value (-8.9608073 - 7.9642287j)
+   kappa 3.00 (area 2.094): A^{rho/2} Z = +1.36225-12.12204j   |diff|/|flat| = 9.283e-01
+   kappa 3.60 (area 1.287): A^{rho/2} Z = -4.84520-11.02088j   |diff|/|flat| = 4.276e-01
+   kappa 3.90 (area 0.635): A^{rho/2} Z = -7.84809-9.05855j   |diff|/|flat| = 1.302e-01
+   kappa 3.96 (area 0.401): A^{rho/2} Z = -8.47566-8.47181j   |diff|/|flat| = 5.857e-02
+   kappa 3.99 (area 0.200): A^{rho/2} Z = -8.82100-8.11553j   |diff|/|flat| = 1.718e-02
+rho_2 square: flat value (-0.52468692 + 5.4535999j)
+   kappa 3.00 (area 2.094): A^{rho/2} Z = -4.76862+2.64062j   |diff|/|flat| = 9.293e-01
+   kappa 3.60 (area 1.287): A^{rho/2} Z = -2.75562+4.70275j   |diff|/|flat| = 4.296e-01
+   kappa 3.90 (area 0.635): A^{rho/2} Z = -1.23140+5.32602j   |diff|/|flat| = 1.311e-01
+   kappa 3.96 (area 0.401): A^{rho/2} Z = -0.84503+5.40694j   |diff|/|flat| = 5.909e-02
+   kappa 3.99 (area 0.200): A^{rho/2} Z = -0.61908+5.44154j   |diff|/|flat| = 1.737e-02

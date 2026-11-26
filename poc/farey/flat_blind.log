@@ -1,0 +1,83 @@
+k = 1 gamma =  14.135: 1 winding cells, 1 confirmed blind flat tori; |E*| range on grid [1.38e-06, 7.43e-05]; random-wave estimate gamma^2/96 = 2.1
+      z = 0.313299 + 1.170542 i
+k = 2 gamma =  21.022: 3 winding cells, 3 confirmed blind flat tori; |E*| range on grid [8.65e-09, 4.31e-07]; random-wave estimate gamma^2/96 = 4.6
+      z = 0.115968 + 1.162846 i
+      z = 0.310441 + 1.493717 i
+      z = 0.396797 + 1.056323 i
+k = 3 gamma =  25.011: 4 winding cells, 4 confirmed blind flat tori; |E*| range on grid [3.94e-10, 2.85e-08]; random-wave estimate gamma^2/96 = 6.5
+      z = 0.090980 + 1.465874 i
+      z = 0.145318 + 1.129333 i
+      z = 0.334251 + 1.825909 i
+      z = 0.414345 + 1.026208 i
+k = 4 gamma =  30.425: 8 winding cells, 8 confirmed blind flat tori; |E*| range on grid [5.38e-12, 3.02e-10]; random-wave estimate gamma^2/96 = 9.6
+      z = 0.051978 + 1.366078 i
+      z = 0.109576 + 2.418834 i
+      z = 0.131268 + 1.100289 i
+      z = 0.326980 + 1.070528 i
+      z = 0.338011 + 1.989699 i
+      z = 0.349621 + 1.597393 i
+      z = 0.384451 + 1.281236 i
+      z = 0.430862 + 0.987500 i
+k = 5 gamma =  32.935: 7 winding cells, 7 confirmed blind flat tori; |E*| range on grid [4e-13, 5.42e-11]; random-wave estimate gamma^2/96 = 11.3
+      z = 0.100859 + 1.094245 i
+      z = 0.126295 + 1.615549 i
+      z = 0.136317 + 1.330078 i
+      z = 0.282158 + 1.067848 i
+      z = 0.340375 + 2.336745 i
+      z = 0.424607 + 1.230597 i
+      z = 0.441263 + 0.982887 i
+k = 6 gamma =  37.586: 10 winding cells, 10 confirmed blind flat tori; |E*| range on grid [2.18e-14, 1.71e-12]; random-wave estimate gamma^2/96 = 14.7
+      z = 0.038700 + 2.877943 i
+      z = 0.091885 + 1.504193 i
+      z = 0.139510 + 1.054586 i
+      z = 0.139623 + 1.274391 i
+      z = 0.305946 + 1.061545 i
+      z = 0.335307 + 1.247675 i
+      z = 0.402100 + 1.456133 i
+      z = 0.421910 + 2.059973 i
+      z = 0.440768 + 0.965183 i
+      z = 0.468819 + 2.460397 i
+k = 7 gamma =  40.919: 12 winding cells, 12 confirmed blind flat tori; |E*| range on grid [1.15e-15, 9.56e-14]; random-wave estimate gamma^2/96 = 17.4
+      z = 0.087476 + 1.076883 i
+      z = 0.090523 + 1.247620 i
+      z = 0.117412 + 3.079972 i
+      z = 0.189047 + 1.242798 i
+      z = 0.264028 + 1.043092 i
+      z = 0.380438 + 2.268031 i
+      z = 0.388737 + 1.038410 i
+      z = 0.423205 + 1.377148 i
+      z = 0.425188 + 1.175951 i
+      z = 0.433799 + 1.922663 i
+      z = 0.443246 + 0.958249 i
+      z = 0.449548 + 2.670796 i
+k = 8 gamma =  43.327: 11 winding cells, 11 confirmed blind flat tori; |E*| range on grid [1.64e-16, 1.66e-14]; random-wave estimate gamma^2/96 = 19.6
+      z = 0.116727 + 1.655812 i
+      z = 0.121975 + 1.223571 i
+      z = 0.137238 + 1.431523 i
+      z = 0.225109 + 1.056771 i
+      z = 0.298913 + 1.428460 i
+      z = 0.300067 + 1.233340 i
+      z = 0.358784 + 1.010208 i
+      z = 0.419032 + 2.959942 i
+      z = 0.434150 + 1.127106 i
+      z = 0.437882 + 1.608526 i
+      z = 0.455779 + 0.951291 i
+k = 9 gamma =  48.005: 18 winding cells, 18 confirmed blind flat tori; |E*| range on grid [5.22e-18, 4.06e-16]; random-wave estimate gamma^2/96 = 24.0
+      z = 0.062681 + 1.788751 i
+      z = 0.063767 + 1.224888 i
+      z = 0.075980 + 1.067269 i
+      z = 0.105950 + 3.359853 i
+      z = 0.142685 + 1.377214 i
+      z = 0.191795 + 1.053054 i
+      z = 0.227420 + 1.174728 i
+      z = 0.235779 + 1.020765 i
+      z = 0.289359 + 1.992800 i
+      z = 0.300998 + 1.342315 i
+      z = 0.328180 + 1.989024 i
+      z = 0.352880 + 1.018834 i
+      z = 0.370134 + 1.188031 i
+      z = 0.384410 + 1.736143 i
+      z = 0.410746 + 1.507795 i
+      z = 0.410805 + 2.272276 i
+      z = 0.452299 + 0.943890 i
+      z = 0.473286 + 1.092299 i

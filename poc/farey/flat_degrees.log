@@ -1,0 +1,9 @@
+k = 1: 1 flat zeros, degrees [1], signed sum +1, boundary winding 1.000
+k = 2: 3 flat zeros, degrees [-1, 1, 1], signed sum +1, boundary winding 1.000
+k = 3: 4 flat zeros, degrees [-1, -1, 1, 1], signed sum +0, boundary winding -0.000
+k = 4: 8 flat zeros, degrees [-1, -1, 1, -1, 1, 1, 1, 1], signed sum +2, boundary winding 2.000
+k = 5: 7 flat zeros, degrees [1, -1, -1, -1, 1, 1, 1], signed sum +1, boundary winding 1.000
+k = 6: 10 flat zeros, degrees [-1, -1, 1, 1, -1, -1, 1, 1, 1, 1], signed sum +2, boundary winding 2.000
+k = 7: 12 flat zeros, degrees [-1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1, 1], signed sum +4, boundary winding 4.000
+k = 8: 11 flat zeros, degrees [-1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1], signed sum +3, boundary winding 3.000
+k = 9: 18 flat zeros, degrees [-1, -1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1], signed sum +2, boundary winding 2.000

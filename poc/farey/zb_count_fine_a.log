@@ -1,0 +1,22 @@
+k = 1 gamma = 14.135: 2 starts, 1 confirmed zeros (hyperbolic, mirror triangle)
+     traces (2.6716876, 3.1117396, 3.4799434)
+k = 3 gamma = 25.011: 9 starts, 4 confirmed zeros (hyperbolic, mirror triangle)
+     traces (2.3635731, 3.8316211, 4.0419284)
+     traces (2.4988614, 3.3497523, 3.9584624)
+     traces (2.7075475, 2.9882327, 3.7216009)
+     traces (2.8029095, 3.0430911, 3.2296575)
+/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/zb_count_fine.py:25: RuntimeWarning: The iteration is not making good progress, as measured by the 
+ improvement from the last ten iterations.
+  sol = fsolve(F, list(p0), xtol=1e-12); x, v = sol
+k = 5 gamma = 32.935: 10 starts, 7 confirmed zeros (hyperbolic, mirror triangle)
+     traces (2.2573915, 4.3765935, 4.5504103)
+     traces (2.3331737, 3.8837036, 4.5170437)
+     traces (2.4447743, 3.5010398, 3.9950235)
+     traces (2.5757675, 3.1915775, 3.8374612)
+     traces (2.7392472, 2.9350410, 3.8157784)
+     traces (2.7581773, 2.9826980, 3.4683694)
+     traces (2.8494037, 3.0314683, 3.1594867)
+/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/zb_count_fine.py:25: RuntimeWarning: The iteration is not making good progress, as measured by the 
+ improvement from the last ten iterations.
+  sol = fsolve(F, list(p0), xtol=1e-12); x, v = sol
+k = 7 gamma = 40.919: 14 starts, 0 confirmed zeros (hyperbolic, mirror triangle)
