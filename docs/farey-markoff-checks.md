@@ -2343,3 +2343,63 @@ order 1/√g for every j. So C needs the full scaling function Ψ in
 - C ≈ 0.56–0.58: numerical. Its derivation needs the scaling function of the
   two-point intersection numbers.
 - The uniformity proof for the limit is still open.
+
+## Proof of lim a_g = 2, conditional on one uniform lemma (2026-11-26)
+
+Script `poc/farey/uniformity_check.py`, output `poc/farey/uniformity_check.log`.
+Notation: r_k = [τ_k]_{g,1}/V_{g,1} and ρ_k = r_{k+1}/r_k.
+
+**Theorem (conditional).** Assume
+
+> **Lemma U.** There are C and g₀ such that for all g ≥ g₀ and 1 ≤ k ≤ 3g − 3,
+> |ρ_k − 1 + (2k − ½)/(π²g)| ≤ C·(1 + k²)/g².
+
+Then the per-pair cusped corner average a_g = F_{g,2}(0)/V_{g,2}(0) tends to 2.
+
+**Proof.**
+
+1. **Rewrite.** a_g = 16·(V_{g,1}/V_{g,2})·Σ_k (2k+2)·λ_k·r_k, with
+   λ_k = (1 − 2^{−2k−4})·ζ(2k+4) = 1 + O(4^{−k}). By Mirzakhani–Zograf
+   Thm 1.4, V_{g,2}/(8π²g·V_{g,1}) → 1. So it suffices to show
+   (1/(π²g))·Σ_k 2k·r_k → 1. The parts 2r_k and (λ_k − 1)·r_k contribute
+   O(1/√g) and O(1/g).
+2. **The step from k = 0.** r₁ = 1 − 1/(2π²g) + O(1/g²) (Mirzakhani–Zograf).
+   Together with Lemma U and log(1 − t) = −t + O(t²), for k ≥ 1:
+
+       log r_k = −(k² − 3k/2 + 1)/(π²g) + O((k + k³)/g²) + O(k³/g²).
+
+3. **Profile.** For k ≤ A√g the error is O(A³/√g) → 0 uniformly, so
+   r_k = e^{−k²/(π²g)}·(1 + o(1)).
+4. **Tail.** For k ≤ βg with β = 3/(2π²C′), where C′ absorbs the error
+   constants, step 2 gives log r_k ≤ −k²/(2π²g) + O(k/g). For k > βg,
+   monotonicity r_{k+1} < r_k (Mirzakhani–Zograf Thm 3.2(ii), lower
+   difference bound) gives r_k ≤ r_{⌊βg⌋} ≤ e^{−β²g/(2π²)+O(1)}. Those at
+   most 3g terms contribute O(g·e^{−cg}).
+5. **Dominated convergence.** With u = k/√g,
+
+       (1/(π²g))·Σ 2k·r_k → (1/π²)∫₀^∞ 2u·e^{−u²/π²} du = 1,
+
+   with domination by 2u·e^{−u²/(2π²)} from step 4. Hence a_g → 2. ∎
+
+**Numerical verification of the inputs (g = 2, …, 10).**
+
+| Input | Status |
+|---|---|
+| L1: r_k ≥ 1 − 2k²/(π²g) | Holds (minimum slack 0) |
+| L2: r_k strictly decreasing | Holds |
+| Lemma U | max over 1 ≤ k ≤ 3g−3 of g²·\|ρ_k − 1 + (2k−½)/(π²g)\|/(1+k²) = 0.185, 0.141, 0.125, 0.118, 0.113, 0.110, 0.107, 0.106, 0.104: bounded and decreasing |
+| Tail | min_k (−g·log r_k/k²) is attained at k = 1 and tends to 1/(2π²) = 0.0507 (0.0577 at g = 10) |
+| k = 0 step | g²·(r₁ − 1 + 1/(2π²g)) → about −0.07 |
+
+**What remains.** A proof of Lemma U: Mirzakhani–Zograf's fixed-k ratio
+asymptotics (their Remark 3.3 and eq. 3.7), with the error tracked
+uniformly in k. Their proof is an induction on g through recursion (III),
+whose weights a_l increase to 1. Lemma U amounts to checking that each
+error term in that induction is O((1+k²)/g²) with constants independent of
+k. Numerically the constant is about 0.10 and decreasing.
+
+**Boundary version.** The same argument with the pants factor
+f ≈ 2·cosh(L_i/2)·cosh(L_j/2)·e^{−x/2}, and the volumes' sinh(L/2)/(L/2)
+factors (Mirzakhani–Petri), gives 2·φ(L_i)·φ(L_j). It is conditional on
+Lemma U together with the corresponding uniform statement for
+V_{g,n}(L)/V_{g,n}(0).

@@ -1,0 +1,9 @@
+g =  2: (L1) min [r_k - (1 - 2k^2/(pi^2 g))] = 0.0;  (L2) decreasing: True;  (L3) c_g = 0.11371 (at k = 1; 1/pi^2 = 0.10132);  (L4) k=0 error g^2(...) = -0.1197; max|E| 1<=k<=sqrt g: 0.1813, all k>=1: 0.1846
+g =  3: (L1) min [r_k - (1 - 2k^2/(pi^2 g))] = 0.0;  (L2) decreasing: True;  (L3) c_g = 0.082601 (at k = 1; 1/pi^2 = 0.10132);  (L4) k=0 error g^2(...) = -0.09244; max|E| 1<=k<=sqrt g: 0.1406, all k>=1: 0.1412
+g =  4: (L1) min [r_k - (1 - 2k^2/(pi^2 g))] = 0.0;  (L2) decreasing: True;  (L3) c_g = 0.071923 (at k = 1; 1/pi^2 = 0.10132);  (L4) k=0 error g^2(...) = -0.08248; max|E| 1<=k<=sqrt g: 0.1254, all k>=1: 0.1254
+g =  5: (L1) min [r_k - (1 - 2k^2/(pi^2 g))] = 0.0;  (L2) decreasing: True;  (L3) c_g = 0.06657 (at k = 1; 1/pi^2 = 0.10132);  (L4) k=0 error g^2(...) = -0.07734; max|E| 1<=k<=sqrt g: 0.1176, all k>=1: 0.1176
+g =  6: (L1) min [r_k - (1 - 2k^2/(pi^2 g))] = 0.0;  (L2) decreasing: True;  (L3) c_g = 0.063362 (at k = 1; 1/pi^2 = 0.10132);  (L4) k=0 error g^2(...) = -0.07421; max|E| 1<=k<=sqrt g: 0.1128, all k>=1: 0.1128
+g =  7: (L1) min [r_k - (1 - 2k^2/(pi^2 g))] = 0.0;  (L2) decreasing: True;  (L3) c_g = 0.061226 (at k = 1; 1/pi^2 = 0.10132);  (L4) k=0 error g^2(...) = -0.07209; max|E| 1<=k<=sqrt g: 0.1096, all k>=1: 0.1096
+g =  8: (L1) min [r_k - (1 - 2k^2/(pi^2 g))] = 0.0;  (L2) decreasing: True;  (L3) c_g = 0.059704 (at k = 1; 1/pi^2 = 0.10132);  (L4) k=0 error g^2(...) = -0.07057; max|E| 1<=k<=sqrt g: 0.1073, all k>=1: 0.1073
+g =  9: (L1) min [r_k - (1 - 2k^2/(pi^2 g))] = 0.0;  (L2) decreasing: True;  (L3) c_g = 0.058564 (at k = 1; 1/pi^2 = 0.10132);  (L4) k=0 error g^2(...) = -0.06942; max|E| 1<=k<=sqrt g: 0.1055, all k>=1: 0.1055
+g = 10: (L1) min [r_k - (1 - 2k^2/(pi^2 g))] = 0.0;  (L2) decreasing: True;  (L3) c_g = 0.057679 (at k = 1; 1/pi^2 = 0.10132);  (L4) k=0 error g^2(...) = -0.06852; max|E| 1<=k<=sqrt g: 0.1041, all k>=1: 0.1041
