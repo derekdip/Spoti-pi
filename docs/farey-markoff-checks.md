@@ -2880,3 +2880,26 @@ growing factor), which is consistent with the McShane-Rivin conjecture. The Voro
 against the predicted Vol = pi^2/6 = 1.644934. The averages are 0.99951 and 0.99855. The quadrature's own volume is off
 by 0.08% and 0.2%, so this agrees with <Z_B(0)> = 0 to within the quadrature error. The runs at L = 2 and 5 were still
 going when this was written.
+
+## Write-up, and proofs of the remaining steps (2026-11-26)
+
+The write-up is a Docs artifact, "The Lattice Zeta Function of the Stable-Norm Ball"
+(https://claude.ai/artifact/SEpspK3dKxbyqgJ7DuY6rD). New in it, beyond the earlier sections:
+
+- **Closed form of the cell integrand.** D(t) = e^{ct}(e^{delta t} - 1)/((e^{at}-1)(e^{bt}-1)(e^{ct}-1)), from
+  1 + 1/(e^{at}-1) + 1/(e^{bt}-1) = (e^{(a+b)t}-1)/((e^{at}-1)(e^{bt}-1)). It vanishes at delta = 0. Its Laurent
+  coefficients are d_-2 = delta/(abc) and d_-1 = 0 identically, so each cell has only the s = 2 pole.
+  Checked to 15 digits, with d_-1 = 1e-33 (`poc/farey/cell_lemmas.py`).
+- **The deficiencies.** delta = 2[-log(1 + eta) + log(1 + lambda_m^-2)] with eta = -3/(lambda_u^2 lambda_w^2) + ...,
+  so delta e^{N_u + N_w} -> 8. H = delta e^{N_u + N_w} is a continuous function of (1/t_u, 1/t_w) on [0, 1/3]^2 and
+  hence bounded. Numerically H decreases in each trace: H(3,3) = 15.2305, H(3, inf) = 9.3666, H(inf, inf) = 8.
+- **Odd negative integers, all m.** x/(1 - e^-x) = x/2 + (x/2) coth(x/2), and the second term is even, so
+  zeta_2(-m; a+b | a, b) = -zeta(-m)(a^m + b^m)/2 for every odd m. Hence T_m = 0 and Z_N(-m) = Z_B(-m) = 0.
+- **The limit for Z_B(0).** G_T(v) decreases to G(v), and at insertion G_T(v) equals the cell's delta. Dominated
+  convergence passes the toric formula to B.
+- **Non-locality of Z(-2).** The hexagon norm, Z(-2) = 6 zeta(-3) = 1/20, and the square, Z(-2) = 8 zeta(-3) = 1/15,
+  have SL(2,Z)-equivalent corner germs but per-corner values 1/120 and 1/60. So no corner-local formula exists for
+  Z(-2); Z(0) is local only through Noether's identity.
+
+Still open: explicit constants in Step 4 of the continuation proof; polynomial vertical growth of Z_B, needed for the
+explicit formula; monotonicity of H; and the Weil-Petersson average of Z_B(-2), via Farey pairs.
