@@ -3250,3 +3250,16 @@ values even fall, 7.9 -> 5.0.
 logarithmically. Hence E_P(R)/sqrt(R log R) should have a limiting distribution. This is consistent with
 O(R^(1/2+eps)) and incompatible with O(sqrt R). The measured rms of E_P/sqrt R rises slowly (0.77, 1.08, 1.15) but
 cannot yet separate sqrt(log R) from a constant.
+
+**Scale check for the m = 4 average** (`abs_integral_m4.py`, 20 x 8 nodes): the integral of |Z_B(-4)| over moduli is 25.9,
+against the signed integral 0.208, about 0.8%. For m = 2 the ratio is 0.00066/1.40, about 0.05%. So the m = 4
+average is not convincingly zero, but it is within what this quadrature can resolve: the signed integrand has a
+(1/l) log^5(1/l) cusp tail. Unresolved; a cusp-adapted integrator is needed.
+
+**The near-vertical rotated ray is also unreliable at high zeros.** The arg t = pi/2 - 1/(1+gamma) method at 30 digits gave
+k = 11: -38.3 + 16.0i. At 40 digits it gives -20.095 + 0.002i, which agrees with the adaptive real-axis value. At k = 16
+the result depends on the angle: -39.5 - 41.8i at eta = 1/(1+gamma), and 8.8 - 10.4i at eta = 2/(1+gamma). The ray
+passes close to the poles of D at 2 pi i k/x and the quadrature misses the spikes. Now running: arg t = pi/4, where D is
+smooth, with precision raised by (pi/4) gamma/ln 10 to absorb the cancellation, cross-validated at arg t = pi/3
+(`zeros_angle.py`). Until those agree, only c_1 (certified) and c_2, ..., c_6 (two methods agree to 1e-6 or better) are
+trusted. The 12-zero Ingham constant 1.32 is withdrawn; the bound from 6 zeros, 0.83, stands.
