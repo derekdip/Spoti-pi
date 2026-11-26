@@ -1,0 +1,6 @@
+modular torus                          cells  6714 | min delta/lower 1.000000 | min upper/delta 1.000000 | identity rel. error 8.2e-34
+cusped, short alpha l = 0.5            cells  4546 | min delta/lower 1.000000 | min upper/delta 1.000000 | identity rel. error 1.3e-33
+cusped, short alpha l = 0.05           cells  1790 | min delta/lower 1.000000 | min upper/delta 1.000000 | identity rel. error 2.4e-36
+cusped, short alpha l = 0.005          cells   964 | min delta/lower 1.000000 | min upper/delta 1.000000 | identity rel. error 5.6e-39
+boundary L = 2.0                       cells  5544 | min delta/lower 1.000000 | min upper/delta 1.000000 | identity rel. error 1.3e-33
+boundary L = 6.0                       cells  3521 | min delta/lower 1.000000 | min upper/delta 1.000000 | identity rel. error 2.7e-34

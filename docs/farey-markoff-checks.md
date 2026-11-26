@@ -3084,3 +3084,26 @@ Consequence. For Re s < 2 the term 2 zeta(s) l^-s is integrable against the modu
 (1/l) polylog. So Z_X(s) is locally uniformly integrable over moduli on Re s < 2, and the average <Z_B(s)> is analytic
 there. It vanishes on 1 < Re s < 2, so it vanishes on all of Re s < 2: at the negative integers, at s = 0, and at every
 zero rho. The direct checks agree: the average is 0.00014 at s = 0 and -0.0004 at s = -2.
+
+## Exact sandwich for the cell deficiency (proved; `poc/farey/delta_sandwich.py`)
+
+Set sigma = sqrt(t^2 - 4) = 2 sinh(N/2), X = sigma_u sigma_w and K = 16 - 4 mu (K = 16 at the cusp). Then:
+- **Discriminant.** t_u^2 t_w^2 - 4(t_u^2 + t_w^2 - mu) = X^2 - K.
+- **Comparison trace.** With t_Sigma = 2 cosh((N_u + N_w)/2), cosh A cosh B + sinh A sinh B = cosh(A + B) gives
+  t_u t_w + X = 2 t_Sigma.
+- **Hence**, for the larger root t_m (cells oriented away from the Bowditch sink),
+  t_Sigma - t_m = K / (2 (X + sqrt(X^2 - K))).
+- **Sandwich.** delta = int_{t_m}^{t_Sigma} 2 dt / sqrt(t^2 - 4), so
+
+    K / (2 X sigma_Sigma)  <=  delta  <=  K / ((X + sqrt(X^2 - K)) sigma_m).
+
+Consequences:
+- Both sides tend to 8 e^{-(N_u + N_w)} at the cusp, which proves the constant 8.
+- With a short curve (sigma_u about l_u), delta <= 16 e^{-(N_u + N_w)}/l_u roughly; this was the measured
+  H l <= 16.4.
+- delta <= min(N_u, N_w), since t_m >= t_u t_w/2 >= max(t_u, t_w).
+
+So the two inputs of the cusp lemma (Lemma M) are proved, and the compactness argument for H is replaced by an explicit
+bound. Check: about 23 000 cells (modular torus; cusped tori with l = 0.5, 0.05, 0.005; boundaries L = 2 and 6). The
+identity holds to 1e-33, both inequalities hold everywhere, and both are sharp (minimum ratio 1.000000). Cells whose
+mediant is the smaller root (one cone of a non-sink root) are excluded; a sink-rooted decomposition has none.
