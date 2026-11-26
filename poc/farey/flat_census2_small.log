@@ -1,0 +1,9 @@
+k =   1 gamma =  14.135 t =   7.07:    1 blind flat tori;  Kac-Rice-with-mean 0.5;  Berry t^2/24 2.1;  ratio N/(gamma^2) 0.00501;  highest y 1.171 vs turning t/(2pi) = 1.125
+k =   2 gamma =  21.022 t =  10.51:    3 blind flat tori;  Kac-Rice-with-mean 1.2;  Berry t^2/24 4.6;  ratio N/(gamma^2) 0.00679;  highest y 1.494 vs turning t/(2pi) = 1.673
+k =   3 gamma =  25.011 t =  12.51:    4 blind flat tori;  Kac-Rice-with-mean 1.9;  Berry t^2/24 6.5;  ratio N/(gamma^2) 0.00639;  highest y 1.826 vs turning t/(2pi) = 1.990
+k =   4 gamma =  30.425 t =  15.21:    8 blind flat tori;  Kac-Rice-with-mean 3.0;  Berry t^2/24 9.6;  ratio N/(gamma^2) 0.00864;  highest y 2.419 vs turning t/(2pi) = 2.421
+k =   5 gamma =  32.935 t =  16.47:    7 blind flat tori;  Kac-Rice-with-mean 3.3;  Berry t^2/24 11.3;  ratio N/(gamma^2) 0.00645;  highest y 2.337 vs turning t/(2pi) = 2.621
+k =   6 gamma =  37.586 t =  18.79:   10 blind flat tori;  Kac-Rice-with-mean 4.4;  Berry t^2/24 14.7;  ratio N/(gamma^2) 0.00708;  highest y 2.878 vs turning t/(2pi) = 2.991
+k =   7 gamma =  40.919 t =  20.46:   12 blind flat tori;  Kac-Rice-with-mean 4.6;  Berry t^2/24 17.4;  ratio N/(gamma^2) 0.00717;  highest y 3.080 vs turning t/(2pi) = 3.256
+k =   8 gamma =  43.327 t =  21.66:   11 blind flat tori;  Kac-Rice-with-mean 5.7;  Berry t^2/24 19.6;  ratio N/(gamma^2) 0.00586;  highest y 2.960 vs turning t/(2pi) = 3.448
+k =   9 gamma =  48.005 t =  24.00:   18 blind flat tori;  Kac-Rice-with-mean 7.2;  Berry t^2/24 24.0;  ratio N/(gamma^2) 0.00781;  highest y 3.360 vs turning t/(2pi) = 3.820

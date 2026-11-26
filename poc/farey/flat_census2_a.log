@@ -1,0 +1,6 @@
+k =  15 gamma =  65.113 t =  32.56:   26 blind flat tori;  Kac-Rice-with-mean 13.3;  Berry t^2/24 44.2;  ratio N/(gamma^2) 0.00613;  highest y 2.696 vs turning t/(2pi) = 5.181
+k =  30 gamma = 101.318 t =  50.66:   61 blind flat tori;  Kac-Rice-with-mean 31.9;  Berry t^2/24 106.9;  ratio N/(gamma^2) 0.00594;  highest y 3.763 vs turning t/(2pi) = 8.063
+/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/flat_census2.py:50: RuntimeWarning: The iteration is not making good progress, as measured by the 
+ improvement from the last ten iterations.
+  sol = fsolve(lambda p: (lambda w: [w.real, w.imag])(Efull(p[0], p[1])), [x0, y0], xtol=1e-12)
+k =  60 gamma = 163.031 t =  81.52:  177 blind flat tori;  Kac-Rice-with-mean 80.4;  Berry t^2/24 276.9;  ratio N/(gamma^2) 0.00666;  highest y 3.224 vs turning t/(2pi) = 12.974

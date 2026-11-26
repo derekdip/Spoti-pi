@@ -3983,3 +3983,38 @@ The gaps fall like A^2 (0.0012, 0.0004, 0.0001, 0.0000 at s = 0.5). At s = 2.5 t
   that needs uniform control of the first-order reduction for curves of length about A^{-1/2}, and of the
   interchange of sums.
 - The agreement above, with the pole cancellation built in, is strong evidence that it is correct.
+
+## Counting blind flat tori: N(gamma) ~ 0.0065 gamma^2 (`flat_census2.py`, `flat_kacrice.py`)
+
+**Method.** A fast census of the zeros of E*(z, rho_k/2) on the half fundamental domain.
+- For each height y the Fourier coefficients are computed once; all x then follow from cosines.
+- Every winding cell is confirmed by Newton on the full series.
+- It reproduces the earlier counts 1, 3, 4, 8, 7, 10, 12, 11, 18 for k = 1..9.
+
+| k | gamma | zeros N | N/gamma^2 | N / Berry (t^2/24) | highest zero y | turning point t/(2 pi) |
+|---|---|---|---|---|---|---|
+| 9 | 48.0 | 18 | 0.0078 | 0.75 | 3.36 | 3.82 |
+| 15 | 65.1 | 26 | 0.0061 | 0.59 | 2.70 | 5.18 |
+| 20 | 77.1 | 36 | 0.0061 | 0.58 | 5.74 | 6.14 |
+| 30 | 101.3 | 61 | 0.0059 | 0.57 | 3.76 | 8.06 |
+| 45 | 133.5 | 119 | 0.0067 | 0.64 | 4.15 | 10.62 |
+| 60 | 163.0 | 177 | 0.0067 | 0.64 | 3.22 | 12.97 |
+| 80 | 201.3 | 264 | 0.0065 | 0.63 | 5.11 | 16.02 |
+| 100 | 236.5 | 365 | 0.0065 | 0.63 | 4.57 | 18.82 |
+
+So **N(gamma) = (0.0065 +- 0.0003) gamma^2**, about 0.62 of Berry's isotropic random-wave value t^2/(4 pi) x area(pi/6).
+At large k some Newton calls stalled, so these counts may be slight underestimates.
+
+**Where the zeros sit.** No zero lies above the first-mode turning point. At small k the highest zero sits right at it
+(k <= 7), as the harmonic-threshold law says. At large k the zeros stay in a bulk region whose top is well below it.
+
+**Gaussian Kac-Rice.** A model with the exact covariance of (f, f_x, f_y) at each height, the true mean C(y), and its
+gradient C'(y) gives observed/predicted ratios of 1.26, 1.32, 1.10 and 1.21 at k = 15, 20, 30 and 45.
+- The mean's gradient matters. C ~ y^{1-s} turns its phase at rate t/y, as fast as the wave. Leaving the gradient out
+  under-predicts by a steady factor of about 2.1.
+- The deficit against Berry reflects a constant term that stays comparable to the fluctuations throughout the bulk:
+  E* is a random-looking wave plus a deterministic mean of the same size.
+
+**Consequence.** By the flat-limit corollary, nondegenerate blind flat tori persist as blind cone tori for small area.
+Blind cone tori of small cone area therefore number about 0.0065 gamma^2 per zeta zero, up to mirror-edge events and
+degenerate zeros. This is conjectural for the full count; the persistence is proved.

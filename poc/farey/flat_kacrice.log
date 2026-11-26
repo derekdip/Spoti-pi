@@ -1,0 +1,13 @@
+k =   1 gamma =   14.13: Gaussian Kac-Rice 0.0   observed 1   ratio 8113209155157958369826719317113666774032882281839855522606356787564177070894683703548014596505744602472340588068864.000
+k =   2 gamma =   21.02: Gaussian Kac-Rice 0.9   observed 3   ratio 3.253
+k =   3 gamma =   25.01: Gaussian Kac-Rice 1.8   observed 4   ratio 2.252
+k =   4 gamma =   30.42: Gaussian Kac-Rice 4.0   observed 8   ratio 2.010
+k =   5 gamma =   32.94: Gaussian Kac-Rice 4.1   observed 7   ratio 1.705
+k =   6 gamma =   37.59: Gaussian Kac-Rice 6.6   observed 10   ratio 1.518
+k =   7 gamma =   40.92: Gaussian Kac-Rice 5.6   observed 12   ratio 2.131
+k =   8 gamma =   43.33: Gaussian Kac-Rice 19.2   observed 11   ratio 0.573
+k =   9 gamma =   48.01: Gaussian Kac-Rice 10.1   observed 18   ratio 1.776
+k =  15 gamma =   65.11: Gaussian Kac-Rice 20.6   observed 26   ratio 1.260
+k =  20 gamma =   77.14: Gaussian Kac-Rice 27.2   observed 36   ratio 1.324
+k =  30 gamma =  101.32: Gaussian Kac-Rice 55.4   observed 61   ratio 1.101
+k =  45 gamma =  133.50: Gaussian Kac-Rice 98.2   observed 119   ratio 1.211
