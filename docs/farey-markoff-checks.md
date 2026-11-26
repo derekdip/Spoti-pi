@@ -4018,3 +4018,26 @@ gradient C'(y) gives observed/predicted ratios of 1.26, 1.32, 1.10 and 1.21 at k
 **Consequence.** By the flat-limit corollary, nondegenerate blind flat tori persist as blind cone tori for small area.
 Blind cone tori of small cone area therefore number about 0.0065 gamma^2 per zeta zero, up to mirror-edge events and
 degenerate zeros. This is conjectural for the full count; the persistence is proved.
+
+## Correction: hyperbolic census for k >= 6 was precision-limited; corrected counts (`hyp_census2.py`, `hyp_census5_k*.log`)
+
+**The problem.** The double-precision evaluator on the ray theta = pi/3 loses about (pi/6) gamma/ln 10 digits, roughly
+8.4 at gamma = 37. Its absolute error is then about 2e-5, larger than the 1e-7 residual that zeros had to pass. Every
+"Newton failure" for k >= 6 was this, not missing zeros. At a test point (k = 6), the rays 0.4 pi, 0.45 pi and 0.48 pi
+agree to about 1e-8 while pi/3 is off by 2e-5. The census now uses theta = 0.45 pi.
+
+Blind cusped tori, every count Newton-confirmed:
+
+| k | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| hyperbolic (cusped) | 1 | 3 | 4 | 8 | 7 | 8 | 11 (12 winding cells) | 14 |
+| flat (E*) | 1 | 3 | 4 | 8 | 7 | 10 | 12 | 11 |
+
+The counts agree exactly for k <= 5 and stay close for k = 6..8. The totals for k <= 8 are both 56. Beyond k = 5 the
+bijection is not exact. That fits the mirror-edge events along the cone deformation, which the signed counts already
+showed (k = 5, 7, 8, 9). A grid cell holding a pair of zeros of opposite degree could also hide both, so the hyperbolic
+counts for k >= 6 are lower bounds.
+
+The earlier k <= 5 results used theta = pi/3, where the error is about 1e-6 at gamma <= 33. They stand, because those
+zeros are nondegenerate (|J| about 10), so the error moves them by only about 1e-7. The X* certificate used
+theta = pi/3 and 0.4 pi at gamma = 14.1, where the error is about 1e-9, and also stands.

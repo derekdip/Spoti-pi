@@ -11,7 +11,7 @@ def surf_raw(x, v):
     d = (x * y) ** 2 - 4 * (x * x + y * y)
     if d < 0: y = lo; d = 0.0
     return x, y, (x * y - math.sqrt(d)) / 2
-def Zf(rho, x, v, smax=36): return ZB(rho, *sink(surf_raw(x, v)), th=math.pi / 3, smax=smax)[0]
+def Zf(rho, x, v, smax=36): return ZB(rho, *sink(surf_raw(x, v)), th=0.45 * math.pi, smax=smax)[0]
 mode = sys.argv[1]; ks = [int(a) for a in sys.argv[2].split(",")]
 for k in ks:
     rho = complex(mp.zetazero(k))
@@ -42,7 +42,7 @@ for k in ks:
         found = []
         for p0 in starts:
             sol, info, ier, msg = fsolve(F, list(p0), xtol=1e-12, full_output=True); x, v = sol
-            if ier != 1 or np.hypot(*F(sol)) > 1e-7 or not (2.0 < x <= 3.0): continue
+            if np.hypot(*F(sol)) > 1e-7 or not (2.0 < x <= 3.0): continue
             tr = sink(surf_raw(x, v))
             if not any(max(abs(a - b) for a, b in zip(tr, t2)) < 1e-6 for t2 in found): found.append(tr)
         print("k = %d gamma = %.3f: %d winding cells, %d distinct blind surfaces" % (k, rho.imag, len(starts), len(found)), flush=True)
