@@ -3450,3 +3450,138 @@ The share of residual variance carried by M_6 = (1/2) sum_{d<=6} mu(d) E_A(R/d) 
 first Moebius terms. Its normalised size decays, since E_A plateaus at rms ~300 while sqrt R grows. This is what the
 explicit formula predicts if it is complete at the sqrt R scale: that content lives in the high zeros, or in the leftover
 contour integral on Re s = sigma0 < 1/2.
+
+## Lemma C: an explicit per-cell bound, and polynomial vertical growth of Z_B (proved; `lemma_c_check.py`)
+
+This closes the per-cell ingredient that earlier sections left at sketch level: Step 4 of the continuation (Theorem 3),
+the single 1/min(a, b) factor in the cusp lemma (Theorems 7 and 11), and the polynomial vertical growth assumed by the
+smoothed explicit formula.
+
+**Setting.** A cell has lengths a = N_u, b = N_w, c = N_m and deficiency delta = a + b - c, with 0 < delta <= min(a, b),
+so c >= max(a, b). Its integrand is
+
+    D(t) = e^{ct}(e^{delta t} - 1)/((e^{at} - 1)(e^{bt} - 1)(e^{ct} - 1)),
+
+with Laurent coefficients d_-2 = delta/(abc) and d_-1 = 0. Set kappa = 1/(a + b) and
+
+    G = D - d_-2 t^-2 e^{-kappa t}(1 + kappa t).
+
+G is analytic on |t| < 2 pi/c: its t^-1 coefficient vanishes because d_-1 = 0. It decays in |arg t| < pi/2. For Re s > 2,
+int t^{s-3} e^{-kappa t}(1 + kappa t) dt = kappa^{2-s} Gamma(s-2)(s-1), and Gamma(s-2)(s-1)/Gamma(s) = 1/(s-2), so
+
+    Delta(s) = (1/Gamma(s)) int_ray t^{s-1} G(t) dt + d_-2 kappa^{2-s}/(s-2),                         (*)
+
+The ray integral converges for Re s > 0, so (*) continues Delta there. The ray arg t = theta can be any angle in
+(-pi/2, pi/2), because the integrand is analytic in the sector and decays at both ends.
+
+**Elementary inequalities.**
+1. |e^z - 1| <= |z| e^{max(Re z, 0)}.
+2. |e^{xt} - 1| >= e^{x Re t} - 1, by the reverse triangle inequality.
+3. e^y - 1 >= e^y y/(1 + y) for y > 0.
+4. |e^z - 1| >= m_R |z| on |z| <= R < 2 pi (minimum modulus principle), with m_pi = 0.304554 and m_{1.5pi} = 0.210300.
+
+**Lemma C.** Let 0 < sigma < 2, tau >= 0 (the case tau < 0 follows by conjugation), s = sigma + i tau. If tau >= 1, take
+eta = 1/(1 + tau) and theta = pi/2 - eta; otherwise take theta = 0 and eta = pi/2. Let r1 = pi/c and q1 = r1 sin eta. Then
+
+    |Delta(s)| <= e^{-theta tau}/|Gamma(s)| * [ M r1^sigma/sigma
+                   + delta (sin eta)^{-sigma-1} int_{q1}^inf q^sigma e^{-cq} prod_{x=a,b,c} (1 + 1/(xq)) dq
+                   + d_-2 (1 + 1/(e sin eta)) r1^{sigma-2}/(2 - sigma) ]
+                 + d_-2 kappa^{2-sigma}/|s - 2|,
+
+    M = e^{c r1} delta r1 e^{delta r1}/(m_pi^3 abc r1^3) + d_-2 r1^-2 e^{kappa r1}(1 + kappa r1).
+
+*Proof.*
+- **Disk, r <= r1.** On |t| = r1 every |xt| <= c r1 = pi. Inequalities 1 and 4 give |D| <= e^{c r1} delta r1 e^{delta r1}
+  /(m_pi^3 abc r1^3), and the subtracted term is at most d_-2 r1^-2 e^{kappa r1}(1 + kappa r1). So |G| <= M on the circle,
+  and hence on the disk by the maximum principle. With |t^{s-1}| = r^{sigma-1} e^{-theta tau}, this part contributes
+  M r1^sigma/sigma.
+- **Ray, r > r1, D term.** Write q = r sin eta = Re t. By 1, 2 and 3,
+
+      |D| <= delta r e^{(c + delta)q}/prod(e^{xq} - 1) <= delta r e^{-cq} prod_x (1 + 1/(xq)).
+
+  Substituting r = q/sin eta gives the second term.
+- **Ray, subtracted term.** |e^{-kappa t}| = e^{-kappa q} and kappa r e^{-kappa q} <= 1/(e sin eta), so the integral is
+  at most d_-2 (1 + 1/(e sin eta)) int_{r1}^inf r^{sigma-3} dr. ∎
+
+**Size.** The three bracket terms are
+- delta c^{1-sigma}/(ab) * O(1),
+- delta c^{1-sigma}/(ab) * O((sin eta)^{-sigma-4}), using (1 + 1/(aq))(1 + 1/(bq)) <= (1 + c/(pi a sin eta))(1 + c/(pi b sin eta))
+  and c >= a, b,
+- delta c^{1-sigma}/(ab) * O(1/sin eta).
+
+By Stirling, e^{-theta tau}/|Gamma(s)| <= C(sigma) (1 + tau)^{1/2 - sigma} e^{eta tau} for tau >= 1, and
+e^{eta tau} <= e. The pole term is at most delta c^{sigma-3}/(ab |s - 2|), since a + b >= c. Hence, uniformly over cells,
+
+    |Delta(sigma + i tau)| <= C(sigma1, sigma2) (1 + |tau|)^{9/2} * delta max(c^{1-sigma}, c^{sigma-3})/(ab)   on [sigma1, sigma2] in (0, 2).
+
+Since c/(ab) <= 2/min(a, b), the right side has a single factor 1/min(a, b). This is the ingredient the cusp lemma
+needed.
+
+**Extension to Re s <= 0.** Fix K >= 1. On |t| = 1.5 r1, inequality 4 with m_{1.5pi} gives |G| <= M' with M' of the same
+shape as M. Cauchy's estimates then give
+- Taylor coefficients |g_k| <= M' (1.5 r1)^{-k};
+- |G - P_K| <= 3 M' (2/3)^K (r/r1)^K on |t| <= r1, where P_K is the degree-(K-1) Taylor polynomial.
+
+Write int_0^{r1} t^{s-1} G = int_0^{r1} t^{s-1}(G - P_K) + sum_{k<K} g_k (r1 e^{i theta})^{s+k}/(s+k). The poles at
+s = -k cancel against the zeros of 1/Gamma. So, on sigma in [-K + eps, 2 - eps],
+
+    |Delta(s)| <= C(K, eps)(1 + |tau|)^{A(K)} * delta (1 + c)^{K+2}/(ab).
+
+**Summing the cells.**
+- The sandwich gives delta <= K_X/((X + sqrt(X^2 - K_X)) sigma_m). With a, b >= systole l0 and c >= a + b - delta, this
+  gives delta <= C(l0, mu) e^{-(a+b)}.
+- Each cell is indexed by its mediant m, and N_m >= a + b - C. So McShane-Rivin quadratic growth gives at most
+  C (S + 1)^2 cells with a + b <= S.
+- Hence sum_cells delta (1 + c)^{K+2}/(ab) < infinity. The root terms are Barnes double zetas and zeta(s) a^-s: the same
+  argument with the t^-2 and t^-1 parts subtracted, or the classical bounds, gives polynomial growth for them too.
+
+**Theorem (polynomial vertical growth).** For every once-punctured or one-holed torus X, Z_B(s) is meromorphic on C with
+a single simple pole at s = 2. On every vertical strip sigma1 <= Re s <= sigma2 with |s - 2| >= 1,
+Z_B(s) = O((1 + |Im s|)^A), where A depends only on the strip (A = 9/2 on (0, 2)). For Re s > 2 it is bounded by the
+Dirichlet series. Near s = 2, use (s - 2) Z_B(s) and Phragmen-Lindelof.
+
+**Consequences.**
+- **Theorem 3 is now fully proved**, without "sketched" constants.
+- **The cusp lemma (Lemma M) gets its per-cell input.** This completes the proofs of Theorem 11 and of <Z_B(s)> = 0 on
+  Re s < 2 (Theorem 7).
+- **Smoothed explicit formula, unconditionally.** Let w be smooth with compact support in log R, and let
+  E_{P,w}(R) = int E_P(R e^u) w(u) du. Then w-hat decays faster than any power. Titchmarsh Thm 9.7 gives, in each
+  [T, T+1], a height T* with |zeta(sigma + i T*)|^{-1} << T*^B for -1 <= sigma <= 2. Integrating D(s) w-hat(s) R^s/s
+  around the rectangles [-1, 3] x [T*_n, T*_{n+1}] yields
+
+      E_{P,w}(R) = -Z_B(0) w-hat(0) + sum_n ( sum_{T*_n < gamma < T*_{n+1}} Res_rho ) + O(R^{-1}),
+
+  where the block sums are O(T_n^{-N}) for every N. The left side at sigma = -1 is controlled by the functional
+  equation for zeta and the growth theorem.
+- No RH, simple zeros or bound on 1/zeta'(rho) is needed. A multiple zero would give R^rho log^j R terms.
+
+**Numerical check of the explicit constants** (`lemma_c_check.py`). Exact Delta_cell(s) was computed by mpmath on a
+rotated ray, with precision raised by (pi/2 - theta) tau/ln 10, for 24 cells each on the modular torus and on the
+zero-blind surface X*, at sigma in {0.3, 0.5, 1.5} and tau in {0.5, 5, 20, 60}. Across all 576 cases,
+|Delta|/bound lies between 1.5e-4 and 1.19e-2. So the explicit bound holds everywhere with a margin of at least 84x. The margin
+shows no sign of shrinking with tau (worst values at tau = 20: 4.3e-3, 5.8e-3, 1.05e-2 on the modular torus) or between
+surfaces.
+
+## Zero-blind surfaces for rho_2 ... rho_6 (`zb_scan.py k`, `zb_roots_multi.py`)
+
+Method: the same 40 x 30 scan for each k, then Newton from every cell with nonzero winding. A zero is kept only if
+abs(Z) < 1e-7 inside the domain, after deduplication. Each kept zero is nondegenerate, and its sign is the local degree.
+
+| k | gamma_k | blind surfaces found | degrees |
+|---|---|---|---|
+| 1 | 14.13 | 1 | + |
+| 2 | 21.02 | 3 | + - + |
+| 3 | 25.01 | 4 | + - - + |
+| 4 | 30.42 | 8 | - + + - + + - + |
+| 5 | 32.94 | >= 4 (6 flagged) | + - - + |
+| 6 | 37.59 | >= 0 (7 flagged; Newton from the coarse cells did not converge) | |
+
+Traces are in `zb_roots_multi.log`. No surface appears in two rows. Counting 4 real conditions against 2 real moduli,
+simultaneous blindness to two zeros should be non-generic, but this is not proved.
+
+The counts grow roughly like gamma^2: 1, 3, 4, 8 against (gamma/gamma_1)^2 = 1, 2.2, 3.1, 4.6. A heuristic explains this:
+arg Z_B(rho) varies over moduli at rate about gamma times the gradient of the log-lengths, so the density of
+phase-vortices scales like gamma^2. The k >= 5 counts are lower bounds, because the grid aliases there.
+
+**Conjecture.** The number of surfaces blind to rho is about C gamma^2, with signed count 0 on the oriented moduli space
+(each zero pairs with its mirror image).
