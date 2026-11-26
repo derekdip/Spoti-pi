@@ -3107,3 +3107,35 @@ So the two inputs of the cusp lemma (Lemma M) are proved, and the compactness ar
 bound. Check: about 23 000 cells (modular torus; cusped tori with l = 0.5, 0.05, 0.005; boundaries L = 2 and 6). The
 identity holds to 1e-33, both inequalities hold everywhere, and both are sharp (minimum ratio 1.000000). Cells whose
 mediant is the smaller root (one cone of a non-sink root) are excluded; a sink-rooted decomposition has none.
+
+## Metric theorem: polylog lattice error for almost every torus (2026-11-26; `cell_count_general.py`, `random_tori_large.py`)
+
+**Theorem.** For WP-almost every once-punctured torus X, E_{B_X}(R) = O_X((log R)^A).
+
+Proof:
+1. If some partial quotient a_{k+1} >= Q has q_k <= R, then alpha lies within 1/(Q q^2) of a reduced p/q with q <= R. So
+   the measure of such alpha is <= sum_{q<=R} phi(q) 2/(Q q^2) <= 2(1 + log R)/Q.
+2. In Fenchel-Nielsen coordinates (l_u, tau_u), where the WP form is dl dtau, the cell rotation numbers l_w/l_u and
+   (l_m - l_u)/l_u have nonvanishing gradient. d/dtau vanishes only at the twist minimum, and there d/dl = (l_u l_w' - l_w)/l_u^2 < 0.
+   The coarea formula then bounds the pushforward measure by C_K poly(N) |I| on compacts.
+3. Borel-Cantelli over the O(log^2 R) relevant cells at dyadic scales, with Q = (log R)^B, gives partial quotients
+   <= (log R)^B eventually, for a.e. X.
+4. Theorem 8 (Ostrowski) finishes the proof.
+
+(The length-length coordinates (l_u, l_w) would have an integrable 1/sinh(tau/2) density singularity, which is why
+Fenchel-Nielsen coordinates are used.)
+
+**Exact sink-rooted algorithm.** The cell count rooted at the Bowditch sink of a general cusped torus matches direct
+enumeration exactly on 3 random tori at 4 radii each. Large-R results on 4 random tori and the modular torus:
+
+| sink traces | rms E_B at w = 1e3 / 1e4 / 1e5 / 1e6 | largest partial quotient in range |
+|---|---|---|
+| (2.502, 3.348, 3.921) | 9.1 / 19.6 / 24.4 / 51.9 | 1278 |
+| (2.714, 3.067, 3.421) | 30.4 / 43.8 / 46.0 / 64.0 | 1706 |
+| (2.620, 3.100, 3.925) | 42.9 / 46.5 / 136.9 / 347.4 | 30494 (appears at 1e6) |
+| (2.244, 4.449, 4.701) | 22.4 / 181.7 / 573.7 / 411.5 | 4895 |
+| modular (3, 3, 3) | 39.5 / 198.5 / 246.4 / 339.7 | 496 |
+
+Growth occurs only while a large partial quotient is active, and its size matches Gauss-Kuzmin statistics over about 2e4
+quotients in range. All surfaces stay far below R^(1/2). The modular torus is a single point of moduli space, so its
+own case (Theorem 8's hypothesis) remains open.

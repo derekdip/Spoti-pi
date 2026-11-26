@@ -1,0 +1,15 @@
+surface: sink traces (2.6869, 3.0484, 3.5855), lengths (1.6135, 1.9675, 2.3761), Area(B) = 0.89583666
+   R =   99.01: direct E =    -2.6261   cells E =    -2.6261
+   R =  156.02: direct E =    -5.4243   cells E =    -5.4243
+   R =  193.93: direct E =    14.2732   cells E =    14.2732
+   R =  372.54: direct E =     7.8254   cells E =     7.8254
+surface: sink traces (2.7014, 3.0176, 3.6186), lengths (1.6295, 1.9405, 2.3982), Area(B) = 0.89552344
+   R =   59.37: direct E =     1.4513   cells E =     1.4513
+   R =  232.97: direct E =    -6.0221   cells E =    -6.0221
+   R =  236.86: direct E =    -2.0333   cells E =    -2.0333
+   R =  306.19: direct E =    -7.8410   cells E =    -7.8410
+surface: sink traces (2.8530, 3.0392, 3.1439), lengths (1.7871, 1.9595, 2.0484), Area(B) = 0.89240664
+   R =   95.57: direct E =   -13.6200   cells E =   -13.6200
+   R =  153.09: direct E =    -3.9043   cells E =    -3.9043
+   R =  187.06: direct E =     5.9325   cells E =     5.9325
+   R =  204.19: direct E =   -17.3447   cells E =   -17.3447

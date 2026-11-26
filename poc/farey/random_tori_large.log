@@ -1,0 +1,24 @@
+
+surface 0: sink traces (2.6201, 3.1000, 3.9253), Area 0.898408
+   w =     1000: rms   42.90  max  102.04  mean  -8.44  (158 cells, largest quotient in range 3747, 1 s)
+   w =    10000: rms   46.51  max  110.76  mean  -9.33  (228 cells, largest quotient in range 3747, 2 s)
+   w =   100000: rms  136.90  max  299.93  mean +26.16  (303 cells, largest quotient in range 3747, 3 s)
+   w =  1000000: rms  347.38  max  633.79  mean -70.64  (392 cells, largest quotient in range 30494, 12 s)
+
+surface 1: sink traces (2.5020, 3.3476, 3.9206), Area 0.906055
+   w =     1000: rms    9.09  max   29.17  mean  +0.45  (159 cells, largest quotient in range 410, 1 s)
+   w =    10000: rms   19.61  max   42.93  mean  -0.29  (226 cells, largest quotient in range 410, 2 s)
+   w =   100000: rms   24.37  max   63.28  mean  -4.19  (305 cells, largest quotient in range 1278, 3 s)
+   w =  1000000: rms   51.86  max  112.59  mean  +0.48  (390 cells, largest quotient in range 1278, 15 s)
+
+surface 2: sink traces (2.7139, 3.0668, 3.4214), Area 0.894895
+   w =     1000: rms   30.41  max   67.77  mean  -0.74  (159 cells, largest quotient in range 283, 1 s)
+   w =    10000: rms   43.75  max  120.68  mean  +4.54  (222 cells, largest quotient in range 626, 2 s)
+   w =   100000: rms   46.02  max  117.11  mean  -7.13  (301 cells, largest quotient in range 1706, 2 s)
+   w =  1000000: rms   63.95  max  168.03  mean  +6.70  (393 cells, largest quotient in range 1706, 13 s)
+
+surface 3: sink traces (2.2438, 4.4485, 4.7012), Area 0.963560
+   w =     1000: rms   22.40  max   54.54  mean  -1.95  (172 cells, largest quotient in range 4895, 2 s)
+   w =    10000: rms  181.74  max  390.61  mean -16.74  (241 cells, largest quotient in range 4895, 2 s)
+   w =   100000: rms  573.74  max 1132.20  mean -222.50  (326 cells, largest quotient in range 4895, 3 s)
+   w =  1000000: rms  411.51  max  927.28  mean -161.19  (422 cells, largest quotient in range 4895, 15 s)
