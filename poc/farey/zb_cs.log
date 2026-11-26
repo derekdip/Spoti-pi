@@ -1,0 +1,9 @@
+nodes on the line: 561 (x in [-17, 16]); l = 1.924847
+rho_ 1: Chowla-Selberg +0.645752+5.962818j   mpmath +0.645754+5.962832j   |diff| 1.35e-05  (0.7 s)
+rho_ 5: Chowla-Selberg -16.248704+0.764978j   mpmath -16.248698+0.764969j   |diff| 1.13e-05  (0.7 s)
+rho_10: Chowla-Selberg +7.914763-9.363796j   mpmath +7.914766-9.363808j   |diff| 1.14e-05  (0.7 s)
+rho_20: Chowla-Selberg -8.717968+1.316424j   mpmath -8.717968+1.316423j   |diff| 9.97e-07  (0.7 s)
+t = 14.53: |Z| CS 5.1776   mpmath 5.1809
+t = 37.15: |Z| CS 20.5264   mpmath 20.5528
+t = 77.67: |Z| CS 10.9806   mpmath 10.9767
+s = 3: CS 1.46643240   (direct sum + tail earlier: 1.466432453)
