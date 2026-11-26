@@ -4131,3 +4131,54 @@ KSER ~ 0.75 gamma + 22, or a smaller T0. The validated k <= 20 values are unaffe
 **Cone tori.** For small cone area A the corners of the stable norm are tiny. Z_B then follows the flat sqrt(gamma)
 growth up to some gamma*(A) and the hyperbolic bounded behaviour beyond it, so the flat-to-hyperbolic transition in the
 variance happens at the scale where the corners are resolved.
+
+## Literature check, round 2 (2026-11-26)
+
+**Risager, "Counting Markov triples and simple geodesics", arXiv 2610.36069 (26 Oct 2026).**
+- Proves M(x) = C(log 3x)^2 + O(log x (log log log x)^{1/10}/(log log x)^{3/10}), and O(log x/(log log x)^{1/2}) under
+  the quasi-Riemann hypothesis. This is the first o(log x) error.
+- Method: the McShane-Rivin ball, Doan-Li-Nguyen normal-turn estimates, Moebius inversion, zero-free regions.
+- Quotes the McShane-Rivin conjecture [MR, Conj. 4.3]: the error is O((log x)^{1/2+eps}), i.e. O(R^{1/2+eps}) in
+  length, R ~ 2 log 3x.
+- Counting identity: S_X(L_T) = 6 M(T) + 4, so E_M/sqrt(log x) is about (sqrt 2/6) E_P/sqrt L = 0.236 E_P/sqrt L.
+- Numerics at x = 10^k, k <= 30000 (L up to 1.4e5, nearly uniform in L): the normalised error lies in
+  [-1.113, 1.150], i.e. E_P/sqrt L in [-4.7, 4.9]. That fits our rms of about 1.17 at R ~ 1e5, since 30000 samples of a
+  sigma ~ 1.2 distribution reach about 4 sigma.
+- Not in that paper: no lower bound or Omega result, no meromorphic continuation of the stable-norm zeta, no explicit
+  formula with Riemann-zero amplitudes, no blind surfaces.
+- So our unconditional Omega_+-(sqrt R) (lim sup >= 1.62, lim inf <= -1.70, i.e. >= 0.38 and <= -0.40 in Risager's
+  normalisation) is the matching lower bound to the McShane-Rivin conjecture, and appears to be new.
+- The paper also notes announced quasi-RH results (zero-free regions with delta = 1/12, 1/8).
+
+**Doan-Li-Nguyen, "Stable-norm boundary geometry on once-punctured tori", arXiv 2605.14574 v3 (Oct 2026).**
+- Rational corners with exponentially small exterior angles: our deficiencies delta ~ 8 e^{-(N_u+N_w)}, Sandwich lemma.
+- Explicit irrational flatness orders.
+- The dual-area identity Area(B*) = 4 sum l log coth(l/2), already noted and verified in our earlier check.
+- New and useful: at most C_X (log L)^2 integer points on each dilated boundary, so at most C (log L)^2 simple geodesics
+  of any exact length L. This is the multiplicity bound a truncated Perron formula needs.
+
+**Nowak, "Primitive lattice points inside an ellipse", arXiv math/0307279 (2003).**
+- The flat analogue of our Omega result: (1/Y) int_1^Y |R(x)| dx >> Y^{1/4} (x = R^2, so sqrt R).
+- Proved through the zeta(2s) denominator plus a zero-density bound for Epstein zeta functions, to exclude the
+  possibility that zeta_Q(rho/2) = 0 for all rho, i.e. that every flat torus is blind.
+- Explicit blind flat tori and their count do not appear.
+- Nowak writes that analogues of the mean-square asymptotic are hopeless at present. Our heuristic law (a log-divergent
+  normalised variance for primitive points, against a finite one for all points) is therefore a new conjecture, not a
+  known result.
+- Upper bounds under RH: Huxley-Nowak O(x^{5/12+eps}), Mueller O(x^{9/22}), Zhai O(x^{221/608+eps}) (rational
+  ellipse) and O(x^{0.3968}) (general).
+
+**Not found.**
+- Zeros of the non-holomorphic Eisenstein series E(z, s) in the variable z for fixed complex s (searched; only nodal
+  lines of real parts, Siegel zeros in s, and holomorphic E_k turned up).
+- A Dirichlet series over simple-geodesic lengths with meromorphic continuation, or a Poincare series over simple curves
+  on moduli space linked to Eisenstein series. McShane's "Length series on Teichmueller space" (math/0403041) treats
+  constant length series, not Dirichlet series.
+
+**Reconciliation with the earlier variance-growth conjecture.** That conjecture rested on a gamma^0.57 fit to 13
+coefficients later retracted as corrupted. With validated values, hyperbolic |Z_B(rho)| is bounded and sum |c|^2
+converges, so the log-growth conjecture holds for flat tori (Epstein), not hyperbolic ones. The argument that the
+Lindelof-type hypothesis (L) is probably false relied on the flat functional equation, which the hyperbolic Z_B lacks.
+**Hypothesis (L) is therefore reopened.** Heuristically, |Z_B(1/2 + it)| matches the size of the lattice error E_A at
+R ~ t, so (L) is essentially the plateau of E_A, which Theorem 9 gives up to polylog factors for almost every torus.
+With Theorem 10 (RH + (L) => O(R^{1/2+eps})), this is a route to the McShane-Rivin conjecture.
