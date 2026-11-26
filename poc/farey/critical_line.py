@@ -6,11 +6,11 @@ src = open("poc/farey/zeros_rotated.py").read().split("cells = []")[0]
 exec(src)
 ts = [float(a) for a in sys.argv[1].split(",")]
 for t in ts:
-    t0 = time.time(); TH = math.pi / 4
+    t0 = time.time(); TH = float(eval(__import__("os").environ.get("TH", "math.pi/4")))
     globals()["KSER"] = int(0.75 * t) + 30
     mp.mp.dps = 30 + int((math.pi / 2 - TH) * t / math.log(10)) + 10
     BN[:] = []; BN.extend(mp.bernoulli(n) for n in range(KSER + 4)); BN[1] = mp.mpf(-1) / 2
-    s = mp.mpc(0.5, t); l3 = L(3)
+    s = mp.mpc(0.5, t) if "RHO" not in __import__("os").environ else mp.zetazero(int(__import__("os").environ["RHO"])); l3 = L(3)
     cl = []; st = [(3, 3, 3)] * 3
     while st:
         tu, tw, td = st.pop(); tm = tu * tw - td

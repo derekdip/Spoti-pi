@@ -1,0 +1,6 @@
+t =   14.88: |Z_B| =    4.8095   |Z_flat| =    6.1985   |Z_flat|/sqrt(t) = 1.607   (KSER 41, dps 45, 99 s)
+t =   33.45: |Z_B| =   14.8072   |Z_flat| =   24.3260   |Z_flat|/sqrt(t) = 4.206   (KSER 55, dps 51, 114 s)
+t =   49.24: |Z_B| =   10.3713   |Z_flat| =    8.3018   |Z_flat|/sqrt(t) = 1.183   (KSER 66, dps 56, 169 s)
+t =   61.53: |Z_B| =   19.9266   |Z_flat| =    4.3683   |Z_flat|/sqrt(t) = 0.557   (KSER 76, dps 60, 199 s)
+t =   90.50: |Z_B| =   31.3421   |Z_flat| =   67.8944   |Z_flat|/sqrt(t) = 7.137   (KSER 97, dps 70, 260 s)
+t =   99.77: |Z_B| =   19.1394   |Z_flat| =   11.3691   |Z_flat|/sqrt(t) = 1.138   (KSER 104, dps 74, 303 s)

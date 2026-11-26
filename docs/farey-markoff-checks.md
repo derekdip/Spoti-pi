@@ -4182,3 +4182,30 @@ Lindelof-type hypothesis (L) is probably false relied on the flat functional equ
 **Hypothesis (L) is therefore reopened.** Heuristically, |Z_B(1/2 + it)| matches the size of the lattice error E_A at
 R ~ t, so (L) is essentially the plateau of E_A, which Theorem 9 gives up to polylog factors for almost every torus.
 With Theorem 10 (RH + (L) => O(R^{1/2+eps})), this is a route to the McShane-Rivin conjecture.
+
+## Hypothesis (L) on the critical line: first test, inconclusive above t ~ 80 (`critical_line.py`, `critical_line_*.log`)
+
+|Z_B(1/2 + it)| at 24 generic heights on the modular torus (mpmath, ray pi/4, Bernoulli series of length 0.75 t + 30),
+with the flat hexagonal |Z_flat| at the same heights:
+
+| t range | abs(Z_B) values | rms abs(Z_B) | abs(Z_flat)/sqrt(t) |
+|---|---|---|---|
+| 14.5-16.4 | 5.2, 4.8, 5.3, 7.5, 9.0 | 6.6 | 0.67-1.93 |
+| 33-66 | 14.8, 20.6, 12.1, 6.7, 10.4, 7.2, 17.8, 4.7, 19.9, 7.2 | 13.3 | 0.56-4.21 |
+| 75-78 | 7.3, 11.0 | 9.3 | 0.36, 3.60 |
+| 90-110 (unreliable) | 31.3, 34.4, 15.5, 30.8, 19.1, 26.6, 31.1 | 27.8 | 1.1-7.1 |
+
+**Validation.**
+- Recomputing rho_30 with the longer series gives 16.874, against 16.873 before, so the Bernoulli-series length was not
+  the limiting factor at gamma ~ 101, and the k <= 34 zero values stand.
+- At t = 90.50, though, the pi/3 and pi/4 rays disagree: 34.42 against 31.34. The two rays agreed to 1e-6 at
+  gamma ~ 77. So this evaluator is unreliable somewhere between t ~ 80 and 90, probably because the oscillatory
+  quadrature has not converged.
+- The t >= 90 rows are therefore not evidence either way.
+
+**Status of (L).** For t <= 80, |Z_B| rises from about 6.6 to about 13 and then levels off (7-11 near t ~ 77). The flat
+values follow the forced |t|^{1/2} law with large fluctuations. This is consistent with bounded or slowly growing
+hyperbolic values but does not decide (L).
+
+**Next.** A robust high-t evaluator would be the hyperbolic Chowla-Selberg expansion: Z_B as constant term plus twist
+harmonics. It is fast, needs no 1/Gamma cancellation, and is exact once the deeper Farey deficiencies are included.
