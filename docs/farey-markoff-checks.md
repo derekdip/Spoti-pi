@@ -3879,3 +3879,50 @@ The continuation computations above carry the rho_1 and rho_2 families all the w
   at rational directions. These are the vanishing corners of the hyperbolic stable norm.
 - **Values.** The values converge faster than the proved A^{sigma/4} (`flat_limit.py`: about A^1.8). The f_k bound
   min(A, k^-2) ignores the cancellation among corners.
+
+## First-order flat limit, and why the Riemann zeros converge fast (`flat_first_order.py`)
+
+**Theorem (Re s > 2).**
+
+    A^{s/2} Z_{A,z}(s) = Z_flat(s; z) + (A/12) s zeta(s) E(z, s/2 + 1) + o(A),
+
+locally uniformly.
+
+*Proof.* Write N'(v) = n(v)(1 + eps(v)).
+- **Pointwise first order.** For each primitive w, eps(w)/A -> -1/(24 n_w^2).
+  - Upper bound: use the straight line at transverse position 1/2 (Step 1').
+  - Lower bound: by Step 1, the minimiser c_A has flat length n + O(A). So it lies within O(sqrt A) of a straight closed
+    geodesic. Then L_A(c_A) >= int (1 + phi)|c'| >= n - A int_{c_A} G + O(A^2). Since G is bounded above and upper
+    semicontinuous, limsup int_{c_A} G <= n max_u Gbar(u) = n/(24 n^2).
+- eps(kw) = eps(w) by homogeneity, and |eps|/A <= c1 uniformly (Step 1).
+- (1 + eps)^-s = 1 - s eps + O(A^2) uniformly.
+- Dominated convergence for sum n^-sigma, sigma > 2, then gives
+  sum_v n_v^-s (-s eps(v))/A -> (s/24) sum_{w prim} sum_k (k n_w)^-s n_w^-2 = (s/24) zeta(s) Z_flat(s+2)/zeta(s+2),
+  which equals (s/12) zeta(s) E(z, s/2 + 1). ∎
+
+**Check** (hexagonal and square, z exact):
+
+| s | point | measured / predicted at A = 0.4, 0.2, 0.1, 0.05 |
+|---|---|---|
+| 3 | hexagonal | 1.112, 1.061, 1.033, 1.018 |
+| 3 | square | 1.107, 1.058, 1.031, 1.017 |
+| 4 | hexagonal | 1.069, 1.035, 1.017, 1.009 |
+| 4 | square | 1.067, 1.033, 1.017, 1.008 |
+
+The coefficients are 0.684 and 0.738 at s = 3, and 0.734 and 0.826 at s = 4.
+
+**At the zeta zeros the first-order term vanishes**, because of the factor zeta(s). The factor comes from summing over
+multiples k w, whose deficit equals that of w.
+- At s = rho_1, |A^{rho/2} Z_A - Z_flat|/A = 0.77, 0.45, 0.26, 0.14 (hexagonal) and 0.71, 0.42, 0.24, 0.13 (square).
+- So the remainder is A^2 log(1/A): divided by A^2 it grows by a constant 0.32 per halving of A.
+- This is the "A^1.8" seen earlier.
+- The theorem is proved only for Re s > 2. On 0 < Re s < 2 the formal first-order term has a pole at s = 1 from
+  s zeta(s), which the true function lacks, so the expansion there must be different. For example, long curves near
+  short rational directions follow the short curve's best line ("staircases") and contribute about A^{sigma/2}. Their
+  terms also carry the multiples sum zeta(s), consistent with the fast convergence at rho.
+
+**Consequence for blind surfaces.** The zeros of z -> Z_A(rho; z) move only O(A^2 log(1/A)) in the conformal modulus.
+The linear-in-A drift of the tracked zeros in shape coordinates (b/a, c/a) should therefore be exactly the length law
+N/sqrt(A) = n(1 - A/(24 n^2)). It is. For the rho_1 family, with unit-area lengths of the flat zero
+(0.924, 1.120, 1.254), the predicted slopes are 0.0189 for b/a and 0.0303 for c/a. Cone tracking observed 0.0176-0.0184
+and 0.0282-0.029.

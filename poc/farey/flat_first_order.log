@@ -1,0 +1,51 @@
+s = 3 hexagonal: Z_flat = 8.89274510, predicted first-order coefficient (s/12) zeta(s) E(z, s/2+1) = 0.683883
+     A = 0.400: (A^{s/2} Z_A - Z_flat)/A = 0.760252   ratio to prediction 1.1117
+     A = 0.200: (A^{s/2} Z_A - Z_flat)/A = 0.725268   ratio to prediction 1.0605
+     A = 0.100: (A^{s/2} Z_A - Z_flat)/A = 0.706266   ratio to prediction 1.0327
+     A = 0.050: (A^{s/2} Z_A - Z_flat)/A = 0.695939   ratio to prediction 1.0176
+s = 3 square   : Z_flat = 9.03362168, predicted first-order coefficient (s/12) zeta(s) E(z, s/2+1) = 0.737609
+     A = 0.400: (A^{s/2} Z_A - Z_flat)/A = 0.816293   ratio to prediction 1.1067
+     A = 0.200: (A^{s/2} Z_A - Z_flat)/A = 0.780208   ratio to prediction 1.0578
+     A = 0.100: (A^{s/2} Z_A - Z_flat)/A = 0.760628   ratio to prediction 1.0312
+     A = 0.050: (A^{s/2} Z_A - Z_flat)/A = 0.749997   ratio to prediction 1.0168
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/flat_first_order.py", line 20, in <module>
+    zf = Zflat(s, z); pred = s * mp.zeta(s) * E(s / 2 + 1, z) / 12
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/flat_first_order.py", line 15, in <lambda>
+    Zflat = lambda s, z: 2 * mp.zeta(s) * E(s / 2, z)
+                                          ~^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/flat_first_order.py", line 14, in <lambda>
+    E = lambda w, z: Estar(w, z) / xi(2 * w)
+                     ~~~~~^^^^^^
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/flat_first_order.py", line 9, in Estar
+    x, y = mp.re(z), mp.im(z); tot = xi(2 * w) * y ** w + xi(2 - 2 * w) * y ** (1 - w)
+                                                          ~~^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/flat_first_order.py", line 7, in <lambda>
+    xi = lambda w: mp.pi ** (-w / 2) * mp.gamma(w / 2) * mp.zeta(w)
+                                       ~~~~~~~~^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/mpmath/ctx_mp_python.py", line 1000, in f
+    return ctx.make_mpf(mpf_f(x._mpf_, prec, rounding))
+                        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/mpmath/libmp/gammazeta.py", line 1733, in mpf_gamma
+    raise ValueError("gamma function pole")
+ValueError: gamma function pole
+s = 4 hexagonal: Z_flat = 5.78335930, predicted first-order coefficient (s/12) zeta(s) E(z, s/2+1) = 0.734295
+     A = 0.400: (A^{s/2} Z_A - Z_flat)/A = 0.785181   ratio to prediction 1.0693
+     A = 0.200: (A^{s/2} Z_A - Z_flat)/A = 0.759690   ratio to prediction 1.0346
+     A = 0.100: (A^{s/2} Z_A - Z_flat)/A = 0.747031   ratio to prediction 1.0173
+     A = 0.050: (A^{s/2} Z_A - Z_flat)/A = 0.740689   ratio to prediction 1.0087
+s = 4 square   : Z_flat = 6.02681204, predicted first-order coefficient (s/12) zeta(s) E(z, s/2+1) = 0.826082
+     A = 0.400: (A^{s/2} Z_A - Z_flat)/A = 0.881076   ratio to prediction 1.0666
+     A = 0.200: (A^{s/2} Z_A - Z_flat)/A = 0.853509   ratio to prediction 1.0332
+     A = 0.100: (A^{s/2} Z_A - Z_flat)/A = 0.839830   ratio to prediction 1.0166
+     A = 0.050: (A^{s/2} Z_A - Z_flat)/A = 0.832981   ratio to prediction 1.0084
+s = rho_1 hexagonal: Z_flat = (-3.398651993989322-7.814311282631579j); predicted first-order coefficient 0
+     A = 0.400: |A^{rho/2} Z_A - Z_flat|/A = 0.7651   /A^2 = 1.9127
+     A = 0.200: |A^{rho/2} Z_A - Z_flat|/A = 0.4474   /A^2 = 2.2369
+     A = 0.100: |A^{rho/2} Z_A - Z_flat|/A = 0.2563   /A^2 = 2.5628
+     A = 0.050: |A^{rho/2} Z_A - Z_flat|/A = 0.1444   /A^2 = 2.8890
+s = rho_1 square   : Z_flat = (-0.2007792217317939+7.915150833016277j); predicted first-order coefficient 0
+     A = 0.400: |A^{rho/2} Z_A - Z_flat|/A = 0.7115   /A^2 = 1.7787
+     A = 0.200: |A^{rho/2} Z_A - Z_flat|/A = 0.4160   /A^2 = 2.0801
+     A = 0.100: |A^{rho/2} Z_A - Z_flat|/A = 0.2383   /A^2 = 2.3829
+     A = 0.050: |A^{rho/2} Z_A - Z_flat|/A = 0.1343   /A^2 = 2.6861
