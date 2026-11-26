@@ -3335,3 +3335,18 @@ the twist window has width l, checked to 6 digits. Results at L = 0:
 The parts cancel to 3e-4 of their size, the same residual level as the m = 0 and m = 2 controls, whose averages are
 known to be zero; the grid's volume error is 0.13%. So <Z_B(-4)> = 0 within accuracy, and the earlier 0.126 was
 quadrature error at the cusp.
+
+**Proof of the cusp asymptotics.** Write M_X(s) = 2 zeta(s) l^-s + (2/l) zeta(s-1) I(s, W).
+1. *Lengths.* The exact fan t(k alpha + beta) = 2 coth(l/2) cosh(y_k/2) (from AB = coth^2(l/2)) gives
+   N(k, 1) = W + F(y_k) + O(l^2). The model and N are both convex, with model'' <= l^2/2, so the chord and
+   neighbouring-chord sandwich gives |N(x, 1) - model(x)| <= C l^2 for all real x. By homogeneity,
+   |N(p, q) - q model(p/q)| <= C q l^2.
+2. *Re s > 2.* Replacing N by the model costs O(l W^-sigma). Poisson summation over p for the model, which is analytic
+   in |Im y| < pi, gives (q/l) int G up to O(e^{-cq/l}), and the twist drops out. Hence
+   psi(s) = l (s - 2)(Z_X - M_X) = O(l^2) on 2.5 <= Re s <= 3.
+3. *Continuation.* On a rectangle, Z_X and M_X are O((1/l) polylog(1/l)):
+   - the chain cells have delta <= l, cancelling the 1/l of the cell bound, and decay like e^{-y_k};
+   - all other cells contribute O(l^3) by the sandwich;
+   - M_X's poles at 1 cancel and the pole at 2 is removed by the factor (s - 2).
+   Hadamard's two-constants theorem gives |psi| <= C l^{2 omega(s)} polylog(1/l), so psi = o(1).
+Remaining sketch-level ingredient: the per-cell bound with a single factor 1/min(a, b), as in Theorem 3.
