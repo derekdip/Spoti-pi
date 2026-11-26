@@ -1,0 +1,9 @@
+validation (direct lattice count vs cell decomposition):
+   R =  134.878: direct E =    0.2921   cells E =    0.2921   (93 cells)
+   R =  233.254: direct E =   13.1969   cells E =   13.1969   (105 cells)
+   R =  445.311: direct E =    3.8182   cells E =    3.8182   (123 cells)
+   R =  586.894: direct E =  -12.6828   cells E =  -12.6828   (129 cells)
+   R =  687.724: direct E =  -14.5986   cells E =  -14.5986   (129 cells)
+   R =  891.996: direct E =    2.2643   cells E =    2.2643   (135 cells)
+   R = 1040.209: direct E =  -23.8626   cells E =  -23.8626   (135 cells)
+   R = 1075.056: direct E =  -17.2006   cells E =  -17.2006   (135 cells)

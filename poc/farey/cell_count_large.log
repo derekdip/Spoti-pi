@@ -1,0 +1,13 @@
+cutoff sensitivity at R ~ 2e4:
+   R = 16285.70: ETA=1e-3 -> -129.640501, ETA=1e-7 -> -129.640501
+   R = 19992.78: ETA=1e-3 -> -375.084309, ETA=1e-7 -> -375.084309
+   R = 21014.98: ETA=1e-3 -> 240.743547, ETA=1e-7 -> 240.743547
+
+window [w, 2w]: rms E_B, max |E_B|, cells used
+   w =     1000: rms    39.52   max    99.08   mean   -5.85   (153 cells, 3 s)
+   w =     3000: rms    75.59   max   211.19   mean   -5.44   (177 cells, 4 s)
+   w =    10000: rms   198.54   max   481.90   mean   -5.25   (201 cells, 5 s)
+   w =    30000: rms   312.00   max   841.18   mean  +25.70   (231 cells, 5 s)
+   w =   100000: rms   246.36   max   598.30   mean  -39.96   (297 cells, 7 s)
+   w =   300000: rms   306.98   max   838.81   mean  -25.15   (339 cells, 11 s)
+   w =  1000000: rms   339.71   max   758.25   mean  +63.77   (381 cells, 31 s)

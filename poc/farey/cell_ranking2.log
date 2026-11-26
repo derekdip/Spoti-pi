@@ -1,0 +1,30 @@
+
+w = 3000: rms E 607471.2; rms(root hexagon + 3 rational cells) 607443.1; non-root cells 180
+   l_u=  5.407 l_w=  1.925 delta=6.2e-03 rms   11.6 | max quotient in range: alpha    5 [2, 1, 4, 4, 5, 1, 1, 3, 1, 1], alpha'  496 [2, 1, 4, 1, 1, 496]
+   l_u=  1.925 l_w=  5.407 delta=6.2e-03 rms   11.6 | max quotient in range: alpha    5 [1, 4, 4, 5, 1, 1, 3, 1, 1], alpha'    6 [1, 4, 6, 1, 1, 3, 1, 1, 2]
+   l_u=  5.407 l_w=  1.925 delta=6.2e-03 rms   11.6 | max quotient in range: alpha    5 [2, 1, 4, 4, 5, 1, 1, 3, 1, 1], alpha'  496 [2, 1, 4, 1, 1, 496]
+   l_u=  5.407 l_w=  1.925 delta=6.2e-03 rms   11.6 | max quotient in range: alpha    5 [2, 1, 4, 4, 5, 1, 1, 3, 1, 1], alpha'  496 [2, 1, 4, 1, 1, 496]
+   l_u=  1.925 l_w=  5.407 delta=6.2e-03 rms   11.6 | max quotient in range: alpha    5 [1, 4, 4, 5, 1, 1, 3, 1, 1], alpha'    6 [1, 4, 6, 1, 1, 3, 1, 1, 2]
+   l_u=  1.925 l_w=  5.407 delta=6.2e-03 rms   11.6 | max quotient in range: alpha    5 [1, 4, 4, 5, 1, 1, 3, 1, 1], alpha'    6 [1, 4, 6, 1, 1, 3, 1, 1, 2]
+   l_u=  5.407 l_w=  3.525 delta=1.1e-03 rms    5.7 | max quotient in range: alpha   10 [1, 1, 1, 6, 1, 10, 2, 1, 1, 1], alpha'    6 [1, 1, 1, 6, 1, 4, 4, 3, 1]
+   l_u=  5.407 l_w=  3.525 delta=1.1e-03 rms    5.7 | max quotient in range: alpha   10 [1, 1, 1, 6, 1, 10, 2, 1, 1, 1], alpha'    6 [1, 1, 1, 6, 1, 4, 4, 3, 1]
+   l_u=  3.525 l_w=  5.407 delta=1.1e-03 rms    5.7 | max quotient in range: alpha   10 [1, 1, 6, 1, 10, 2, 1, 1, 1], alpha'   51 [1, 1, 6, 1, 51, 2]
+   l_u=  5.407 l_w=  3.525 delta=1.1e-03 rms    5.7 | max quotient in range: alpha   10 [1, 1, 1, 6, 1, 10, 2, 1, 1, 1], alpha'    6 [1, 1, 1, 6, 1, 4, 4, 3, 1]
+   cells with a quotient >=  50 in range:  90; rms of their sum 54.4; rms of all other cells + root 607456.1
+   cells with a quotient >= 100 in range:  48; rms of their sum 45.0; rms of all other cells + root 607463.3
+   cells with a quotient >= 200 in range:  36; rms of their sum 45.0; rms of all other cells + root 607463.3
+
+w = 30000: rms E 58425438.7; rms(root hexagon + 3 rational cells) 58425447.7; non-root cells 258
+   l_u=  5.407 l_w=  7.326 delta=2.4e-05 rms   93.7 | max quotient in range: alpha  496 [2, 1, 4, 1, 1, 496], alpha'  159 [2, 1, 4, 1, 1, 159, 1, 38]
+   l_u=  7.326 l_w=  5.407 delta=2.4e-05 rms   93.7 | max quotient in range: alpha  496 [1, 2, 1, 4, 1, 1, 496], alpha'  269 [1, 2, 1, 4, 2, 269]
+   l_u=  7.326 l_w=  5.407 delta=2.4e-05 rms   93.7 | max quotient in range: alpha  496 [1, 2, 1, 4, 1, 1, 496], alpha'  269 [1, 2, 1, 4, 2, 269]
+   l_u=  5.407 l_w=  7.326 delta=2.4e-05 rms   93.7 | max quotient in range: alpha  496 [2, 1, 4, 1, 1, 496], alpha'  159 [2, 1, 4, 1, 1, 159, 1, 38]
+   l_u=  7.326 l_w=  5.407 delta=2.4e-05 rms   93.7 | max quotient in range: alpha  496 [1, 2, 1, 4, 1, 1, 496], alpha'  269 [1, 2, 1, 4, 2, 269]
+   l_u=  5.407 l_w=  7.326 delta=2.4e-05 rms   93.7 | max quotient in range: alpha  496 [2, 1, 4, 1, 1, 496], alpha'  159 [2, 1, 4, 1, 1, 159, 1, 38]
+   l_u=  5.407 l_w=  1.925 delta=6.2e-03 rms   68.3 | max quotient in range: alpha   26 [2, 1, 4, 4, 5, 1, 1, 3, 1, 1, 2, 26], alpha'  496 [2, 1, 4, 1, 1, 496, 1, 7]
+   l_u=  1.925 l_w=  5.407 delta=6.2e-03 rms   68.3 | max quotient in range: alpha   26 [1, 4, 4, 5, 1, 1, 3, 1, 1, 2, 26], alpha'    7 [1, 4, 6, 1, 1, 3, 1, 1, 2, 1, 7]
+   l_u=  5.407 l_w=  1.925 delta=6.2e-03 rms   68.3 | max quotient in range: alpha   26 [2, 1, 4, 4, 5, 1, 1, 3, 1, 1, 2, 26], alpha'  496 [2, 1, 4, 1, 1, 496, 1, 7]
+   l_u=  1.925 l_w=  5.407 delta=6.2e-03 rms   68.3 | max quotient in range: alpha   26 [1, 4, 4, 5, 1, 1, 3, 1, 1, 2, 26], alpha'    7 [1, 4, 6, 1, 1, 3, 1, 1, 2, 1, 7]
+   cells with a quotient >=  50 in range: 126; rms of their sum 410.2; rms of all other cells + root 58425419.6
+   cells with a quotient >= 100 in range:  66; rms of their sum 400.4; rms of all other cells + root 58425416.4
+   cells with a quotient >= 200 in range:  42; rms of their sum 400.2; rms of all other cells + root 58425417.3

@@ -2948,3 +2948,47 @@ Consequences:
 
 (Correction to the first attempt: summing |amplitude|^2 per geodesic, or per length, gives rms about 125 or 300
 regardless of X. Those models ignore the packet cancellations, and their failure is what led to the packets.)
+
+## Exact Farey-cell decomposition of the sharp lattice count, and a plateau of the lattice error up to R = 2e6 (2026-11-26)
+
+**Decomposition (exact).** Insert the mediant m of a Farey cell (u, w). Inside the cone the gauge changes from
+a l_u + b l_w to a l_u + b l_w - delta min(a, b), at x = au + bw. So
+
+    A(R) = A_root(R) + 2 sum_cells S_cell(R),   S_cell(R) = #{(a, b) >= 1 : a l_u + b l_w - delta min(a, b) <= R < a l_u + b l_w}.
+
+Each cell's discrepancy S_cell - R^2 delta/(2 l_u l_w l_m) is a difference of two Hardy-Littlewood sawtooth sums. Per
+branch it is sum_b [psi(x_b) - psi(x_b + b delta/l_u)], with x_b = (R - b l_w)/l_u, i.e. rotations by
+alpha = l_w/l_u and alpha' = (l_m - l_u)/l_u, plus the mirror branch. Ostrowski's bound then controls each cell by the
+partial quotients of alpha and alpha' up to denominators R/l. Cells with delta R^2 << 1 contribute negligibly, so only
+polylog(R) cells matter (`poc/farey/cell_count.py`).
+
+**Validation.** At 8 radii up to R = 1100 the decomposition equals the direct lattice count to every digit printed,
+using 93-135 cells. Lowering the cell cutoff from 1e-3 to 1e-7 changes nothing to 1e-6.
+
+**A new algorithm.** E_B(R) for R up to 2e6 with at most 381 cells, about 0.5 s per value. Direct enumeration at
+that scale would need about 1e12 points.
+
+| window [w, 2w] | 1e3 | 3e3 | 1e4 | 3e4 | 1e5 | 3e5 | 1e6 |
+|---|---|---|---|---|---|---|---|
+| rms E_B | 39.5 | 75.6 | 198.5 | 312.0 | 246.4 | 307.0 | 339.7 |
+| max \|E_B\| | 99 | 211 | 482 | 841 | 598 | 839 | 758 |
+| cells used | 153 | 177 | 201 | 231 | 297 | 339 | 381 |
+
+The lattice error **plateaus** from about 3e4 to 2e6. Growth like R^(1/2) from w = 1e3 would give about 1250 at 1e6.
+The apparent R^0.6 growth below 3e4 is a transient carried by a few cells with very large partial quotients
+(`cell_ranking.py`, `cell_ranking2.py`):
+- the cell (l_u, l_w) = (7.326, 5.407), delta = 2.4e-5, has alpha = [0; 1, 2, 1, 4, 1, 1, 496, ...] and alpha' with 269
+  (or 159 in the mirror branch); its rms is 93.7 at w = 3e4;
+- the cell (5.407, 1.925) has alpha' = [...; 1, 1, 496, 1, 7].
+
+These are the beat packets of the previous section, seen as single cells.
+
+**Conjecture.** For the modular torus, E_B(R) = R^(o(1)), and is polylogarithmic if the partial quotients of the cell
+rotation numbers behave like those of typical reals. Then the geometric part of the simple-geodesic counting error is
+negligible, and the McShane-Rivin exponent 1/2 comes from the Moebius / Riemann-zero part: the sharp count's oscillation
+is sum_rho Z_B(rho) R^rho/(2 rho zeta'(rho)). The first zero gives an amplitude of about 0.535 R^(1/2) (mod sign). A
+test at R up to 2e6 is running (`primitive_large.py`).
+
+(Bookkeeping note: the root hexagon has rational faces, alpha = 1, and its O(R) error cancels against its three root
+cells. Ranked per-cell figures exclude them; the "root group" rms printed by `cell_ranking2.py` is a bookkeeping
+artefact.)
