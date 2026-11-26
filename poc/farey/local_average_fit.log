@@ -1,0 +1,27 @@
+
+=== sigma_a = 0.000
+   Abar: c3 = 0.149003 (Area-type), lattice error rms 0.1168, /R^1.5 rms 3.92e-04
+   Pbar: smooth part from Abar's c's; residual rms 3.8720;  predicted zero sum rms 3.8653;  residual - zero sum rms 0.4359
+   corr(residual, zero sum) = 0.9937;  free-cubic residual of Pbar rms 3.5540
+   |coefficient| of first zeros: 3.22e-03 1.57e-03 1.08e-03 8.56e-04
+     R in [ 20, 60): residual rms 1.566   zero sum rms 1.586   mismatch rms 0.147
+     R in [ 60,100): residual rms 4.055   zero sum rms 4.114   mismatch rms 0.304
+     R in [100,150): residual rms 4.353   zero sum rms 4.269   mismatch rms 0.634
+
+=== sigma_a = 0.030
+   Abar: c3 = 0.149009 (Area-type), lattice error rms 0.0399, /R^1.5 rms 1.78e-04
+   Pbar: smooth part from Abar's c's; residual rms 3.7152;  predicted zero sum rms 3.7211;  residual - zero sum rms 0.3625
+   corr(residual, zero sum) = 0.9952;  free-cubic residual of Pbar rms 3.4061
+   |coefficient| of first zeros: 3.17e-03 1.51e-03 1.02e-03 7.88e-04
+     R in [ 20, 60): residual rms 1.507   zero sum rms 1.529   mismatch rms 0.119
+     R in [ 60,100): residual rms 3.931   zero sum rms 3.989   mismatch rms 0.189
+     R in [100,150): residual rms 4.139   zero sum rms 4.089   mismatch rms 0.549
+
+=== sigma_a = 0.060
+   Abar: c3 = 0.149028 (Area-type), lattice error rms 0.0504, /R^1.5 rms 7.99e-05
+   Pbar: smooth part from Abar's c's; residual rms 3.4192;  predicted zero sum rms 3.4245;  residual - zero sum rms 0.3689
+   corr(residual, zero sum) = 0.9942;  free-cubic residual of Pbar rms 3.1470
+   |coefficient| of first zeros: 3.01e-03 1.35e-03 8.68e-04 6.16e-04
+     R in [ 20, 60): residual rms 1.357   zero sum rms 1.382   mismatch rms 0.111
+     R in [ 60,100): residual rms 3.640   zero sum rms 3.689   mismatch rms 0.178
+     R in [100,150): residual rms 3.830   zero sum rms 3.775   mismatch rms 0.561

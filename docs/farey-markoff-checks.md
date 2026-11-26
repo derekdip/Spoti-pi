@@ -2589,3 +2589,41 @@ scale. The next candidate is a local 2D average: uniform in tau, plus a smooth b
 tip lattice error by averaging over dilations. The core's zero terms only acquire the factor int bump(a) g(a)^-(rho+1) da,
 which is nonzero for the low zeros. The systole stays bounded, so the Moebius tail survives, unlike the full
 Weil-Petersson average.
+
+## Correction, and the result: smoothed simple-geodesic counts carry the Riemann zeros on a single surface (`poc/farey/local_average*.py`, `zero_truncation.py`)
+
+**Explicit formula (exact, symbolic).** Let A(R) = sum over all lattice classes v != 0 of (R - N(v))_+, using the
+stable norm and its homogeneity, and P(R) = sum over simple gamma of (R - l_gamma)_+. Then P(R) = sum_d mu(d) d A(R/d),
+so P^(s) = A^(s)/zeta(s-1). If A = c3 R^3 + c2 R^2 + c1 R + c0 + e_A with e_A = O(R^theta), theta < 3/2, then
+
+    P(R) = (6/pi^2) c3 R^3 - 2 c1 R - 12 c0 + sum_rho 2 Re[A^(1+rho) R^(1+rho) / zeta'(rho)] + O(R^(theta+eps)).
+
+The R^2 term drops out because zeta(1) is a pole. A^(1+rho) is the continued Mellin transform of A, computed from the data.
+
+**Data.** R <= 150. Coefficients come from A alone, with no free parameters. The zero sum is truncated at 30 zeros.
+
+| surface or average | rms of e_A | rms of P residual | rms of predicted zero sum | correlation | mismatch |
+|---|---|---|---|---|---|
+| single modular torus | 0.661 | 24.89 | 24.77 | 0.9964 | 2.12 (8.5%) |
+| twist average (sigma_a = 0) | 0.117 | 3.87 | 3.87 | 0.9937 | 0.44 (11%) |
+| twist plus a-bump sigma_a = 0.03 | 0.040 | 3.72 | 3.72 | 0.9952 | 0.36 (9.8%) |
+| twist plus a-bump sigma_a = 0.06 | 0.050 | 3.42 | 3.42 | 0.9942 | 0.37 (11%) |
+
+- With 1, 3, 10, 30 and 60 zeros, the single-torus mismatch is 67%, 61%, 18%, 8.5% and 5.7%.
+- Beyond about 60 zeros the estimated coefficients stop decaying, a floor set by estimating A^ from R <= 150.
+- Spectral peaks of residual/R^1.5 in log R include 14.0, 21.7 to 22.8, 29 and 37.5, against zeros at 14.13, 21.02,
+  30.42 and 37.59. The resolution is about +-3, so leakage peaks also appear.
+
+**What was wrong before.**
+1. "The zeros stay entangled for a single surface" holds for the sharp count only. Riesz smoothing integrates zero
+   terms R^rho into R^(1+rho)/(1+rho), gaining a power of R, while the lattice error oscillates in R and gains nothing.
+   It stays about R^(1/2), against R^(3/2) for the zero terms. Smoothing, not averaging, separates them.
+2. "The tips leave a lattice error of the same order" was wrong. The twist-average residual that the V-core failed to
+   explain is the zero sum itself: its coefficients A^(1+rho) depend on the whole small-R structure, tips included, not
+   only on the V-core. Averaging lowers e_A, from 0.66 to 0.04, but is not needed.
+
+**Reading.** On a single hyperbolic torus, the Riesz-smoothed count of simple closed geodesics is a smooth cubic plus a
+sum over the Riemann zeros, with geometric coefficients A^(1+rho)/zeta'(rho), plus an error of order R^(1/2). Under
+RH the oscillating part is O(R^(3/2+eps)). A zero off the line at beta would appear as R^(1+beta). The mechanism is the
+standard one for primitive lattice points, here carried by the stable-norm ball. The gap law enters through B's
+corner and face structure, and through the twist V-height q log(9/5).

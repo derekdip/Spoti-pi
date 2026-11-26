@@ -1,0 +1,21 @@
+
+=== single modular torus: residual rms 24.892
+     1 zeros: mismatch rms 16.6368  (66.84% of residual)
+     3 zeros: mismatch rms 15.2222  (61.15% of residual)
+    10 zeros: mismatch rms 4.5972  (18.47% of residual)
+    30 zeros: mismatch rms 2.1157  (8.50% of residual)
+    60 zeros: mismatch rms 1.4167  (5.69% of residual)
+   120 zeros: mismatch rms 1.7422  (7.00% of residual)
+   |coef| at zeros 1, 10, 30, 60, 120: 1.88e-02 1.73e-03 2.83e-04 8.66e-05 1.21e-04
+   spectral peaks of residual/R^1.5 in log R: 10.05 14.00 18.70 22.75 29.15 33.50 37.50 43.85
+
+=== local average sigma_a = 0.03: residual rms 3.715
+     1 zeros: mismatch rms 2.5391  (68.34% of residual)
+     3 zeros: mismatch rms 1.9269  (51.87% of residual)
+    10 zeros: mismatch rms 0.4387  (11.81% of residual)
+    30 zeros: mismatch rms 0.3625  (9.76% of residual)
+    60 zeros: mismatch rms 0.7084  (19.07% of residual)
+   120 zeros: mismatch rms 1.5617  (42.04% of residual)
+   |coef| at zeros 1, 10, 30, 60, 120: 3.17e-03 8.43e-05 4.27e-05 4.50e-05 7.24e-05
+   spectral peaks of residual/R^1.5 in log R: 6.10 9.80 14.00 21.65 28.90 33.70 38.20
+   zeta zeros: 14.13 21.02 25.01 30.42 32.94 37.59

@@ -1,0 +1,9 @@
+
+=== single modular torus (no averaging)
+   Abar: c3 = 0.148634 (Area-type), lattice error rms 0.6611, /R^1.5 rms 1.84e-03
+   Pbar: smooth part from Abar's c's; residual rms 24.8922;  predicted zero sum rms 24.7692;  residual - zero sum rms 2.1157
+   corr(residual, zero sum) = 0.9964;  free-cubic residual of Pbar rms 23.5304
+   |coefficient| of first zeros: 1.88e-02 8.69e-03 8.36e-03 3.86e-03
+     R in [ 20, 60): residual rms 8.614   zero sum rms 8.599   mismatch rms 0.764
+     R in [ 60,100): residual rms 23.654   zero sum rms 23.711   mismatch rms 1.960
+     R in [100,150): residual rms 32.273   zero sum rms 31.979   mismatch rms 2.845
