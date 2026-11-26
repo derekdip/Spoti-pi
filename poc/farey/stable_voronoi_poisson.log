@@ -1,0 +1,8 @@
+corners (both signs) with N <= 40: 852
+max | (n+ - n-) - G J v | = 1.40e-13
+
+
+
+(3) Poisson: sum_x e^{-eps N(x)} vs eps^-2 sum_xi Fhat(xi/eps)  (vectorised; dual truncated at max|xi_i| <= M)
+   eps = 1.00: lattice side 2.2718916698;  dual side: M=30: 2.2607017981 (diff 1.1e-02)  M=60: 2.2662511947 (diff 5.6e-03)  M=120: 2.2690600709 (diff 2.8e-03)  M=240: 2.2704730221 (diff 1.4e-03)
+   eps = 0.50: lattice side 7.5246571660;  dual side: M=30: 7.5160469799 (diff 8.6e-03)  M=60: 7.5203126315 (diff 4.3e-03)  M=120: 7.5224747525 (diff 2.2e-03)  M=240: 7.5235634182 (diff 1.1e-03)

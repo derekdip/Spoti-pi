@@ -1,0 +1,17 @@
+corners (both signs) with N <= 130: 9180
+max | (n+ - n-) - G J v | = 9.09e-13
+geodesics (mod sign) with l <= 130: 4590;  check a- - a+ = G/l: max err 2.2e-16
+sigma = 0.50: rms lattice error 0.8735; rms(series) 0.8735; fitted constant C = -0.6537; rms(lattice - series - C) 3.23e-10; corr 1.000000
+sigma = 0.30: rms lattice error 2.2738; rms(series) 2.2738; fitted constant C = -0.6537; rms(lattice - series - C) 3.23e-10; corr 1.000000
+   l in ( 0, 10]:   30 geodesics carry 100.0% of the series variance
+   l in (10, 20]:   78 geodesics carry 0.0% of the series variance
+   l in (20, 40]:  318 geodesics carry 0.0% of the series variance
+   l in (40, 60]:  558 geodesics carry 0.0% of the series variance
+   l in (60, 130]: 3606 geodesics carry 0.0% of the series variance
+   C vs -1 - (the Gibbs constant): the lattice count excludes x = 0
+(a) K <=  1000: -1 - S0 = -46.5693   (fitted C = -0.6537)
+(a) K <=  4000: -1 - S0 = 0.2632   (fitted C = -0.6537)
+(a) K <= 16000: -1 - S0 = 2.1272   (fitted C = -0.6537)
+(b) X =   30: Z_B(rho_1) = 0.64423 +5.95810i;  |coefficient of R^(1+rho_1)| (mod sign) = 1.8792e-02   (fitted from P data: 1.88e-02)
+(b) X =   45: Z_B(rho_1) = 0.64546 +5.96189i;  |coefficient of R^(1+rho_1)| (mod sign) = 1.8804e-02   (fitted from P data: 1.88e-02)
+(b) X =   60: Z_B(rho_1) = 0.64566 +5.96253i;  |coefficient of R^(1+rho_1)| (mod sign) = 1.8806e-02   (fitted from P data: 1.88e-02)

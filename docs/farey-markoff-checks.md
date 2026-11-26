@@ -2627,3 +2627,47 @@ sum over the Riemann zeros, with geometric coefficients A^(1+rho)/zeta'(rho), pl
 RH the oscillating part is O(R^(3/2+eps)). A zero off the line at beta would appear as R^(1+beta). The mechanism is the
 standard one for primitive lattice points, here carried by the stable-norm ball. The gap law enters through B's
 corner and face structure, and through the twist V-height q log(9/5).
+
+## Poisson-dual of the stable norm: a Voronoi series over simple geodesics (`poc/farey/stable_voronoi*.py`)
+
+**1. Fourier transform as a sum over corners (exact).** N is linear on each face-cone and its gradient is pure-jump
+(proved earlier). Integrating Phi(N) over the cones and telescoping gives, for any profile Phi,
+
+    F[Phi(N)](xi) = (1/2 pi i) sum_{v primitive, +-} G(v) <v,xi> K_Phi(<v,xi>/N(v)) / (<J n_v^+, xi> <J n_v^-, xi>),
+    K_Phi(a) = int_0^inf Phi(t) e^{-2 pi i t a} dt,   n_v^+ - n_v^- = G(v) J v,   G(v) = 2 log(t_v^2/(t_v^2 - 4)).
+
+- The gap law is the vector jump of the gradient at each corner. The one-sided gradients have closed forms from the
+  face offsets c(v, +-w).
+- <v,xi> is an integer, and terms with <v,xi> = 0 vanish.
+
+Checks with Phi = e^-t:
+- The jump identity holds to 1e-13.
+- The corner sum built from B's closed-form data equals the exact Fourier transform of the polygon on the corners with
+  N <= 40, to 1e-10 at five xi.
+- Brute-force quadrature agrees to 1e-3, its grid error.
+- Poisson, sum over x of e^(-eps N(x)) against the dual sum: the truncation error halves when M doubles (|xi|^-3 decay).
+  Extrapolated, 2.271886 against 2.271892 at eps = 1, and 7.524652 against 7.524657 at eps = 1/2.
+
+**2. The lattice error is a Voronoi series (exact).** Sum the dual vectors along each line <v,xi> = k in closed form,
+using sum_j 1/((j+a)(j+b)) = pi (cot pi a - cot pi b)/(b - a). The gap law cancels:
+
+    E_B(R) = sum_{gamma simple} sum_{k>=1} [cot(pi k a_gamma^+) - cot(pi k a_gamma^-)]/(pi k) * cos(2 pi k R / l_gamma) + C,
+    a^+- = <J n^+-, xi0>/l   (any xi0 with <v, xi0> = 1),   a^- - a^+ = G(v)/l_gamma.
+
+Each simple geodesic contributes a periodic function of R with period equal to its own length. Its amplitudes are the
+Hardy-Littlewood cotangent sums of the rotation numbers of the two faces at its corner. Checked with Gaussian
+smoothing sigma = 0.5 and 0.3, against the actual smoothed lattice count for R in [20, 100], with 4590 geodesics:
+the residual is 3.2e-10, the correlation 1.000000, and the constant C = -0.6537 is the same at both sigma. Its
+closed form is open: the undamped cotangent series does not converge numerically. For a long geodesic,
+a^+ - a^- = -G/l = O(e^-l), so its amplitude is about (G/l) pi k csc^2(pi k a). It is negligible unless k a is close to an
+integer. This makes the face-resonance burst mechanism of the earlier section exact.
+
+**3. The Riemann-zero amplitudes in closed form.** With A(R) = sum over v of (R - N(v))_+, A^(s) = Z_B(s-1)/(s(s-1)).
+So in the smoothed simple-geodesic count (mod sign) the zero rho has coefficient
+
+    Z_B(rho) / (2 rho (rho+1) zeta'(rho)).
+
+Z_B continues to Re s > theta_A - 1, about -1/2, because the Riesz-smoothed error is O(R^(1/2)); my earlier claim that
+it stops at 1/2 was wrong. Check: Z_B(rho_1) from a smoothed lattice sum is 0.6457 + 5.9625i, stable over X = 30 to
+60. The predicted |coefficient| is 1.8806e-2, against 1.88e-2 fitted from the simple-geodesic data in the previous
+section.
