@@ -1,0 +1,17 @@
+primitive classes (mod sign) with N <= 3300: 2952000; Area(B) = 0.8918031660
+extent check: max |v/N(v)| = 0.567
+
+rms of E over [R, 2R]:
+   R      B         disk      poly(T=8)  poly(T=15)
+    25     6.489     7.117     6.300     6.531
+    50     7.407     9.902     7.380     7.105
+   100     9.672    14.521     9.211     9.818
+   200    12.577    19.943    11.896    12.271
+   400    17.812    28.039    14.913    18.595
+   800    32.733    39.656    21.195    33.178
+  1600    55.929    56.581    37.791    54.092
+(polygons: 36 and 120 corners)
+fitted rms exponent B    : 0.582
+fitted rms exponent disk : 0.498
+fitted rms exponent p8   : 0.449
+fitted rms exponent p15  : 0.586

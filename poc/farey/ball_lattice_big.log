@@ -1,0 +1,22 @@
+primitive classes mod sign with N <= 6500: 11452938; lattice points/2: 18839355
+seed 5:  window   rms E_B    rms E_disk   mean E_B
+          100       9.62      14.87      -0.67
+          200      12.51      20.26      -0.47
+          400      18.38      28.02      -0.74
+          800      32.91      38.02      -0.61
+         1600      55.29      57.24      -0.79
+         3200      83.30      77.79       0.57
+   local exponents B:    0.38 0.56 0.84 0.75 0.59
+   local exponents disk: 0.45 0.47 0.44 0.59 0.44
+seed 6:  window   rms E_B    rms E_disk   mean E_B
+          100       9.64      15.07      -0.95
+          200      12.45      19.91      -0.55
+          400      18.02      29.95      -0.21
+          800      33.15      40.35      -0.71
+         1600      54.14      55.82       0.91
+         3200      81.04      78.17      -1.05
+   local exponents B:    0.37 0.53 0.88 0.71 0.58
+   local exponents disk: 0.40 0.59 0.43 0.47 0.49
+E_B/R^(1/2) Fourier coefficient at period systole N0 : |c1| = 0.015, |c2| = 0.004  (rms of E_B/R^(1/2) = 1.152)
+E_B/R^(1/2) Fourier coefficient at period N(2e0+e1)  : |c1| = 0.005, |c2| = 0.040  (rms of E_B/R^(1/2) = 1.152)
+E_B/R^(1/2) Fourier coefficient at period random 1.7 : |c1| = 0.004, |c2| = 0.006  (rms of E_B/R^(1/2) = 1.152)

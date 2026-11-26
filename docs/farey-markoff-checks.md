@@ -2497,3 +2497,52 @@ its dual area is our Sigma g N.
 converges absolutely for all s, so it is entire and has no zeta factor. The gap law, the dual-area identity, the Hines
 identities and the pi^2 law involve neither zeta nor RH. The only route from them to the Riemann zeros is the lattice
 problem of B.
+
+## The lattice error of the stable-norm ball: B is a polygon of exact faces (`poc/farey/ball_lattice*.py`, `polygon_control.py`)
+
+**Symbolic structure.** Fix a corner v with Farey neighbour w, and write t_k = trace(kv + w). Then t_k = A lambda^k + B lambda^-k,
+with lambda = e^(N(v)/2) and A, B fixed by t_0 = t_w and t_1 = t_(v+w). Hence
+
+    N(kv + w) = k N(v) + c(v,w) + O(lambda^-2k),     c(v,w) = 2 log A = 2 log[(t_(v+w) - t_w/lambda) / sqrt(t_v^2 - 4)].
+
+So next to each corner, B has a face that is flat up to exponentially small error: the line N(v) a + c(v,w) b = 1 in the
+basis (v, w). The same holds for N(kv + jw) with fixed j. The two faces at a corner satisfy
+
+    c(v,w) + c(v,-w) = 2 log(AB),   AB = (t_0 t_2 - t_1^2)/(lambda - 1/lambda)^2 = (t_v^2 - mu)/(t_v^2 - 4),
+
+using the Markoff relation. This is exactly the gap law, in the normalization N = l. **The gap law is the sum of the
+offsets of the two flat faces meeting at the corner.** So B is a polygon with one pair of faces per rational corner;
+only the faces' far ends are curved.
+
+Checked at 30 digits for v = e0 of the modular torus:
+- N0 = 2 log phi^2, and c(e0,e1) = -0.374636985217088 (closed form and limit agree).
+- Face flatness: 0.375, 0.050, 0.0073, 0.0011, ..., about (phi^-4)^k.
+- N(k e0 + 2 e1) - (k N0 + 2c) = 1e-8 at k = 21.
+- A B = 9/5 = t^2/(t^2 - 4).
+
+**Consequence for the lattice error.** Each face is a lattice-triangle edge, and its error is a Birkhoff sum of the
+rotation by -c(v,w)/N(v). A face at corner v has length about R/N(v)^2 in R B, so the faces with N(v) <= sqrt(R)
+matter, and there are about R of them. Independent signs then predict an error of about sqrt(R) times a slowly growing
+factor. Faces with near-rational offsets produce bursts. For v = e0, -c/N0 = [0; 5, 7, 3, 1, 37, 2, ...]: the partial
+quotient 37 after the denominator 149 predicts resonance over R from about 10^2 to 6 x 10^3.
+
+**Numerics.** 11.45 million simple geodesics; rms of E_B over windows [R, 2R], two independent seeds agreeing to 3%.
+
+| window R | 100 | 200 | 400 | 800 | 1600 | 3200 |
+|---|---|---|---|---|---|---|
+| rms E_B | 9.6 | 12.5 | 18.4 | 32.9 | 55.3 | 83.3 |
+| rms E_disk (same area) | 14.9 | 20.3 | 28.0 | 38.0 | 57.2 | 77.8 |
+| E_B / sqrt(R_mid) | 0.79 | 0.72 | 0.75 | 0.95 | 1.13 | 1.20 |
+
+- Local exponents for B: 0.38, 0.56, 0.84, 0.75, 0.59. The burst sits in the predicted resonance range and is fading.
+- For the disk, E/sqrt(R) stays at 1.15 +- 0.05.
+- E_B shows no periodicity in R at the systole or any other short length (Fourier coefficients about 0.01).
+- Polygon controls: the 36-corner truncation of B grows like B. The same polygon under a generic area-preserving shear
+  stays flat, with local exponents 0.02 to 0.14. Small perturbations go either way, depending on whether some face lands
+  near a rational slope. So the growth comes from how B's faces sit relative to Z^2, as the face formula says.
+
+**Verdict on the Riemann zeros.** E_B is at least of order sqrt(R), probably with a slowly growing factor. Then
+Z_B(s) = Area s/(s-2) + s int E_B R^(-s-1) dR does not continue past Re s = 1/2. The terms R^rho from the zeros of
+zeta, of size R^(1/2), stay entangled with the geometric error for this single surface. Separating them would need
+averaging that kills E_B but not the Moebius tail. The full Weil-Petersson average kills both: Mirzakhani integration
+makes the averaged count exactly quadratic, and the Moebius sum then closes with no tail.

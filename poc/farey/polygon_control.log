@@ -1,0 +1,9 @@
+p8 (B corners N<=8)    corners  36  rms:    7.30    9.10   12.01   15.31   21.36   37.21   local exps: 0.32 0.40 0.35 0.48 0.80
+p8 sheared             corners  36  rms:    5.46    7.23    8.38    8.50    8.74    9.63   local exps: 0.41 0.21 0.02 0.04 0.14
+random 36-gon          corners  20  rms:    4.27    4.17    4.73    5.05    5.63    6.61   local exps: -0.03 0.18 0.09 0.16 0.23
+golden square          corners   4  rms:    5.13    5.11    5.35    6.21    8.06   11.69   local exps: -0.01 0.07 0.21 0.38 0.54
+
+(a) lattice rays, radii x e^N(0,.004)    corners  28  rms:    4.63    4.77    5.82    5.24    5.93    6.49   local exps: 0.04 0.29 -0.15 0.18 0.13
+(b) true radii, rotated 0.003 rad        corners  36  rms:    4.38    5.13    5.80    7.21    6.37    7.20   local exps: 0.23 0.18 0.31 -0.18 0.18
+(a) lattice rays, radii x e^N(0,.004)    corners  26  rms:    4.33    4.27    5.07    7.00    9.69   12.72   local exps: -0.02 0.25 0.46 0.47 0.39
+(b) true radii, rotated 0.006 rad        corners  36  rms:    4.61    4.86    6.59    9.88   14.69   18.33   local exps: 0.08 0.44 0.58 0.57 0.32
