@@ -3585,3 +3585,57 @@ phase-vortices scales like gamma^2. The k >= 5 counts are lower bounds, because 
 
 **Conjecture.** The number of surfaces blind to rho is about C gamma^2, with signed count 0 on the oriented moduli space
 (each zero pairs with its mirror image).
+
+## Certificate for the zero-blind surface X* (`certify_xstar.py`)
+
+Argument principle on the circle of radius 0.02 about X* in the chart (x, v), with 400 samples (chord 3.1e-4).
+
+| Error term | How it is bounded | Size |
+|---|---|---|
+| Cell tail | Explicit Lemma C bound, summed over the 678 actual cells with 40 < a+b <= 64; envelope beyond 64; x1.5 for the whole loop | 7.2e-14 |
+| Quadrature/rounding | 10 x the disagreement between the rays theta = pi/3 and 0.4 pi | 1.5e-9 |
+| Between samples | Lipschitz L = 10 x the largest central-difference gradient on 320 points of the annulus r/2..3r/2 (max 15.3); L h/2 | 2.4e-2 |
+
+The minimum of abs(Z) on the loop is 0.119, five times the 0.024 margin required. The largest phase step between
+samples is 0.035 rad. The winding number is exactly 1. **So X* carries a zero of Z_B(rho_1) of degree 1.**
+
+The certificate is rigorous except in two places, which are numerical with a 10x safety factor:
+- the quadrature error, estimated by comparing two rays rather than by interval arithmetic;
+- the Lipschitz constant, estimated from sampled gradients rather than by a validated derivative bound.
+It is at the same standard as the rho_1 certificate on the modular torus. Interval arithmetic would close both.
+
+## Higher genus: the Riemann zeros live in every embedded one-holed torus (`boundary_torus.py`)
+
+**Boundary case.** The whole theory (Lemma C, the sandwich with K = 16 - 4 mu > 16, the cell formula, the explicit
+formula) holds for one-holed tori with geodesic boundary, x^2 + y^2 + z^2 - xyz = 2 - 2 cosh(Lb/2). The exact counts
+confirm it in amplitude and phase. For Lb = 2 (2.20M curves to 3000):
+
+| k | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| measured abs | 0.1856 | 0.0602 | 0.0404 | 0.0440 | 0.0475 | 0.0611 | 0.1025 | 0.0986 |
+| predicted abs | 0.1858 | 0.0603 | 0.0390 | 0.0429 | 0.0462 | 0.0616 | 0.0937 | 0.0878 |
+| measured phase | -0.975 | +0.578 | -1.777 | -2.808 | +2.223 | -1.151 | +2.975 | +1.719 |
+| predicted phase | -0.975 | +0.592 | -1.801 | -2.907 | +2.319 | -1.173 | +2.914 | +1.806 |
+
+For Lb = 6 (1.22M curves), gamma_1 measured 0.0661 at phase +0.679, against 0.0661 at +0.676 predicted. The other
+zeros agree to 1-30% in amplitude and within 0.1 rad in phase.
+
+**Consequence for every genus.** Let X be any closed or cusped hyperbolic surface of genus >= 1 and Y an embedded
+incompressible one-holed torus with geodesic boundary. The simple closed geodesics of X lying in Y are exactly the
+non-peripheral simple geodesics of Y. Their count is Area(B_Y) R^2/(2 zeta(2)) + sum_rho c_rho(Y) R^rho + ..., with
+c_rho(Y) = Z_{B,Y}(rho)/(2 rho zeta'(rho)), and the error is not O(R^{1/2-eps}) whenever some Z_{B,Y}(rho) != 0. The
+same holds for embedded four-holed spheres. So every hyperbolic surface of genus >= 1, and every cusped one of
+complexity >= 1, carries the Riemann zeros in the simple-length spectrum of each such subsurface, and the subsurface
+moduli decide their amplitudes.
+
+**Why the full count in genus >= 2 should not show them.**
+- In complexity one, every integral measured lamination is k gamma for a single simple curve gamma. So
+  2 zeta(s) eta(s) = Z_ML(s) exactly, where eta(s) = sum_gamma l^-s, and Z_ML is the lattice zeta, which is smooth
+  (Theorem 3).
+- In complexity >= 2, ML(Z) also contains multicurves sum k_i gamma_i. One only has zeta(s) eta(s) = Z_ML^(1)(s), the
+  one-component stratum, and nothing makes that stratum smooth.
+- Even if it were, the zeros would contribute L^{1/2} against a main term L^{6g-6+2n}. Mirzakhani-type error terms
+  (power savings, Eskin-Mirzakhani-Mohammadi) sit far above L^{1/2}.
+
+**Conjecture.** In complexity >= 2 the total simple-geodesic count has no detectable zeta-zero oscillation. The zeros
+are visible exactly through complexity-one subsurfaces.

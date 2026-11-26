@@ -1,0 +1,5 @@
+tail bound (cells 40 < a+b <= 64: 678 cells; Lemma C) 4.181e-14, beyond 64 1.109e-19  -> err_tail = 7.153e-14 (x1.5 over loop)
+loop radius 0.02 in (x, v), N = 400, chord h = 3.14e-04
+min |Z| on loop 0.1192; err_num 1.54e-09; max |grad Z| 15.27 -> L = 152.7; L h/2 = 2.399e-02; required margin 2.399e-02
+largest phase step between samples: 0.035 rad
+winding number 1.000000; CERTIFIED: True
