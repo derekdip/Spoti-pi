@@ -1,0 +1,14 @@
+zeros with coefficients: 12; Fejer width T = gamma_13 = 59.3470
+  K =  1 (T = 21.022): sup_y P_T = 0.1752   inf_y P_T = -0.1752   [sum of weights 2(1-g/T)|c| = 0.1752]
+  K =  2 (T = 25.011): sup_y P_T = 0.2909   inf_y P_T = -0.2909   [sum of weights 2(1-g/T)|c| = 0.2909]
+  K =  3 (T = 30.425): sup_y P_T = 0.4738   inf_y P_T = -0.4735   [sum of weights 2(1-g/T)|c| = 0.4738]
+  K =  4 (T = 32.935): sup_y P_T = 0.5548   inf_y P_T = -0.5524   [sum of weights 2(1-g/T)|c| = 0.5562]
+  K =  5 (T = 37.586): sup_y P_T = 0.7208   inf_y P_T = -0.7156   [sum of weights 2(1-g/T)|c| = 0.7239]
+  K =  6 (T = 40.919): sup_y P_T = 0.8341   inf_y P_T = -0.8279   [sum of weights 2(1-g/T)|c| = 0.8404]
+  K =  7 (T = 43.327): sup_y P_T = 0.9133   inf_y P_T = -0.9072   [sum of weights 2(1-g/T)|c| = 0.9225]
+  K =  8 (T = 48.005): sup_y P_T = 1.0596   inf_y P_T = -1.0510   [sum of weights 2(1-g/T)|c| = 1.0853]
+  K =  9 (T = 49.774): sup_y P_T = 1.1060   inf_y P_T = -1.0991   [sum of weights 2(1-g/T)|c| = 1.1430]
+  K = 10 (T = 52.970): sup_y P_T = 1.1896   inf_y P_T = -1.1885   [sum of weights 2(1-g/T)|c| = 1.2480]
+  K = 11 (T = 56.446): sup_y P_T = 1.2624   inf_y P_T = -1.2847   [sum of weights 2(1-g/T)|c| = 1.3583]
+  K = 12 (T = 59.347): sup_y P_T = 1.3205   inf_y P_T = -1.3612   [sum of weights 2(1-g/T)|c| = 1.4461]
+observed on [3e4, 3e5]: max E/sqrt R = 3.500, min = -2.823

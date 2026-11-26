@@ -3139,3 +3139,35 @@ enumeration exactly on 3 random tori at 4 radii each. Large-R results on 4 rando
 Growth occurs only while a large partial quotient is active, and its size matches Gauss-Kuzmin statistics over about 2e4
 quotients in range. All surfaces stay far below R^(1/2). The modular torus is a single point of moduli space, so its
 own case (Theorem 8's hypothesis) remains open.
+
+## Sharp counts and the zeta zeros: explicit formula test and a multi-zero Ingham bound (2026-11-26)
+
+**Coefficients.** c_k = Z_B(rho_k)/(2 rho_k zeta'(rho_k)) from Farey-cell sums (`sharp_explicit.py`). The working
+precision must exceed log10 |1/Gamma(rho)|, about pi gamma/(2 ln 10). At 30 digits the values from k = 9 on were
+garbage; with adaptive precision:
+
+| k | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| \|c_k\| | 0.267 | 0.183 | 0.209 | 0.118 | 0.179 | 0.121 | 0.082 | 0.138 | 0.058 | 0.087 |
+
+**Explicit-formula test.** 400 exact E_P(R) values at log-uniform R in [3e4, 3e5] have rms E_P/sqrt R = 1.168
+(`sharp_samples.py`). The prediction sum_{k<=K} 2 Re[c_k e^{i gamma_k log R}], with no fitted parameters, has
+correlation 0.29, 0.37, 0.43, 0.45 and 0.53 for K = 1, 2, 3, 5 and 10; the residual rms goes from 1.12 to 0.99
+(`sharp_compare_partial.log`). The correlation keeps rising, as expected for a slowly converging sharp explicit
+formula. With 10 zeros it is not yet decisive; the 20-zero run is in progress.
+
+**Multi-zero Ingham bound (unconditional).** For T below the next zero,
+lim sup E_P/sqrt R >= sup_y P_T(y) and lim inf <= inf_y P_T(y), where
+P_T(y) = sum_{gamma_k < T} 2(1 - gamma_k/T) Re(c_k e^{i gamma_k y}). Searching y in [0, 400] (`ingham_multi.log`):
+
+| zeros used | 1 | 3 | 5 | 8 | 10 | 12 |
+|---|---|---|---|---|---|---|
+| sup_y P_T | 0.175 | 0.474 | 0.721 | 1.060 | 1.190 | 1.321 |
+| inf_y P_T | -0.175 | -0.474 | -0.716 | -1.051 | -1.189 | -1.361 |
+
+The sup comes within 10% of the trivial maximum sum 2(1 - gamma/T)|c|. Observed extremes on [3e4, 3e5] are +3.50 and
+-2.82. The weights decay slowly, so sum |c_k| appears to diverge. Under the linear-independence hypothesis for the
+zeros, E_P(R)/sqrt R would then be unbounded in both directions: a Mertens-type conjecture |E_P| << sqrt R fails for
+simple geodesics, while E_P = O(R^(1/2+eps)) remains possible. Unconditionally, each additional computed zero raises the
+proved constant. Caveat: only c_1 carries the full tail certificate; c_2, ..., c_12 are computed at adaptive precision
+with the same cell sums.
