@@ -3218,3 +3218,7 @@ Z_X(1/2 + eps + it) << |t|^eps. Then E_P(R) = O(R^(1/2 + eps)), and the exponent
 The hypothesis is the analogue of Lindelof for Epstein zetas. A polylog lattice error gives only the trivial
 |Z_X| << |t|, and stationary phase suggests about |t|^(1/2) without further structure. This is why a sharp
 McShane-Rivin upper bound is as hard as a Lindelof-type problem.
+
+(The moduli-average run `wp_zeta_neg.py` reached its 2-hour limit after finishing L = 0 for m = 0 and m = 2, which
+average to +0.00014 and -0.00040. The m = 4 and L = 2 cases were not reached and are not rerun: the general theorem above
+covers them, and they would need a faster integrator.)
