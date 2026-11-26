@@ -3196,3 +3196,25 @@ by 1/|Gamma(rho)|. The fix is to compute Delta_cell on the rotated ray arg t = p
 series continued along the ray (`zeros_rotated.py`). It reproduces k = 1 to 1e-6 (0.6457537 + 5.9628325i) and k = 2. The
 12-zero Ingham constant 1.32 and the 10-zero correlation are provisional until c_10, c_11 and c_12 are confirmed by the
 rotated run (20 zeros, in progress). The constants with k <= 9 agree between the two methods.
+
+## Zero average for all complexity-one surfaces, and the sharp bound reduced to a Lindelof-type hypothesis (2026-11-26)
+
+**Theorem (general zero average).** Let X range over one-holed tori or four-holed spheres, with any fixed boundary
+lengths. Cutting along a simple curve leaves pairs of pants (V_{0,3} = 1), so Mirzakhani gives
+int_M sum_{gamma in orbit} F(l_gamma) = c_orb int F(l) l dl. Hence
+
+    int_M A_X(t) dV = 2 sum_k sum_orb c_orb int_0^{t/k} l dl = C zeta(2) t^2   exactly, for every t.
+
+Dominated convergence (A/t^2 <= Area + C(Perim/t + 1/t^2), integrable) then forces int Area(B_X) = C zeta(2). So
+int (A_X(t) - Area t^2) dV = 0 at every scale, and <Z_B(s)> = 0 on 1 < Re s < 2, extending by continuation as before.
+The earlier separately computed value int Area = zeta(2) is a consequence, not an input.
+
+**Theorem 10 (conditional sharp upper bound).** For a.e. X (Theorem 9), assume RH and the Lindelof-type bound
+Z_X(1/2 + eps + it) << |t|^eps. Then E_P(R) = O(R^(1/2 + eps)), and the exponent is exact by Theorem 6. Proof:
+- Truncated Perron at height T has error O(R^2/T), since #{gamma : |l - R| <= R/T} << R^2/T + polylog by Theorem 9.
+- Shifting to Re s = 1/2 + eps, using 1/zeta << |t|^eps (RH) and the hypothesis, gives R^(1/2+eps) T^eps.
+- Take T = R^(3/2).
+
+The hypothesis is the analogue of Lindelof for Epstein zetas. A polylog lattice error gives only the trivial
+|Z_X| << |t|, and stationary phase suggests about |t|^(1/2) without further structure. This is why a sharp
+McShane-Rivin upper bound is as hard as a Lindelof-type problem.
