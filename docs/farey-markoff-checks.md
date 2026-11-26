@@ -2671,3 +2671,55 @@ Z_B continues to Re s > theta_A - 1, about -1/2, because the Riesz-smoothed erro
 it stops at 1/2 was wrong. Check: Z_B(rho_1) from a smoothed lattice sum is 0.6457 + 5.9625i, stable over X = 30 to
 60. The predicted |coefficient| is 1.8806e-2, against 1.88e-2 fitted from the simple-geodesic data in the previous
 section.
+
+## Z_B(0): a toric twelve, a McShane-type sum, and a Weil-Petersson average of zero (`poc/farey/stable_dual_zeta.py`, `stable_zeta_zero*.py`)
+
+**A dual formula that does not converge, recorded as negative.** Mellin-transforming the Voronoi series term by term
+suggests Z_B(s) = -((2 pi)^s/pi) Gamma(1-s) cos(pi s/2) sum_gamma l^-s [C_{a+}(1-s) - C_{a-}(1-s)], with
+C_a(w) = sum_k cot(pi k a) k^-w. It does not hold as written. The cosine Mellin transforms need -1 < Re s < 0, while at a
+resonance (||ka|| about 1/k) a cotangent term has size about k^(Re s + 1), so the series needs Re s < -1. Numerically the
+partial sums, even Riesz-weighted up to k = 10^6, wander: at s = -0.3 they range from -3.7 to 1.4, against the direct
+value -0.436. The sum over geodesics converges fast, and the trouble is entirely in k. The dual side must stay a
+lattice-ordered double sum.
+
+**Z_B(0) = -0.6537, three independent ways.**
+- Theta function: Theta(eps) - 1 - 2 Area/eps^2 = -0.653608 at eps = 0.015, using 4.3 million geodesics.
+  Extrapolation gives -0.6526 to -0.6541.
+- Riesz linear coefficient: -0.65377 free, -0.65365 with R^3 = Area/3 and R^2 = 0 imposed. The free fit gives exactly
+  Area/3 for R^3 and 2e-7 for R^2.
+- The mean C of the lattice error: -0.6537.
+
+So Z_B(0) is not -1, the quadratic-form value. Rough check: for the square max(|x|,|y|), Z(0) = 8 zeta(-1) = -2/3.
+
+**Theorem (polygon norms, proved here).** Let N be a symmetric norm whose unit ball is a polygon with corners on
+primitive lattice rays. Refine to a complete unimodular fan v_1, ..., v_n with v_(i-1) + v_(i+1) = b_i v_i, so that N is
+linear on each cone. Then
+
+    Z_N(0) = -1 + (1/12) sum_i G(v_i)/N(v_i),     G(v_i) = N(v_(i-1)) + N(v_(i+1)) - b_i N(v_i)   (the gradient jump; n^+ - n^- = G J v).
+
+Proof:
+1. Z_N(s) = sum over cones of the Barnes zeta zeta_2(s; w1 + w2 | w1, w2) + zeta(s) sum over rays of N(v_i)^-s, with
+   (w1, w2) = (N_i, N_(i+1)).
+2. Barnes gives zeta_2(0; w1 + w2 | w1, w2) = (w1^2 + w2^2 + 3 w1 w2)/(12 w1 w2), and zeta(0) = -1/2.
+3. Hence Z_N(0) = -n/4 + (1/12) sum_i (N_(i-1) + N_(i+1))/N_i.
+4. The toric-surface identity sum_i b_i = 3n - 12 turns this into the stated form. The "12" is Noether's.
+
+Checks: the square gives -1 + 4/12 = -2/3, and ellipses, with no corners, give -1.
+
+**For the stable norm** every primitive direction is a corner and the gradient is pure-jump, with jump G = 2g, where
+g = log(t^2/(t^2 - 4)) is the gap law. The limit of the theorem reads
+
+    Z_B(0) = -1 + (1/3) sum_{gamma simple} g_gamma / l_gamma.
+
+On the modular torus (1/3) sum g/l = 0.346348 (with G = 2g, sum G/l = 2.078090; ratio 1/6 to 5e-6), against
+1 + Z_B(0) = 0.34635 +- 2e-4. The limit from polygons to B is not proved; the numerics support it.
+
+**Weil-Petersson average (exact, given the limit formula).** g depends on l alone: g = log((cosh l + cosh(L/2))/(cosh l - 1)),
+which reduces to 2 log coth(l/2) at the cusp. Use Mirzakhani integration with the convention of the earlier average
+sections: the integral of sum_gamma F(l_gamma) is int F(l) l dl, and Vol = (L^2 + 4 pi^2)/24. With
+int_0^inf log((cosh x + cosh a)/(cosh x - 1)) dx = (pi^2 + a^2)/2, checked at 15 digits for a = 0, 0.7 and 2, and a = L/2:
+
+    int (1/3) sum_gamma g/l = (1/3)(L^2 + 4 pi^2)/8 = Vol,   so   < Z_B(0) >_WP = 0   for every boundary length L.
+
+Individual surfaces sit below the average: Z_B(0) = -0.654 on the modular torus. This is the same pattern as the pi^2
+product law.
