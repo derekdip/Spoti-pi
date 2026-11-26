@@ -1,0 +1,6 @@
+primitive classes mod sign with l <= 1000: 271050;  Area(B) = 0.891803166008 (l = 2 arccosh(t/2))
+P(R)/R^2 -> 0.271048   (3/pi^2) Area = 0.271076
+A(R)/R^2 -> 0.891741   Area = 0.891803
+lattice error  A - Area R^2              envelope by sixth of range: 21.8 29.6 38.5 50.1 57.0 59.4 61.1 71.8 ; fitted exponent 0.536
+primitive error P - (3/pi^2) Area R^2    envelope by sixth of range: 24.8 45.3 40.3 55.3 74.3 70.0 70.2 86.5 ; fitted exponent 0.444
+Moebius-tail part alone                  envelope: 3.5 6.6 6.7 11.1 10.1 8.0 11.0 8.4 ; fitted exponent 0.230

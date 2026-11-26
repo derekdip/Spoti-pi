@@ -2463,3 +2463,37 @@ L-function zeros dominate a twisted horocycle far more visibly than the zeta zer
 
 Also: the Mirzakhani-Zograf run reached g = 12, with a_g = 2.15792771813311 and sqrt(g)(a_g - 2) = 0.54708, before
 it was stopped at its time limit.
+
+## Where zeta enters our own objects: simple geodesics as primitive points of the stable-norm ball (`poc/farey/simple_zeta.py`)
+
+**Exact identities (symbolic).** By McShane-Rivin, simple closed geodesics on a one-holed or cusped torus correspond to
+primitive v in Z^2 up to sign, with length l = N(v), where N is the stable norm (convex and homogeneous). Homogeneity
+and Moebius inversion give, for every such surface:
+
+    D(s) = sum_{gamma simple} l_gamma^-s = Z_B(s) / (2 zeta(s)),      Z_B(s) = sum_{v in Z^2 \ 0} N(v)^-s,
+    P(R) - (3/pi^2) Area(B) R^2 = (1/2) sum_{d >= 1} mu(d) E_B(R/d) - (1/2) Area(B) R^2 sum_{d > R/l_sys} mu(d)/d^2,
+
+Here P(R) = #{simple gamma : l <= R}, and E_B(R) = #{v != 0 : N(v) <= R} - Area(B) R^2 is the lattice-point error of
+the stable-norm ball B. So the counting error splits exactly into two parts:
+- a geometric part: the lattice-point problem for B;
+- an arithmetic part: the tail of sum mu(d)/d^2. That is o(R) unconditionally and O(R^(1/2+eps)) under RH.
+
+The Riemann zeros are formally poles of D(s), with residues Z_B(rho)/(2 zeta'(rho)). They separate from the
+geometric part only if Z_B continues past Re s = 1/2, which needs E_B = o(R^(1/2)).
+
+**Check, modular torus, R <= 1000, 271 050 simple geodesics.** Area(B) = 0.891803166 with N = l; the docs' 3.5672
+uses N = l/2.
+- P/R^2 = 0.271048, against (3/pi^2) Area = 0.271076.
+- E_B has envelope about R^0.54 (22 to 72 over the range), circle-problem behaviour.
+- The Moebius (arithmetic) part alone stays below 11.
+- The total error P - main grows like R^0.44 to R^0.54 and is dominated by E_B.
+
+So the zeta zeros are present, but at the same R^(1/2) scale as the lattice-point error of B, and numerically they
+are swamped by it. RH would bound the arithmetic half. The geometric half is a lattice-point problem for a convex body
+whose boundary is a polygon with a corner at every rational direction. Its corner jumps are exactly our gap law, and
+its dual area is our Sigma g N.
+
+**Our gap-weighted series are non-arithmetic.** Since g(v) ~ 4 e^(-N(v)), any Dirichlet series sum g(v)^a N(v)^-s
+converges absolutely for all s, so it is entire and has no zeta factor. The gap law, the dual-area identity, the Hines
+identities and the pi^2 law involve neither zeta nor RH. The only route from them to the Riemann zeros is the lattice
+problem of B.
