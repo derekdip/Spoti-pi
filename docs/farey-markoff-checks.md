@@ -2132,3 +2132,89 @@ The difference is exactly 0, as a polynomial identity in all L_i and π, for
   F = 6V₁,₁² (one-holed torus, seam version), giving the π² product law.
   Beyond, the interaction and pair sources do not factor through V, which is
   why F_{g,n} is a new polynomial there.
+
+## The deformation identified: the corner kernel is Mirzakhani's B-kernel on x·V, integrated once (2026-11-25)
+
+Script `poc/farey/deformation.py` (sympy), output `poc/farey/deformation.log`.
+
+**The shared smoothing operator.** Let ρ(u) = sech²(u/4)/8, the logistic
+density. On polynomials, convolution with ρ is the Bernoulli operator
+
+    S = 2πD / sin(2πD),   D = d/dX.
+
+**Mirzakhani's side.** Since ∂_t H(x, t) = ρ(x − t) − ρ(x + t), her B-term,
+as a function of t = L₁ ± L_j, satisfies d/dt B[V](t) = ½·S[t·V(t)]. On
+moments: d/dt F_{2k+1}(t) = S[t^{2k+1}], checked exactly for k = 0, …, 3.
+This is the source of the ζ(2k) in the volumes.
+
+**The corner side.** The pair transform T_ij[V] = G[V](L_i + L_j) +
+G[V](L_i − L_j) depends only on X = L_i ± L_j. Differentiating its
+log-cosh decomposition twice, the delta function from the kink cancels the
+polynomial part, and
+
+    d²G/dX² = ¼·S[X²·V(X)],   i.e.   G[V](X) = ½∫₀^X B[x·V](u) du + G[V](0).
+
+The constant is
+
+    G[V](0) = ½∫ x²·log coth(x/4)·V dx,
+    G[x^{2k}](0) = (2k+2)!·2^{2k+3}·(1 − 2^{−(2k+4)})·ζ(2k+4) = π⁴/6, 4π⁶/5, 68π⁸/7, 1984π¹⁰/9, 88448π¹²/11, …
+
+**Checks.**
+
+- For V = x^{2k}, k = 0, …, 4, G[x^{2k}](2y) = 2^{2k+2}·K_{2k+1}(y) holds
+  exactly (sympy).
+- The constants agree with direct quadrature to 20 digits.
+
+**Statement.** The corner pair transform is Mirzakhani's B-transform applied
+to the length-weighted volume x·V(x) instead of V(x), integrated once in the
+combined length X = L_i ± L_j. The extra factor x is the norm N = x/2 in the
+dual area A* = Σ g·N. The extra integration matches the one-higher moment:
+s = +1 against Mirzakhani's s = −1.
+
+So the deformation in the F recursion is V ↦ x·V inside the B-kernel. The
+Leibniz rule F₁V₂ + V₁F₂ in the recursion is what such a weighted insertion
+produces at first order, and the interaction term is the same insertion
+landing on a cut curve.
+
+## The tautological form of F_{g,n} (2026-11-26)
+
+Script `poc/farey/tautological.py`, output `poc/farey/tautological.log`.
+
+**Where each pair term lives.** Mirzakhani's theorem gives
+V(L) = ∫ exp(2π²κ₁ + Σ L_i²ψ_i/2). So each pair term of F_{g,n} is an
+integral over the boundary divisor D_ij ≅ M̄₀,₃ × M̄_{g,n−1}, where i and j
+bubble off, with an insertion at the node:
+
+    F_ij = ∫_{M̄_{g,n−1}} 𝒢(L_i ± L_j; ψ_node)·exp(2π²κ₁ + Σ_rest L²ψ/2),
+    𝒢(X; ψ) = ¼·D⁻²·S[X²·e^{X²ψ/2}] + const,   S = 2πD/sin(2πD).
+
+**Top degree (π → 0).** Here S becomes the identity and the constants G(0),
+which are proportional to π^{2k+4}, vanish. So the top-degree part is a pure
+ψ-class (Kontsevich) object, a tropical pants gluing:
+
+    F^top_{g,n}(L) = Σ_{i<j} Σ_± ¼∫₀^{X} (X − s)·s²·V^top_{g,n−1}(s, L_rest) ds,   X = L_i ± L_j.
+
+The cut curve has length s ≤ L_i ± L_j and weight (X − s)·s²/4. As a node
+insertion this is
+
+    (X⁴/4)·∫₀¹ (1 − u)·u²·e^{u²X²ψ/2} du,   using [x^{2k}]V^top = ⟨τ_k τ_rest⟩/(2^k·k!).
+
+Verified as an exact polynomial identity for (0, 4), (0, 5), (0, 6), (0, 7),
+(1, 2), (1, 3) and (2, 2).
+
+**Lower orders.** The Bernoulli terms of S supply the π-corrections. This is
+the same mechanism that produces the κ₁ (2π²) shifts in the volumes: at top
+degree Mirzakhani's kernel H(x, t) becomes the step θ(t − x), and S is its
+smoothing.
+
+**Reading.** At top degree, F_{g,n} is the Kontsevich (metric ribbon graph)
+volume with a pair of boundaries glued through a pants whose cut curve
+carries the extra weight s². That weight is the length factor x·N of the
+dual area. The full F_{g,n} is this tropical gluing, smoothed by the same
+Bernoulli operator that turns Kontsevich volumes into Weil–Petersson
+volumes.
+
+**Open.** A closed formula for the top coefficients in terms of ⟨τ τ⟩
+without the integral. No simple relation to V_{g,n}'s own coefficients was
+found; the boundary-divisor bubbling gives no string-equation-type identity
+for general a, b.
