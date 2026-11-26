@@ -2811,3 +2811,54 @@ of 1/(e^x - 1), 40 terms, on t < 0.05.
   parts at X = 30, 45 and 60), converge toward this. So Z_B(rho_1) = 0.64575439 + 5.96283154i to about 9 digits, and the
   Riemann-zero amplitude Z_B(rho)/(2 rho (rho+1) zeta'(rho)) is now known to that precision.
 - s = 1/2: Z_B = -1.1064650681.
+
+## Literature check for the stable-norm zeta results (2026-11-26)
+
+arXiv abstracts and full texts were read through the shell. The web-fetch tool could not reach arxiv.org. Four
+directly relevant sources:
+
+- **Doan, Li, Nguyen, "Stable-norm boundary geometry on once-punctured tori", arXiv 2605.14574** (v1 14 May 2026,
+  v3 9 Oct 2026).
+  - Theorem 1.2: rational directions are genuine corners with exponentially small exterior angles.
+  - Proposition 4.1: computes the corner exactly, lambda(u) - mu(u) = 2 log A+ + 2 log A- = 4 log coth(L/2). This is our
+    gradient jump G = 2g, with the same A+ A- product.
+  - Proof of Theorem 1.3: the rational corners account for the full normal turn, which is our pure-jump result.
+  - Theorem 1.3: Area(B*) = 4 sum l log coth(l/2), the dual-area identity already attributed to them.
+  - Theorem 1.4: (log L)^2 bounds for points on dilated boundaries.
+  - So the corner structure, the gap as a jump and pure-jump are theirs, at least in the l/2-normalised form. Our
+    face-offset formula c(v,w) = 2 log A is the same computation.
+- **Risager, "Counting Markov triples and simple geodesics", arXiv 2610.36069** (26-28 Oct 2026).
+  - Theorem 12: N_X(R) = vol(B_X) R^2 + O(R/(log R)^(3/2)) for the full lattice count of the modular torus. It is
+    proved by smoothing, Poisson summation and bounds on Fourier coefficients along radial lines, using the DLN
+    turn estimates.
+  - Theorem 13 and Theorem 1: Moebius inversion with zero-free regions gives M(x) = C log^2(3x) + o(log x),
+    unconditionally via Vinogradov-Korobov and sharper under a "quasi-RH" zero-free half-plane.
+  - It quotes the McShane-Rivin conjecture that the error is (log x)^(1/2 + eps), i.e. R^(1/2 + eps), and their claim
+    that for a dense set of tori the error is not o(L).
+  - No exact Fourier transform, Voronoi series, zeta function Z_B, explicit formula over zeros, or Barnes decomposition.
+- **Kalinin, Lupercio, Shkolnikov, "Residues of a tropical zeta function for convex domains", arXiv 2604.21709**
+  (Apr-Jun 2026). A different zeta, the integral of rho^(s-2) of a tropical distance function. For rational polygons it
+  is meromorphic with residue -K^2 at s = 0, the toric canonical class, and its boundary series runs over Farey pairs.
+  Same family of ideas as our toric "12", K^2 = 12 - n, but not our Z_N = sum N(v)^-s.
+- **Garoufalidis and Pommersheim, JAMS 14 (2001); Shintani.** Zeta values at negative integers of linear forms on
+  two-dimensional cones, through Todd power series and Dedekind sums. Our cone terms are Shintani/Barnes zetas of a
+  linear form on unimodular cones, so the per-cone values at -m are classical. The global assembly
+  Z_N(0) = -1 + (1/12) sum G/N via sum b_i = 3n - 12 is an elementary consequence; it may be stated somewhere, and we
+  did not find it.
+- Also: Massart, GAFA 1997, local structure of stable-norm balls at rational directions; Sorrentino-Veselov
+  (arXiv 1707.03901), differentiability of Fock's psi exactly at the irrationals.
+- Searches for a Fourier transform, Poisson summation or zeta function of the stable norm itself found nothing
+  beyond Risager's bounds.
+
+**What appears to be new here.** None of these was found in the sources above.
+1. The exact Fourier transform of Phi(N) as a gap-weighted corner sum, and the exact Voronoi series for E_B with
+   Hardy-Littlewood cotangent amplitudes of the face rotation numbers. Risager has only bounds on these coefficients.
+2. The meromorphic continuation of Z_B to C with one pole, through the Barnes Farey-cell decomposition, with
+   delta ~ e^-(N_u + N_w).
+3. The explicit formula over the Riemann zeros for smoothed simple-geodesic counts on a single torus, with amplitudes
+   Z_B(rho)/(2 rho (rho+1) zeta'(rho)). Risager uses only zero-free regions.
+4. Z_B(0) = -1 + (1/3) sum g/l, the vanishing at the negative odd integers, the cell sums at the negative even integers,
+   and <Z_B(0)>_WP = 0.
+
+Context: Risager's Theorem 12 bound R/(log R)^(3/2) is far above what we measure (rms about R^(1/2) times a slowly
+growing factor), which is consistent with the McShane-Rivin conjecture. The Voronoi series is a natural tool for it.
