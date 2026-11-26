@@ -2992,3 +2992,30 @@ test at R up to 2e6 is running (`primitive_large.py`).
 (Bookkeeping note: the root hexagon has rational faces, alpha = 1, and its O(R) error cancels against its three root
 cells. Ranked per-cell figures exclude them; the "root group" rms printed by `cell_ranking2.py` is a bookkeeping
 artefact.)
+
+## The exponent 1/2 is sharp, and arithmetic (2026-11-26; `poc/farey/primitive_large.py`)
+
+The simple-geodesic count at large R: P(R) = (1/2) sum_d mu(d) A(R/d). A(t) comes from direct enumeration for t < 3000
+and from the Farey-cell decomposition above that. It reproduces direct counts exactly at R = 500, 1500 and 2900.
+
+| window [w, 2w] | rms of P error | rms(error/sqrt R) | max \|error\|/sqrt R |
+|---|---|---|---|
+| 1e4 | 94.8 | 0.77 | 1.85 |
+| 1e5 | 408.0 | 1.08 | 2.45 |
+| 1e6 | 1393.7 | 1.15 | 2.39 |
+
+The simple-geodesic error grows like R^(1/2), while the lattice error E_B plateaus near 300. So the exponent is
+arithmetic.
+
+**Theorem (unconditional).** On the modular torus, E_P(R) = P(R) - (3/pi^2) Area R^2 is not O(R^(1/2 - eps)) for any
+eps > 0. Proof:
+- If E_P = O(R^theta), its Mellin transform is analytic on Re s > theta, so D(s)/s = (Mellin of P) is meromorphic there
+  with its only pole at s = 2.
+- But D(s) = Z_B(s)/(2 zeta(s)) has a pole at rho_1. Z_B is analytic there (continuation theorem),
+  Z_B(rho_1) = 0.64575439 + 5.96283154i != 0, and rho_1 is a simple zero of zeta.
+- Hence theta >= 1/2. No hypothesis on the zeros is used.
+
+In Markov terms, M(x) - C log^2(3x) is not O((log x)^(1/2 - eps)). This is the matching lower bound for the McShane-Rivin
+conjecture (log x)^(1/2 + eps); Risager's upper bound is o(log x). The same holds on every once-punctured torus with
+Z_X(rho) != 0 for some zero rho. That is all of moduli space outside a proper real-analytic subset, since Z_X(rho_1) is
+real-analytic in X and averages to 0 over moduli, so it is not identically zero.

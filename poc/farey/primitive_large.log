@@ -1,0 +1,8 @@
+direct table: 2439756 primitive (mod sign) up to 3000, 4013094 lattice points (one sign)
+check R = 500: Moebius 67764.0, direct 67764
+check R = 1500: Moebius 609876.0, direct 609876
+check R = 2900: Moebius 2279802.0, direct 2279802
+first-zero amplitude prediction: 0.5348 (with |Z_B(rho_1)| = 6.0)
+w =    10000: rms(P error)     94.8  rms(error/sqrt R) 0.769  max|error|/sqrt R 1.851  mean error/sqrt R +0.135  (3 s)
+w =   100000: rms(P error)    408.0  rms(error/sqrt R) 1.075  max|error|/sqrt R 2.449  mean error/sqrt R +0.147  (18 s)
+w =  1000000: rms(P error)   1393.7  rms(error/sqrt R) 1.150  max|error|/sqrt R 2.389  mean error/sqrt R -0.037  (94 s)
