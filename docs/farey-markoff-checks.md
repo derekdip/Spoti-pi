@@ -2403,3 +2403,32 @@ f ≈ 2·cosh(L_i/2)·cosh(L_j/2)·e^{−x/2}, and the volumes' sinh(L/2)/(L/2)
 factors (Mirzakhani–Petri), gives 2·φ(L_i)·φ(L_j). It is conditional on
 Lemma U together with the corresponding uniform statement for
 V_{g,n}(L)/V_{g,n}(0).
+
+## Horocycle equidistribution and the Riemann zeros (`poc/farey/horocycle_rate.py`)
+
+Context: RH is equivalent to the closed horocycle of height y on the modular surface equidistributing at rate
+O(y^(3/4-eps)) (Zagier 1981). Test function: the incomplete Eisenstein series with psi(t) = exp(-1/t). Unfolding the
+horocycle through the Farey/Ford structure gives the exact formula
+
+    a(y) = int_0^1 f(x+iy) dx = e^(-1/y) + sqrt(pi y) * sum_c phi(c)/c * exp(-c^2 y),     mean = 3/pi,
+
+where denominator c contributes its phi(c) Farey fractions. The Mellin transform is zeta(2s-1)/zeta(2s) * sqrt(pi) Gamma(s-1/2),
+and the poles at the Gamma function and at s = 1/2 cancel, leaving the explicit formula
+
+    a(y) - 3/pi = sum_rho R_rho y^(1-rho/2) + sum_k T_k y^(1+k),   R_rho = sqrt(pi) zeta(rho-1) Gamma((rho-1)/2) / (2 zeta'(rho)).
+
+Each nontrivial zero rho = beta + i gamma contributes size y^(1-beta/2); on the critical line that is y^(3/4).
+
+Numerics, with 80-bit sums, y from 1e-1 to 1e-11:
+- Measured equals predicted (30 zeros plus trivial terms) to 1e-15 absolute for y <= 0.03, which is float rounding.
+  The first zero alone accounts for all but 0.4% of the error for y <= 1e-4.
+- E(y)/y^(3/4) oscillates with constant envelope 2|R_1| = 2.39e-5 over every decade from 1e-5 to 1e-11.
+  E/y^(1/2) tends to 0 and E/y grows, so the rate is exactly y^(3/4).
+- A fit of E/y^(3/4) = A cos(w log y + p) gives w = 7.054, against gamma_1/2 = 7.067. The amplitude is 2.50e-5, against 2.39e-5;
+  the second zero accounts for the difference.
+
+Reading: the error of the horocycle average is literally a sum over the Riemann zeros, with the first zero (14.1347)
+audible as a log-periodic oscillation of period 4 pi/gamma_1 = 0.889 in log y. A zero off the line at beta > 1/2 would
+show as a term of size y^(1-beta/2), which decays more slowly than y^(3/4). No numerics can exclude that for zeros of
+arbitrary height. The test confirms the mechanism, not RH. Our earlier identities (gap law, dual areas, pi^2 law) are
+exact and do not depend on RH. RH enters only through error terms of counts over Farey fractions like the one above.
