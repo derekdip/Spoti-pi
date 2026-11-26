@@ -2278,3 +2278,68 @@ All columns decrease together toward 1. The φφ factor (a 2.75× change at
 that their O(1/g²) error is uniform enough in k (k up to about √g) to pass
 to the integral. That uniformity is the step to prove. The boundary formula
 is a conjecture supported by the table above.
+
+## Fast engine to genus 11, and the 1/√g correction (2026-11-26)
+
+Scripts `poc/farey/mz_engine.py` and `poc/farey/mz_profile2.py`, with logs.
+
+**The engine.** It implements Mirzakhani–Zograf's recursion (III)
+(arXiv 1112.1151, eqs. 2.2–2.4) for the normalised intersection numbers
+[τ_d]_{g,n}, at 40 digits with memoisation. It reproduces V₀,₅(0) = 10π⁴,
+V₁,₂(0) = π⁴/4, V₂,₂(0) = 787π¹⁰/480, and every exact per-pair value for
+g ≤ 5. Genus 10 takes about 4 minutes, where the symbolic recursion needed
+hours at genus 6.
+
+**Per-pair cusped average** a_g, in absolute units (the conjectured limit
+is 2):
+
+| g | a_g | √g·(a_g − 2) |
+|---|---|---|
+| 1 | 2.41257 | 0.41257 |
+| 2 | 2.34939 | 0.49411 |
+| 3 | 2.29677 | 0.51403 |
+| 4 | 2.26185 | 0.52371 |
+| 5 | 2.23701 | 0.52996 |
+| 6 | 2.21819 | 0.53446 |
+| 7 | 2.20329 | 0.53786 |
+| 8 | 2.19110 | 0.54051 |
+| 9 | 2.18088 | 0.54264 |
+| 10 | 2.17215 | 0.54439 |
+| 11 | 2.16458 | 0.54584 |
+
+So a_g = 2 + C/√g + …, confirming the limit 2 numerically. The increments
+of √g·(a_g − 2) fall roughly like g^{−1.8}. Extrapolating gives C ≈ 0.56–0.58:
+
+- 0.5605 if the next correction is 1/g;
+- 0.564 with the fitted exponent;
+- 0.576 if it is 1/√g.
+
+Candidate closed forms in that range include 7/(2√π) − √2 = 0.5605 and
+1/√π = 0.5642. None is identified.
+
+**Why the 1/√g coefficient is not "second order".** In the scaling regime
+x = k²/g, the term k^{2j−2}/g^j of the ratio ρ_k = r_{k+1}/r_k contributes at
+order 1/√g for every j. So C needs the full scaling function Ψ in
+
+    ρ_i = 1 − (2i − ½)/(π²g) + Ψ(i²/g)/g.
+
+- With Ψ = 0, Euler–Maclaurin gives C = 7/(2√π) = 1.975, far from the data.
+  The Ψ-part contributes about −1.4.
+- Extracting Φ(x) = √g·[log r_k + (k² − 3k/2)/(π²g)] from the exact numbers,
+  the profile has not yet collapsed by g = 10. At x ≈ 8, Φ/x^{3/2} is
+  −0.044, −0.039, −0.036, −0.034, −0.032, −0.031, −0.030 for g = 4, …, 10.
+  A fit at g = 9–10 implies C = −0.36, which contradicts the directly
+  measured +0.55. The next corrections are still large at these genera.
+- **Analytic route.** For n = 1 the recursion reduces at large g to the
+  B-term in [τ_{k₁}τ_{k₂}]_{g−1,2}. Ψ is therefore determined by the
+  two-point profile of the n = 2 numbers. A naive closure (independent
+  Gaussians) wrongly predicts a linear term in r_k at small k, contradicting
+  Mirzakhani–Zograf's quadratic first-order term. So the two-point
+  correlations matter.
+
+**Status.**
+
+- Limit 2: derived, and numerically confirmed to genus 11.
+- C ≈ 0.56–0.58: numerical. Its derivation needs the scaling function of the
+  two-point intersection numbers.
+- The uniformity proof for the limit is still open.
