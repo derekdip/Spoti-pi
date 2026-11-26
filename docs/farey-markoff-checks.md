@@ -2862,3 +2862,21 @@ directly relevant sources:
 
 Context: Risager's Theorem 12 bound R/(log R)^(3/2) is far above what we measure (rms about R^(1/2) times a slowly
 growing factor), which is consistent with the McShane-Rivin conjecture. The Voronoi series is a natural tool for it.
+
+**Face rotation numbers, resonances, and Risager's Lemma 5.**
+- In our Voronoi series the amplitude of a geodesic blows up exactly when a face rotation number a^+- = c(v, +-w)/l_v is
+  rational. Then cot(pi k a) is infinite for k divisible by the denominator, lattice points line up along a dilated face,
+  and the error grows linearly in R. Rational faces occur on a dense set of tori, consistent with McShane-Rivin's claim
+  that the error is not o(L) there.
+- On the modular torus, e.g. at v = e0, A = 3/(phi sqrt 5) and lambda^2 = phi^2, so a = log(3/(phi sqrt5))/(2 log phi)
+  = -0.1946320547976377. Gelfond-Schneider makes this irrational, in fact transcendental.
+- Risager's Lemma 5 (arXiv 2610.36069) is this separation, in norm form: |2 log(r^d(v) A+^-d(u))| >= e^(-M |d| A^2). It
+  uses that r is a unit and N(A+-) = t^2/(t^2 - 4) > 1, his Proposition 4.
+- A Baker-Wuestholz lower bound for this two-log linear form would give roughly |d|^(-C A^2) instead. Whether that
+  improves his final exponent has not been checked.
+
+**Direct moduli check of <Z_B(0)> = 0** (`poc/farey/wp_zeta0.py`; the same Fenchel-Nielsen domain and quadrature as
+`wp_average.py`). At L = 0, the integral of (1 + Z_B(0)) is 1.645385 on the 48 x 20 grid and 1.646259 on 72 x 28,
+against the predicted Vol = pi^2/6 = 1.644934. The averages are 0.99951 and 0.99855. The quadrature's own volume is off
+by 0.08% and 0.2%, so this agrees with <Z_B(0)> = 0 to within the quadrature error. The runs at L = 2 and 5 were still
+going when this was written.

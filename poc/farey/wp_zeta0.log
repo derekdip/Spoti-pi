@@ -1,0 +1,2 @@
+L = 0.0 (nodes 48 x 20): Vol = 1.646192 (predicted 1.644934);  int (1 + Z_B(0)) = 1.645385;  average = 0.99951  (predicted 1, i.e. <Z_B(0)> = 0)
+L = 0.0 (nodes 72 x 28): Vol = 1.648652 (predicted 1.644934);  int (1 + Z_B(0)) = 1.646259;  average = 0.99855  (predicted 1, i.e. <Z_B(0)> = 0)
