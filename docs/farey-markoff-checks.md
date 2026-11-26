@@ -3389,3 +3389,64 @@ with absolute convergence, since |c_rho sinc| << |Z_B(rho)|/(gamma^2 |zeta'(rho)
 polynomial growth; RH is not needed. So the smoothed sharp error is completely the zero sum. The raw sharp count is the
 conditionally convergent limit h -> 0. Its completeness is the analogue of the sharp explicit formula for M(x), known
 only under RH plus simple zeros with chosen truncation heights (Titchmarsh 14.27).
+
+## A surface where the first Riemann zero disappears (`zb_moduli.py`, `zb_scan.py`, `zb_root.py`, `zero_blind_count.py`)
+
+**Method.** `zb_moduli.py` computes Z_B(s) for any cusped once-punctured torus, rooted at its Bowditch sink (x, y, z):
+
+    Z_B = 2 zeta(s) sum a^-s + 2 sum_{3 root cones} zeta_2(s; p, q) + 2 sum_cells Delta.
+
+Each piece is a Mellin integral evaluated on the ray arg t = theta, vectorised in double precision, with cell lengths from
+60-digit traces.
+
+**Validation.**
+- At the modular torus it reproduces the certified Z_B(rho_1) = 0.645754390 + 5.962831543i to 1e-9 (theta = pi/3).
+- At real s = 2.6, 3, 4 on the new surface it matches the direct sum 2 zeta(s) sum_simple l^-s, corrected for the l > 60
+  tail, to 5e-6.
+
+**Scan.** A 40 x 30 grid over the fundamental domain was scanned: 2 < x <= 3, max(x, sqrt(4 + 16/(x^2-4))) <= y <= x/sqrt(x-2),
+with corners at the hexagonal point (3,3,3), the square point (2v2, 2v2, 4) and the cusp. Exactly one grid cell had
+nonzero winding. Near the cusp |Z_B(rho_1)| grows (3.6 to 4.3 as x goes from 2.10 to 2.07) and is twist-independent, as
+Theorem 11 predicts, since zeta(rho) = 0 kills the leading term there.
+
+**The zero.** Newton refinement finds Z_B(rho_1) = 0 at
+
+    X*: sink traces (2.671687609484, 3.111739620736, 3.479943422263)
+        lengths (1.59641, 2.02161, 2.30360), Area(B) = 0.896125.
+
+- Residual |Z| is below 4e-12 at theta = pi/3 and 1e-10 at 0.4 pi, stable in the cell cutoff.
+- The Jacobian of (Re, Im) with respect to the coordinates (x, v) has determinant 80.5. So the zero is nondegenerate with
+  local degree +-1, and it survives any small perturbation of the computation.
+- X* is chiral: it lies on no mirror edge. Its mirror image is the second zero on the oriented moduli space, with the
+  opposite degree.
+
+**Spectral verification on the actual counts.** The exact simple-length spectrum was computed up to 3000 (2.45M curves).
+E_P(R)/sqrt R on R in [50, 3000] was projected onto R^{i gamma} with a Hann window in log R:
+
+| k | gamma | modular: measured / predicted abs(c_k) | X*: measured / predicted abs(c_k) |
+|---|---|---|---|
+| 1 | 14.135 | 0.2662 / 0.2673 | **0.0002 / 0** |
+| 2 | 21.022 | 0.1843 / 0.1833 | 0.0709 / 0.0699 |
+| 3 | 25.011 | 0.2090 / 0.2088 | 0.0779 / 0.0764 |
+| 4 | 30.425 | 0.1231 / 0.1177 | 0.0262 / 0.0222 |
+| 5 | 32.935 | 0.1812 / 0.1787 | 0.0421 / 0.0401 |
+| 6 | 37.586 | 0.1194 / 0.1213 | 0.0297 / 0.0291 |
+| 7 | 40.919 | 0.0966 / 0.0817 | 0.0619 / 0.0600 |
+| 8 | 43.327 | 0.1499 / 0.1380 | 0.0419 / 0.0396 |
+
+The gamma_1 oscillation is absent from the simple-geodesic count of X*. Every other zero's amplitude matches the explicit
+formula zero by zero, on a second, unrelated surface. X* is also much quieter overall: rms E_P/sqrt R is 0.396 against
+0.951, because all its abs(Z_B(rho_k)), k <= 8, are 1.8 to 7.3, against 6 to 22 on the modular torus.
+
+## Residual after 20 zeros vs the lattice error (`residual_lattice.py`)
+
+E_P = (1/2) sum_d mu(d) A(R/d) exactly. The residual left by the 20-zero sum (rms 324) correlates with the ball lattice
+errors E_A(R/d). A joint regression on d <= 6 recovers the Moebius coefficients mu(d)/2:
+
+    (0.42, -0.46, -0.39, -0.01, -0.32, 0.49)  vs  (0.5, -0.5, -0.5, 0, -0.5, 0.5).
+
+The share of residual variance carried by M_6 = (1/2) sum_{d<=6} mu(d) E_A(R/d) falls from 0.46 on [3e4, 9.5e4] to 0.25 on
+[9.5e4, 3e5]. So at finite R, much of the deficit is the Diophantine (partial-quotient) lattice error entering through the
+first Moebius terms. Its normalised size decays, since E_A plateaus at rms ~300 while sqrt R grows. This is what the
+explicit formula predicts if it is complete at the sqrt R scale: that content lives in the high zeros, or in the leftover
+contour integral on Re s = sigma0 < 1/2.

@@ -1,0 +1,38 @@
+direct table: 2439756 primitive (mod sign) up to 3000, 4013094 lattice points (one sign)
+rms E_P 386.5, rms zero sum 222.5, rms residual 324.3
+d = 1: rms E_A(R/d) 319.0
+d = 2: rms E_A(R/d) 273.3
+d = 3: rms E_A(R/d) 264.5
+d = 4: rms E_A(R/d) 243.1
+d = 5: rms E_A(R/d) 218.1
+d = 6: rms E_A(R/d) 208.4
+
+low half [3e4, 9.5e4]
+   corr(residual, E_A(R/1)) = +0.421
+   corr(residual, E_A(R/2)) = -0.284
+   corr(residual, E_A(R/3)) = -0.163
+   corr(residual, E_A(R/4)) = -0.230
+   corr(residual, E_A(R/5)) = -0.209
+   corr(residual, E_A(R/6)) = -0.053
+   joint regression on E_A(R/d), d<=6: R^2 = 0.496; coefficients [ 0.437 -0.385 -0.371 -0.099 -0.378  0.271] (Moebius prediction mu(d)/2 = +.5 -.5 -.5 0 -.5 +.5)
+   M_6 = (1/2) sum_{d<=6} mu(d) E_A(R/d): rms 201.0, share of residual variance explained by adding it with coefficient 1: 0.463
+
+high half [9.5e4, 3e5]
+   corr(residual, E_A(R/1)) = +0.172
+   corr(residual, E_A(R/2)) = -0.208
+   corr(residual, E_A(R/3)) = -0.189
+   corr(residual, E_A(R/4)) = -0.008
+   corr(residual, E_A(R/5)) = -0.116
+   corr(residual, E_A(R/6)) = +0.211
+   joint regression on E_A(R/d), d<=6: R^2 = 0.281; coefficients [ 0.398 -0.471 -0.394  0.034 -0.301  0.534] (Moebius prediction mu(d)/2 = +.5 -.5 -.5 0 -.5 +.5)
+   M_6 = (1/2) sum_{d<=6} mu(d) E_A(R/d): rms 245.8, share of residual variance explained by adding it with coefficient 1: 0.253
+
+all
+   corr(residual, E_A(R/1)) = +0.263
+   corr(residual, E_A(R/2)) = -0.232
+   corr(residual, E_A(R/3)) = -0.178
+   corr(residual, E_A(R/4)) = -0.076
+   corr(residual, E_A(R/5)) = -0.142
+   corr(residual, E_A(R/6)) = +0.149
+   joint regression on E_A(R/d), d<=6: R^2 = 0.334; coefficients [ 0.424 -0.458 -0.393 -0.005 -0.321  0.493] (Moebius prediction mu(d)/2 = +.5 -.5 -.5 0 -.5 +.5)
+   M_6 = (1/2) sum_{d<=6} mu(d) E_A(R/d): rms 224.6, share of residual variance explained by adding it with coefficient 1: 0.311

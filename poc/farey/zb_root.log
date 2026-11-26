@@ -1,0 +1,18 @@
+root: x = 2.671687609484 v = 0.391458705458 -> traces (2.671687609484, 3.111739620736, 3.479943422263), Markoff check 0.00e+00
+sink lengths (1.5964119304, 2.0216113472, 2.3035953018)
+  theta 0.785 smax 36: Z_B(rho_1) = +6.512e-09 -1.729e-09j  (350 cells)
+  theta 0.785 smax 44: Z_B(rho_1) = +6.518e-09 -1.727e-09j  (523 cells)
+  theta 0.785 smax 50: Z_B(rho_1) = +6.519e-09 -1.731e-09j  (677 cells)
+  theta 1.047 smax 36: Z_B(rho_1) = -1.119e-12 +3.922e-12j  (350 cells)
+  theta 1.047 smax 44: Z_B(rho_1) = -9.361e-13 +3.949e-12j  (523 cells)
+  theta 1.047 smax 50: Z_B(rho_1) = -9.299e-13 +3.870e-12j  (677 cells)
+  theta 1.257 smax 36: Z_B(rho_1) = -1.118e-10 +8.695e-11j  (350 cells)
+  theta 1.257 smax 44: Z_B(rho_1) = -1.118e-10 +8.695e-11j  (523 cells)
+  theta 1.257 smax 50: Z_B(rho_1) = -1.118e-10 +8.695e-11j  (677 cells)
+Jacobian d(Re,Im)/d(x,v) =
+ [[ 9.09840132 -1.48927324]
+ [ 8.3450355   7.48510469]] 
+ det = 80.5305 (sign = local degree)
+s = 2.6: direct sum 2.5649349004   cell formula 2.7679886825+0.0e+00j
+s = 3.0: direct sum 1.5248549300   cell formula 1.5466527138+0.0e+00j
+s = 4.0: direct sum 0.6153093072   cell formula 0.6154726296+0.0e+00j

@@ -1,0 +1,18 @@
+modular torus: traces [3. 3. 3.], area 0.891803, 2439756 simple geodesics up to 3000, rms E/sqrt R = 0.951
+   gamma_1 = 14.135: measured |projection| 0.2662   predicted |c_k| 0.2673   (|Z_B(rho_k)| = 5.9977)
+   gamma_2 = 21.022: measured |projection| 0.1843   predicted |c_k| 0.1833   (|Z_B(rho_k)| = 8.7621)
+   gamma_3 = 25.011: measured |projection| 0.2090   predicted |c_k| 0.2088   (|Z_B(rho_k)| = 14.3277)
+   gamma_4 = 30.425: measured |projection| 0.1231   predicted |c_k| 0.1177   (|Z_B(rho_k)| = 9.3402)
+   gamma_5 = 32.935: measured |projection| 0.1812   predicted |c_k| 0.1787   (|Z_B(rho_k)| = 16.2667)
+   gamma_6 = 37.586: measured |projection| 0.1194   predicted |c_k| 0.1213   (|Z_B(rho_k)| = 17.6628)
+   gamma_7 = 40.919: measured |projection| 0.0966   predicted |c_k| 0.0817   (|Z_B(rho_k)| = 9.9630)
+   gamma_8 = 43.327: measured |projection| 0.1499   predicted |c_k| 0.1380   (|Z_B(rho_k)| = 21.9254)
+zero-blind X*: traces [2.671688 3.11174  3.479943], area 0.896125, 2451485 simple geodesics up to 3000, rms E/sqrt R = 0.396
+   gamma_1 = 14.135: measured |projection| 0.0002   predicted |c_k| 0.0000   (|Z_B(rho_k)| = 0.0000)
+   gamma_2 = 21.022: measured |projection| 0.0709   predicted |c_k| 0.0699   (|Z_B(rho_k)| = 3.3428)
+   gamma_3 = 25.011: measured |projection| 0.0779   predicted |c_k| 0.0764   (|Z_B(rho_k)| = 5.2403)
+   gamma_4 = 30.425: measured |projection| 0.0262   predicted |c_k| 0.0222   (|Z_B(rho_k)| = 1.7646)
+   gamma_5 = 32.935: measured |projection| 0.0421   predicted |c_k| 0.0401   (|Z_B(rho_k)| = 3.6535)
+   gamma_6 = 37.586: measured |projection| 0.0297   predicted |c_k| 0.0291   (|Z_B(rho_k)| = 4.2306)
+   gamma_7 = 40.919: measured |projection| 0.0619   predicted |c_k| 0.0600   (|Z_B(rho_k)| = 7.3188)
+   gamma_8 = 43.327: measured |projection| 0.0419   predicted |c_k| 0.0396   (|Z_B(rho_k)| = 6.2843)
