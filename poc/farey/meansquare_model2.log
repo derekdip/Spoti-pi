@@ -1,0 +1,6 @@
+geodesics: 4590, distinct lengths: 766, multiplicities: [3, 6]
+lam = 0.25: w=100: meas 9.6 model 296.4  w=200: meas 12.5 model 297.3  w=400: meas 18.4 model 303.2  w=800: meas 32.9 model 305.6  w=1600: meas 55.3 model 305.9  w=3200: meas 83.3 model 306.0
+lam = 0.50: w=100: meas 9.6 model 297.3  w=200: meas 12.5 model 303.2  w=400: meas 18.4 model 305.6  w=800: meas 32.9 model 305.9  w=1600: meas 55.3 model 306.0  w=3200: meas 83.3 model 308.6
+lam = 1.00: w=100: meas 9.6 model 303.2  w=200: meas 12.5 model 305.6  w=400: meas 18.4 model 305.9  w=800: meas 32.9 model 306.0  w=1600: meas 55.3 model 308.6  w=3200: meas 83.3 model 338.9
+lam = 2.00: w=100: meas 9.6 model 305.6  w=200: meas 12.5 model 305.9  w=400: meas 18.4 model 306.0  w=800: meas 32.9 model 308.6  w=1600: meas 55.3 model 338.9  w=3200: meas 83.3 model 341.3
+X = 3600: rms 337.6; top lengths: l=12.733(x6) 33%  l=7.326(x6) 21%  l=9.250(x6) 17%  l=20.799(x6) 7%  l=18.874(x6) 7%

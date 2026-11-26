@@ -1,0 +1,42 @@
+== gap 1e-3
+terms |A| > 0.05: 183; packets: 34 (multi-term 34)
+sum over packets (orthogonal-packet model): w=100: 7.6  w=200: 10.6  w=400: 14.3  w=800: 27.5  w=1600: 47.9  w=3200: 69.2
+   freq 5.7331577: 30 terms, amps -43.8 +0.1 +0.2 +16.2 +27.2, net -0.564, spread 1.6e-05, rms(w=100) 1.86 -> rms(w=3200) 57.57
+   freq 4.2544110: 27 terms, amps -11.9 +0.1 +0.5 +1.7 +3.6, net -0.190, spread 1.1e-03, rms(w=100) 4.75 -> rms(w=3200) 38.05
+   freq 2.5976087:  3 terms, amps -1.5, net -4.519, spread 0.0e+00, rms(w=100) 3.20 -> rms(w=3200) 3.20
+   freq 0.5195217:  3 terms, amps +0.9, net +2.724, spread 0.0e+00, rms(w=100) 1.93 -> rms(w=3200) 1.93
+   freq 4.6756956:  3 terms, amps -0.1, net -0.214, spread 0.0e+00, rms(w=100) 0.15 -> rms(w=3200) 0.15
+   freq 0.2836482:  3 terms, amps +0.1, net +0.201, spread 0.0e+00, rms(w=100) 0.14 -> rms(w=3200) 0.14
+   freq 0.5548208:  6 terms, amps +0.2, net +1.416, spread 0.0e+00, rms(w=100) 1.00 -> rms(w=3200) 1.00
+   freq 0.5672963:  3 terms, amps -1.5, net -4.482, spread 0.0e+00, rms(w=100) 3.17 -> rms(w=3200) 3.17
+terms |A| > 0.01: 342; packets: 63 (multi-term 63)
+sum over packets (orthogonal-packet model): w=100: 7.7  w=200: 10.6  w=400: 14.3  w=800: 27.5  w=1600: 47.9  w=3200: 69.2
+   freq 5.7331577: 30 terms, amps -43.8 +0.1 +0.2 +16.2 +27.2, net -0.564, spread 1.6e-05, rms(w=100) 1.86 -> rms(w=3200) 57.57
+   freq 4.2544110: 27 terms, amps -11.9 +0.1 +0.5 +1.7 +3.6, net -0.190, spread 1.1e-03, rms(w=100) 4.75 -> rms(w=3200) 38.05
+   freq 2.5976087:  3 terms, amps -1.5, net -4.519, spread 0.0e+00, rms(w=100) 3.20 -> rms(w=3200) 3.20
+   freq 0.5195217:  3 terms, amps +0.9, net +2.724, spread 0.0e+00, rms(w=100) 1.93 -> rms(w=3200) 1.93
+   freq 4.6756956:  3 terms, amps -0.1, net -0.214, spread 0.0e+00, rms(w=100) 0.15 -> rms(w=3200) 0.15
+   freq 4.1561738:  3 terms, amps -0.0, net -0.043, spread 0.0e+00, rms(w=100) 0.03 -> rms(w=3200) 0.03
+   freq 0.2836482:  3 terms, amps +0.1, net +0.201, spread 0.0e+00, rms(w=100) 0.14 -> rms(w=3200) 0.14
+   freq 0.3698805:  6 terms, amps +0.0, net +0.062, spread 0.0e+00, rms(w=100) 0.04 -> rms(w=3200) 0.04
+== gap 1e-4
+terms |A| > 0.05: 183; packets: 35 (multi-term 35)
+sum over packets (orthogonal-packet model): w=100: 7.3  w=200: 9.4  w=400: 15.1  w=800: 27.2  w=1600: 47.9  w=3200: 69.2
+   freq 5.7331577: 30 terms, amps -43.8 +0.1 +0.2 +16.2 +27.2, net -0.564, spread 1.6e-05, rms(w=100) 1.86 -> rms(w=3200) 57.57
+   freq 4.2546353: 21 terms, amps -11.9 +0.1 +1.7 +3.6, net -3.135, spread 1.4e-04, rms(w=100) 3.66 -> rms(w=3200) 38.00
+   freq 2.5976087:  3 terms, amps -1.5, net -4.519, spread 0.0e+00, rms(w=100) 3.20 -> rms(w=3200) 3.20
+   freq 0.5195217:  3 terms, amps +0.9, net +2.724, spread 0.0e+00, rms(w=100) 1.93 -> rms(w=3200) 1.93
+   freq 4.6756956:  3 terms, amps -0.1, net -0.214, spread 0.0e+00, rms(w=100) 0.15 -> rms(w=3200) 0.15
+   freq 0.2836482:  3 terms, amps +0.1, net +0.201, spread 0.0e+00, rms(w=100) 0.14 -> rms(w=3200) 0.14
+   freq 0.5548208:  6 terms, amps +0.2, net +1.416, spread 0.0e+00, rms(w=100) 1.00 -> rms(w=3200) 1.00
+   freq 0.5672963:  3 terms, amps -1.5, net -4.482, spread 0.0e+00, rms(w=100) 3.17 -> rms(w=3200) 3.17
+terms |A| > 0.01: 342; packets: 65 (multi-term 65)
+sum over packets (orthogonal-packet model): w=100: 7.3  w=200: 9.4  w=400: 15.1  w=800: 27.2  w=1600: 47.9  w=3200: 69.2
+   freq 5.7331577: 30 terms, amps -43.8 +0.1 +0.2 +16.2 +27.2, net -0.564, spread 1.6e-05, rms(w=100) 1.86 -> rms(w=3200) 57.57
+   freq 4.2546353: 21 terms, amps -11.9 +0.1 +1.7 +3.6, net -3.135, spread 1.4e-04, rms(w=100) 3.66 -> rms(w=3200) 38.00
+   freq 2.5976087:  3 terms, amps -1.5, net -4.519, spread 0.0e+00, rms(w=100) 3.20 -> rms(w=3200) 3.20
+   freq 0.5195217:  3 terms, amps +0.9, net +2.724, spread 0.0e+00, rms(w=100) 1.93 -> rms(w=3200) 1.93
+   freq 4.6756956:  3 terms, amps -0.1, net -0.214, spread 0.0e+00, rms(w=100) 0.15 -> rms(w=3200) 0.15
+   freq 4.1561738:  3 terms, amps -0.0, net -0.043, spread 0.0e+00, rms(w=100) 0.03 -> rms(w=3200) 0.03
+   freq 0.2836482:  3 terms, amps +0.1, net +0.201, spread 0.0e+00, rms(w=100) 0.14 -> rms(w=3200) 0.14
+   freq 0.3698805:  6 terms, amps +0.0, net +0.062, spread 0.0e+00, rms(w=100) 0.04 -> rms(w=3200) 0.04

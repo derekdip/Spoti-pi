@@ -1,0 +1,4 @@
+sigma = 0.30: lattice rms 2.244 | l<=20: mismatch 7.43e-07 (series rms 2.24) | l<=40: mismatch 2.41e-10 (series rms 2.24) | l<=80: mismatch 2.41e-10 (series rms 2.24) | l<=130: mismatch 2.41e-10 (series rms 2.24)
+sigma = 0.15: lattice rms 3.414 | l<=20: mismatch 3.38e-06 (series rms 3.41) | l<=40: mismatch 2.41e-10 (series rms 3.41) | l<=80: mismatch 2.41e-10 (series rms 3.41) | l<=130: mismatch 2.42e-10 (series rms 3.41)
+sigma = 0.08: lattice rms 4.049 | l<=20: mismatch 5.14e-03 (series rms 4.05) | l<=40: mismatch 1.15e-09 (series rms 4.05) | l<=80: mismatch 5.28e-09 (series rms 4.05) | l<=130: mismatch 6.93e-09 (series rms 4.05)
+sigma = 0.05: lattice rms 4.759 | l<=20: mismatch 6.45e-02 (series rms 4.76) | l<=40: mismatch 1.18e-08 (series rms 4.76) | l<=80: mismatch 6.26e-08 (series rms 4.76) | l<=130: mismatch 8.67e-08 (series rms 4.76)

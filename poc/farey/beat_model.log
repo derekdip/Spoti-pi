@@ -1,0 +1,9 @@
+max | (n+ - n-) - G J v | = 9.09e-13
+F = 3, gap = 1e-03 (1192149 terms): w=100: meas 9.6 model 6.4  w=200: meas 12.5 model 5.1  w=400: meas 18.4 model 5.5  w=800: meas 32.9 model 5.3  w=1600: meas 55.3 model 5.4  w=3200: meas 83.3 model 5.6
+F = 3, gap = 1e-04 (1192149 terms): w=100: meas 9.6 model 6.3  w=200: meas 12.5 model 5.1  w=400: meas 18.4 model 5.2  w=800: meas 32.9 model 5.4  w=1600: meas 55.3 model 5.4  w=3200: meas 83.3 model 5.4
+F = 6, gap = 1e-03 (2386596 terms): w=100: meas 9.6 model 8.3  w=200: meas 12.5 model 10.4  w=400: meas 18.4 model 14.0  w=800: meas 32.9 model 27.5  w=1600: meas 55.3 model 47.9  w=3200: meas 83.3 model 69.3
+F = 6, gap = 1e-04 (2386596 terms): w=100: meas 9.6 model 8.3  w=200: meas 12.5 model 10.4  w=400: meas 18.4 model 14.2  w=800: meas 32.9 model 27.6  w=1600: meas 55.3 model 47.9  w=3200: meas 83.3 model 69.2
+F = 9, gap = 1e-03 (3581022 terms): w=100: meas 9.6 model 8.8  w=200: meas 12.5 model 10.8  w=400: meas 18.4 model 13.9  w=800: meas 32.9 model 29.1  w=1600: meas 55.3 model 48.4  w=3200: meas 83.3 model 68.0
+F = 12, gap = 1e-03 (4775523 terms): w=100: meas 9.6 model 8.8  w=200: meas 12.5 model 11.1  w=400: meas 18.4 model 14.3  w=800: meas 32.9 model 29.7  w=1600: meas 55.3 model 50.9  w=3200: meas 83.3 model 73.8
+packets with the largest growth of mean square from w=100 to w=3200 (F = 6):
+   freq 3.002886: 2386596 terms, max |A| 43.8, net sum +0.601, freq spread 5.99e+00, mean square 69.7 -> 4808.2

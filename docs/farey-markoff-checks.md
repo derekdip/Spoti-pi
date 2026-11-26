@@ -2903,3 +2903,48 @@ The write-up is a Docs artifact, "The Lattice Zeta Function of the Stable-Norm B
 
 Still open: explicit constants in Step 4 of the continuation proof; polynomial vertical growth of Z_B, needed for the
 explicit formula; monotonicity of H; and the Weil-Petersson average of Z_B(-2), via Farey pairs.
+
+## The averaged lattice count is exact; <Z_B(s)> = 0; Farey beat packets drive the lattice error (2026-11-26)
+
+**1. On average over moduli the stable-norm ball has no lattice-point error at any scale.**
+
+    int_M #{v != 0 : N_X(v) <= t} dV = 2 sum_{k>=1} int_0^{t/k} l dl = zeta(2) t^2 = int_M Area(B_X) t^2 dV,
+
+in the normalisation int_M sum_gamma F(l_gamma) = int F(l) l dl, Vol = (L^2 + 4 pi^2)/24, for every L. Since
+Z_X(s) = s int_0^inf (A_X(t) - Area t^2) t^(-s-1) dt, Fubini gives int_M Z_X(s) dV = 0 for 1 < Re s < 2. Fubini needs
+the convex lattice bound |E| <= C(1 + t Perim(B_X)) with Perim(B_X) ~ 1/sys, and the moduli measure is about sys
+d(sys); both sides of the strip are then integrable for sigma < 2, and the large-t side for sigma > 1. By analytic
+continuation <Z_B(s)> = 0 wherever Z_X(s) stays locally uniformly integrable over moduli. Near the cusp the cell sums
+give |Z_X(-m)| ~ (1/sys) polylog(1/sys), which is integrable: at sys = 0.0019, Z(0) = 2440, Z(-2) = -14813,
+Z(-4) = 6.6e5. In particular the Riemann-zero amplitudes Z_B(rho) average to 0, which matches the absence of zero terms
+in moduli-averaged counts.
+
+Direct check (`poc/farey/wp_zeta_neg.py`, general-surface Farey-cell sums, Fenchel-Nielsen quadrature 40 x 16):
+<Z_B(0)> = +0.00014 at L = 0, where the quadrature volume is off by 2e-4. The m = 2 and 4 runs are still going.
+
+**2. The Voronoi series is exact for small smoothing.** It matches the smoothed lattice error at sigma = 0.3, 0.15, 0.08
+and 0.05 to 2e-10, 2e-10, 1e-9 and 1e-8, with l <= 40 (`voronoi_small_sigma.py`). So single-geodesic amplitudes far
+larger than the actual error are real.
+
+**3. The amplitudes come in Farey beat packets.** For a Farey cell (u, w, m), the resonant terms (k_u, l_u),
+(k_w, l_w) and (k_u + k_w, l_m) have frequencies agreeing to |k_u l_w - k_w l_u|/(l_u l_w) up to an O(k delta/l^2)
+correction. Their amplitudes nearly cancel. The main example: traces 15 and 39 and their mediant, with k = 31, 42 and 73,
+at frequency 5.733158, spread 1.6e-5, amplitudes +16.2, +27.2, -43.8 (each x6 by symmetry), net -0.56
+(`beat_partners.py`).
+
+**4. Two packets carry the observed growth.** Keep the 183 terms with |A| > 0.05 and cluster them with gap 1e-3 (34
+packets). Treating packets as orthogonal gives rms 7.6, 10.6, 14.3, 27.5, 47.9 and 69.2 for windows w = 100 to 3200,
+identical to the full truncated series (l <= 40, frequency <= 6: 8.3 ... 69.3). With frequencies up to 12 the full series
+gives 8.8, 11.1, 14.3, 29.7, 50.9 and 73.8, against the measured 9.6, 12.5, 18.4, 32.9, 55.3 and 83.3. The packet at
+5.7332 grows from rms 1.9 to 57.6, and the one at 4.2544 (spread 1.1e-3) from 4.8 to 38.0 (`beat_packets.py`).
+
+Consequences:
+- The error growth seen for R <= 6400 is the transient opening of two packets with beat periods of about 6e4 and 900.
+  Exponent fits at these R do not measure the McShane-Rivin exponent.
+- Prediction: the 5.733 packet saturates at rms about (sum |A_j|^2/2)^(1/2), about 94, near R ~ 3-6e4.
+- The conjecture E = O(R^(1/2+eps)) is a statement about packets. The sum over Farey cells and convergents k_w/k_u of
+  l_w/l_u of (packet amplitude)^2 min(1, (X Delta f)^2) must be at most X^(1+eps). The amplitudes are about
+  1/(pi^2 k ||k a||), and Risager's arithmetic separation bounds ||k a|| from below.
+
+(Correction to the first attempt: summing |amplitude|^2 per geodesic, or per length, gives rms about 125 or 300
+regardless of X. Those models ignore the packet cancellations, and their failure is what led to the packets.)

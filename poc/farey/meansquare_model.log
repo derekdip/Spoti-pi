@@ -1,0 +1,17 @@
+geodesics (mod sign) with l <= 130: 4590;  check a- - a+ = G/l: max err 2.2e-16
+geodesics used: 4590 (l <= 34)
+lam = 0.5: w=100: meas 9.6 model 121.9  w=200: meas 12.5 model 124.4  w=400: meas 18.4 model 125.5  w=800: meas 32.9 model 125.6  w=1600: meas 55.3 model 125.6  w=3200: meas 83.3 model 126.7
+lam = 1.0: w=100: meas 9.6 model 124.4  w=200: meas 12.5 model 125.5  w=400: meas 18.4 model 125.6  w=800: meas 32.9 model 125.6  w=1600: meas 55.3 model 126.7  w=3200: meas 83.3 model 139.0
+lam = 2.0: w=100: meas 9.6 model 125.5  w=200: meas 12.5 model 125.6  w=400: meas 18.4 model 125.6  w=800: meas 32.9 model 126.7  w=1600: meas 55.3 model 139.0  w=3200: meas 83.3 model 140.0
+
+X = 2400, lam = 1: total M = 16050.3 (rms 126.7)
+   l = 12.733  a+ = 0.4246568400  share 6.5%  peak at k = 73
+   l = 12.733  a+ = 0.4246568400  share 6.5%  peak at k = 73
+   l = 12.733  a+ = 0.4246568400  share 6.5%  peak at k = 73
+   l = 12.733  a+ = 0.5753413051  share 6.5%  peak at k = 73
+   l = 12.733  a+ = 0.5753413051  share 6.5%  peak at k = 73
+   l = 12.733  a+ = 0.5753413051  share 6.5%  peak at k = 73
+   l in ( 0,  5]: 2.2%
+   l in ( 5, 10]: 50.4%
+   l in (10, 20]: 46.9%
+   l in (20, 34]: 0.6%
