@@ -3189,3 +3189,10 @@ exactly. The Farey-cell decomposition uses the Fricke mediant rule c = ab - kapp
     estimate of about 0.007.
   - Z_B(rho_1) = -1.0140 - 1.4070i, |Z_B(rho_1)| = 1.73 != 0. By the argument of Theorem 6, the error in counting simple
     closed geodesics on this sphere is Omega_+-(R^(1/2)), forced by the Riemann zeros; no RH is assumed.
+
+**Correction to the high-zero coefficients.** Even with adaptive precision, quadrature on the real t-axis fails from
+about gamma = 60: k = 14 gives |c| = 1.06 and k >= 15 explodes. The oscillating integrand's quadrature error is multiplied
+by 1/|Gamma(rho)|. The fix is to compute Delta_cell on the rotated ray arg t = pi/2 - 1/(1 + gamma), with the Bernoulli
+series continued along the ray (`zeros_rotated.py`). It reproduces k = 1 to 1e-6 (0.6457537 + 5.9628325i) and k = 2. The
+12-zero Ingham constant 1.32 and the 10-zero correlation are provisional until c_10, c_11 and c_12 are confirmed by the
+rotated run (20 zeros, in progress). The constants with k <= 9 agree between the two methods.
