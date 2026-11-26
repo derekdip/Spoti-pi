@@ -1,0 +1,22 @@
+const { chromium } = require('playwright');
+(async () => {
+const b = await chromium.launch({ args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader'] });
+const p = await b.newPage({ viewport: { width: 1280, height: 760 } });
+await p.route('**/three.min.js', r => r.fulfill({ path: '/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/three128/package/build/three.min.js', contentType: 'application/javascript' }));
+await p.route('**/fonts.googleapis.com/**', r => r.abort());
+const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
+const html = require('fs').readFileSync('farey-rooms.html', 'utf8');
+await p.setContent(`<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width">${html}`, { waitUntil: 'load' });
+await p.waitForTimeout(1500);
+await p.screenshot({ path: 'shot_start.png' });
+await p.keyboard.down('w'); await p.waitForTimeout(2500); await p.keyboard.up('w');
+await p.screenshot({ path: 'shot_walk.png' });
+for (let i = 0; i < 7; i++) await p.click('#far');
+await p.click('#naive'); await p.waitForTimeout(800); await p.screenshot({ path: 'shot_35_naive.png' });
+const e35 = await p.textContent('#err');
+await p.click('#far'); await p.waitForTimeout(800); await p.screenshot({ path: 'shot_40_naive.png' });
+console.log('35 rooms:', e35);
+await p.click('#naive'); await p.waitForTimeout(800); await p.screenshot({ path: 'shot_40_exact.png' });
+console.log(JSON.stringify({ errs, addr: await p.textContent('#addr'), err: await p.textContent('#err'), cross: await p.textContent('#cross'), digits: await p.textContent('#digits') }));
+await b.close();
+})();
