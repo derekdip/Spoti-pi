@@ -4041,3 +4041,46 @@ counts for k >= 6 are lower bounds.
 The earlier k <= 5 results used theta = pi/3, where the error is about 1e-6 at gamma <= 33. They stand, because those
 zeros are nondegenerate (|J| about 10), so the error moves them by only about 1e-7. The X* certificate used
 theta = pi/3 and 0.4 pi at gamma = 14.1, where the error is about 1e-9, and also stands.
+
+## Amplitude growth: |Z(rho)|^2 ~ gamma, so sum |c_rho|^2 diverges (flat case; `flat_amplitudes.py`, `flat_amp_theory.py`)
+
+**Derivation.** Epstein's functional equation for a unimodular lattice gives
+
+    Z(rho) = pi^{rho-1} Gamma(1 - rho/2)/Gamma(rho/2) Z(2 - rho),     so     |Z(rho)|^2 ~ (gamma/2 pi) |Z(3/2 - i gamma)|^2.
+
+Z(3/2 + it) = sum_m r(m) m^{-3/4 - it/2}, where r(m) counts lattice vectors of squared length m.
+- *Line average.* The Montgomery-Vaughan mean value theorem gives a mean square of M_z = sum_m r(m)^2 m^{-3/2}. For the
+  hexagonal lattice M_z = 68.28.
+- *Average over zeta zeros.* This is biased. By Landau's formula, the average of x^{i gamma} over zeros is
+  -Lambda(x) x^{-1/2}/log(T/2 pi), so every pair with m/n = p^{2k} contributes.
+- *Prediction.*
+
+      <|Z(rho)|^2>/gamma ~ (1/2 pi) [M_z - 2 C_z/log(gamma/2 pi)],   C_z = sum_{n, p^k} r(n) r(n p^{2k}) (n^2 p^{2k})^{-3/4} Lambda(p^k) p^{-k/2},
+
+  with C_z = 48.2 for the hexagonal lattice.
+
+**Check** (hexagonal flat torus, first 300 zeros, gamma <= 542):
+
+| gamma band (centre) | 90 | 179 | 277 | 376 | 473 |
+|---|---|---|---|---|---|
+| Landau-corrected prediction | 5.10 | 6.28 | 6.81 | 7.12 | 7.32 |
+| observed <abs(Z)^2>/gamma | 6.37 | 7.16 | 7.42 | 6.69 | 7.50 |
+
+The uncorrected limit is 10.87. Approaching it slowly from below is the Landau bias.
+
+**Consequence.** c_rho = Z(rho)/(2 rho zeta'(rho)), so |c|^2 ~ (<|Z|^2>/gamma)/(4 gamma |zeta'(rho)|^2). Under
+Gonek-Hejhal (sum_{gamma <= T} 1/|zeta'|^2 ~ 6T/pi^3), 2 sum_{gamma <= T} |c|^2 diverges like a constant times log T.
+Observed: 0.763, 0.944, 1.125, 1.218 and 1.281 at T = 50, 100, 200, 300 and 400, about +0.18 per doubling. At these
+heights the effective constant is below 6/pi^3, since <1/|zeta'|^2> per unit gamma is about 0.085 here, and the
+asymptote is reached slowly.
+
+**Meaning.**
+- The sharp primitive count in an ellipse, and by the flat limit in a stable-norm ball of small-area cone tori, is not
+  B^2-almost-periodic with finite variance.
+- With the natural truncation T ~ R, the mean square of E_P/sqrt R grows like log R, conditional on RH, simple zeros,
+  Gonek-Hejhal and the mean-square law.
+- This settles the earlier "is the 20-zero sum the whole sharp error?" question for the flat case. The zero sum is
+  complete, but its variance is infinite and grows slowly, so any finite truncation explains a shrinking share. That
+  matches the earlier observations: the share explained by 20 zeros was low, and the rms of E_P/sqrt R crept up with R
+  on the modular torus (0.77, 1.08, 1.15 at R ~ 1e4, 1e5, 1e6).
+- The hyperbolic check needs |Z_B(rho_k)| for many more k. That computation (k = 21-60, mpmath at dps 66-90) is running.

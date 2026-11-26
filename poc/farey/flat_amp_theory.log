@@ -1,0 +1,13 @@
+sum_m r(m)^2 m^{-3/2} (norms up to 1125000) = 68.2804   ->  predicted <|Z|^2>/gamma = 10.8672
+  observed <|Z|^2>/gamma, gamma in [0, 150): 6.367 (52 zeros)
+  observed <|Z|^2>/gamma, gamma in [100, 250): 7.159 (79 zeros)
+  observed <|Z|^2>/gamma, gamma in [200, 350): 7.424 (90 zeros)
+  observed <|Z|^2>/gamma, gamma in [300, 450): 6.690 (97 zeros)
+  observed <|Z|^2>/gamma, gamma in [400, 550): 7.504 (98 zeros)
+  observed overall: 7.278
+Landau cross sum C = 48.1994
+  gamma ~    90: Landau-corrected prediction 5.101   observed 6.367
+  gamma ~   179: Landau-corrected prediction 6.284   observed 7.159
+  gamma ~   277: Landau-corrected prediction 6.813   observed 7.424
+  gamma ~   376: Landau-corrected prediction 7.118   observed 6.690
+  gamma ~   473: Landau-corrected prediction 7.316   observed 7.504

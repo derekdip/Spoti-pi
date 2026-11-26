@@ -1,0 +1,13 @@
+hexagonal flat torus, 300 zeros (gamma up to 541.8)
+  gamma in [  0, 50): <|Z|^2>/gamma = 6.052   <|const term|^2>/gamma = 0.263   <1/|zeta'|^2> = 0.5924   (10 zeros)
+  gamma in [ 50,100): <|Z|^2>/gamma = 5.506   <|const term|^2>/gamma = 0.370   <1/|zeta'|^2> = 0.2560   (19 zeros)
+  gamma in [100,150): <|Z|^2>/gamma = 7.216   <|const term|^2>/gamma = 0.398   <1/|zeta'|^2> = 0.1935   (23 zeros)
+  gamma in [150,200): <|Z|^2>/gamma = 7.309   <|const term|^2>/gamma = 0.409   <1/|zeta'|^2> = 0.1932   (27 zeros)
+  gamma in [200,300): <|Z|^2>/gamma = 8.283   <|const term|^2>/gamma = 0.438   <1/|zeta'|^2> = 0.1561   (59 zeros)
+  gamma in [300,400): <|Z|^2>/gamma = 6.731   <|const term|^2>/gamma = 0.446   <1/|zeta'|^2> = 0.1331   (64 zeros)
+  2 sum_{gamma<50} |c|^2 = 0.7632
+  2 sum_{gamma<100} |c|^2 = 0.9441
+  2 sum_{gamma<200} |c|^2 = 1.1251
+  2 sum_{gamma<300} |c|^2 = 1.2181
+  2 sum_{gamma<400} |c|^2 = 1.2809
+  Gonek-Hejhal mean 1/|zeta'|^2 density: 6/pi^3 per unit gamma -> <1/|zeta'|^2> ~ (6/pi^3)/(density log(g/2pi)/2pi)
