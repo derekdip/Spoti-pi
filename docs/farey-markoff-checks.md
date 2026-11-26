@@ -3219,6 +3219,17 @@ The hypothesis is the analogue of Lindelof for Epstein zetas. A polylog lattice 
 |Z_X| << |t|, and stationary phase suggests about |t|^(1/2) without further structure. This is why a sharp
 McShane-Rivin upper bound is as hard as a Lindelof-type problem.
 
-(The moduli-average run `wp_zeta_neg.py` reached its 2-hour limit after finishing L = 0 for m = 0 and m = 2, which
-average to +0.00014 and -0.00040. The m = 4 and L = 2 cases were not reached and are not rerun: the general theorem above
-covers them, and they would need a faster integrator.)
+(Correction to an earlier note: the moduli-average run `wp_zeta_neg.py` stopped at its 2-hour limit, but only after
+these results.)
+
+| L | m | average of Z_B(-m) over moduli (40 x 16 nodes) |
+|---|---|---|
+| 0 | 0 | +0.00014 |
+| 0 | 2 | -0.00040 |
+| 0 | 4 | +0.126 |
+| 2 | 0 | -0.00040 |
+| 2 | 2 | -0.00006 |
+
+The boundary-length cases confirm the zero average. The m = 4 value is not clearly zero. Z_B(-4) grows like
+(1/l) log^5(1/l) near the cusp (6.6e5 at l = 0.0019), which strains this quadrature. The scale of the integral of
+|Z_B(-4)| is being computed to judge it (`abs_integral_m4.py`).
