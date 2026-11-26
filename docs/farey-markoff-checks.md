@@ -2432,3 +2432,34 @@ audible as a log-periodic oscillation of period 4 pi/gamma_1 = 0.889 in log y. A
 show as a term of size y^(1-beta/2), which decays more slowly than y^(3/4). No numerics can exclude that for zeros of
 arbitrary height. The test confirms the mechanism, not RH. Our earlier identities (gap law, dual areas, pi^2 law) are
 exact and do not depend on RH. RH enters only through error terms of counts over Farey fractions like the one above.
+
+## Twisted horocycles on Y_1(N) and Dirichlet L-zeros (`poc/farey/horocycle_dirichlet.py`)
+
+Weight each Farey denominator by an even primitive character: f_chi(z) = sum_{Gamma_inf\Gamma} chi(c) psi(Im gamma z).
+Right multiplication by Gamma_1(N) preserves c mod N, so f_chi is a function on the modular curve Y_1(N). Its closed
+horocycle of height y at the cusp at infinity unfolds exactly to
+
+    a_chi(y) = sqrt(pi y) sum_c chi(c) phi(c)/c exp(-c^2 y),   Mellin = L(2s-1,chi)/L(2s,chi) sqrt(pi) Gamma(s-1/2).
+
+The mean is 0, since L(2s-1,chi) has no pole. The explicit formula is
+
+    a_chi = sum_rho R_rho y^(1-rho/2) + sum_k T_k y^(1+k),   R_rho = sqrt(pi) L(rho-1,chi) Gamma((rho-1)/2) / (2 L'(rho,chi)).
+
+The trivial zero of L(2s,chi) at s = 0 gives a smooth y^1 term. GRH for chi is equivalent to the nontrivial part being
+O(y^(3/4-eps)).
+
+| chi (even, primitive) | lowest zeros used | max \|measured - formula\| | max \|E\|/y^(3/4) per decade, 1e-4..1e-11 | sum \|R_rho\| |
+|---|---|---|---|---|
+| Legendre mod 5 | t = 6.648, 9.831 | 5e-14 | 0.024 - 0.027 | 0.028 |
+| Kronecker mod 8 | t = 4.900, 7.628 | 9e-14 | 0.134 - 0.155 | 0.158 |
+| cubic mod 7 (complex) | t = 4.356, -6.201 | 8e-14 | 0.120 - 0.129 | 0.133 |
+| sextic mod 13 (complex) | t = -3.661, 4.455 | 1e-13 | 0.371 - 0.510 | 0.525 |
+
+The table uses the zeros with |t| < 60 found on the line; all are found at Re = 1/2 to 1e-17. For each character,
+E/y^(3/4) stays bounded by sum |R_rho| and does not decay over seven decades, while E/y^(1/2) tends to 0. For
+complex characters the zeros are not symmetric in t, so a_chi is complex and genuinely sees both L(s,chi) and its
+conjugate. The lower first zeros (3.7 to 6.6, against 14.1 for zeta) give much larger coefficients, so the
+L-function zeros dominate a twisted horocycle far more visibly than the zeta zeros dominate the plain one.
+
+Also: the Mirzakhani-Zograf run reached g = 12, with a_g = 2.15792771813311 and sqrt(g)(a_g - 2) = 0.54708, before
+it was stopped at its time limit.
