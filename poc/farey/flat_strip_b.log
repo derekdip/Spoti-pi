@@ -1,0 +1,12 @@
+s = 0.80 (predicted exponent 0.900), Z_flat = -2.913016:
+   A=0.400: diff/A 0.3495 (vs first-order -1.2396)
+   A=0.200: diff/A 0.4625 (vs first-order -1.2396) exp 0.596
+   A=0.100: diff/A 0.5843 (vs first-order -1.2396) exp 0.663
+   A=0.050: diff/A 0.7151 (vs first-order -1.2396) exp 0.709
+   A=0.025: diff/A 0.8554 (vs first-order -1.2396) exp 0.742
+s = 1.50 (predicted exponent 1.000), Z_flat = -10.117741:
+   A=0.400: diff/A 0.2137 (vs first-order 0.9885)
+   A=0.200: diff/A 0.3362 (vs first-order 0.9885) exp 0.346
+   A=0.100: diff/A 0.4397 (vs first-order 0.9885) exp 0.613
+   A=0.050: diff/A 0.5269 (vs first-order 0.9885) exp 0.739
+   A=0.025: diff/A 0.6003 (vs first-order 0.9885) exp 0.812

@@ -1,0 +1,32 @@
+M(1.5): closed form -0.34070361, quadrature -0.34070361
+M(2.5): closed form -0.09108810, quadrature -0.09108810
+s = 0.50: first-order coeff -0.3433, staircase coeff 0.5667 (power 0.75)
+    A = 0.400: measured diff/A 0.3704   two-term prediction 0.3692   gap 0.0012
+    A = 0.200: measured diff/A 0.5045   two-term prediction 0.5041   gap 0.0004
+    A = 0.100: measured diff/A 0.6645   two-term prediction 0.6644   gap 0.0001
+    A = 0.050: measured diff/A 0.8551   two-term prediction 0.8551   gap 0.0000
+    A = 0.025: measured diff/A 1.0818   two-term prediction 1.0818   gap 0.0000
+s = 0.80: first-order coeff -1.2396, staircase coeff 1.4487 (power 0.90)
+    A = 0.400: measured diff/A 0.3495   two-term prediction 0.3481   gap 0.0014
+    A = 0.200: measured diff/A 0.4625   two-term prediction 0.4621   gap 0.0004
+    A = 0.100: measured diff/A 0.5843   two-term prediction 0.5842   gap 0.0001
+    A = 0.050: measured diff/A 0.7151   two-term prediction 0.7151   gap 0.0000
+    A = 0.025: measured diff/A 0.8554   two-term prediction 0.8554   gap 0.0000
+s = 1.20: first-order coeff 1.8825, staircase coeff -1.7316 (power 1.10)
+    A = 0.400: measured diff/A 0.3040   two-term prediction 0.3025   gap 0.0015
+    A = 0.200: measured diff/A 0.4088   two-term prediction 0.4083   gap 0.0005
+    A = 0.100: measured diff/A 0.5072   two-term prediction 0.5070   gap 0.0002
+    A = 0.050: measured diff/A 0.5992   two-term prediction 0.5992   gap 0.0000
+    A = 0.025: measured diff/A 0.6851   two-term prediction 0.6851   gap 0.0000
+s = 1.50: first-order coeff 0.9885, staircase coeff -0.9760 (power 1.25)
+    A = 0.400: measured diff/A 0.2137   two-term prediction 0.2122   gap 0.0015
+    A = 0.200: measured diff/A 0.3362   two-term prediction 0.3357   gap 0.0005
+    A = 0.100: measured diff/A 0.4397   two-term prediction 0.4396   gap 0.0001
+    A = 0.050: measured diff/A 0.5269   two-term prediction 0.5269   gap -0.0000
+    A = 0.025: measured diff/A 0.6003   two-term prediction 0.6004   gap -0.0001
+s = 2.50: first-order coeff 0.6826, staircase coeff 0.3890 (power 1.75)
+    A = 0.400: measured diff/A 0.8566   two-term prediction 0.8783   gap -0.0217
+    A = 0.200: measured diff/A 0.7879   two-term prediction 0.7989   gap -0.0110
+    A = 0.100: measured diff/A 0.7462   two-term prediction 0.7518   gap -0.0056
+    A = 0.050: measured diff/A 0.7210   two-term prediction 0.7237   gap -0.0027
+    A = 0.025: measured diff/A 0.7057   two-term prediction 0.7071   gap -0.0014

@@ -1,0 +1,6 @@
+s = 2.50 (predicted exponent 1.000), Z_flat = 15.138271:
+   A=0.400: diff/A 0.8566 (vs first-order 0.6826)
+   A=0.200: diff/A 0.7879 (vs first-order 0.6826) exp 1.121
+   A=0.100: diff/A 0.7462 (vs first-order 0.6826) exp 1.078
+   A=0.050: diff/A 0.7210 (vs first-order 0.6826) exp 1.050
+   A=0.025: diff/A 0.7057 (vs first-order 0.6826) exp 1.031

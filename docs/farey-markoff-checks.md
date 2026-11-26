@@ -3926,3 +3926,60 @@ The linear-in-A drift of the tracked zeros in shape coordinates (b/a, c/a) shoul
 N/sqrt(A) = n(1 - A/(24 n^2)). It is. For the rho_1 family, with unit-area lengths of the flat zero
 (0.924, 1.120, 1.254), the predicted slopes are 0.0189 for b/a and 0.0303 for c/a. Cone tracking observed 0.0176-0.0184
 and 0.0282-0.029.
+
+## The flat limit inside the strip: staircase geodesics and an exact second term (`flat_strip*.py`)
+
+**Staircases.** Fix a primitive w (flat length n) with Farey partner w', and consider v = a w + b w'. Write T = a n for
+its extent along w and u for the transverse coordinate, so that lines are spaced 1/n apart.
+- Averaged along w, the potential -A G is exactly quadratic: -A Gbar = -A/(24 n^2) + (A/(2 n^2))(u - 1/2)^2, with a
+  kink on the line through p (Step 1').
+- To first order, the length of a curve in class v minimises int [x'^2/2 - A Gbar(x)] dt, with x = u/n and transverse
+  shift b/n. Its Euler-Lagrange equation is u'' = A(u - 1/2): hyperbolic motion, sitting on the best line and crossing
+  the cone-point line |b| times.
+- The exact solution gives the deficit
+
+      L_A(v) - n_v = (sqrt(A) |b|/(4 n^2)) Psi(sqrt(A) T/(2|b|)),     Psi(y) = coth y - 1/y - y/3.
+
+- Psi interpolates between straight lines (Psi ~ -y^3/45, second order in A) and staircases (Psi ~ 1 - y/3, a deficit
+  of -A T/(24 n^2), the full first-order deficit of w).
+
+**Summing.**
+- Sum over a coprime to b (density phi(b)/b), over b != 0 (Ramanujan: sum phi(b) b^-s = zeta(s-1)/zeta(s)), over
+  primitive w (sum n_w^-3 = Z_flat(3)/(2 zeta(3)) = E(z, 3/2)), and over multiples (zeta(s)).
+- The Mellin transform needed is, from coth y - 1/y = sum_k 2y/(y^2 + pi^2 k^2),
+
+      M(s) = int_0^inf y^{-s-1} Psi(y) dy = pi^{-s} zeta(s+1)/cos(pi s/2),
+
+  which agrees with quadrature to 8 digits at s = 1.5 and 2.5.
+
+**Two-term law (derived; numerically exact to the order shown).**
+
+    A^{s/2} Z_{A,z}(s) = Z_flat(s; z) + (A/12) s zeta(s) E(z, s/2 + 1)
+                         - 2^{-s} s zeta(s - 1) E(z, 3/2) M(s) A^{(s+1)/2} + O(A^2),     0 < Re s < 3.
+
+**Consistency checks.**
+- *s = 1.* zeta(0) = -1/2 and M ~ -1/(3(s-1)) make the staircase residue -(A/24) Z_flat(3)/zeta(3), which cancels the
+  pole of the first-order term exactly, as it must, since the true function has no pole at s = 1. What remains is
+  (A/48)(Z_flat(3)/zeta(3)) log(1/A).
+- *Sizes.* For s < 1 the staircase term dominates, at size A^{(s+1)/2}. For s > 1 the first-order term dominates.
+- *s = rho.* The first term vanishes exactly. The second is suppressed by 1/|cos(pi rho/2)| ~ 2 e^{-pi gamma/2}, about
+  1e-10 at rho_1. This is why blind surfaces converge like A^2 log(1/A).
+
+**Check** (hexagonal torus, z exact, no fitted constants). Measured diff/A against the two-term prediction:
+
+| s | first-order coeff | staircase coeff | A = 0.4 | A = 0.1 | A = 0.025 |
+|---|---|---|---|---|---|
+| 0.5 | -0.3433 | 0.5667 | 0.3704 / 0.3692 | 0.6645 / 0.6644 | 1.0818 / 1.0818 |
+| 0.8 | -1.2396 | 1.4487 | 0.3495 / 0.3481 | 0.5843 / 0.5842 | 0.8554 / 0.8554 |
+| 1.2 | 1.8825 | -1.7316 | 0.3040 / 0.3025 | 0.5072 / 0.5070 | 0.6851 / 0.6851 |
+| 1.5 | 0.9885 | -0.9760 | 0.2137 / 0.2122 | 0.4397 / 0.4396 | 0.6003 / 0.6004 |
+| 2.5 | 0.6826 | 0.3890 | 0.8566 / 0.8783 | 0.7462 / 0.7518 | 0.7057 / 0.7071 |
+
+The gaps fall like A^2 (0.0012, 0.0004, 0.0001, 0.0000 at s = 0.5). At s = 2.5 the gap is -0.054 A^2, the next order.
+
+**Status.**
+- The first-order term is proved for Re s > 2.
+- The staircase term is derived from the exact solution of the first-order variational problem. It is not yet proved:
+  that needs uniform control of the first-order reduction for curves of length about A^{-1/2}, and of the
+  interchange of sums.
+- The agreement above, with the pole cancellation built in, is strong evidence that it is correct.
