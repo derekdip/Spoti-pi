@@ -3769,3 +3769,113 @@ for the mismatches in signed count.
    away from the mirror edges, so the number of blind cusped tori equals the number of zeros of E*(., rho/2) up to
    mirror-edge events.
 3. Both counts are about gamma^2/150 in the half fundamental domain.
+
+## Theorem: the flat limit (proof; `flat_limit_lemmas.py`, `flat_limit.py`)
+
+**Setting.** Fix z in H and A in (0, A0). Let T_z be the conformal torus C/(Z + zZ) with marked point p, and g_0 its flat
+metric of area 1. By McOwen-Troyanov there is a unique conformal metric of curvature -1 on T_z with a cone point of
+angle theta = 2 pi - A at p. Its area is A by Gauss-Bonnet. Call it X_{A,z}. Its holonomy traces satisfy the Fricke
+relation with kappa = 2 - 2 cos(theta/2), so A = 2 sqrt(4 - kappa) + O((4 - kappa)^{3/2}).
+
+Notation:
+- N_{A,z}(v) is the length of the shortest closed curve in the homology class v;
+- n_z(v) = |m + n z|/sqrt(Im z) is the flat unit-area length;
+- Z_{A,z}(s) = sum_{v != 0} N_{A,z}(v)^-s is the stable-norm zeta;
+- Z_flat(s; z) = sum n_z(v)^-s = 2 zeta(s) E(z, s/2).
+
+**Theorem.** As A -> 0, A^{s/2} Z_{A,z}(s) -> Z_flat(s; z) locally uniformly in (s, z) on {Re s > 0, s != 2} x H.
+On compact sets the error is O(A |Z_flat(s)| + A^{sigma/4 - eta}) for every eta > 0. In particular, at the zeta zeros,
+
+    A^{rho/2} Z_{A,z}(rho) -> 2 pi^{rho/2} E*(z, rho/2)/Gamma(rho/2).
+
+**Step 0 (trace length = geometric length).** A shortest curve in the class v exists. It avoids p: a geodesic through a
+cone point of angle < 2 pi makes an angle < pi on one side and can be shortened. So it is a closed hyperbolic geodesic in
+T \ p. It is simple, so it lies in the unique non-peripheral simple class with homology v. Develop it into H^2: its lift
+is a geodesic line translated by the holonomy. Hence 2 acosh(|tr rho(v)|/2) = N_{A,z}(v), and the trace-defined Z_B of the
+earlier sections is Z_{A,z}.
+
+**Step 1 (uniform length comparison).** Write the rescaled metric as A^{-1} g = e^{2 phi} g_0. It has curvature -A and a
+cone point of angle 2 pi - A, so distributionally
+
+    Delta_0 phi = A e^{2 phi} - A delta_p,      int e^{2 phi} dA_0 = 1.
+
+Let G be the Green's function with Delta_0 G = delta_p - 1 and int G = 0; near p, G ~ (1/2pi) log|x - p|.
+- Put phi = -A G + psi. Then Delta psi = A(e^{2 phi} - 1).
+- e^{-2AG} lies in L^q for every q < infinity, with norm 1 + O(A).
+- The Green's operator maps L^q to L^infinity for q > 1. A contraction argument therefore gives
+  ||psi - c||_infinity = O(A^2).
+- The normalisation, together with int G = 0, gives c = O(A^2).
+- So phi = -A G + O(A^2) uniformly, locally uniformly in z.
+
+Consequences:
+- **Lower bound.** phi >= -A max G - C A^2, and every curve in class v has flat length >= n(v). So
+  N(v)/sqrt(A) >= (1 - c1 A) n(v), with c1 = max_x G_z(x, p) + O(A).
+- **Upper bound.** The parallel flat geodesics c_u of class v foliate the torus. By coarea,
+  avg_u L(c_u) = n(v) int e^phi dA_0 = n(v)(1 + int phi + O(A^2)) = n(v)(1 + O(A^2)). So
+  N(v)/sqrt(A) <= (1 + c2 A^2) n(v).
+
+Both bounds hold uniformly in v.
+
+**Step 1' (first order, explains the data).** Averaging G along the line at transverse position x gives
+-(x^2 - x + 1/6)/(2 n(v)^2), from the Fourier series of G over dual vectors orthogonal to v, which have length >= n(v).
+The best line has x = 1/2. So for primitive v,
+
+    N(v)/(sqrt(A) n(v)) = 1 - A/(24 n(v)^2) + O(A^2).
+
+Equivalently, N(v)^2 + A^2/12 = A n(v)^2 + O(A^3 n^2) for short curves. The Markoff recursion t_m + t_d = t_u t_w,
+expanded with t = 2 + N^2/4 + N^4/192 + ..., gives the same thing algebraically: the parallelogram defect is
+
+    N_m^2 + N_d^2 - 2 N_u^2 - 2 N_w^2 = (A^2/6) (Q_u Q_w - B(u,w)^2) + ... = A^2/6
+
+for every unimodular Farey cell (Q = n^2, B the polar form). The analysis and the algebra agree.
+
+**Step 2 (angular expansion).** N' = N/sqrt(A) is a norm on H_1(T; R) = R^2, identified with the flat period lattice,
+so N'(v) = n(v)(1 + eps(theta_v)). Here eps is even, Lipschitz, and sup |eps| <= c1 A by Step 1. Put
+F_s(theta) = (1 + eps(theta))^-s = sum_k f_k(s) e^{ik theta}, with k even. For Re s > 2,
+
+    A^{s/2} Z_{A,z}(s) = sum_k f_k(s) Z_k(s),     Z_k(s) = sum_{omega in Lambda \ 0} |omega|^-s (omega/|omega|)^k,
+
+with absolute convergence. The Z_k are Hecke's angular Epstein zeta functions of the unimodular lattice Lambda:
+- Z_0 = Z_flat;
+- for k != 0, Z_k is entire;
+- Lambda_k(s) = pi^{-s/2} Gamma((s + |k|)/2) Z_k(s) satisfies a functional equation s <-> 2 - s, with the dual lattice,
+  which is Lambda rotated by 90 degrees.
+
+**Bounds.**
+- *Z_k.* On Re s = 2 + eta, |Z_k| <= Z_flat(2 + eta). On Re s = -eta, the functional equation and Stirling give
+  |Z_k| <= C (|k| + |t| + 2)^{1 + eta}. Phragmen-Lindelof then gives, uniformly in k,
+  |Z_k(sigma + it)| << (|k| + |t| + 2)^{1 - sigma/2 + eta} for -eta <= sigma <= 2 + eta.
+- *f_k, first bound.* N' is the support function of the dual ball, so N' + N'' >= 0 as measures on the circle, with
+  total mass the perimeter of the dual ball (about 2 pi). So eps'' is a finite measure with TV(eps'') <= C uniformly in
+  A, and eps' is bounded. Hence F_s'' = -s(1+eps)^{-s-1} eps'' + s(s+1)(1+eps)^{-s-2} eps'^2 has total variation
+  <= C(s), and |f_k(s)| <= C(s)/k^2.
+- *f_k, second bound.* sup |F_s - 1| <= C(s) A gives |f_0 - 1| <= C(s) A and |f_k| <= C(s) A for all k.
+
+**Conclusion.**
+- For sigma > 0, the series sum_{k != 0} f_k Z_k converges absolutely and locally uniformly, since
+  sum k^-2 k^{1 - sigma/2} < infinity. So the right side continues A^{s/2} Z_{A,z} to Re s > 0, with only the pole of
+  f_0 Z_flat at s = 2; it agrees with the cell-sum continuation by uniqueness.
+- The error is
+  sum_k min(A, k^-2) k^{1 - sigma/2 + eta} = O(A^{sigma/4 - eta}), splitting the sum at k = A^{-1/2},
+  plus |f_0 - 1| |Z_flat| = O(A).
+- Every constant depends continuously on z through max G_z and the lattice. ∎
+
+**Corollary (zeros).** Let z0 be a zero of E*(., rho/2) with nonzero Jacobian. For all small A there is a zero
+z_A -> z0 of z -> Z_{A,z}(rho) with the same local degree. This follows from uniform convergence on a small circle
+around z0, where |E*| >= eta > 0, and the winding number. Conversely, zeros of Z_{A,.}(rho) in a compact set accumulate
+only at zeros of E*. So for small cone area, the blind cone tori are exactly the deformations of the blind flat tori.
+The continuation computations above carry the rho_1 and rho_2 families all the way down to the cusp (kappa = 0).
+
+**Numerical checks of the lemmas** (`flat_limit_lemmas.py`; the shape has flat lengths about 1 : 1.2).
+- **Parallelogram defect.** D/(A^2/6) for short cells is 0.954 at A = 0.200 and 0.969 at A = 0.063, tending to 1.
+  Long cells give D ~ 0, outside the small-N expansion, where D is negligible against N^2.
+- **Uniform comparison.** Against the fitted unimodular form, which has det 1 - O(A^2), the worst relative length
+  error over all 1.4k-13.6k simple curves up to hyperbolic length 30 is 2.4e-2, 1.6e-2, 8.4e-3 and 2.8e-3 at
+  A = 0.64, 0.40, 0.20 and 0.063, about 0.042 A. It does not grow with length.
+- **Signs.** All deviations (N/(sqrt(A) n) - 1)/A are <= 0, as the upper bound requires. The minimum is -0.0415, at the
+  shortest curve (n about 1), against the predicted -1/24 = -0.0417. The rigorous constant c1 = max G is about
+  ln 2/(4 pi) = 0.055 near the square torus.
+- **Shape of the error.** Long curves with directions near a short curve inherit its deficit, so eps(theta) has spikes
+  at rational directions. These are the vanishing corners of the hyperbolic stable norm.
+- **Values.** The values converge faster than the proved A^{sigma/4} (`flat_limit.py`: about A^1.8). The f_k bound
+  min(A, k^-2) ignores the cancellation among corners.
