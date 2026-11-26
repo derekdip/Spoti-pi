@@ -1,0 +1,24 @@
+cross-validation pi/4 vs pi/3 (Z_B(rho_k)):
+   k =  1: |difference| = 0.0e+00  (|Z_B| = 5.998)
+   k =  5: |difference| = 0.0e+00  (|Z_B| = 16.267)
+   k =  8: |difference| = 0.0e+00  (|Z_B| = 21.925)
+   k = 11: |difference| = 0.0e+00  (|Z_B| = 20.101)
+   k = 16: |difference| = 1.3e-12  (|Z_B| = 3.904)
+   k = 20: |difference| = 1.4e-06  (|Z_B| = 8.817)
+
+|Z_B(rho_k)|: 6.00 8.76 14.33 9.34 16.27 17.66 9.96 21.93 8.71 12.26 20.10 15.68 4.42 14.89 7.73 3.90 7.72 10.65 0.48 8.82
+vertical growth fit |Z_B| ~ gamma^a over 20 zeros: a = -0.44;  first 10: 0.52;  last 10: -4.71
+mean |Z_B|: k<=10 12.52, k>10 9.44
+Ingham, K =  6 (T = 40.92): sup P_T = 0.8341, inf P_T = -0.8279, sum of weights 0.8404
+Ingham, K = 10 (T = 52.97): sup P_T = 1.1896, inf P_T = -1.1885, sum of weights 1.2480
+Ingham, K = 12 (T = 59.35): sup P_T = 1.3205, inf P_T = -1.3612, sum of weights 1.4461
+Ingham, K = 16 (T = 69.55): sup P_T = 1.4645, inf P_T = -1.5591, sum of weights 1.7278
+Ingham, K = 20 (T = 79.34): sup P_T = 1.6232, inf P_T = -1.7012, sum of weights 1.9526
+
+sharp explicit-formula test on 400 samples, rms(E_P/sqrt R) = 1.168
+   K =  1: corr 0.290  explained variance 8.3%  rms(pred) 0.373  rms(residual) 1.119
+   K =  5: corr 0.452  explained variance 20.2%  rms(pred) 0.588  rms(residual) 1.044
+   K = 10: corr 0.529  explained variance 28.0%  rms(pred) 0.645  rms(residual) 0.991
+   K = 15: corr 0.545  explained variance 29.6%  rms(pred) 0.672  rms(residual) 0.980
+   K = 20: corr 0.550  explained variance 30.1%  rms(pred) 0.678  rms(residual) 0.976
+variance carried by the 20 zeros' terms (2 sum |c|^2): 0.530 vs observed variance 1.365

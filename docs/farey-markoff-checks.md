@@ -3264,3 +3264,36 @@ smooth, with precision raised by (pi/4) gamma/ln 10 to absorb the cancellation, 
 (`zeros_angle.py`). Until those agree, only c_1 (certified) and c_2, ..., c_6 (the two methods agree to about 1e-4 - 1e-3 relative) are
 trusted. The 12-zero Ingham constant 1.32 is withdrawn. The bound from 6 zeros, about 0.83, stands up to those 1e-3-level
 uncertainties in c_2, ..., c_6.
+
+## Validated 20-zero coefficients: Ingham bound 1.62 / -1.70, a retraction, and an inconclusive explicit-formula test
+
+**Validation.** Z_B(rho_k) on the rays arg t = pi/4 (k = 1..20) and pi/3 (k = 1, 5, 8, 11, 16, 20) agree to 1e-12 at
+k = 16 and 1e-6 at k = 20 (`zeros_angle.py`, `twenty_zero_analysis.log`). The adaptive real-axis values are correct for
+k <= 11, 0.5% off at k = 12, and wrong from k = 13. The near-vertical rotated ray at 30 digits was the method that failed.
+
+| k | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| \|Z_B(rho_k)\| | 6.00 | 8.76 | 14.33 | 9.34 | 16.27 | 17.66 | 9.96 | 21.93 | 8.71 | 12.26 | 20.10 | 15.68 | 4.42 | 14.89 | 7.73 | 3.90 | 7.72 | 10.65 | 0.48 | 8.82 |
+
+**Ingham (unconditional).** lim sup E_P/sqrt R >= sup P_T and lim inf <= inf P_T give:
+
+| zeros used | 6 | 10 | 12 | 16 | 20 |
+|---|---|---|---|---|---|
+| sup P_T | 0.834 | 1.190 | 1.321 | 1.465 | 1.623 |
+| inf P_T | -0.828 | -1.189 | -1.361 | -1.559 | -1.701 |
+
+So lim sup E_P/sqrt R >= 1.623 and lim inf <= -1.701. The 12-zero values are reinstated, since their coefficients were
+correct.
+
+**Retraction.** The claim |Z_B(rho_k)| ~ 2.2 sqrt(gamma) came from corrupted coefficients. Validated values show no growth:
+the mean is 12.5 for k <= 10 and 9.4 for k = 11..20, with fitted exponent -0.44 over 20 zeros. So:
+- The Lindelof-type hypothesis of Theorem 10 is not refuted by the data. The theoretical expectation of size
+  |t|^(1/2), from the centre Re s = 1, is a heuristic only. Theorem 10 stands as an open conditional statement.
+- The sqrt(log R) variance conjecture is withdrawn. If |Z_B(rho)| stays bounded on average, then
+  sum |c_k|^2 < infinity (by Gonek-Hejhal-type averages), and E_P/sqrt R should have a limiting distribution with finite
+  variance, as M(x)/sqrt x does under RH + LI. Since sum |c_k| still diverges, E_P/sqrt R is unbounded under LI.
+
+**Sharp explicit-formula test.** The correlation with exact E_P/sqrt R is 0.29, 0.45, 0.53, 0.545 and 0.550 for 1, 5, 10, 15
+and 20 zeros, explaining 30% of the variance. The 20 zeros carry variance 2 sum |c|^2 = 0.53 against the observed 1.37.
+The remainder would need a long tail of small coefficients (|c| about 0.03 for k = 11..20). This is consistent with an
+all-zero explicit formula but not a demonstration of it.
