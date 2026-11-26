@@ -4084,3 +4084,50 @@ asymptote is reached slowly.
   matches the earlier observations: the share explained by 20 zeros was low, and the rms of E_P/sqrt R crept up with R
   on the modular torus (0.77, 1.08, 1.15 at R ~ 1e4, 1e5, 1e6).
 - The hyperbolic check needs |Z_B(rho_k)| for many more k. That computation (k = 21-60, mpmath at dps 66-90) is running.
+
+## Hyperbolic vs flat: bounded amplitudes and a finite-variance sharp error (`hyp_amplitudes.py`, `zeros_hi_*.log`)
+
+**Mechanism.** Write Z(s) = s int R^{-s-1} dA(R) = (pole part) + s F(s), with F(s) = int R^{-s-1} E_A(R) dR. By
+Mellin-Plancherel in log R,
+
+    int |F(1/2 + it)|^2 dt = 2 pi int R^{-2} |E_A(R)|^2 dR.
+
+- **Flat.** The lattice error E_A ~ R^{1/2} (circle-problem size), so the right side diverges logarithmically. This is
+  the |Z(rho)|^2 ~ gamma law above.
+- **Hyperbolic.** E_A plateaus, with rms about 250-340 up to R = 2e6 (earlier sections). The integral converges, so the
+  mean square of Z_B on the critical line is o(T), and heuristically bounded at a level set by the plateau.
+- **Prediction.** <|Z_B(rho)|^2> stays bounded and sum |c_rho|^2 converges (with Gonek-Hejhal,
+  sum 1/(gamma^2 |zeta'|^2) < infinity). The sharp error then has a finite-variance limiting distribution, unlike the
+  flat case.
+
+**Check** (modular torus, k = 1..34, mpmath at theta = pi/4).
+
+| | gamma < 40 | 40-70 | 70-111 |
+|---|---|---|---|
+| modular <abs(Z_B)^2> | 164 | 167 | 187 |
+| modular <abs(Z_B)^2>/gamma | 5.6 | 3.3 | 2.0 |
+| modular 2 sum abs(c)^2 below T = 40, 70, 103 | 0.418 | 0.526 | 0.554 |
+| flat hexagonal, same T | 0.720 | 0.862 | 0.947 |
+
+- **Hyperbolic.** A log-log fit gives |Z_B|^2 ~ gamma^0.26, and the increments of the sum shrink (0.108, then 0.028).
+  The total is about 0.6.
+- **Flat.** The sum keeps growing logarithmically (increments 0.142, 0.085), with <|Z|^2>/gamma about 7 throughout.
+
+**Numerical caveat.** The k = 21-60 run exposed a limitation of the mpmath evaluator. The 40-term Bernoulli series on
+|t| < 0.05 has truncation error about (c T0/2 pi)^40 ~ 1e-18, which more working digits do not reduce. The 1/Gamma(rho)
+cancellation amplifies it by about e^{0.785 gamma}. Values are therefore invalid above gamma ~ 115 (k >= 39; |Z_B| grows
+exponentially to 1e15 at k = 60) and doubtful beyond gamma ~ 105. Only k <= 34 is used. The fix is
+KSER ~ 0.75 gamma + 22, or a smaller T0. The validated k <= 20 values are unaffected.
+
+**Interpretation for the modular torus.**
+- The long-run mean square of E_P/sqrt R should be 2 sum |c|^2, about 0.6 (the tail beyond gamma = 103 is small).
+- The larger finite-R mean square (1.365 on [3e4, 3e5]) is the lattice (Diophantine) component found earlier, entering
+  through the first Moebius terms with rms about 225-300. Its normalised size decays like R^{-1/2}.
+- This answers the question the section "Is the sharp error the zero sum?" left open. The zero sum is complete with
+  finite variance. At accessible R the share explained by any truncation is held down by a non-stationary lattice
+  piece that dies out slowly.
+- Conditional on RH, simple zeros, Gonek-Hejhal, and the plateau of E_A.
+
+**Cone tori.** For small cone area A the corners of the stable norm are tiny. Z_B then follows the flat sqrt(gamma)
+growth up to some gamma*(A) and the hyperbolic bounded behaviour beyond it, so the flat-to-hyperbolic transition in the
+variance happens at the scale where the corners are resolved.

@@ -1,0 +1,11 @@
+modular torus: 34 zeros, gamma up to 111.0
+  gamma in [  0, 40): <|Z_B|^2> =   163.6   <|Z_B|^2>/gamma = 5.601   (6 zeros)
+  gamma in [ 40, 70): <|Z_B|^2> =   166.5   <|Z_B|^2>/gamma = 3.280   (11 zeros)
+  gamma in [ 70,105): <|Z_B|^2> =   187.2   <|Z_B|^2>/gamma = 2.017   (14 zeros)
+  log-log fit |Z_B|^2 ~ gamma^0.26
+  2 sum_{gamma<40} |c|^2 = 0.4182
+  2 sum_{gamma<70} |c|^2 = 0.5261
+  2 sum_{gamma<103} |c|^2 = 0.5544
+  flat hexagonal for comparison: 2 sum_{gamma<40} |c|^2 = 0.7201
+  flat hexagonal for comparison: 2 sum_{gamma<70} |c|^2 = 0.8624
+  flat hexagonal for comparison: 2 sum_{gamma<103} |c|^2 = 0.9473
