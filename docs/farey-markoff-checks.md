@@ -3171,3 +3171,21 @@ zeros, E_P(R)/sqrt R would then be unbounded in both directions: a Mertens-type 
 simple geodesics, while E_P = O(R^(1/2+eps)) remains possible. Unconditionally, each additional computed zero raises the
 proved constant. Caveat: only c_1 carries the full tail certificate; c_2, ..., c_12 are computed at adaptive precision
 with the same cell sums.
+
+## The four-holed sphere: same structure, same Riemann-zero lower bound (`poc/farey/sphere_zeta.py`, `sphere_zeta2.py`)
+
+Simple closed curves on a four-holed sphere are indexed by slopes. Their lengths extend to a convex homogeneous norm on
+R^2, because every Farey cell has a positive defect, so every corner is genuine. Hence sum_slopes l^-s = Z_B(s)/(2 zeta(s))
+exactly. The Farey-cell decomposition uses the Fricke mediant rule c = ab - kappa(class of c) - d.
+
+- **The symmetric cusped sphere (7, 7, 7) is the modular torus scaled by 2**: 2 arccosh(3.5) = 2 x 2 arccosh(1.5).
+  So Z_sphere(s) = 2^-s Z_torus(s), and Z(0) = -0.653651620282 for both. This case is not independent.
+- **Non-symmetric cusped sphere, base traces X = 7, Y = 9** (Z(e0 - e1) = 5.81475, Z(e0 + e1) = 49.18525; 331 cells, all
+  defects positive):
+  - Z_B(0): the Barnes cell sum gives -0.64805289917628. The toric formula -1 + (1/3) sum_slopes g/l, using the sphere
+    gap law with its linear Fricke terms, gives -0.64805289918345. They agree to 7e-12. This is an independent test of
+    the toric formula and of the sphere gap law.
+  - Z_B(3): the cell decomposition gives 0.18674. The direct sum over slopes with l <= 50 gives 0.18015, plus a tail
+    estimate of about 0.007.
+  - Z_B(rho_1) = -1.0140 - 1.4070i, |Z_B(rho_1)| = 1.73 != 0. By the argument of Theorem 6, the error in counting simple
+    closed geodesics on this sphere is Omega_+-(R^(1/2)), forced by the Riemann zeros; no RH is assumed.

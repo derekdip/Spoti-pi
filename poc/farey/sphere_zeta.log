@@ -1,0 +1,22 @@
+cells with max N <= 60: 465; min defect 1.94e-23
+(1) Z_B(3): direct 0.179149261164   cell decomposition 0.183304041272
+(2) Z_B(0): Barnes cell sum -0.653651620282   toric formula -1 + (1/3) sum g/l -0.653651620282
+    Z_B(-2) (cell sum) = 1.55022092;  Z_B(-1) = Z_B(-3) = 0 (odd T_m vanish identically)
+    theta check eps = 0.10: -0.794171
+    theta check eps = 0.05: -11.939624
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/sphere_zeta.py", line 53, in <module>
+    print("(4) Z_B(rho_1) = %s  (|.| = %s)" % (mp.nstr(Zcell(r1), 10), mp.nstr(abs(Zcell(r1)), 6)))
+                                                       ~~~~~^^^^
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/sphere_zeta.py", line 32, in Zcell
+    return 6 * l7 ** (-s) * mp.zeta(s - 1) + 2 * mp.fsum(Delta(s, a, b, c)[0] for a, b, c, t, m in cs if max(a, b) <= NC)
+                                                 ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/mpmath/ctx_mp_python.py", line 851, in fsum
+    for term in terms:
+                ^^^^^
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/farey/sphere_zeta.py", line 32, in <genexpr>
+    return 6 * l7 ** (-s) * mp.zeta(s - 1) + 2 * mp.fsum(Delta(s, a, b, c)[0] for a, b, c, t, m in cs if max(a, b) <= NC)
+                                                         ~~~~~^^^^^^^^^^^^
+  File "<string>", line 21, in Delta
+  File "<string>", line 21, in <genexpr>
+TypeError: unsupported operand type(s) for ** or pow(): 'function' and 'mpc'
