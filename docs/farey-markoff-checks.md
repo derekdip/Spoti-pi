@@ -3233,3 +3233,20 @@ these results.)
 The boundary-length cases confirm the zero average. The m = 4 value is not clearly zero. Z_B(-4) grows like
 (1/l) log^5(1/l) near the cusp (6.6e5 at l = 0.0019), which strains this quadrature. The scale of the integral of
 |Z_B(-4)| is being computed to judge it (`abs_integral_m4.py`).
+
+## Correction: the Lindelof route to a sharp upper bound is probably closed; a variance-growth conjecture instead
+
+The "Theorem 10" hypothesis Z_X(1/2 + eps + it) << |t|^eps is probably false. A two-dimensional lattice zeta is centred
+on Re s = 1: for an ellipse, Z(s) is an Epstein zeta at s/2 with functional equation s <-> 2 - s, so
+|Z(1/2 + it)| is of order |t|^(1/2). The computed |Z_B(rho_k)| fit gamma^0.57 over 13 zeros, with
+|Z_B|/sqrt(gamma) = 2.20 +- 0.63 and no trend (`zb_vertical_growth.log`).
+
+The Euclidean comparison Z = 4 zeta(s/2) beta(s/2) is inconclusive at these heights. Its predicted sqrt(gamma) growth
+is only (tau/2pi)^(1/2), with tau = gamma/2, which is swamped by fluctuations of zeta beta(3/4 - i tau); the computed
+values even fall, 7.9 -> 5.0.
+
+**Conjecture (under RH + LI).** The variance of E_P/sqrt R grows like log R. The terms have squared size about
+1/(gamma |zeta'(rho)|^2), and by Gonek-Hejhal sum_{gamma <= T} |zeta'(rho)|^-2 ~ 6T/pi^3, so their sum diverges
+logarithmically. Hence E_P(R)/sqrt(R log R) should have a limiting distribution. This is consistent with
+O(R^(1/2+eps)) and incompatible with O(sqrt R). The measured rms of E_P/sqrt R rises slowly (0.77, 1.08, 1.15) but
+cannot yet separate sqrt(log R) from a constant.

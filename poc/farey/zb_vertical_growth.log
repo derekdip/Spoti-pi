@@ -1,0 +1,20 @@
+k, gamma, |Z_B(rho)|, |Z_B|/sqrt(gamma):
+   1   14.135    5.998  1.595
+   2   21.022    8.762  1.911
+   3   25.011   14.327  2.865
+   4   30.425    9.341  1.694
+   5   32.935   16.270  2.835
+   6   37.586   17.656  2.880
+   7   40.919    9.963  1.557
+   8   43.327   21.925  3.331
+   9   48.005    8.707  1.257
+  10   49.774   12.261  1.738
+  11   52.970   20.102  2.762
+  12   56.446   15.597  2.076
+  13   59.347   15.920  2.067
+fit |Z_B(rho_k)| ~ gamma^a: a = 0.57 (k = 1..13); mean |Z_B|/sqrt(gamma) = 2.20, std 0.63
+comparison, Euclidean lattice Z(s) = 4 zeta(s/2) beta(s/2) (sum over Gaussian integers of |v|^-s):
+  gamma =  14.135: |Z_circle(rho)| = 7.918, /sqrt(gamma) = 2.106
+  gamma =  32.935: |Z_circle(rho)| = 6.602, /sqrt(gamma) = 1.150
+  gamma =  49.774: |Z_circle(rho)| = 5.517, /sqrt(gamma) = 0.782
+  gamma =  59.347: |Z_circle(rho)| = 4.960, /sqrt(gamma) = 0.644
