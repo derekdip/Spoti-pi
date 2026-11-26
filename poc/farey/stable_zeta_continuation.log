@@ -1,0 +1,12 @@
+cells with max(Nu, Nw) <= 24: 321;  delta * e^{max(Nu,Nw)}: min 7.4189e-9, max 2.2221
+   (for comparison delta * e^{max/2}: max 0.84877)
+
+(2) s = 3: cell sum 1.466432453137   direct 1.465997995015 (+ tail ~ 4.3e-04)
+    max |coef_-1| over cells (pole at s=1 must cancel): 5.74e-42
+(3) s = rho_1, cells up to 12: Z_B = (0.6457574867 + 5.962834096j)
+(3) s = rho_1, cells up to 18: Z_B = (0.6457543857 + 5.962831556j)
+(3) s = rho_1, cells up to 24: Z_B = (0.64575439 + 5.962831543j)
+    smoothed lattice sum (earlier section): 0.64566 + 5.96253i
+    s = 0.5: Z_B = -1.1064650681
+cells: 849;  Markoff identity t_m t_d = t_u^2 + t_w^2 holds exactly for all
+max delta e^{N_u+N_w} = 15.230511 ;  min = 8.0 ;  max delta e^{max N} = 2.2221

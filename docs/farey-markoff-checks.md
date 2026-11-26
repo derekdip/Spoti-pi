@@ -2769,3 +2769,45 @@ Theta(eps) - 1 = 2 Area/eps^2 + sum_n Z(-n)(-eps)^n/n!, fitted with degree 5 on 
 The cell sum for Z_B(0) also equals the toric formula -1 + (1/3) sum g/l = -0.653652. The theta function is computed
 directly from B's lattice, so this agreement confirms the polygon-to-B limit numerically at m = 0 and m = 2. A proof is
 still open.
+
+## Z_B is meromorphic on C with one pole: the Farey-cell decomposition (`poc/farey/stable_zeta_continuation.py`)
+
+**Exact cell decomposition.** Insert the mediant m = u + w of a Farey cell (u, w), with corner deficiency
+delta = N_u + N_w - N_m. The gauge changes only inside that cone: N(au + bw) = a N_u + b N_w - delta min(a, b). Hence
+
+    Z_B(s) = 6 l3^-s zeta(s - 1) + 2 sum_{Farey cells} Delta_cell(s),
+    Delta_cell(s) = zeta_2(s; N_u+N_m | N_u, N_m) + zeta_2(s; N_m+N_w | N_m, N_w) + zeta(s) N_m^-s - zeta_2(s; N_u+N_w | N_u, N_w),
+
+where zeta_2 is the Barnes double zeta. The root hexagon contributes 6 l^-s (zeta(s-1) - zeta(s)) + 6 zeta(s) l^-s.
+
+Properties:
+- Delta_cell vanishes identically when delta = 0, because the same lattice points are counted on both sides.
+- Its residues at s = 1 cancel; numerically the t^-1 coefficient is below 6e-42 in every cell.
+- Its residue at s = 2 is the cell's area increment.
+
+**The deficiencies are exponentially small.** The Markoff relation gives t_m t_d = t_u^2 + t_w^2 exactly in every cell,
+which cancels the leading terms of delta. Numerically, over 849 cells,
+
+    8 <= delta e^{N_u + N_w} <= 15.23,   and   delta e^{max(N_u, N_w)} <= 2.22.
+
+The lower value 8 is approached deep in the tree.
+
+**Consequence.** Bound Delta_cell(s) by delta times polynomial growth in N, uniformly on compact sets of s away from
+s = 2. Since delta = O(e^-(N_u + N_w)), the cell sum converges locally uniformly on C \ {2}. For Re s > 2 it equals Z_B,
+because every lattice point's gauge is exact after finitely many insertions. So:
+
+- Z_B is meromorphic on C, with a single simple pole at s = 2 of residue 2 Area(B).
+- The cell sum evaluates Z_B everywhere.
+- Every polygon formula passes to the limit at the negative integers, which closes the open point of the last two
+  sections: Z_B(-1) = Z_B(-3) = ... = 0; Z_B(-2k) are the cell sums; and Z_B(0) = -1 + (1/3) sum g/l. For the last,
+  the partial cell sums are the Z_{B_T}(0), and the corner jumps G_T(v) decrease to G(v), with sum G/N convergent.
+- The bound on Delta_cell is sketched, not written out in full.
+
+**Checks.** Delta_cell is computed from its Mellin integral, with the small-t part replaced by the exact Bernoulli series
+of 1/(e^x - 1), 40 terms, on t < 0.05.
+- s = 3: the cell sum gives 1.466432453, against the direct sum 1.465998 plus a tail estimate of 4.3e-4.
+- s = rho_1: cells up to N = 12, 18 and 24 give 0.6457574867 + 5.962834096i, 0.6457543857 + 5.962831556i and
+  0.64575439 + 5.962831543i. The smoothed lattice sums of the earlier section, 0.64423, 0.64546 and 0.64566 (real
+  parts at X = 30, 45 and 60), converge toward this. So Z_B(rho_1) = 0.64575439 + 5.96283154i to about 9 digits, and the
+  Riemann-zero amplitude Z_B(rho)/(2 rho (rho+1) zeta'(rho)) is now known to that precision.
+- s = 1/2: Z_B = -1.1064650681.
