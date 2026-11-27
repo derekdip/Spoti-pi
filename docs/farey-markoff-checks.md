@@ -4209,3 +4209,48 @@ hyperbolic values but does not decide (L).
 
 **Next.** A robust high-t evaluator would be the hyperbolic Chowla-Selberg expansion: Z_B as constant term plus twist
 harmonics. It is fast, needs no 1/Gamma cancellation, and is exact once the deeper Farey deficiencies are included.
+
+## Chowla-Selberg evaluator; correction: hyperbolic amplitudes grow like gamma^0.36 (`zb_cs.py`, `cs_*.npy`)
+
+**Evaluator.** Z_B(s) is computed from the hyperbolic Chowla-Selberg formula. N(x) on the line q = 1 is the exact
+piecewise-linear stable norm through Farey nodes. The integer nodes come from t_{k+1} = 3 t_k - t_{k-1}, and each interval is
+refined by mediants down to deficiencies below 1e-17, which takes 561 nodes for the modular torus.
+- h(m): an exact Filon rule for the piecewise-linear interpolant on a grid with spacing 1/8192, folded into one FFT.
+- Linear tails |x| > 16: incomplete gamma for |m| < 25, an alternating asymptotic series beyond.
+- m > 1500: corner asymptotics at the nodes with q <= 3, completed exactly for integer nodes by
+  sum sigma_{1-s}(m) m^-2 = zeta(2) zeta(1+s).
+- No 1/Gamma cancellation, so double precision suffices, at 0.7 s per point.
+
+Two bugs were found and fixed while validating:
+- the sign of one Filon weight, int_0^1 (1-u) e^{-i th u} du = -i/th + (1 - e^{-i th})/th^2;
+- the dropped alternating sign in the tail series.
+
+**Validation.**
+
+| check | Chowla-Selberg | reference |
+|---|---|---|
+| rho_1 | 0.645752 + 5.962818i | certified 0.6457544 + 5.9628315i (diff 1.4e-5) |
+| rho_5, rho_10, rho_20 | diffs 1.1e-5, 1.1e-5, 1.0e-6 | mpmath |
+| s = 3 | 1.46643240 | 1.466432453 |
+| t = 90.5 | 31.3419 | mpmath pi/4 31.3421 (so the pi/3 value 34.42 was the faulty one) |
+| parameter spread (grid, M, K) | 1.8e-5, 5.5e-5, 1.7e-4 at t = 200, 500, 1000 | |
+
+**Correction: the amplitudes are not bounded.** First 499 zeros (gamma <= 810):
+
+| gamma band | 0-100 | 100-200 | 200-300 | 300-400 | 400-500 | 500-600 | 600-810 |
+|---|---|---|---|---|---|---|---|
+| <abs(Z_B(rho))^2> | 168 | 425 | 386 | 646 | 900 | 922 | 1117 |
+
+- A log-log fit gives |Z_B(rho)|^2 ~ gamma^0.71, i.e. |Z_B| ~ gamma^0.36. The "bounded" reading from k <= 34 was a
+  small-sample artefact.
+- The Mellin-Plancherel argument from the lattice-error plateau gives only o(T), and gamma^0.71 is o(T); I had
+  over-read it as bounded.
+- The flat (Epstein) exponent is 1.
+
+**Consequences.**
+- Hypothesis (L) of Theorem 10, Z_B(1/2 + eps + it) << |t|^eps, appears false in that strong form.
+- Since theta ~ 0.36 < 1/2, |c|^2 ~ gamma^{2 theta - 2}/|zeta'|^2 is still summable, so the finite-variance conclusion
+  survives, with slow convergence. 2 sum_{gamma < T} |c|^2 = 0.491, 0.553, 0.628, 0.667, 0.688, 0.703 at
+  T = 50, 100, 200, 400, 600, 800. The increments are about 0.04 per doubling, decaying slowly; the predicted decay per
+  doubling is 2^{-0.29}.
+- The flat-versus-hyperbolic difference is in the growth exponent (1 against about 0.71), not bounded against unbounded.

@@ -4,7 +4,7 @@ N(x) = stable norm on the line q = 1 (homology p alpha + beta), piecewise linear
 No 1/Gamma cancellation: double precision throughout, mpmath only for zeta values and the small-m tail integrals."""
 import math, numpy as np, mpmath as mp
 TA = 3.0; ELL = 2 * math.acosh(TA / 2)          # alpha: trace 3
-K = 16; P = 8192; M = 1500; M2 = 400000
+K = 16; P = 8192; M = 1500; M2 = 100000
 def L(t): return 2 * math.acosh(t / 2) if t < 1e8 else 2 * math.log(t) - 2 / t ** 2
 def nodes():
     # integer nodes x = k: traces t_k of k alpha + beta, t_{k+1} = 3 t_k - t_{k-1}, t_0 = tr(beta) = 3, t_1 = tr(alpha beta) = 3

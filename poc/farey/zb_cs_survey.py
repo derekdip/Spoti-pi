@@ -6,9 +6,12 @@ mode, a, b, seed = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), int(sys.argv
 out = []
 if mode == "line":
     rng = np.random.default_rng(seed); ts = np.sort(rng.uniform(10, 2000, b - a))
-    for t in ts: out.append((t, abs(C.Z(complex(0.5, t)))))
+    for i, t in enumerate(ts):
+        out.append((t, abs(C.Z(complex(0.5, t)))))
+        if i % 10 == 9: np.save("poc/farey/cs_%s_%d_%d.npy" % (mode, a, b), np.array(out))
 else:
     for k in range(a, b):
         r = mp.zetazero(k); z = C.Z(complex(r)); zp = complex(mp.zeta(r, derivative=1))
         out.append((float(r.imag), abs(z), abs(zp), abs(z / (2 * complex(r) * zp))))
+        if k % 10 == 9: np.save("poc/farey/cs_%s_%d_%d.npy" % (mode, a, b), np.array(out))
 np.save("poc/farey/cs_%s_%d_%d.npy" % (mode, a, b), np.array(out)); print("done", mode, a, b)
