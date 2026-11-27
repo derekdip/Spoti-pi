@@ -1,0 +1,43 @@
+(3) amortised updates: N objects, each updated once per M frames
+   N = 1000, M =  72: Christoffel load per frame 13..14, staleness exactly [72] frames; naive ceil-chunks load 6..14
+   N =   37, M =  10: Christoffel load per frame 3..4, staleness exactly [10] frames; naive ceil-chunks load 1..4
+   N =    5, M =  72: Christoffel load per frame 0..1, staleness exactly [72] frames; naive ceil-chunks load 0..1
+
+(4) per-frame tick patterns for Quest display rates (no interpolation: displacement per frame = ticks/T)
+ disp  tick   period    ticks/frame pattern    judder (cv)    max state age
+   72    50       36        011011011011...          0.663         19.44 ms
+   72    60        6                 011111          0.447         13.89 ms
+   72    72        1                      1          0.000          0.00 ms
+   72    90        4                   1112          0.346          8.33 ms
+   72   120        3                    122          0.283          5.56 ms
+   72   144        1                      2          0.000          0.00 ms
+   72   360        1                      5          0.000          0.00 ms
+   72   720        1                     10          0.000          0.00 ms
+   80    50        8               01011011          0.775         17.50 ms
+   80    60        4                   0111          0.577         12.50 ms
+   80    72       10             0111111111          0.333         12.50 ms
+   80    90        8               11111112          0.294          9.72 ms
+   80   120        2                     12          0.333          4.17 ms
+   80   720        1                      9          0.000          0.00 ms
+   90    50        9              010101011          0.894         17.78 ms
+   90    60        3                    011          0.707         11.11 ms
+   90    72        5                  01111          0.500         11.11 ms
+   90    90        1                      1          0.000          0.00 ms
+   90   120        3                    112          0.354          5.56 ms
+   90   360        1                      4          0.000          0.00 ms
+   90   720        1                      8          0.000          0.00 ms
+  120    50       12           001010010101          1.183         18.33 ms
+  120    60        2                     01          1.000          8.33 ms
+  120    72        5                  01011          0.816         11.11 ms
+  120    90        4                   0111          0.577          8.33 ms
+  120   120        1                      1          0.000          0.00 ms
+  120   360        1                      3          0.000          0.00 ms
+  120   720        1                      6          0.000          0.00 ms
+
+   tick rates giving an integer number of ticks per frame on all of 72/80/90/120 Hz: multiples of lcm = 720
+
+(4b) near-rational ratios: continued fractions give the 'hiccup' structure
+   59.94 Hz content on a 60 Hz display    ratio 1000/1001 = [0;1;1000], convergents 0/1, 1/1, 1000/1001; period 1001 frames (16.68 s); commonest runs (ticks, length): [(0, 1), (1, 1000)]
+   60 Hz physics on 72 Hz                 ratio 5/6 = [0;1;5], convergents 0/1, 1/1, 5/6; period 6 frames (0.08 s); commonest runs (ticks, length): [(0, 1), (1, 5)]
+   50 Hz physics on 72 Hz                 ratio 25/36 = [0;1;2;3;1;2], convergents 0/1, 1/1, 2/3, 7/10, 9/13; period 36 frames (0.50 s); commonest runs (ticks, length): [(0, 1), (1, 2), (1, 3)]
+   59.94 Hz video on 72 Hz                ratio 333/400 = [0;1;4;1;32;2], convergents 0/1, 1/1, 4/5, 5/6, 164/197; period 400 frames (5.56 s); commonest runs (ticks, length): [(0, 1), (1, 5), (1, 4)]

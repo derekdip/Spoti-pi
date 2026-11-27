@@ -1,0 +1,12 @@
+display 72 Hz, physics 50 Hz, one hour (259200 frames), 1% dropped frames, 0.15 ms timestamp noise
+
+method       irregular      drift  pos err rms  pos err max  same as seed2     vs exact
+measured32           0          0     1.57e-04     7.30e-04          False     5728 (5724 at coincidence frames, 4 elsewhere)
+measured64           0          0     1.50e-04     6.71e-04          False     7258 (7256 at coincidence frames, 2 elsewhere)
+nominal32            0          0     2.94e-05     5.10e-05           True    14418 (14418 at coincidence frames, 0 elsewhere)
+snapped32            0          0     2.94e-05     5.10e-05           True    14418 (14418 at coincidence frames, 0 elsewhere)
+snapped64            0          0     2.43e-13     4.55e-13           True    14418 (14418 at coincidence frames, 0 elsewhere)
+exact                0          0     1.76e-13     4.55e-13           True        0 (0 at coincidence frames, 0 elsewhere)
+
+pos err: rendered minus true position of an object at 1 unit/s, interpolating between the last two tick states.
+'same as seed2': identical tick sequence when only the timing noise changes (same dropped frames).
