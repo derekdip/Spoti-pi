@@ -1,0 +1,12 @@
+threads=1
+exactdda.h edda_step (with path hash): 2.927 s, 10.26 ns per ray-step
+exactdda.h edda_step (no hash): 2.574 s, 9.03 ns per ray-step
+exactdda.h EDDA_WALK (with path hash): 0.915 s, 3.21 ns per ray-step
+exactdda.h EDDA_WALK (no hash): 0.650 s, 2.28 ns per ray-step
+threads=4
+exactdda.h edda_step (with path hash): 0.744 s, 2.61 ns per ray-step
+exactdda.h edda_step (no hash): 0.652 s, 2.29 ns per ray-step
+exactdda.h EDDA_WALK (with path hash): 0.239 s, 0.84 ns per ray-step
+exactdda.h EDDA_WALK (no hash): 0.206 s, 0.72 ns per ray-step
+path hashes edda_step vs dda.c exact: 69632 / 69632 identical
+path hashes EDDA_WALK vs dda.c exact: 69632 / 69632 identical
