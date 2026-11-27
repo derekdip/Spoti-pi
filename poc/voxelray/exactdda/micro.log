@@ -1,0 +1,6 @@
+A header edda_step          8.84 ns/step (1)
+B locals, branch-free       1.82 ns/step (0)
+C struct, no counter        5.01 ns/step (1)
+D EDDA_WALK                 2.05 ns/step (0)
+E float32 A&W, registers   1.76 ns/step (0)
+F float64 A&W, registers   1.47 ns/step (0)

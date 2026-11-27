@@ -28,4 +28,24 @@ int main(int argc, char **argv) {
     printf("C struct, no counter        %.2f ns/step (%llu)\n", 1e9*(now()-t0)/((double)n*steps), (unsigned long long)(acc&1));
     t0 = now(); for (int i = 0; i < n; i++) { edda_ray r; edda_init(&r, o[i], 65536, d[i]); EDDA_WALK(&r, steps, X, Y, Z, { acc += (uint64_t)X; }); }
     printf("D EDDA_WALK                 %.2f ns/step (%llu)\n", 1e9*(now()-t0)/((double)n*steps), (unsigned long long)(acc&1));
+    /* E/F: register-resident float Amanatides-Woo (fair baseline) */
+    for (int prec = 0; prec < 2; prec++) {
+        t0 = now(); for (int i = 0; i < n; i++) {
+            double o_[3], d_[3]; for (int a = 0; a < 3; a++) { o_[a] = (double)o[i][a] / 65536.0; d_[a] = (double)d[i][a]; }
+            if (prec == 0) {
+                float tm[3], td[3]; int64_t v[3], sg[3];
+                for (int a = 0; a < 3; a++) { float oo = (float)o_[a], dd = (float)d_[a]; v[a] = dd >= 0 ? (int64_t)floorf(oo) : (int64_t)ceilf(oo) - 1; sg[a] = dd > 0 ? 1 : -1;
+                    if (dd > 0) { tm[a] = ((float)(v[a] + 1) - oo) / dd; td[a] = 1.0f / dd; } else if (dd < 0) { tm[a] = ((float)v[a] - oo) / dd; td[a] = -1.0f / dd; } else { tm[a] = 1e30f; td[a] = 0; } }
+                float tx = tm[0], ty = tm[1], tz = tm[2]; int64_t x = v[0], y = v[1], z = v[2];
+                for (int k = 0; k < steps; k++) { if (tx <= ty && tx <= tz) { x += sg[0]; tx += td[0]; } else if (ty <= tz) { y += sg[1]; ty += td[1]; } else { z += sg[2]; tz += td[2]; } acc += (uint64_t)x; }
+                (void)y; (void)z;
+            } else {
+                double tm[3], td[3]; int64_t v[3], sg[3];
+                for (int a = 0; a < 3; a++) { double oo = o_[a], dd = d_[a]; v[a] = dd >= 0 ? (int64_t)floor(oo) : (int64_t)ceil(oo) - 1; sg[a] = dd > 0 ? 1 : -1;
+                    if (dd > 0) { tm[a] = ((double)(v[a] + 1) - oo) / dd; td[a] = 1.0 / dd; } else if (dd < 0) { tm[a] = ((double)v[a] - oo) / dd; td[a] = -1.0 / dd; } else { tm[a] = 1e300; td[a] = 0; } }
+                double tx = tm[0], ty = tm[1], tz = tm[2]; int64_t x = v[0], y = v[1], z = v[2];
+                for (int k = 0; k < steps; k++) { if (tx <= ty && tx <= tz) { x += sg[0]; tx += td[0]; } else if (ty <= tz) { y += sg[1]; ty += td[1]; } else { z += sg[2]; tz += td[2]; } acc += (uint64_t)x; }
+                (void)y; (void)z;
+            } }
+        printf("%s float%d A&W, registers   %.2f ns/step (%llu)\n", prec ? "F" : "E", prec ? 64 : 32, 1e9*(now()-t0)/((double)n*steps), (unsigned long long)(acc&1)); }
     return 0; }

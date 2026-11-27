@@ -1,0 +1,76 @@
+=== OMP_NUM_THREADS=1
+world 1024x1024x256, 42.6% solid, built in 1.9 s, 1 threads
+
+block picking (<= 256 steps), (a) exact inputs: 1000000 rays, 84.6% hit, mean 56 steps
+   exact EDDA_WALK     1.6 M rays/s   10.80 ns per step (incl. lookup)
+   float32 A&W arrays    0.2 M rays/s   79.58 ns per step (incl. lookup)
+   float64 A&W arrays    0.2 M rays/s   77.95 ns per step (incl. lookup)
+   float32 A&W regs    2.0 M rays/s    8.85 ns per step (incl. lookup)
+   float64 A&W regs    2.0 M rays/s    8.92 ns per step (incl. lookup)
+   result (hit voxel or end voxel) differs: exact vs f32 21 (0.00%), exact vs f64 0 (0.000%), f32 vs f64 21 (0.00%)
+   register f32 vs array f32 differ: 0;  exact vs register f64: 0
+
+block picking (<= 256 steps), (b) float inputs: 1000000 rays, 84.7% hit, mean 56 steps
+   exact EDDA_WALK     1.6 M rays/s   11.05 ns per step (incl. lookup)
+   float32 A&W arrays    0.2 M rays/s   78.84 ns per step (incl. lookup)
+   float64 A&W arrays    0.2 M rays/s   81.56 ns per step (incl. lookup)
+   float32 A&W regs    1.4 M rays/s   12.40 ns per step (incl. lookup)
+   float64 A&W regs    1.6 M rays/s   10.93 ns per step (incl. lookup)
+   result (hit voxel or end voxel) differs: exact vs f32 42 (0.00%), exact vs f64 25 (0.003%), f32 vs f64 33 (0.00%)
+   register f32 vs array f32 differ: 0;  exact vs register f64: 25
+
+line of sight (long), (a) exact inputs: 200000 rays, 92.5% hit, mean 128 steps
+   exact EDDA_WALK     0.9 M rays/s    8.59 ns per step (incl. lookup)
+   float32 A&W arrays    0.1 M rays/s   70.46 ns per step (incl. lookup)
+   float64 A&W arrays    0.1 M rays/s   81.38 ns per step (incl. lookup)
+   float32 A&W regs    0.8 M rays/s    9.64 ns per step (incl. lookup)
+   float64 A&W regs    0.8 M rays/s    9.44 ns per step (incl. lookup)
+   result (hit voxel or end voxel) differs: exact vs f32 11 (0.01%), exact vs f64 0 (0.000%), f32 vs f64 11 (0.01%)
+   register f32 vs array f32 differ: 0;  exact vs register f64: 0
+
+line of sight (long), (b) float inputs: 200000 rays, 92.6% hit, mean 127 steps
+   exact EDDA_WALK     0.6 M rays/s   12.78 ns per step (incl. lookup)
+   float32 A&W arrays    0.1 M rays/s   81.70 ns per step (incl. lookup)
+   float64 A&W arrays    0.1 M rays/s   79.87 ns per step (incl. lookup)
+   float32 A&W regs    0.9 M rays/s    8.45 ns per step (incl. lookup)
+   float64 A&W regs    1.1 M rays/s    7.08 ns per step (incl. lookup)
+   result (hit voxel or end voxel) differs: exact vs f32 19 (0.01%), exact vs f64 7 (0.004%), f32 vs f64 12 (0.01%)
+   register f32 vs array f32 differ: 0;  exact vs register f64: 7
+=== OMP_NUM_THREADS=4
+world 1024x1024x256, 42.6% solid, built in 0.5 s, 4 threads
+
+block picking (<= 256 steps), (a) exact inputs: 1000000 rays, 84.6% hit, mean 56 steps
+   exact EDDA_WALK     7.7 M rays/s    2.32 ns per step (incl. lookup)
+   float32 A&W arrays    1.5 M rays/s   11.97 ns per step (incl. lookup)
+   float64 A&W arrays    1.4 M rays/s   12.62 ns per step (incl. lookup)
+   float32 A&W regs    9.2 M rays/s    1.94 ns per step (incl. lookup)
+   float64 A&W regs    9.7 M rays/s    1.84 ns per step (incl. lookup)
+   result (hit voxel or end voxel) differs: exact vs f32 21 (0.00%), exact vs f64 0 (0.000%), f32 vs f64 21 (0.00%)
+   register f32 vs array f32 differ: 0;  exact vs register f64: 0
+
+block picking (<= 256 steps), (b) float inputs: 1000000 rays, 84.7% hit, mean 56 steps
+   exact EDDA_WALK     7.1 M rays/s    2.51 ns per step (incl. lookup)
+   float32 A&W arrays    1.6 M rays/s   10.85 ns per step (incl. lookup)
+   float64 A&W arrays    1.6 M rays/s   11.40 ns per step (incl. lookup)
+   float32 A&W regs    9.3 M rays/s    1.92 ns per step (incl. lookup)
+   float64 A&W regs    9.7 M rays/s    1.83 ns per step (incl. lookup)
+   result (hit voxel or end voxel) differs: exact vs f32 42 (0.00%), exact vs f64 25 (0.003%), f32 vs f64 33 (0.00%)
+   register f32 vs array f32 differ: 0;  exact vs register f64: 25
+
+line of sight (long), (a) exact inputs: 200000 rays, 92.5% hit, mean 128 steps
+   exact EDDA_WALK     4.1 M rays/s    1.91 ns per step (incl. lookup)
+   float32 A&W arrays    0.8 M rays/s    9.71 ns per step (incl. lookup)
+   float64 A&W arrays    0.8 M rays/s   10.00 ns per step (incl. lookup)
+   float32 A&W regs    4.8 M rays/s    1.62 ns per step (incl. lookup)
+   float64 A&W regs    5.1 M rays/s    1.54 ns per step (incl. lookup)
+   result (hit voxel or end voxel) differs: exact vs f32 11 (0.01%), exact vs f64 0 (0.000%), f32 vs f64 11 (0.01%)
+   register f32 vs array f32 differ: 0;  exact vs register f64: 0
+
+line of sight (long), (b) float inputs: 200000 rays, 92.6% hit, mean 127 steps
+   exact EDDA_WALK     3.9 M rays/s    2.02 ns per step (incl. lookup)
+   float32 A&W arrays    0.8 M rays/s    9.81 ns per step (incl. lookup)
+   float64 A&W arrays    0.8 M rays/s    9.88 ns per step (incl. lookup)
+   float32 A&W regs    5.5 M rays/s    1.43 ns per step (incl. lookup)
+   float64 A&W regs    5.5 M rays/s    1.43 ns per step (incl. lookup)
+   result (hit voxel or end voxel) differs: exact vs f32 19 (0.01%), exact vs f64 7 (0.004%), f32 vs f64 12 (0.01%)
+   register f32 vs array f32 differ: 0;  exact vs register f64: 7

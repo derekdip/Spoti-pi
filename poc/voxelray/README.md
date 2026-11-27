@@ -44,7 +44,7 @@ Setup: 65 536 generic rays (|d| < 2^10, origins up to 2^10 voxels) plus 4096 tie
 - float64 is right on generic rays at this length, but differs on 94.1% of the tie-heavy rays. Those are inconsistent tie
   resolutions, not misses.
 
-**Result.** On CPU, exact traversal is not a cost. It is 1.3-1.6x faster than float Amanatides-Woo. Integer add and
+**Correction (see `exactdda/README.md`).** The float baseline here updates `tmax[b]` through memory. Against a register-resident float loop, exact is about 1.2-1.4x slower on pure stepping, so it is not faster. The original claim was: on CPU, exact traversal is not a cost, 1.3-1.6x faster than float Amanatides-Woo. Integer add and
 compare have 1-cycle latency in the loop's dependency chain, against 3-4 cycles for a float add. That rounding never
 happens is the side benefit.
 

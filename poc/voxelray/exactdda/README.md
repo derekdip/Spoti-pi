@@ -1,9 +1,10 @@
 # exactdda.h: exact, deterministic voxel ray traversal
 
 A single-header C99 library (also compiles as C++) that walks a ray through a 3D voxel grid using integer arithmetic
-only. The path never drifts and is identical on every platform, compiler and float mode. It is also faster than the
-usual floating-point Amanatides-Woo DDA. Any step can be reached directly, in O(log k), so one long ray can be split
-across threads exactly.
+only. The path never drifts and is identical on every platform, compiler and float mode. Ties through edges and corners
+follow a fixed rule. Any step can be reached directly, in O(log k), so one long ray can be split across threads exactly.
+Speed is close to, but slightly below, a well-written floating-point DDA (see "Speed": the earlier "faster than float"
+claim was wrong).
 
 ```c
 #include "exactdda.h"
@@ -58,27 +59,44 @@ Without `__int128`, use `edda_max_steps` and do not call `edda_seek`.
    benchmark rays.
 8. No warnings with `-std=c99 -Wall -Wextra -pedantic` (gcc, clang). The C++11 build compiles (`make cxx`).
 
-## Speed (`tests/bench_vs_dda.c`, `bench.log`)
+## Speed (corrected)
 
-69 632 rays x 4096 steps, gcc -O3 -march=native, this container's CPU:
+**Pure stepping** (`tests/micro.c`, `micro.log`): 69 632 rays x 4096 steps, one thread, no world lookups.
 
-| | ns per ray-step, 1 thread | 4 threads |
-|---|---|---|
-| `EDDA_WALK` | **2.28** | **0.72** |
-| `edda_step` in a loop | 9.03 | 2.29 |
-| float32 Amanatides-Woo (`../dda.c`) | 5.79 | 1.59 |
-| float64 Amanatides-Woo (`../dda.c`) | 5.59 | 1.44 |
+| | ns per step |
+|---|---|
+| float64 Amanatides-Woo, state in registers | 1.47 |
+| float32 Amanatides-Woo, state in registers | 1.76 |
+| `EDDA_WALK` | 2.05 |
+| `edda_step` in a loop (state through memory) | 8.84 |
+| float Amanatides-Woo with `tmax[b]` arrays (the old baseline in `../dda.c`) | 5.6-5.8 |
 
-**Why it is fast.** Each step's choice depends on the previous one, so step latency sets the speed. An integer add and
-compare costs about 1 cycle in that chain; a float add costs 3-4.
+**Real workload** (`world/world_bench.c`, `world/world_bench.log`): 1024 x 1024 x 256 terrain with caves, a 32 MB bitset,
+4 threads, ns per step including lookups.
 
-**Why `edda_step` is slower.** A call that updates `r->v[b]` through memory pays a store-to-load round trip on every
-step. Use `EDDA_WALK` in hot loops.
+| | exact `EDDA_WALK` | float32, registers | float64, registers |
+|---|---|---|---|
+| block picking (1M rays, mean 56 steps) | 2.32-2.51 | 1.92-1.94 | 1.83-1.84 |
+| line of sight (200k rays, mean 128 steps) | 1.91-2.02 | 1.43-1.62 | 1.43-1.54 |
 
-**Why exactness matters** (`../README.md`).
-- float32 Amanatides-Woo takes a wrong path on 99.4% of these rays within 4096 steps.
-- float64 resolves edge and corner ties inconsistently, on 94% of the tie-heavy rays here, and drifts on rays of
-  10^5-10^6 steps.
+**Correction.**
+- Earlier this README said exact traversal was 2.5x faster than float. That compared against a float loop that updates
+  `tmax[b]` through memory, which is as slow as `edda_step`, for the same store-to-load reason.
+- Against a fair, register-resident float loop, exact is about 1.2-1.4x slower on pure stepping and 0.75-1.0x the speed
+  in the world benchmark.
+- The register and array float loops give bit-identical paths, so only speed changed.
+
+**Accuracy in the world benchmark** (the hit voxel, or the end voxel when nothing is hit, differs):
+- (a) exactly representable inputs: float32 0.002-0.006%, float64 0.
+- (b) generic float rays: exact vs float64 0.003-0.004%. That difference is the 20-bit direction quantisation, not
+  float error.
+
+So on typical short game rays, float errors are rare. The case for exactness is not speed but:
+- determinism under approximate reciprocals or x87 (`determinism/README.md`: float32 paths change on 15.5% of rays
+  between builds with and without `-mrecip`);
+- a consistent tie rule;
+- no drift on very long rays;
+- exact O(log) seek and parallel chunks, which float traversal cannot offer.
 
 ## Limits
 
