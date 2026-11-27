@@ -1,0 +1,16 @@
+threads = 1
+exact_xmul     2.128 s     7.46 ns per ray-step
+exact_tmax     1.978 s     6.93 ns per ray-step
+float32_AW     3.007 s    10.54 ns per ray-step
+float64_AW     2.997 s    10.51 ns per ray-step
+
+threads = 4
+exact_xmul     0.610 s     2.14 ns per ray-step
+exact_tmax     0.480 s     1.68 ns per ray-step
+float32_AW     0.807 s     2.83 ns per ray-step
+float64_AW     0.780 s     2.74 ns per ray-step
+
+exact C kernels (cross-multiplication and integer tMax) = Python exact reference on 100 sampled rays (60 generic, 40 tie-heavy)
+exact_xmul == exact_tmax on all 69632 rays: True
+float32 A&W: wrong path on 99.4% of generic rays, 94.1% of tie-heavy rays (4096 steps)
+float64 A&W: wrong path on 0.0% of generic rays, 94.1% of tie-heavy rays (4096 steps)

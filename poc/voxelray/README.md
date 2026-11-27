@@ -24,3 +24,29 @@ line. All arithmetic is integer.
 - The O(log) random access uses Python Fractions here. A kernel would use the same integer comparisons.
 - The int64 bounds assume fixed-point inputs. Larger ranges need 128-bit products.
 - Some float64 tie "errors" are a different valid tie choice. The problem is that float resolves ties inconsistently.
+
+## C kernel benchmark (`dda.c`, `run_dda.py`; CPU only, since there is no GPU in this environment)
+
+Setup: 65 536 generic rays (|d| < 2^10, origins up to 2^10 voxels) plus 4096 tie-heavy rays (integer starts, |d| <= 12),
+4096 steps each, gcc -O3 -march=native, OpenMP.
+
+| method | ns/ray-step, with per-step path hash (1 / 4 threads) | without (`dda_nohash.c`) (1 / 4) |
+|---|---|---|
+| exact, cross-multiplication (num_a ad_b < num_b ad_a) | 7.46 / 2.14 | **3.50 / 0.94** |
+| exact, integer tMax (common denominator L = abs(dx dy dz); T += S L/ad, adds and compares only) | **6.93 / 1.68** | 4.54 / 1.30 |
+| float32 Amanatides-Woo | 10.54 / 2.83 | 5.79 / 1.59 |
+| float64 Amanatides-Woo | 10.51 / 2.74 | 5.59 / 1.44 |
+
+**Correctness.**
+- Both exact C kernels match the Python exact reference (same path hash) on 100 sampled rays, 60 generic and 40
+  tie-heavy, and agree with each other on all 69 632 rays.
+- float32 gets the path wrong on 99.4% of generic rays within 4096 steps.
+- float64 is right on generic rays at this length, but differs on 94.1% of the tie-heavy rays. Those are inconsistent tie
+  resolutions, not misses.
+
+**Result.** On CPU, exact traversal is not a cost. It is 1.3-1.6x faster than float Amanatides-Woo. Integer add and
+compare have 1-cycle latency in the loop's dependency chain, against 3-4 cycles for a float add. That rounding never
+happens is the side benefit.
+
+**GPU caveat (not measured).** GPUs emulate int64 multiply, so the integer tMax variant, with only adds and compares, is
+the natural GPU form. A 32-bit version needs tighter bounds, roughly (steps x S x L/ad) < 2^31, i.e. fewer sub-voxel bits.

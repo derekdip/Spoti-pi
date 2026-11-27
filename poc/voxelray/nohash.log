@@ -1,0 +1,10 @@
+threads=1 (no per-step hash; cheap accumulate keeps the loop live)
+exact_xmul     0.997 s     3.50 ns per ray-step
+exact_tmax     1.296 s     4.54 ns per ray-step
+float32_AW     1.650 s     5.79 ns per ray-step
+float64_AW     1.594 s     5.59 ns per ray-step
+threads=4 (no per-step hash; cheap accumulate keeps the loop live)
+exact_xmul     0.268 s     0.94 ns per ray-step
+exact_tmax     0.372 s     1.30 ns per ray-step
+float32_AW     0.453 s     1.59 ns per ray-step
+float64_AW     0.412 s     1.44 ns per ray-step
