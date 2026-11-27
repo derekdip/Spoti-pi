@@ -4280,3 +4280,53 @@ Two bugs were found and fixed while validating:
   mean-square or truncated explicit-formula argument. Since kappa < 1, though, sum |c_rho|^2 converges, so the
   finite-variance limiting distribution (conditional on RH, simple zeros and Gonek-Hejhal) and the McShane-Rivin
   exponent 1/2 in mean square remain the consistent picture.
+
+## The limiting-distribution theorem, and a retraction: the hyperbolic variance is probably not finite (`residual_decay.py`, `variance_increments.log`, `sharp_1e6_*.npy`)
+
+**Conditional theorem (proof sketch).** Assume RH, simple zeros, and, for some kappa < 1 and delta > 0:
+- (H1) S(T) = sum_{T < gamma <= 2T} |Z_B(rho)|^2/|zeta'(rho)|^2 << T^{1+kappa};
+- (H2) int_T^{2T} |Z_B/zeta|^2 (sigma + it) dt << T^{1+kappa}, uniformly for sigma in [1/2 - delta, 2].
+
+Then e^{-y/2} E_P(e^y) is B^2-almost periodic, with limiting distribution of mean 0 and variance
+2 sum |c_rho|^2 < infinity.
+
+*Sketch.*
+1. Truncated Perron at height T = R^beta, beta >= 3/(2 - kappa). The error is R^2 log R/T plus short-window counts,
+   which are negligible in L^2(dy).
+2. Shift to sigma0 = 1/2 - delta. Choose the horizontal heights by mean square (H2) and Chebyshev, with 1/zeta << T^eps
+   under RH.
+3. The vertical integral is controlled in L^2 by Gallagher's lemma and the functional equation
+   |1/zeta(sigma0 + it)| ~ t^{-delta}/|zeta(1/2 + delta - it)|. It is O(e^{-2 delta Y} sum_dyadic T^{kappa - 1}) -> 0.
+4. (H1) gives sum |c|^2 < infinity, so the zero sum converges in B^2.
+5. The Akbary-Ng-Shahabi framework then applies.
+
+The theorem stands as a conditional statement. Whether its hypotheses hold for hyperbolic tori is now doubtful.
+
+**Test: the variance of the sharp error is still rising.** 200 new exact samples on R in [1e6, 2e6], against the 400 on
+[3e4, 3e5], with 419 complex Chowla-Selberg coefficients (gamma <= 705):
+
+| range | MS of E_P/sqrt R | MS of 419-zero sum | MS of residual | explained |
+|---|---|---|---|---|
+| [3e4, 3e5] | 1.365 | 0.615 | 0.823 | 39.7% |
+| [1e6, 2e6] | 1.462 | 0.670 | 0.776 | 48.0% |
+
+- The residual is not a decaying lattice term. That would shrink about 10x over this range, since a lattice error of
+  size 300 at R ~ 1.4e6 contributes only 0.06. It shrinks about 6%.
+- The total mean square rises.
+- The increments of 2 sum |c|^2 per doubling of gamma (bootstrap errors) are 0.062 +- 0.014, 0.075 +- 0.010,
+  0.039 +- 0.004 and 0.037 +- 0.003 on (50,100], (100,200], (200,400], (400,800]. For the flat hexagonal torus they are
+  0.181 +- 0.053, 0.181 +- 0.030 and 0.156 +- 0.017.
+- The local exponent of S(T) between T = 200 and 400 is 1.84, not the 1.39 of the noisy global fit. That is close to
+  the borderline value 2, at which sum |c|^2 diverges logarithmically.
+
+**Retraction.** "Finite variance for hyperbolic tori" (the previous two sections) is not supported. The data are equally
+or better described by slow logarithmic growth.
+- About +0.037 per doubling of gamma for the modular torus, roughly 5x slower than flat.
+- This matches the observed rise of the mean square of E_P/sqrt R (+0.026 per doubling of R) if the effective
+  truncation is T ~ R^0.7, and the absolute levels (1.36, 1.46) if T ~ R^1.5.
+- The flat-versus-hyperbolic difference at accessible heights is therefore quantitative, a 5x smaller slope, not
+  qualitative.
+- The conditional theorem would apply only if the growth exponent of |Z_B(rho)|^2 stays below 1 asymptotically. The
+  local exponents drift upward (about 0.71 over gamma <= 810, about 0.8-1 over gamma in [350, 700]), so this is open.
+- Both outcomes, log growth or finite variance, are compatible with the McShane-Rivin exponent 1/2 + eps and with our
+  Omega result. The open question is the precise normalisation, sqrt R or sqrt(R log R).
