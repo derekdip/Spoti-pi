@@ -1,0 +1,34 @@
+filter: box
+  P  3.300 theta  0.00: predicted RMS moire 0.0005, measured 0.0006, rel. L2 error of predicted image 0.012,  24 components, strongest: n=13 amp 0.0004 period 17 px, n=23 amp 0.0001 period 33 px
+  P  2.900 theta  0.00: predicted RMS moire 0.0050, measured 0.0050, rel. L2 error of predicted image 0.021,  15 components, strongest: n=3 amp 0.0035 period 29 px, n=55 amp 0.0000 period 29 px
+  P  3.618 theta  0.00: predicted RMS moire 0.0005, measured 0.0005, rel. L2 error of predicted image 0.093,  24 components, strongest: n=11 amp 0.0004 period 25 px, n=29 amp 0.0000 period 65 px
+  P  4.100 theta  0.31: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 0.098,   3 components, strongest: n=13 amp 0.0000 period 26 px, n=323 amp 0.0000 period 24 px
+  P  2.501 theta  0.00: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 0.886,  39 components, strongest: n=5 amp 0.0000 period 1250 px, n=15 amp 0.0000 period 417 px
+  P  3.050 theta  0.12: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 1.000,   2 components, strongest: n=381 amp 0.0000 period 20 px, n=255 amp 0.0000 period 98 px
+  P  5.270 theta  0.78: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 0.972,   1 components, strongest: n=15 amp 0.0000 period 42 px
+  P  2.710 theta  1.10: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 1.000,   2 components, strongest: n=155 amp 0.0000 period 16 px, n=149 amp 0.0000 period 17 px
+  P  3.104 theta  0.85: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 0.580,   2 components, strongest: n=33 amp 0.0000 period 32 px, n=317 amp 0.0000 period 20 px
+  P  3.606 theta  0.95: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 0.983,   5 components, strongest: n=31 amp 0.0000 period 58 px, n=93 amp 0.0000 period 19 px
+  P  4.578 theta  0.10: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 1.000,   4 components, strongest: n=221 amp 0.0000 period 22 px, n=313 amp 0.0000 period 35 px
+  P  2.250 theta  1.32: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 1.000,   3 components, strongest: n=107 amp 0.0000 period 61 px, n=321 amp 0.0000 period 20 px
+  P  3.186 theta  0.37: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 1.000,   3 components, strongest: n=133 amp 0.0000 period 20 px, n=345 amp 0.0000 period 18 px
+  P  5.983 theta  0.74: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 1.000,   3 components, strongest: n=89 amp 0.0000 period 65 px, n=275 amp 0.0000 period 17 px
+  P  5.379 theta  0.75: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 1.000,   3 components, strongest: n=95 amp 0.0000 period 17 px, n=103 amp 0.0000 period 22 px
+  P  4.628 theta  0.24: predicted RMS moire 0.0000, measured 0.0000, rel. L2 error of predicted image 0.225,   5 components, strongest: n=19 amp 0.0000 period 26 px, n=157 amp 0.0000 period 18 px
+filter: point
+  P  3.300 theta  0.00: predicted RMS moire 0.0440, measured 0.0441, rel. L2 error of predicted image 0.687, 121 components, strongest: n=13 amp 0.0245 period 17 px, n=23 amp 0.0138 period 33 px
+  P  2.900 theta  0.00: predicted RMS moire 0.1508, measured 0.1507, rel. L2 error of predicted image 0.162,  78 components, strongest: n=3 amp 0.1061 period 29 px, n=55 amp 0.0058 period 29 px
+  P  3.618 theta  0.00: predicted RMS moire 0.0473, measured 0.0473, rel. L2 error of predicted image 0.022, 126 components, strongest: n=11 amp 0.0289 period 25 px, n=29 amp 0.0110 period 65 px
+  P  4.100 theta  0.31: predicted RMS moire 0.0347, measured 0.0348, rel. L2 error of predicted image 0.024,  12 components, strongest: n=13 amp 0.0245 period 26 px, n=215 amp 0.0015 period 16 px
+  P  2.501 theta  0.00: predicted RMS moire 0.0998, measured 0.0897, rel. L2 error of predicted image 0.015, 117 components, strongest: n=5 amp 0.0637 period 1250 px, n=15 amp 0.0212 period 417 px
+  P  3.050 theta  0.12: predicted RMS moire 0.0027, measured 0.0028, rel. L2 error of predicted image 0.288,  13 components, strongest: n=255 amp 0.0012 period 98 px, n=381 amp 0.0008 period 20 px
+  P  5.270 theta  0.78: predicted RMS moire 0.0300, measured 0.0307, rel. L2 error of predicted image 0.198,   9 components, strongest: n=15 amp 0.0212 period 42 px, n=667 amp 0.0005 period 39 px
+  P  2.710 theta  1.10: predicted RMS moire 0.0045, measured 0.0042, rel. L2 error of predicted image 0.181,  12 components, strongest: n=149 amp 0.0021 period 17 px, n=155 amp 0.0021 period 16 px
+  P  3.104 theta  0.85: predicted RMS moire 0.0138, measured 0.0138, rel. L2 error of predicted image 0.055,  12 components, strongest: n=33 amp 0.0096 period 32 px, n=317 amp 0.0010 period 20 px
+  P  3.606 theta  0.95: predicted RMS moire 0.0162, measured 0.0161, rel. L2 error of predicted image 0.044,  14 components, strongest: n=31 amp 0.0103 period 58 px, n=93 amp 0.0034 period 19 px
+  P  4.578 theta  0.10: predicted RMS moire 0.0035, measured 0.0036, rel. L2 error of predicted image 0.218,  14 components, strongest: n=221 amp 0.0014 period 22 px, n=267 amp 0.0012 period 54 px
+  P  2.250 theta  1.32: predicted RMS moire 0.0048, measured 0.0048, rel. L2 error of predicted image 0.158,  12 components, strongest: n=107 amp 0.0030 period 61 px, n=321 amp 0.0010 period 20 px
+  P  3.186 theta  0.37: predicted RMS moire 0.0043, measured 0.0044, rel. L2 error of predicted image 0.188,  11 components, strongest: n=133 amp 0.0024 period 20 px, n=239 amp 0.0013 period 298 px
+  P  5.983 theta  0.74: predicted RMS moire 0.0058, measured 0.0059, rel. L2 error of predicted image 0.132,  15 components, strongest: n=89 amp 0.0036 period 65 px, n=267 amp 0.0012 period 22 px
+  P  5.379 theta  0.75: predicted RMS moire 0.0070, measured 0.0071, rel. L2 error of predicted image 0.114,  14 components, strongest: n=95 amp 0.0034 period 17 px, n=103 amp 0.0031 period 22 px
+  P  4.628 theta  0.24: predicted RMS moire 0.0243, measured 0.0243, rel. L2 error of predicted image 0.036,  11 components, strongest: n=19 amp 0.0168 period 26 px, n=119 amp 0.0027 period 37 px

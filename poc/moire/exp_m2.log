@@ -1,0 +1,13 @@
+point: validation on 25 periods: median |pred - meas|/meas 0.004, max 6.236 (cases above 1e-4: 15)
+  worst periods: P=2.994 (~3) rms 0.166, P=3.027 (~3) rms 0.163, P=2.963 (~3) rms 0.162, P=3.059 (~28/9) rms 0.160, P=3.200 (~16/5) rms 0.159, P=2.857 (~20/7) rms 0.156
+  most robust period (worst over +-0.01 px): P=4.0000, rms <= 0.00871; 1/P continued fraction [0, 4]; median over the range 0.0474
+box: validation on 25 periods: median |pred - meas|/meas 0.001, max 0.548 (cases above 1e-4: 12)
+  worst periods: P=3.200 (~16/5) rms 0.010, P=2.824 (~17/6) rms 0.009, P=3.170 (~19/6) rms 0.008, P=2.854 (~20/7) rms 0.007, P=3.139 (~22/7) rms 0.007, P=2.885 (~26/9) rms 0.006
+  most robust period (worst over +-0.01 px): P=4.0000, rms <= 0.00000; 1/P continued fraction [0, 4]; median over the range 0.0003
+  P=3.00: point-sampled rms 0.0000, box 0.000000
+  P=3.01: point-sampled rms 0.1650, box 0.000549
+  P=4.00: point-sampled rms 0.0000, box 0.000000
+  P=4.01: point-sampled rms 0.0087, box 0.000003
+  P=3.50: point-sampled rms 0.0000, box 0.000000
+  P=3.51: point-sampled rms 0.0709, box 0.000200
+angle sweep P=3.3 (point): worst theta 0.05 deg rms 0.045; best theta 6.45 deg rms 0.0000; theta=0 rms 0.0440

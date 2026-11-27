@@ -1,0 +1,13 @@
+      N     points |   brute/coef     FFT/coef  monoid/coef | max |monoid - brute| / area
+    256      36314 |     200.6 us    0.0481 us     289.1 us | 4.4e-16   (FFT vs brute 5.5e-16)
+   1024     581091 |    1886.0 us    0.0256 us     177.9 us | 8.2e-16   (FFT vs brute 8.0e-16)
+   4096    9296651 |   76304.3 us    0.0470 us     212.0 us | 2.0e-17   (FFT vs brute 1.9e-17)
+   8192   37186648 |  323028.0 us    0.0495 us     220.3 us | 3.9e-17   (FFT vs brute 5.4e-17)
+
+huge rasters (no raster stored):
+  N = 1e5   ~5.5e+09 lattice points    266.5 us/coef  float64 error / area 1.2e-14   (|F|/area at low k ~ 1.4e-02)
+  N = 1e6   ~5.5e+11 lattice points    320.6 us/coef  float64 error / area 8.0e-14   (|F|/area at low k ~ 2.8e-03)
+  N = 1e7   ~5.5e+13 lattice points    359.9 us/coef  float64 error / area 1.4e-13   (|F|/area at low k ~ 3.1e-03)
+  N = 1e9   ~5.5e+17 lattice points    473.2 us/coef  float64 error / area 1.1e-11   (|F|/area at low k ~ 1.6e-03)
+  N = 1e12  ~5.5e+23 lattice points    634.8 us/coef  float64 error / area 4.3e-10   (|F|/area at low k ~ 6.3e-03)
+  N = 1e15  ~5.5e+29 lattice points    780.0 us/coef  float64 error / area 4.3e-10   (|F|/area at low k ~ 3.3e-03)
