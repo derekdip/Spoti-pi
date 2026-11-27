@@ -1,0 +1,14 @@
+rays: 20000 (every 8th tie-heavy), 2000 steps; reference build gcc_O2; number of rays whose path differs from the reference
+build                                       exact     AW float32     AW float64  recompute f32  recompute f64
+clang_O2                                        0              0              0              0              0
+clang_O3_native_fastmath                        0              0              0              0              0
+clang_O3_native_fastmath_recip                  0           3096              0            388              0
+gcc_O0                                          0              0              0              0              0
+gcc_O2                                          0              0              0              0              0
+gcc_O2_fastmath                                 0              0              0              0              0
+gcc_O2_x87                                      0              0              0            259              0
+gcc_O3_native                                   0              0              0              0              0
+gcc_O3_native_fastmath                          0              0              0              0              0
+gcc_O3_native_fastmath_recip                    0           3096              0            388              0
+gcc_O3_native_fpcontract_off                    0              0              0              0              0
+rays whose path depends on the build (any of 11 builds): exact 0, AW float32 3096, AW float64 0, recompute f32 547, recompute f64 0
