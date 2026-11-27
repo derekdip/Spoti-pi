@@ -1,0 +1,16 @@
+sequential exact DDA = independent event sort: 600 random rays (incl. ties, axis-parallel)
+   (0.3 s)
+random access voxel_at(k) = sequential: 300 rays x 25 positions
+   (2.5 s)
+parallel chunks (independent starts) concatenate to the sequential traversal: 100 rays
+   (0.3 s)
+'face' paths 6-connected, 'all' paths 26-connected
+   (0.1 s)
+   ray 0: first wrong voxel float64 DDA at step None, float32 at step 1159; exact sequential 0.42 s; random access to step 200000 in 1.29 ms
+   ray 1: first wrong voxel float64 DDA at step None, float32 at step 1093; exact sequential 0.56 s; random access to step 200000 in 1.45 ms
+   ray 2: first wrong voxel float64 DDA at step None, float32 at step 1987; exact sequential 0.46 s; random access to step 200000 in 1.37 ms
+   ray 3: first wrong voxel float64 DDA at step None, float32 at step 1517; exact sequential 0.41 s; random access to step 200000 in 2.20 ms
+   ray 4: first wrong voxel float64 DDA at step None, float32 at step 1183; exact sequential 0.78 s; random access to step 200000 in 1.28 ms
+   ray 5: first wrong voxel float64 DDA at step None, float32 at step 1907; exact sequential 0.40 s; random access to step 200000 in 1.10 ms
+long rays: exact traversal vs floating-point Amanatides-Woo
+   (5.5 s)

@@ -1,0 +1,15 @@
+(1) tie-heavy rays: integer start, small integer directions (pass exactly through edges and corners)
+   d = (1, 1, 1)   f64: first differing voxel at step None
+   d = (1, 1, 1)   f32: first differing voxel at step None
+   d = (2, 3, 6)   f64: first differing voxel at step 9
+   d = (2, 3, 6)   f32: first differing voxel at step 13
+   d = (1, 2, 2)   f64: first differing voxel at step None
+   d = (1, 2, 2)   f32: first differing voxel at step None
+   d = (3, 4, 12)  f64: first differing voxel at step 8
+   d = (3, 4, 12)  f32: first differing voxel at step 11
+   d = (5, 5, 7)   f64: first differing voxel at step 15
+   d = (5, 5, 7)   f32: first differing voxel at step 49
+(2) long generic rays, float64
+   trial 0: first differing voxel at step 1719750 of 2000000 (exact sequential 4.8 s)
+   trial 1: first differing voxel at step 876097 of 2000000 (exact sequential 4.3 s)
+   trial 2: first differing voxel at step 323327 of 2000000 (exact sequential 4.8 s)
