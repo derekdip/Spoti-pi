@@ -1,0 +1,15 @@
+float64 camera renormalised to det 1 every step: True
+each method is judged against an exact rendering of its OWN camera state; R = 2000 px
+distance    5.0  rooms 20386/20386  |gamma| ~ 1e1    float64 g: max error  1.62e-12 px (det-1 = 2e-16) | gamma*h:  7.02e-13 px
+distance   10.0  rooms  6603/ 6603  |gamma| ~ 1e2    float64 g: max error  1.85e-10 px (det-1 = 4e-16) | gamma*h:  7.03e-13 px
+distance   19.9  rooms  6030/ 6030  |gamma| ~ 1e4    float64 g: max error  5.53e-06 px (det-1 = 1e-10) | gamma*h:  7.02e-13 px
+distance   29.9  rooms  5319/ 5321  |gamma| ~ 1e6    float64 g: max error  1.15e-01 px (det-1 = 9e-07) | gamma*h:  7.49e-13 px
+distance   40.0  rooms  5422/ 5804  |gamma| ~ 1e8    float64 g: max error  2.33e+03 px (det-1 = 9e-03) | gamma*h:  7.55e-13 px
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/hypertile/exp_b.py", line 78, in <module>
+    d, nf, nx, gmax, ef, ex, ddet = run(dist)
+                                    ~~~^^^^^^
+  File "/tmp/claude-0/-home-user-Spoti-pi/92024eda-3a0d-507b-aad3-895f717eb32f/scratchpad/wt/poc/hypertile/exp_b.py", line 66, in run
+    if RENORM: k = 1 / math.sqrt(abs(gf[0]*gf[3] - gf[1]*gf[2])); gf = tuple(k * v for v in gf)
+                   ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ZeroDivisionError: float division by zero

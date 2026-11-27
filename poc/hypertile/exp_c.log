@@ -1,0 +1,6 @@
+float64 eps 2e-02:   1104 tiles (cap 120000, NaN vertices 0)   max crack between shared-vertex copies  0.00e+00 px  max drift from exact  1.77e-11 px
+float64 eps 5e-03:   5449 tiles (cap 120000, NaN vertices 0)   max crack between shared-vertex copies  0.00e+00 px  max drift from exact  5.32e-10 px
+float64 eps 2e-03:  15394 tiles (cap 120000, NaN vertices 0)   max crack between shared-vertex copies  0.00e+00 px  max drift from exact  1.60e-09 px
+float64 eps 1e-03:  33430 tiles (cap 120000, NaN vertices 0)   max crack between shared-vertex copies  0.00e+00 px  max drift from exact  2.55e-09 px
+float32 eps 2e-02:   1104 tiles (cap 120000, NaN vertices 0)   max crack between shared-vertex copies  0.00e+00 px  max drift from exact  3.54e-02 px
+float32 eps 5e-03:   5457 tiles (cap 120000, NaN vertices 0)   max crack between shared-vertex copies  0.00e+00 px  max drift from exact  8.10e-02 px

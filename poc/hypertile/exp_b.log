@@ -1,0 +1,7 @@
+each method is judged against an exact rendering of its OWN camera state; R = 2000 px
+distance    5.0  rooms 20386/20386  |gamma| ~ 1e1    float64 g: max error  1.91e-12 px (det-1 = 2e-15) | gamma*h:  7.02e-13 px
+distance   10.0  rooms  6603/ 6603  |gamma| ~ 1e2    float64 g: max error  2.59e-10 px (det-1 = 8e-15) | gamma*h:  7.03e-13 px
+distance   19.9  rooms  6030/ 6030  |gamma| ~ 1e4    float64 g: max error  5.10e-06 px (det-1 = 2e-12) | gamma*h:  7.02e-13 px
+distance   29.9  rooms  5317/ 5321  |gamma| ~ 1e6    float64 g: max error  1.14e-01 px (det-1 = 8e-06) | gamma*h:  7.49e-13 px
+distance   39.9  rooms 11914/ 5804  |gamma| ~ 1e8    float64 g: max error  2.27e+03 px (det-1 = 4e-02) | gamma*h:  7.55e-13 px
+distance   59.9  rooms  6522/ 9802  |gamma| ~ 1e9    float64 g: max error  4.00e+03 px (det-1 = 2e+07) | gamma*h:  7.22e-13 px

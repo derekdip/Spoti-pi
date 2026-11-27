@@ -1,0 +1,4 @@
+eps 2e-02: exact Farey   1066 tiles in  0.005 s (4.44 us/tile) | float BFS   1066 tiles in  0.016 s (14.60 us/tile) | speedup 3.3x | same tile set: True | max BFS vertex error 0.0e+00 rad = 0.00e+00 px
+eps 5e-03: exact Farey   5282 tiles in  0.022 s (4.14 us/tile) | float BFS   5282 tiles in  0.074 s (14.03 us/tile) | speedup 3.4x | same tile set: True | max BFS vertex error 0.0e+00 rad = 0.00e+00 px
+eps 2e-03: exact Farey  15010 tiles in  0.052 s (3.49 us/tile) | float BFS  15010 tiles in  0.192 s (12.78 us/tile) | speedup 3.7x | same tile set: True | max BFS vertex error 0.0e+00 rad = 0.00e+00 px
+eps 1e-03: exact Farey  32750 tiles in  0.118 s (3.60 us/tile) | float BFS  32750 tiles in  0.418 s (12.77 us/tile) | speedup 3.6x | same tile set: True | max BFS vertex error 0.0e+00 rad = 0.00e+00 px
