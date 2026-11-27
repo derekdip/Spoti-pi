@@ -1,0 +1,7 @@
+(a) pixel-identical to Bresenham in 3372 / 5000 random segments
+(b) line of 1.62e+12 steps: SLP 64 nodes built in 0.1 ms; 20000 random height queries in 143.5 ms (7.2 us each), all exact
+(c) golden (1+sqrt5)/2, Lagrange sqrt5         D* = 0.00534   N D* = 3.26
+(c) silver 1+sqrt2, Lagrange sqrt8             D* = 0.00523   N D* = 3.19
+(c) (9+sqrt221)/10, Lagrange sqrt221/5         D* = 0.00547   N D* = 3.34
+(c) (23+sqrt1517)/26, Lagrange sqrt1517/13     D* = 0.00551   N D* = 3.36
+(c) random slopes (8): N D* = 4.5, 4.7, 43.4, 6.1, 5.0, 3.8, 4.3, 4.2
