@@ -1,0 +1,3 @@
+modular  n = 150: band means <|Z|^2> ['221', '361', '1048', '1623'];  exponent of band means 0.79;  log-log fit 0.69 +- 0.14
+Xstar    n = 150: band means <|Z|^2> ['35', '228', '260', '398'];  exponent of band means 0.82;  log-log fit 0.57 +- 0.10
+thin     n = 150: band means <|Z|^2> ['122', '254', '692', '389'];  exponent of band means 0.57;  log-log fit 0.24 +- 0.13

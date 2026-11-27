@@ -3,12 +3,14 @@
 N(x) = stable norm on the line q = 1 (homology p alpha + beta), piecewise linear through Farey nodes (exact traces).
 No 1/Gamma cancellation: double precision throughout, mpmath only for zeta values and the small-m tail integrals."""
 import math, numpy as np, mpmath as mp
-TA = 3.0; ELL = 2 * math.acosh(TA / 2)          # alpha: trace 3
+import os
+TRS = [float(v) for v in os.environ.get('TRACES', '3,3,3').split(',')]
+TA, TB, TAB = TRS; ELL = 2 * math.acosh(TA / 2)          # alpha, beta, alpha beta traces
 K = 16; P = 8192; M = 1500; M2 = 100000
 def L(t): return 2 * math.acosh(t / 2) if t < 1e8 else 2 * math.log(t) - 2 / t ** 2
 def nodes():
     # integer nodes x = k: traces t_k of k alpha + beta, t_{k+1} = 3 t_k - t_{k-1}, t_0 = tr(beta) = 3, t_1 = tr(alpha beta) = 3
-    t = {0: 3.0, 1: 3.0}
+    t = {0: TB, 1: TAB}
     for k in range(1, K + 2): t[k + 1] = TA * t[k] - t[k - 1]
     for k in range(0, -K - 2, -1): t[k - 1] = TA * t[k] - t[k + 1]
     xs, Ns, qs = [], [], []

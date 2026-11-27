@@ -4254,3 +4254,29 @@ Two bugs were found and fixed while validating:
   T = 50, 100, 200, 400, 600, 800. The increments are about 0.04 per doubling, decaying slowly; the predicted decay per
   doubling is 2^{-0.29}.
 - The flat-versus-hyperbolic difference is in the growth exponent (1 against about 0.71), not bounded against unbounded.
+
+**Critical-line growth (Chowla-Selberg survey).**
+- *Modular torus.* 200 random t <= 1000 give <|Z_B(1/2+it)|^2> = 180, 500, 1133, 1478 in the bands [10, 100), [100, 300),
+  [300, 600), [600, 1000). The fitted exponent is 0.77, matching the 0.71 at zeros.
+- *Zeros.* 549 zeros (gamma <= 1025) give 2 sum |c|^2 = 0.553, 0.628, 0.667, 0.703, 0.706 at T = 100, 200, 400, 800,
+  1000. The increments now shrink, so the sum converges to about 0.71.
+- *Other surfaces* (`cs_surface_line.py`; 150 random t <= 1000 each; the evaluator generalised to any trace triple and
+  validated on X*, where Z_B(rho_1) = 5e-6 and rho_4 matches the Mellin evaluator to 1e-5):
+
+| torus | band means of abs(Z_B)^2 | exponent of band means | log-log fit |
+|---|---|---|---|
+| modular | 221, 361, 1048, 1623 | 0.79 | 0.69 +- 0.14 |
+| X* | 35, 228, 260, 398 | 0.82 | 0.57 +- 0.10 |
+| thin cusped (2.2, 4.86, 5.0) | 122, 254, 692, 389 | 0.57 | 0.24 +- 0.13 |
+
+**Summary.**
+- On hyperbolic tori the mean square of Z_B on the critical line grows like t^kappa with kappa in [0.5, 0.8] at
+  accessible heights, against kappa = 1 forced on flat tori by the functional equation.
+- Whether kappa depends on the surface is open. The estimates are noisy because |Z|^2 is heavy-tailed.
+- A plausible source is the stable norm's corner structure: it is curved only at rational directions, with
+  exponentially small corners, so its Mellin/Fourier decay sits between smooth (stationary phase) and piecewise linear.
+  This would tie kappa to the Fourier dimension of the corner measure studied by Doan-Li-Nguyen.
+- **Consequence.** Hypothesis (L) is false in the |t|^eps form, so the Theorem 10 route needs replacing by a
+  mean-square or truncated explicit-formula argument. Since kappa < 1, though, sum |c_rho|^2 converges, so the
+  finite-variance limiting distribution (conditional on RH, simple zeros and Gonek-Hejhal) and the McShane-Rivin
+  exponent 1/2 in mean square remain the consistent picture.
